@@ -1,0 +1,26 @@
+pkgname=autoconf
+pkgver=2.69
+pkgrel=1
+pkgdesc="A GNU tool for automatically configuring source code"
+arch=('x86_64')
+url="https://www.gnu.org/software/autoconf/"
+license=('GPL2' 'GPL3' 'custom')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/autoconf/autoconf-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/autoconf-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/autoconf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('50f97f4159805e374639a73e2636f22e')

@@ -1,0 +1,28 @@
+pkgname=automake
+pkgver=1.15
+pkgrel=1
+pkgdesc="A GNU tool for automatically creating Makefiles"
+arch=('x86_64')
+url="https://www.gnu.org/software/automake/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/automake/automake-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/automake-${pkgver}"
+
+	sed -i 's:/\\\${:/\\\$\\{:' bin/automake.in
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/automake-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9a1ddb0e053474d9d1105cfe39b0c48d')

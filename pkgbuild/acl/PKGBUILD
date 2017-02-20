@@ -1,0 +1,35 @@
+pkgname=acl
+pkgver=2.2.52
+pkgrel=1
+pkgdesc="Access control list utilities, libraries and headers"
+arch=('x86_64')
+url="http://savannah.nongnu.org/projects/acl"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("http://download.savannah.gnu.org/releases/acl/acl-${pkgver}.src.tar.gz")
+
+build() {
+	cd "${srcdir}/acl-${pkgver}"
+
+	export INSTALL_USER=root INSTALL_GROUP=root
+
+	./configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib
+
+	make
+}
+
+package() {
+	cd "${srcdir}/acl-${pkgver}"
+
+	make install install-lib install-dev DIST_ROOT="${pkgdir}"
+
+	chmod -v 755 "${pkgdir}/usr/lib/libacl.so"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libacl.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libacl.so") "${pkgdir}/usr/lib/libacl.so"
+}
+
+md5sums=('a61415312426e9c2212bd7dc7929abda')

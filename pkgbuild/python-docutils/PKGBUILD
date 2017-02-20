@@ -1,0 +1,49 @@
+pkgbase=python-docutils
+pkgname=('python2-docutils' 'python3-docutils')
+pkgver=0.13.1
+pkgrel=1
+pkgdesc="Python Documentation Utilities"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/docutils/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/d/docutils/docutils-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/docutils-${pkgver}" "${srcdir}/docutils-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/docutils-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/docutils-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-docutils() {
+	cd "${srcdir}/docutils-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*.py
+	do
+		mv ${file} ${file%.py}3.py
+	done
+}
+
+package_python2-docutils() {
+	cd "${srcdir}/docutils-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*.py
+	do
+		ln -sf $(basename ${file}) ${file%.py}
+	done
+}
+
+md5sums=('ea4a893c633c788be9b8078b6b305d53')

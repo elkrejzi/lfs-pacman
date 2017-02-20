@@ -1,0 +1,54 @@
+pkgname=python2
+_py2majorver=2.7
+_py2minorver=13
+pkgver=${_py2majorver}.${_py2minorver}
+pkgrel=1
+pkgdesc="A high-level scripting language"
+arch=('x86_64')
+url="http://www.python.org/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz"
+	"python2-bdb.patch")
+
+prepare() {
+	cd "${srcdir}/Python-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/python2-bdb.patch"
+
+	rm -rf Modules/expat Modules/zlib Modules/_ctypes/{darwin,libffi}*
+}
+
+build() {
+	cd "${srcdir}/Python-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-shared \
+		--with-system-expat \
+		--with-system-ffi \
+		--enable-unicode=ucs4 \
+		--with-dbmliborder=bdb:gdbm:ndbm
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Python-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	sed -i "s#$PWD:##" "${pkgdir}/usr/lib/python${_py2majorver}/config/Makefile" \
+		"${pkgdir}/usr/lib/python${_py2majorver}/_sysconfigdata.py"
+
+	sed -i "s#$PWD##" "${pkgdir}/usr/lib/python${_py2majorver}/config/Makefile" \
+		"${pkgdir}/usr/lib/python${_py2majorver}/_sysconfigdata.py"
+
+	mv "${pkgdir}"/usr/bin/2to3{,-${_py2majorver}}
+
+	rm -rf "${pkgdir}"/usr/lib/python${_py2majorver}/{distutils/tests,lib-tk/test,sqlite3/test,json/tests,test}
+	rm -rf "${pkgdir}"/usr/lib/python${_py2majorver}/{ctypes/test,lib2to3/tests,email/test,unittest/test,bsddb/test}
+}
+
+md5sums=('53b43534153bb2a0363f08bae8b9d990'
+         'e991395f810f0a5ec3121eab96893c41')

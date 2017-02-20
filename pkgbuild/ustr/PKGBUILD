@@ -1,0 +1,32 @@
+pkgname=ustr
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="micro string API for C"
+arch=('x86_64')
+url="http://www.and.org/ustr/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("http://www.and.org/ustr/${pkgver}/ustr-${pkgver}.tar.bz2"
+	"ustr-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/ustr-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/ustr-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/ustr-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ustr-${pkgver}"
+
+	make install mandir=/usr/share/man DESTDIR="${pkgdir}"
+}
+
+md5sums=('93147d9f0c9765d4cd0f04f7e44bdfce'
+         '3286bd35be5738b225b7fa4295ce93ae')

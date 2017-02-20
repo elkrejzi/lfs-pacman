@@ -1,0 +1,39 @@
+pkgbase=python-pytz
+pkgname=('python2-pytz' 'python3-pytz')
+pkgver=2016.10
+pkgrel=1
+pkgdesc="World timezone definitions, modern and historical"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/pytz/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/p/pytz/pytz-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/pytz-${pkgver}" "${srcdir}/pytz-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/pytz-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/pytz-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-pytz() {
+	cd "${srcdir}/pytz-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-pytz() {
+	cd "${srcdir}/pytz-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('cc9f16ba436efabdcef3c4d32ae4919c')

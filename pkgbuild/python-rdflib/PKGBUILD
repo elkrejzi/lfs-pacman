@@ -1,0 +1,44 @@
+pkgbase=python-rdflib
+pkgname=('python2-rdflib' 'python3-rdflib')
+pkgver=4.2.2
+pkgrel=1
+pkgdesc="Python library for working with RDF"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/rdflib/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/r/rdflib/rdflib-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/rdflib-${pkgver}" "${srcdir}/rdflib-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/rdflib-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/rdflib-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-rdflib() {
+	cd "${srcdir}/rdflib-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*
+	do
+		mv ${file} ${file}3
+	done
+}
+
+package_python2-rdflib() {
+	cd "${srcdir}/rdflib-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('534fe35b13c5857d53fa1ac5a41eca67')

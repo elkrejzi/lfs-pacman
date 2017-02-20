@@ -1,0 +1,41 @@
+pkgbase=python-pygments
+pkgname=('python2-pygments' 'python3-pygments')
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="Syntax highlighting package written in Python"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/Pygments/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/P/Pygments/Pygments-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/Pygments-${pkgver}" "${srcdir}/Pygments-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/Pygments-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/Pygments-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-pygments() {
+	cd "${srcdir}/Pygments-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	mv "${pkgdir}"/usr/bin/pygmentize{,3}
+}
+
+package_python2-pygments() {
+	cd "${srcdir}/Pygments-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('13037baca42f16917cbd5ad2fab50844')

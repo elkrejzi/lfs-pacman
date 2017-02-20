@@ -1,0 +1,39 @@
+pkgname=libnftnl
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="Netfilter library providing interface to the nf_tables subsystem"
+arch=('x86_64')
+url="https://www.netfilter.org/projects/libnftnl/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("http://netfilter.org/projects/libnftnl/files/libnftnl-${pkgver}.tar.bz2"
+	"libnftnl-fixes.patch")
+
+prepare() {
+        cd "${srcdir}/libnftnl-${pkgver}"
+
+        patch -Np1 -i "${srcdir}/libnftnl-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/libnftnl-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libnftnl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libnftnl.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libnftnl.so") "${pkgdir}/usr/lib/libnftnl.so"
+}
+
+md5sums=('82183867168eb6644926c48b991b8aac'
+         'bddf3d6c44a8e808d133b0856f1ff518')

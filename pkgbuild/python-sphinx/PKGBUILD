@@ -1,0 +1,44 @@
+pkgbase=python-sphinx
+pkgname=('python2-sphinx' 'python3-sphinx')
+pkgver=1.5.2
+pkgrel=1
+pkgdesc="Python documentation generator"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/Sphinx/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/S/Sphinx/Sphinx-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/Sphinx-${pkgver}" "${srcdir}/Sphinx-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/Sphinx-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/Sphinx-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-sphinx() {
+	cd "${srcdir}/Sphinx-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*
+	do
+		mv ${file} ${file}3
+	done
+}
+
+package_python2-sphinx() {
+	cd "${srcdir}/Sphinx-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('8a3068cd5dda49622b7eb5132d616e19')

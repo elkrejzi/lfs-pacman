@@ -1,0 +1,38 @@
+pkgname=unzip
+pkgver=6.0
+_pkgver=${pkgver/./}
+pkgrel=1
+pkgdesc="For extracting and viewing files in .zip archives"
+arch=('x86_64')
+url="http://www.info-zip.org/UnZip.html"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://downloads.sourceforge.net/infozip/${pkgname}${_pkgver}.tar.gz"
+	"unzip-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/unzip${_pkgver}"
+
+	patch -Np1 -i "${srcdir}/unzip-fixes.patch"
+
+	sed -i "s/CFLAGS=\"-O -Wall/& -DNO_LCHMOD ${CFLAGS}/" unix/Makefile
+	sed -i "s/=gcc/=${CC}/" unix/Makefile
+}
+
+build() {
+	cd "${srcdir}/unzip${_pkgver}"
+
+	unset CFLAGS
+
+	make -f unix/Makefile linux_noasm
+}
+
+package() {
+	cd "${srcdir}/unzip${_pkgver}"
+
+	make -f unix/Makefile install prefix="${pkgdir}/usr" MANDIR="${pkgdir}/usr/share/man/man1"
+}
+
+md5sums=('62b490407489521db863b523a7f86375'
+         'd3e8cb79aae24a76b1968ad7cbf9a6e1')

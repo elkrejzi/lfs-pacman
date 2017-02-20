@@ -1,0 +1,24 @@
+pkgname=libselinux
+pkgver=2.6
+pkgrel=1
+pkgdesc="SELinux library and simple utilities"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libselinux-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libselinux-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libselinux-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0e066ba6d6e590ba4b53eed64905d901')

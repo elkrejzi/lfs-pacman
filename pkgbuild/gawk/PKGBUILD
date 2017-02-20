@@ -1,0 +1,26 @@
+pkgname=gawk
+pkgver=4.1.4
+pkgrel=1
+pkgdesc="GNU version of awk"
+arch=('x86_64')
+url="https://www.gnu.org/software/gawk/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/gawk/gawk-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gawk-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gawk-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4e7dbc81163e60fd4f0b52496e7542c9')

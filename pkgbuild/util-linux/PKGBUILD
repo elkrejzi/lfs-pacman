@@ -1,0 +1,41 @@
+pkgname=util-linux
+pkgver=2.29.1
+pkgrel=1
+pkgdesc="Miscellaneous system utilities for Linux"
+arch=('x86_64')
+url="https://www.kernel.org/pub/linux/utils/util-linux/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver:0:4}/util-linux-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/util-linux-${pkgver}"
+
+	./configure --enable-mesg \
+		--disable-nologin \
+		--disable-chfn-chsh \
+		--disable-su \
+		--disable-login \
+		--disable-kill \
+		--with-selinux \
+		--with-systemd \
+		--with-systemdsystemunitdir=/lib/systemd/system
+
+	make
+}
+
+package() {
+	cd "${srcdir}/util-linux-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/lib/*.so* "${pkgdir}"/usr/lib/*.so* "${pkgdir}"/usr/lib/*.a
+	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
+
+	rm -rf "${pkgdir}"/bin/{mount,umount}
+	rm -rf "${pkgdir}"/usr/share/man/man8/{mount,umount}.8
+	rm -rf "${pkgdir}/usr/share/man/man5/fstab.5"
+}
+
+md5sums=('0cbb6d16ab9c5736e5649ef1264bee6e')

@@ -1,0 +1,18 @@
+post_install() {
+	install-catalog --add /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/catalog > /dev/null 2>&1
+	install-catalog --add /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/common/catalog > /dev/null 2>&1
+	install-catalog --add /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/html/catalog > /dev/null 2>&1
+	install-catalog --add /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/print/catalog > /dev/null 2>&1
+
+	install-catalog --add /etc/sgml/sgml-docbook.cat /etc/sgml/dsssl-stylesheets.cat > /dev/null 2>&1
+}
+
+pre_remove() {
+	install-catalog --remove /etc/sgml/sgml-docbook.cat /etc/sgml/dsssl-stylesheets.cat > /dev/null 2>&1
+
+	install-catalog --remove /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/print/catalog > /dev/null 2>&1
+	install-catalog --remove /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/html/catalog > /dev/null 2>&1
+	install-catalog --remove /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/common/catalog > /dev/null 2>&1
+	install-catalog --remove /etc/sgml/dsssl-stylesheets.cat /usr/share/sgml/docbook/dsssl-stylesheets-current/catalog > /dev/null 2>&1
+
+}

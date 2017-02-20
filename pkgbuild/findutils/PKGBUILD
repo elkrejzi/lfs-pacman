@@ -1,0 +1,31 @@
+pkgname=findutils
+pkgver=4.6.0
+pkgrel=1
+pkgdesc="GNU utilities to locate files"
+arch=('x86_64')
+url="https://www.gnu.org/software/findutils/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/findutils/findutils-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/findutils-${pkgver}"
+
+	./configure --prefix=/usr --localstatedir=/var/lib/locate
+
+	make
+}
+
+package() {
+	cd "${srcdir}/findutils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/bin"
+
+	mv -v "${pkgdir}/usr/bin/find" "${pkgdir}/bin"
+	sed -i 's|find:=${BINDIR}|find:=/bin|' "${pkgdir}/usr/bin/updatedb"
+}
+
+md5sums=('9936aa8009438ce185bea2694a997fc1')

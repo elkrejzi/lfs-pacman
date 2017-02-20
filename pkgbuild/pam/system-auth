@@ -1,0 +1,6 @@
+# Begin /etc/pam.d/system-auth
+
+auth      required       pam_unix.so nullok_secure
+-auth     optional       pam_cap.so
+
+# End /etc/pam.d/system-auth

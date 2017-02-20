@@ -1,0 +1,39 @@
+pkgbase=python-jinja2
+pkgname=('python2-jinja2' 'python3-jinja2')
+pkgver=2.9.5
+pkgrel=1
+pkgdesc="A small but fast and easy to use stand-alone template engine"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/Jinja2/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/J/Jinja2/Jinja2-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/Jinja2-${pkgver}" "${srcdir}/Jinja2-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/Jinja2-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/Jinja2-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-jinja2() {
+	cd "${srcdir}/Jinja2-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-jinja2() {
+	cd "${srcdir}/Jinja2-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('9e55f0db6620dd99a1b366183a94270d')

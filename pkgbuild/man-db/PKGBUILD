@@ -1,0 +1,35 @@
+# libalpmhook
+pkgname=man-db
+pkgver=2.7.6.1
+pkgrel=1
+pkgdesc="A utility for reading man pages"
+arch=('x86_64')
+url="http://www.nongnu.org/man-db/"
+license=('GPL' 'LGPL')
+groups=('core')
+#depends=()
+source=("http://download.savannah.gnu.org/releases/man-db/man-db-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/man-db-${pkgver}"
+
+	sed -i "s:man man:root root:g" init/systemd/man-db.conf
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-cache-owner=root \
+		--disable-setuid \
+		--with-browser=/usr/bin/lynx \
+		--with-vgrind=/usr/bin/vgrind \
+		--with-grap=/usr/bin/grap
+
+	make
+}
+
+package() {
+	cd "${srcdir}/man-db-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2948d49d0ed7265f60f83aa4a9ac9268')

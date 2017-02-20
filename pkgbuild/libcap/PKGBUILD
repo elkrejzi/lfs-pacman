@@ -1,0 +1,38 @@
+pkgname=libcap
+pkgver=2.25
+pkgrel=1
+pkgdesc="POSIX 1003.1e capabilities"
+arch=('x86_64')
+url="http://sites.google.com/site/fullycapable/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libcap-${pkgver}"
+
+	sed -i "s|-D_FILE_OFFSET_BITS=64|& ${CFLAGS}|" Make.Rules
+	sed -i "s| gcc| ${CC}|" Make.Rules
+	sed -i "s:LIBDIR:PAM_&:g" pam_cap/Makefile
+
+	unset CFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libcap-${pkgver}"
+
+	make install RAISE_SETFCAP=no prefix=/usr PAM_LIBDIR=/lib LIBDIR=/usr/lib DESTDIR="${pkgdir}"
+
+	chmod 755 "${pkgdir}/usr/lib/libcap.so"
+
+	install -v -dm755 "${pkgdir}/etc/security"
+	install -v -m644 pam_cap/capability.conf "${pkgdir}/etc/security"
+
+	mv -v "${pkgdir}"/usr/lib/libcap.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcap.so") "${pkgdir}/usr/lib/libcap.so"
+}
+
+md5sums=('6666b839e5d46c2ad33fc8aa2ceb5f77')

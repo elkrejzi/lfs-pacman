@@ -1,0 +1,24 @@
+pkgname=hostname
+pkgver=3.18
+pkgrel=1
+pkgdesc="Utility to set/show the host name or domain name"
+arch=('x86_64')
+url="https://packages.debian.org/source/sid/hostname"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("http://http.debian.net/debian/pool/main/h/hostname/hostname_${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/hostname" #-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/hostname" #-${pkgver}"
+
+	make install BASEDIR="${pkgdir}"
+}
+
+md5sums=('c03661d3e6ff449c45546d48e75342cb')

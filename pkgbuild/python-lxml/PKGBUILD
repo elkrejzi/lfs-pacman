@@ -1,0 +1,39 @@
+pkgbase=python-lxml
+pkgname=('python2-lxml' 'python3-lxml')
+pkgver=3.7.3
+pkgrel=1
+pkgdesc="XML processing library combining libxml2/libxslt with the ElementTree API"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/lxml/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/l/lxml/lxml-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/lxml-${pkgver}" "${srcdir}/lxml-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/lxml-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/lxml-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-lxml() {
+	cd "${srcdir}/lxml-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-lxml() {
+	cd "${srcdir}/lxml-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('075692ce442e69bbd604d44e21c02753')

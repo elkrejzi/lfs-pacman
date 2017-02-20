@@ -1,0 +1,32 @@
+pkgname=groff
+pkgver=1.22.3
+pkgrel=1
+pkgdesc="GNU troff text-formatting system"
+arch=('x86_64')
+url="https://www.gnu.org/software/groff/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/groff/groff-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/groff-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make -j1
+}
+
+package() {
+	cd "${srcdir}/groff-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	for file in eqn tbl
+	do
+		ln -sfv $file "${pkgdir}/usr/bin/g${file}"
+		ln -sfv $file.1 "${pkgdir}/usr/share/man/man1/g${file}.1"
+	done
+}
+
+md5sums=('cc825fa64bc7306a885f2fb2268d3ec5')

@@ -1,0 +1,31 @@
+pkgname=libgcrypt
+pkgver=1.7.6
+pkgrel=1
+pkgdesc="General purpose cryptographic library based on the code from GnuPG"
+arch=('x86_64')
+url="http://www.gnupg.org"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libgcrypt-${pkgver}"
+
+	./configure --prefix=/usr --disable-padlock-support
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgcrypt-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libgcrypt.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libgcrypt.so") "${pkgdir}/usr/lib/libgcrypt.so"
+}
+
+md5sums=('54e180679a7ae4d090f8689ca32b654c')

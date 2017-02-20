@@ -1,0 +1,29 @@
+pkgname=perl-archive-zip
+pkgver=1.59
+pkgrel=1
+pkgdesc="Provide a perl interface to ZIP archive files"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Archive-Zip/"
+license=('GPL' 'PerlArtistic')
+groups=('core')
+#depends=()
+options=(!emptydirs)
+source=("http://search.cpan.org/CPAN/authors/id/P/PH/PHRED/Archive-Zip-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Archive-Zip-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Archive-Zip-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('b649a593391573f9382cef8c08d1d5ba')

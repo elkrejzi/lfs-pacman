@@ -1,0 +1,39 @@
+pkgbase=python-markupsafe
+pkgname=('python2-markupsafe' 'python3-markupsafe')
+pkgver=0.23
+pkgrel=1
+pkgdesc="Implements a XML/HTML/XHTML Markup safe string for Python"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/MarkupSafe/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/M/MarkupSafe/MarkupSafe-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/MarkupSafe-${pkgver}" "${srcdir}/MarkupSafe-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/MarkupSafe-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/MarkupSafe-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-markupsafe() {
+	cd "${srcdir}/MarkupSafe-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-markupsafe() {
+	cd "${srcdir}/MarkupSafe-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('f5ab3deee4c37cd6a922fb81e730da6e')

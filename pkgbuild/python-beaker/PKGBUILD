@@ -1,0 +1,39 @@
+pkgbase=python-beaker
+pkgname=('python2-beaker' 'python3-beaker')
+pkgver=1.8.1
+pkgrel=1
+pkgdesc="A Session and Caching library with WSGI Middleware"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/Beaker/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/B/Beaker/Beaker-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/Beaker-${pkgver}" "${srcdir}/Beaker-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/Beaker-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/Beaker-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-beaker() {
+	cd "${srcdir}/Beaker-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-beaker() {
+	cd "${srcdir}/Beaker-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('05a8e74d2fa2f349fcd424baf5bc7774')

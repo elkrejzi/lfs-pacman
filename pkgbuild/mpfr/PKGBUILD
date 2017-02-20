@@ -1,0 +1,35 @@
+pkgname=mpfr
+_basever=3.1.5
+pkgver=3.1.5p2
+pkgrel=1
+pkgdesc="Multiple-precision floating-point library"
+arch=('x86_64')
+url="http://www.mpfr.org/"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("http://www.mpfr.org/mpfr-current/mpfr-${_basever}.tar.xz" #)
+	"mpfr-cumulative.patch::http://www.mpfr.org/mpfr-current/allpatches")
+
+prepare() {
+	cd "${srcdir}/mpfr-${_basever}"
+
+	[ ${_basever} != ${pkgver} ] && patch -Np1 -i "${srcdir}/mpfr-cumulative.patch" || true
+}
+
+build() {
+	cd "${srcdir}/mpfr-${_basever}"
+
+	./configure --prefix=/usr --enable-thread-safe
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mpfr-${_basever}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c4ac246cf9795a4491e7766002cd528f'
+         'f388b7983bf69e2bfd3216426c89954c')

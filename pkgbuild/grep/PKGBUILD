@@ -1,0 +1,26 @@
+pkgname=grep
+pkgver=3.0
+pkgrel=1
+pkgdesc="A string search utility"
+arch=('x86_64')
+url="https://www.gnu.org/software/grep/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/grep/grep-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/grep-${pkgver}"
+
+	./configure --prefix=/usr --bindir=/bin
+
+	make
+}
+
+package() {
+	cd "${srcdir}/grep-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fa07c1616adeb9c3262be5177d10ad4a')

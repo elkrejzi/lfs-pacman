@@ -1,0 +1,29 @@
+pkgname=perl-parse-yapp
+pkgver=1.05
+pkgrel=1
+pkgdesc="Perl/CPAN Module Parse::Yapp - Generates OO LALR parser modules"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Parse-Yapp"
+license=('GPL' 'PerlArtistic')
+groups=('core')
+#depends=()
+options=(!emptydirs)
+source=("http://search.cpan.org/CPAN/authors/id/F/FD/FDESAR/Parse-Yapp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Parse-Yapp-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Parse-Yapp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('7bfca736d6af36c51edf7a97111a8f3b')

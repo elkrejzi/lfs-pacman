@@ -1,0 +1,60 @@
+pkgbase=libxml2
+pkgname=('libxml2' 'lib32-libxml2')
+pkgver=2.9.4
+pkgrel=1
+arch=('x86_64')
+url="http://www.xmlsoft.org/"
+license=('MIT')
+groups=('core')
+#depends=()
+source=("http://xmlsoft.org/sources/libxml2-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/libxml2{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libxml2-${pkgver}"
+
+	./configure --prefix=/usr --with-history
+
+	cd "${srcdir}/libxml232-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--with-history \
+		--without-python
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libxml2-${pkgver}"
+	make -C "${srcdir}/libxml232-${pkgver}"
+}
+
+package_libxml2() {
+	pkgdesc="XML parsing library, version 2"
+
+	cd "${srcdir}/libxml2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxml2() {
+	pkgdesc="XML parsing library, version 2 (32 bit)"
+
+	cd "${srcdir}/libxml232-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('ae249165c173b1ff386ee8ad676815f5')

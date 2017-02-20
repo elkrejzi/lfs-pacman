@@ -1,0 +1,26 @@
+pkgname=libxslt
+pkgver=1.1.29
+pkgrel=1
+pkgdesc="XML stylesheet transformation library"
+arch=('x86_64')
+url="http://xmlsoft.org/XSLT/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libxslt-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxslt-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a129d3c44c022de3b9dcf6d6f288d72e')

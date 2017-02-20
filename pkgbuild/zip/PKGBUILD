@@ -1,0 +1,29 @@
+pkgname=zip
+pkgver=3.0
+_pkgver=${pkgver/./}
+pkgrel=1
+pkgdesc="Compressor/archiver for creating and modifying zipfiles"
+arch=('x86_64')
+url="http://www.info-zip.org/Zip.html"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://downloads.sourceforge.net/infozip/${pkgname}${_pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/zip${_pkgver}"
+
+	sed -i "s:-O3:${CFLAGS}:g" unix/configure
+
+	unset CFLAGS
+
+	make -f unix/Makefile generic CC="${CC}"
+}
+
+package() {
+	cd "${srcdir}/zip${_pkgver}"
+
+	make -f unix/Makefile install prefix="${pkgdir}/usr" MANDIR="${pkgdir}/usr/share/man/man1"
+}
+
+md5sums=('7b74551e63f8ee6aab6fbc86676c0d37')

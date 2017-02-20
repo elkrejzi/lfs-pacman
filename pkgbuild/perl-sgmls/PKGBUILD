@@ -1,0 +1,35 @@
+pkgname=perl-sgmls
+pkgver=1.1
+pkgrel=1
+pkgdesc="A Post-Processor for SGMLS and NSGMLS"
+arch=('x86_64')
+url="http://search.cpan.org/dist/SGMLSpm"
+license=('GPL' 'PerlArtistic')
+groups=('core')
+#depends=()
+options=(!emptydirs)
+source=("http://www.cpan.org/authors/id/R/RA/RAAB/SGMLSpm-${pkgver}.tar.gz")
+
+prepare() {
+	find . -type f -exec chmod 0644 {} \;
+}
+
+build() {
+	cd "${srcdir}/SGMLSpm-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/SGMLSpm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+
+	ln -sfv sgmlspl.pl "${pkgdir}/usr/bin/sgmlspl"
+}
+
+md5sums=('746c74ae969992cedb1a2879b4168090')

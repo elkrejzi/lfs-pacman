@@ -1,0 +1,39 @@
+pkgname=iptables
+pkgver=1.6.1
+pkgrel=1
+pkgdesc="Linux kernel packet control tool"
+arch=('x86_64')
+url="http://www.netfilter.org/projects/iptables/index.html"
+license=('GPL2')
+groups=('core')
+#depends=()
+options=(staticlibs)
+source=("http://netfilter.org/projects/iptables/files/iptables-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/iptables-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--sbindir=/sbin \
+		--with-xtlibdir=/lib/xtables \
+		--enable-libipq
+
+	make
+}
+
+package() {
+	cd "${srcdir}/iptables-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	ln -sfv ../../sbin/xtables-multi "${pkgdir}/usr/bin/iptables-xml"
+
+	for file in ip4tc ip6tc ipq iptc xtables
+	do
+		mv -v "${pkgdir}"/usr/lib/lib${file}.so.* "${pkgdir}/lib"
+		ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/lib${file}.so") "${pkgdir}/usr/lib/lib${file}.so"
+	done
+}
+
+md5sums=('ab38a33806b6182c6f53d6afb4619add')

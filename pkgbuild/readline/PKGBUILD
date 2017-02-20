@@ -1,0 +1,89 @@
+pkgbase=readline
+pkgname=('readline' 'lib32-readline')
+_basever=7.0
+_patchlevel=003
+pkgver=${_basever}.${_patchlevel}
+pkgrel=1
+arch=('x86_64')
+url="http://tiswww.case.edu/php/chet/readline/rltop.html"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/readline/readline-${_basever}.tar.gz"
+	inputrc)
+
+if [ ${_patchlevel} -gt 0 ]
+then
+	for (( _p=1; _p <= $((10#${_patchlevel})); _p++ ))
+	do
+		source=(${source[@]} https://ftp.gnu.org/gnu/readline/readline-${_basever}-patches/readline${_basever//.}-$(printf "%03d" ${_p}))
+	done
+fi
+
+prepare() {
+	cd "${srcdir}/readline-${_basever}"
+
+	for (( _p=1; _p <= $((10#${_patchlevel})); _p++ ))
+	do
+		patch -p0 -i ../readline${_basever//.}-$(printf "%03d" ${_p})
+	done
+
+	cp -a "${srcdir}"/readline{,32}-${_basever}
+}
+
+build() {
+	cd "${srcdir}/readline-${_basever}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/readline32-${_basever}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/readline-${_basever}" SHLIB_LIBS=-lncurses
+	make -C "${srcdir}/readline32-${_basever}" SHLIB_LIBS=-lncurses
+}
+
+package_readline() {
+	pkgdesc="GNU readline library"
+
+	cd "${srcdir}/readline-${_basever}"
+
+	make SHLIB_LIBS=-lncurses install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/etc" "${pkgdir}/lib"
+
+	install -v -m644 "${srcdir}/inputrc" "${pkgdir}/etc"
+
+	mv -v "${pkgdir}"/usr/lib/libhistory.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libhistory.so") "${pkgdir}/usr/lib/libhistory.so"
+
+	mv -v "${pkgdir}"/usr/lib/libreadline.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libreadline.so") "${pkgdir}/usr/lib/libreadline.so"
+}
+
+package_lib32-readline() {
+	pkgdesc="GNU readline library (32 bit)"
+
+	cd "${srcdir}/readline32-${_basever}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('205b03a87fc83dab653b628c59b9fc91'
+         '84c558c9591386696451d1e4c4d05271'
+         'e299384458a4cbefaaac3f30e9cc2bba'
+         'f9071a353e2fd52a91d32667b23715d6'
+         '03595464cf0283286a6e07f4f01c4a70')

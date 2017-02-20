@@ -1,0 +1,28 @@
+pkgname=kbd
+pkgver=2.0.4
+pkgrel=1
+pkgdesc="Keytable files and keyboard utilities"
+arch=('x86_64')
+url="http://www.kbd-project.org"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/kbd/kbd-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/kbd-${pkgver}"
+
+	rm -rf docs/reference/libkeymap/Doxyfile
+
+	./configure --prefix=/usr --enable-libkeymap --enable-optional-progs
+
+	make
+}
+
+package() {
+	cd "${srcdir}/kbd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c1635a5a83b63aca7f97a3eab39ebaa6')

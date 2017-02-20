@@ -1,0 +1,26 @@
+pkgname=itstool
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="XML to PO and back again"
+arch=('x86_64')
+url="http://itstool.org/"
+license=(GPL3)
+groups=('core')
+#depends=()
+source=("http://files.itstool.org/itstool/itstool-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/itstool-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/itstool-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d472d877a7bc49899a73d442085b2f93')

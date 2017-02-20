@@ -1,0 +1,26 @@
+pkgname=make
+pkgver=4.2.1
+pkgrel=1
+pkgdesc="GNU make utility to maintain groups of programs"
+arch=('x86_64')
+url="https://www.gnu.org/software/make/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/make/make-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/make-${pkgver}"
+
+	./configure --prefix=/usr --without-guile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/make-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('15b012617e7c44c0ed482721629577ac')

@@ -1,0 +1,37 @@
+pkgname=docbook-dsssl
+pkgver=1.79
+pkgrel=1
+pkgdesc="DSSSL Stylesheets for DocBook"
+arch=('x86_64')
+url="http://docbook.sourceforge.net/"
+license=('custom')
+groups=('core')
+#depends=()
+install=docbook-dsssl.install
+source=("https://downloads.sourceforge.net/docbook/docbook-dsssl-${pkgver}.tar.bz2")
+
+package() {
+	cd "${srcdir}/docbook-dsssl-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/share/man/man1"
+	install -v -dm755 "${pkgdir}/usr/share/sgml/docbook/dsssl-stylesheets-${pkgver}"
+
+	rm -rf dtds/*/ChangeLog
+	rm -rf frames/README
+	rm -rf images/callouts/ChangeLog
+
+	for dir in common dtds frames html images lib olink print
+	do
+		rm -rf ${dir}/ChangeLog
+		cp -rf ${dir} "${pkgdir}/usr/share/sgml/docbook/dsssl-stylesheets-${pkgver}"
+	done
+
+	install -m755 bin/collateindex.pl "${pkgdir}/usr/bin/collateindex.pl"
+	install -m644 bin/collateindex.pl.1 "${pkgdir}/usr/share/man/man1/collateindex.pl.1"
+	install -m644 catalog "${pkgdir}/usr/share/sgml/docbook/dsssl-stylesheets-${pkgver}/catalog"
+	install -m644 VERSION "${pkgdir}/usr/share/sgml/docbook/dsssl-stylesheets-${pkgver}/VERSION"
+
+	ln -sfv dsssl-stylesheets-${pkgver} "${pkgdir}/usr/share/sgml/docbook/dsssl-stylesheets-current"
+}
+
+md5sums=('bc192d23266b9a664ca0aba4a7794c7c')

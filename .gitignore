@@ -1,0 +1,10 @@
+*.tar.*
+*.tgz
+*.xz
+*.zip
+*.gz
+*.c
+*.S
+bash*-0*
+readline*-0*
+mpfr-cumulative.patch

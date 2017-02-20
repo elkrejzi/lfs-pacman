@@ -1,0 +1,120 @@
+pkgbase=ncurses
+pkgname=('ncurses' 'lib32-ncurses')
+_pkgver=6.0-20170212
+pkgver=${_pkgver/-/+}
+pkgrel=1
+arch=('x86_64')
+url="http://invisible-island.net/ncurses/ncurses.html"
+license=('MIT')
+groups=('core')
+#depends=()
+source=("ftp://ftp.invisible-island.net/ncurses/current/ncurses-${_pkgver}.tgz")
+
+build_shared() {
+	local LIB=${1}
+
+	install -v -dm755 buildncursesw6-${LIB} buildncursesw-${LIB} buildncurses-${LIB}
+
+	local configure_flags_shared=(--prefix=/usr
+		--libdir=/usr/${LIB}
+		--mandir=/usr/share/man
+		--with-shared
+		--without-debug)
+
+	pushd buildncursesw6-${LIB}
+		../configure "${configure_flags_shared[@]}" \
+			--enable-pc-files \
+			--enable-widec \
+			--with-abi-version=6 \
+			--with-pkg-config-libdir=/usr/${LIB}/pkgconfig
+	popd
+
+	pushd buildncursesw-${LIB}
+		../configure "${configure_flags_shared[@]}" \
+			--enable-widec \
+			--with-abi-version=5
+	popd
+
+	pushd buildncurses-${LIB}
+		../configure "${configure_flags_shared[@]}" \
+			--with-chtype=long \
+			--with-abi-version=5
+	popd
+
+	make -C buildncursesw6-${LIB}
+	make -C buildncursesw-${LIB}
+	make -C buildncurses-${LIB}
+
+}
+
+install_shared() {
+	local LIB=${1}
+
+	for lib in ncurses form panel menu
+	do
+		install -v -m755 buildncursesw-${LIB}/lib/lib${lib}w.so.5.9 "${pkgdir}/usr/${LIB}"
+		ln -sfv lib${lib}w.so.5.9 "${pkgdir}/usr/${LIB}/lib${lib}w.so.5"
+
+		install -v -m755 buildncurses-${LIB}/lib/lib${lib}.so.5.9 "${pkgdir}/usr/${LIB}"
+		ln -sfv lib${lib}.so.5.9 "${pkgdir}/usr/${LIB}/lib${lib}.so.5"
+
+		rm -rf "${pkgdir}/usr/${LIB}/lib${lib}.so"
+		echo "INPUT(-l${lib}w)" > "${pkgdir}/usr/${LIB}/lib${lib}.so"
+	done
+
+	for lib in ncurses ncurses++ form panel menu; do
+		ln -sfv ${lib}w.pc "${pkgdir}/usr/${LIB}/pkgconfig/${lib}.pc"
+	done
+
+	rm -rf "${pkgdir}/usr/${LIB}/libcursesw.so"
+	echo "INPUT(-lncursesw)" > "${pkgdir}/usr/${LIB}/libcursesw.so"
+	ln -sfv libncurses.so "${pkgdir}/usr/${LIB}/libcurses.so"
+
+	# libtinfo compat
+	ln -sfv libncurses.so.5 "${pkgdir}/usr/${LIB}/libtinfo.so.5"
+}
+
+build() {
+	cd "${srcdir}/ncurses-${_pkgver}"
+
+	build_shared lib
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	build_shared lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+}
+
+package_ncurses() {
+	pkgdesc="System V Release 4.0 curses emulation library"
+
+	cd "${srcdir}/ncurses-${_pkgver}"
+
+	make -C buildncursesw6-lib install DESTDIR="${pkgdir}"
+
+	install_shared lib
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libncursesw.so.6* "${pkgdir}/lib"
+	ln -sfv ../../lib/libncursesw.so.6.0 "${pkgdir}/usr/lib/libncursesw.so"
+}
+
+package_lib32-ncurses() {
+	pkgdesc="System V Release 4.0 curses emulation library (32 bit)"
+
+	cd "${srcdir}/ncurses-${_pkgver}"
+
+	make -C buildncursesw6-lib32 install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv -v dest/usr/lib32 "${pkgdir}/usr"
+
+	install_shared lib32
+}
+
+md5sums=('d25d131da8b13062138544c0d0934f31')

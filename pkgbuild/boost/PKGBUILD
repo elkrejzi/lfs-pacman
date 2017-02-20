@@ -1,0 +1,29 @@
+pkgname=boost
+pkgver=1.63.0
+_boostver=${pkgver//./_}
+pkgrel=1
+pkgdesc="Free peer-reviewed portable C++ source libraries"
+arch=('x86_64')
+url="http://www.boost.org/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://downloads.sourceforge.net/boost/boost_${_boostver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/boost_${_boostver}"
+
+	./bootstrap.sh --with-toolset=clang --with-icu --with-python=/usr/bin/python2
+
+	./b2 stage threading=multi variant=release link=shared runtime-link=shared toolset=clang \
+		cflags="${CFLAGS}" cxxflags="${CXXFLAGS}" ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/boost_${_boostver}"
+
+	./b2 install threading=multi variant=release link=shared runtime-link=shared toolset=clang \
+		cflags="${CFLAGS}" cxxflags="${CXXFLAGS}" --prefix="${pkgdir}/usr" ${MAKEFLAGS}
+}
+
+md5sums=('1c837ecd990bb022d07e7aab32b09847')

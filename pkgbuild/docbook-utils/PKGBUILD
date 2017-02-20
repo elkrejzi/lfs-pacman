@@ -1,0 +1,41 @@
+pkgname=docbook-utils
+pkgver=0.6.14
+pkgrel=1
+pkgdesc="Shell scripts to manage DocBook documents"
+arch=('x86_64')
+url="https://fedorahosted.org/docbook-utils/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/docbook-utils-${pkgver}.tar.gz"
+	"docbook-utils.patch")
+
+prepare() {
+	cd "${srcdir}/docbook-utils-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/docbook-utils.patch"
+}
+
+build() {
+	cd "${srcdir}/docbook-utils-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man
+
+	make
+}
+
+package() {
+	cd "${srcdir}/docbook-utils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	for type in dvi html man pdf ps rtf tex texi txt
+	do
+		ln -sfv docbook2${type} "${pkgdir}/usr/bin/db2${type}"
+	done
+}
+
+md5sums=('6b41b18c365c01f225bc417cf632d81c'
+         '4387cc69dddee97f083b380cabbe1240')

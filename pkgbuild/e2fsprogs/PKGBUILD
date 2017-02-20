@@ -1,0 +1,37 @@
+pkgname=e2fsprogs
+pkgver=1.43.4
+pkgrel=1
+pkgdesc="Ext2/3/4 filesystem utilities"
+arch=('x86_64')
+url="http://e2fsprogs.sourceforge.net"
+license=('GPL' 'LGPL' 'MIT')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v${pkgver}/e2fsprogs-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/e2fsprogs-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-root-prefix="" \
+		--enable-elf-shlibs \
+		--disable-libblkid \
+		--disable-libuuid \
+		--disable-uuidd \
+		--disable-fsck
+
+	make
+}
+
+package() {
+	cd "${srcdir}/e2fsprogs-${pkgver}"
+
+	make install install-libs DESTDIR="${pkgdir}" LDCONFIG=true
+
+	for file in "${pkgdir}"/usr/lib/*.so ; do ln -sfv ../..$(readlink $file) $file ; done
+
+	sed -i 's#^SS_DIR=.*#SS_DIR="/usr/share/ss"#' "${pkgdir}/usr/bin/mk_cmds"
+	sed -i 's#^ET_DIR=.*#ET_DIR="/usr/share/et"#' "${pkgdir}/usr/bin/compile_et"
+}
+
+md5sums=('8903379ef0b902f4e29b6cafea359fe1')

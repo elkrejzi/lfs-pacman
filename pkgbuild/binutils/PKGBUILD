@@ -1,0 +1,48 @@
+pkgname=binutils
+pkgver=2.27
+pkgrel=1
+pkgdesc="A set of programs to assemble and manipulate binary and object files"
+arch=('x86_64')
+url="https://www.gnu.org/software/binutils/"
+license=('GPL')
+groups=('core')
+#depends=()
+options=(staticlibs)
+source=("https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.bz2")
+
+prepare() {
+	rm -rf "${srcdir}/src" "${srcdir}/build"
+
+	ln -sfv "binutils-${pkgver}" "${srcdir}/src"
+
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	export CC="gcc"
+	export CXX="g++"
+
+	../src/configure --prefix=/usr --with-pkgversion="Krejzi ${pkgver}" \
+		--enable-gold --enable-ld=default --enable-plugins \
+		--enable-shared --enable-threads --disable-werror  \
+		--with-pic
+
+	unset CC CXX
+
+	make configure-host
+	make tooldir=/usr
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make tooldir=/usr install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/lib{bfd,opcodes}.so
+	rm -rf "${pkgdir}/usr/lib64"
+	rm -rf "${pkgdir}"/usr/share/man/man1/{dlltool,nlmconv,windres,windmc}.1
+}
+
+md5sums=('2869c9bf3e60ee97c74ac2a6bf4e9d68')

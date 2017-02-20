@@ -1,0 +1,51 @@
+pkgname=openjade
+pkgver=1.3.2
+pkgrel=1
+pkgdesc="Implementation of the DSSSL language"
+arch=('x86_64')
+url="http://openjade.sourceforge.net/"
+license=('custom')
+groups=('core')
+#depends=()
+install=openjade.install
+source=("https://downloads.sourceforge.net/openjade/openjade-${pkgver}.tar.gz"
+	"openjade.patch")
+
+prepare() {
+	cd "${srcdir}/openjade-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/openjade.patch"
+}
+
+build() {
+	cd "${srcdir}/openjade-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--datadir=/usr/share/sgml/OpenJade \
+		--mandir=/usr/share/man \
+		--enable-http \
+		--enable-default-catalog=/etc/sgml/catalog \
+		--enable-default-search-path=/usr/share/sgml
+
+	make
+}
+
+package() {
+	cd "${srcdir}/openjade-${pkgver}"
+
+	make install install-man DESTDIR="${pkgdir}"
+
+	install -m644 dsssl/catalog "${pkgdir}/usr/share/sgml/OpenJade"
+	install -m644 dsssl/*.{dtd,dsl,sgm} "${pkgdir}/usr/share/sgml/OpenJade"
+
+	ln -sfv openjade "${pkgdir}/usr/bin/jade"
+
+	for file in grove spgrove style
+	do
+		ln -sfv libo${file}.so "${pkgdir}/usr/lib/lib${file}.so"
+	done
+}
+
+md5sums=('7df692e3186109cc00db6825b777201e'
+         '84c6b0699147aeadbc53786b6efab8e7')

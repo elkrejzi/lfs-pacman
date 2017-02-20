@@ -1,0 +1,26 @@
+pkgname=gdbm
+pkgver=1.12
+pkgrel=1
+pkgdesc="GNU database library"
+arch=('x86_64')
+url="https://www.gnu.org/software/gdbm/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/gdbm/gdbm-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/gdbm-${pkgver}"
+
+	./configure --prefix=/usr --enable-libgdbm-compat
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gdbm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9ce96ff4c99e74295ea19040931c8fb9')

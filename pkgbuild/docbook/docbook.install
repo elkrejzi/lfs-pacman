@@ -1,0 +1,15 @@
+post_install() {
+	for BOOKVER in 3.0 3.1 4.0 4.1 4.2 4.3 4.4 4.5
+	do
+		install-catalog --add /etc/sgml/sgml-docbook-dtd-${BOOKVER}.cat /usr/share/sgml/docbook/sgml-dtd-${BOOKVER}/catalog > /dev/null 2>&1
+		install-catalog --add /etc/sgml/sgml-docbook-dtd-${BOOKVER}.cat /etc/sgml/sgml-docbook.cat > /dev/null 2>&1
+	done
+}
+
+pre_remove() {
+	for BOOKVER in 3.0 3.1 4.0 4.1 4.2 4.3 4.4 4.5
+	do
+		install-catalog --remove /etc/sgml/sgml-docbook-dtd-${BOOKVER}.cat /usr/share/sgml/docbook/sgml-dtd-${BOOKVER}/catalog > /dev/null 2>&1
+		install-catalog --remove /etc/sgml/sgml-docbook-dtd-${BOOKVER}.cat /etc/sgml/sgml-docbook.cat > /dev/null 2>&1
+	done
+}

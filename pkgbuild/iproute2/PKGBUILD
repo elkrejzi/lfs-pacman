@@ -1,0 +1,34 @@
+pkgname=iproute2
+pkgver=4.9.0
+pkgrel=1
+pkgdesc="IP Routing Utilities"
+arch=('x86_64')
+url="http://www.linuxfoundation.org/collaborate/workgroups/networking/iproute2"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/iproute2-${pkgver}"
+
+	make CCOPTS="${CFLAGS}" CC="${CC}"
+}
+
+package() {
+	cd "${srcdir}/iproute2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/usr/bin" "${pkgdir}/usr/sbin"
+
+	mv -v "${pkgdir}/sbin/ip" "${pkgdir}/sbin/ss" "${pkgdir}/bin"
+	mv -v "${pkgdir}/sbin/arpd" "${pkgdir}/sbin/genl" "${pkgdir}/usr/sbin"
+
+	mv -v "${pkgdir}/sbin/ctstat" "${pkgdir}/sbin/lnstat" "${pkgdir}/sbin/nstat" "${pkgdir}/usr/bin"
+	mv -v "${pkgdir}/sbin/routef" "${pkgdir}/sbin/routel" "${pkgdir}/sbin/rtstat" "${pkgdir}/usr/bin"
+
+	ln -sfv ../bin/ip "${pkgdir}/sbin/ip"
+}
+
+md5sums=('44a8371a4b2c40e48e4c9f98cbd41391')

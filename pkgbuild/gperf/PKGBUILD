@@ -1,0 +1,26 @@
+pkgname=gperf
+pkgver=3.0.4
+pkgrel=1
+pkgdesc="Perfect hash function generator"
+arch=('x86_64')
+url="https://www.gnu.org/software/gperf/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/gperf/gperf-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/gperf-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gperf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c1f1db32fb6598d6a93e6e88796a8632')

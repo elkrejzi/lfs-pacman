@@ -1,0 +1,39 @@
+pkgbase=python-pyxdg
+pkgname=('python2-pyxdg' 'python3-pyxdg')
+pkgver=0.25
+pkgrel=1
+pkgdesc="Implementations of freedesktop.org standards in Python"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/pyxdg/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/p/pyxdg/pyxdg-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/pyxdg-${pkgver}" "${srcdir}/pyxdg-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/pyxdg-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/pyxdg-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-pyxdg() {
+	cd "${srcdir}/pyxdg-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-pyxdg() {
+	cd "${srcdir}/pyxdg-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('bedcdb3a0ed85986d40044c87f23477c')

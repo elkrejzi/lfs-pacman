@@ -1,0 +1,590 @@
+--- a/ustr-b-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-b-dbg-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-b-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-b-opt-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-cmp-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-cmp-dbg-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-cmp-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-cmp-opt-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-compiler.h	2008-02-15 21:12:28.000000000 +0100
++++ b/ustr-compiler.h	2017-02-18 16:40:33.452571103 +0100
+@@ -116,14 +116,14 @@
+ # if USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #  define USTR_CONF_EI_PROTO static USTR__INLINE
+ # else
+-#  define USTR_CONF_EI_PROTO extern
++#  define USTR_CONF_EI_PROTO static
+ # endif
+ #endif
+ #ifndef USTR_CONF_II_PROTO /* implementation of inline */
+ # if USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #  define USTR_CONF_II_PROTO static USTR__INLINE
+ # else
+-#  define USTR_CONF_II_PROTO extern inline
++#  define USTR_CONF_II_PROTO static inline
+ # endif
+ #endif
+ 
+--- a/ustr-fmt-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-fmt-dbg-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-fmt-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-fmt-opt-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-ins-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-ins-dbg-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+--- a/ustr-ins-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-ins-opt-code.c	2017-02-18 16:40:33.452571103 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+--- a/ustr-io-dbg-code.c	2007-11-24 22:50:34.000000000 +0100
++++ b/ustr-io-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-io-opt-code.c	2007-11-24 22:50:30.000000000 +0100
++++ b/ustr-io-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-main-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-main-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -6,6 +6,6 @@
+ #define USTR_CONF_i_PROTO  
+ #define USTR_CONF_E_PROTO  extern
+ #define USTR_CONF_I_PROTO
+-#define USTR_CONF_EI_PROTO extern
++#define USTR_CONF_EI_PROTO static
+ #define USTR_CONF_II_PROTO inline
+ #include "ustr-main.h"
+--- a/ustr-main-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-main-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -6,6 +6,6 @@
+ #define USTR_CONF_i_PROTO  
+ #define USTR_CONF_E_PROTO  extern
+ #define USTR_CONF_I_PROTO
+-#define USTR_CONF_EI_PROTO extern
++#define USTR_CONF_EI_PROTO static
+ #define USTR_CONF_II_PROTO inline
+ #include "ustr-main.h"
+--- a/ustr-parse-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-parse-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-parse-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-parse-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-pool-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-pool-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-pool-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-pool-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-replace-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-replace-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-srch.h"
+--- a/ustr-replace-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-replace-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-srch.h"
+--- a/ustr-sc-dbg-code.c	2007-11-24 22:59:38.000000000 +0100
++++ b/ustr-sc-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-spn.h"
+ #include "ustr-utf8.h"
+--- a/ustr-sc-opt-code.c	2007-11-24 22:59:33.000000000 +0100
++++ b/ustr-sc-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-spn.h"
+ #include "ustr-utf8.h"
+--- a/ustr-set-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-set-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+--- a/ustr-set-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-set-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+--- a/ustr-split-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-split-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-spn.h"
+--- a/ustr-split-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-split-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-set.h"
+ #include "ustr-spn.h"
+--- a/ustr-spn-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-spn-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-srch.h"
+ #include "ustr-utf8.h"
+--- a/ustr-spn-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-spn-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-srch.h"
+ #include "ustr-utf8.h"
+--- a/ustr-srch-dbg-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-srch-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-cmp-internal.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+--- a/ustr-srch-opt-code.c	2007-09-20 23:35:08.000000000 +0200
++++ b/ustr-srch-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-cmp-internal.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+--- a/ustr-sub-dbg-code.c	2007-11-24 22:50:02.000000000 +0100
++++ b/ustr-sub-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #include "ustr-ins.h"
+--- a/ustr-sub-opt-code.c	2007-11-24 22:49:57.000000000 +0100
++++ b/ustr-sub-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #include "ustr-fmt.h"
+ #include "ustr-ins.h"
+--- a/ustr-utf8-dbg-code.c	2007-11-24 22:49:19.000000000 +0100
++++ b/ustr-utf8-dbg-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf-debug.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1
+--- a/ustr-utf8.h	2007-11-30 06:12:18.000000000 +0100
++++ b/ustr-utf8.h	2017-02-18 16:40:32.065895297 +0100
+@@ -32,7 +32,7 @@
+ size_t ustr_utf8_bytes2chars(const struct Ustr *, size_t, size_t, size_t *)
+     USTR__COMPILE_ATTR_WARN_UNUSED_RET() USTR__COMPILE_ATTR_NONNULL_L((1));
+ 
+-USTR_CONF_E_PROTO
++USTR_CONF_EI_PROTO
+ int ustrp_utf8_valid(const struct Ustrp *)
+     USTR__COMPILE_ATTR_PURE() USTR__COMPILE_ATTR_WARN_UNUSED_RET()
+     USTR__COMPILE_ATTR_NONNULL_A();
+--- a/ustr-utf8-opt-code.c	2007-11-24 22:49:13.000000000 +0100
++++ b/ustr-utf8-opt-code.c	2017-02-18 16:40:33.455904458 +0100
+@@ -3,11 +3,11 @@
+ #include "ustr-conf.h"
+ #define USTR_CONF_USE_DYNAMIC_CONF USTR_CONF_HAVE_DYNAMIC_CONF
+ #define USTR_CONF_e_PROTO  extern
+-#define USTR_CONF_i_PROTO  extern inline
++#define USTR_CONF_i_PROTO  static inline
+ #define USTR_CONF_E_PROTO  extern
+-#define USTR_CONF_I_PROTO  extern inline
+-#define USTR_CONF_EI_PROTO extern
+-#define USTR_CONF_II_PROTO extern inline
++#define USTR_CONF_I_PROTO  static inline
++#define USTR_CONF_EI_PROTO static
++#define USTR_CONF_II_PROTO static inline
+ #include "ustr-main.h"
+ #undef  USTR_CONF_INCLUDE_CODEONLY_HEADERS
+ #define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1

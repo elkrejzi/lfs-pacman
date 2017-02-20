@@ -1,0 +1,55 @@
+pkgname=tcl
+_tclmajor=8.6
+_tclminor=6
+_tdbcver=1.0.4
+_itclver=4.0.5
+pkgver=${_tclmajor}.${_tclminor}
+pkgrel=1
+pkgdesc="The Tcl scripting language"
+arch=('x86_64')
+url="http://tcl.sourceforge.net/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://downloads.sourceforge.net/tcl/tcl${pkgver}-src.tar.gz")
+
+build() {
+	cd "${srcdir}/tcl${pkgver}/unix"
+
+	rm -rf ../pkgs/sqlite*
+
+	./configure --prefix=/usr \
+		--mandir=/usr/share/man \
+		--enable-64bit \
+		--enable-threads \
+		--without-tzdata
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tcl${pkgver}/unix"
+
+	sed -e "s@^\(TCL_SRC_DIR='\).*@\1/usr/include'@" \
+		-e "/TCL_B/s@='\(-L\)\?.*unix@='\1/usr/lib@" \
+		-i tclConfig.sh
+
+	make install install-private-headers DESTDIR="${pkgdir}"
+
+	ln -sfv tclsh${_tclmajor} "${pkgdir}/usr/bin/tclsh"
+
+	chmod 644 "${pkgdir}/usr/lib/libtclstub${_tclmajor}.a"
+
+	sed -e "s#${PWD%/unix}/unix/pkgs/tdbc${_tdbcver}#/usr/lib/tdbc${_tdbcver}#" \
+		-e "s#${PWD%/unix}/pkgs/tdbc${_tdbcver}/generic#/usr/include#" \
+		-e "s#${PWD%/unix}/pkgs/tdbc${_tdbcver}/library#/usr/lib/tcl${_tclmajor}#" \
+		-e "s#${PWD%/unix}/pkgs/tdbc${_tdbcver}#/usr/include#" \
+		-i "${pkgdir}/usr/lib/tdbc${_tdbcver}/tdbcConfig.sh"
+
+	sed -e "s#${PWD%/unix}/unix/pkgs/itcl${_itclver}#/usr/lib/itcl${_itclver}#" \
+		-e "s#${PWD%/unix}/pkgs/itcl${_itclver}/generic#/usr/include#" \
+		-e "s#${PWD%/unix}/pkgs/itcl${_itclver}#/usr/include#" \
+		-i "${pkgdir}/usr/lib/itcl${_itclver}/itclConfig.sh"
+}
+
+md5sums=('5193aea8107839a79df8ac709552ecb7')

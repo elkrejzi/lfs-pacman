@@ -1,0 +1,86 @@
+pkgname=perl
+_perlmajor=5.24
+_perlminor=1
+pkgver=${_perlmajor}.${_perlminor}
+pkgrel=1
+pkgdesc="A highly capable, feature-rich programming language"
+arch=('x86_64')
+url="http://www.perl.org"
+license=('GPL' 'PerlArtistic')
+groups=('core')
+#depends=()
+source=("http://www.cpan.org/src/5.0/perl-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/perl-${pkgver}"
+
+	export BUILD_ZLIB=False
+	export ZLIB_INCLUDE=/usr/include
+	export ZLIB_LIB=/usr/lib
+
+	export BUILD_BZIP2=0
+	export BZIP2_INCLUDE=/usr/include
+	export BZIP2_LIB=/usr/lib
+
+	export _perlmajor
+
+	sh Configure -Dprefix=/usr   \
+		-Dusethreads    \
+		-Duselargefiles \
+		-Dprivlib=/usr/share/perl/${_perlmajor} \
+		-Darchlib=/usr/lib/perl/${_perlmajor}   \
+		-Dvendorprefix=/usr          \
+		-Dvendorlib=/usr/share/perl5 \
+		-Dvendorarch=/usr/lib/perl5  \
+		-Dsiteprefix=/usr/local      \
+		-Dsitelib=/usr/local/share/perl/${pkgver} \
+		-Dsitearch=/usr/local/lib/perl/${pkgver}  \
+		-Dman1dir=/usr/share/man/man1  \
+		-Dman3dir=/usr/share/man/man3  \
+		-Dpager=/usr/bin/pager         \
+		-Duseshrplib                   \
+		-Dlibperl=libperl.so.${pkgver} \
+		-des -Uafs -Ud_csh -Ud_ualarm  \
+		-Uusesfio -Uusenm -Ui_libutil  \
+		-Dcccdlflags='-fPIC'   \
+		-Dcc="${CC}" \
+		-Doptimize="${CFLAGS}"
+
+	make libperl.so.${pkgver} SHRPLDFLAGS='$(LDDLFLAGS) -Wl,-soname,libperl.so.${_perlmajor}'
+
+	ln -sfv libperl.so.${pkgver} libperl.so.${_perlmajor}
+	ln -sfv libperl.so.${_perlmajor} libperl.so
+
+	make all
+}
+
+package() {
+	cd "${srcdir}/perl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/bin/perl${pkgver}"
+	rm -rf "${pkgdir}/usr/lib/perl/${_perlmajor}/.packlist"
+	rm -rf "${pkgdir}/usr/lib/perl/${_perlmajor}/CORE/libperl.so"
+	rm -rf "${pkgdir}/usr/lib/perl/${_perlmajor}/CORE/libperl.so.${_perlmajor}"
+
+	mv -v "${pkgdir}/usr/lib/perl/${_perlmajor}/CORE/libperl.so.${pkgver}" "${pkgdir}/usr/lib"
+	ln -sfv libperl.so.${pkgver} "${pkgdir}/usr/lib/libperl.so.${_perlmajor}"
+	ln -sfv libperl.so.${_perlmajor} "${pkgdir}/usr/lib/libperl.so"
+
+	chmod 755 "${pkgdir}/usr/lib/libperl.so.${pkgver}"
+
+	ln -sfv perl "${pkgdir}/usr/bin/perl${pkgver}"
+
+	sed -e '/(makepl_arg =>/   s/""/"INSTALLDIRS=vendor"/' \
+		-e '/(mbuildpl_arg =>/ s/""/"installdirs=vendor"/' \
+		-i "${pkgdir}/usr/share/perl/${_perlmajor}/CPAN/FirstTime.pm"
+
+	mv -v "${pkgdir}/usr/lib/perl/${_perlmajor}" "${pkgdir}/usr/lib/perl/${pkgver}"
+	mv -v "${pkgdir}/usr/share/perl/${_perlmajor}" "${pkgdir}/usr/share/perl/${pkgver}"
+
+	ln -sfv ${pkgver} "${pkgdir}/usr/lib/perl/${_perlmajor}"
+	ln -sfv ${pkgver} "${pkgdir}/usr/share/perl/${_perlmajor}"
+}
+
+md5sums=('178ee0e8fa544dbc76d99cf041e2c9f0')

@@ -1,0 +1,54 @@
+pkgname=python3
+_py3majorver=3.6
+_py3minorver=0
+pkgver=${_py3majorver}.${_py3minorver}
+pkgrel=1
+pkgdesc="A high-level scripting language"
+arch=('x86_64')
+url="http://www.python.org/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz"
+	"python3-bdb.patch")
+
+prepare() {
+	cd "${srcdir}/Python-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/python3-bdb.patch"
+
+	rm -rf Modules/expat Modules/zlib Modules/_ctypes/{darwin,libffi}*
+
+	sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python3|" Lib/cgi.py
+}
+
+build() {
+	cd "${srcdir}/Python-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-shared \
+		--with-system-expat \
+		--with-system-ffi \
+		--without-ensurepip \
+		--with-dbmliborder=bdb:gdbm:ndbm
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Python-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	sed -i "s#$PWD:##" "${pkgdir}/usr/lib/python${_py3majorver}/config-${_py3majorver}m-x86_64-linux-gnu/Makefile" \
+		"${pkgdir}/usr/lib/python${_py3majorver}/_sysconfigdata_m_linux_x86_64-linux-gnu.py"
+
+	sed -i "s#$PWD##" "${pkgdir}/usr/lib/python${_py3majorver}/config-${_py3majorver}m-x86_64-linux-gnu/Makefile" \
+		"${pkgdir}/usr/lib/python${_py3majorver}/_sysconfigdata_m_linux_x86_64-linux-gnu.py"
+
+	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{distutils/tests,unittest/test,lib2to3/tests,idlelib/idle_test}
+	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{ctypes/test,tkinter/test,test,sqlite3/test}
+}
+
+md5sums=('82b143ebbf4514d7e05876bed7a6b1f5'
+         '7c18d200bdd31f975c3a29a9af49a2f9')

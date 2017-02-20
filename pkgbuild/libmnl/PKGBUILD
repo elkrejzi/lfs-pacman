@@ -1,0 +1,31 @@
+pkgname=libmnl
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="Minimalistic user-space library oriented to Netlink developers"
+arch=('x86_64')
+url="https://www.netfilter.org/projects/libmnl/"
+license=('LGPL2.1')
+groups=('core')
+#depends=()
+source=("http://netfilter.org/projects/libmnl/files/libmnl-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libmnl-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmnl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libmnl.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libmnl.so") "${pkgdir}/usr/lib/libmnl.so"
+}
+
+md5sums=('be9b4b5328c6da1bda565ac5dffadb2d')

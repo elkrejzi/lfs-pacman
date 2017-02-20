@@ -1,0 +1,28 @@
+pkgname=wget
+pkgver=1.19.1
+pkgrel=1
+pkgdesc="A network utility to retrieve files from the Web"
+arch=('x86_64')
+url="https://www.gnu.org/software/wget/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/wget/wget-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/wget-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-ssl=openssl
+
+	make
+}
+
+package() {
+	cd "${srcdir}/wget-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d30d82186b93fcabb4116ff513bfa9bd')

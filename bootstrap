@@ -1,0 +1,55 @@
+#!/bin/bash -e
+
+. $(dirname ${0})/shared.sh
+
+install -dm755 ${LFS}/{etc,dev,proc}
+install -dm755 ${LFS}/var/lib/pacman
+install -dm755 ${LFS}/var/cache/pacman/pkg
+
+/tools/bin/pacman -D -kk
+
+mknod -m 600 ${LFS}/dev/console c 5 1
+mknod -m 666 ${LFS}/dev/null c 1 3
+
+mount --bind /dev ${LFS}/dev
+mount --bind /dev/pts ${LFS}/dev/pts
+
+mount -t proc none ${LFS}/proc
+
+cat > ${LFS}/etc/group << EOF
+root:x:0:root
+pkgbuild:x:${PKGBUILD_ID}:pkgbuild
+EOF
+
+cat > ${LFS}/etc/passwd << EOF
+root:x:0:0:root:/:/tools/bin/bash
+pkgbuild:x:${PKGBUILD_ID}:${PKGBUILD_ID}:pkgbuild:${BUILDDIR}:/tools/bin/bash
+EOF
+
+lfs_chroot_build_temp filesystem
+
+umount ${LFS}/dev/pts ${LFS}/dev ${LFS}/proc
+
+rm -rf ${LFS}/{dev,etc,proc}
+
+lfs_pacman_install_temp filesystem
+
+ln -sf /tools/bin/{bash,cat,echo,pwd,stty} ${LFS}/bin
+ln -sf /tools/bin/perl ${LFS}/usr/bin
+
+ln -sf /tools/lib/libgcc_s.so ${LFS}/usr/lib
+ln -sf /tools/lib/libgcc_s.so.1 ${LFS}/lib
+
+ln -sf /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib
+ln -sf /tools/lib32/libgcc_s.so{,.1} ${LFS}/usr/lib32
+ln -sf /tools/lib32/libstdc++.so{,.6} ${LFS}/usr/lib32
+
+ln -sf /tools/lib/libc++.so{,.1} ${LFS}/usr/lib
+ln -sf /tools/lib/libc++abi.so{,.1} ${LFS}/usr/lib
+ln -sf /tools/lib32/libc++.so{,.1} ${LFS}/usr/lib32
+ln -sf /tools/lib32/libc++abi.so{,.1} ${LFS}/usr/lib32
+
+ln -sf /tools/lib/libomp.so ${LFS}/usr/lib
+ln -sf /tools/lib32/libomp.so ${LFS}/usr/lib32
+
+ln -sf bash ${LFS}/bin/sh

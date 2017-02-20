@@ -1,0 +1,53 @@
+pkgname=openssl
+_basever=1.0.2k
+pkgver=${_basever/[a-z]/.${_ver//[0-9.]/}}
+pkgrel=1
+pkgdesc="The Open Source toolkit for Secure Sockets Layer and Transport Layer Security"
+arch=('x86_64')
+url="https://www.openssl.org"
+license=('custom:BSD')
+groups=('core')
+#depends=()
+source=("https://www.openssl.org/source/openssl-${_basever}.tar.gz"
+	"openssl.patch"
+	"openssl-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/openssl-${_basever}"
+
+	patch -Np1 -i "${srcdir}/openssl.patch"
+	patch -Np1 -i "${srcdir}/openssl-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/openssl-${_basever}"
+
+	./Configure --prefix=/usr \
+		--openssldir=/etc/ssl \
+		--libdir=lib \
+		shared \
+		no-ssl3-method \
+		enable-ec_nistp_64_gcc_128 \
+		linux-x86_64 \
+		"-Wa,--noexecstack ${CFLAGS}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/openssl-${_basever}"
+
+	make install INSTALL_PREFIX="${pkgdir}" MANDIR=/usr/share/man MANSUFFIX=ssl
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libcrypto.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcrypto.so") "${pkgdir}/usr/lib/libcrypto.so"
+
+	mv -v "${pkgdir}"/usr/lib/libssl.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libssl.so") "${pkgdir}/usr/lib/libssl.so"
+}
+
+md5sums=('f965fc0bf01bf882b31314b61391ae65'
+         '4eb9c732853759e6413ede085da242e8'
+         'db010eb5d83da0242807ad76782ec8a8')

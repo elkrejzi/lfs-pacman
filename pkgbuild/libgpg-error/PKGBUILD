@@ -1,0 +1,33 @@
+pkgname=libgpg-error
+pkgver=1.26
+pkgrel=1
+pkgdesc="Support library for libgcrypt"
+arch=('x86_64')
+url="http://www.gnupg.org"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libgpg-error-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgpg-error-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libgpg-error.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libgpg-error.so") "${pkgdir}/usr/lib/libgpg-error.so"
+
+	rm -rf "${pkgdir}/usr/share/common-lisp"
+}
+
+md5sums=('97456709dbbcbb69354317ffe3e347cd')

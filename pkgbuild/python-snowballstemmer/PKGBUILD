@@ -1,0 +1,39 @@
+pkgbase=python-snowballstemmer
+pkgname=('python2-snowballstemmer' 'python3-snowballstemmer')
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="16 stemmer algorithms (15 + Poerter English stemmer) generated from Snowball algorithms"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/snowballstemmer/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/snowballstemmer/snowballstemmer-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/snowballstemmer-${pkgver}" "${srcdir}/snowballstemmer-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/snowballstemmer-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/snowballstemmer-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-snowballstemmer() {
+	cd "${srcdir}/snowballstemmer-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-snowballstemmer() {
+	cd "${srcdir}/snowballstemmer-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('643b019667a708a922172e33a99bf2fa')

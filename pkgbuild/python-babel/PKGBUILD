@@ -1,0 +1,41 @@
+pkgbase=python-babel
+pkgname=('python2-babel' 'python3-babel')
+pkgver=2.3.4
+pkgrel=1
+pkgdesc="Internationalization utilities"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/Babel/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/B/Babel/Babel-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/Babel-${pkgver}" "${srcdir}/Babel-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/Babel-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/Babel-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-babel() {
+	cd "${srcdir}/Babel-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	mv "${pkgdir}"/usr/bin/pybabel{,3}
+}
+
+package_python2-babel() {
+	cd "${srcdir}/Babel-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('afa20bc55b0e991833030129ad498f35')

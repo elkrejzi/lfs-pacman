@@ -1,0 +1,9 @@
+post_install() {
+	install-catalog --add /etc/sgml/OpenJade.cat /usr/share/sgml/OpenJade/catalog > /dev/null 2>&1
+	install-catalog --add /etc/sgml/sgml-docbook.cat /etc/sgml/OpenJade.cat > /dev/null 2>&1
+}
+
+pre_remove() {
+	install-catalog --remove /etc/sgml/OpenJade.cat /usr/share/sgml/OpenJade/catalog > /dev/null 2>&1
+	install-catalog --remove /etc/sgml/sgml-docbook.cat /etc/sgml/OpenJade.cat > /dev/null 2>&1
+}

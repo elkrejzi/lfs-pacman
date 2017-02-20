@@ -1,0 +1,40 @@
+pkgname=db
+pkgver=6.2.23
+pkgrel=1
+pkgdesc="The Berkeley DB embedded database system"
+arch=('x86_64')
+url="http://www.oracle.com/technology/software/products/berkeley-db/index.html"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://download.oracle.com/berkeley-db/db-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/db-${pkgver}/build_unix"
+
+	export CC="gcc"
+	export CXX="g++"
+
+	../dist/configure --prefix=/usr \
+		--enable-compat185 \
+		--enable-cxx \
+		--enable-dbm \
+		--enable-stl \
+		--enable-sql \
+		--enable-tcl \
+		--with-tcl=/usr/lib
+
+	unset CC CXX
+
+	make
+}
+
+package() {
+	cd "${srcdir}/db-${pkgver}/build_unix"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/docs"
+}
+
+md5sums=('9da126afb937a48171ff1e569ce67cf1')

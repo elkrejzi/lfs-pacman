@@ -1,0 +1,39 @@
+pkgbase=python-isodate
+pkgname=('python2-isodate' 'python3-isodate')
+pkgver=0.5.4
+pkgrel=1
+pkgdesc="An ISO 8601 date/time/duration parser and formatter"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/isodate/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/i/isodate/isodate-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/isodate-${pkgver}" "${srcdir}/isodate-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/isodate-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/isodate-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-isodate() {
+	cd "${srcdir}/isodate-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-isodate() {
+	cd "${srcdir}/isodate-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('9da3ea2af54a6261d854e73d2266030e')

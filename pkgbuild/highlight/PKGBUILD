@@ -1,0 +1,24 @@
+pkgname=highlight
+pkgver=3.34
+pkgrel=1
+pkgdesc="Fast and flexible source code highlighter (CLI version)"
+arch=('x86_64')
+url="http://www.andre-simon.de/doku/highlight/highlight.html"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("http://www.andre-simon.de/zip/highlight-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/highlight-${pkgver}"
+
+	make CXX="${CXX}"
+}
+
+package() {
+	cd "${srcdir}/highlight-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6c886515231f5c16eca991a736eefe6e')

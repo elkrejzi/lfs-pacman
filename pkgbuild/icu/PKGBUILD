@@ -1,0 +1,32 @@
+pkgname=icu
+pkgver=58.2
+pkgrel=1
+pkgdesc="International Components for Unicode library"
+arch=('x86_64')
+url="http://www.icu-project.org/"
+license=('custom:icu')
+groups=('core')
+#depends=()
+source=("http://download.icu-project.org/files/${pkgname}4c/${pkgver}/${pkgname}4c-${pkgver//./_}-src.tgz")
+
+prepare() {
+	cd "${srcdir}/icu/source"
+
+	sed -i "/xlocale.h/i #   include <locale.h>" i18n/digitlst.cpp
+}
+
+build() {
+	cd "${srcdir}/icu/source"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/icu/source"
+
+	make -j1 install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fac212b32b7ec7ab007a12dff1f3aea1')

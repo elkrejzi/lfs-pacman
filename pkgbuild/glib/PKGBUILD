@@ -1,0 +1,44 @@
+# libalpmhook
+pkgname=glib
+pkgver=2.50.3
+pkgrel=1
+pkgdesc="Low level core library"
+arch=('x86_64')
+url="http://www.gtk.org/"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
+	"glib-compile-schemas-quiet.patch")
+
+prepare() {
+	cd "${srcdir}/glib-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
+}
+
+build() {
+	cd "${srcdir}/glib-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-pcre=system \
+		--with-python=/usr/bin/python3
+
+	make
+}
+
+package() {
+	cd "${srcdir}/glib-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/share/gdb"
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libglib-2.0.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libglib-2.0.so") "${pkgdir}/usr/lib/libglib-2.0.so"
+}
+
+md5sums=('381ab22934f296750d036aa55a397ded'
+         '9a2c5949a8d352c5887c099ed3a9003d')

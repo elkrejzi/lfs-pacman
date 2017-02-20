@@ -1,0 +1,26 @@
+pkgname=mpc
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="Library for the arithmetic of complex numbers with arbitrarily high precision"
+arch=('x86_64')
+url="http://www.multiprecision.org/"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/mpc/mpc-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/mpc-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mpc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d6a1d5f8ddea3abd2cc3e98f58352d26')

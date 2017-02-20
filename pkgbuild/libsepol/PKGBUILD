@@ -1,0 +1,24 @@
+pkgname=libsepol
+pkgver=2.6
+pkgrel=1
+pkgdesc="SELinux binary policy manipulation library"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libsepol-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libsepol-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libsepol-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('dc1dfd31aea4c6e4b521f3aa2bddf7de')

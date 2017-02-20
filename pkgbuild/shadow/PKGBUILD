@@ -1,0 +1,86 @@
+pkgname=shadow
+pkgver=4.4
+pkgrel=1
+pkgdesc="Password and account management tool suite with support for shadow files and PAM"
+arch=('x86_64')
+url='https://github.com/shadow-maint/shadow'
+license=('BSD')
+groups=('core')
+#depends=()
+source=("https://github.com/shadow-maint/shadow/releases/download/${pkgver}/shadow-${pkgver}.tar.xz"
+	"chage"
+	"login"
+	"passwd"
+	"su")
+
+prepare() {
+	cd "${srcdir}/shadow-${pkgver}"
+
+	sed -i 's/groups$(EXEEXT) //' src/Makefile.in
+
+	find man -name Makefile.in -exec sed -i 's/groups\.1 / /' {} \;
+
+	sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
+		-e 's@/var/spool/mail@/var/mail@' etc/login.defs
+
+	sed -i -e 's@PATH=/sbin:/bin:/usr/sbin:/usr/bin@&:/usr/local/sbin:/usr/local/bin@' \
+		-e 's@PATH=/bin:/usr/bin@&:/usr/local/bin@' etc/login.defs
+
+	sed -i -e '/snprintf/s@_msg,@_msg, 256,@' src/su.c
+	sed -i -e '47 d' -e '60,65 d' libmisc/myname.c
+}
+
+build() {
+	cd "${srcdir}/shadow-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-selinux \
+		--with-group-name-max-length=32
+
+	make
+}
+
+package() {
+	cd "${srcdir}/shadow-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	for FUNCTION in FAIL_DELAY FAILLOG_ENAB \
+		LASTLOG_ENAB \
+		MAIL_CHECK_ENAB \
+		OBSCURE_CHECKS_ENAB \
+		PORTTIME_CHECKS_ENAB \
+		QUOTAS_ENAB \
+		CONSOLE MOTD_FILE \
+		FTMP_FILE NOLOGINS_FILE \
+		ENV_HZ PASS_MIN_LEN \
+		SU_WHEEL_ONLY \
+		CRACKLIB_DICTPATH \
+		PASS_CHANGE_TRIES \
+		PASS_ALWAYS_WARN \
+		CHFN_AUTH ENCRYPT_METHOD \
+		ENVIRON_FILE
+	do
+		sed -i "s/^${FUNCTION}/# &/" "${pkgdir}/etc/login.defs"
+	done
+
+	sed -i 's/yes/no/' "${pkgdir}/etc/default/useradd"
+
+	for F in chage login passwd su
+	do
+		install -v -m644 "${srcdir}/${F}" "${pkgdir}/etc/pam.d/${F}"
+	done
+
+	for PROGRAM in chfn chgpasswd chpasswd chsh groupadd groupdel \
+		groupmems groupmod newusers useradd userdel usermod
+	do
+		sed "s:chage:${PROGRAM}:g" "${srcdir}/chage" > "${pkgdir}/etc/pam.d/${PROGRAM}"
+	done
+}
+
+md5sums=('c06f8c2571b44899e60662f9ad259dd6'
+         '6cfcfabf9c11d0518e3b0130d5d6b591'
+         '8b46d31d64f2e74619a567554312732d'
+         'cd389067eb976d1bf3f58091bcd72ade'
+         '713f0bf733ee090e2bed4b569dcc294c')

@@ -1,0 +1,26 @@
+pkgname=diffutils
+pkgver=3.5
+pkgrel=1
+pkgdesc="Utility programs used for creating patch files"
+arch=('x86_64')
+url="https://www.gnu.org/software/diffutils/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/diffutils/diffutils-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/diffutils-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/diffutils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('569354697ff1cfc9a9de3781361015fa')

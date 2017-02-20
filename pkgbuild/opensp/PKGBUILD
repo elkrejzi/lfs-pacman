@@ -1,0 +1,48 @@
+pkgname=opensp
+pkgver=1.5.2
+pkgrel=1
+pkgdesc="A library and a set of tools for validating, parsing and manipulating SGML and XML documents"
+arch=('x86_64')
+url="http://openjade.sourceforge.net/"
+license=('BSD')
+groups=('core')
+#depends=()
+source=("https://downloads.sourceforge.net/openjade/OpenSP-${pkgver}.tar.gz"
+	"OpenSP.patch")
+
+prepare() {
+	cd "${srcdir}/OpenSP-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/OpenSP.patch"
+}
+
+build() {
+	cd "${srcdir}/OpenSP-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--disable-doc-build \
+		--enable-http \
+		--enable-default-catalog=/etc/sgml/catalog \
+		--enable-default-search-path=/usr/share/sgml
+
+	make pkgdatadir=/usr/share/sgml/OpenSP
+}
+
+package() {
+	cd "${srcdir}/OpenSP-${pkgver}"
+
+	make install DESTDIR="${pkgdir}" pkgdatadir=/usr/share/sgml/OpenSP
+
+	for file in nsgmls sgmlnorm spam spcat spent sx
+	do
+	ln -sfv o${file} "${pkgdir}/usr/bin/${file}"
+	done
+
+	ln -sfv osx "${pkgdir}/usr/bin/sgml2xml"
+	ln -sfv libosp.so "${pkgdir}/usr/lib/libsp.so"
+}
+
+md5sums=('670b223c5d12cee40c9137be86b6c39b'
+         '18b2182249dd97ec2d55465946c3c388')

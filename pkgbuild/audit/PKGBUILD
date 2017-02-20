@@ -1,0 +1,35 @@
+pkgname=audit
+pkgver=2.7.2
+pkgrel=1
+pkgdesc="Userspace components of the audit framework"
+arch=('x86_64')
+url="https://people.redhat.com/sgrubb/audit"
+license=(GPL)
+groups=('core')
+#depends=()
+source=("https://people.redhat.com/sgrubb/audit/audit-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/audit-${pkgver}"
+
+	sed -i "s#/sbin#/usr&#g" init.d/auditd.service
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-systemd \
+		--disable-zos-remote \
+		--without-golang \
+		--without-python{,3}
+
+	make
+}
+
+package() {
+	cd "${srcdir}/audit-${pkgver}"
+
+	make install initdir=/lib/systemd/system DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/libexec"
+}
+
+md5sums=('dcda449144d44030344c6a975769d44d')

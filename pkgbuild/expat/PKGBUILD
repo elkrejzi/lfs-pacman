@@ -1,0 +1,26 @@
+pkgname=expat
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="An XML parser library"
+arch=('x86_64')
+url="http://expat.sourceforge.net/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://downloads.sourceforge.net/expat/expat-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/expat-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/expat-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2f47841c829facb346eb6e3fab5212e2')

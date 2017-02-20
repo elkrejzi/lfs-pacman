@@ -1,0 +1,33 @@
+pkgname=nano
+pkgver=2.7.4
+pkgrel=1
+pkgdesc="Pico editor clone with enhancements"
+arch=('x86_64')
+url="http://www.nano-editor.org"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://nano-editor.org/dist/v${pkgver:0:3}/nano-${pkgver}.tar.xz"
+	"nanorc")
+
+build() {
+	cd "${srcdir}/nano-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc --enable-utf8
+
+	make
+}
+
+package() {
+	cd "${srcdir}/nano-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	ln -sfv nano "${pkgdir}/usr/bin/editor"
+
+	install -v -dm755 "${pkgdir}/etc"
+
+	install -v -m644 "${srcdir}/nanorc" "${pkgdir}/etc"
+}
+md5sums=('c011c7f9e47cb1da27d4e7cc8b56ec6a'
+         'fc57b93c907fefbccf12317d40b4a204')

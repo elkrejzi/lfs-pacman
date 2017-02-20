@@ -1,0 +1,44 @@
+pkgname=sqlite
+_srcver=3170000
+pkgver=3.17.0
+pkgrel=1
+pkgdesc="A C library that implements an SQL database engine"
+arch=('x86_64')
+url="http://www.sqlite.org/"
+license=('custom:Public Domain')
+groups=('core')
+#depends=()
+source=("https://sqlite.org/2017/sqlite-autoconf-${_srcver}.tar.gz")
+
+build() {
+	export CFLAGS="${CFLAGS} -DSQLITE_ENABLE_FTS3=1 \
+		-DSQLITE_ENABLE_FTS5=1            \
+		-DSQLITE_ENABLE_COLUMN_METADATA=1 \
+		-DSQLITE_ENABLE_UNLOCK_NOTIFY=1   \
+		-DSQLITE_ENABLE_DBSTAT_VTAB=1     \
+		-DSQLITE_ENABLE_FTS3_TOKENIZER=1  \
+		-DSQLITE_SECURE_DELETE=1"
+
+	cd "${srcdir}/sqlite-autoconf-${_srcver}"
+
+	./configure --prefix=/usr --enable-fts5
+
+	make
+
+	cd "${srcdir}/sqlite-autoconf-${_srcver}/tea"
+
+	./configure --prefix=/usr \
+		--with-system-sqlite \
+		--with-tcl=/usr/lib
+
+	make
+}
+
+package() {
+	cd "${srcdir}/sqlite-autoconf-${_srcver}"
+
+	make install DESTDIR="${pkgdir}"
+	make -C tea install DESTDIR="${pkgdir}"
+}
+
+md5sums=('450a95a7bde697c9fe4de9ae2fffdcca')

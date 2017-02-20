@@ -1,0 +1,12 @@
+# Begin /etc/pam.d/su
+
+auth	 sufficient     pam_rootok.so
+auth	 include        system-auth
+
+account  include        system-account
+
+session  required       pam_env.so
+session  optional       pam_mail.so nopen
+session  include        system-session
+
+# End /etc/pam.d/su

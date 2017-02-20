@@ -1,0 +1,57 @@
+pkgbase=libutil-linux
+pkgname=('libutil-linux' 'mount')
+pkgver=2.29.1
+pkgrel=1
+pkgdesc="Miscellaneous system utilities for Linux (shared libraries)"
+arch=('x86_64')
+url="https://www.kernel.org/pub/linux/utils/util-linux/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver:0:4}/util-linux-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/util-linux-${pkgver}"
+
+	./configure --enable-mesg \
+		--disable-nologin \
+		--disable-chfn-chsh \
+		--disable-su \
+		--disable-login \
+		--disable-kill \
+		--with-selinux \
+		--without-python \
+		--without-systemd
+
+	make libfdisk.la libmount.la libsmartcols.la
+	make mount umount
+}
+
+package_libutil-linux() {
+	cd "${srcdir}/util-linux-${pkgver}"
+
+	make install-usrlib_execLTLIBRARIES install-data-am DESTDIR="${pkgdir}"
+
+	make install-exec-hook-libuuid \
+		install-exec-hook-libblkid \
+		install-exec-hook-libmount \
+		install-exec-hook-libsmartcols \
+		install-exec-hook-libfdisk \
+		DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/lib/systemd" "${pkgdir}/usr/share"
+}
+
+package_mount() {
+	cd "${srcdir}/util-linux-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/bin" "${pkgdir}"/usr/share/man/man{5,8}
+
+	install -v -m755 -t "${pkgdir}/bin" .libs/mount .libs/umount
+	install -v -m644 -t "${pkgdir}/usr/share/man/man8" sys-utils/mount.8 sys-utils/umount.8
+	install -v -m644 sys-utils/fstab.5 "${pkgdir}/usr/share/man/man5"
+
+	make install-exec-hook-mount DESTDIR="${pkgdir}"
+}
+
+md5sums=('0cbb6d16ab9c5736e5649ef1264bee6e')

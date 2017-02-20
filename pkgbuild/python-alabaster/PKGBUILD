@@ -1,0 +1,39 @@
+pkgbase=python-alabaster
+pkgname=('python2-alabaster' 'python3-alabaster')
+pkgver=0.7.9
+pkgrel=1
+pkgdesc="A configurable sidebar-enabled Sphinx theme"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/alabaster/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/a/alabaster/alabaster-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/alabaster-${pkgver}" "${srcdir}/alabaster-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/alabaster-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/alabaster-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-alabaster() {
+	cd "${srcdir}/alabaster-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-alabaster() {
+	cd "${srcdir}/alabaster-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('b29646a8bbe7aa52830375b7d17b5d7a')

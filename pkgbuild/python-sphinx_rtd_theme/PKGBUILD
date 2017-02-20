@@ -1,0 +1,39 @@
+pkgbase=python-sphinx_rtd_theme
+pkgname=('python2-sphinx_rtd_theme' 'python3-sphinx_rtd_theme')
+pkgver=0.1.9
+pkgrel=1
+pkgdesc="ReadTheDocs.org theme for Sphinx, 2013 version"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/sphinx_rtd_theme/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/sphinx_rtd_theme/sphinx_rtd_theme-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/sphinx_rtd_theme-${pkgver}" "${srcdir}/sphinx_rtd_theme-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/sphinx_rtd_theme-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/sphinx_rtd_theme-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-sphinx_rtd_theme() {
+	cd "${srcdir}/sphinx_rtd_theme-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-sphinx_rtd_theme() {
+	cd "${srcdir}/sphinx_rtd_theme-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('86a25c8d47147c872e42dc84cc66f97b')

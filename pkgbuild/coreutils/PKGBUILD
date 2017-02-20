@@ -1,0 +1,37 @@
+pkgname=coreutils
+pkgver=8.26
+pkgrel=1
+pkgdesc="The basic file, shell and text manipulation utilities of the GNU operating system"
+arch=('x86_64')
+url="https://www.gnu.org/software/coreutils/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/coreutils/coreutils-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/coreutils-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-openssl \
+		--enable-no-install-program=kill,uptime
+
+	make
+}
+
+package() {
+	cd "${srcdir}/coreutils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/usr/sbin"
+
+	mv -v "${pkgdir}"/usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} "${pkgdir}/bin"
+	mv -v "${pkgdir}"/usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} "${pkgdir}/bin"
+	mv -v "${pkgdir}"/usr/bin/{rmdir,stty,sync,true,uname} "${pkgdir}/bin"
+	mv -v "${pkgdir}"/usr/bin/{head,sleep,nice,test,[} "${pkgdir}/bin"
+
+	mv -v "${pkgdir}/usr/bin/chroot" "${pkgdir}/usr/sbin"
+}
+
+md5sums=('d5aa2072f662d4118b9f4c63b94601a6')

@@ -1,0 +1,31 @@
+pkgname=gzip
+pkgver=1.8
+pkgrel=1
+pkgdesc="GNU compression utility"
+arch=('x86_64')
+url="https://www.gnu.org/software/gzip/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/gzip/gzip-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gzip-${pkgver}"
+
+	./configure --prefix=/usr --bindir=/bin
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gzip-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+
+	mv -v "${pkgdir}"/bin/{gzexe,uncompress,zcmp,zdiff,zegrep} "${pkgdir}/usr/bin"
+	mv -v "${pkgdir}"/bin/{zfgrep,zforce,zgrep,zless,zmore,znew} "${pkgdir}/usr/bin"
+}
+
+md5sums=('f7caabb65cddc1a4165b398009bd05b9')

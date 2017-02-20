@@ -1,0 +1,37 @@
+pkgname=attr
+pkgver=2.4.47
+pkgrel=1
+pkgdesc="Extended attribute support library for ACL support"
+arch=('x86_64')
+url="http://savannah.nongnu.org/projects/attr"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("http://download.savannah.gnu.org/releases/attr/attr-${pkgver}.src.tar.gz")
+
+build() {
+	cd "${srcdir}/attr-${pkgver}"
+
+	sed -i "/SUBDIRS/s:man2::" man/Makefile
+
+	export INSTALL_USER=root INSTALL_GROUP=root
+
+	./configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib
+
+	make
+}
+
+package() {
+	cd "${srcdir}/attr-${pkgver}"
+
+	make install install-lib install-dev DIST_ROOT="${pkgdir}"
+
+	chmod -v 755 "${pkgdir}/usr/lib/libattr.so"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libattr.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libattr.so") "${pkgdir}/usr/lib/libattr.so"
+}
+
+md5sums=('84f58dec00b60f2dc8fd1c9709291cc7')

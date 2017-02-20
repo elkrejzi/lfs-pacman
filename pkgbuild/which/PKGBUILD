@@ -1,0 +1,26 @@
+pkgname=which
+pkgver=2.21
+pkgrel=1
+pkgdesc="A utility to show the full path of commands"
+arch=('x86_64')
+url="https://savannah.gnu.org/projects/which/"
+license=('GPL3')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/which/which-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/which-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/which-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('097ff1a324ae02e0a3b0369f07a7544a')

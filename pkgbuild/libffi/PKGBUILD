@@ -1,0 +1,57 @@
+pkgbase=libffi
+pkgname=('libffi' 'lib32-libffi')
+pkgver=3.2.1
+pkgrel=1
+arch=('x86_64')
+url="http://sourceware.org/libffi/"
+license=('MIT')
+groups=('core')
+#depends=()
+source=("ftp://sourceware.org/pub/libffi/libffi-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/libffi{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libffi-${pkgver}"
+
+	./configure --prefix=/usr --enable-pax_emutramp
+
+	cd "${srcdir}/libffi32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32 --enable-pax_emutramp
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libffi-${pkgver}"
+	make -C "${srcdir}/libffi32-${pkgver}"
+}
+
+package_libffi() {
+	pkgdesc="Portable foreign function interface library"
+
+	cd "${srcdir}/libffi-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libffi() {
+	pkgdesc="Portable foreign function interface library (32 bit)"
+
+	cd "${srcdir}/libffi32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('83b89587607e3eb65c70d361f13bab43')

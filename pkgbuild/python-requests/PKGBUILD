@@ -1,0 +1,39 @@
+pkgbase=python-requests
+pkgname=('python2-requests' 'python3-requests')
+pkgver=2.13.0
+pkgrel=1
+pkgdesc="Python HTTP for Humans"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/requests/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/r/requests/requests-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/requests-${pkgver}" "${srcdir}/requests-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/requests-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/requests-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-requests() {
+	cd "${srcdir}/requests-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-requests() {
+	cd "${srcdir}/requests-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('921ec6b48f2ddafc8bb6160957baf444')

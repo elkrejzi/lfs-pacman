@@ -1,0 +1,58 @@
+pkgname=docbook
+pkgver=4.5
+pkgrel=1
+pkgdesc="Document type definitions for verification of SGML data files against the DocBook rule set"
+arch=('x86_64')
+url="http://www.docbook.org/sgml/"
+license=('MIT')
+groups=('core')
+#depends=()
+install=docbook.install
+source=("http://www.docbook.org/sgml/4.5/docbook-4.5.zip"
+	"http://www.docbook.org/sgml/4.4/docbook-4.4.zip"
+	"http://www.docbook.org/sgml/4.3/docbook-4.3.zip"
+	"http://www.docbook.org/sgml/4.2/docbook-4.2.zip"
+	"http://www.docbook.org/sgml/4.1/docbk41.zip"
+	"http://www.docbook.org/sgml/3.1/docbk31.zip"
+	"http://www.docbook.org/sgml/3.0/docbk30.zip")
+noextract=("docbook-4.5.zip" "docbook-4.4.zip" "docbook-4.3.zip" "docbook-4.2.zip" "docbk41.zip" "docbk31.zip" "docbk30.zip")
+
+package() {
+	install -v -dm755 "${srcdir}/install"
+
+	cd "${srcdir}/install"
+
+	for BOOKVER in 3 4
+	do
+		for MINOR in 0 1
+		do
+			if [ "${BOOKVER}${MINOR}" != "40" ]
+			then
+				bsdtar xf "${srcdir}/docbk${BOOKVER}${MINOR}.zip"
+				install -dm755 "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-${BOOKVER}.${MINOR}"
+				install docbook.cat "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-${BOOKVER}.${MINOR}/catalog"
+				ln -sf catalog "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-${BOOKVER}.${MINOR}/docbook.cat"
+				cp -rf *.dtd *.mod *.dcl "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-${BOOKVER}.${MINOR}"
+				rm -rf *
+			fi
+		done
+	done
+
+	for BOOKVER in 2 3 4 5
+	do
+		bsdtar xf "${srcdir}/docbook-4.${BOOKVER}.zip"
+		install -dm755 "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-4.${BOOKVER}"
+		install docbook.cat "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-4.${BOOKVER}/catalog"
+		ln -sf catalog "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-4.${BOOKVER}/docbook.cat"
+		cp -rf *.dtd *.mod *.dcl "${pkgdir}/usr/share/sgml/docbook/sgml-dtd-4.${BOOKVER}"
+		rm -rf *
+	done
+}
+
+md5sums=('07c581f4bbcba6d3aac85360a19f95f7'
+         'f89e1bd0b2c7a361e3f1f739e16b5d0d'
+         'e3beb1b0b2923c24fa55a68e88654b01'
+         '0dfeb94569334dd22a62d90d99fc0630'
+         '489f6ff2a2173eb1e14216c10533ede2'
+         '432749c0c806dbae81c8bcb70da3b5d3'
+         '9a7f5b1b7dd52d0ca4fb080619f0459c')

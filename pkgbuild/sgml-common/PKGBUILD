@@ -1,0 +1,37 @@
+pkgname=sgml-common
+pkgver=0.6.3
+pkgrel=1
+pkgdesc="Tools for maintaining centralized SGML catalogs"
+arch=('x86_64')
+url="http://www.docbook.org/xml/"
+license=('GPL')
+groups=('core')
+#depends=()
+install=sgml-common.install
+source=("ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/sgml-common-${pkgver}.tgz"
+	"sgml-common.patch")
+
+prepare() {
+	cd "${srcdir}/sgml-common-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/sgml-common.patch"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/sgml-common-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/sgml-common-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('103c9828f24820df86e55e7862e28974'
+         'db0a4bb52553c11e3631442d2e09a15d')

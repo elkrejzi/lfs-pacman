@@ -1,0 +1,108 @@
+pkgname=filesystem
+pkgver=1
+pkgrel=1
+pkgdesc="Base file system"
+arch=('x86_64')
+url="https://github.com/elkrejzi/"
+license=('MIT')
+groups=('core')
+options=(emptydirs !zipman)
+#depends=()
+backup=(etc/crypttab
+	etc/fstab
+	etc/group
+	etc/hosts
+	etc/passwd
+	root/.bashrc
+	root/.profile)
+source=("crypttab"
+	"fstab"
+	"group"
+	"host.conf"
+	"hosts"
+	"issue"
+	"ld.so.conf"
+	"lfs-release"
+	"lsb-release"
+	"nsswitch.conf"
+	"os-release"
+	"passwd"
+	"profile"
+	"root.bashrc"
+	"root.profile"
+	"securetty"
+	"shells")
+
+package() {
+	cd "${srcdir}"
+
+	umask 022
+
+	install -dm755 "${pkgdir}"/{boot,dev,home,media,mnt,opt,proc,srv,sys}
+	install -dm755 "${pkgdir}"/etc/{ld.so.conf.d,opt,profile.d} "${pkgdir}/run/lock"
+
+	install -dm755 "${pkgdir}"/{,usr/}{bin,lib,lib32,sbin}
+	install -dm755 "${pkgdir}"/usr/local/{bin,lib,sbin}
+
+	install -dm755 "${pkgdir}"/usr/{,local/}{include,libexec,src}
+	install -dm755 "${pkgdir}"/usr/{,local/}share/{color,dict,doc,info,locale,misc}
+	install -dm755 "${pkgdir}"/usr/{,local/}share/man/man{1..8}
+
+	install -dm755 "${pkgdir}"/var/{cache,local,log,mail,opt,spool}
+	install -dm755 "${pkgdir}"/var/lib/{color,locate,misc}
+
+	ln -sf lib "${pkgdir}/lib64"
+
+	ln -sf ../run "${pkgdir}/var/run"
+	ln -sf ../run/lock "${pkgdir}/var/lock"
+
+	install -dm1777 "${pkgdir}/tmp" "${pkgdir}/var/tmp"
+	install -dm750 "${pkgdir}/root"
+
+	install -m644 crypttab "${pkgdir}/etc/crypttab"
+	install -m644 fstab "${pkgdir}/etc/fstab"
+	install -m644 group "${pkgdir}/etc/group"
+	install -m644 host.conf "${pkgdir}/etc/host.conf"
+	install -m644 hosts "${pkgdir}/etc/hosts"
+	install -m644 issue "${pkgdir}/etc/issue"
+	install -m644 ld.so.conf "${pkgdir}/etc/ld.so.conf"
+	install -m644 lfs-release "${pkgdir}/etc/lfs-release"
+	install -m644 lsb-release "${pkgdir}/etc/lsb-release"
+	install -m644 nsswitch.conf "${pkgdir}/etc/nsswitch.conf"
+	install -m644 os-release "${pkgdir}/etc/os-release"
+	install -m644 passwd "${pkgdir}/etc/passwd"
+	install -m644 profile "${pkgdir}/etc/profile"
+	install -m644 securetty "${pkgdir}/etc/securetty"
+	install -m644 shells "${pkgdir}/etc/shells"
+	install -m644 root.bashrc "${pkgdir}/root/.bashrc"
+	install -m644 root.profile "${pkgdir}/root/.profile" 
+
+	ln -sf /proc/self/mounts "${pkgdir}/etc/mtab"
+
+	chmod 600 "${pkgdir}/etc/crypttab"
+	chmod 640 "${pkgdir}/root/.bashrc" "${pkgdir}/root/.profile"
+
+	touch "${pkgdir}"/var/log/{btmp,lastlog,wtmp}
+
+	chgrp 13 "${pkgdir}/var/log/lastlog"
+	chmod 664 "${pkgdir}/var/log/lastlog"
+	chmod 600 "${pkgdir}/var/log/btmp"
+}
+
+md5sums=('992c880a6b32c46f258c40b064daa377'
+         '736fabba35993c8bff480398ccef0f89'
+         '7342e07932b857c53f36e48539c742d5'
+         '14e7aece617cc7f61e339ddbf97cbd74'
+         '85d6827cc543bb43381533bde343674f'
+         'df7c37b0560c55e45804e5c1a899aa47'
+         'bd722f2ff1dd4b08e3fd8701fe7f8fd5'
+         'b9db959ac489f2d611fd0053dde671ad'
+         'ef44a819a82e419c396aadf773abea28'
+         '3c0d4b2c15d31597b9ccd002965460c7'
+         'db4f62d1876ab55b9017c81115746b23'
+         '21b112dd1538615881a27d7282fe03e6'
+         '1cc6ffead3d40b21beac1e7bc0c6fb8d'
+         'fc4c5646b57a75314786ec2dabad4589'
+         '0569220958112ce0ef985bd476ca3f1e'
+         '2a5d4435a262b4d1ce9f245e3e56bb3d'
+         '2ed0cf9d92e8a8fa49a41918b8a0207f')

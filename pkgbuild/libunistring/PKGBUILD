@@ -1,0 +1,26 @@
+pkgname=libunistring
+pkgver=0.9.7
+pkgrel=1
+pkgdesc="Library for manipulating Unicode strings and C strings"
+arch=('x86_64')
+url="https://www.gnu.org/software/libunistring/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/libunistring/libunistring-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libunistring-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libunistring-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('82e0545363d111bfdfec2ddbfe62ffd3')

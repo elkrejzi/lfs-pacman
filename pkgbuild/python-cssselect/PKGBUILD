@@ -1,0 +1,39 @@
+pkgbase=python-cssselect
+pkgname=('python2-cssselect' 'python3-cssselect')
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="cssselect parses CSS3 Selectors and translates them to XPath 1.0"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/cssselect/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/c/cssselect/cssselect-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/cssselect-${pkgver}" "${srcdir}/cssselect-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/cssselect-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/cssselect-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-cssselect() {
+	cd "${srcdir}/cssselect-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-cssselect() {
+	cd "${srcdir}/cssselect-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('3fa03bf82a9f0b1223c0f1eb1369e139')

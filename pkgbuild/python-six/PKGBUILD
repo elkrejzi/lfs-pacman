@@ -1,0 +1,39 @@
+pkgbase=python-six
+pkgname=('python2-six' 'python3-six')
+pkgver=1.10.0
+pkgrel=1
+pkgdesc="Python 2 and 3 compatibility utilities"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/six/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/six/six-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/six-${pkgver}" "${srcdir}/six-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/six-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/six-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-six() {
+	cd "${srcdir}/six-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-six() {
+	cd "${srcdir}/six-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('34eed507548117b2ab523ab14b2f8b55')

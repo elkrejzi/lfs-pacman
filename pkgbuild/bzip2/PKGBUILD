@@ -1,0 +1,51 @@
+pkgname=bzip2
+pkgver=1.0.6
+pkgrel=1
+pkgdesc="A high-quality data compression program"
+arch=('x86_64')
+url="http://www.bzip.org/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://www.bzip.org/${pkgver}/bzip2-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/bzip2-${pkgver}"
+
+	sed -i 's/^CFLAGS=\(.*\)$/CFLAGS=\1 \$(BIGFILES)/' Makefile-libbz2_so
+
+	sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+	sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+
+	sed -i "s|-O2|${CFLAGS}|g" Makefile
+	sed -i "s|-O2|${CFLAGS}|g" Makefile-libbz2_so
+
+	sed -i "s|CC=gcc|CC=${CC}|" Makefile
+	sed -i "s|CC=gcc|CC=${CC}|" Makefile-libbz2_so
+
+	unset CFLAGS
+
+	make -f Makefile-libbz2_so
+	make clean
+	make
+}
+
+package() {
+	cd "${srcdir}/bzip2-${pkgver}"
+
+	make PREFIX="${pkgdir}/usr" install
+
+	install -v -dm755 "${pkgdir}"/{bin,lib}
+	install -v -m755 bzip2-shared "${pkgdir}/bin/bzip2"
+	install -v -m755 libbz2.so.${pkgver} "${pkgdir}/lib"
+
+	ln -sfv bzip2 "${pkgdir}/bin/bunzip2"
+	ln -sfv bzip2 "${pkgdir}/bin/bzcat"
+	rm -rf "${pkgdir}"/usr/bin/{bunzip2,bzcat,bzip2} "${pkgdir}/usr/lib/libbz2.a"
+
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/lib/libbz2.so.1.0"
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/lib/libbz2.so.1"
+	ln -sfv ../../lib/libbz2.so.${pkgver} "${pkgdir}/usr/lib/libbz2.so"
+}
+
+md5sums=('00b516f4704d4a7cb50a1d97e6e8e15b')

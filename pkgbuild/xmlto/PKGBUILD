@@ -1,0 +1,28 @@
+pkgname=xmlto
+pkgver=0.0.28
+pkgrel=1
+pkgdesc="Convert xml to many other formats"
+arch=('x86_64')
+url="http://cyberelk.net/tim/software/xmlto/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://fedorahosted.org/releases/x/m/xmlto/xmlto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xmlto-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-webbrowser=links \
+		LINKS=/usr/bin/links
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xmlto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('93bab48d446c826399d130d959fe676f')

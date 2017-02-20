@@ -1,0 +1,39 @@
+pkgbase=python-pyparsing
+pkgname=('python2-pyparsing' 'python3-pyparsing')
+pkgver=2.1.10
+pkgrel=1
+pkgdesc="Python parsing module"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/pyparsing/"
+license=('PSF')
+groups=('core')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/p/pyparsing/pyparsing-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/pyparsing-${pkgver}" "${srcdir}/pyparsing-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/pyparsing-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/pyparsing-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-pyparsing() {
+	cd "${srcdir}/pyparsing-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-pyparsing() {
+	cd "${srcdir}/pyparsing-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('065908b92904e0d3634eb156f44cc80e')

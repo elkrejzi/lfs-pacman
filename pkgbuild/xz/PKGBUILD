@@ -1,0 +1,64 @@
+pkgbase=xz
+pkgname=('xz' 'lib32-xz')
+pkgver=5.2.3
+pkgrel=1
+arch=('x86_64')
+url="http://tukaani.org/xz/"
+license=('GPL' 'LGPL' 'custom')
+groups=('core')
+#depends=()
+source=("http://tukaani.org/xz/xz-${pkgver}.tar.xz")
+
+prepare() {
+	cp -a "${srcdir}"/xz{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/xz-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/xz32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/xz-${pkgver}"
+	make -C "${srcdir}/xz32-${pkgver}"
+}
+
+package_xz() {
+	pkgdesc="Library and command line tools for XZ and LZMA compressed files"
+
+	cd "${srcdir}/xz-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/liblzma.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/liblzma.so") "${pkgdir}/usr/lib/liblzma.so"
+
+	mv -v "${pkgdir}"/usr/bin/{lzcat,lzma,unlzma,unxz,xz,xzcat} "${pkgdir}/bin"
+}
+
+package_lib32-xz() {
+	pkgdesc="Library and command line tools for XZ and LZMA compressed files (32 bit)"
+
+	cd "${srcdir}/xz32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('60fb79cab777e3f71ca43d298adacbd5')
