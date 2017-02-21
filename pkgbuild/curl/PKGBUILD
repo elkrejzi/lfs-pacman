@@ -1,0 +1,28 @@
+pkgname=curl
+pkgver=7.52.1
+pkgrel=1
+pkgdesc="An URL retrieval utility and library"
+arch=('x86_64')
+url="https://curl.haxx.se"
+license=('MIT')
+groups=('core')
+#depends=()
+source=("http://curl.haxx.se/download/curl-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/curl-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-threaded-resolver \
+		--with-gssapi
+
+	make
+}
+
+package() {
+	cd "${srcdir}/curl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('dd014df06ff1d12e173de86873f9f77a')

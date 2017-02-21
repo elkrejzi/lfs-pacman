@@ -1,0 +1,26 @@
+pkgname=fixesproto
+pkgver=5.0
+pkgrel=1
+pkgdesc="X11 Fixes extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/fixesproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/fixesproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/fixesproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e7431ab84d37b2678af71e29355e101d')

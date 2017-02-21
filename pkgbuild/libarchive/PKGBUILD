@@ -1,0 +1,26 @@
+pkgname=libarchive
+pkgver=3.3.0
+pkgrel=1
+pkgdesc="library that can create and read several streaming archive formats"
+arch=('x86_64')
+url="http://libarchive.org/"
+license=('BSD')
+groups=('core')
+#depends=()
+source=("http://libarchive.org/downloads/libarchive-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libarchive-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libarchive-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2a2df353a96e132fd04665d17c1561f8')

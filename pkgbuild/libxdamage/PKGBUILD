@@ -1,0 +1,26 @@
+pkgname=libxdamage
+pkgver=1.1.4
+pkgrel=1
+pkgdesc="X11 damaged region extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXdamage-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXdamage-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXdamage-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0cf292de2a9fa2e9a939aefde68fd34f')

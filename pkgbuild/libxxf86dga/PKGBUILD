@@ -1,0 +1,26 @@
+pkgname=libxxf86dga
+pkgver=1.1.4
+pkgrel=1
+pkgdesc="X11 Direct Graphics Access extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXxf86dga-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXxf86dga-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXxf86dga-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d7dd9b9df336b7dd4028b6b56542ff2c')

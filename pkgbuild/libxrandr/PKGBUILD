@@ -1,0 +1,26 @@
+pkgname=libxrandr
+pkgver=1.5.1
+pkgrel=1
+pkgdesc="X11 RandR extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXrandr-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXrandr-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXrandr-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('28e486f1d491b757173dd85ba34ee884')

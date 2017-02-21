@@ -1,0 +1,26 @@
+pkgname=xcb-proto
+pkgver=1.12
+pkgrel=1
+pkgdesc="XML-XCB protocol descriptions"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/xcb/xcb-proto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcb-proto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcb-proto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('14e60919f859560f28426a685a555962')

@@ -1,0 +1,29 @@
+pkgname=gnu-efi-libs
+pkgver=3.0.5
+pkgrel=1
+pkgdesc="Library for building UEFI Applications using GNU toolchain"
+arch=('x86_64')
+url="http://sourceforge.net/projects/gnu-efi/"
+license=('GPL')
+groups=('core')
+#depends=()
+options=(!strip !makeflags !buildflags)
+source=("https://downloads.sourceforge.net/gnu-efi/gnu-efi-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gnu-efi-${pkgver}"
+
+	make lib gnuefi inc apps CC="gcc"
+}
+
+package() {
+	cd "${srcdir}/gnu-efi-${pkgver}"
+
+	make INSTALLROOT="${pkgdir}" PREFIX="/usr" LIBDIR="/usr/lib" install
+
+	install -v -dm755 "${pkgdir}/usr/share/gnu-efi/apps/x86_64"
+	install -v -m644 "${srcdir}"/gnu-efi-${pkgver}/x86_64/apps/*.efi \
+		"${pkgdir}/usr/share/gnu-efi/apps/x86_64/"
+}
+
+md5sums=('1f719c9c135778aa6b087b89a1cc2423')

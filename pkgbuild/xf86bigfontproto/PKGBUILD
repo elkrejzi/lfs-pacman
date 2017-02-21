@@ -1,0 +1,26 @@
+pkgname=xf86bigfontproto
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="X11 Bigfont extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/xf86bigfontproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xf86bigfontproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xf86bigfontproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('120e226ede5a4687b25dd357cc9b8efe')

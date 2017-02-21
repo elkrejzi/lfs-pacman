@@ -1,0 +1,26 @@
+pkgname=compositeproto
+pkgver=0.4.2
+pkgrel=1
+pkgdesc="X11 Composite extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/compositeproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/compositeproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/compositeproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('98482f65ba1e74a08bf5b056a4031ef0')

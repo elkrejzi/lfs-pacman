@@ -1,0 +1,26 @@
+pkgname=libfs
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="X11 Font Services Library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libFS-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libFS-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libFS-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d79d9fe2aa55eb0f69b1a4351e1368f7')

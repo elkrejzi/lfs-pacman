@@ -1,0 +1,26 @@
+pkgname=xcb-util-wm
+pkgver=0.4.1
+pkgrel=1
+pkgdesc="Utility libraries for XC Binding - client and window-manager helpers for ICCCM"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/xcb/xcb-util-wm-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcb-util-wm-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcb-util-wm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('87b19a1cd7bfcb65a24e36c300e03129')

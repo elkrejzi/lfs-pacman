@@ -1,0 +1,35 @@
+pkgname=libxcb
+pkgver=1.12
+pkgrel=1
+pkgdesc="X11 client-side library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/xcb/libxcb-${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/libxcb-${pkgver}"
+
+	sed -e "s/pthread-stubs//" -i configure.ac
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/libxcb-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-xinput \
+		--disable-devel-docs
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxcb-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('28e552bd78bc1050b6b26ca1db0e5bb6')

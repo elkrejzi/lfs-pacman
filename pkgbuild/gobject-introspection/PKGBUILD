@@ -1,0 +1,28 @@
+pkgname=gobject-introspection
+pkgver=1.50.0
+pkgrel=1
+pkgdesc="Introspection system for GObject-based libraries"
+arch=('x86_64')
+url="https://live.gnome.org/GObjectIntrospection"
+license=('LGPL' 'GPL')
+groups=('core')
+#depends=()
+source=("https://download.gnome.org/sources/gobject-introspection/${pkgver:0:4}/gobject-introspection-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gobject-introspection-${pkgver}"
+
+	export PYTHON=python3
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gobject-introspection-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5af8d724f25d0c9cfbe6df41b77e5dc0')

@@ -1,0 +1,26 @@
+pkgname=libxfont2
+pkgver=2.0.1
+pkgrel=1
+pkgdesc="X11 font rasterisation library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXfont2-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXfont2-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXfont2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0d9f6dd9c23bf4bcbfb00504b566baf5')

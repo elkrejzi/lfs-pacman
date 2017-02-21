@@ -1,0 +1,10 @@
+post_install() {
+	getent group ldap >/dev/null || groupadd -g 83 ldap
+	getent passwd ldap >/dev/null || useradd -c "OpenLDAP Daemon Owner" -d /var/lib/openldap -u 83 -g ldap -s /bin/false ldap
+
+	chmod 700 /etc/openldap/slapd.d /var/lib/openldap
+	chown -R ldap:ldap /etc/openldap/slapd.d /var/lib/openldap
+
+	chmod 640 /etc/openldap/slapd.conf /etc/openldap/slapd.ldif
+	chown root:ldap /etc/openldap/slapd.conf /etc/openldap/slapd.ldif
+}

@@ -1,0 +1,26 @@
+pkgname=libice
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="X11 Inter-Client Exchange library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libICE-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libICE-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libICE-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('addfb1e897ca8079531669c7c7711726')

@@ -1,0 +1,58 @@
+pkgname=nss
+pkgver=3.29.1
+pkgrel=1
+pkgdesc="Network Security Services"
+arch=('x86_64')
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
+license=('MPL' 'GPL')
+groups=('core')
+#depends=()
+options=(staticlibs)
+source=("https://ftp.mozilla.org/pub/security/nss/releases/NSS_${pkgver//./_}_RTM/src/nss-${pkgver}.tar.gz"
+	"nss-standalone.patch")
+
+prepare() {
+	cd "${srcdir}/nss-${pkgver}/nss"
+
+	sed -i "/WARNING_CFLAGS/s:Werror:Wall:g" coreconf/Werror.mk
+
+	patch -Np2 -i "${srcdir}/nss-standalone.patch"
+}
+
+build() {
+	cd "${srcdir}/nss-${pkgver}/nss"
+
+	export XCFLAGS="${CFLAGS}"
+	unset CFLAGS
+
+	make nss_build_all BUILD_OPT=1 \
+		NSPR_INCLUDE_DIR=/usr/include/nspr \
+		USE_SYSTEM_ZLIB=1 \
+		ZLIB_LIBS=-lz \
+		NSS_USE_SYSTEM_SQLITE=1 \
+		USE_64=1 \
+		CC="${CC}" CCC="${CXX}" -j1
+}
+
+package() {
+	cd "${srcdir}/nss-${pkgver}/nss"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	install -v -dm755 "${pkgdir}/usr/include/nss"
+	install -v -dm755 "${pkgdir}/usr/lib/pkgconfig"
+
+	install -v -m755 ../dist/Linux*/bin/certutil "${pkgdir}/usr/bin"
+	install -v -m755 ../dist/Linux*/bin/nss-config "${pkgdir}/usr/bin"
+	install -v -m755 ../dist/Linux*/bin/pk12util "${pkgdir}/usr/bin"
+
+	cp -RL ../dist/public/nss/* "${pkgdir}/usr/include/nss"
+	cp -RL ../dist/private/nss/* "${pkgdir}/usr/include/nss"
+
+	install -v -m755 ../dist/Linux*/lib/*.so "${pkgdir}/usr/lib"
+	install -v -m644 ../dist/Linux*/lib/libcrmf.a "${pkgdir}/usr/lib"
+	install -v -m644 ../dist/Linux*/lib/*.chk "${pkgdir}/usr/lib"
+	install -v -m644 ../dist/Linux*/lib/pkgconfig/nss.pc "${pkgdir}/usr/lib/pkgconfig/nss.pc"
+}
+
+md5sums=('0525d1a45931892daa0f368d379d4aa4'
+         'fdce782a63ed66545ebd3a3e33f98fe8')

@@ -1,0 +1,26 @@
+pkgname=xcmiscproto
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="X11 XC-Miscellaneous extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/xcmiscproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcmiscproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcmiscproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5f4847c78e41b801982c8a5e06365b24')

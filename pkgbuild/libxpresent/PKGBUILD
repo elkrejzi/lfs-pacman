@@ -1,0 +1,26 @@
+pkgname=libxpresent
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Xlib-compatible API for the Present extension"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXpresent-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXpresent-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXpresent-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('edd87ac15bb666081898dd7382fcbff5')

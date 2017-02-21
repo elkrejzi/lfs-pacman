@@ -1,0 +1,26 @@
+pkgname=util-macros
+pkgver=1.19.1
+pkgrel=1
+pkgdesc="X.Org Autotools macros"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/util/util-macros-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/util-macros-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/util-macros-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6e76e546a4e580f15cebaf8019ef1625')

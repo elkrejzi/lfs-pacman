@@ -1,0 +1,44 @@
+pkgname=pciutils
+pkgver=3.5.3
+pkgrel=1
+pkgdesc="PCI bus configuration space access library and tools"
+arch=('x86_64')
+url="http://mj.ucw.cz/sw/pciutils/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("https://www.kernel.org/pub/software/utils/pciutils/pciutils-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/pciutils-${pkgver}"
+
+	wget http://pci-ids.ucw.cz/v2.2/pci.ids -O pci.ids
+}
+
+build() {
+	cd "${srcdir}/pciutils-${pkgver}"
+
+  	sed -i "s#gcc#${CC}#g" Makefile
+
+	make PREFIX=/usr \
+		SHAREDIR=/usr/share/misc \
+		SHARED=yes ZLIB=no \
+		OPT="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/pciutils-${pkgver}"
+
+	make PREFIX=/usr \
+		SHAREDIR=/usr/share/misc \
+		SHARED=yes ZLIB=no \
+		OPT="${CFLAGS}" install \
+		install-lib DESTDIR="${pkgdir}"
+
+	chmod 755 "${pkgdir}/usr/lib/libpci.so"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv -v "${pkgdir}/usr/sbin/lspci" "${pkgdir}/usr/bin"
+}
+
+md5sums=('4c436733b99fb0a29a2b7d39e077179c')

@@ -1,0 +1,26 @@
+pkgname=xcb-util-errors
+pkgver=1.0
+pkgrel=1
+pkgdesc="Helper library for printing information about X11 errors"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/xcb/xcb-util-errors-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcb-util-errors-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcb-util-errors-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4e389b65eb5a4b5c0d2958d628df87a8')

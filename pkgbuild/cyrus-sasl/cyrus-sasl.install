@@ -1,0 +1,12 @@
+post_install() {
+	if [ ! -e /var/lib/sasl/sasldb2 ]
+	then
+		install -dm700 /var/lib/sasl
+
+		echo '!' | saslpasswd2 -c 'no:such:user'
+		saslpasswd2 -d 'no:such:user'
+
+		chmod 700 /var/lib/sasl/sasldb2
+		chown root:root /var/lib/sasl/sasldb2
+	fi
+}

@@ -1,0 +1,362 @@
+pkgbase=llvm
+pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang' 'lib32-clang' 'clang-tools-extra' 'lld' 'lldb')
+_realver=4.0.0
+_rcver=rc2
+pkgver=${_realver}.${_rcver}
+pkgrel=1
+arch=('x86_64')
+url="http://www.llvm.org/"
+license=('custom')
+groups=('core')
+#depends=()
+
+if [ -z "${_rcver}" ]
+then
+
+_tarver=${pkgver}
+
+source=("http://www.llvm.org/releases/${pkgver}/llvm-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/cfe-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/compiler-rt-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/libcxx-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/libcxxabi-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/libunwind-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/lld-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/lldb-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/openmp-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/polly-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/releases/${pkgver}/clang-tools-extra-${_tarver}.src.tar.xz")
+
+else
+
+_tarver=${_realver}${_rcver}
+
+source=("http://www.llvm.org/pre-releases/${_realver}/${_rcver}/llvm-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/cfe-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/compiler-rt-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/libcxx-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/libcxxabi-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/libunwind-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/lld-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/lldb-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/openmp-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/polly-${_tarver}.src.tar.xz"
+	"http://www.llvm.org/pre-releases/${_realver}/${_rcver}/clang-tools-extra-${_tarver}.src.tar.xz")
+
+fi
+
+source+=("crtbegin-i386.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/i386/crtbegin.S"
+	"crtbegin-x86_64.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/x86_64/crtbegin.S"
+	"crtend-i386.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/i386/crtend.S"
+	"crtend-x86_64.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/x86_64/crtend.S"
+	"crtfastmath.c"
+	"clang-runtime.patch"
+	"llvm-config.h")
+
+prepare() {
+	cp "${srcdir}/crtfastmath.c" "${srcdir}/crtfastmath-i386.c"
+	cp "${srcdir}/crtfastmath.c" "${srcdir}/crtfastmath-x86_64.c"
+
+	sed -i "/asm.h/d;/RCSID/d" "${srcdir}"/crtbegin-{i386,x86_64}.S
+	sed -i "/asm.h/d;/RCSID/d" "${srcdir}"/crtend-{i386,x86_64}.S
+
+	cd "${srcdir}/cfe-${_tarver}.src"
+
+	patch -Np1 -i "${srcdir}/clang-runtime.patch"
+
+	cd "${srcdir}/openmp-${_tarver}.src"
+
+	sed -i "/LIBOMP_ALIASES/s#libgomp;##g" runtime/src/CMakeLists.txt
+
+	cd "${srcdir}/libcxx-${_tarver}.src"
+
+	sed -i "s:gcc_s:compiler-rt:g" cmake/config-ix.cmake lib/CMakeLists.txt
+
+	rm -rf "${srcdir}/cfe-${_tarver}.src/tools/extra"
+
+	mv -v "${srcdir}/clang-tools-extra-${_tarver}.src" "${srcdir}/cfe-${_tarver}.src/tools/extra"
+
+	rm -rf "${srcdir}"/llvm-${_tarver}.src/projects/{compiler-rt,libcxx,libcxxabi,libunwind,openmp}
+
+	mv -v "${srcdir}/compiler-rt-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/projects/compiler-rt"
+	mv -v "${srcdir}/libcxx-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/projects/libcxx"
+	mv -v "${srcdir}/libcxxabi-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/projects/libcxxabi"
+	mv -v "${srcdir}/libunwind-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/projects/libunwind"
+	mv -v "${srcdir}/openmp-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/projects/openmp"
+
+	rm -rf "${srcdir}"/llvm-${_tarver}.src/tools/{clang,lld,lldb,polly}
+
+	mv -v "${srcdir}/cfe-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/tools/clang"
+	mv -v "${srcdir}/polly-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/tools/polly"
+	mv -v "${srcdir}/lld-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/tools/lld"
+	mv -v "${srcdir}/lldb-${_tarver}.src" "${srcdir}/llvm-${_tarver}.src/tools/lldb"
+
+	rm -rf "${srcdir}/llvm32-${_tarver}.src"
+	cp -a "${srcdir}"/llvm{,32}-${_tarver}.src
+
+	rm -rf "${srcdir}/llvm32-${_tarver}.src/tools/clang/tools/extra"
+	rm -rf "${srcdir}"/llvm32-${_tarver}.src/tools/{lld,lldb}
+
+	rm -rf "${srcdir}"/llvm-build{,32}
+	install -dm755 "${srcdir}"/llvm-build{,32}
+
+}
+
+build() {
+	local cmake_flags_common=(-DCMAKE_INSTALL_PREFIX=/usr
+		-DCMAKE_BUILD_TYPE=Release
+		-DCLANG_DEFAULT_CXX_STDLIB=libc++
+		-DCLANG_DEFAULT_OPENMP_RUNTIME=libomp
+		-DCLANG_DEFAULT_RTLIB=compiler-rt
+		-DCLANG_INCLUDE_TESTS=OFF
+		-DCOMPILER_RT_INCLUDE_TESTS=OFF
+		-DLIBCXX_ENABLE_ASSERTIONS=OFF
+		-DLIBCXX_ENABLE_STATIC=OFF
+		-DLIBCXX_INCLUDE_DOCS=OFF
+		-DLIBCXX_INCLUDE_TESTS=OFF
+		-DLIBCXXABI_ENABLE_ASSERTIONS=OFF
+		-DLIBCXXABI_ENABLE_STATIC=OFF
+		-DLIBCXXABI_USE_COMPILER_RT=ON
+		-DLIBCXXABI_USE_LLVM_UNWINDER=ON
+		-DLIBUNWIND_ENABLE_ASSERTIONS=OFF
+		-DLIBUNWIND_ENABLE_SHARED=OFF
+		-DLLVM_BUILD_LLVM_DYLIB=ON
+		-DLLVM_BUILD_TESTS=OFF
+		-DLLVM_ENABLE_DOXYGEN=OFF
+		-DLLVM_ENABLE_EH=ON
+		-DLLVM_ENABLE_FFI=ON
+		-DLLVM_ENABLE_LIBCXX=ON
+		-DLLVM_ENABLE_RTTI=ON
+		-DLLVM_INCLUDE_EXAMPLES=OFF
+		-DLLVM_INCLUDE_TESTS=OFF
+		-DLLVM_INSTALL_UTILS=ON
+		-DLLVM_LINK_LLVM_DYLIB=ON
+		-DLLVM_TARGETS_TO_BUILD="AMDGPU;X86"
+		-DLLVM_BINUTILS_INCDIR=/usr/include)
+
+	cd "${srcdir}/llvm-build"
+
+	cmake "${cmake_flags_common[@]}" \
+		-DLLVM_BUILD_DOCS=ON \
+		-DLLVM_ENABLE_SPHINX=ON \
+		-DLLVM_INCLUDE_DOCS=ON \
+		-DSPHINX_OUTPUT_HTML=OFF \
+		-DSPHINX_WARNINGS_AS_ERRORS=OFF \
+		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
+		"${srcdir}/llvm-${_tarver}.src"
+
+	cd "${srcdir}/llvm-build32"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	cmake "${cmake_flags_common[@]}" \
+		-DLLVM_LIBDIR_SUFFIX=32 \
+		-DLLVM_TARGET_ARCH=i686 \
+		-DLLVM_DEFAULT_TARGET_TRIPLE=i686-pc-linux-gnu \
+		-DCLANG_INCLUDE_DOCS=OFF \
+		-DLLVM_BUILD_DOCS=OFF \
+		-DLLVM_ENABLE_SPHINX=OFF \
+		-DLLVM_INCLUDE_DOCS=OFF \
+		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
+		-DLLVM_ENABLE_LIBCXX=OFF \
+		"${srcdir}/llvm32-${_tarver}.src"
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/llvm-build"
+	make -C "${srcdir}/llvm-build32"
+
+	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtbegin-x86_64.S" -o "${srcdir}/crtbegin-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtbegin-i386.S" -o "${srcdir}/crtbegin-i386.o"
+
+	clang -g -O2 -fno-stack-protector -fpic -DSHARED -c "${srcdir}/crtbegin-x86_64.S" -o "${srcdir}/crtbeginS-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -DSHARED -c "${srcdir}/crtbegin-i386.S" -o "${srcdir}/crtbeginS-i386.o"
+
+	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtend-x86_64.S" -o "${srcdir}/crtend-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtend-i386.S" -o "${srcdir}/crtend-i386.o"
+
+	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtfastmath-x86_64.c" -o "${srcdir}/crtfastmath-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtfastmath-i386.c" -o "${srcdir}/crtfastmath-i386.o"
+
+	sed -i '/extra\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/tools/clang/tools/cmake_install.cmake
+	sed -i '/\(clang\|lld\|lldb\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/tools/cmake_install.cmake
+	sed -i '/\(compiler-rt\|libcxxabi\|libcxx\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/projects/cmake_install.cmake
+	sed -i '/\(libunwind\|openmp\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/projects/cmake_install.cmake
+
+	rm -rf "${srcdir}"/llvm-install{,32}
+	make -C "${srcdir}/llvm-build" install DESTDIR="${srcdir}/llvm-install"
+	make -C "${srcdir}/llvm-build32" install DESTDIR="${srcdir}/llvm-install32"
+
+	rm -rf "${srcdir}"/llvm-libs-install{,32}
+	for dd in libcxxabi libcxx openmp
+	do
+		make -C "${srcdir}/llvm-build/projects/${dd}" install DESTDIR="${srcdir}/llvm-libs-install"
+		make -C "${srcdir}/llvm-build32/projects/${dd}" install DESTDIR="${srcdir}/llvm-libs-install32"
+	done
+
+	mv "${srcdir}"/llvm-install/usr/lib/libLLVM*.so "${srcdir}/llvm-libs-install/usr/lib"
+	mv "${srcdir}"/llvm-install/usr/lib/libLTO.so* "${srcdir}/llvm-libs-install/usr/lib"
+	mv "${srcdir}"/llvm-install/usr/lib/LLVMgold.so "${srcdir}/llvm-libs-install/usr/lib"
+
+	mv "${srcdir}"/llvm-install32/usr/lib32/libLLVM*.so "${srcdir}/llvm-libs-install32/usr/lib32"
+	mv "${srcdir}"/llvm-install32/usr/lib32/libLTO.so* "${srcdir}/llvm-libs-install32/usr/lib32"
+	mv "${srcdir}"/llvm-install32/usr/lib32/LLVMgold.so "${srcdir}/llvm-libs-install32/usr/lib32"
+}
+
+package_llvm() {
+	pkgdesc="Low Level Virtual Machine"
+
+	cp -a "${srcdir}"/llvm-install/* "${pkgdir}"
+
+	mv -v "${pkgdir}"/usr/include/llvm/Config/llvm-config{,-64}.h
+
+	install -v -m644 "${srcdir}/llvm-config.h" "${pkgdir}/usr/include/llvm/Config/llvm-config.h"
+}
+
+package_lib32-llvm() {
+	pkgdesc="Low Level Virtual Machine (32 bit)"
+
+	cp -a "${srcdir}"/llvm-install32/* "${pkgdir}"
+
+	mv -v "${pkgdir}/usr/bin/llvm-config" "${pkgdir}/usr/llvm-config"
+	mv -v "${pkgdir}/usr/include/llvm/Config/llvm-config.h" "${pkgdir}/usr/llvm-config.h" 
+
+	rm -rf "${pkgdir}/usr/bin" "${pkgdir}/usr/include"
+
+	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/include/llvm/Config"
+
+	mv -v "${pkgdir}/usr/llvm-config" "${pkgdir}/usr/bin/llvm-config32"
+	mv -v "${pkgdir}/usr/llvm-config.h" "${pkgdir}/usr/include/llvm/Config/llvm-config-32.h"
+}
+
+package_llvm-libs() {
+	pkgdesc="Low Level Virtual Machine (runtime libraries)"
+
+	cp -a "${srcdir}"/llvm-libs-install/* "${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
+	ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib/bfd-plugins/LLVMgold.so"
+
+	sed -i "s#-lunwind#/usr/lib/clang/${_realver}/lib/linux/x86_64/libunwind.a#g" "${pkgdir}/usr/lib/libc++.so"
+}
+
+package_lib32-llvm-libs() {
+	pkgdesc="Low Level Virtual Machine (runtime libraries) (32 bit)"
+
+	cp -a "${srcdir}"/llvm-libs-install32/* "${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/usr/lib32/bfd-plugins"
+	ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib32/bfd-plugins/LLVMgold.so"
+
+	sed -i "s#-lunwind#/usr/lib/clang/${_realver}/lib/linux/i386/libunwind.a#g" "${pkgdir}/usr/lib32/libc++.so"
+
+	rm -rf "${pkgdir}/usr/include"
+}
+
+package_clang() {
+	pkgdesc="C language family frontend for LLVM"
+	url="http://clang.llvm.org/"
+
+	make -C "${srcdir}/llvm-build/tools/clang" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build/projects/compiler-rt" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build/projects/libunwind" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build32/projects/libunwind" install DESTDIR="${pkgdir}"
+
+	for ll in i386 x86_64
+	do
+		install -v -dm755 "${pkgdir}/usr/lib/clang/${_realver}/${ll}"
+		install -v -dm755 "${pkgdir}/usr/lib/clang/${_realver}/lib/linux/${ll}"
+
+		cp -v "${srcdir}/crtbegin-${ll}.o" "${pkgdir}/usr/lib/clang/${_realver}/${ll}/crtbegin.o"
+		cp -v "${srcdir}/crtbeginS-${ll}.o" "${pkgdir}/usr/lib/clang/${_realver}/${ll}/crtbeginS.o"
+		cp -v "${srcdir}/crtend-${ll}.o" "${pkgdir}/usr/lib/clang/${_realver}/${ll}/crtend.o"
+		cp -v "${srcdir}/crtfastmath-${ll}.o" "${pkgdir}/usr/lib/clang/${_realver}/${ll}/crtfastmath.o"
+
+		ln -sfv crtbegin.o "${pkgdir}/usr/lib/clang/${_realver}/${ll}/crtbeginT.o"
+		ln -sfv crtend.o "${pkgdir}/usr/lib/clang/${_realver}/${ll}/crtendS.o"
+
+		mv -v "${pkgdir}/usr/lib/clang/${_realver}/lib/linux/libclang_rt.builtins-${ll}.a" \
+			"${pkgdir}/usr/lib/clang/${_realver}/lib/linux/${ll}"
+
+cat > "${pkgdir}/usr/lib/clang/${_realver}/lib/linux/libclang_rt.builtins-${ll}.a" << EOF
+INPUT ( /usr/lib/clang/${_realver}/lib/linux/${ll}/libclang_rt.builtins-${ll}.a AS_NEEDED ( /usr/lib/clang/${_realver}/lib/linux/${ll}/libunwind.a -lpthread -ldl -lm ) )
+EOF
+
+		ln -sfv ../lib/linux/libclang_rt.builtins-${ll}.a "${pkgdir}/usr/lib/clang/${_realver}/${ll}/libcompiler-rt.a"
+
+	done
+
+	mv -v "${pkgdir}/usr/lib/libunwind.a" "${pkgdir}/usr/lib/clang/${_realver}/lib/linux/x86_64"
+	mv -v "${pkgdir}/usr/lib32/libunwind.a" "${pkgdir}/usr/lib/clang/${_realver}/lib/linux/i386"
+
+	install -v -dm755 "${pkgdir}/usr/lib/python2.7/site-packages"
+	cp -r "${srcdir}/llvm-${_tarver}.src/tools/clang/bindings/python/clang" "${pkgdir}/usr/lib/python2.7/site-packages"
+
+	python -m compileall "${pkgdir}/usr/share/scan-view"
+	python -O -m compileall "${pkgdir}/usr/share/scan-view"
+
+	python -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/clang"
+	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/clang"
+}
+
+package_lib32-clang() {
+	pkgdesc="C language family frontend for LLVM (32 bit)"
+	url="http://clang.llvm.org/"
+
+	make -C "${srcdir}/llvm-build32/tools/clang" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build32/projects/compiler-rt" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/{bin,include,libexec,share}
+}
+
+package_clang-tools-extra() {
+	pkgdesc="Extra tools built using clang's tooling APIs"
+	url="http://clang.llvm.org/"
+
+	make -C "${srcdir}/llvm-build/tools/clang/tools/extra" install DESTDIR="${pkgdir}"
+}
+
+package_lld() {
+	pkgdesc="The LLVM Linker"
+	url="http://lld.llvm.org/"
+
+	make -C "${srcdir}/llvm-build/tools/lld" install DESTDIR="${pkgdir}"
+}
+
+package_lldb() {
+	pkgdesc="Next generation, high-performance debugger"
+	url="http://lldb.llvm.org/"
+
+	make -C "${srcdir}/llvm-build/tools/lldb" install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/llvm-${_tarver}.src/tools/lldb/docs/lldb.1" "${pkgdir}/usr/share/man/man1/lldb.1"
+
+	python -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/lldb"
+	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/lldb"
+
+	rm -rf "${pkgdir}/usr/lib/python2.7/site-packages/six.py"
+}
+
+md5sums=('4fb882706c9a57ad4d974390e995f944'
+         'd806d7b2a34617169f04c633c8abdcba'
+         'b1c0cf71f58514793c6779c7fa5ff949'
+         'f1ca7e66422d25744380182dff50fa9d'
+         'c65b6b17d01d5ab3bd2239d269a37ca5'
+         'da69e4a5422693baedee44ed2d427ff3'
+         'c54369598511bbdf1aa73c54257b4c52'
+         '2d4bad1097ac204ab155d8fbe6934cd2'
+         '6eb8f4eee1229f33d5a6ae2b2e10adb3'
+         '250560f9da5245382cee8e88e5267c70'
+         '51a4e5914a13ba88a6df31725370e5f5'
+         '9e98c06093a21bfcfee49dd76aaa54af'
+         'd2bd2de31e094a8b9427bb33fc2eaa0b'
+         'e9460bb300738c5037f563d24b3f6cc7'
+         '58ae9ce597bdd586f84c57d7469757fd'
+         '8234b9407339e72e409cf68df3a04562'
+         '124ac9c8e224fb2cd4b79476c18539e5'
+         '295c343dcd457dc534662f011d7cff1a')

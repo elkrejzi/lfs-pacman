@@ -1,0 +1,26 @@
+pkgname=libx11
+pkgver=1.6.4
+pkgrel=1
+pkgdesc="X11 client-side library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libX11-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libX11-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libX11-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6d54227082f3aa2c596f0b3a3fbb9175')

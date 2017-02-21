@@ -1,0 +1,26 @@
+pkgname=dri3proto
+pkgver=1.0
+pkgrel=1
+pkgdesc="X11 DRI3 protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/dri3proto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/dri3proto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dri3proto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a3d2cbe60a9ca1bf3aea6c93c817fee3')

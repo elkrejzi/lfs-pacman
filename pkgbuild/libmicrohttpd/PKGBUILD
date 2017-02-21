@@ -1,0 +1,26 @@
+pkgname=libmicrohttpd
+pkgver=0.9.52
+pkgrel=1
+pkgdesc="C library that is supposed to make it easy to run an HTTP server as part of another application"
+arch=('x86_64')
+url="https://www.gnu.org/software/libmicrohttpd/"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libmicrohttpd-${pkgver}"
+
+	./configure --prefix=/usr --disable-examples
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmicrohttpd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('767111e817e2497ff92f943c5653497a')

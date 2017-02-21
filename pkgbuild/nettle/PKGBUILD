@@ -1,0 +1,33 @@
+pkgname=nettle
+pkgver=3.3
+pkgrel=1
+pkgdesc="A low-level cryptographic library"
+arch=('x86_64')
+url="http://www.lysator.liu.se/~nisse/nettle/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/nettle/nettle-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/nettle-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/nettle-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	chmod 755 "${pkgdir}"/usr/lib/lib{nettle,hogweed}.so
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libnettle.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libnettle.so") "${pkgdir}/usr/lib/libnettle.so"
+}
+
+md5sums=('10f969f78a463704ae73529978148dbe')

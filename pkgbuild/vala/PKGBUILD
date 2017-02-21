@@ -1,0 +1,26 @@
+pkgname=vala
+pkgver=0.34.4
+pkgrel=1
+pkgdesc="Compiler for the GObject type system"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Vala"
+license=('LGPL')
+groups=('core')
+#depends=()
+source=("https://download.gnome.org/sources/vala/${pkgver:0:4}/vala-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/vala-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vala-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a856989d749fc5e472a3592b96f9ca48')

@@ -1,0 +1,33 @@
+pkgname=lz4
+pkgver=1.7.5
+pkgrel=1
+pkgdesc="Extremely fast compression algorithm"
+arch=('x86_64')
+url="http://www.lz4.org/"
+license=('GPL2')
+groups=('core')
+#depends=()
+source=("lz4-${pkgver}.tar.gz::https://github.com/lz4/lz4/archive/v${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/lz4-${pkgver}"
+
+	sed -i "/install.*liblz4.a/d" lib/Makefile
+	sed -i "/CFLAGS/s#-O3#${CFLAGS}#g" lib/Makefile programs/Makefile
+
+	make -C lib PREFIX=/usr
+	make -C programs PREFIX=/usr lz4 lz4c
+}
+
+package() {
+	cd "${srcdir}/lz4-${pkgver}"
+
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/liblz4.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/liblz4.so") "${pkgdir}/usr/lib/liblz4.so"
+}
+
+md5sums=('c9610c5ce97eb431dddddf0073d919b9')

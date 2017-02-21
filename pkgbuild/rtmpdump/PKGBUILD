@@ -1,0 +1,24 @@
+pkgname=rtmpdump
+pkgver=2.4+git79459a2
+pkgrel=1
+pkgdesc="Tool to download rtmp streams"
+arch=('x86_64')
+url="http://rtmpdump.mplayerhq.hu/"
+license=('GPL2' 'LGPL2.1')
+groups=('core')
+#depends=()
+source=("http://www.linuxfromscratch.org/~krejzi/rtmpdump-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/rtmpdump-${pkgver}"
+
+	make CC="${CC}" OPT="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/rtmpdump-${pkgver}"
+
+	make -j1 prefix=/usr mandir=/usr/share/man install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fac465fb24cba9b0dd3b96023fa0e27b')

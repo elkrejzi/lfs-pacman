@@ -1,0 +1,55 @@
+pkgname=libsasl
+pkgver=2.1.26
+pkgrel=1
+pkgdesc="Cyrus Simple Authentication Service Layer (SASL) library"
+arch=('x86_64')
+url="http://cyrusimap.web.cmu.edu/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("ftp://ftp.cyrusimap.org/cyrus-sasl/cyrus-sasl-${pkgver}.tar.gz"
+	"cyrus-sasl-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/cyrus-sasl-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/cyrus-sasl-fixes.patch"
+
+	autoreconf -fi
+
+	pushd saslauthd
+		autoreconf -fi
+	popd
+}
+
+build() {
+	cd "${srcdir}/cyrus-sasl-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-dbpath=/var/lib/sasl/sasldb2 \
+		--with-saslauthd=/var/run/saslauthd \
+		--with-sqlite3=/usr \
+		--enable-login \
+		--enable-ntlm \
+		--enable-auth-sasldb \
+		--disable-gssapi \
+		--disable-ldapdb
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cyrus-sasl-${pkgver}"
+
+	make install-pkgconfigDATA DESTDIR="${pkgdir}"
+	make -C include install DESTDIR="${pkgdir}"
+	make -C lib install DESTDIR="${pkgdir}"
+	make -C plugins sasl_LTLIBRARIES="libsasldb.la" install-saslLTLIBRARIES DESTDIR="${pkgdir}"
+
+	sed -i "s:libdir =:exec_prefix=/usr\n&:" "${pkgdir}/usr/lib/pkgconfig/libsasl2.pc"
+}
+
+md5sums=('a7f4e5e559a0e37b3ffc438c9456e425'
+         '72904b854e0af28ba0f3dbc30470f6af')

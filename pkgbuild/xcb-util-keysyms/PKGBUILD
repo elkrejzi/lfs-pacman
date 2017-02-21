@@ -1,0 +1,26 @@
+pkgname=xcb-util-keysyms
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Utility libraries for XC Binding - Standard X key constants and conversion to/from keycodes"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/xcb/xcb-util-keysyms-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcb-util-keysyms-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcb-util-keysyms-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1022293083eec9e62d5659261c29e367')

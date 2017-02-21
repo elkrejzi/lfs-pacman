@@ -1,0 +1,28 @@
+pkgname=libtasn1
+pkgver=4.10
+pkgrel=1
+pkgdesc="The ASN.1 library used in GNUTLS"
+arch=('x86_64')
+url="https://www.gnu.org/software/libtasn1/"
+license=('GPL3' 'LGPL')
+groups=('core')
+#depends=()
+source=("https://ftp.gnu.org/gnu/libtasn1/libtasn1-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libtasn1-${pkgver}"
+
+	./configure --prefix=/usr --disable-gcc-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libtasn1-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	make -C doc/reference install-data-local DESTDIR="${pkgdir}"
+}
+
+md5sums=('f4faffdf63969d0e4e6df43b9679e8e5')

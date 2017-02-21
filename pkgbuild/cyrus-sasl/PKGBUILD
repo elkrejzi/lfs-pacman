@@ -1,0 +1,65 @@
+pkgname=cyrus-sasl
+pkgver=2.1.26
+pkgrel=1
+pkgdesc="Cyrus Simple Authentication Service Layer (SASL)"
+arch=('x86_64')
+url="http://cyrusimap.web.cmu.edu/"
+license=('custom')
+groups=('core')
+#depends=()
+install=cyrus-sasl.install
+source=("ftp://ftp.cyrusimap.org/cyrus-sasl/cyrus-sasl-${pkgver}.tar.gz"
+	"cyrus-sasl-fixes.patch"
+	"saslauthd.default"
+	"saslauthd.service"
+	"saslauthd.tmpfiles")
+
+prepare() {
+	cd "${srcdir}/cyrus-sasl-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/cyrus-sasl-fixes.patch"
+
+	autoreconf -fi
+
+	pushd saslauthd
+		autoreconf -fi
+	popd
+}
+
+build() {
+	cd "${srcdir}/cyrus-sasl-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-dbpath=/var/lib/sasl/sasldb2 \
+		--with-saslauthd=/var/run/saslauthd \
+		--with-sqlite3=/usr \
+		--enable-login \
+		--enable-ntlm \
+		--enable-auth-sasldb
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cyrus-sasl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/libsasl2.so*
+	rm -rf "${pkgdir}"/usr/lib/sasl2/libsasldb.so*
+
+	rm -rf "${pkgdir}/usr/include"
+	rm -rf "${pkgdir}/usr/lib/pkgconfig"
+
+	install -v -Dm644 "${srcdir}/saslauthd.default" "${pkgdir}/etc/default/saslauthd"
+	install -v -Dm644 "${srcdir}/saslauthd.service" "${pkgdir}/lib/systemd/system/saslauthd.service"
+	install -v -Dm644 "${srcdir}/saslauthd.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/saslauthd.conf"
+}
+
+md5sums=('a7f4e5e559a0e37b3ffc438c9456e425'
+         '72904b854e0af28ba0f3dbc30470f6af'
+         'b48768c2e20677b4cafb0a9ce618965f'
+         'fb1998f8e2f159d20640a8dfcb69e8cd'
+         '90e194ee8adaa4d4f4907ca359e8a8ae')

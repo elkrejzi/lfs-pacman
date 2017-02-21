@@ -1,0 +1,31 @@
+pkgname=popt
+pkgver=1.16
+pkgrel=1
+pkgdesc="A commandline option parser"
+arch=('x86_64')
+url="http://rpm5.org"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://rpm5.org/files/popt/popt-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/popt-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/popt-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libpopt.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libpopt.so") "${pkgdir}/usr/lib/libpopt.so"
+}
+
+md5sums=('3743beefa3dd6247a73f8f7a32c14c33')

@@ -1,0 +1,34 @@
+pkgname=libpng
+pkgver=1.6.28
+pkgrel=1
+pkgdesc="A collection of routines used to create PNG format graphics files"
+arch=('x86_64')
+url="http://www.libpng.org/pub/png/libpng.html"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://downloads.sourceforge.net/libpng/libpng-${pkgver}.tar.xz"
+	"https://downloads.sourceforge.net/apng/libpng-${pkgver}-apng.patch.gz")
+
+prepare() {
+	cd "${srcdir}/libpng-${pkgver}"
+
+	patch -Np0 -i "${srcdir}/libpng-${pkgver}-apng.patch"
+}
+
+build() {
+	cd "${srcdir}/libpng-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libpng-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('425354f86c392318d31aedca71019372'
+         '7c8a3ce7df953d13c316502a539b5070')

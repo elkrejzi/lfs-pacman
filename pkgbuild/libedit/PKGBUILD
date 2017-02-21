@@ -1,0 +1,29 @@
+pkgname=libedit
+_realver=20160903-3.1
+pkgver=${_realver/-/+}
+pkgrel=1
+pkgdesc="Command line editor library providing generic line editing, history, and tokenization functions"
+arch=('x86_64')
+url="http://www.thrysoee.dk/editline/"
+license=('BSD')
+groups=('core')
+#depends=()
+source=("http://thrysoee.dk/editline/libedit-${_realver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libedit-${_realver}"
+
+	./configure --prefix=/usr --enable-widec
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libedit-${_realver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/share/man/man3/history.3"
+}
+
+md5sums=('0467d27684c453a351fbcefebbcb16a3')

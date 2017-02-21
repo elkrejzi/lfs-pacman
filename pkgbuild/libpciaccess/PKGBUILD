@@ -1,0 +1,26 @@
+pkgname=libpciaccess
+pkgver=0.13.4
+pkgrel=1
+pkgdesc="X11 PCI access library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libpciaccess-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libpciaccess-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libpciaccess-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('ace78aec799b1cf6dfaea55d3879ed9f')

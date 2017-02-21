@@ -1,0 +1,26 @@
+pkgname=pixman
+pkgver=0.34.0
+pkgrel=1
+pkgdesc="The pixel-manipulation library for X and cairo"
+arch=('x86_64')
+url="http://xorg.freedesktop.org"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.cairographics.org/releases/pixman-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/pixman-${pkgver}"
+
+	./configure --prefix=/usr --disable-gtk --disable-libpng
+
+	make
+}
+
+package() {
+	cd "${srcdir}/pixman-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e80ebae4da01e77f68744319f01d52a3')

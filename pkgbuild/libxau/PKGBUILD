@@ -1,0 +1,26 @@
+pkgname=libxau
+pkgver=1.0.8
+pkgrel=1
+pkgdesc="X11 authorisation library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXau-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXau-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXau-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('685f8abbffa6d145c0f930f00703b21b')

@@ -1,0 +1,32 @@
+pkgname=gnutls
+pkgver=3.5.9
+pkgrel=1
+pkgdesc="A library which provides a secure layer over a reliable transport layer"
+arch=('x86_64')
+url="http://www.gnutls.org/"
+license=('GPL3' 'LGPL2.1')
+groups=('core')
+#depends=()
+source=("ftp://ftp.gnutls.org/gcrypt/gnutls/v${pkgver:0:3}/gnutls-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnutls-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-local-libopts \
+		--disable-guile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnutls-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	make -C doc/reference install-data-local DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/share/info/*.png "${pkgdir}"/usr/share/info/*guile*
+}
+
+md5sums=('0ab25eb6a1509345dd085bc21a387951')

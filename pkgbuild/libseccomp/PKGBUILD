@@ -1,0 +1,26 @@
+pkgname=libseccomp
+pkgver=2.3.1
+pkgrel=1
+pkgdesc="Enhanced seccomp library"
+arch=('x86_64')
+url="https://github.com/seccomp/libseccomp"
+license=('LGPL2.1')
+groups=('core')
+#depends=()
+source=("https://github.com/seccomp/libseccomp/releases/download/v${pkgver}/libseccomp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libseccomp-${pkgver}"
+
+	./configure --prefix=/usr --disable-python
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libseccomp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e6f3e84921ef9c2e9188681963f0943f')

@@ -1,0 +1,26 @@
+pkgname=presentproto
+pkgver=1.1
+pkgrel=1
+pkgdesc="X11 Present protocol specification"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/presentproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/presentproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/presentproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('92f9dda9c870d78a1d93f366bcb0e6cd')

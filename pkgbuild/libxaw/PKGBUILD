@@ -1,0 +1,26 @@
+pkgname=libxaw
+pkgver=1.0.13
+pkgrel=1
+pkgdesc="X11 Athena Widget library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXaw-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXaw-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXaw-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e5e06eb14a608b58746bdd1c0bd7b8e3')

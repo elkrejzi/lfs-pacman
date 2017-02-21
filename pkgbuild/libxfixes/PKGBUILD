@@ -1,0 +1,26 @@
+pkgname=libxfixes
+pkgver=5.0.3
+pkgrel=1
+pkgdesc="X11 miscellaneous 'fixes' extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXfixes-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXfixes-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXfixes-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('07e01e046a0215574f36a3aacb148be0')

@@ -1,0 +1,26 @@
+pkgname=scrnsaverproto
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="X11 Screen Saver extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/scrnsaverproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/scrnsaverproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/scrnsaverproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('edd8a73775e8ece1d69515dd17767bfb')

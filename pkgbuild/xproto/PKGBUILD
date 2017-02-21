@@ -1,0 +1,26 @@
+pkgname=xproto
+pkgver=7.0.31
+pkgrel=1
+pkgdesc="X11 core wire protocol and auxiliary headers"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/xproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('16791f7ca8c51a20608af11702e51083')

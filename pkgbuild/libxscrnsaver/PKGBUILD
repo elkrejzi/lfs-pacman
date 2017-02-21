@@ -1,0 +1,26 @@
+pkgname=libxscrnsaver
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="X11 Screen Saver extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXScrnSaver-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXScrnSaver-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXScrnSaver-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7a773b16165e39e938650bcc9027c1d5')

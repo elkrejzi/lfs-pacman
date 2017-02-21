@@ -1,0 +1,26 @@
+pkgname=libxft
+pkgver=2.3.2
+pkgrel=1
+pkgdesc="FreeType-based font drawing library for X"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXft-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXft-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXft-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('331b3a2a3a1a78b5b44cfbd43f86fcfe')

@@ -1,0 +1,26 @@
+pkgname=xf86dgaproto
+pkgver=2.1
+pkgrel=1
+pkgdesc="X11 Direct Graphics Access extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/xf86dgaproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xf86dgaproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xf86dgaproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a036dc2fcbf052ec10621fd48b68dbb1')

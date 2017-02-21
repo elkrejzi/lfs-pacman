@@ -1,0 +1,26 @@
+pkgname=dri2proto
+pkgver=2.8
+pkgrel=1
+pkgdesc="X11 DRI protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/dri2proto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/dri2proto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dri2proto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b2721d5d24c04d9980a0c6540cb5396a')

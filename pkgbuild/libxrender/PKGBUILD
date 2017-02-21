@@ -1,0 +1,26 @@
+pkgname=libxrender
+pkgver=0.9.10
+pkgrel=1
+pkgdesc="X Rendering Extension client library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXrender-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXrender-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXrender-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('802179a76bded0b658f4e9ec5e1830a4')

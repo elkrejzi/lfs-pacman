@@ -1,0 +1,32 @@
+pkgname=cmake
+pkgver=3.7.2
+pkgrel=1
+pkgdesc="A cross-platform open-source make system"
+arch=('x86_64')
+url="http://www.cmake.org/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.cmake.org/files/v${pkgver:0:3}/cmake-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/cmake-${pkgver}"
+
+ 	./bootstrap --prefix=/usr \
+		--sphinx-man \
+		--system-libs \
+		--no-system-jsoncpp \
+		--mandir=/share/man \
+		--docdir=/share/doc/cmake \
+		--parallel=$(/usr/bin/getconf _NPROCESSORS_ONLN)
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cmake-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('79bd7e65cd81ea3aa2619484ad6ff25a')

@@ -1,0 +1,26 @@
+pkgname=bigreqsproto
+pkgver=1.1.2
+pkgrel=1
+pkgdesc="X11 Big Requests extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/bigreqsproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/bigreqsproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/bigreqsproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1a05fb01fa1d5198894c931cf925c025')

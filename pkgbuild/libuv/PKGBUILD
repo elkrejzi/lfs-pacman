@@ -1,0 +1,28 @@
+pkgname=libuv
+pkgver=1.11.0
+pkgrel=1
+pkgdesc="Multi-platform support library with a focus on asynchronous I/O"
+arch=('x86_64')
+url="https://github.com/libuv/libuv"
+license=('custom')
+groups=('core')
+#depends=()
+source=("libuv-${pkgver}.tar.gz::https://github.com/libuv/libuv/archive/v${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libuv-${pkgver}"
+
+	./autogen.sh
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libuv-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('15550a9f5f45f7f32ae2d9bb0a21a2a7')

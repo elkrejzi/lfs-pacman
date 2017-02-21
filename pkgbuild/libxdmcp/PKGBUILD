@@ -1,0 +1,26 @@
+pkgname=libxdmcp
+pkgver=1.1.2
+pkgrel=1
+pkgdesc="X11 Display Manager Control Protocol library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXdmcp-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXdmcp-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXdmcp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('18aa5c1279b01f9d18e3299969665b2e')

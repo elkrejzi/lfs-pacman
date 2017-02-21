@@ -1,0 +1,26 @@
+pkgname=libxt
+pkgver=1.1.5
+pkgrel=1
+pkgdesc="X11 toolkit intrinsics library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXt-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXt-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXt-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8f5b5576fbabba29a05f3ca2226f74d3')

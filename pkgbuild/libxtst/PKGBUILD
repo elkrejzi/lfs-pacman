@@ -1,0 +1,26 @@
+pkgname=libxtst
+pkgver=1.2.3
+pkgrel=1
+pkgdesc="X11 Testing -- Resource extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXtst-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXtst-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXtst-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('ef8c2c1d16a00bd95b9fdcef63b8a2ca')

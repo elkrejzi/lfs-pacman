@@ -1,0 +1,26 @@
+pkgname=renderproto
+pkgver=0.11.1
+pkgrel=1
+pkgdesc="X11 Render extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/renderproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/renderproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/renderproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a914ccc1de66ddeb4b611c6b0686e274')

@@ -1,0 +1,26 @@
+pkgname=glproto
+pkgver=1.4.17
+pkgrel=1
+pkgdesc="X11 OpenGL extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/glproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/glproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/glproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5565f1b0facf4a59c2778229c1f70d10')

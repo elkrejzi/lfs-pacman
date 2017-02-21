@@ -1,0 +1,32 @@
+pkgname=gc
+pkgver=7.6.0
+pkgrel=1
+pkgdesc="A garbage collector for C and C++"
+arch=('x86_64')
+url="http://www.hboehm.info/gc/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("http://www.hboehm.info/gc/gc_source//gc-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/gc-${pkgver}"
+
+	./configure --prefix=/usr --enable-cplusplus
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+  rm -rf "${pkgdir}/usr/share"
+
+  install -v -Dm644 doc/gc.man "${pkgdir}/usr/share/man/man3/gc_malloc.3"
+  ln -sfv gc_malloc.3.gz "${pkgdir}/usr/share/man/man3/gc.3.gz"
+}
+
+md5sums=('85adef240c5f370b308da8c938951a68')
+md5sums=('bf46ccbdaccfa3186c2ab87191c8855a')

@@ -1,0 +1,36 @@
+pkgname=nspr
+pkgver=4.13.1
+pkgrel=1
+pkgdesc="Netscape Portable Runtime"
+arch=('x86_64')
+url="http://www.mozilla.org/projects/nspr/"
+license=('MPL' 'GPL')
+groups=('core')
+#depends=()
+source=("https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v${pkgver}/src/nspr-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/nspr-${pkgver}/nspr"
+
+	sed -ri 's#^(RELEASE_BINS =).*#\1#' pr/src/misc/Makefile.in
+	sed -i 's#$(LIBRARY) ##' config/rules.mk
+}
+
+build() {
+	cd "${srcdir}/nspr-${pkgver}/nspr"
+
+	./configure --prefix=/usr \
+		--with-mozilla \
+		--with-pthreads \
+		--enable-64bit
+
+	make
+}
+
+package() {
+	cd "${srcdir}/nspr-${pkgver}/nspr"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9c44298a6fc478b3c0a4e98f4f9981ed')

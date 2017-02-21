@@ -1,0 +1,26 @@
+pkgname=libxv
+pkgver=1.0.11
+pkgrel=1
+pkgdesc="X11 Video extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXv-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXv-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXv-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('210b6ef30dda2256d54763136faa37b9')

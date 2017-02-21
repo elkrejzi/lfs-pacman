@@ -1,0 +1,26 @@
+pkgname=libdmx
+pkgver=1.1.3
+pkgrel=1
+pkgdesc="X11 Distributed Multihead extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libdmx-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libdmx-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdmx-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('ba983eba5a9f05d152a0725b8e863151')

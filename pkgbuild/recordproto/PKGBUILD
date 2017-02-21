@@ -1,0 +1,26 @@
+pkgname=recordproto
+pkgver=1.14.2
+pkgrel=1
+pkgdesc="X11 Record extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/recordproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/recordproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/recordproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1b4e5dede5ea51906f1530ca1e21d216')

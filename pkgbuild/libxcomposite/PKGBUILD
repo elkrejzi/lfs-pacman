@@ -1,0 +1,26 @@
+pkgname=libxcomposite
+pkgver=0.4.4
+pkgrel=1
+pkgdesc="X11 Composite extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXcomposite-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXcomposite-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXcomposite-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f7a218dcbf6f0848599c6c36fc65c51a')

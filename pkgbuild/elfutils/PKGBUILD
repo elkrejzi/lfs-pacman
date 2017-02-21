@@ -1,0 +1,38 @@
+pkgname=elfutils
+pkgver=0.168
+pkgrel=1
+pkgdesc="Utilities to handle ELF object files and DWARF debugging information"
+arch=('x86_64')
+url="https://sourceware.org/elfutils/"
+license=('LGPL3' 'GPL' 'GPL3')
+groups=('core')
+#depends=()
+options=(staticlibs)
+source=("https://sourceware.org/elfutils/ftp/${pkgver}/elfutils-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/elfutils-${pkgver}"
+
+	export CC="gcc"
+	export CXX="g++"
+
+	./configure --prefix=/usr --program-prefix="eu-"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/elfutils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libdw.so.* "${pkgdir}"/usr/lib/libdw-*.so "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libdw.so") "${pkgdir}/usr/lib/libdw.so"
+
+	mv -v "${pkgdir}"/usr/lib/libelf.so.* "${pkgdir}"/usr/lib/libelf-*.so "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libelf.so") "${pkgdir}/usr/lib/libelf.so"
+}
+
+md5sums=('52adfa40758d0d39e5d5c57689bf38d6')

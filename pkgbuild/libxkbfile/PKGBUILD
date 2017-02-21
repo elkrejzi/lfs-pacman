@@ -1,0 +1,26 @@
+pkgname=libxkbfile
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="X11 keyboard file manipulation library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libxkbfile-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libxkbfile-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxkbfile-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4a4cfeaf24dab1b991903455d6d7d404')

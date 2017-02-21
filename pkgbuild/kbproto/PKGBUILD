@@ -1,0 +1,26 @@
+pkgname=kbproto
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="X11 XKB extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/kbproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/kbproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/kbproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('94afc90c1f7bef4a27fdd59ece39c878')

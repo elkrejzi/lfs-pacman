@@ -1,0 +1,36 @@
+pkgname=freetype
+pkgver=2.7.1
+pkgrel=1
+pkgdesc="TrueType font rendering library"
+arch=('x86_64')
+url="http://www.freetype.org/"
+license=('GPL')
+groups=('core')
+#depends=()
+source=("https://downloads.sourceforge.net/freetype/freetype-${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/freetype-${pkgver}"
+
+	sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg
+
+	sed -ri "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:g" \
+		include/freetype/config/ftoption.h
+}
+
+
+build() {
+	cd "${srcdir}/freetype-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/freetype-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b3230110e0cab777e0df7631837ac36e')

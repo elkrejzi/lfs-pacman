@@ -1,0 +1,26 @@
+pkgname=libssh2
+pkgver=1.8.0
+pkgrel=1
+pkgdesc="A library implementing the SSH2 protocol as defined by Internet Drafts"
+arch=('x86_64')
+url="https://www.libssh2.org/"
+license=('BSD')
+groups=('core')
+#depends=()
+source=("https://libssh2.org/download/libssh2-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libssh2-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libssh2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3d1147cae66e2959ea5441b183de1b1c')

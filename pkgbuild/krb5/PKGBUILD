@@ -1,0 +1,70 @@
+pkgname=krb5
+pkgver=1.15
+pkgrel=1
+pkgdesc="The Kerberos network authentication system"
+arch=('x86_64')
+url='https://web.mit.edu/kerberos/'
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://web.mit.edu/kerberos/dist/krb5/${pkgver:0:4}/krb5-${pkgver}.tar.gz"
+	"krb5-kadmind.service"
+	"krb5-kdc.service"
+	"krb5-kpropd.service")
+
+prepare() {
+	cd "${srcdir}/krb5-${pkgver}/src"
+
+	sed -e "s@python2.5/Python.h@& python2.7/Python.h@g" \
+		-e "s@-lpython2.5]@&,\n  AC_CHECK_LIB(python2.7,main,[PYTHON_LIB=-lpython2.7])@g" \
+		-i configure.in
+
+	sed -e "/KRB5ROOT=/s@/local@@" \
+		-i util/ac_check_krb5.m4
+
+	autoconf
+}
+
+build() {
+	cd "${srcdir}/krb5-${pkgver}/src"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var/lib \
+		--enable-dns-for-realm \
+		--with-system-et \
+		--with-system-ss \
+		--with-ldap \
+		--without-system-verto \
+
+	make
+}
+
+package() {
+	cd "${srcdir}/krb5-${pkgver}/src"
+
+	make install DESTDIR="${pkgdir}"
+
+	chmod 755 "${pkgdir}"/usr/lib/*.so*
+
+	install -v -dm755 "${pkgdir}/usr/share/krb5/examples"
+
+	install -v -Dm644 config-files/kdc.conf "${pkgdir}/var/lib/krb5kdc/kdc.conf"
+	install -v -Dm644 config-files/krb5.conf "${pkgdir}/etc/krb5.conf"
+
+	install -v -Dm644 util/ac_check_krb5.m4 "${pkgdir}/usr/share/aclocal/ac_check_krb5.m4"
+
+	install -v -m644 config-files/kdc.conf config-files/krb5.conf "${pkgdir}/usr/share/krb5/examples"
+	install -v -m644 plugins/kdb/ldap/libkdb_ldap/kerberos.ldif plugins/kdb/ldap/libkdb_ldap/kerberos.schema "${pkgdir}/usr/share/krb5/examples"
+
+	rm -rf "${pkgdir}/usr/share/examples" "${pkgdir}/usr/share/gnats"
+
+	install -v -Dm644 "${srcdir}/krb5-kadmind.service" "${pkgdir}/lib/systemd/system/krb5-kadmind.service"
+	install -v -Dm644 "${srcdir}/krb5-kdc.service" "${pkgdir}/lib/systemd/system/krb5-kdc.service"
+	install -v -Dm644 "${srcdir}/krb5-kpropd.service" "${pkgdir}/lib/systemd/system/krb5-kpropd.service"
+}
+
+md5sums=('cd43a3316ebbb86b2a9020b485b1a819'
+         'd4cd0bab047f2c07551bdac710574dde'
+         'f0245d33083337f95654f4caf1d32f57'
+         '7b5af1efb0c7e50839c39caf04aff1ae')

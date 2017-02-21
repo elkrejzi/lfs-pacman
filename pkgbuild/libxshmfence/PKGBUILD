@@ -1,0 +1,26 @@
+pkgname=libxshmfence
+pkgver=1.2
+pkgrel=1
+pkgdesc="a library that exposes a event API on top of Linux futexes"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libxshmfence-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libxshmfence-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxshmfence-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('66662e76899112c0f99e22f2fc775a7e')

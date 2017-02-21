@@ -1,0 +1,26 @@
+pkgname=libxvmc
+pkgver=1.0.10
+pkgrel=1
+pkgdesc="X11 Video Motion Compensation extension library"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/lib/libXvMC-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libXvMC-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libXvMC-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4cbe1c1def7a5e1b0ed5fce8e512f4c6')

@@ -1,0 +1,26 @@
+pkgname=dmxproto
+pkgver=2.3.1
+pkgrel=1
+pkgdesc="X11 Distributed Multihead X extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/dmxproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/dmxproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dmxproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4ee175bbd44d05c34d43bb129be5098a')

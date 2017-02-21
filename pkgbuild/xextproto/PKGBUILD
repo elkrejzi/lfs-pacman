@@ -1,0 +1,26 @@
+pkgname=xextproto
+pkgver=7.3.0
+pkgrel=1
+pkgdesc="X11 various extension wire protocol"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/xextproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xextproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xextproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('70c90f313b4b0851758ef77b95019584')

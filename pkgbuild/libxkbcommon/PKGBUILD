@@ -1,0 +1,26 @@
+pkgname=libxkbcommon
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="Keymap handling library for toolkits and window systems"
+arch=('x86_64')
+url="https://xkbcommon.org/"
+license=('custom')
+groups=('core')
+#depends=()
+source=("http://xkbcommon.org/download/libxkbcommon-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libxkbcommon-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxkbcommon-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('947ba609cb0239b9462127d5cf8908ee')
