@@ -1,0 +1,29 @@
+pkgname=htop
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="Interactive process viewer"
+arch=('x86_64')
+url="http://hisham.hm/htop/"
+license=('GPL')
+#depends=()
+source=("http://hisham.hm/htop/releases/${pkgver}/htop-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/htop-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-unicode \
+		--enable-openvz \
+		--enable-vserver \
+		--enable-cgroup
+	make
+}
+
+package() {
+	cd "${srcdir}/htop-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7d354d904bad591a931ad57e99fea84a')

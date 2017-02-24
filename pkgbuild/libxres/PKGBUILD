@@ -1,26 +1,56 @@
-pkgname=libxres
+pkgbase=libxres
+pkgname=('libxres' 'lib32-libxres')
 pkgver=1.0.7
 pkgrel=1
-pkgdesc="X11 Resource extension library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libXres-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libXres{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libXres-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libXres32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libXres-${pkgver}"
+	make -C "${srcdir}/libXres32-${pkgver}"
 }
 
-package() {
+package_libxres() {
+	pkgdesc="X11 Resource extension library"
+
 	cd "${srcdir}/libXres-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxres() {
+	pkgdesc="X11 Resource extension library (32 bit)"
+
+	cd "${srcdir}/libXres32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('45ef29206a6b58254c81bea28ec6c95f')

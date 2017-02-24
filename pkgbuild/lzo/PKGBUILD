@@ -5,7 +5,6 @@ pkgdesc="Portable lossless data compression library"
 arch=('x86_64')
 url="http://www.oberhumer.com/opensource/lzo"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("http://www.oberhumer.com/opensource/lzo/download/lzo-${pkgver}.tar.gz")
 

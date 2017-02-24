@@ -1,0 +1,36 @@
+pkgbase=python-libselinux
+pkgname=('python2-libselinux' 'python3-libselinux')
+pkgver=2.6
+pkgrel=1
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libselinux-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libselinux-${pkgver}"
+
+	CFLAGS+=" -fPIC"
+
+	make PYTHON=python2 pywrap
+	make PYTHON=python3 pywrap
+}
+
+package_python2-libselinux() {
+	pkgdesc="SELinux library and simple utilities (Python 2 bindings)"
+
+	cd "${srcdir}/libselinux-${pkgver}"
+
+	make PYTHON=python2 install-pywrap DESTDIR="${pkgdir}"
+}
+
+package_python3-libselinux() {
+	pkgdesc="SELinux library and simple utilities (Python 3 bindings)"
+
+	cd "${srcdir}/libselinux-${pkgver}"
+
+	make PYTHON=python3 install-pywrap DESTDIR="${pkgdir}"
+}
+
+md5sums=('0e066ba6d6e590ba4b53eed64905d901')

@@ -5,7 +5,6 @@ pkgdesc="Access control list utilities, libraries and headers"
 arch=('x86_64')
 url="http://savannah.nongnu.org/projects/acl"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("http://download.savannah.gnu.org/releases/acl/acl-${pkgver}.src.tar.gz")
 

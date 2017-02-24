@@ -1,0 +1,4 @@
+post_install() {
+	/usr/sbin/pwconv
+	/usr/sbin/grpconv
+}

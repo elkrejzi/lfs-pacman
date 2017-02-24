@@ -1,24 +1,55 @@
 pkgname=libselinux
+pkgname=('libselinux' 'lib32-libselinux')
 pkgver=2.6
 pkgrel=1
-pkgdesc="SELinux library and simple utilities"
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
-groups=('core')
 #depends=()
-source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libselinux-${pkgver}.tar.gz")
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libselinux-${pkgver}.tar.gz"
+	"libselinux.tmpfiles")
+
+prepare() {
+	cp -a "${srcdir}"/libselinux{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libselinux-${pkgver}"
 
 	make
+
+	cd "${srcdir}/libselinux32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	make -C src
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 }
 
-package() {
+package_libselinux() {
+	pkgdesc="SELinux library and simple utilities"
+
 	cd "${srcdir}/libselinux-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/libselinux.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/libselinux.conf"
 }
 
-md5sums=('0e066ba6d6e590ba4b53eed64905d901')
+package_lib32-libselinux() {
+	pkgdesc="SELinux library and simple utilities (32 bit)"
+
+	cd "${srcdir}/libselinux32-${pkgver}"
+
+	make -C src install LIBDIR="${PWD}/dest/usr/lib32" SHLIBDIR="${PWD}/dest/usr/lib32" DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('0e066ba6d6e590ba4b53eed64905d901'
+         '2ab761e094a2b3e0ffa0417729756733')

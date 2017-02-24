@@ -5,9 +5,7 @@ pkgdesc="Perl/CPAN Module Parse::Yapp - Generates OO LALR parser modules"
 arch=('x86_64')
 url="http://search.cpan.org/dist/Parse-Yapp"
 license=('GPL' 'PerlArtistic')
-groups=('core')
 #depends=()
-options=(!emptydirs)
 source=("http://search.cpan.org/CPAN/authors/id/F/FD/FDESAR/Parse-Yapp-${pkgver}.tar.gz")
 
 build() {

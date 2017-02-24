@@ -1,11 +1,10 @@
 pkgname=iproute2
-pkgver=4.9.0
+pkgver=4.10.0
 pkgrel=1
 pkgdesc="IP Routing Utilities"
 arch=('x86_64')
 url="http://www.linuxfoundation.org/collaborate/workgroups/networking/iproute2"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-${pkgver}.tar.xz")
 
@@ -31,4 +30,4 @@ package() {
 	ln -sfv ../bin/ip "${pkgdir}/sbin/ip"
 }
 
-md5sums=('44a8371a4b2c40e48e4c9f98cbd41391')
+md5sums=('b94a2b0edefaeac124dc8f5d006931b9')

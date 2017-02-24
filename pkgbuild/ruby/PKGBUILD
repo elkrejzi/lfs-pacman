@@ -1,0 +1,28 @@
+pkgname=ruby
+pkgver=2.3.3
+pkgrel=1
+pkgdesc="An object-oriented language for quick and easy programming"
+arch=('x86_64')
+url="http://www.ruby-lang.org/en/"
+license=('BSD' 'custom')
+#depends=()
+options=(staticlibs)
+source=("http://cache.ruby-lang.org/pub/ruby/${pkgver:0:3}/ruby-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/ruby-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-shared \
+		--disable-install-capi
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ruby-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0cba3d1b677d2695236ace62ca6d2255')

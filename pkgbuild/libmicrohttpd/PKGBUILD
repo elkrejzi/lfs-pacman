@@ -5,7 +5,6 @@ pkgdesc="C library that is supposed to make it easy to run an HTTP server as par
 arch=('x86_64')
 url="https://www.gnu.org/software/libmicrohttpd/"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-${pkgver}.tar.gz")
 

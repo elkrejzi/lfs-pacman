@@ -6,7 +6,6 @@ pkgdesc="cssselect parses CSS3 Selectors and translates them to XPath 1.0"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/cssselect/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/c/cssselect/cssselect-${pkgver}.tar.gz")
 

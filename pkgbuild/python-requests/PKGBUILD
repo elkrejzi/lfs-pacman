@@ -6,7 +6,6 @@ pkgdesc="Python HTTP for Humans"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/requests/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/r/requests/requests-${pkgver}.tar.gz")
 

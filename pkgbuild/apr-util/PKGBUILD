@@ -1,0 +1,36 @@
+pkgname=apr-util
+pkgver=1.5.4
+pkgrel=1
+pkgdesc="The Apache Portable Runtime"
+arch=('x86_64')
+url="http://apr-util.apache.org/"
+license=('APACHE')
+#depends=()
+source=("https://archive.apache.org/dist/apr/apr-util-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/apr-util-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-berkeley-db \
+		--with-crypto \
+		--with-dbm=db \
+		--with-ldap \
+		--with-openssl=/usr \
+		--with-sqlite3 \
+		--without-gdbm \
+		--without-sqlite2 \
+		--with-apr=/usr/bin/apr-1-config
+
+	make
+}
+
+package() {
+	cd "${srcdir}/apr-util-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	sed -i "s#${srcdir}#/usr/src#g" "${pkgdir}/usr/bin/apu-1-config"
+}
+
+md5sums=('2202b18f269ad606d70e1864857ed93c')

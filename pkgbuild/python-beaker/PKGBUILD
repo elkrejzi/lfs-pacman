@@ -6,7 +6,6 @@ pkgdesc="A Session and Caching library with WSGI Middleware"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/Beaker/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/B/Beaker/Beaker-${pkgver}.tar.gz")
 

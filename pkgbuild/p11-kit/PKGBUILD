@@ -5,7 +5,6 @@ pkgdesc="Library to work with PKCS#11 modules"
 arch=('x86_64')
 url="http://p11-glue.freedesktop.org"
 license=('BSD')
-groups=('core')
 #depends=()
 source=("https://github.com/p11-glue/p11-kit/releases/download/${pkgver}/p11-kit-${pkgver}.tar.gz")
 

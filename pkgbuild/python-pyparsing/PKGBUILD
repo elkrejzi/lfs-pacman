@@ -6,7 +6,6 @@ pkgdesc="Python parsing module"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/pyparsing/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/p/pyparsing/pyparsing-${pkgver}.tar.gz")
 

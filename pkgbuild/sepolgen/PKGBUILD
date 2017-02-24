@@ -1,0 +1,25 @@
+pkgname=sepolgen
+pkgver=2.6
+pkgrel=1
+pkgdesc="SELinux policy generator"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/sepolgen-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/sepolgen-${pkgver}"
+
+	make PYTHON=python2
+	make PYTHON=python3
+}
+
+package() {
+	cd "${srcdir}/sepolgen-${pkgver}"
+
+	make install PYTHON=python2 DESTDIR="${pkgdir}"
+	make install PYTHON=python3 DESTDIR="${pkgdir}"
+}
+
+md5sums=('84faa46a0eb0b603e903efeed239c244')

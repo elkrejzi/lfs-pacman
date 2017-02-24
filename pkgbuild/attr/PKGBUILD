@@ -1,13 +1,16 @@
-pkgname=attr
+pkgbase=attr
+pkgname=('attr' 'lib32-attr')
 pkgver=2.4.47
 pkgrel=1
-pkgdesc="Extended attribute support library for ACL support"
 arch=('x86_64')
 url="http://savannah.nongnu.org/projects/attr"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("http://download.savannah.gnu.org/releases/attr/attr-${pkgver}.src.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/attr{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/attr-${pkgver}"
@@ -18,10 +21,26 @@ build() {
 
 	./configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib
 
-	make
+	cd "${srcdir}/attr32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32 --libexecdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/attr-${pkgver}"
+	make -C "${srcdir}/attr32-${pkgver}"
 }
 
-package() {
+package_attr() {
+	pkgdesc="Extended attribute support library for ACL support"
+
 	cd "${srcdir}/attr-${pkgver}"
 
 	make install install-lib install-dev DIST_ROOT="${pkgdir}"
@@ -32,6 +51,19 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libattr.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libattr.so") "${pkgdir}/usr/lib/libattr.so"
+}
+
+package_lib32-attr() {
+	pkgdesc="Extended attribute support library for ACL support (32 bit)"
+
+	cd "${srcdir}/attr32-${pkgver}"
+
+	make install install-lib install-dev DIST_ROOT="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+
+	chmod -v 755 "${pkgdir}/usr/lib32/libattr.so"
 }
 
 md5sums=('84f58dec00b60f2dc8fd1c9709291cc7')

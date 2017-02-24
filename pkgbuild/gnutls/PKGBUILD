@@ -5,7 +5,6 @@ pkgdesc="A library which provides a secure layer over a reliable transport layer
 arch=('x86_64')
 url="http://www.gnutls.org/"
 license=('GPL3' 'LGPL2.1')
-groups=('core')
 #depends=()
 source=("ftp://ftp.gnutls.org/gcrypt/gnutls/v${pkgver:0:3}/gnutls-${pkgver}.tar.xz")
 

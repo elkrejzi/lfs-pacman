@@ -1,0 +1,30 @@
+pkgname=cryptsetup
+pkgver=1.7.3
+pkgrel=1
+pkgdesc="Userspace setup tool for transparent encryption of block devices using dm-crypt"
+arch=('x86_64')
+url="https://gitlab.com/cryptsetup/cryptsetup/"
+license=('GPL')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/cryptsetup/v${pkgver:0:3}/cryptsetup-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/cryptsetup-${pkgver}"
+
+	./configure --prefix=/usr --enable-cryptsetup-reencrypt
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cryptsetup-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libcryptsetup.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcryptsetup.so") "${pkgdir}/usr/lib/libcryptsetup.so"
+}
+
+md5sums=('7e3fdb1a1cd055cb9c5f847b15230d81')

@@ -1,26 +1,56 @@
-pkgname=libxau
+pkgbase=libxau
+pkgname=('libxau' 'lib32-libxau')
 pkgver=1.0.8
 pkgrel=1
-pkgdesc="X11 authorisation library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libXau-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libXau{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libXau-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libXau32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libXau-${pkgver}"
+	make -C "${srcdir}/libXau32-${pkgver}"
 }
 
-package() {
+package_libxau() {
+	pkgdesc="X11 authorisation library"
+
 	cd "${srcdir}/libXau-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxau() {
+	pkgdesc="X11 authorisation library (32 bit)"
+
+	cd "${srcdir}/libXau32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('685f8abbffa6d145c0f930f00703b21b')

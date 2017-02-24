@@ -5,7 +5,6 @@ pkgdesc="Document type definitions for verification of SGML data files against t
 arch=('x86_64')
 url="http://www.docbook.org/sgml/"
 license=('MIT')
-groups=('core')
 #depends=()
 install=docbook.install
 source=("http://www.docbook.org/sgml/4.5/docbook-4.5.zip"

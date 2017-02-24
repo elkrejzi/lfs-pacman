@@ -5,7 +5,6 @@ pkgdesc="Introspection system for GObject-based libraries"
 arch=('x86_64')
 url="https://live.gnome.org/GObjectIntrospection"
 license=('LGPL' 'GPL')
-groups=('core')
 #depends=()
 source=("https://download.gnome.org/sources/gobject-introspection/${pkgver:0:4}/gobject-introspection-${pkgver}.tar.xz")
 

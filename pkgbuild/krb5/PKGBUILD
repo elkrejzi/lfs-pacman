@@ -5,7 +5,6 @@ pkgdesc="The Kerberos network authentication system"
 arch=('x86_64')
 url='https://web.mit.edu/kerberos/'
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://web.mit.edu/kerberos/dist/krb5/${pkgver:0:4}/krb5-${pkgver}.tar.gz"
 	"krb5-kadmind.service"

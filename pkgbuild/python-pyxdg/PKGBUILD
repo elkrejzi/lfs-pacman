@@ -6,7 +6,6 @@ pkgdesc="Implementations of freedesktop.org standards in Python"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/pyxdg/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/p/pyxdg/pyxdg-${pkgver}.tar.gz")
 

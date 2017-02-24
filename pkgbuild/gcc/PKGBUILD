@@ -6,7 +6,6 @@ pkgdesc="The GNU Compiler Collection"
 arch=('x86_64')
 url="http://gcc.gnu.org"
 license=('GPL' 'LGPL' 'FDL' 'custom')
-groups=('core')
 #depends=()
 options=(staticlibs debug !emptydirs)
 source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.bz2"

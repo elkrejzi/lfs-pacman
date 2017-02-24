@@ -5,7 +5,6 @@ pkgdesc="Library for building UEFI Applications using GNU toolchain"
 arch=('x86_64')
 url="http://sourceforge.net/projects/gnu-efi/"
 license=('GPL')
-groups=('core')
 #depends=()
 options=(!strip !makeflags !buildflags)
 source=("https://downloads.sourceforge.net/gnu-efi/gnu-efi-${pkgver}.tar.bz2")

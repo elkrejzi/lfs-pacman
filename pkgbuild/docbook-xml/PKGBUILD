@@ -5,7 +5,6 @@ pkgdesc="A widely used XML scheme for writing documentation and help"
 arch=('x86_64')
 url="http://www.oasis-open.org/docbook/"
 license=('MIT')
-groups=('core')
 #depends=()
 install=docbook-xml.install
 source=("http://www.docbook.org/xml/4.5/docbook-xml-4.5.zip"
@@ -13,7 +12,7 @@ source=("http://www.docbook.org/xml/4.5/docbook-xml-4.5.zip"
 	"http://www.docbook.org/xml/4.3/docbook-xml-4.3.zip"
 	"http://www.docbook.org/xml/4.2/docbook-xml-4.2.zip"
 	"http://www.docbook.org/xml/4.1.2/docbkx412.zip")
-noextract=("docbook-xml-4.5.zip""docbook-xml-4.4.zip" "docbook-xml-4.3.zip" "docbook-xml-4.2.zip" "docbkx412.zip")
+noextract=("docbook-xml-4.5.zip" "docbook-xml-4.4.zip" "docbook-xml-4.3.zip" "docbook-xml-4.2.zip" "docbkx412.zip")
 
 package() {
 	install -v -dm755 "${srcdir}/install"

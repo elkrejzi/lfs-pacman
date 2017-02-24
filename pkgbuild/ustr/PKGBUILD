@@ -5,7 +5,6 @@ pkgdesc="micro string API for C"
 arch=('x86_64')
 url="http://www.and.org/ustr/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("http://www.and.org/ustr/${pkgver}/ustr-${pkgver}.tar.bz2"
 	"ustr-fixes.patch")

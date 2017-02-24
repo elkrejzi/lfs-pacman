@@ -1,0 +1,43 @@
+pkgname=lvm2
+pkgver=2.02.168
+pkgrel=1
+pkgdesc="Logical Volume Manager 2"
+arch=('x86_64')
+url="http://sourceware.org/lvm2/"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+source=("ftp://sources.redhat.com/pub/lvm2/releases/LVM2.${pkgver}.tgz")
+
+prepare() {
+	cd "${srcdir}/LVM2.${pkgver}"
+
+	sed -i "s#systemd >=#lib&#g" configure
+}
+
+build() {
+	cd "${srcdir}/LVM2.${pkgver}"
+
+	./configure --prefix=/usr \
+		--exec-prefix= \
+		--with-confdir=/etc \
+		--enable-applib \
+		--enable-cmdlib \
+		--enable-pkgconfig \
+		--enable-udev_sync \
+		--enable-udev-systemd-background-jobs \
+		--with-tmpfilesdir=/usr/lib/tmpfiles.d \
+		--with-systemdsystemunitdir=/lib/systemd/system \
+		systemdutildir=/lib/systemd
+
+	make
+}
+
+package() {
+	cd "${srcdir}/LVM2.${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+	make install_systemd_units DESTDIR="${pkgdir}"
+	make install_systemd_generators DESTDIR="${pkgdir}"
+}
+
+md5sums=('00209bdd6befe9a7330f162909313ae8')

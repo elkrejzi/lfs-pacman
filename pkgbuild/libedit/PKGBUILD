@@ -6,7 +6,6 @@ pkgdesc="Command line editor library providing generic line editing, history, an
 arch=('x86_64')
 url="http://www.thrysoee.dk/editline/"
 license=('BSD')
-groups=('core')
 #depends=()
 source=("http://thrysoee.dk/editline/libedit-${_realver}.tar.gz")
 

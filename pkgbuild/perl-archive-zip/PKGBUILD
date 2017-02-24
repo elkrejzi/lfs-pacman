@@ -5,9 +5,7 @@ pkgdesc="Provide a perl interface to ZIP archive files"
 arch=('x86_64')
 url="http://search.cpan.org/dist/Archive-Zip/"
 license=('GPL' 'PerlArtistic')
-groups=('core')
 #depends=()
-options=(!emptydirs)
 source=("http://search.cpan.org/CPAN/authors/id/P/PH/PHRED/Archive-Zip-${pkgver}.tar.gz")
 
 build() {

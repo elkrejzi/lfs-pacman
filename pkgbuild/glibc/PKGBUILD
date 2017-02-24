@@ -5,7 +5,6 @@ pkgrel=1
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
 license=('GPL' 'LGPL')
-groups=('core')
 #depends=()
 options=(staticlibs debug emptydirs)
 source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"

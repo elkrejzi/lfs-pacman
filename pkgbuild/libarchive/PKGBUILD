@@ -5,7 +5,6 @@ pkgdesc="library that can create and read several streaming archive formats"
 arch=('x86_64')
 url="http://libarchive.org/"
 license=('BSD')
-groups=('core')
 #depends=()
 source=("http://libarchive.org/downloads/libarchive-${pkgver}.tar.gz")
 

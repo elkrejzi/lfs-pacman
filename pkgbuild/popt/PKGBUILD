@@ -5,7 +5,6 @@ pkgdesc="A commandline option parser"
 arch=('x86_64')
 url="http://rpm5.org"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://rpm5.org/files/popt/popt-${pkgver}.tar.gz")
 

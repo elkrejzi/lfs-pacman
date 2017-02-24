@@ -5,7 +5,6 @@ pkgdesc="Enhanced seccomp library"
 arch=('x86_64')
 url="https://github.com/seccomp/libseccomp"
 license=('LGPL2.1')
-groups=('core')
 #depends=()
 source=("https://github.com/seccomp/libseccomp/releases/download/v${pkgver}/libseccomp-${pkgver}.tar.gz")
 

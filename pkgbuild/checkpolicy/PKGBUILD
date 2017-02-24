@@ -1,0 +1,25 @@
+pkgname=checkpolicy
+pkgver=2.6
+pkgrel=1
+pkgdesc="SELinux policy compiler"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/checkpolicy-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/checkpolicy-${pkgver}"
+
+	sed -i "s#-lfl#/usr/lib/libfl.a#g" test/Makefile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/checkpolicy-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2b581f8fe8eb8f55f111088e15d76c3a')

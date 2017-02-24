@@ -1,0 +1,28 @@
+pkgname=gpgme
+pkgver=1.8.0
+pkgrel=1
+pkgdesc="A C wrapper library for GnuPG"
+arch=('x86_64')
+url="https://www.gnupg.org/related_software/gpgme/index.html"
+license=('LGPL')
+#depends=()
+source=("https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gpgme-${pkgver}"
+
+	./configure --prefix=/usr \
+		--disable-fd-passing \
+		--disable-gpgsm-test \
+		--enable-languages=cpp
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gpgme-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('722a4153904b9b5dc15485a22d29263b')

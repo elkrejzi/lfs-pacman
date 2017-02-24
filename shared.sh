@@ -21,15 +21,19 @@ then
 fi
 
 lfs_mount_virt() {
-  mount --bind /dev ${LFS}/dev
-  mount --bind /dev/pts ${LFS}/dev/pts
+  mountpoint ${LFS}/dev 2>&1>/dev/null || mount --bind /dev ${LFS}/dev
+  mountpoint ${LFS}/dev/pts 2>&1>/dev/null || mount --bind /dev/pts ${LFS}/dev/pts
 
-  mount -t proc none ${LFS}/proc
-  mount -t sysfs none ${LFS}/sys
+  mountpoint ${LFS}/proc 2>&1>/dev/null || mount -t proc none ${LFS}/proc
+  mountpoint ${LFS}/sys 2>&1>/dev/null || mount -t sysfs none ${LFS}/sys
 }
 
 lfs_umount_virt() {
-  umount ${LFS}/proc ${LFS}/sys ${LFS}/dev/pts ${LFS}/dev
+  mountpoint ${LFS}/dev/pts 2>&1>/dev/null && umount ${LFS}/dev/pts
+  mountpoint ${LFS}/dev 2>&1>/dev/null && umount ${LFS}/dev
+
+  mountpoint ${LFS}/proc 2>&1>/dev/null && umount ${LFS}/proc
+  mountpoint ${LFS}/sys 2>&1>/dev/null && umount ${LFS}/sys
 }
 
 lfs_chroot_exec_cmd() {

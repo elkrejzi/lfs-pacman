@@ -5,14 +5,13 @@ pkgdesc="A unit testing framework for C"
 arch=('x86_64')
 url="https://libcheck.github.io/check/"
 license=(LGPL)
-groups=('core')
 #depends=()
 source=("https://github.com/libcheck/check/releases/download/${pkgver}/check-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/check-${pkgver}"
 
-	./configure --prefix=/usr --disable-static
+	./configure --prefix=/usr
 
 	make
 }

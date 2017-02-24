@@ -1,0 +1,60 @@
+pkgname=git
+pkgver=2.12.0
+pkgrel=1
+pkgdesc="The fast distributed version control system"
+arch=('x86_64')
+url="http://git-scm.com/"
+license=('GPL2')
+#depends=()
+install=git.install
+source=("https://www.kernel.org/pub/software/scm/git/git-${pkgver}.tar.xz"
+	"https://www.kernel.org/pub/software/scm/git/git-manpages-${pkgver}.tar.xz"
+	"git-daemon@.service"
+	"git-daemon.socket"
+	"git.sysusers")
+
+noextract=("git-manpages-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/git-${pkgver}"
+
+	sed -i "/CC/s#cc#${CC}#g;s#-g -O2#${CFLAGS}#g" Makefile
+
+	make prefix=/usr CC="${CC}" CFLAGS="${CFLAGS}" USE_LIBPCRE=1 NO_CROSS_DIRECTORY_HARDLINKS=1 \
+		INSTALLDIRS=vendor V=1
+
+	make -C contrib/credential/gnome-keyring CC="${CC}" CFLAGS="${CFLAGS}" V=1
+	make -C contrib/credential/libsecret CC="${CC}" CFLAGS="${CFLAGS}" V=1
+}
+
+package() {
+	cd "${srcdir}/git-${pkgver}"
+
+	make prefix=/usr CC="${CC}" CFLAGS="${CFLAGS}" USE_LIBPCRE=1 NO_CROSS_DIRECTORY_HARDLINKS=1 \
+		INSTALLDIRS=vendor install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/man"
+
+	bsdtar xf "${srcdir}/git-manpages-${pkgver}.tar.xz" -C "${pkgdir}/usr/share/man"
+
+	find "${pkgdir}/usr/share/man" -type d -exec chmod 755 {} \;
+
+	install -v -Dm755 contrib/credential/gnome-keyring/git-credential-gnome-keyring \
+		"${pkgdir}/usr/libexec/git-core/git-credential-gnome-keyring"
+
+	install -v -Dm755 contrib/credential/libsecret/git-credential-libsecret \
+		"${pkgdir}/usr/libexec/git-core/git-credential-libsecret"
+
+	install -v -Dm644 "${srcdir}/git-daemon@.service" "${pkgdir}/lib/systemd/system/git-daemon@.service"
+	install -v -Dm644 "${srcdir}/git-daemon.socket" "${pkgdir}/lib/systemd/system/git-daemon.socket"
+
+	install -v -Dm644 "${srcdir}/git.sysusers" "${pkgdir}/usr/lib/sysusers.d/git.conf"
+
+	rm -rf "${pkgdir}/usr/lib/perl"
+}
+
+md5sums=('2f47ac12628d94da397cea54997618a8'
+         '4d11e05068231e37d7e42935e9cc43a1'
+         'b068d3a75c01dc33de84d2d18efab981'
+         'f67869315c2cc112e076f0c73f248002'
+         '6b7b0f057f1294a000832c52627242af')

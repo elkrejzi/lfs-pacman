@@ -5,14 +5,13 @@ pkgdesc="File type identification utility"
 arch=('x86_64')
 url="https://www.darwinsys.com/file/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("ftp://ftp.astron.com/pub/file/file-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/file-${pkgver}"
 
-	./configure --prefix=/usr --disable-static
+	./configure --prefix=/usr
 
 	make
 }

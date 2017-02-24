@@ -5,7 +5,6 @@ pkgdesc="X.Org Autotools macros"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/util/util-macros-${pkgver}.tar.bz2")
 

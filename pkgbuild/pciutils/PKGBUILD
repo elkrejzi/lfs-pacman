@@ -5,7 +5,6 @@ pkgdesc="PCI bus configuration space access library and tools"
 arch=('x86_64')
 url="http://mj.ucw.cz/sw/pciutils/"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("https://www.kernel.org/pub/software/utils/pciutils/pciutils-${pkgver}.tar.xz")
 

@@ -1,0 +1,25 @@
+pkgname=libevent
+pkgver=2.1.8
+pkgrel=1
+pkgdesc="An event notification library"
+arch=('x86_64')
+url="http://libevent.org/"
+license=('BSD')
+#depends=()
+source=("https://github.com/libevent/libevent/releases/download/release-${pkgver}-stable/libevent-${pkgver}-stable.tar.gz")
+
+build() {
+	cd "${srcdir}/libevent-${pkgver}-stable"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libevent-${pkgver}-stable"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f3eeaed018542963b7d2416ef1135ecc')

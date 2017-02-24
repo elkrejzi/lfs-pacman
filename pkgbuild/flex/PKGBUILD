@@ -5,7 +5,6 @@ pkgdesc="A tool for generating text-scanning programs"
 arch=('x86_64')
 url="https://github.com/westes/flex"
 license=('custom')
-groups=('core')
 #depends=()
 options=(staticlibs)
 source=("https://github.com/westes/flex/releases/download/v${pkgver}/flex-${pkgver}.tar.gz")

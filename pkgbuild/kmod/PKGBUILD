@@ -1,11 +1,10 @@
 pkgname=kmod
-pkgver=23
+pkgver=24
 pkgrel=1
 pkgdesc="Linux kernel module management tools and library"
 arch=('x86_64')
 url="http://git.kernel.org/?p=utils/kernel/kmod/kmod.git;a=summary"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-${pkgver}.tar.xz")
 
@@ -35,8 +34,6 @@ package() {
 	done
 
 	ln -sfv kmod "${pkgdir}/bin/lsmod"
-
-	sed -i "s:.so modules.dep.5:.so man5/modules.dep.5:" "${pkgdir}/usr/share/man/man5/modules.dep.bin.5"
 }
 
-md5sums=('3cf469f40ec2ed51f56ba45ea03793e7')
+md5sums=('08297dfb6f2b3f625f928ca3278528af')

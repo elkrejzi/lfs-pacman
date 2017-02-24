@@ -5,7 +5,6 @@ pkgdesc="Password Checking Library"
 arch=('x86_64')
 url="https://github.com/cracklib/cracklib"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://github.com/cracklib/cracklib/releases/download/cracklib-${pkgver}/cracklib-${pkgver}.tar.gz")
 

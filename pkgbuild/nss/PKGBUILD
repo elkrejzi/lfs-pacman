@@ -5,7 +5,6 @@ pkgdesc="Network Security Services"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 license=('MPL' 'GPL')
-groups=('core')
 #depends=()
 options=(staticlibs)
 source=("https://ftp.mozilla.org/pub/security/nss/releases/NSS_${pkgver//./_}_RTM/src/nss-${pkgver}.tar.gz"

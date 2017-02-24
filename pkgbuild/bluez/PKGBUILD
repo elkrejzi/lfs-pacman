@@ -1,0 +1,35 @@
+pkgname=bluez
+pkgver=5.43
+pkgrel=1
+pkgdesc="Linux Bluetooth Protocol Stack"
+arch=('x86_64')
+url="http://www.bluez.org/"
+arch=('i686' 'x86_64')
+#depends=()
+source=("https://www.kernel.org/pub/linux/bluetooth/bluez-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/bluez-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-experimental \
+		--enable-library
+
+	make
+}
+
+package() {
+	cd "${srcdir}/bluez-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/etc/bluetooth" "${pkgdir}/usr/lib/systemd/user"
+
+	install -v -Dm644 src/main.conf "${pkgdir}/etc/bluetooth/main.conf"
+
+	ln -sfv /usr/lib/systemd/user/obex.service "${pkgdir}/usr/lib/systemd/user/dbus-org.bluez.obex.service"
+}
+
+md5sums=('698def88df96840dfbb0858bb6d73350')

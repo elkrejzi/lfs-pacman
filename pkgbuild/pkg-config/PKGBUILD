@@ -5,7 +5,6 @@ pkgdesc="A system for managing library compile/link flags"
 arch=('x86_64')
 url="http://pkgconfig.freedesktop.org/wiki/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://pkg-config.freedesktop.org/releases/pkg-config-${pkgver}.tar.gz")
 

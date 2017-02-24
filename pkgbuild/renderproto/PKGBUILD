@@ -5,7 +5,6 @@ pkgdesc="X11 Render extension wire protocol"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/proto/renderproto-${pkgver}.tar.bz2")
 

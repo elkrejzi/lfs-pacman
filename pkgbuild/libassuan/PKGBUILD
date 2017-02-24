@@ -1,0 +1,25 @@
+pkgname=libassuan
+pkgver=2.4.3
+pkgrel=1
+pkgdesc="IPC library used by some GnuPG related software"
+arch=('x86_64')
+url="https://www.gnupg.org/related_software/libassuan/index.html"
+license=('GPL')
+#depends=()
+source=("https://www.gnupg.org/ftp/gcrypt/libassuan/libassuan-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libassuan-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libassuan-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8e01a7c72d3e5d154481230668e6eb5a')

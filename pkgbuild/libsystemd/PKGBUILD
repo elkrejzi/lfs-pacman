@@ -1,0 +1,97 @@
+pkgbase=libsystemd
+pkgname=('libsystemd' 'lib32-libsystemd')
+pkgver=232
+pkgrel=1
+arch=('x86_64')
+url="https://www.github.com/systemd/systemd"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/systemd-${pkgver}"
+
+	sed -i "s#lz4 >= 125#lz4#g" configure
+
+	cp -a "${srcdir}"/systemd{,32}-${pkgver}
+}
+
+build() {
+	local configure_shared=(--prefix=/usr
+		--sysconfdir=/etc
+		--localstatedir=/var
+		--enable-split-usr
+		--disable-firstboot
+		--disable-lto
+		--disable-tests
+		--disable-wheel-group
+		--with-pamlibdir=/lib/security
+		--with-rootprefix=
+		--with-rootlibdir=/lib
+		--with-sysvinit-path=/etc/init.d
+		--with-sysvrcnd-path=/etc
+		--with-rc-local-script-path-stop=
+		--with-rc-local-script-path-start=/etc/rc.local
+		--with-dbuspolicydir=/etc/dbus-1/system.d
+		--with-dbussessionservicedir=/usr/share/dbus-1/services
+		--with-dbussystemservicedir=/usr/share/dbus-1/system-services)
+
+	cd "${srcdir}/systemd-${pkgver}"
+
+	./configure "${configure_shared[@]}"
+
+	cd "${srcdir}/systemd32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure "${configure_shared[@]}" \
+		--with-rootlibdir=/usr/lib32 \
+		--libdir=/usr/lib32 \
+		--disable-acl \
+		--disable-audit \
+		--disable-pam
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/systemd-${pkgver}" built-sources
+	make -C "${srcdir}/systemd-${pkgver}" libudev.la libsystemd.la
+
+	make -C "${srcdir}/systemd32-${pkgver}" built-sources
+	make -C "${srcdir}/systemd32-${pkgver}" libudev.la libsystemd.la
+}
+
+package_libsystemd() {
+	pkgdesc="System and service manager libraries"
+
+	cd "${srcdir}/systemd-${pkgver}"
+
+	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" install-rootlibLTLIBRARIES \
+		install-includeHEADERS install-pkgincludeHEADERS install-pkgconfiglibDATA \
+		DESTDIR="${pkgdir}"
+
+	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libsystemd.so") "${pkgdir}/usr/lib/libsystemd.so"
+	rm -rf "${pkgdir}/lib/libsystemd.so"
+
+	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libudev.so") "${pkgdir}/usr/lib/libudev.so"
+	rm -rf "${pkgdir}/lib/libudev.so"
+}
+
+package_lib32-libsystemd() {
+	pkgdesc="System and service manager libraries (32 bit)"
+
+	cd "${srcdir}/systemd32-${pkgver}"
+
+	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" install-rootlibLTLIBRARIES \
+		install-includeHEADERS install-pkgincludeHEADERS install-pkgconfiglibDATA \
+		DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('281604885d5a87f0359244f6f84037cb')

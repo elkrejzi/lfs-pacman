@@ -1,4 +1,3 @@
-# libalpmhook
 pkgname=texinfo
 pkgver=6.3
 pkgrel=1
@@ -6,9 +5,11 @@ pkgdesc="GNU documentation system for on-line information and printed output"
 arch=('x86_64')
 url="https://www.gnu.org/software/texinfo/"
 license=('GPL3')
-groups=('core')
 #depends=()
-source=("https://ftp.gnu.org/gnu/texinfo/texinfo-${pkgver}.tar.xz")
+install=texinfo.install
+source=("https://ftp.gnu.org/gnu/texinfo/texinfo-${pkgver}.tar.xz"
+	"texinfo-install.hook"
+	"texinfo-remove.hook")
 
 build() {
 	cd "${srcdir}/texinfo-${pkgver}"
@@ -22,6 +23,11 @@ package() {
 	cd "${srcdir}/texinfo-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/texinfo-install.hook" "${pkgdir}/usr/share/libalpm/hooks/texinfo-install.hook"
+	install -v -Dm644 "${srcdir}/texinfo-remove.hook" "${pkgdir}/usr/share/libalpm/hooks/texinfo-remove.hook"
 }
 
-md5sums=('32baefe5c7080dfb512a4eac5ce67b2a')
+md5sums=('32baefe5c7080dfb512a4eac5ce67b2a'
+         '9a98fb162650ff3065f9a4ebec22db36'
+         '5590fb3ef9ec309c98f5a4d85eca49da')

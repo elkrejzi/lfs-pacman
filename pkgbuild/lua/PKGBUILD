@@ -7,7 +7,6 @@ pkgdesc="Powerful lightweight programming language designed for extending applic
 arch=('x86_64')
 url="http://www.lua.org/"
 license=('MIT')
-groups=('core')
 #depends=()
 source=("http://www.lua.org/ftp/lua-${pkgver}.tar.gz"
 	"lua.pc"

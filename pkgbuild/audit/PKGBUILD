@@ -5,7 +5,6 @@ pkgdesc="Userspace components of the audit framework"
 arch=('x86_64')
 url="https://people.redhat.com/sgrubb/audit"
 license=(GPL)
-groups=('core')
 #depends=()
 source=("https://people.redhat.com/sgrubb/audit/audit-${pkgver}.tar.gz")
 
@@ -30,6 +29,11 @@ package() {
 	make install initdir=/lib/systemd/system DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/usr/libexec"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libaudit.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libaudit.so") "${pkgdir}/usr/lib/libaudit.so"
 }
 
 md5sums=('dcda449144d44030344c6a975769d44d')

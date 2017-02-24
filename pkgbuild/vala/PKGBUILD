@@ -5,7 +5,6 @@ pkgdesc="Compiler for the GObject type system"
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/Vala"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("https://download.gnome.org/sources/vala/${pkgver:0:4}/vala-${pkgver}.tar.xz")
 

@@ -1,0 +1,89 @@
+pkgbase=linux
+pkgname=('linux' 'linux-headers')
+_basever=4.10
+pkgver=4.10
+pkgrel=1
+arch=('x86_64')
+url="https://www.kernel.org/"
+license=('GPL2')
+source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz"
+#	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
+	"config")
+
+export KBUILD_BUILD_USER="krejzi"
+export KBUILD_BUILD_HOST="email.com"
+
+prepare() {
+	cd "${srcdir}/linux-${_basever}"
+	[ ${_basever} != ${pkgver} ] && patch -Np1 -i "${srcdir}/patch-${pkgver}" || true
+
+	install -v -m644 "${srcdir}/config" .config
+}
+
+build() {
+	cd "${srcdir}/linux-${_basever}"
+
+	make
+}
+
+package_linux() {
+	pkgdesc="The Linux kernel and modules"
+	options=(!strip)
+
+	cd "${srcdir}/linux-${_basever}"
+
+	export _kernver=$(make kernelrelease)
+
+	install -v -Dm644 .config "${pkgdir}/boot/config"
+	install -v -Dm644 System.map "${pkgdir}/boot/System.map"
+	install -v -Dm644 arch/x86/boot/bzImage "${pkgdir}/boot/vmlinuz"
+
+	make modules_install INSTALL_MOD_PATH="${pkgdir}"
+
+	rm -rf "${pkgdir}/lib/firmware"
+	rm -rf "${pkgdir}"/lib/modules/${_kernver}/{build,source}
+}
+
+package_linux-headers() {
+	pkgdesc="Header files and scripts for building modules for Linux kernel"
+
+	cd "${srcdir}/linux-${_basever}"
+
+	export _kernver=$(make kernelrelease)
+	export _hdrdir=${pkgdir}/usr/src/linux-headers-${_kernver}
+
+	install -v -dm755 "${pkgdir}/lib/modules/${_kernver}"
+
+	ln -sfv /usr/src/linux-headers-${_kernver} "${pkgdir}/lib/modules/${_kernver}/build"
+	ln -sfv /usr/src/linux-headers-${_kernver} "${pkgdir}/lib/modules/${_kernver}/source"
+
+	install -v -dm755 "${_hdrdir}/arch/x86/kernel"
+	install -v -dm755 "${_hdrdir}"/scripts/{basic,genksyms,kconfig,mod}
+
+	install -v -m644 .config "${_hdrdir}"
+	install -v -m644 Makefile "${_hdrdir}"
+	install -v -m644 Module.symvers "${_hdrdir}"
+	install -v -m644 arch/x86/Makefile "${_hdrdir}/arch/x86"
+	install -v -m644 arch/x86/kernel/asm-offsets.s "${_hdrdir}/arch/x86/kernel"
+
+	cp -r arch/x86/include "${_hdrdir}/arch/x86"
+	cp -r include "${_hdrdir}"
+
+	ln -sfv ../generated/uapi/linux/version.h "${_hdrdir}/include/linux/version.h"
+
+	find "${_hdrdir}/arch/x86" -name ".*.cmd" -delete
+
+	for i in $(find . -name "Kconfig*")
+	do
+		install -dm755 "${_hdrdir}"/$(dirname ${i})
+		install -m644 ${i} "${_hdrdir}/${i}"
+	done
+
+	cp -r scripts "${_hdrdir}"
+
+	find "${_hdrdir}/scripts" -name "*.o" -delete
+	find "${_hdrdir}/scripts" -name "*.h" -delete
+	find "${_hdrdir}/scripts" -name "*.c*" -delete
+}
+
+md5sums=('b5e7f6b9b2fe1b6cc7bc56a3a0bfc090')

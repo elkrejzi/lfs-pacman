@@ -1,0 +1,33 @@
+pkgname=iana-etc
+pkgver=2.30
+pkgrel=1
+pkgdesc="/etc/protocols and /etc/services provided by IANA"
+arch=('x86_64')
+url="http://www.iana.org/protocols"
+license=('custom:none')
+#depends=()
+source=("http://sethwklein.net/iana-etc-${pkgver}.tar.bz2"
+	"iana-etc-fixes.patch")
+
+
+prepare() {
+	cd "${srcdir}/iana-etc-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/iana-etc-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/iana-etc-${pkgver}"
+
+	make get
+	make
+}
+
+package() {
+	cd "${srcdir}/iana-etc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3ba3afb1d1b261383d247f46cb135ee8'
+         'ca5ed01734f913e643a17a94a6cd2611')

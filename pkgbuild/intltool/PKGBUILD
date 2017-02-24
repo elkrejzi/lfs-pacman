@@ -5,7 +5,6 @@ pkgdesc="The internationalization tool collection"
 arch=('x86_64')
 url="https://edge.launchpad.net/intltool"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://launchpad.net/intltool/trunk/${pkgver}/+download/intltool-${pkgver}.tar.gz")
 

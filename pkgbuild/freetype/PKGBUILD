@@ -5,7 +5,6 @@ pkgdesc="TrueType font rendering library"
 arch=('x86_64')
 url="http://www.freetype.org/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/freetype/freetype-${pkgver}.tar.bz2")
 

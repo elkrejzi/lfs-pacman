@@ -5,7 +5,6 @@ pkgdesc="GNU compression utility"
 arch=('x86_64')
 url="https://www.gnu.org/software/gzip/"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/gzip/gzip-${pkgver}.tar.xz")
 

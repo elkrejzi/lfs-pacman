@@ -5,7 +5,6 @@ pkgdesc="A set of programs to assemble and manipulate binary and object files"
 arch=('x86_64')
 url="https://www.gnu.org/software/binutils/"
 license=('GPL')
-groups=('core')
 #depends=()
 options=(staticlibs)
 source=("https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.bz2")

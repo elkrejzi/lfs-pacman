@@ -5,7 +5,6 @@ pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
 url="http://www.kbd-project.org"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://www.kernel.org/pub/linux/utils/kbd/kbd-${pkgver}.tar.xz")
 

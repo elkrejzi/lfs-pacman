@@ -6,7 +6,6 @@ pkgdesc="Core utilities for Python packages"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/packaging/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/p/packaging/packaging-${pkgver}.tar.gz")
 

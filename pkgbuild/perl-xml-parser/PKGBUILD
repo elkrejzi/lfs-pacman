@@ -5,7 +5,6 @@ pkgdesc="Expat-based XML parser module for perl"
 arch=('x86_64')
 url="http://search.cpan.org/dist/XML-Parser/"
 license=('GPL' 'PerlArtistic')
-groups=('core')
 #depends=()
 source=("http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-${pkgver}.tar.gz")
 

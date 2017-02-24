@@ -5,7 +5,6 @@ pkgdesc="Miscellaneous procfs tools"
 arch=('x86_64')
 url="http://psmisc.sourceforge.net/index.html"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/psmisc/psmisc-${pkgver}.tar.gz")
 

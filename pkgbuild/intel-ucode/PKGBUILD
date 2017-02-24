@@ -1,0 +1,32 @@
+pkgname=intel-ucode
+_dlid=26400
+pkgver=20161104
+pkgrel=1
+pkgdesc="Microcode update files for Intel CPUs"
+arch=('x86_64')
+url="https://downloadcenter.intel.com/SearchResult.aspx?lang=eng&keyword=%22microcode%22"
+license=('custom')
+#depends=()
+source=("https://downloadmirror.intel.com/${_dlid}/eng/microcode-${pkgver}.tgz"
+	"intel-microcode2ucode.c")
+
+build() {
+	cd "${srcdir}"
+
+	${CC} -Wall -o intel-microcode2ucode intel-microcode2ucode.c
+
+	./intel-microcode2ucode ./microcode.dat
+}
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 kernel/x86/microcode
+	mv -v microcode.bin kernel/x86/microcode/GenuineIntel.bin
+
+	install -v -dm755 "${pkgdir}/boot"
+	echo kernel/x86/microcode/GenuineIntel.bin | bsdcpio -o -H newc -R 0:0 > "${pkgdir}/boot/intel-ucode.img"
+}
+
+md5sums=('6720d5c2673d79ca8e4ac8e66d8597bf'
+         '580276790cfc62dfd82b76085bd1e743')

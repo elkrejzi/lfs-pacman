@@ -5,7 +5,6 @@ pkgdesc="Sources for time zone and daylight saving time data"
 arch=('any')
 url="http://www.iana.org/time-zones"
 license=('GPL')
-groups=('core')
 source=("https://www.iana.org/time-zones/repository/releases/tzdata${pkgver}.tar.gz")
 
 timezones=('africa' 'antarctica' 'asia' 'australasia'

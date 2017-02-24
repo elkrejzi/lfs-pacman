@@ -6,7 +6,6 @@ pkgdesc="16 stemmer algorithms (15 + Poerter English stemmer) generated from Sno
 arch=('x86_64')
 url="https://pypi.python.org/pypi/snowballstemmer/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/s/snowballstemmer/snowballstemmer-${pkgver}.tar.gz")
 

@@ -1,0 +1,33 @@
+pkgname=libical
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
+arch=('x86_64')
+url='https://github.com/libical/libical'
+license=('LGPL' 'MPL')
+#depends=()
+source=("https://github.com/libical/libical/releases/download/v${pkgver}/libical-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DSHARED_ONLY=ON \
+		"${srcdir}/libical-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6bf8e5f5a3ba88baf390d0134e05d76e')

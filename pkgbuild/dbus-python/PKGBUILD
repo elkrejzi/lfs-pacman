@@ -1,0 +1,52 @@
+pkgbase=dbus-python
+pkgname=('dbus-python-common' 'python2-dbus' 'python3-dbus')
+pkgver=1.2.4
+pkgrel=1
+arch=('x86_64')
+url="http://www.freedesktop.org/wiki/Software/DBusBindings"
+license=('GPL' 'custom')
+#depends=()
+source=("https://dbus.freedesktop.org/releases/dbus-python/dbus-python-${pkgver}.tar.gz")
+
+build() {
+	install -v -dm755 "${srcdir}/build-python2"
+
+	cd "${srcdir}/build-python2"
+
+	"${srcdir}"/dbus-python-${pkgver}/configure --prefix=/usr PYTHON=/usr/bin/python2
+
+	install -v -dm755 "${srcdir}/build-python3"
+
+	cd "${srcdir}/build-python3"
+
+	"${srcdir}"/dbus-python-${pkgver}/configure --prefix=/usr PYTHON=/usr/bin/python3
+
+	make -C "${srcdir}/build-python2"
+	make -C "${srcdir}/build-python3"
+}
+
+package_dbus-python-common() {
+	pkgdesc="Python bindings for DBUS (common files)"
+
+	make -C "${srcdir}/build-python2" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/python*
+}
+
+package_python2-dbus() {
+	pkgdesc="Python 2 bindings for DBUS"
+
+	make -C "${srcdir}/build-python2" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
+}
+
+package_python3-dbus() {
+	pkgdesc="Python 3 bindings for DBUS"
+
+	make -C "${srcdir}/build-python3" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
+}
+
+md5sums=('7372a588c83a7232b4e08159bfd48fe5')

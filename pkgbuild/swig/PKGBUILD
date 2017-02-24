@@ -5,7 +5,6 @@ pkgdesc="Generate scripting interfaces to C/C++ code"
 arch=('x86_64')
 url="http://www.swig.org/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/swig/swig-${pkgver}.tar.gz")
 

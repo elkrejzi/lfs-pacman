@@ -5,7 +5,6 @@ pkgdesc="Tool to download rtmp streams"
 arch=('x86_64')
 url="http://rtmpdump.mplayerhq.hu/"
 license=('GPL2' 'LGPL2.1')
-groups=('core')
 #depends=()
 source=("http://www.linuxfromscratch.org/~krejzi/rtmpdump-${pkgver}.tar.xz")
 

@@ -6,7 +6,6 @@ pkgdesc="World timezone definitions, modern and historical"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/pytz/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/p/pytz/pytz-${pkgver}.tar.gz")
 

@@ -1,0 +1,9 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# By default this script does nothing.
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+exit 0

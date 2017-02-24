@@ -5,6 +5,10 @@
 *.gz
 *.c
 *.S
+*.fw
+*.bin
+*.ucode
+*.bseq
 bash*-0*
 readline*-0*
 mpfr-cumulative.patch

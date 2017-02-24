@@ -5,7 +5,6 @@ pkgdesc="An arbitrary precision calculator language"
 arch=('x86_64')
 url="https://www.gnu.org/software/bc/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://alpha.gnu.org/gnu/bc/bc-${pkgver}.tar.bz2"
 	"bc-fixes.patch")

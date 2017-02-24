@@ -6,7 +6,6 @@ pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
 url="http://www.sqlite.org/"
 license=('custom:Public Domain')
-groups=('core')
 #depends=()
 source=("https://sqlite.org/2017/sqlite-autoconf-${_srcver}.tar.gz")
 

@@ -5,7 +5,6 @@ pkgdesc="A string search utility"
 arch=('x86_64')
 url="https://www.gnu.org/software/grep/"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/grep/grep-${pkgver}.tar.xz")
 

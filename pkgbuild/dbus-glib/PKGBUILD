@@ -1,0 +1,25 @@
+pkgname=dbus-glib
+pkgver=0.108
+pkgrel=1
+pkgdesc="GLib bindings for DBUS"
+arch=('x86_64')
+url="http://www.freedesktop.org/wiki/Software/DBusBindings"
+license=('GPL' 'custom')
+#depends=()
+source=("https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/dbus-glib-${pkgver}"
+
+	./configure --prefix=/usr --disable-bash-completion
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dbus-glib-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a66a613705870752ca9786e0359aea97')

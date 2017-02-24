@@ -1,23 +1,44 @@
-pkgname=libgcrypt
+pkgbase=libgcrypt
+pkgname=('libgcrypt' 'lib32-libgcrypt')
 pkgver=1.7.6
 pkgrel=1
-pkgdesc="General purpose cryptographic library based on the code from GnuPG"
 arch=('x86_64')
 url="http://www.gnupg.org"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libgcrypt{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libgcrypt-${pkgver}"
 
 	./configure --prefix=/usr --disable-padlock-support
 
-	make
+	cd "${srcdir}/libgcrypt32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	sed -i 's:path="amd64":path="i586 i386":' mpi/config.links
+
+	./configure --prefix=/usr --libdir=/usr/lib32 --disable-padlock-support
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libgcrypt-${pkgver}"
+	make -C "${srcdir}/libgcrypt32-${pkgver}"
 }
 
-package() {
+package_libgcrypt() {
+	pkgdesc="General purpose cryptographic library based on the code from GnuPG"
+
 	cd "${srcdir}/libgcrypt-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
@@ -26,6 +47,17 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libgcrypt.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libgcrypt.so") "${pkgdir}/usr/lib/libgcrypt.so"
+}
+
+package_lib32-libgcrypt() {
+	pkgdesc="General purpose cryptographic library based on the code from GnuPG (32 bit)"
+
+	cd "${srcdir}/libgcrypt32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('54e180679a7ae4d090f8689ca32b654c')

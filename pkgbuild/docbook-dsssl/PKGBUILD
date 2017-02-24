@@ -5,7 +5,6 @@ pkgdesc="DSSSL Stylesheets for DocBook"
 arch=('x86_64')
 url="http://docbook.sourceforge.net/"
 license=('custom')
-groups=('core')
 #depends=()
 install=docbook-dsssl.install
 source=("https://downloads.sourceforge.net/docbook/docbook-dsssl-${pkgver}.tar.bz2")

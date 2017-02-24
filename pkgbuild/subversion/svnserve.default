@@ -1,0 +1,8 @@
+# Begin /etc/default/svnserve
+
+# Additional options to pass to svnserve command line
+#
+# Example: -r /srv/svn/repositories
+SVNSERVE_OPTS=""
+
+# End /etc/default/svnserve

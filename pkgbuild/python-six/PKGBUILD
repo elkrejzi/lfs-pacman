@@ -6,7 +6,6 @@ pkgdesc="Python 2 and 3 compatibility utilities"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/six/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/s/six/six-${pkgver}.tar.gz")
 

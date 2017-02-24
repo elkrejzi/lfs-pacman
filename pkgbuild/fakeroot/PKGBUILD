@@ -1,0 +1,39 @@
+pkgname=fakeroot
+pkgver=1.20.2
+pkgrel=1
+pkgdesc="Tool for simulating superuser privileges"
+arch=('x86_64')
+url="http://packages.debian.org/fakeroot"
+license=('GPL')
+#depends=()
+source=("http://cdn-fastly.deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_${pkgver}.orig.tar.bz2"
+	"fakeroot-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/fakeroot-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/fakeroot-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/fakeroot-${pkgver}"
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib/libfakeroot \
+		--with-ipc=sysv
+
+	make
+}
+
+package() {
+	cd "${srcdir}/fakeroot-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/etc/ld.so.conf.d"
+
+	echo "/usr/lib/libfakeroot" > "${pkgdir}/etc/ld.so.conf.d/fakeroot.conf"
+}
+
+md5sums=('a4b4564a75024aa96c86e4d1017ac786'
+         'e11fdb0f2fe7c6fe630d1c2a59b8c7a1')

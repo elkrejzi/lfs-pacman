@@ -6,7 +6,6 @@ pkgdesc="For extracting and viewing files in .zip archives"
 arch=('x86_64')
 url="http://www.info-zip.org/UnZip.html"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://downloads.sourceforge.net/infozip/${pkgname}${_pkgver}.tar.gz"
 	"unzip-fixes.patch")

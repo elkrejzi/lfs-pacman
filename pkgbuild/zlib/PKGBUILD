@@ -5,7 +5,6 @@ pkgrel=1
 arch=('x86_64')
 url="http://www.zlib.net/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://zlib.net/zlib-${pkgver}.tar.xz")
 
@@ -41,6 +40,11 @@ package_zlib() {
 	cd "${srcdir}/zlib-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libz.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libz.so") "${pkgdir}/usr/lib/libz.so"
 }
 
 package_lib32-zlib() {

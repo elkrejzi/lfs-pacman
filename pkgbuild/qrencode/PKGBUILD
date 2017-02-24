@@ -5,7 +5,6 @@ pkgdesc="C library for encoding data in a QR Code symbol"
 arch=('x86_64')
 url="http://fukuchi.org/works/qrencode/index.html.en"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("http://fukuchi.org/works/qrencode/qrencode-${pkgver}.tar.bz2")
 

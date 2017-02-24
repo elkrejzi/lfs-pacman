@@ -5,7 +5,6 @@ pkgdesc="Utility libraries for XC Binding - Convenience functions for the Render
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/xcb/xcb-util-renderutil-${pkgver}.tar.bz2")
 

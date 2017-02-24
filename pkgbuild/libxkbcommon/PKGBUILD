@@ -5,7 +5,6 @@ pkgdesc="Keymap handling library for toolkits and window systems"
 arch=('x86_64')
 url="https://xkbcommon.org/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://xkbcommon.org/download/libxkbcommon-${pkgver}.tar.xz")
 

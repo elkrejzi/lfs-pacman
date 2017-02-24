@@ -5,7 +5,6 @@ pkgdesc="XML to PO and back again"
 arch=('x86_64')
 url="http://itstool.org/"
 license=(GPL3)
-groups=('core')
 #depends=()
 source=("http://files.itstool.org/itstool/itstool-${pkgver}.tar.bz2")
 

@@ -1,0 +1,34 @@
+pkgname=gnupg
+pkgver=2.1.18
+pkgrel=1
+pkgdesc="Complete and free implementation of the OpenPGP standard"
+arch=('x86_64')
+url="https://www.gnupg.org/"
+license=('GPL')
+#depends=()
+source=("https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gnupg-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-gpgtar \
+		--enable-symcryptrun
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnupg-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	for f in gpg gpgv
+	do
+		ln -sfv ${f}2   "${pkgdir}/usr/bin/${f}"
+		ln -sfv ${f}2.1 "${pkgdir}/usr/share/man/man1/${f}.1"
+	done
+}
+
+md5sums=('c67f908b0b35c7ebc62144f362757e1e')

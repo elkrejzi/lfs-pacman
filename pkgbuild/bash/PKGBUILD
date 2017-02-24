@@ -7,7 +7,6 @@ pkgdesc="The GNU Bourne Again shell"
 arch=('x86_64')
 url="https://www.gnu.org/software/bash/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/bash/bash-${_basever}.tar.gz"
 	"bash-config.patch"

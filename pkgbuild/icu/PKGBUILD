@@ -5,7 +5,6 @@ pkgdesc="International Components for Unicode library"
 arch=('x86_64')
 url="http://www.icu-project.org/"
 license=('custom:icu')
-groups=('core')
 #depends=()
 source=("http://download.icu-project.org/files/${pkgname}4c/${pkgver}/${pkgname}4c-${pkgver//./_}-src.tgz")
 

@@ -5,7 +5,6 @@ pkgdesc="Text document format for short documents, articles, books and UNIX man 
 arch=('x86_64')
 url="http://www.methods.co.nz/asciidoc/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/asciidoc/asciidoc-${pkgver}.tar.gz")
 

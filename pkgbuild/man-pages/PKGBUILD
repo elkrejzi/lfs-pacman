@@ -1,0 +1,17 @@
+pkgname=man-pages
+pkgver=4.09
+pkgrel=1
+pkgdesc="Linux man pages"
+arch=('x86_64')
+url="http://man7.org/linux/man-pages/index.html"
+license=('GPL' 'custom')
+#depends=()
+source=("https://www.kernel.org/pub/linux/docs/man-pages/man-pages-${pkgver}.tar.xz")
+
+package() {
+	cd "${srcdir}/man-pages-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('91c721409bbf823d8f62bee3a1fe8ae3')

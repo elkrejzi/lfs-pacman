@@ -1,4 +1,3 @@
-# libalpmhook
 pkgname=fontconfig
 pkgver=2.12.1
 pkgrel=1
@@ -6,9 +5,9 @@ pkgdesc="A library for configuring and customizing font access"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/fontconfig/"
 license=('custom')
-groups=('core')
 #depends=()
-source=("https://www.freedesktop.org/software/fontconfig/release/fontconfig-${pkgver}.tar.bz2")
+source=("https://www.freedesktop.org/software/fontconfig/release/fontconfig-${pkgver}.tar.bz2"
+	"fontconfig.hook")
 
 prepare() {
 	cd "${srcdir}/fontconfig-${pkgver}"
@@ -41,6 +40,9 @@ package() {
 	install -v -m644 fc-*/*.1 "${pkgdir}/usr/share/man/man1"
 	install -v -m644 doc/*.3 "${pkgdir}/usr/share/man/man3"
 	install -v -m644 doc/fonts-conf.5 "${pkgdir}/usr/share/man/man5"
+
+	install -v -Dm644 "${srcdir}/fontconfig.hook" "${pkgdir}/usr/share/libalpm/hooks/fontconfig.hook"
 }
 
-md5sums=('b5af5a423ee3b5cfc34846838963c058')
+md5sums=('b5af5a423ee3b5cfc34846838963c058'
+         'ba07f578513842a325e397aa0f696319')

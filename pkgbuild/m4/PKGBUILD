@@ -5,7 +5,6 @@ pkgdesc="The GNU macro processor"
 arch=('x86_64')
 url="https://www.gnu.org/software/m4/"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/m4/m4-${pkgver}.tar.xz")
 

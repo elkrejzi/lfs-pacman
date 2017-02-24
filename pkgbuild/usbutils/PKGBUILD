@@ -1,0 +1,35 @@
+pkgname=usbutils
+pkgver=008
+pkgrel=1
+pkgdesc="USB Device Utilities"
+arch=('x86_64')
+url="http://linux-usb.sourceforge.net/"
+license=('GPL')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/usbutils-${pkgver}"
+
+	wget -c http://www.linux-usb.org/usb.ids
+}
+
+build() {
+	cd "${srcdir}/usbutils-${pkgver}"
+
+	./configure --prefix=/usr \
+		--datadir=/usr/share/misc \
+		--disable-zlib
+
+	make
+}
+
+package() {
+	cd "${srcdir}/usbutils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -Dm644 usb.ids "${pkgdir}/usr/share/misc/usb.ids"
+}
+
+md5sums=('2780b6ae21264c888f8f30fb2aab1259')

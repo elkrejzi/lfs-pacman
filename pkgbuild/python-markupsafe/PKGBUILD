@@ -6,7 +6,6 @@ pkgdesc="Implements a XML/HTML/XHTML Markup safe string for Python"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/MarkupSafe/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/M/MarkupSafe/MarkupSafe-${pkgver}.tar.gz")
 

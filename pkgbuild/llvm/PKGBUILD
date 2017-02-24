@@ -7,7 +7,6 @@ pkgrel=1
 arch=('x86_64')
 url="http://www.llvm.org/"
 license=('custom')
-groups=('core')
 #depends=()
 
 if [ -z "${_rcver}" ]
@@ -239,10 +238,10 @@ package_llvm-libs() {
 
 	cp -a "${srcdir}"/llvm-libs-install/* "${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
-	ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib/bfd-plugins/LLVMgold.so"
+	#install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
+	#ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib/bfd-plugins/LLVMgold.so"
 
-	sed -i "s#-lunwind#/usr/lib/clang/${_realver}/lib/linux/x86_64/libunwind.a#g" "${pkgdir}/usr/lib/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_realver}/lib/linux/x86_64/libunwind.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
 }
 
 package_lib32-llvm-libs() {
@@ -250,10 +249,10 @@ package_lib32-llvm-libs() {
 
 	cp -a "${srcdir}"/llvm-libs-install32/* "${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/usr/lib32/bfd-plugins"
-	ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib32/bfd-plugins/LLVMgold.so"
+	#install -v -dm755 "${pkgdir}/usr/lib32/bfd-plugins"
+	#ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib32/bfd-plugins/LLVMgold.so"
 
-	sed -i "s#-lunwind#/usr/lib/clang/${_realver}/lib/linux/i386/libunwind.a#g" "${pkgdir}/usr/lib32/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_realver}/lib/linux/i386/libunwind.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
 
 	rm -rf "${pkgdir}/usr/include"
 }

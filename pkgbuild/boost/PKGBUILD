@@ -6,7 +6,6 @@ pkgdesc="Free peer-reviewed portable C++ source libraries"
 arch=('x86_64')
 url="http://www.boost.org/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/boost/boost_${_boostver}.tar.bz2")
 

@@ -5,7 +5,6 @@ pkgrel=1
 arch=('x86_64')
 url="http://tukaani.org/xz/"
 license=('GPL' 'LGPL' 'custom')
-groups=('core')
 #depends=()
 source=("http://tukaani.org/xz/xz-${pkgver}.tar.xz")
 

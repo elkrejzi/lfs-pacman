@@ -1,0 +1,25 @@
+pkgname=libgudev
+pkgver=231
+pkgrel=1
+pkgdesc="GObject bindings for libudev"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/libgudev"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/libgudev/${pkgver}/libgudev-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgudev-${pkgver}"
+
+	./configure --prefix=/usr --disable-umockdev
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgudev-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('916c10c51ec61131e244c3936bbb2e0c')

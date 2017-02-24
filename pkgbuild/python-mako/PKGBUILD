@@ -6,7 +6,6 @@ pkgdesc="A super-fast templating language"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/Mako/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/M/Mako/Mako-${pkgver}.tar.gz")
 

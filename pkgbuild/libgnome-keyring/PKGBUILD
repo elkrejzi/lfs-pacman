@@ -1,0 +1,25 @@
+pkgname=libgnome-keyring
+pkgver=3.12.0
+pkgrel=1
+pkgdesc="GNOME keyring client library"
+arch=('x86_64')
+url="http://www.gnome.org"
+license=('LGPL' 'GPL')
+#depends=()
+source=("https://download.gnome.org/sources/libgnome-keyring/${pkgver:0:4}/libgnome-keyring-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgnome-keyring-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgnome-keyring-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6696e4f2e9aed4625cdc3af30bd8c238')

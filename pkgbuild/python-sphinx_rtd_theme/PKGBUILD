@@ -6,7 +6,6 @@ pkgdesc="ReadTheDocs.org theme for Sphinx, 2013 version"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/sphinx_rtd_theme/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/s/sphinx_rtd_theme/sphinx_rtd_theme-${pkgver}.tar.gz")
 

@@ -6,7 +6,6 @@ pkgdesc="XML processing library combining libxml2/libxslt with the ElementTree A
 arch=('x86_64')
 url="https://pypi.python.org/pypi/lxml/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/l/lxml/lxml-${pkgver}.tar.gz")
 

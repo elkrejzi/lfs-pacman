@@ -5,7 +5,6 @@ pkgdesc="XML-XCB protocol descriptions"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/xcb/xcb-proto-${pkgver}.tar.bz2")
 

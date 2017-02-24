@@ -5,7 +5,6 @@ pkgdesc="Cyrus Simple Authentication Service Layer (SASL) library"
 arch=('x86_64')
 url="http://cyrusimap.web.cmu.edu/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("ftp://ftp.cyrusimap.org/cyrus-sasl/cyrus-sasl-${pkgver}.tar.gz"
 	"cyrus-sasl-fixes.patch")

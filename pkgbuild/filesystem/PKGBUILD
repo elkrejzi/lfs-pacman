@@ -5,7 +5,6 @@ pkgdesc="Base file system"
 arch=('x86_64')
 url="https://github.com/elkrejzi/"
 license=('MIT')
-groups=('core')
 options=(emptydirs !zipman)
 #depends=()
 backup=(etc/crypttab

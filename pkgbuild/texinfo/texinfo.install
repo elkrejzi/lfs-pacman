@@ -1,0 +1,12 @@
+post_install() {
+	rm -rf /usr/share/info/dir
+
+	for file in /usr/share/info/*
+	do
+		/usr/bin/install-info $file /usr/share/info/dir
+	done
+}
+
+post_remove() {
+	rm -rf /usr/share/info/dir
+}

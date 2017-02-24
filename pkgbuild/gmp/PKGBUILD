@@ -5,7 +5,6 @@ pkgdesc="A free library for arbitrary precision arithmetic"
 arch=('x86_64')
 url="http://gmplib.org/"
 license=('LGPL3' 'GPL')
-groups=('core')
 #depends=()
 source=("ftp://ftp.gmplib.org/pub/gmp-${pkgver}/gmp-${pkgver}.tar.xz")
 

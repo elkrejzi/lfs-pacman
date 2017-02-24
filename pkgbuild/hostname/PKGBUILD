@@ -5,7 +5,6 @@ pkgdesc="Utility to set/show the host name or domain name"
 arch=('x86_64')
 url="https://packages.debian.org/source/sid/hostname"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("http://http.debian.net/debian/pool/main/h/hostname/hostname_${pkgver}.tar.gz")
 

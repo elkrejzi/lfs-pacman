@@ -1,0 +1,8 @@
+post_install() {
+	mandb -c --quiet
+}
+
+post_remove() {
+	rm -rf /var/cache/man
+}
+

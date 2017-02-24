@@ -1,0 +1,37 @@
+pkgname=fuse
+pkgver=2.9.7
+pkgrel=1
+pkgdesc="A library that makes it possible to implement a filesystem in a userspace program"
+arch=('x86_64')
+url='https://github.com/libfuse/libfuse'
+license=('GPL2')
+#depends=()
+source=("https://github.com/libfuse/libfuse/releases/download/fuse-${pkgver}/fuse-${pkgver}.tar.gz"
+	"fuse.conf")
+
+build() {
+	cd "${srcdir}/fuse-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/fuse-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/fuse.conf" "${pkgdir}/etc/fuse.conf"
+
+	rm -rf "${pkgdir}/dev" "${pkgdir}/etc/init.d"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}/etc/udev" "${pkgdir}/lib"
+	mv -v "${pkgdir}"/usr/lib/libfuse.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse.so") "${pkgdir}/usr/lib/libfuse.so"
+}
+
+md5sums=('9bd4ce8184745fd3d000ca2692adacdb'
+         '298587592c8444196833f317def414f2')

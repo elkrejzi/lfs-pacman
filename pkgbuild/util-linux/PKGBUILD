@@ -1,11 +1,10 @@
 pkgname=util-linux
-pkgver=2.29.1
+pkgver=2.29.2
 pkgrel=1
 pkgdesc="Miscellaneous system utilities for Linux"
 arch=('x86_64')
 url="https://www.kernel.org/pub/linux/utils/util-linux/"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver:0:4}/util-linux-${pkgver}.tar.xz")
 
@@ -38,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man5/fstab.5"
 }
 
-md5sums=('0cbb6d16ab9c5736e5649ef1264bee6e')
+md5sums=('63c40c2068fcbb7e1d5c1d281115d973')

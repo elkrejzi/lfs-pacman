@@ -6,7 +6,6 @@ pkgdesc="Python Documentation Utilities"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/docutils/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/d/docutils/docutils-${pkgver}.tar.gz")
 

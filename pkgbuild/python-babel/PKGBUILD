@@ -6,7 +6,6 @@ pkgdesc="Internationalization utilities"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/Babel/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/B/Babel/Babel-${pkgver}.tar.gz")
 

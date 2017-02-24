@@ -1,0 +1,112 @@
+pkgname=systemd
+pkgver=232
+pkgrel=1
+pkgdesc="system and service manager"
+arch=('x86_64')
+url="https://www.github.com/systemd/systemd"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+backup=(etc/rc.local
+	etc/systemd/coredump.conf
+	etc/systemd/journald.conf
+	etc/systemd/journal-remote.conf
+	etc/systemd/journal-upload.conf
+	etc/systemd/logind.conf
+	etc/systemd/resolved.conf
+	etc/systemd/system.conf
+	etc/systemd/timesyncd.conf
+	etc/systemd/user.conf)
+options=(emptydirs)
+install=systemd.install
+source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.xz"
+	"locale.sh"
+	"rc.local"
+	"systemd-hwdb.hook"
+	"systemd-sysusers.hook"
+	"systemd-tmpfiles.hook"
+	"systemd-user")
+
+build() {
+	cd "${srcdir}/systemd-${pkgver}"
+
+	sed -i "s#lz4 >= 125#lz4#g" configure
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-split-usr \
+		--disable-firstboot \
+		--disable-lto \
+		--disable-tests \
+		--disable-wheel-group \
+		--enable-gnuefi \
+		--with-pamlibdir=/lib/security \
+		--with-rootprefix= \
+		--with-rootlibdir=/lib \
+		--with-sysvinit-path=/etc/init.d \
+		--with-sysvrcnd-path=/etc \
+		--with-rc-local-script-path-stop= \
+		--with-rc-local-script-path-start=/etc/rc.local \
+		--with-dbuspolicydir=/etc/dbus-1/system.d \
+		--with-dbussessionservicedir=/usr/share/dbus-1/services \
+		--with-dbussystemservicedir=/usr/share/dbus-1/system-services
+
+	make
+}
+
+package() {
+	cd "${srcdir}/systemd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" uninstall-rootlibLTLIBRARIES \
+		uninstall-includeHEADERS uninstall-pkgincludeHEADERS uninstall-pkgconfiglibDATA \
+		DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
+	rm -rf "${pkgdir}/usr/lib/sysusers.d/basic.conf"
+
+	chown root:systemd-journal "${pkgdir}/var/log/journal"
+	chmod 2755 "${pkgdir}/var/log/journal"
+
+	chown root:systemd-journal-remote "${pkgdir}/var/log/journal/remote"
+	chmod 2755 "${pkgdir}/var/log/journal/remote"
+
+	rm -rf "${pkgdir}/etc/init.d" "${pkgdir}/etc/rpm" "${pkgdir}/usr/lib/rpm"
+	rm -rf "${pkgdir}/etc/systemd/system/ctrl-alt-del.target"
+	rm -rf "${pkgdir}"/etc/systemd/system/multi-user.target.wants/systemd-{networkd,resolved,timesyncd}.service
+	rm -rf "${pkgdir}"/etc/systemd/system/multi-user.target.wants/machines.target
+	rm -rf "${pkgdir}"/etc/systemd/system/{network-online,sockets,sysinit}.target.wants
+	rm -rf "${pkgdir}"/lib/systemd/system/sysinit.target.wants/systemd-update-done.service
+
+	sed -i "s@root lock@root root@g" "${pkgdir}/usr/lib/tmpfiles.d/legacy.conf"
+	sed -i "s@lock 0755@lock 1777@g" "${pkgdir}/usr/lib/tmpfiles.d/legacy.conf"
+
+	ln -sfv /dev/null "${pkgdir}/etc/udev/rules.d/80-net-setup-link.rules"
+
+	install -v -Dm644 "${srcdir}/locale.sh" "${pkgdir}/etc/profile.d/locale.sh"
+	install -v -Dm644 "${srcdir}/systemd-user" "${pkgdir}/etc/pam.d/systemd-user"
+
+	install -v -Dm755 "${srcdir}/rc.local" "${pkgdir}/etc/rc.local"
+
+	install -v -Dm644 "${srcdir}/systemd-hwdb.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-hwdb.hook"
+	install -v -Dm644 "${srcdir}/systemd-sysusers.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-sysusers.hook"
+	install -v -Dm644 "${srcdir}/systemd-tmpfiles.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-tmpfiles.hook"
+
+	install -v -dm755 "${pkgdir}/sbin"
+
+	for file in halt poweroff reboot runlevel shutdown telinit
+	do
+		ln -sfv ../bin/systemctl "${pkgdir}/sbin/${file}"
+	done
+
+	ln -sfv ../lib/systemd/systemd "${pkgdir}/sbin/init"
+}
+
+md5sums=('281604885d5a87f0359244f6f84037cb'
+         'd3a0e0ea0e21fe180a925c17cc5edf72'
+         '0421aa8d1494acf5468e686889d57b65'
+         '8d5a42b5ae3f65c2112eaee51d0acd3b'
+         'f9ba31e32db98888e05c18d3ad4019a2'
+         '0cbc0bf01a72dd3cc3049b2f99f15a16'
+         'b93ecc3e0a95aebe63c69188840e29fd')

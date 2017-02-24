@@ -1,0 +1,27 @@
+pkgname=apr
+pkgver=1.5.2
+pkgrel=1
+pkgdesc="The Apache Portable Runtime"
+arch=('x86_64')
+url="http://apr.apache.org/"
+license=('APACHE')
+#depends=()
+source=("https://archive.apache.org/dist/apr/apr-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/apr-${pkgver}"
+
+	./configure --prefix=/usr --with-installbuilddir=/usr/share/apr-1/build
+
+	make
+}
+
+package() {
+	cd "${srcdir}/apr-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	sed -i "s#${srcdir}#/usr/src#g" "${pkgdir}/usr/bin/apr-1-config"
+}
+
+md5sums=('4e9769f3349fe11fc0a5e1b224c236aa')

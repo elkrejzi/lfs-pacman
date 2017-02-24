@@ -1,11 +1,10 @@
-pkgname=libxcb
+pkgbase=libxcb
+pkgname=('libxcb' 'lib32-libxcb')
 pkgver=1.12
 pkgrel=1
-pkgdesc="X11 client-side library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/xcb/libxcb-${pkgver}.tar.bz2")
 
@@ -14,6 +13,8 @@ prepare() {
 
 	sed -e "s/pthread-stubs//" -i configure.ac
 	autoreconf -fi
+
+	cp -a "${srcdir}"/libxcb{,32}-${pkgver}
 }
 
 build() {
@@ -23,13 +24,43 @@ build() {
 		--enable-xinput \
 		--disable-devel-docs
 
-	make
+	cd "${srcdir}/libxcb32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--enable-xinput \
+		--disable-devel-docs \
+		--libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libxcb-${pkgver}"
+	make -C "${srcdir}/libxcb32-${pkgver}"
 }
 
-package() {
+package_libxcb() {
+	pkgdesc="X11 client-side library"
+
 	cd "${srcdir}/libxcb-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxcb() {
+	pkgdesc="X11 client-side library (32 bit)"
+
+	cd "${srcdir}/libxcb32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('28e552bd78bc1050b6b26ca1db0e5bb6')

@@ -5,7 +5,6 @@ pkgdesc="An XML parser library"
 arch=('x86_64')
 url="http://expat.sourceforge.net/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/expat/expat-${pkgver}.tar.bz2")
 

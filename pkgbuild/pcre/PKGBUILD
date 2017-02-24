@@ -1,13 +1,16 @@
-pkgname=pcre
+pkgbase=pcre
+pkgname=('pcre' 'lib32-pcre')
 pkgver=8.40
 pkgrel=1
-pkgdesc="A library that implements Perl 5-style regular expressions"
 arch=('x86_64')
 url="http://www.pcre.org/"
 license=('BSD')
-groups=('core')
 #depends=()
 source=("https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/pcre{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/pcre-${pkgver}"
@@ -21,10 +24,31 @@ build() {
 		--enable-pcregrep-libbz2 \
 		--enable-pcretest-libreadline
 
-	make
+	cd "${srcdir}/pcre32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--enable-unicode-properties \
+		--enable-pcre16 \
+		--enable-pcre32 \
+		--enable-jit
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/pcre-${pkgver}"
+	make -C "${srcdir}/pcre32-${pkgver}"
 }
 
-package() {
+package_pcre() {
+	pkgdesc="A library that implements Perl 5-style regular expressions"
+
 	cd "${srcdir}/pcre-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
@@ -33,6 +57,17 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libpcre.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libpcre.so") "${pkgdir}/usr/lib/libpcre.so"
+}
+
+package_lib32-pcre() {
+	pkgdesc="A library that implements Perl 5-style regular expressions (32 bit)"
+
+	cd "${srcdir}/pcre32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('41a842bf7dcecd6634219336e2167d1d')

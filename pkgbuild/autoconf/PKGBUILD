@@ -5,7 +5,6 @@ pkgdesc="A GNU tool for automatically configuring source code"
 arch=('x86_64')
 url="https://www.gnu.org/software/autoconf/"
 license=('GPL2' 'GPL3' 'custom')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/autoconf/autoconf-${pkgver}.tar.xz")
 

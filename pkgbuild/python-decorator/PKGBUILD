@@ -1,0 +1,38 @@
+pkgbase=python-decorator
+pkgname=('python2-decorator' 'python3-decorator')
+pkgver=4.0.11
+pkgrel=1
+pkgdesc="Python Decorator module"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/decorator/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/d/decorator/decorator-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/decorator-${pkgver}" "${srcdir}/decorator-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/decorator-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/decorator-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-decorator() {
+	cd "${srcdir}/decorator-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-decorator() {
+	cd "${srcdir}/decorator-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('73644c8f0bd4983d1b6a34b49adec0ae')

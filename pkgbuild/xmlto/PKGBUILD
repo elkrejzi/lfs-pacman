@@ -5,7 +5,6 @@ pkgdesc="Convert xml to many other formats"
 arch=('x86_64')
 url="http://cyberelk.net/tim/software/xmlto/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://fedorahosted.org/releases/x/m/xmlto/xmlto-${pkgver}.tar.bz2")
 

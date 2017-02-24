@@ -5,7 +5,6 @@ pkgdesc="Uniform Resource Identifiers (absolute and relative)"
 arch=('x86_64')
 url="http://search.cpan.org/dist/URI/"
 license=('GPL' 'PerlArtistic')
-groups=('core')
 #depends=()
 source=("http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/URI-${pkgver}.tar.gz")
 

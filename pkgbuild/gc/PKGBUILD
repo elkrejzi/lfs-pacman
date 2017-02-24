@@ -5,7 +5,6 @@ pkgdesc="A garbage collector for C and C++"
 arch=('x86_64')
 url="http://www.hboehm.info/gc/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("http://www.hboehm.info/gc/gc_source//gc-${pkgver}.tar.gz")
 

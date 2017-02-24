@@ -6,7 +6,6 @@ pkgdesc="Getting image size from png/jpeg/jpeg2000/gif file"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/imagesize/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/i/imagesize/imagesize-${pkgver}.tar.gz")
 

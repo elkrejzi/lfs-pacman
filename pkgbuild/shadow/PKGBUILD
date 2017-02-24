@@ -5,8 +5,8 @@ pkgdesc="Password and account management tool suite with support for shadow file
 arch=('x86_64')
 url='https://github.com/shadow-maint/shadow'
 license=('BSD')
-groups=('core')
 #depends=()
+install=shadow.install
 source=("https://github.com/shadow-maint/shadow/releases/download/${pkgver}/shadow-${pkgver}.tar.xz"
 	"chage"
 	"login"

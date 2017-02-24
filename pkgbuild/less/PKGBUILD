@@ -5,7 +5,6 @@ pkgdesc="A terminal based program for viewing text files"
 arch=('x86_64')
 url="http://www.greenwoodsoftware.com/less"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("http://www.greenwoodsoftware.com/less/less-${pkgver}.tar.gz")
 

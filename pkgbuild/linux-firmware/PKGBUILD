@@ -1,0 +1,62 @@
+pkgname=linux-firmware
+pkgver=1
+pkgrel=1
+pkgdesc="Firmware files for Linux"
+arch=('x86_64')
+url="https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/"
+license=('GPL2' 'GPL3' 'custom')
+#depends=()
+
+firmwares=(amdgpu/topaz_ce.bin
+amdgpu/topaz_k_smc.bin
+amdgpu/topaz_mc.bin
+amdgpu/topaz_me.bin
+amdgpu/topaz_mec2.bin
+amdgpu/topaz_mec.bin
+amdgpu/topaz_pfp.bin
+amdgpu/topaz_rlc.bin
+amdgpu/topaz_sdma1.bin
+amdgpu/topaz_sdma.bin
+amdgpu/topaz_smc.bin
+ath9k_htc/htc_9271-1.4.0.fw
+i915/skl_dmc_ver1_26.bin
+i915/skl_guc_ver6_1.bin
+intel/dsp_fw_release_v969.bin
+intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq
+intel/ibt-hw-37.8.bseq
+iwlwifi-7265D-22.ucode
+rtl_nic/rtl8168h-2.fw)
+
+for ff in ${firmwares[@]}
+do
+	source+=("https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/plain/${ff}")
+done
+
+package() {
+	for ff in ${firmwares[@]}
+	do
+		install -v -Dm644 "${srcdir}"/$(basename ${ff}) "${pkgdir}/lib/firmware/${ff}"
+	done
+
+	mv "${pkgdir}/lib/firmware/intel/dsp_fw_release_v969.bin" "${pkgdir}/lib/firmware/intel/dsp_fw_release.bin"
+}
+
+md5sums=('7a6c5da66b967d8851ad66bce463fbec'
+         'ea8f72993fdb77fd19ede92b36e48e7f'
+         '2aaa18dd3a27eee3b46290c66165059e'
+         '57345d9af982ba093ae77e872661bc33'
+         '23c75b9aed3122e85891215904513f0a'
+         'b1035163e233a9114dd371a9fff497ef'
+         'c5c3f54fea7afaa0663c396e3a25b374'
+         '72175f06356dc4c00a2c1b4f52d19b85'
+         '90afcf033837a2a09cbb5e508ca8e514'
+         '0a8c7250ce7efa645c644a9a9c4e10ac'
+         '13b9cc8bc5cfff7779d2cd89edb33163'
+         'c5b2dc29f7ec2f053169ada3b2ef70ae'
+         '07f4200c73949b2431502e4526b1f311'
+         '07fa52bd5b7401868cf17105db7dc3ab'
+         'ec8d14d090393c6b0ca5257df222b243'
+         'd7b57c4e5adf30ac2b40d1061073a637'
+         '9dea22db70b1e18541348f931f8079be'
+         '748759353f324a0451d79154f871251c'
+         '11b4899d299ed119ba41099739145f69')

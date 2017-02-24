@@ -6,7 +6,6 @@ pkgdesc="A configurable sidebar-enabled Sphinx theme"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/alabaster/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/a/alabaster/alabaster-${pkgver}.tar.gz")
 

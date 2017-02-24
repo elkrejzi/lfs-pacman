@@ -1,0 +1,25 @@
+pkgname=libusb
+pkgver=1.0.21
+pkgrel=1
+pkgdesc="Library that provides generic access to USB devices"
+arch=('x86_64')
+url="http://libusb.sourceforge.net/"
+license=('LGPL')
+#depends=()
+source=("https://downloads.sourceforge.net/libusb/libusb-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libusb-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libusb-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1da9ea3c27b3858fa85c5f4466003e44')

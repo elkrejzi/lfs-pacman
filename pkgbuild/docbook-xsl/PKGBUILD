@@ -5,7 +5,6 @@ pkgdesc="XML stylesheets for Docbook-xml transformations"
 arch=('x86_64')
 url="http://docbook.sourceforge.net/"
 license=('custom')
-groups=('core')
 #depends=()
 install=docbook-xsl.install
 source=("https://downloads.sourceforge.net/docbook/docbook-xsl-${pkgver}.tar.bz2")

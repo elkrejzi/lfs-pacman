@@ -5,7 +5,6 @@ pkgdesc="run scripts or programs in a directory"
 arch=('x86_64')
 url="http://packages.qa.debian.org/d/debianutils.html"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("http://http.debian.net/debian/pool/main/d/debianutils/debianutils_${pkgver}.tar.xz")
 

@@ -1,26 +1,56 @@
-pkgname=libxxf86vm
+pkgbase=libxxf86vm
+pkgname=('libxxf86vm' 'lib32-libxxf86vm')
 pkgver=1.1.4
 pkgrel=1
-pkgdesc="X11 XFree86 video mode extension library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libXxf86vm-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libXxf86vm{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libXxf86vm-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libXxf86vm32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libXxf86vm-${pkgver}"
+	make -C "${srcdir}/libXxf86vm32-${pkgver}"
 }
 
-package() {
+package_libxxf86vm() {
+	pkgdesc="X11 XFree86 video mode extension library"
+
 	cd "${srcdir}/libXxf86vm-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxxf86vm() {
+	pkgdesc="X11 XFree86 video mode extension library (32 bit)"
+
+	cd "${srcdir}/libXxf86vm32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('298b8fff82df17304dfdb5fe4066fe3a')

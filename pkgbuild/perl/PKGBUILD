@@ -7,7 +7,6 @@ pkgdesc="A highly capable, feature-rich programming language"
 arch=('x86_64')
 url="http://www.perl.org"
 license=('GPL' 'PerlArtistic')
-groups=('core')
 #depends=()
 source=("http://www.cpan.org/src/5.0/perl-${pkgver}.tar.bz2")
 

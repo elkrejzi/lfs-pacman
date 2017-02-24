@@ -1,4 +1,3 @@
-# libalpmhook
 pkgname=glib
 pkgver=2.50.3
 pkgrel=1
@@ -6,10 +5,11 @@ pkgdesc="Low level core library"
 arch=('x86_64')
 url="http://www.gtk.org/"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
-	"glib-compile-schemas-quiet.patch")
+	"glib-compile-schemas-quiet.patch"
+	"gio-querymodules.hook"
+	"glib-compile-schemas.hook")
 
 prepare() {
 	cd "${srcdir}/glib-${pkgver}"
@@ -38,7 +38,12 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libglib-2.0.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libglib-2.0.so") "${pkgdir}/usr/lib/libglib-2.0.so"
+
+	install -v -Dm644 "${srcdir}/gio-querymodules.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules.hook"
+	install -v -Dm644 "${srcdir}/glib-compile-schemas.hook" "${pkgdir}/usr/share/libalpm/hooks/glib-compile-schemas.hook"
 }
 
 md5sums=('381ab22934f296750d036aa55a397ded'
-         '9a2c5949a8d352c5887c099ed3a9003d')
+         '9a2c5949a8d352c5887c099ed3a9003d'
+         'a52ea506b5cf162a4f72d09cc33fae50'
+         '9e25d7de10bc4dc105f171e9ae46ef69')

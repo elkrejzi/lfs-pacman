@@ -6,7 +6,6 @@ pkgdesc="Python documentation generator"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/Sphinx/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/S/Sphinx/Sphinx-${pkgver}.tar.gz")
 

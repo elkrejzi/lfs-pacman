@@ -1,26 +1,56 @@
-pkgname=libxcursor
+pkgbase=libxcursor
+pkgname=('libxcursor' 'lib32-libxcursor')
 pkgver=1.1.14
 pkgrel=1
-pkgdesc="X cursor management library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libXcursor-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libXcursor{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libXcursor-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libXcursor32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libXcursor-${pkgver}"
+	make -C "${srcdir}/libXcursor32-${pkgver}"
 }
 
-package() {
+package_libxcursor() {
+	pkgdesc="X cursor management library"
+
 	cd "${srcdir}/libXcursor-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxcursor() {
+	pkgdesc="X cursor management library (32 bit)"
+
+	cd "${srcdir}/libXcursor32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('1e7c17afbbce83e2215917047c57d1b3')

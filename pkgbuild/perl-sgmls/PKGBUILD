@@ -5,9 +5,7 @@ pkgdesc="A Post-Processor for SGMLS and NSGMLS"
 arch=('x86_64')
 url="http://search.cpan.org/dist/SGMLSpm"
 license=('GPL' 'PerlArtistic')
-groups=('core')
 #depends=()
-options=(!emptydirs)
 source=("http://www.cpan.org/authors/id/R/RA/RAAB/SGMLSpm-${pkgver}.tar.gz")
 
 prepare() {

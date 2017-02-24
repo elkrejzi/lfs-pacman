@@ -1,0 +1,9 @@
+# Begin /etc/pam.d/run_init
+
+auth     include  system-auth
+account	 include  system-account
+password include  system-password
+session	 include  system-session
+session  optional pam_xauth.so
+
+# End /etc/pam.d/run_init

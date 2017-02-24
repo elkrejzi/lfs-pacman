@@ -1,4 +1,3 @@
-# libalpmhook
 pkgname=man-db
 pkgver=2.7.6.1
 pkgrel=1
@@ -6,9 +5,11 @@ pkgdesc="A utility for reading man pages"
 arch=('x86_64')
 url="http://www.nongnu.org/man-db/"
 license=('GPL' 'LGPL')
-groups=('core')
 #depends=()
-source=("http://download.savannah.gnu.org/releases/man-db/man-db-${pkgver}.tar.xz")
+install=man-db.install
+source=("http://download.savannah.gnu.org/releases/man-db/man-db-${pkgver}.tar.xz"
+	"man-db.service"
+	"man-db.timer")
 
 build() {
 	cd "${srcdir}/man-db-${pkgver}"
@@ -30,6 +31,14 @@ package() {
 	cd "${srcdir}/man-db-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/man-db.timer" "${pkgdir}/lib/systemd/system/man-db.timer"
+	install -v -Dm644 "${srcdir}/man-db.service" "${pkgdir}/lib/systemd/system/man-db.service"
+
+	install -v -dm755 "${pkgdir}/lib/systemd/system/multi-user.target.wants"
+	ln -sfv ../man-db.timer "${pkgdir}/lib/systemd/system/multi-user.target.wants/man-db.timer"
 }
 
-md5sums=('2948d49d0ed7265f60f83aa4a9ac9268')
+md5sums=('2948d49d0ed7265f60f83aa4a9ac9268'
+         '88762c54c0f61f7f970aace8d9bf45c7'
+         '8aaf7b49ae5d157d47d66489656d8b3a')

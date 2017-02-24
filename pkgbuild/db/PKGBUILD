@@ -5,7 +5,6 @@ pkgdesc="The Berkeley DB embedded database system"
 arch=('x86_64')
 url="http://www.oracle.com/technology/software/products/berkeley-db/index.html"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://download.oracle.com/berkeley-db/db-${pkgver}.tar.gz")
 

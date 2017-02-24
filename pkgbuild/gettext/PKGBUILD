@@ -5,7 +5,6 @@ pkgdesc="GNU internationalization library"
 arch=('x86_64')
 url="http://www.gnu.org/software/gettext/"
 license=('GPL')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/gettext/gettext-${pkgver}.tar.xz")
 

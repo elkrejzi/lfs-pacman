@@ -5,7 +5,6 @@ pkgdesc="A utility to show the full path of commands"
 arch=('x86_64')
 url="https://savannah.gnu.org/projects/which/"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/which/which-${pkgver}.tar.gz")
 

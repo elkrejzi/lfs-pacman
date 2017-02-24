@@ -5,7 +5,6 @@ pkgdesc="Linux kernel packet control tool"
 arch=('x86_64')
 url="http://www.netfilter.org/projects/iptables/index.html"
 license=('GPL2')
-groups=('core')
 #depends=()
 options=(staticlibs)
 source=("http://netfilter.org/projects/iptables/files/iptables-${pkgver}.tar.bz2")

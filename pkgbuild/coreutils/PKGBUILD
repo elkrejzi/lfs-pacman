@@ -5,7 +5,6 @@ pkgdesc="The basic file, shell and text manipulation utilities of the GNU operat
 arch=('x86_64')
 url="https://www.gnu.org/software/coreutils/"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/coreutils/coreutils-${pkgver}.tar.xz")
 

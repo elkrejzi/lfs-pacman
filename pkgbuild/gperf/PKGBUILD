@@ -5,7 +5,6 @@ pkgdesc="Perfect hash function generator"
 arch=('x86_64')
 url="https://www.gnu.org/software/gperf/"
 license=('GPL3')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/gperf/gperf-${pkgver}.tar.gz")
 

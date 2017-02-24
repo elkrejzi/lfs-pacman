@@ -19,7 +19,6 @@ messagebus:x:18:
 systemd-journal:x:23:
 input:x:24:
 mail:x:34:
-systemd-bus-proxy:x:72:
 systemd-journal-gateway:x:73:
 systemd-journal-remote:x:74:
 systemd-journal-upload:x:75:

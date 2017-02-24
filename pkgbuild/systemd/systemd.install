@@ -1,0 +1,3 @@
+post_install() {
+	setfacl -Rnm g:adm:rx,d:g:adm:rx /var/log/journal 2>/dev/null
+}

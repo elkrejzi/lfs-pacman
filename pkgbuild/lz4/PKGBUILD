@@ -1,25 +1,43 @@
-pkgname=lz4
+pkgbase=lz4
+pkgname=('lz4' 'lib32-lz4')
 pkgver=1.7.5
 pkgrel=1
-pkgdesc="Extremely fast compression algorithm"
 arch=('x86_64')
 url="http://www.lz4.org/"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("lz4-${pkgver}.tar.gz::https://github.com/lz4/lz4/archive/v${pkgver}.tar.gz")
 
-build() {
+prepare() {
 	cd "${srcdir}/lz4-${pkgver}"
 
 	sed -i "/install.*liblz4.a/d" lib/Makefile
 	sed -i "/CFLAGS/s#-O3#${CFLAGS}#g" lib/Makefile programs/Makefile
 
-	make -C lib PREFIX=/usr
-	make -C programs PREFIX=/usr lz4 lz4c
+	cp -a "${srcdir}"/lz4{,32}-${pkgver}
 }
 
-package() {
+build() {
+	cd "${srcdir}/lz4-${pkgver}"
+
+	make -C lib PREFIX=/usr
+	make -C programs PREFIX=/usr lz4 lz4c
+
+	cd "${srcdir}/lz432-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	make -C lib PREFIX=/usr LIBDIR=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+}
+
+package_lz4() {
+	pkgdesc="Extremely fast compression algorithm"
+
 	cd "${srcdir}/lz4-${pkgver}"
 
 	make install PREFIX=/usr DESTDIR="${pkgdir}"
@@ -28,6 +46,17 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/liblz4.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/liblz4.so") "${pkgdir}/usr/lib/liblz4.so"
+}
+
+package_lib32-lz4() {
+	pkgdesc="Extremely fast compression algorithm (32 bit)"
+
+	cd "${srcdir}/lz432-${pkgver}"
+
+	make -C lib PREFIX=/usr LIBDIR=/usr/lib32 install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('c9610c5ce97eb431dddddf0073d919b9')

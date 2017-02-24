@@ -1,0 +1,9 @@
+post_install() {
+	if [ ! -d /var/lib/git ]
+	then
+		install -dm755 /var/lib/git
+		install -dm700 /var/lib/git/.ssh
+
+		chown -R 55:55 /var/lib/git
+	fi
+}

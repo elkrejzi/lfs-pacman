@@ -5,7 +5,6 @@ pkgdesc="A library making programming with POSIX capabilities easier than tradit
 arch=('x86_64')
 url="http://people.redhat.com/sgrubb/libcap-ng/"
 license=('GPL2' 'LGPL2.1')
-groups=('core')
 #depends=()
 source=("http://people.redhat.com/sgrubb/libcap-ng/libcap-ng-${pkgver}.tar.gz")
 
@@ -21,6 +20,11 @@ package() {
 	cd "${srcdir}/libcap-ng-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libcap-ng.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcap-ng.so") "${pkgdir}/usr/lib/libcap-ng.so"
 }
 
 md5sums=('0dece96644bd798020e170fbf7663802')

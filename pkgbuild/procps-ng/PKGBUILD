@@ -5,7 +5,6 @@ pkgdesc="Utilities for monitoring your system and its processes"
 arch=('x86_64')
 url="https://gitlab.com/procps-ng/procps"
 license=('GPL' 'LGPL')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/procps-ng/procps-ng-${pkgver}.tar.xz"
 	"99-procps.conf")

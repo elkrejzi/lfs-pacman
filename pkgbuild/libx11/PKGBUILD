@@ -1,26 +1,56 @@
-pkgname=libx11
+pkgbase=libx11
+pkgname=('libx11' 'lib32-libx11')
 pkgver=1.6.4
 pkgrel=1
-pkgdesc="X11 client-side library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libX11-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libX11{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libX11-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libX1132-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libX11-${pkgver}"
+	make -C "${srcdir}/libX1132-${pkgver}"
 }
 
-package() {
+package_libx11() {
+	pkgdesc="X11 client-side library"
+
 	cd "${srcdir}/libX11-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libx11() {
+	pkgdesc="X11 client-side library (32 bit)"
+
+	cd "${srcdir}/libX1132-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('6d54227082f3aa2c596f0b3a3fbb9175')

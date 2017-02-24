@@ -5,7 +5,6 @@ pkgdesc="PAM (Pluggable Authentication Modules) library"
 arch=('x86_64')
 url="http://linux-pam.org"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("http://linux-pam.org/library/Linux-PAM-${pkgver}.tar.bz2"
 	"other"

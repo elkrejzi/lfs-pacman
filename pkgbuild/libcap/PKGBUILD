@@ -1,27 +1,48 @@
-pkgname=libcap
+pkgbase=libcap
+pkgname=('libcap' 'lib32-libcap')
 pkgver=2.25
 pkgrel=1
-pkgdesc="POSIX 1003.1e capabilities"
 arch=('x86_64')
 url="http://sites.google.com/site/fullycapable/"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${pkgver}.tar.xz")
 
-build() {
+prepare() {
 	cd "${srcdir}/libcap-${pkgver}"
 
 	sed -i "s|-D_FILE_OFFSET_BITS=64|& ${CFLAGS}|" Make.Rules
-	sed -i "s| gcc| ${CC}|" Make.Rules
 	sed -i "s:LIBDIR:PAM_&:g" pam_cap/Makefile
 
-	unset CFLAGS
-
-	make
+	cp -a "${srcdir}"/libcap{,32}-${pkgver}
 }
 
-package() {
+build() {
+	unset CFLAGS
+
+	cd "${srcdir}/libcap-${pkgver}"
+
+	sed -i "s| gcc| ${CC}|" Make.Rules
+
+	make
+
+	cd "${srcdir}/libcap32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	sed -i "s| gcc| ${CC}|" Make.Rules
+
+	make -C libcap
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+}
+
+package_libcap() {
+	pkgdesc="POSIX 1003.1e capabilities"
+
 	cd "${srcdir}/libcap-${pkgver}"
 
 	make install RAISE_SETFCAP=no prefix=/usr PAM_LIBDIR=/lib LIBDIR=/usr/lib DESTDIR="${pkgdir}"
@@ -33,6 +54,19 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libcap.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcap.so") "${pkgdir}/usr/lib/libcap.so"
+}
+
+package_lib32-libcap() {
+	pkgdesc="POSIX 1003.1e capabilities (32 bit)"
+
+	cd "${srcdir}/libcap32-${pkgver}"
+
+	make -C libcap prefix=/usr lib=lib32 install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+
+	chmod 755 "${pkgdir}/usr/lib32/libcap.so"
 }
 
 md5sums=('6666b839e5d46c2ad33fc8aa2ceb5f77')

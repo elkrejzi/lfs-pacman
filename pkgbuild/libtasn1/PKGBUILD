@@ -5,7 +5,6 @@ pkgdesc="The ASN.1 library used in GNUTLS"
 arch=('x86_64')
 url="https://www.gnu.org/software/libtasn1/"
 license=('GPL3' 'LGPL')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/libtasn1/libtasn1-${pkgver}.tar.gz")
 

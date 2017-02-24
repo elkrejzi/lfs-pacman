@@ -5,7 +5,6 @@ pkgdesc="Library for the arithmetic of complex numbers with arbitrarily high pre
 arch=('x86_64')
 url="http://www.multiprecision.org/"
 license=('LGPL')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/mpc/mpc-${pkgver}.tar.gz")
 

@@ -6,7 +6,6 @@ pkgdesc="Python library for working with RDF"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/rdflib/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/r/rdflib/rdflib-${pkgver}.tar.gz")
 

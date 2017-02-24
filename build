@@ -7,7 +7,7 @@ realfilepath=$(dirname ${realfile})
 
 . ${realfilepath}/shared.sh
 
-#lfs_mount_virt
+lfs_mount_virt
 
 lfs_chroot_build_temp ${thispkg}
 
@@ -54,4 +54,4 @@ case ${thispkg} in
   ;;
 esac
 
-#lfs_umount_virt
+lfs_umount_virt

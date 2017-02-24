@@ -6,7 +6,6 @@ pkgdesc="An ISO 8601 date/time/duration parser and formatter"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/isodate/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/i/isodate/isodate-${pkgver}.tar.gz")
 

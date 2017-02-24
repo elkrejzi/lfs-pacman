@@ -5,7 +5,7 @@ pkgdesc="SELinux binary policy manipulation library"
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
-groups=('core')
+options=(emptydirs)
 #depends=()
 source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libsemanage-${pkgver}.tar.gz")
 
@@ -19,6 +19,8 @@ package() {
 	cd "${srcdir}/libsemanage-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/var/lib/selinux"
 }
 
 md5sums=('666a48c4058c07f2b07ede9eaf210c5f')

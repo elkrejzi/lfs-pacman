@@ -6,7 +6,6 @@ pkgdesc="Syntax highlighting package written in Python"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/Pygments/"
 license=('PSF')
-groups=('core')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/P/Pygments/Pygments-${pkgver}.tar.gz")
 

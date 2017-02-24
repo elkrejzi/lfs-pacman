@@ -5,7 +5,6 @@ pkgdesc="Provides semi-portable access to hardware provided atomic memory operat
 arch=('x86_64')
 url="https://github.com/ivmai/libatomic_ops"
 license=('GPL2' 'MIT')
-groups=('core')
 #depends=()
 source=("http://www.ivmaisoft.com/_bin/atomic_ops/libatomic_ops-${pkgver}.tar.gz")
 

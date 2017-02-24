@@ -5,7 +5,7 @@ pkgdesc="SELinux binary policy manipulation library"
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
-groups=('core')
+options=(staticlibs)
 #depends=()
 source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libsepol-${pkgver}.tar.gz")
 

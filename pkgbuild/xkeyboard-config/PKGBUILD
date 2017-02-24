@@ -5,7 +5,6 @@ pkgdesc="X keyboard configuration files"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/XKeyboardConfig"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/data/xkeyboard-config/xkeyboard-config-${pkgver}.tar.bz2")
 

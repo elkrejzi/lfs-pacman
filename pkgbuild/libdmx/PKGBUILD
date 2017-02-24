@@ -1,26 +1,56 @@
-pkgname=libdmx
+pkgbase=libdmx
+pkgname=('libdmx' 'lib32-libdmx')
 pkgver=1.1.3
 pkgrel=1
-pkgdesc="X11 Distributed Multihead extension library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libdmx-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libdmx{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libdmx-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libdmx32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libdmx-${pkgver}"
+	make -C "${srcdir}/libdmx32-${pkgver}"
 }
 
-package() {
+package_libdmx() {
+	pkgdesc="X11 Distributed Multihead extension library"
+
 	cd "${srcdir}/libdmx-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libdmx() {
+	pkgdesc="X11 Distributed Multihead extension library (32 bit)"
+
+	cd "${srcdir}/libdmx32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('ba983eba5a9f05d152a0725b8e863151')

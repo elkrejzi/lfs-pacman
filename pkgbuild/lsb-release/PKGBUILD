@@ -1,0 +1,27 @@
+pkgname=lsb-release
+pkgver=1.4
+pkgrel=1
+pkgdesc="LSB version query program"
+arch=('x86_64')
+url="http://www.linuxbase.org/"
+license=('GPL2')
+#depends=()
+source=("https://downloads.sourceforge.net/lsb/lsb-release-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/lsb-release-${pkgver}"
+
+	sed -i "s|n/a|unavailable|" lsb_release
+
+	make
+}
+
+package() {
+	cd "${srcdir}/lsb-release-${pkgver}"
+
+	install -Dm755 lsb_release "${pkgdir}/usr/bin/lsb_release"
+	install -dm755 "${pkgdir}/usr/share/man/man1"
+	gunzip -c lsb_release.1.gz > "${pkgdir}/usr/share/man/man1/lsb_release.1"
+}
+
+md5sums=('30537ef5a01e0ca94b7b8eb6a36bb1e4')

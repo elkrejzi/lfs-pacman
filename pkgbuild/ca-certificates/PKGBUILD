@@ -5,7 +5,6 @@ pkgdesc="Common CA certificates"
 arch=('x86_64')
 url="https://packages.debian.org/source/sid/ca-certificates"
 license=('GPL2' 'MPL')
-groups=('core')
 #depends=()
 options=(emptydirs)
 install=ca-certificates.install

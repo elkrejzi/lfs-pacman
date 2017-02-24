@@ -5,7 +5,6 @@ pkgdesc="A high-quality data compression program"
 arch=('x86_64')
 url="http://www.bzip.org/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("http://www.bzip.org/${pkgver}/bzip2-${pkgver}.tar.gz")
 

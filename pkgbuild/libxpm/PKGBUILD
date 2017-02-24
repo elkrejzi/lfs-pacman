@@ -1,26 +1,56 @@
-pkgname=libxpm
+pkgbase=libxpm
+pkgname=('libxpm' 'lib32-libxpm')
 pkgver=3.5.12
 pkgrel=1
-pkgdesc="X11 pixmap library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libXpm-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libXpm{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libXpm-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libXpm32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libXpm-${pkgver}"
+	make -C "${srcdir}/libXpm32-${pkgver}"
 }
 
-package() {
+package_libxpm() {
+	pkgdesc="X11 pixmap library"
+
 	cd "${srcdir}/libXpm-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxpm() {
+	pkgdesc="X11 pixmap library (32 bit)"
+
+	cd "${srcdir}/libXpm32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('20f4627672edb2bd06a749f11aa97302')

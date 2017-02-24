@@ -1,0 +1,21 @@
+pkgname=scons
+pkgver=2.5.1
+pkgrel=1
+pkgdesc="Extensible Python-based build utility"
+arch=('x86_64')
+url="http://scons.org"
+license=('MIT')
+#depends=()
+source=("https://downloads.sourceforge.net/scons/scons-${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/scons-${pkgver}"
+
+	python setup.py install --prefix=/usr \
+		--standard-lib \
+		--optimize=1 \
+		--install-data=/usr/share \
+		--root="${pkgdir}"
+}
+
+md5sums=('aaaf09e1351a598f98d17b0cf1103e7a')

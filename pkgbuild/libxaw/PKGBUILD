@@ -1,26 +1,56 @@
-pkgname=libxaw
+pkgbase=libxaw
+pkgname=('libxaw' 'lib32-libxaw')
 pkgver=1.0.13
 pkgrel=1
-pkgdesc="X11 Athena Widget library"
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
-groups=('core')
 #depends=()
 source=("https://www.x.org/releases/individual/lib/libXaw-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libXaw{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/libXaw-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libXaw32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libXaw-${pkgver}"
+	make -C "${srcdir}/libXaw32-${pkgver}"
 }
 
-package() {
+package_libxaw() {
+	pkgdesc="X11 Athena Widget library"
+
 	cd "${srcdir}/libXaw-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libxaw() {
+	pkgdesc="X11 Athena Widget library (32 bit)"
+
+	cd "${srcdir}/libXaw32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('e5e06eb14a608b58746bdd1c0bd7b8e3')

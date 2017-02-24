@@ -1,0 +1,32 @@
+pkgname=policycoreutils
+pkgver=2.6
+pkgrel=1
+pkgdesc="SELinux policy core utilities"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/policycoreutils-${pkgver}.tar.gz"
+	"newrole.pam"
+	"run_init.pam")
+
+build() {
+	cd "${srcdir}/policycoreutils-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/policycoreutils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}" SYSTEMDDIR="${pkgdir}/lib/systemd"
+
+	rm -rf "${pkgdir}/etc/rc.d"
+
+	install -v -Dm644 "${srcdir}/newrole.pam" "${pkgdir}/etc/pam.d/newrole"
+	install -v -Dm644 "${srcdir}/run_init.pam" "${pkgdir}/etc/pam.d/run_init"
+}
+
+md5sums=('0358f0136e2dd9a8c9e99f181aaab1b2'
+         'ec0dcffb78595f95e5e3f1417dddcb99'
+         '7d00677c3537d0507916eb63181832f1')

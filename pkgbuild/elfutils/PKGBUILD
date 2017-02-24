@@ -5,7 +5,6 @@ pkgdesc="Utilities to handle ELF object files and DWARF debugging information"
 arch=('x86_64')
 url="https://sourceware.org/elfutils/"
 license=('LGPL3' 'GPL' 'GPL3')
-groups=('core')
 #depends=()
 options=(staticlibs)
 source=("https://sourceware.org/elfutils/ftp/${pkgver}/elfutils-${pkgver}.tar.bz2")

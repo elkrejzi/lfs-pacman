@@ -1,0 +1,41 @@
+pkgname=ntfs-3g
+pkgver=2016.2.22
+pkgrel=1
+pkgdesc="NTFS filesystem driver and utilities"
+arch=('x86_64')
+url="https://www.tuxera.com/community/open-source-ntfs-3g/"
+license=('GPL2')
+#depends=()
+source=("https://tuxera.com/opensource/ntfs-3g_ntfsprogs-${pkgver}.tgz")
+
+build() {
+	cd "${srcdir}/ntfs-3g_ntfsprogs-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-fuse=external \
+		--disable-ldconfig \
+		--enable-extras \
+		--enable-posix-acls
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ntfs-3g_ntfsprogs-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	make install DESTDIR="${pkgdir}"
+
+	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libntfs-3g.so") "${pkgdir}/usr/lib/libntfs-3g.so"
+	ln -sfv ..$(readlink "${pkgdir}/sbin/mkfs.ntfs") "${pkgdir}/sbin/mkfs.ntfs"
+	ln -sfv ..$(readlink "${pkgdir}/sbin/mount.lowntfs-3g") "${pkgdir}/sbin/mount.lowntfs-3g"
+	ln -sfv ..$(readlink "${pkgdir}/sbin/mount.ntfs-3g") "${pkgdir}/sbin/mount.ntfs-3g"
+
+	ln -sfv ../bin/ntfs-3g "${pkgdir}/sbin/mount.ntfs"
+	ln -sfv ntfs-3g.8.gz "${pkgdir}/usr/share/man/man8/mount.ntfs.8.gz"
+
+	rm -rf "${pkgdir}/lib/libntfs-3g.so"
+}
+
+md5sums=('ccbe8672d0f757bd0c975b50aa4c512e')

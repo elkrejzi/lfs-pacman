@@ -30,4 +30,5 @@ package() {
 
 	find "${pkgdir}/usr/include" \( -name .install -o -name ..install.cmd \) -delete
 }
+
 md5sums=('b5e7f6b9b2fe1b6cc7bc56a3a0bfc090')

@@ -5,7 +5,6 @@ pkgdesc="A low-level cryptographic library"
 arch=('x86_64')
 url="http://www.lysator.liu.se/~nisse/nettle/"
 license=('GPL2')
-groups=('core')
 #depends=()
 source=("https://ftp.gnu.org/gnu/nettle/nettle-${pkgver}.tar.gz")
 

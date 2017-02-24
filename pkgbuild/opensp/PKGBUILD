@@ -5,7 +5,6 @@ pkgdesc="A library and a set of tools for validating, parsing and manipulating S
 arch=('x86_64')
 url="http://openjade.sourceforge.net/"
 license=('BSD')
-groups=('core')
 #depends=()
 source=("https://downloads.sourceforge.net/openjade/OpenSP-${pkgver}.tar.gz"
 	"OpenSP.patch")
