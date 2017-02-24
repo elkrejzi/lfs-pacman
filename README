@@ -1,0 +1,58 @@
+Linux From Scratch pacman project by Armin K.
+
+This repository contains PKGBUILDs for my personal Linux From
+Scratch based distribution which uses pacman as its package
+manager. The final system is multilib capable (with some
+packages built for 32/64 bit by default), which also means
+that these PKGBUILDS are written to work only when building
+64 bit Linux From Scratch.
+
+PKGBUILDs are written from scratch, some using BLFS/LFS,
+instructions, some written by me, and some parts taken from
+Arch Linux as-is (pacman hooks come to mind). Requirement to
+bootstrap this Linux From Scratch based system is a temporary
+toolchain built using my pacman-bootstrap set of scripts
+located at https://github.com/elkrejzi/pacman-bootstrap
+
+The order of packages is not entirely dictated by the
+Linux From Scratch book, but rather on my own preference
+and testing. It does not just build the LFS, but, as I
+like to say, both LFS, BLFS and BBLFS(1) at the same time
+and in one go.
+
+Final system is built using clang instead of gcc wherever
+possible (there are some packages that won't build with
+clang). clang is configured to use its own runtime
+libraries (compiler-rt instead of libgcc, libc++ instead
+of libstdc++ and libomp instead of libgomp). It also
+incorporates SELinux support into packages that support
+it.
+
+In order to bootstrap this system, make sure you adjust
+the following variables in shared.sh file:
+
+ - LFS: Where is LFS partition mounted?
+ - PKGBUILDS: Where on the LFS partition is clone of this
+   repository located (must not include $LFS, it is
+   prepended when needed).
+ - BUILDDIR: Where on the LFS partition the packages will
+   be built (again, $LFS must not be included and will
+   be prepended when needed).
+
+If desired, adjust anything in pkgbuilds/filesystem/*
+to get the desired layout of the filesystem and some
+branding.
+
+bootstrap script located in the repository toplevel is
+used to bootstrap the filesystem package and everything
+else. To stop it building beyond file system bootstrap,
+add "exit 0" just before PKGS=(... line.
+
+Any package can be built and installed separately by
+running the "build" script inside its own directory.
+Behaviour of the process can be changed in the shared
+"build" script in the repository toplevel.
+
+Feel free to report bugs and send pull requests.
+
+(1) BBLFS - Beyond BLFS
