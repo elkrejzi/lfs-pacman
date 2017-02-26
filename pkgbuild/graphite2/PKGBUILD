@@ -1,0 +1,65 @@
+pkgbase=graphite2
+pkgname=('graphite2' 'lib32-graphite2')
+pkgver=1.3.9
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/silnrsi/graphite"
+license=('LGPL' 'GPL' 'custom')
+#depends=()
+source=("https://github.com/silnrsi/graphite/releases/download/${pkgver}/graphite2-${pkgver}.tgz")
+
+prepare() {
+	install -v -dm755 "${srcdir}"/build{32,64}
+
+	sed -i "/target_link/s# gcc)#)#g" "${srcdir}/graphite2-${pkgver}/src/CMakeLists.txt"
+}
+
+build() {
+	cd "${srcdir}/build64"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DGRAPHITE2_COMPARE_RENDERER=OFF \
+		"${srcdir}/graphite2-${pkgver}"
+
+	cd "${srcdir}/build32"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DGRAPHITE2_COMPARE_RENDERER=OFF \
+		-DLIB_SUFFIX=32 \
+		"${srcdir}/graphite2-${pkgver}"
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/build64"
+	make -C "${srcdir}/build32"
+}
+
+package_graphite2() {
+	pkgdesc="Reimplementation of the SIL Graphite text processing engine"
+
+	cd "${srcdir}/build64"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-graphite2() {
+	pkgdesc="Reimplementation of the SIL Graphite text processing engine (32 bit)"
+
+	cd "${srcdir}/build32"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('17e6a3b1a88c100c9e3fc0763c85d269')

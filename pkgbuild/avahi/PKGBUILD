@@ -1,0 +1,57 @@
+pkgname=avahi
+pkgver=0.6.32
+pkgrel=1
+pkgdesc="Service Discovery for Linux using mDNS/DNS-SD -- compatible with Bonjour"
+arch=('x86_64')
+url="https://github.com/lathiat/avahi"
+license=('LGPL')
+#depends=()
+options=(emptydirs)
+source=("https://github.com/lathiat/avahi/releases/download/v${pkgver}/avahi-${pkgver}.tar.gz"
+	"avahi.sysusers")
+
+build() {
+	cd "${srcdir}/avahi-${pkgver}"
+
+	sed -i "/if \".*HAVE_DBUS/s:if :&test :g" configure
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-mono \
+		--disable-monodoc \
+		--disable-python \
+		--disable-qt3 \
+		--disable-qt4 \
+		--disable-static \
+		--enable-compat-libdns_sd \
+		--enable-compat-howl \
+		--with-distro=none \
+		--with-systemdsystemunitdir=/lib/systemd/system
+
+	make
+}
+
+package() {
+	cd "${srcdir}/avahi-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	make -C avahi-common uninstall DESTDIR="${pkgdir}"
+	rm -rf "${pkgdir}/usr/include/avahi-common"
+
+	for component in core client glib gobject compat-howl compat-libdns_sd
+	do
+		make -C avahi-${component} uninstall DESTDIR="${pkgdir}"
+		make pkgconfig_DATA="avahi-${component}.pc" uninstall-pkgconfigDATA DESTDIR="${pkgdir}"
+		rm -rf "${pkgdir}/usr/include/avahi-${component}"
+	done
+
+	rm -rf "${pkgdir}/usr/lib/girepository-1.0" "${pkgdir}/usr/share/gir-1.0"
+	rm -rf "${pkgdir}"/etc/avahi/services/* "${pkgdir}/var"
+
+	install -v -Dm644 "${srcdir}/avahi.sysusers" "${pkgdir}/usr/lib/sysusers.d/avahi.conf"
+}
+
+md5sums=('22b5e705d3eabb31d26f2e1e7b074013'
+         'c40a09d7b95a876990ef3caca1b7216c')

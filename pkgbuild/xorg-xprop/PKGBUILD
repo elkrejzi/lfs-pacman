@@ -1,0 +1,25 @@
+pkgname=xorg-xprop
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="Property displayer for X"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xprop-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xprop-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xprop-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fae3d2fda07684027a643ca783d595cc')

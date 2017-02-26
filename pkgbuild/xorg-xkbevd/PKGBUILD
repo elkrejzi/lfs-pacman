@@ -1,0 +1,25 @@
+pkgname=xorg-xkbevd
+pkgver=1.1.4
+pkgrel=1
+pkgdesc="XKB event daemon"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xkbevd-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xkbevd-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xkbevd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c747faf1f78f5a5962419f8bdd066501')

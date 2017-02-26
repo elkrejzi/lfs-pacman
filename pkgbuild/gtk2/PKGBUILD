@@ -1,0 +1,42 @@
+pkgname=gtk2
+pkgver=2.24.31
+pkgrel=1
+pkgdesc="GObject-based multi-platform GUI toolkit (legacy)"
+arch=('x86_64')
+url="http://www.gtk.org/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gtk+/${pkgver:0:4}/gtk+-${pkgver}.tar.xz"
+	"gtk-query-immodules-2.0.hook"
+	"gtkrc")
+
+prepare() {
+	cd "${srcdir}/gtk+-${pkgver}"
+
+	sed -i 's#l \(gtk-.*\).sgml#& -o \1#' docs/{faq,tutorial}/Makefile.in
+}
+
+build() {
+	cd "${srcdir}/gtk+-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-man
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtk+-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/bin/gtk-update-icon-cache" "${pkgdir}/usr/share/man/man1/gtk-update-icon-cache.1"
+
+	install -v -Dm644 "${srcdir}/gtkrc" "${pkgdir}/usr/share/gtk-2.0/gtkrc"
+	install -v -Dm644 "${srcdir}/gtk-query-immodules-2.0.hook" "${pkgdir}/usr/share/libalpm/hooks/gtk-query-immodules-2.0.hook"
+}
+
+md5sums=('526a1008586094a2cbb4592fd3f9ee10'
+         '01735166750a40a539d4bad5dbd5f664'
+         'dd4fe16d8099fb2d535eaab80035b78e')

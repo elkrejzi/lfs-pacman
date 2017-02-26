@@ -1,0 +1,25 @@
+pkgname=json-glib
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="JSON library built on GLib"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/JsonGlib"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/json-glib/${pkgver:0:3}/json-glib-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/json-glib-${pkgver}"
+
+	./configure --prefix=/usr --enable-vala
+
+	make
+}
+
+package() {
+	cd "${srcdir}/json-glib-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c1daefb8d0fb59612af0c072c8aabb58')

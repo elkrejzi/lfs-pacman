@@ -1,0 +1,29 @@
+pkgname=links
+pkgver=2.14
+pkgrel=1
+pkgdesc="A text WWW browser, similar to Lynx"
+arch=('x86_64')
+url="http://links.twibright.com/"
+license=('GPL')
+#depends=()
+source=("http://links.twibright.com/download/links-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/links-${pkgver}"
+
+	./configure --prefix=/usr \
+		--mandir=/usr/share/man \
+		--enable-graphics \
+		--enable-javascript \
+		--without-gpm
+
+	make
+}
+
+package() {
+	cd "${srcdir}/links-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0d11b388de22ba280008a36a409a34c6')

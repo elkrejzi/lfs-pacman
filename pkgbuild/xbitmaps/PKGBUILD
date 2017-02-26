@@ -1,0 +1,25 @@
+pkgname=xbitmaps
+pkgver=1.1.1
+pkgrel=1
+pkgdesc="X.org Bitmap files"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/data/xbitmaps-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xbitmaps-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xbitmaps-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7444bbbd999b53bec6a60608a5301f4c')

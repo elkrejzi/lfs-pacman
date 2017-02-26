@@ -1,0 +1,25 @@
+pkgname=xorg-xlsclients
+pkgver=1.1.3
+pkgrel=1
+pkgdesc="List client applications running on a display"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xlsclients-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xlsclients-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xlsclients-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9fbf6b174a5138a61738a42e707ad8f5')

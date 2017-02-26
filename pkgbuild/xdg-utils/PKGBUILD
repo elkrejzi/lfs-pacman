@@ -1,0 +1,25 @@
+pkgname=xdg-utils
+pkgver=1.1.1
+pkgrel=1
+pkgdesc="Command line tools that assist applications with a variety of desktop integration tasks"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/xdg-utils/"
+license=('MIT')
+#depends=()
+source=("https://portland.freedesktop.org/download/xdg-utils-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/xdg-utils-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xdg-utils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2d0aec6037769a5f138ff404b1bb4b15')

@@ -1,0 +1,25 @@
+pkgname=at-spi2-core
+pkgver=2.22.0
+pkgrel=1
+pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
+arch=('x86_64')
+url="https://www.gnome.org"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/at-spi2-core/${pkgver:0:4}/at-spi2-core-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/at-spi2-core-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/at-spi2-core-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3da5fe62a653e49dad1c47f9a46fee56')

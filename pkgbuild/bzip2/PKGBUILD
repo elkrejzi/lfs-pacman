@@ -1,14 +1,14 @@
-pkgname=bzip2
+pkgbase=bzip2
+pkgname=('bzip2' 'lib32-bzip2')
 pkgver=1.0.6
 pkgrel=1
-pkgdesc="A high-quality data compression program"
 arch=('x86_64')
 url="http://www.bzip.org/"
 license=('custom')
 #depends=()
 source=("http://www.bzip.org/${pkgver}/bzip2-${pkgver}.tar.gz")
 
-build() {
+prepare() {
 	cd "${srcdir}/bzip2-${pkgver}"
 
 	sed -i 's/^CFLAGS=\(.*\)$/CFLAGS=\1 \$(BIGFILES)/' Makefile-libbz2_so
@@ -19,17 +19,39 @@ build() {
 	sed -i "s|-O2|${CFLAGS}|g" Makefile
 	sed -i "s|-O2|${CFLAGS}|g" Makefile-libbz2_so
 
+	cp -a "${srcdir}"/bzip2{,32}-${pkgver}
+}
+
+build() {
+	unset CFLAGS
+
+	cd "${srcdir}/bzip2-${pkgver}"
+
 	sed -i "s|CC=gcc|CC=${CC}|" Makefile
 	sed -i "s|CC=gcc|CC=${CC}|" Makefile-libbz2_so
-
-	unset CFLAGS
 
 	make -f Makefile-libbz2_so
 	make clean
 	make
+
+	cd "${srcdir}/bzip232-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	sed -i "s|CC=gcc|CC=${CC}|" Makefile
+	sed -i "s|CC=gcc|CC=${CC}|" Makefile-libbz2_so
+
+	make -f Makefile-libbz2_so
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 }
 
-package() {
+package_bzip2() {
+	pkgdesc="A high-quality data compression program"
+
 	cd "${srcdir}/bzip2-${pkgver}"
 
 	make PREFIX="${pkgdir}/usr" install
@@ -45,6 +67,19 @@ package() {
 	ln -sfv libbz2.so.${pkgver} "${pkgdir}/lib/libbz2.so.1.0"
 	ln -sfv libbz2.so.${pkgver} "${pkgdir}/lib/libbz2.so.1"
 	ln -sfv ../../lib/libbz2.so.${pkgver} "${pkgdir}/usr/lib/libbz2.so"
+}
+
+package_lib32-bzip2() {
+	pkgdesc="A high-quality data compression program (32 bit)"
+
+	cd "${srcdir}/bzip232-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/lib32"
+	install -v -m755 libbz2.so.${pkgver} "${pkgdir}/usr/lib32"
+
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/usr/lib32/libbz2.so.1.0"
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/usr/lib32/libbz2.so.1"
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/usr/lib32/libbz2.so"
 }
 
 md5sums=('00b516f4704d4a7cb50a1d97e6e8e15b')

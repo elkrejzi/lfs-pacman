@@ -1,0 +1,25 @@
+pkgname=xorg-xkbcomp
+pkgver=1.3.1
+pkgrel=1
+pkgdesc="X Keyboard description compiler"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xkbcomp-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xkbcomp-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xkbcomp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a4d8353daf6cb0a9c47379b7413c42c6')

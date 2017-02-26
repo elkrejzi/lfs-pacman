@@ -1,0 +1,53 @@
+pkgname=libavahi
+pkgver=0.6.32
+pkgrel=1
+pkgdesc="Service Discovery for Linux using mDNS/DNS-SD -- compatible with Bonjour (shared libraries)"
+arch=('x86_64')
+url="https://github.com/lathiat/avahi"
+license=('LGPL')
+#depends=()
+source=("https://github.com/lathiat/avahi/releases/download/v${pkgver}/avahi-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/avahi-${pkgver}"
+
+	sed -i "/if \".*HAVE_DBUS/s:if :&test :g" configure
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-gtk \
+		--disable-gtk3 \
+		--disable-mono \
+		--disable-monodoc \
+		--disable-python \
+		--disable-qt3 \
+		--disable-qt4 \
+		--disable-static \
+		--enable-compat-libdns_sd \
+		--enable-compat-howl \
+		--with-distro=none \
+		--with-systemdsystemunitdir=/lib/systemd/system
+
+	make -C avahi-common
+
+	for component in core client glib gobject compat-howl compat-libdns_sd
+	do
+		make -C avahi-${component}
+		make avahi-${component}.pc
+	done
+}
+
+package() {
+	cd "${srcdir}/avahi-${pkgver}"
+
+	make -C avahi-common install DESTDIR="${pkgdir}"
+
+	for component in core client glib gobject compat-howl compat-libdns_sd
+	do
+		make -C avahi-${component} install DESTDIR="${pkgdir}"
+		make pkgconfig_DATA="avahi-${component}.pc" install-pkgconfigDATA DESTDIR="${pkgdir}"
+	done
+}
+
+md5sums=('22b5e705d3eabb31d26f2e1e7b074013')

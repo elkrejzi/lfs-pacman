@@ -1,7 +1,7 @@
-pkgname=fontconfig
+pkgbase=fontconfig
+pkgname=('fontconfig' 'lib32-fontconfig')
 pkgver=2.12.1
 pkgrel=1
-pkgdesc="A library for configuring and customizing font access"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/fontconfig/"
 license=('custom')
@@ -17,6 +17,8 @@ prepare() {
     		-i fontconfig/fontconfig.h
 
 	sed -i 's/CHAR_WIDTH/CHARWIDTH/' -i src/fcobjs.h
+
+	cp -a "${srcdir}"/fontconfig{,32}-${pkgver}
 }
 
 build() {
@@ -27,10 +29,30 @@ build() {
 		--localstatedir=/var \
 		--disable-docs
 
-	make
+	cd "${srcdir}/fontconfig32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libdir=/usr/lib32 \
+		--disable-docs
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/fontconfig-${pkgver}"
+	make -C "${srcdir}/fontconfig32-${pkgver}"
 }
 
-package() {
+package_fontconfig() {
+	pkgdesc="A library for configuring and customizing font access"
+
 	cd "${srcdir}/fontconfig-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
@@ -43,6 +65,18 @@ package() {
 
 	install -v -Dm644 "${srcdir}/fontconfig.hook" "${pkgdir}/usr/share/libalpm/hooks/fontconfig.hook"
 }
+
+package_lib32-fontconfig() {
+	pkgdesc="A library for configuring and customizing font access (32 bit)"
+
+	cd "${srcdir}/fontconfig32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
 
 md5sums=('b5af5a423ee3b5cfc34846838963c058'
          'ba07f578513842a325e397aa0f696319')

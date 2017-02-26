@@ -1,0 +1,30 @@
+pkgname=shared-mime-info
+pkgver=1.8
+pkgrel=1
+pkgdesc="Freedesktop.org Shared MIME Info"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/shared-mime-info"
+license=('GPL2')
+#depends=()
+source=("https://freedesktop.org/~hadess/shared-mime-info-${pkgver}.tar.xz"
+	"update-mime-database.hook")
+
+build() {
+	cd "${srcdir}/shared-mime-info-${pkgver}"
+
+	export ac_cv_func_fdatasync=no
+	./configure --prefix=/usr --disable-update-mimedb
+
+	make
+}
+
+package() {
+	cd "${srcdir}/shared-mime-info-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/update-mime-database.hook" "${pkgdir}/usr/share/libalpm/hooks/update-mime-database.hook"
+}
+
+md5sums=('f6dcadce764605552fc956563efa058c'
+         'fc48155d8fb2147b8fc72597e79936b4')

@@ -1,0 +1,25 @@
+pkgname=dconf
+pkgver=0.26.0
+pkgrel=1
+pkgdesc="Configuration database system"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/dconf"
+license=(LGPL2.1)
+#depends=()
+source=("https://download.gnome.org/sources/dconf/${pkgver:0:4}/dconf-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/dconf-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dconf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7fc3cb1cf22d904d8744bd12e9c9d3dd')

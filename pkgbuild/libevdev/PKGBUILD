@@ -1,0 +1,25 @@
+pkgname=libevdev
+pkgver=1.5.6
+pkgrel=1
+pkgdesc="Wrapper library for evdev devices"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/libevdev/"
+license=(custom:X11)
+#depends=()
+source=("https://freedesktop.org/software/libevdev/libevdev-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libevdev-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libevdev-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d4ce9f061f8f954bea7adba0cb768a53')

@@ -1,0 +1,66 @@
+pkgbase=libdrm
+pkgname=('libdrm' 'lib32-libdrm')
+pkgver=2.4.75
+pkgrel=1
+arch=('x86_64')
+url="https://dri.freedesktop.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://dri.freedesktop.org/libdrm/libdrm-${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/libdrm-${pkgver}"
+
+	sed -i "/pthread-stubs/d" configure.ac
+	autoreconf -fi
+
+	cp -a "${srcdir}"/libdrm{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libdrm-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-udev \
+		--disable-valgrind
+
+	cd "${srcdir}/libdrm32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--enable-udev \
+		--disable-valgrind
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libdrm-${pkgver}"
+	make -C "${srcdir}/libdrm32-${pkgver}"
+}
+
+package_libdrm() {
+	pkgdesc="Userspace interface to kernel DRM services"
+
+	cd "${srcdir}/libdrm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libdrm() {
+	pkgdesc="Userspace interface to kernel DRM services (32 bit)"
+
+	cd "${srcdir}/libdrm32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('57b0589122ec4b8d5dfb9e430a21f0b3')

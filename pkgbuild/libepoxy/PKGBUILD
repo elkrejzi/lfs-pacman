@@ -1,0 +1,25 @@
+pkgname=libepoxy
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="Library handling OpenGL function pointer management"
+arch=('x86_64')
+url="https://github.com/anholt/libepoxy"
+license=('MIT')
+#depends=()
+source=("https://github.com/anholt/libepoxy/releases/download/v${pkgver:0:3}/libepoxy-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libepoxy-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libepoxy-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d8d8cbf2beb64975d424fcc5167a2a38')

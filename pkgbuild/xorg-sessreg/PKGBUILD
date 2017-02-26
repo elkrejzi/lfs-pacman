@@ -1,0 +1,25 @@
+pkgname=xorg-sessreg
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Register X sessions in system utmp/utmpx databases"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/sessreg-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/sessreg-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/sessreg-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e238c89dabc566e1835e1ecb61b605b9')

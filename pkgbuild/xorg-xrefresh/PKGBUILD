@@ -1,0 +1,25 @@
+pkgname=xorg-xrefresh
+pkgver=1.0.5
+pkgrel=1
+pkgdesc="Refresh all or part of an X screen"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xrefresh-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xrefresh-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xrefresh-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a896382bc53ef3e149eaf9b13bc81d42')

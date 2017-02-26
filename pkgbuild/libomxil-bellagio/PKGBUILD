@@ -1,0 +1,65 @@
+pkgbase=libomxil-bellagio
+pkgname=('libomxil-bellagio' 'lib32-libomxil-bellagio')
+pkgver=0.9.3
+pkgrel=1
+arch=('x86_64')
+url="http://omxil.sourceforge.net"
+license=('LGPL')
+#depends=()
+source=("https://downloads.sourceforge.net/omxil/libomxil-bellagio-${pkgver}.tar.gz"
+	"libomxil-bellagio-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/libomxil-bellagio-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/libomxil-bellagio-fixes.patch"
+
+	autoreconf -fi
+
+	cp -a "${srcdir}"/libomxil-bellagio{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libomxil-bellagio-${pkgver}"
+
+	export CC="gcc"
+	export CXX="g++"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/libomxil-bellagio32-${pkgver}"
+
+	export CC="gcc -m32"
+	export CXX="g++ -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libomxil-bellagio-${pkgver}"
+	make -C "${srcdir}/libomxil-bellagio32-${pkgver}"
+}
+
+package_libomxil-bellagio() {
+	pkgdesc="An opensource implementation of the OpenMAX Integration Layer API"
+
+	cd "${srcdir}/libomxil-bellagio-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libomxil-bellagio() {
+	pkgdesc="An opensource implementation of the OpenMAX Integration Layer API (32 bit)"
+
+	cd "${srcdir}/libomxil-bellagio32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/bin/omxregister-bellagio "${pkgdir}/usr/bin/omxregister-bellagio32"
+}
+
+md5sums=('a1de827fdb75c02c84e55f740ca27cb8'
+         'c34f9facf0cf26171c81f2fc3d562ec6')

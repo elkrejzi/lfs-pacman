@@ -1,0 +1,25 @@
+pkgname=xorg-xbacklight
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="RandR-based backlight control application"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xbacklight-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xbacklight-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xbacklight-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0066f23f69ca3ef62dcaeb74a87fdc48')

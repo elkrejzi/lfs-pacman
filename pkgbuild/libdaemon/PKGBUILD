@@ -1,0 +1,25 @@
+pkgname=libdaemon
+pkgver=0.14
+pkgrel=1
+pkgdesc="Lightweight C library that eases the writing of UNIX daemons"
+arch=('x86_64')
+url="http://0pointer.de/lennart/projects/libdaemon/"
+license=('LGPL')
+#depends=()
+source=("http://0pointer.de/lennart/projects/libdaemon/libdaemon-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libdaemon-${pkgver}"
+
+	./configure --prefix=/usr --disable-lynx
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdaemon-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('509dc27107c21bcd9fbf2f95f5669563')

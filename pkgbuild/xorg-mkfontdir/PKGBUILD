@@ -1,0 +1,25 @@
+pkgname=xorg-mkfontdir
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="Create an index of X font files in a directory"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/mkfontdir-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/mkfontdir-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mkfontdir-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('18c429148c96c2079edda922a2b67632')

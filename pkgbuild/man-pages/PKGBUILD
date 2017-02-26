@@ -12,6 +12,10 @@ package() {
 	cd "${srcdir}/man-pages-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/share/man/man3/getspnam.3"
+	rm -rf "${pkgdir}/usr/share/man/man5/attr.5"
+	rm -rf "${pkgdir}/usr/share/man/man5/passwd.5"
 }
 
 md5sums=('91c721409bbf823d8f62bee3a1fe8ae3')

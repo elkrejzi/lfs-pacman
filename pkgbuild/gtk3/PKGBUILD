@@ -1,0 +1,45 @@
+pkgname=gtk3
+pkgver=3.22.8
+pkgrel=1
+pkgdesc="GObject-based multi-platform GUI toolkit"
+arch=('x86_64')
+url="http://www.gtk.org/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gtk+/${pkgver:0:4}/gtk+-${pkgver}.tar.xz"
+	"gtk-query-immodules-3.0.hook"
+	"gtk-update-icon-cache.hook"
+	"gtk-update-icon-cache.script"
+	"settings.ini")
+
+build() {
+	cd "${srcdir}/gtk+-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-schemas-compile \
+		--enable-broadway-backend \
+		--enable-wayland-backend \
+		--enable-x11-backend \
+		--enable-man
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtk+-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/settings.ini" "${pkgdir}/usr/share/gtk-3.0/settings.ini"
+
+	install -v -Dm644 "${srcdir}/gtk-query-immodules-3.0.hook" "${pkgdir}/usr/share/libalpm/hooks/gtk-query-immodules-3.0.hook"
+	install -v -Dm644 "${srcdir}/gtk-update-icon-cache.hook" "${pkgdir}/usr/share/libalpm/hooks/gtk-update-icon-cache.hook"
+	install -v -Dm755 "${srcdir}/gtk-update-icon-cache.script" "${pkgdir}/usr/share/libalpm/scripts/gtk-update-icon-cache"
+}
+
+md5sums=('b4fb39a829e4425b3fa05adbe7f52fef'
+         '47d92cc1080c92e8a022334b620f0629'
+         'c792ef5bb74ceba564b4d8ad306a6592'
+         '0ca18b2689f0d2e8acb61a3dcf154e7c'
+         'ed43a8d7b5c99796134e2db56eb61805')

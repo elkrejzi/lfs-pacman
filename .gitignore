@@ -4,6 +4,7 @@
 *.zip
 *.gz
 *.c
+*.h
 *.S
 *.fw
 *.bin

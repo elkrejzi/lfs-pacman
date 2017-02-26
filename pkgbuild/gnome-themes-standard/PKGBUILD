@@ -1,0 +1,25 @@
+pkgname=gnome-themes-standard
+pkgver=3.22.2
+pkgrel=1
+pkgdesc="Standard Themes for GNOME Applications"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-themes-standard"
+license=(GPL2)
+#depends=()
+source=("https://download.gnome.org/sources/gnome-themes-standard/${pkgver:0:4}/gnome-themes-standard-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-themes-standard-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-themes-standard-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('84624dbcecab7add32672abae030314d')

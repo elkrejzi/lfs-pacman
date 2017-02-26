@@ -1,13 +1,17 @@
-pkgname=elfutils
+pkgbase=elfutils
+pkgname=('elfutils' 'lib32-elfutils')
 pkgver=0.168
 pkgrel=1
-pkgdesc="Utilities to handle ELF object files and DWARF debugging information"
 arch=('x86_64')
 url="https://sourceware.org/elfutils/"
 license=('LGPL3' 'GPL' 'GPL3')
 #depends=()
 options=(staticlibs)
 source=("https://sourceware.org/elfutils/ftp/${pkgver}/elfutils-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/elfutils{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/elfutils-${pkgver}"
@@ -17,10 +21,23 @@ build() {
 
 	./configure --prefix=/usr --program-prefix="eu-"
 
-	make
+	cd "${srcdir}/elfutils32-${pkgver}"
+
+	export CC="gcc -m32"
+	export CXX="g++ -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/elfutils-${pkgver}"
+	make -C "${srcdir}/elfutils32-${pkgver}"
 }
 
-package() {
+package_elfutils() {
+	pkgdesc="Utilities to handle ELF object files and DWARF debugging information"
+
 	cd "${srcdir}/elfutils-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
@@ -32,6 +49,17 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libelf.so.* "${pkgdir}"/usr/lib/libelf-*.so "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libelf.so") "${pkgdir}/usr/lib/libelf.so"
+}
+
+package_lib32-elfutils() {
+	pkgdesc="Utilities to handle ELF object files and DWARF debugging information (32 bit)"
+
+	cd "${srcdir}/elfutils32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('52adfa40758d0d39e5d5c57689bf38d6')

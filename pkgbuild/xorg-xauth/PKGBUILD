@@ -1,0 +1,25 @@
+pkgname=xorg-xauth
+pkgver=1.0.10
+pkgrel=1
+pkgdesc="X.Org authorization settings program"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xauth-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xauth-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xauth-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f3f76cb10f69b571c43893ea6a634aa4')

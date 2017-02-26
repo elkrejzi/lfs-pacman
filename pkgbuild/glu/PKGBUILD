@@ -1,0 +1,56 @@
+pkgbase=glu
+pkgname=('glu' 'lib32-glu')
+pkgver=9.0.0
+pkgrel=1
+arch=('x86_64')
+url="https://cgit.freedesktop.org/mesa/glu/"
+license=('LGPL')
+#depends=()
+source=("ftp://ftp.freedesktop.org/pub/mesa/glu/glu-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/glu{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/glu-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/glu32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/glu-${pkgver}"
+	make -C "${srcdir}/glu32-${pkgver}"
+}
+
+package_glu() {
+	pkgdesc="Mesa OpenGL Utility library"
+
+	cd "${srcdir}/glu-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-glu() {
+	pkgdesc="Mesa OpenGL Utility library (32 bit)"
+
+	cd "${srcdir}/glu32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('be9249132ff49275461cf92039083030')

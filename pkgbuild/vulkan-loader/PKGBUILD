@@ -1,0 +1,103 @@
+pkgbase=vulkan-loader
+pkgname=('vulkan-loader' 'lib32-vulkan-loader')
+pkgver=1.0.39.1
+pkgrel=1
+arch=('x86_64')
+url="https://www.khronos.org/vulkan/"
+license=('custom')
+#depends=()
+options=(emptydirs)
+source=("https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/archive/sdk-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/Vulkan-LoaderAndValidationLayers{,32}-sdk-${pkgver}
+
+	install -v -dm755 "${srcdir}"/build{32,64}
+}
+
+build() {
+	cmake_flags=(-DCMAKE_INSTALL_PREFIX=/usr
+		-DCMAKE_BUILD_TYPE=Release
+		-DCMAKE_INSTALL_SYSCONFDIR=/etc
+		-DCMAKE_INSTALL_DATADIR=/share
+		-DCMAKE_SKIP_RPATH=ON
+		-DBUILD_TESTS=OFF
+		-DBUILD_WSI_XCB_SUPPORT=ON
+		-DBUILD_WSI_XLIB_SUPPORT=ON
+		-DBUILD_WSI_WAYLAND_SUPPORT=ON
+		-DBUILD_WSI_MIR_SUPPORT=OFF)
+
+	cd "${srcdir}/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}"
+
+	export CC="gcc"
+	export CXX="g++"
+
+	./update_external_sources.sh
+
+	cd "${srcdir}/build64"
+
+	cmake "${cmake_flags[@]}" \
+		"${srcdir}/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}"
+
+	cd "${srcdir}/Vulkan-LoaderAndValidationLayers32-sdk-${pkgver}"
+
+	export CC="gcc -m32"
+	export CXX="g++ -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./update_external_sources.sh
+
+	cd "${srcdir}/build32"
+
+	cmake "${cmake_flags[@]}" \
+		"${srcdir}/Vulkan-LoaderAndValidationLayers32-sdk-${pkgver}"
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/build64"
+	make -C "${srcdir}/build32"
+}
+
+install_common() {
+	local lib=${1}
+
+	install -v -dm755 "${pkgdir}/usr/${lib}"
+
+	cp -rv layers/*.so "${pkgdir}/usr/${lib}"
+	cp -rv loader/*.so* "${pkgdir}/usr/${lib}"
+}
+
+package_vulkan-loader() {
+	pkgdesc="Vulkan Installable Client Driver (ICD) Loader and Validation Layers"
+
+	cd "${srcdir}/build64"
+
+	install_common lib
+
+	install -v -Dm755 demos/vulkaninfo "${pkgdir}/usr/bin/vulkaninfo"
+
+	install -v -dm755 "${pkgdir}/usr/include/vulkan"
+
+	install -v -m644 "${srcdir}"/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}/include/vulkan/*.h \
+		"${pkgdir}/usr/include/vulkan"
+
+	install -v -dm755 "${pkgdir}/usr/share/vulkan/explicit_layer.d" \
+		"${pkgdir}/usr/share/vulkan/implicit_layer.d"
+
+	for i in "${srcdir}"/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}/layers/linux/*.json
+	do
+		sed 's#./##' $i > "${pkgdir}/usr/share/vulkan/explicit_layer.d/$(basename $i)"
+	done
+}
+
+package_lib32-vulkan-loader() {
+	pkgdesc="Vulkan Installable Client Driver (ICD) Loader and Validation Layers (32 bit)"
+
+	cd "${srcdir}/build32"
+
+	install_common lib32
+
+	install -v -Dm755 demos/vulkaninfo "${pkgdir}/usr/bin/vulkaninfo32"
+}
+
+md5sums=('25d6693172741c81710189c7c1fe8dda')

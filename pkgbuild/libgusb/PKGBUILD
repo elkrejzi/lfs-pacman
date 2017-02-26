@@ -1,0 +1,25 @@
+pkgname=libgusb
+pkgver=0.2.9
+pkgrel=1
+pkgdesc="GObject wrapper for libusb1"
+arch=('x86_64')
+url="https://github.com/hughsie/libgusb"
+license=('LGPL2.1')
+#depends=()
+source=("https://people.freedesktop.org/~hughsient/releases/libgusb-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgusb-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgusb-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d4251e958aee7d19e39f8021e457942f')

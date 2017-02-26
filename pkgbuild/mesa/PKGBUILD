@@ -1,0 +1,93 @@
+pkgbase=mesa
+pkgname=('mesa' 'lib32-mesa')
+pkgver=17.0.0
+pkgrel=1
+arch=('x86_64')
+url="https://mesa.freedesktop.org/"
+license=('custom')
+#depends=()
+source=("https://mesa.freedesktop.org/archive/mesa-${pkgver}.tar.xz"
+	"mesa-pthread-stubs.patch")
+
+prepare() {
+	cd "${srcdir}/mesa-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/mesa-pthread-stubs.patch"
+
+	autoreconf -fi
+
+	cp -a "${srcdir}"/mesa{,32}-${pkgver}
+}
+
+build() {
+	configure_flags=(--disable-valgrind
+		--disable-xvmc
+		--enable-texture-float
+		--enable-gles1
+		--enable-gles2
+		--enable-gbm
+		--enable-vdpau
+		--enable-omx
+		--enable-va
+		--enable-glx-tls
+		--enable-llvm-shared-libs
+		--with-dri-drivers=i965
+		--with-egl-platforms=drm,x11,wayland
+		--with-gallium-drivers=radeonsi,swrast
+		--with-vulkan-drivers=intel,radeon)
+
+	export DLOPEN_LIBS="-ldl"
+
+	cd "${srcdir}/mesa-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		"${configure_flags[@]}"
+
+	cd "${srcdir}/mesa32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+	export LLVM_CONFIG=/usr/bin/llvm-config32
+	export LDFLAGS="-lcompiler-rt"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--libdir=/usr/lib32 \
+		--build=i686-pc-linux-gnu \
+		--host=i686-pc-linux-gnu \
+		"${configure_flags[@]}" \
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/mesa-${pkgver}"
+	make -C "${srcdir}/mesa32-${pkgver}"
+}
+
+package_mesa() {
+	pkgdesc="Mesa 3D graphics library"
+
+	cd "${srcdir}/mesa-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-mesa() {
+	pkgdesc="Mesa 3D graphics library (32 bit)"
+
+	cd "${srcdir}/mesa32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/share "${pkgdir}/usr"
+}
+
+md5sums=('932e4171a86b14940c06812356486155'
+         'd61267f467dc5c029bcf4af4d11b0fe4')

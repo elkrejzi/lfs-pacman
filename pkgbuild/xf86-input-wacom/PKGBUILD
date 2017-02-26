@@ -1,0 +1,27 @@
+pkgname=xf86-input-wacom
+pkgver=0.34.0
+pkgrel=1
+pkgdesc="X.Org Wacom tablet driver"
+arch=('x86_64')
+url="http://linuxwacom.sourceforge.net/"
+license=(GPL)
+#depends=()
+source=("https://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xf86-input-wacom-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-udev-rules-dir=/lib/udev/rules.d \
+		--with-systemd-unit-dir=/lib/systemd/system
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xf86-input-wacom-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('066a0b5fc0f33379b6cee429a616b7b4')

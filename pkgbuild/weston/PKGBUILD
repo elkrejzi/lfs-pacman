@@ -1,0 +1,25 @@
+pkgname=weston
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='Reference implementation of a Wayland compositor'
+arch=('x86_64')
+url="https://wayland.freedesktop.org/"
+license=('MIT')
+#depends=()
+source=("https://wayland.freedesktop.org/releases/weston-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/weston-${pkgver}"
+
+	./configure --prefix=/usr --enable-demo-clients-install
+
+	make
+}
+
+package() {
+	cd "${srcdir}/weston-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('15f38945942bf2a91fe2687145fb4c7d')

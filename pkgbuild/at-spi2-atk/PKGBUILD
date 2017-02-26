@@ -1,0 +1,25 @@
+pkgname=at-spi2-atk
+pkgver=2.22.0
+pkgrel=1
+pkgdesc="A GTK+ module that bridges ATK to D-Bus at-spi"
+arch=('x86_64')
+url="https://wiki.gnome.org/Accessibility"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/at-spi2-atk/${pkgver:0:4}/at-spi2-atk-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/at-spi2-atk-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/at-spi2-atk-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('aa62aed21b8e03dc44ab81ae49d893ca')

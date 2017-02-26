@@ -1,7 +1,7 @@
-pkgname=libpng
+pkgbase=libpng
+pkgname=('libpng' 'lib32-libpng')
 pkgver=1.6.28
 pkgrel=1
-pkgdesc="A collection of routines used to create PNG format graphics files"
 arch=('x86_64')
 url="http://www.libpng.org/pub/png/libpng.html"
 license=('custom')
@@ -13,6 +13,8 @@ prepare() {
 	cd "${srcdir}/libpng-${pkgver}"
 
 	patch -Np0 -i "${srcdir}/libpng-${pkgver}-apng.patch"
+
+	cp -a "${srcdir}"/libpng{,32}-${pkgver}
 }
 
 build() {
@@ -20,13 +22,43 @@ build() {
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libpng32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libpng-${pkgver}"
+	make -C "${srcdir}/libpng32-${pkgver}"
 }
 
-package() {
+package_libpng() {
+	pkgdesc="A collection of routines used to create PNG format graphics files"
+
 	cd "${srcdir}/libpng-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libpng() {
+	pkgdesc="A collection of routines used to create PNG format graphics files (32 bit)"
+
+	cd "${srcdir}/libpng32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+
+	mv dest/usr/bin/libpng16-config "${pkgdir}/usr/bin/libpng16-config32"
+	ln -sf libpng16-config32 "${pkgdir}/usr/bin/libpng-config32"
 }
 
 md5sums=('425354f86c392318d31aedca71019372'

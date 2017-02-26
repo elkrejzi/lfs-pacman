@@ -1,0 +1,25 @@
+pkgname=xorg-xhost
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="Server access control program for X"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xhost-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xhost-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xhost-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f5d490738b148cb7f2fe760f40f92516')

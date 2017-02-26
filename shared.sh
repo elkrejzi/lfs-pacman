@@ -54,7 +54,7 @@ lfs_chroot_build_temp() {
              /tools/bin/makepkg -f; \
              popd"
 
-  rm -rf ${LFS}/${BUILDDIR}//+${pkg}
+  rm -rf ${LFS}/${BUILDDIR}/${pkg}
 
   cp -a ${LFS}/${PKGBUILDS}/${pkg} ${LFS}/${BUILDDIR}
   chown -R ${PKGBUILD_ID}:${PKGBUILD_ID} ${LFS}/${BUILDDIR}/${pkg}
@@ -81,7 +81,7 @@ lfs_pacman_install_temp() {
         *-debug-[0-9]* )
         ;;
         * )
-          PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm ${ff}
+          PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff}
         ;;
       esac
     done

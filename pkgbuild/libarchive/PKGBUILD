@@ -1,5 +1,5 @@
 pkgname=libarchive
-pkgver=3.3.0
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="library that can create and read several streaming archive formats"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('2a2df353a96e132fd04665d17c1561f8')
+md5sums=('d2af45480aa5b0db5b5f3919cd0ea65e')

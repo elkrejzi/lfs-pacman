@@ -1,0 +1,25 @@
+pkgname=cantarell-fonts
+pkgver=0.0.25
+pkgrel=1
+pkgdesc="Cantarell font family"
+arch=('x86_64')
+url="https://git.gnome.org/browse/cantarell-fonts"
+license=('custom:SIL')
+#depends=()
+source=("https://download.gnome.org/sources/cantarell-fonts/${pkgver:0:3}/cantarell-fonts-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/cantarell-fonts-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cantarell-fonts-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8fa68460bb292b9c9441af10f99d99d7')

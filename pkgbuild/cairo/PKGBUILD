@@ -1,0 +1,62 @@
+pkgbase=cairo
+pkgname=('cairo' 'lib32-cairo')
+pkgver=1.14.8
+pkgrel=1
+arch=('x86_64')
+url="https://cairographics.org/"
+license=('LGPL' 'MPL')
+#depends=()
+source=("https://www.cairographics.org/releases/cairo-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/cairo-${pkgver}"
+
+	sed -i "/am__append/s#boilerplate test perf#boilerplate perf#g" Makefile.in
+
+	cp -a "${srcdir}"/cairo{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/cairo-${pkgver}"
+
+	./configure --prefix=/usr --enable-tee
+
+	cd "${srcdir}/cairo32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--enable-tee
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/cairo-${pkgver}"
+	make -C "${srcdir}/cairo32-${pkgver}"
+}
+
+package_cairo() {
+	pkgdesc="Cairo vector graphics library"
+
+	cd "${srcdir}/cairo-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-cairo() {
+	pkgdesc="Cairo vector graphics library (32 bit)"
+
+	cd "${srcdir}/cairo32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('4ef0db2eacb271c74f8a3fd87822aa98')

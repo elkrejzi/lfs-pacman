@@ -1,0 +1,34 @@
+pkgname=jasper
+pkgver=2.0.10
+pkgrel=1
+pkgdesc="Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard"
+arch=('x86_64')
+url="http://www.ece.uvic.ca/~mdadams/jasper/"
+license=('custom:JasPer2.0')
+#depends=()
+source=("http://www.ece.uvic.ca/~frodo/jasper/software/jasper-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/jasper-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('06882adcf92524eb493f3cf0d3f62c9a')

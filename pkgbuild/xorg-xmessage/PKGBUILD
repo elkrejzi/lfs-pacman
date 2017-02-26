@@ -1,0 +1,25 @@
+pkgname=xorg-xmessage
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="Display a message or query in a window"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xmessage-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xmessage-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xmessage-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2dd5ae46fa18abc9331bc26250a25005')

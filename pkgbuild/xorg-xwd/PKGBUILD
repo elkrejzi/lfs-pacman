@@ -1,0 +1,25 @@
+pkgname=xorg-xwd
+pkgver=1.0.6
+pkgrel=1
+pkgdesc="X Window System image dumping utility"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xwd-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xwd-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xwd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6b5d48464c5f366e91efd08b62b12d94')

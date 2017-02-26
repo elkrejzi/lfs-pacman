@@ -1,0 +1,25 @@
+pkgname=xorg-x11perf
+pkgver=1.6.0
+pkgrel=1
+pkgdesc="Simple X server performance benchmarker"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/x11perf-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/x11perf-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/x11perf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f0b24e4d8beb622a419e8431e1c03cd7')

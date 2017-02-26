@@ -1,7 +1,7 @@
-pkgname=icu
+pkgbase=icu
+pkgname=('icu' 'lib32-icu')
 pkgver=58.2
 pkgrel=1
-pkgdesc="International Components for Unicode library"
 arch=('x86_64')
 url="http://www.icu-project.org/"
 license=('custom:icu')
@@ -12,6 +12,8 @@ prepare() {
 	cd "${srcdir}/icu/source"
 
 	sed -i "/xlocale.h/i #   include <locale.h>" i18n/digitlst.cpp
+
+	cp -a "${srcdir}"/icu{,32}
 }
 
 build() {
@@ -19,13 +21,42 @@ build() {
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/icu32/source"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/icu/source"
+	make -C "${srcdir}/icu32/source"
+
 }
 
-package() {
+package_icu() {
+	pkgdesc="International Components for Unicode library"
+
 	cd "${srcdir}/icu/source"
 
 	make -j1 install DESTDIR="${pkgdir}"
+}
+
+package_lib32-icu() {
+	pkgdesc="International Components for Unicode library (32 bit)"
+
+	cd "${srcdir}/icu32/source"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/bin/icu-config "${pkgdir}/usr/bin/icu-config32"
 }
 
 md5sums=('fac212b32b7ec7ab007a12dff1f3aea1')

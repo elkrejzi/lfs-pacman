@@ -1,0 +1,25 @@
+pkgname=xorg-xwud
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="X Window System image undumping utility"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xwud-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xwud-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xwud-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3025b152b4f13fdffd0c46d0be587be6')

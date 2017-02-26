@@ -52,6 +52,9 @@ case ${thispkg} in
 
     lfs_chroot_exec_cmd locale-gen
   ;;
+  "systemd" )
+    lfs_chroot_exec_cmd "systemd-sysusers /usr/lib/sysusers.d/slapd.conf"
+  ;;
 esac
 
 lfs_umount_virt

@@ -1,0 +1,25 @@
+pkgname=xorg-iceauth
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="ICE authority file utility"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/iceauth-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/iceauth-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/iceauth-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('25dab02f8e40d5b71ce29a07dc901b8c')

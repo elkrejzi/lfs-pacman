@@ -1,0 +1,58 @@
+pkgbase=libvdpau
+pkgname=('libvdpau' 'lib32-libvdpau')
+pkgver=1.1.1
+pkgrel=1
+arch=('x86_64')
+url="https://cgit.freedesktop.org/~aplattner/libvdpau/"
+license=('custom')
+#depends=()
+source=("https://people.freedesktop.org/~aplattner/vdpau/libvdpau-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libvdpau{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libvdpau-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	cd "${srcdir}/libvdpau32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libvdpau-${pkgver}"
+	make -C "${srcdir}/libvdpau32-${pkgver}"
+}
+
+package_libvdpau() {
+pkgdesc="Nvidia VDPAU library"
+
+	cd "${srcdir}/libvdpau-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libvdpau() {
+	pkgdesc="Nvidia VDPAU library (32 bit)"
+
+	cd "${srcdir}/libvdpau32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('2fa0b05a4f4d06791eec83bc9c854d14')

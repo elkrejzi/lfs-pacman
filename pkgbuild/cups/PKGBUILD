@@ -1,0 +1,70 @@
+pkgname=cups
+pkgver=2.2.2
+pkgrel=1
+pkgdesc="The CUPS Printing System"
+arch=('x86_64')
+url="https://www.cups.org/"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://github.com/apple/cups/releases/download/v${pkgver}/cups-${pkgver}-source.tar.gz"
+	"cups-systemd.patch"
+	"cups.pam"
+	"cups.sysusers"
+	"client.conf")
+
+prepare() {
+	cd "${srcdir}/cups-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/cups-systemd.patch"
+
+	sed -i "/MAN.*.EXT/s:.gz::g" configure config-scripts/cups-manpages.m4
+	sed -i "s:555:755:g;s:444:644:g" Makedefs.in
+}
+
+build() {
+	cd "${srcdir}/cups-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libdir=/usr/lib \
+		--with-rcdir=/tmp/cupsinit \
+		--with-docdir=/usr/share/cups/doc \
+		--with-system-groups=lpadmin \
+		--with-icondir=/usr/share/icons \
+		--with-menudir=/usr/share/applications \
+		--with-optim="${CFLAGS}" \
+		--with-systemd=/lib/systemd/system
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cups-${pkgver}"
+
+	make install BUILDROOT="${pkgdir}"
+
+	rm -rf "${pkgdir}"/etc/cups/*.default "${pkgdir}"/usr/share/cups/banners/*
+	rm -rf "${pkgdir}/usr/share/cups/data/testprint" "${pkgdir}/tmp" "${pkgdir}/var/run"
+
+	perl -p -i -e 's:^(.*\s+bannertops\s*)$:#\1:' "${pkgdir}/usr/share/cups/mime/mime.convs"
+
+	touch "${pkgdir}/etc/cups/classes.conf" "${pkgdir}/etc/cups/printers.conf" "${pkgdir}/etc/cups/subscriptions.conf"
+
+	chmod 600 "${pkgdir}/etc/cups/classes.conf" "${pkgdir}/etc/cups/printers.conf"
+	chmod 640 "${pkgdir}/etc/cups/subscriptions.conf"
+
+	install -v -Dm644 "${srcdir}/cups.pam" "${pkgdir}/etc/pam.d/cups"
+	install -v -Dm644 "${srcdir}/cups.sysusers" "${pkgdir}/usr/lib/sysusers.d/cups.conf"
+
+	install -v -Dm644 "${srcdir}/client.conf" "${pkgdir}/etc/cups/client.conf"
+
+	chgrp -R lp "${pkgdir}/etc/cups"
+}
+
+md5sums=('036f6bda6202ae3e280ac00c710b5ca4'
+         '9e5f7f34bdde3b774e864ee27c64ee2b'
+         '26ec8039dbcb9b470ef1449f08f951a6'
+         '86caf638bee256bb5f8f2bb59a15a62a'
+         '6e577b9abb8132e21bf7fda9d539c5f6')

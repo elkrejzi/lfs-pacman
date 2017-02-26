@@ -1,0 +1,30 @@
+pkgname=xf86-video-intel
+_commit=860c366
+pkgver=2.99.917+${_commit}
+pkgrel=1
+pkgdesc="X.org Intel i810/i830/i915/945G/G965+ video drivers"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("git://anongit.freedesktop.org/xorg/driver/xf86-video-intel#commit=${_commit}")
+
+build() {
+	cd "${srcdir}/xf86-video-intel"
+
+	./autogen.sh --prefix=/usr \
+		--enable-kms-only \
+		--enable-sna \
+		--with-default-accel=sna \
+		--with-default-dri=3
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xf86-video-intel"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('SKIP')

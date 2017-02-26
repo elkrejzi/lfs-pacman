@@ -1,0 +1,44 @@
+pkgname=xorg-server
+pkgver=1.19.1
+pkgrel=1
+pkgdesc="Xorg X server"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+options=(emptydirs)
+source=("https://www.x.org/releases/individual/xserver/xorg-server-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xorg-server-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-install-setuid \
+		--enable-dri2 \
+		--enable-dri3 \
+		--enable-glamor \
+		--enable-present \
+		--enable-suid-wrapper \
+		--enable-systemd-logind \
+		--enable-xephyr \
+		--enable-xnest \
+		--enable-xvfb \
+		--enable-xwayland \
+		--with-systemd-daemon \
+		--with-xkb-output=/var/lib/xkb
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xorg-server-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/var/log"
+	install -v -dm755 "${pkgdir}/etc/X11/xorg.conf.d"
+}
+
+md5sums=('caa8ee7b2950abbf734347d137529fb6')

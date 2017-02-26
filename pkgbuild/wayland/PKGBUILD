@@ -1,0 +1,58 @@
+pkgbase=wayland
+pkgname=('wayland' 'lib32-wayland')
+pkgver=1.13.0
+pkgrel=1
+arch=('x86_64')
+url="https://wayland.freedesktop.org/"
+license=('MIT')
+#depends=()
+source=("https://wayland.freedesktop.org/releases/wayland-${pkgver}.tar.xz")
+
+prepare() {
+	cp -a "${srcdir}"/wayland{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/wayland-${pkgver}"
+
+	./configure --prefix=/usr --disable-documentation
+
+	cd "${srcdir}/wayland32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--disable-documentation
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/wayland-${pkgver}"
+	make -C "${srcdir}/wayland32-${pkgver}"
+}
+
+package_wayland() {
+	pkgdesc="A computer display server protocol"
+
+	cd "${srcdir}/wayland-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-wayland() {
+	pkgdesc="A computer display server protocol (32 bit)"
+
+	cd "${srcdir}/wayland32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('cae152ed956da6de53f9727bc1c45039')

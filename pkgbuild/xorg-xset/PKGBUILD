@@ -1,0 +1,25 @@
+pkgname=xorg-xset
+pkgver=1.2.3
+pkgrel=1
+pkgdesc="User preference utility for X"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xset-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xset-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xset-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('dcd227388b57487d543cab2fd7a602d7')

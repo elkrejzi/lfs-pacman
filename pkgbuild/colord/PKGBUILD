@@ -1,0 +1,41 @@
+pkgname=colord
+pkgver=1.3.4
+pkgrel=1
+pkgdesc="System daemon for managing color devices"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/colord/"
+license=('GPL2')
+#depends=()
+options=(emptydirs)
+source=("https://www.freedesktop.org/software/colord/releases/colord-${pkgver}.tar.xz"
+	"colord.sysusers")
+
+build() {
+	cd "${srcdir}/colord-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-daemon-user=colord \
+		--disable-argyllcms-sensor \
+		--disable-bash-completion \
+		--disable-sane \
+		--enable-vala \
+		--with-udevrulesdir=/lib/udev/rules.d \
+		--with-systemdsystemunitdir=/lib/systemd/system
+
+	make
+}
+
+package() {
+	cd "${srcdir}/colord-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/colord.sysusers" "${pkgdir}/usr/lib/sysusers.d/colord.conf"
+
+	chown -R 71:71 "${pkgdir}/var/lib/colord"
+}
+
+md5sums=('5e889426907a0436ecfbdb18add2c67b'
+         '7dd3af6937b1a9ee77d84607f5a743e6')

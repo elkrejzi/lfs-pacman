@@ -1,0 +1,25 @@
+pkgname=xorg-xdriinfo
+pkgver=1.0.5
+pkgrel=1
+pkgdesc="Query configuration information of DRI drivers"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xdriinfo-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xdriinfo-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xdriinfo-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fceddaeb08e32e027d12a71490665866')

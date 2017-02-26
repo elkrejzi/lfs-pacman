@@ -1,7 +1,7 @@
-pkgname=freetype
+pkgbase=freetype
+pkgname=('freetype' 'lib32-freetype')
 pkgver=2.7.1
 pkgrel=1
-pkgdesc="TrueType font rendering library"
 arch=('x86_64')
 url="http://www.freetype.org/"
 license=('GPL')
@@ -15,6 +15,8 @@ prepare() {
 
 	sed -ri "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:g" \
 		include/freetype/config/ftoption.h
+
+	cp -a "${srcdir}"/freetype{,32}-${pkgver}
 }
 
 
@@ -23,13 +25,41 @@ build() {
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/freetype32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/freetype-${pkgver}"
+	make -C "${srcdir}/freetype32-${pkgver}"
 }
 
-package() {
+package_freetype() {
+	pkgdesc="TrueType font rendering library"
+
 	cd "${srcdir}/freetype-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-freetype() {
+	pkgdesc="TrueType font rendering library (32 bit)"
+
+	cd "${srcdir}/freetype32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/bin/freetype-config "${pkgdir}/usr/bin/freetype-config32"
 }
 
 md5sums=('b3230110e0cab777e0df7631837ac36e')

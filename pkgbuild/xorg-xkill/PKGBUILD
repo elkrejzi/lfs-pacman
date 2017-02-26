@@ -1,0 +1,25 @@
+pkgname=xorg-xkill
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="Kill a client by its X resource"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xkill-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xkill-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xkill-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0ae6bc2a8d3af68e9c76b1a6ca5f7a78')

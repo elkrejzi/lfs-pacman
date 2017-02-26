@@ -1,0 +1,3 @@
+u avahi 84 "Avahi Daemon Owner" /var/run/avahi-daemon
+u avahi-autoipd 85 "Avahi AutoIPD Owner" /var/lib/avahi-autoipd
+g netdev 86 - -

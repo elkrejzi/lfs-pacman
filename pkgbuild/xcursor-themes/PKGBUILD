@@ -1,0 +1,25 @@
+pkgname=xcursor-themes
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="X.org Cursor themes"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/data/xcursor-themes-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcursor-themes-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcursor-themes-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fdfb0ad9cfceed60e3bfe9f18765aa0d')

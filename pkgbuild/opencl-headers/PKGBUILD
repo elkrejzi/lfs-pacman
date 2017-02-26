@@ -1,0 +1,37 @@
+pkgname=opencl-headers
+pkgver=2.0.20170214
+_rev=d4cc397547207c0c47e6aa8a61684adf25712735
+pkgrel=1
+pkgdesc="OpenCL (Open Computing Language) header files"
+arch=('x86_64')
+url="https://www.khronos.org/registry/cl/"
+license=('custom')
+#depends=()
+
+headers=("cl.h"
+	"cl_egl.h"
+	"cl_ext.h"
+	"cl_gl.h"
+	"cl_gl_ext.h"
+	"cl_platform.h"
+	"opencl.h")
+
+for hh in ${headers[@]}
+do
+	source+=("https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/${_rev}/${hh}")
+done
+
+package() {
+	for hh in ${headers[@]}
+	do
+		install -v -Dm644 "${srcdir}/${hh}" "${pkgdir}/usr/include/CL/${hh}"
+	done
+}
+
+md5sums=('0795c84ca0c9d7b30eb00f23eb8ccf2b'
+         'c7f42a37356c2d4e42f2692921ed09a7'
+         '02db28eb29c0de6a4b38f009f2518d62'
+         'b1dac507ba9b9abf0d6060f4acd5f414'
+         '8982a32bca3c81bfab06c265e0a4130e'
+         '3741887e928f85438897ab5a415fcf16'
+         '687394644e8c4ec4fd3d77f2f86bc042')

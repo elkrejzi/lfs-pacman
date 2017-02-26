@@ -1,0 +1,25 @@
+pkgname=tiff
+pkgver=4.0.7
+pkgrel=1
+pkgdesc="Library for manipulation of TIFF images"
+arch=('x86_64')
+url="http://www.simplesystems.org/libtiff/"
+license=('custom')
+#depends=()
+source=("http://download.osgeo.org/libtiff/tiff-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/tiff-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tiff-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('77ae928d2c6b7fb46a21c3a29325157b')

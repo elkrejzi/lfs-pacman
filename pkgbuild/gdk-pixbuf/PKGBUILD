@@ -1,0 +1,31 @@
+pkgname=gdk-pixbuf
+pkgver=2.36.5
+pkgrel=1
+pkgdesc="An image loading library"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GdkPixbuf"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/gdk-pixbuf/${pkgver:0:4}/gdk-pixbuf-${pkgver}.tar.xz"
+	"gdk-pixbuf-query-loaders.hook")
+
+build() {
+	cd "${srcdir}/gdk-pixbuf-${pkgver}"
+
+	./configure --prefix=/usr \
+		--with-libjasper \
+		--with-x11
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gdk-pixbuf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/gdk-pixbuf-query-loaders.hook" "${pkgdir}/usr/share/libalpm/hooks/gdk-pixbuf-query-loaders.hook"
+}
+
+md5sums=('0173fd5c11a5d2030d09201090636477'
+         '6f0b295e93b2c599622e9af078583e01')

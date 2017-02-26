@@ -1,0 +1,25 @@
+pkgname=xorg-xcmsdb
+pkgver=1.0.5
+pkgrel=1
+pkgdesc="Device Color Characterization utility for X Color Management System"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xcmsdb-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xcmsdb-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xcmsdb-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9956d751ea3ae4538c3ebd07f70736a0')

@@ -1,0 +1,25 @@
+pkgname=xorg-xmodmap
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="Utility for modifying keymaps and button mappings"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xmodmap-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xmodmap-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xmodmap-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('723f02d3a5f98450554556205f0a9497')

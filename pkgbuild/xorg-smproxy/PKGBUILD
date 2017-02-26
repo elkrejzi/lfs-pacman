@@ -1,0 +1,25 @@
+pkgname=xorg-smproxy
+pkgver=1.0.6
+pkgrel=1
+pkgdesc="Allows X applications that do not support X11R6 session management to participate in an X11R6 session"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/smproxy-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/smproxy-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/smproxy-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3a93d9f0859de5d8b65a68a125d48f6a')

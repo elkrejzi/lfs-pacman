@@ -1,0 +1,25 @@
+pkgname=xorg-xlsatoms
+pkgver=1.1.2
+pkgrel=1
+pkgdesc="List interned atoms defined on server"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/app/xlsatoms-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xlsatoms-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xlsatoms-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5dcb6e6c4b28c8d7aeb45257f5a72a7d')

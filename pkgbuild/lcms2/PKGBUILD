@@ -1,0 +1,25 @@
+pkgname=lcms2
+pkgver=2.8
+pkgrel=1
+pkgdesc="Small-footprint color management engine, version 2"
+arch=('x86_64')
+url="http://www.littlecms.com"
+license=('MIT')
+#depends=()
+source=("https://downloads.sourceforge.net/lcms/lcms2-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/lcms2-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/lcms2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('87a5913f1a52464190bb655ad230539c')

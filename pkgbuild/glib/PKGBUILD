@@ -1,7 +1,7 @@
-pkgname=glib
+pkgbase=glib
+pkgname=('glib' 'lib32-glib')
 pkgver=2.50.3
 pkgrel=1
-pkgdesc="Low level core library"
 arch=('x86_64')
 url="http://www.gtk.org/"
 license=('LGPL')
@@ -9,12 +9,15 @@ license=('LGPL')
 source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
 	"glib-compile-schemas-quiet.patch"
 	"gio-querymodules.hook"
+	"gio-querymodules32.hook"
 	"glib-compile-schemas.hook")
 
 prepare() {
 	cd "${srcdir}/glib-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
+
+	cp -a "${srcdir}"/glib{,32}-${pkgver}
 }
 
 build() {
@@ -25,10 +28,30 @@ build() {
 		--with-pcre=system \
 		--with-python=/usr/bin/python3
 
-	make
+	cd "${srcdir}/glib32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--libdir=/usr/lib32 \
+		--with-pcre=system \
+		--with-python=/usr/bin/python3
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/glib-${pkgver}"
+	make -C "${srcdir}/glib32-${pkgver}"
 }
 
-package() {
+package_glib() {
+	pkgdesc="Low level core library"
+
 	cd "${srcdir}/glib-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
@@ -43,7 +66,22 @@ package() {
 	install -v -Dm644 "${srcdir}/glib-compile-schemas.hook" "${pkgdir}/usr/share/libalpm/hooks/glib-compile-schemas.hook"
 }
 
+package_lib32-glib() {
+	pkgdesc="Low level core library (32 bit)"
+
+	cd "${srcdir}/glib32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/bin/gio-querymodules "${pkgdir}/usr/bin/gio-querymodules32"
+
+	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
+}
+
 md5sums=('381ab22934f296750d036aa55a397ded'
          '9a2c5949a8d352c5887c099ed3a9003d'
          'a52ea506b5cf162a4f72d09cc33fae50'
+         'f013ccc9643a2cb191bddcae0754732e'
          '9e25d7de10bc4dc105f171e9ae46ef69')
