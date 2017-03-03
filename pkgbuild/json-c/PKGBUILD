@@ -1,0 +1,25 @@
+pkgname=json-c
+pkgver=0.12.1
+pkgrel=1
+pkgdesc="A JSON implementation in C"
+arch=('x86_64')
+url="https://github.com/json-c/json-c/wiki"
+license=('MIT')
+#depends=()
+source=("https://s3.amazonaws.com/json-c_releases/releases/json-c-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/json-c-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/json-c-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('55f7853f7d8cf664554ce3fa71bf1c7d')

@@ -1,0 +1,31 @@
+pkgname=ibus
+pkgver=1.5.14
+pkgrel=1
+pkgdesc="Next Generation Input Bus for Linux"
+arch=('x86_64')
+url="https://github.com/ibus/ibus/wiki"
+license=('LGPL')
+#depends=()
+install=ibus.install
+source=("https://github.com/ibus/ibus/releases/download/${pkgver}/ibus-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/ibus-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-emoji-dict \
+		--enable-wayland \
+		--enable-python-library \
+		--with-python=python3
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ibus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('debfafff1823952b69b248462f7a89a5')

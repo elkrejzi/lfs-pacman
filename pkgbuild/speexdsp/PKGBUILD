@@ -1,0 +1,56 @@
+pkgbase=speexdsp
+pkgname=('speexdsp' 'lib32-speexdsp')
+pkgver=1.2rc3
+pkgrel=1
+arch=('x86_64')
+url="https://speex.org/"
+license=('BSD' 'GPL')
+#depends=()
+source=("http://downloads.xiph.org/releases/speex/speexdsp-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/speexdsp{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/speexdsp-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/speexdsp32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/speexdsp-${pkgver}"
+	make -C "${srcdir}/speexdsp32-${pkgver}"
+}
+
+package_speexdsp() {
+	pkgdesc="DSP library derived from Speex"
+
+	cd "${srcdir}/speexdsp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-speexdsp() {
+	pkgdesc="DSP library derived from Speex (32 bit)"
+
+	cd "${srcdir}/speexdsp32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('70d9d31184f7eb761192fd1ef0b73333')

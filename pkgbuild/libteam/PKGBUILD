@@ -1,0 +1,30 @@
+pkgname=libteam
+pkgver=1.26
+pkgrel=1
+pkgdesc="Library for controlling team network device"
+arch=('x86_64')
+url="http://libteam.org/"
+license=('LGPL2.1')
+#depends=()
+source=("http://libteam.org/files/libteam-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libteam-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libteam-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 teamd/dbus/teamd.conf "${pkgdir}/etc/dbus-1/system.d/teamd.conf"
+	install -v -Dm644 teamd/redhat/systemd/teamd@.service "${pkgdir}/lib/systemd/system/teamd@.service"
+}
+
+md5sums=('f8529a3bfee28500bef5faff6aeb0063')

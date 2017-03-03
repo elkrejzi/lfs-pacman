@@ -1,0 +1,25 @@
+pkgname=iso-codes
+pkgver=3.74
+pkgrel=1
+pkgdesc="Lists of the country, language, and currency names"
+arch=('x86_64')
+url="https://pkg-isocodes.alioth.debian.org/"
+license=('LGPL')
+#depends=()
+source=("https://pkg-isocodes.alioth.debian.org/downloads/iso-codes-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/iso-codes-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/iso-codes-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d5448475d087756b78391b8c53c5b83a')

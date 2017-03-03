@@ -1,0 +1,45 @@
+pkgname=fftw
+pkgver=3.3.6
+_pkgver=${pkgver}-pl1
+pkgrel=1
+pkgdesc="A library for computing the discrete Fourier transform (DFT)"
+arch=('x86_64')
+url="http://www.fftw.org/"
+license=('GPL2')
+#depends=()
+source=("http://www.fftw.org/fftw-${_pkgver}.tar.gz")
+
+build() {
+	configure_flags=(--prefix=/usr --enable-openmp
+		--enable-shared --enable-threads)
+
+	install -v -dm755 "${srcdir}/build1" "${srcdir}/build2" \
+		"${srcdir}/build3"
+
+	cd "${srcdir}/build1"
+
+	"${srcdir}/fftw-${_pkgver}/configure" "${configure_flags[@]}" \
+		--enable-sse2 --enable-avx
+
+	cd "${srcdir}/build2"
+
+	"${srcdir}/fftw-${_pkgver}/configure" "${configure_flags[@]}" \
+		--enable-long-double
+
+	cd "${srcdir}/build3"
+
+	"${srcdir}/fftw-${_pkgver}/configure" "${configure_flags[@]}" \
+		--enable-float --enable-sse --enable-avx
+
+	make -C "${srcdir}/build1"
+	make -C "${srcdir}/build2"
+	make -C "${srcdir}/build3"
+}
+
+package() {
+	make -C "${srcdir}/build1" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/build2" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/build3" install DESTDIR="${pkgdir}"
+}
+
+md5sums=('682a0e78d6966ca37c7446d4ab4cc2a1')

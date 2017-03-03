@@ -1,0 +1,33 @@
+pkgname=modemmanager
+pkgver=1.6.4
+pkgrel=1
+pkgdesc="Mobile broadband modem management service"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/ModemManager/"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+source=("https://www.freedesktop.org/software/ModemManager/ModemManager-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/ModemManager-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-more-warnings \
+		--enable-gtk-doc \
+		--with-polkit=permissive \
+		--with-suspend-resume=systemd \
+		--with-systemdsystemunitdir=/lib/systemd/system \
+		--with-udev-base-dir=/lib/udev
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ModemManager-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('06488186c7dd53f8104183b86f7a1568')

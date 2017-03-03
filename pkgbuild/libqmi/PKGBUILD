@@ -1,0 +1,25 @@
+pkgname=libqmi
+pkgver=1.16.2
+pkgrel=1
+pkgdesc="QMI modem protocol helper library"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/libqmi/"
+license=('GPL2')
+#depends=()
+source=("https://www.freedesktop.org/software/libqmi/libqmi-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libqmi-${pkgver}"
+
+	./configure --prefix=/usr --disable-more-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libqmi-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('052318439128e428b1a41e75a605d91f')

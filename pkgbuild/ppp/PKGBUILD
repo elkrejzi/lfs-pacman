@@ -1,0 +1,65 @@
+pkgname=ppp
+pkgver=2.4.7
+pkgrel=1
+pkgdesc="A daemon which implements the Point-to-Point Protocol for dial-up networking"
+arch=('x86_64')
+url="https://ppp.samba.org/"
+license=('custom:GPL/BSD')
+#depends=()
+options=(emptydirs)
+source=("https://www.samba.org/ftp/ppp/ppp-${pkgver}.tar.gz"
+	"ppp-distro.patch")
+
+prepare() {
+	cd "${srcdir}/ppp-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/ppp-distro.patch"
+
+	sed -i "s:^#FILTER=y:FILTER=y:" pppd/Makefile.linux
+	sed -i "s:^#HAVE_INET6=y:HAVE_INET6=y:" pppd/Makefile.linux
+	sed -i "s:^#CBCP=y:CBCP=y:" pppd/Makefile.linux
+
+	sed -i "/ppp_defs.h/a #define _LINUX_IN6_H" pppd/plugins/rp-pppoe/plugin.c
+	sed -i "/ppp_defs.h/a #define _LINUX_IN_H" pppd/plugins/rp-pppoe/plugin.c
+}
+
+build() {
+	cd "${srcdir}/ppp-${pkgver}"
+
+	CFLAGS="${CFLAGS} -D_GNU_SOURCE" ./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ppp-${pkgver}"
+
+	make install INSTROOT="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/etc/ppp/ipv6-down.d" "${pkgdir}/etc/ppp/peers"
+
+	install -v -Dm755 scripts/pon   "${pkgdir}/usr/bin/pon"
+	install -v -Dm755 scripts/poff  "${pkgdir}/usr/bin/poff"
+	install -v -Dm755 scripts/plog  "${pkgdir}/usr/sbin/plog"
+	install -v -Dm644 scripts/pon.1 "${pkgdir}/usr/share/man/man1/pon.1"
+
+	install -v -m600 etc.ppp/pap-secrets  "${pkgdir}/etc/ppp/pap-secrets"
+	install -v -m600 etc.ppp/chap-secrets "${pkgdir}/etc/ppp/chap-secrets"
+
+	chmod 644 "${pkgdir}"/usr/share/man/man8/*.8
+
+	install -v -Dm755 distro/ip-up   "${pkgdir}/etc/ppp/ip-up"
+	install -v -Dm755 distro/ip-down "${pkgdir}/etc/ppp/ip-down"
+	install -v -Dm755 distro/ip-up.d.dns.sh   "${pkgdir}/etc/ppp/ip-up.d/00-dns.sh"
+	install -v -Dm755 distro/ip-down.d.dns.sh "${pkgdir}/etc/ppp/ip-down.d/00-dns.sh"
+	install -v -Dm755 distro/ipv6-up   "${pkgdir}/etc/ppp/ipv6-up"
+	install -v -Dm755 distro/ipv6-down "${pkgdir}/etc/ppp/ipv6-down"
+
+	install -v -Dm755 distro/ipv6-up.d.iface-config.sh "${pkgdir}/etc/ppp/ipv6-up.d/00-iface-config.sh"
+
+	install -v -Dm644 distro/options     "${pkgdir}/etc/ppp/options"
+	install -v -Dm644 distro/ppp.systemd "${pkgdir}/lib/systemd/system/ppp@.service"
+}
+
+md5sums=('78818f40e6d33a1d1de68a1551f6595a'
+         '86fc548394bedfc41a6716d765161ada')

@@ -1,0 +1,50 @@
+pkgname=networkmanager
+pkgver=1.6.2
+pkgrel=1
+pkgdesc="Network connection manager and user applications"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/NetworkManager"
+license=('GPL2' 'LGPL2.1')
+_pppver=2.4.7
+#depends=()
+options=(emptydirs)
+source=("https://download.gnome.org/sources/NetworkManager/${pkgver:0:3}/NetworkManager-${pkgver}.tar.xz"
+	"NetworkManager.conf"
+	"NetworkManager.tmpfiles")
+
+build() {
+	cd "${srcdir}/NetworkManager-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-ld-gc \
+		--disable-qt \
+		--enable-gtk-doc \
+		--with-config-dhcp-default=dhclient \
+		--with-dhclient=/sbin/dhclient \
+		--with-pppd-plugin-dir=/usr/lib/pppd/${_pppver} \
+		--with-session-tracking=systemd \
+		--with-suspend-resume=systemd \
+		--with-systemdsystemunitdir=/lib/systemd/system \
+		--with-udev-dir=/lib/udev
+
+	sed -i "s#none required#-ldl#g" $(grep -rl "none required")
+
+	make
+}
+
+package() {
+	cd "${srcdir}/NetworkManager-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/lib/systemd/system/network-online.target.wants" "${pkgdir}/var/run"
+
+	install -v -Dm644 "${srcdir}/NetworkManager.conf" "${pkgdir}/etc/NetworkManager/NetworkManager.conf"
+	install -v -Dm644 "${srcdir}/NetworkManager.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/NetworkManager.conf"
+}
+
+md5sums=('89c975afe19fbac854191edb6e9bcd3b'
+         '1653159d6634fb62d3a5c548b7a56151'
+         '0df7e384788c207bb4618c6310da6ddd')

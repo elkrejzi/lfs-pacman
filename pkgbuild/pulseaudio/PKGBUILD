@@ -1,0 +1,90 @@
+pkgbase=pulseaudio
+pkgname=('pulseaudio' 'lib32-pulseaudio')
+pkgver=10.0
+_pulsever=${pkgver}
+pkgrel=1
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
+license=('GPL')
+#depends=()
+source=("https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-${pkgver}.tar.xz"
+	"pulseaudio-fixes.patch")
+
+_libs="libpulse.la libpulse-simple.la libpulse-mainloop-glib.la"
+_pkglibs="libpulsecommon-${_pulsever}.la libpulsedsp.la"
+
+prepare() {
+	cd "${srcdir}/pulseaudio-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/pulseaudio-fixes.patch"
+
+	sed -i "/flat-volumes/iflat-volumes = no" src/daemon/daemon.conf.in
+	sed -i "/exit-idle-time/iexit-idle-time = 0" src/daemon/daemon.conf.in
+
+	find . -name "Makefile.in" | xargs sed -i "s|(libdir)/@PACKAGE@|(libdir)/pulse|"
+
+	cp -a "${srcdir}"/pulseaudio{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/pulseaudio-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-bluez4 \
+		--disable-rpath \
+		--disable-samplerate \
+		--with-module-dir=/usr/lib/pulse/modules \
+		--with-udev-rules-dir=/lib/udev/rules.d
+
+	cd "${srcdir}/pulseaudio32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libdir=/usr/lib32 \
+		--disable-bluez4 \
+		--disable-rpath \
+		--disable-samplerate \
+		--with-module-dir=/usr/lib/pulse/modules \
+		--with-udev-rules-dir=/lib/udev/rules.d
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/pulseaudio-${pkgver}"
+	make -C "${srcdir}/pulseaudio32-${pkgver}/src" ${_libs} ${_pkglibs}
+}
+
+package_pulseaudio() {
+	pkgdesc="A featureful, general-purpose sound server"
+
+	cd "${srcdir}/pulseaudio-${pkgver}"
+
+	make install DESTDIR="${pkgdir}" bashcompletiondir=/usr/share/bash-completion/completions
+
+	rm -rf "${pkgdir}/etc/dbus-1"
+}
+
+package_lib32-pulseaudio() {
+	ppkgdesc="A featureful, general-purpose sound server (32 bit)"
+
+	cd "${srcdir}/pulseaudio32-${pkgver}"
+
+	make -C src lib_LTLIBRARIES="${_libs}" install-libLTLIBRARIES DESTDIR="${PWD}/dest"
+	make -C src pkglib_LTLIBRARIES="${_pkglibs}" install-pkglibLTLIBRARIES DESTDIR="${PWD}/dest"
+	make install-pkgconfigDATA DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('4950d2799bf55ab91f6b7f990b7f0971'
+         'bc2168bae23a01601ba5511ad9fe8016')

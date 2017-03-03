@@ -1,0 +1,25 @@
+pkgname=libnotify
+pkgver=0.7.7
+pkgrel=1
+pkgdesc="Library for sending desktop notifications"
+arch=('x86_64')
+url="https://developer.gnome.org/notification-spec/"
+license=(LGPL)
+#depends=()
+source=("https://download.gnome.org/sources/libnotify/${pkgver:0:3}/libnotify-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libnotify-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libnotify-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e9d911f6a22435e0b922f2fe71212b59')

@@ -1,0 +1,34 @@
+pkgname=libnl
+pkgver=3.2.29
+pkgrel=1
+pkgdesc="Library for applications dealing with netlink sockets"
+arch=('x86_64')
+url="http://www.infradead.org/~tgr/libnl/"
+license=('GPL')
+#depends=()
+source=("https://github.com/thom311/libnl/releases/download/libnl${pkgver//./_}/libnl-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libnl-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libnl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv "${pkgdir}"/usr/lib/*.so.* "${pkgdir}/lib"
+
+	for file in "${pkgdir}"/usr/lib/*.so
+	do
+		ln -sfv ../../lib/$(readlink "${file}") "${file}"
+	done
+}
+
+md5sums=('a8ba62a5c4f883f4e493a46d1f3733fe')

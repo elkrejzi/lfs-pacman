@@ -1,0 +1,58 @@
+pkgbase=alsa-plugins
+pkgname=('alsa-plugins' 'lib32-alsa-plugins')
+pkgver=1.1.1
+pkgrel=1
+arch=('x86_64')
+url="http://www.alsa-project.org"
+license=('GPL')
+#depends=()
+source=("ftp://ftp.alsa-project.org/pub/plugins/alsa-plugins-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/alsa-plugins{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/alsa-plugins-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/alsa-plugins32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--disable-avcodec
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/alsa-plugins-${pkgver}"
+	make -C "${srcdir}/alsa-plugins32-${pkgver}"
+}
+
+package_alsa-plugins() {
+	pkgdesc="Extra alsa plugins"
+
+	cd "${srcdir}/alsa-plugins-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-alsa-plugins() {
+	pkgdesc="Extra alsa plugins (32 bit)"
+
+	cd "${srcdir}/alsa-plugins32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('69f9f3e2de3c97fc71d496e91e271fe5')

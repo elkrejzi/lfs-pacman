@@ -1,0 +1,34 @@
+pkgname=ldb
+pkgver=1.1.29
+pkgrel=1
+pkgdesc="A schema-less, ldap like, API and database"
+arch=('x86_64')
+url="https://ldb.samba.org/"
+license=('GPL3')
+#depends=()
+source=("https://www.samba.org/ftp/ldb/ldb-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/ldb-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc/samba \
+		--localstatedir=/var \
+		--disable-rpath \
+		--disable-rpath-install \
+		--bundled-libraries=NONE \
+		--builtin-libraries=replace \
+		--with-modulesdir=/usr/lib/ldb/modules \
+		--with-privatelibdir=/usr/lib/ldb
+
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ldb-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9c90abfb94c1e2a693399392cf4cddb9')

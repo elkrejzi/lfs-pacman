@@ -1,0 +1,25 @@
+pkgname=orc
+pkgver=0.4.26
+pkgrel=1
+pkgdesc="Optimized Inner Loop Runtime Compiler"
+arch=('x86_64')
+url="https://gstreamer.freedesktop.org/projects/orc.html"
+license=('custom')
+#depends=()
+source=("https://gstreamer.freedesktop.org/src/orc/orc-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/orc-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/orc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8e9bef677bae289d3324d81c337a4507')

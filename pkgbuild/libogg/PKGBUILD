@@ -1,0 +1,67 @@
+pkgbase=libogg
+pkgname=('libogg' 'lib32-libogg')
+pkgver=1.3.2
+pkgrel=1
+arch=('x86_64')
+url="https://www.xiph.org/ogg/"
+license=('BSD')
+#depends=()
+source=("http://downloads.xiph.org/releases/ogg/libogg-${pkgver}.tar.xz"
+	"config_types.h")
+
+prepare() {
+	cp -a "${srcdir}"/libogg{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libogg-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/libogg32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libogg-${pkgver}"
+	make -C "${srcdir}/libogg32-${pkgver}"
+}
+
+package_libogg() {
+	pkgdesc="Ogg bitstream and framing library"
+
+	cd "${srcdir}/libogg-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	mv "${pkgdir}/usr/include/ogg/config_types.h" \
+		"${pkgdir}/usr/include/ogg/config_types-64.h"
+
+	install -v -Dm644 "${srcdir}/config_types.h" \
+		"${pkgdir}/usr/include/ogg/config_types.h"
+}
+
+package_lib32-libogg() {
+	pkgdesc="Ogg bitstream and framing library (32 bit)"
+
+	cd "${srcdir}/libogg32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+
+	install -v -Dm644 dest/usr/include/ogg/config_types.h \
+		"${pkgdir}/usr/include/ogg/config_types-32.h"
+}
+
+md5sums=('5c3a34309d8b98640827e5d0991a4015'
+         'a4d786b1b1955cb85b64fd16cbbee3f9')

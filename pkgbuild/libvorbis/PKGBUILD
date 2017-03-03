@@ -1,0 +1,56 @@
+pkgbase=libvorbis
+pkgname=('libvorbis' 'lib32-libvorbis')
+pkgver=1.3.5
+pkgrel=1
+arch=('x86_64')
+url="https://www.xiph.org/vorbis/"
+license=('BSD')
+#depends=()
+source=("http://downloads.xiph.org/releases/vorbis/libvorbis-${pkgver}.tar.xz")
+
+prepare() {
+	cp -a "${srcdir}"/libvorbis{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libvorbis-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/libvorbis32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libvorbis-${pkgver}"
+	make -C "${srcdir}/libvorbis32-${pkgver}"
+}
+
+package_libvorbis() {
+	pkgdesc="Vorbis codec library"
+
+	cd "${srcdir}/libvorbis-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libvorbis() {
+	pkgdesc="Vorbis codec library (32 bit)"
+
+	cd "${srcdir}/libvorbis32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('28cb28097c07a735d6af56e598e1c90f')

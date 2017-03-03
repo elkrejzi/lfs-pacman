@@ -1,0 +1,28 @@
+pkgname=slang
+pkgver=2.3.1a
+pkgrel=1
+pkgdesc="S-Lang is a powerful interpreted language"
+arch=('x86_64')
+url="http://www.jedsoft.org/slang/"
+license=('GPL')
+#depends=()
+options=(!makeflags staticlibs)
+source=("http://www.jedsoft.org/releases/slang/slang-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/slang-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-readline=gnu
+
+	make
+}
+
+package() {
+	cd "${srcdir}/slang-${pkgver}"
+
+	make install-all DESTDIR="${pkgdir}"
+}
+
+md5sums=('c5235313042ed0e71ec708f7b85ec241')

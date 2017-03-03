@@ -1,0 +1,6 @@
+# Begin /etc/default/dhcpd
+
+# Additional options that you want to pass to the DHCP Server Daemon
+DHCPD_OPTS=""
+
+# End /etc/default/dhcpd

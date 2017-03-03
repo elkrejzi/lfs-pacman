@@ -1,4 +1,5 @@
-pkgname=dbus
+pkgbase=dbus
+pkgname=('dbus' 'lib32-dbus')
 pkgver=1.10.16
 pkgrel=1
 pkgdesc="Freedesktop.org message bus system"
@@ -7,6 +8,10 @@ url="https://wiki.freedesktop.org/www/Software/dbus/"
 license=('GPL' 'custom')
 #depends=()
 source=("https://dbus.freedesktop.org/releases/dbus/dbus-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/dbus{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/dbus-${pkgver}"
@@ -19,10 +24,31 @@ build() {
 		--with-console-auth-dir=/run/console/ \
 		--with-systemdsystemunitdir=/lib/systemd/system
 
-	make
+	cd "${srcdir}/dbus32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libdir=/usr/lib32 \
+		--enable-systemd \
+		--enable-user-session \
+		--with-console-auth-dir=/run/console/ \
+		--with-systemdsystemunitdir=/lib/systemd/system
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/dbus-${pkgver}"
+	make -C "${srcdir}/dbus32-${pkgver}"
 }
 
-package() {
+package_dbus() {
 	cd "${srcdir}/dbus-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
@@ -35,6 +61,17 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libdbus-1.so") "${pkgdir}/usr/lib/libdbus-1.so"
 
 	ln -sfv /etc/machine-id "${pkgdir}/var/lib/dbus"
+}
+
+package_lib32-dbus() {
+	pkgdesc="Compression library implementing the deflate compression method found in gzip and PKZIP (32 bit)"
+
+	cd "${srcdir}/dbus32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('7f06c43736874c1ff50ae20392955511')

@@ -1,0 +1,33 @@
+pkgname=libpcap
+pkgver=1.8.1
+pkgrel=1
+pkgdesc="A system-independent interface for user-level packet capture"
+arch=('x86_64')
+url="http://www.tcpdump.org/"
+license=('BSD')
+#depends=()
+source=("http://www.tcpdump.org/release/libpcap-${pkgver}.tar.gz"
+	"libpcap-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/libpcap-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/libpcap-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/libpcap-${pkgver}"
+
+	./configure --prefix=/usr --disable-dbus
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libpcap-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3d48f9cd171ff12b0efd9134b52f1447'
+         '3ee31165d569dbcf29057a9ca581878d')

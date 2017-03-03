@@ -1,0 +1,40 @@
+pkgname=cdparanoia
+pkgver=10.2
+pkgrel=1
+pkgdesc="Compact Disc Digital Audio extraction tool"
+arch=('x86_64')
+url="https://www.xiph.org/paranoia/"
+license=('GPL')
+#depends=()
+source=("http://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-${pkgver}.src.tgz"
+	"cdparanoia-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/cdparanoia-III-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/cdparanoia-fixes.patch"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/cdparanoia-III-${pkgver}"
+
+	CFLAGS+=" -fPIC"
+	CXXFLAGS+=" -fPIC"
+
+	./configure --prefix=/usr \
+		--libdir='${prefix}/lib' \
+		--mandir='${prefix}/share/man'
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cdparanoia-III-${pkgver}"
+
+	make install prefix="${pkgdir}/usr"
+}
+
+md5sums=('b304bbe8ab63373924a744eac9ebc652'
+         '4d6a164f760b59c2f0d82d0997dbdce1')

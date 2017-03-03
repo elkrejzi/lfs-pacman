@@ -1,0 +1,33 @@
+pkgname=python3-cairo
+pkgver=1.10.0
+pkgrel=1
+pkgdesc="Python 3 bindings for the cairo graphics library"
+arch=('x86_64')
+url="https://www.cairographics.org/pycairo"
+license=('LGPL3')
+#depends=()
+source=("https://www.cairographics.org/releases/pycairo-${pkgver}.tar.bz2"
+	"pycairo-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/pycairo-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/pycairo-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/pycairo-${pkgver}"
+
+	PYTHON=/usr/bin/python3 ./waf configure --prefix=/usr
+
+	./waf build
+}
+
+package() {
+	cd "${srcdir}/pycairo-${pkgver}"
+
+	./waf install --destdir="${pkgdir}"
+}
+
+md5sums=('e6fd3f2f1e6a72e0db0868c4985669c5'
+         '418e36055c75392f6501918d1c33d448')

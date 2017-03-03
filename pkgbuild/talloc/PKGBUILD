@@ -1,0 +1,31 @@
+pkgname=talloc
+pkgver=2.1.9
+pkgrel=1
+pkgdesc="Hierarchical pool based memory allocator with destructors"
+arch=('x86_64')
+url="https://talloc.samba.org/"
+license=('GPL3')
+#depends=()
+source=("https://www.samba.org/ftp/talloc/talloc-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/talloc-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc/samba \
+		--localstatedir=/var \
+		--disable-rpath \
+		--disable-rpath-install \
+		--bundled-libraries=NONE \
+		--builtin-libraries=replace
+
+	make
+}
+
+package() {
+	cd "${srcdir}/talloc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('19ba14eba97d79a169fa92ea824d2b9e')

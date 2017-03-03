@@ -1,0 +1,91 @@
+pkgbase=dhcp
+pkgname=('dhclient' 'dhcpd')
+pkgver=4.3.5
+pkgrel=1
+arch=('x86_64')
+url="https://www.isc.org/software/dhcp"
+license=('custom:isc-dhcp')
+#depends=()
+options=(emptydirs !makeflags)
+source=("ftp://ftp.isc.org/isc/dhcp/${pkgver}/dhcp-${pkgver}.tar.gz"
+	"dhclient-script.patch"
+	"dhclient.conf"
+	"dhcpd.conf"
+	"dhcpd6.conf"
+	"dhcpd.default"
+	"dhcpd6.default"
+	"dhcpd.service"
+	"dhcpd6.service")
+
+prepare() {
+	cd "${srcdir}/dhcp-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/dhclient-script.patch"
+}
+
+build() {
+	cd "${srcdir}/dhcp-${pkgver}"
+
+	CFLAGS+=" -D_PATH_DHCLIENT_SCRIPT='\"/sbin/dhclient-script\"'"
+	CFLAGS+=" -D_PATH_DHCPD_CONF='\"/etc/dhcp/dhcpd.conf\"'"
+	CFLAGS+=" -D_PATH_DHCLIENT_CONF='\"/etc/dhcp/dhclient.conf\"'"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc/dhcp \
+		--localstatedir=/var \
+		--with-srv-lease-file=/var/lib/dhcpd/dhcpd.leases \
+		--with-srv6-lease-file=/var/lib/dhcpd/dhcpd6.leases \
+		--with-cli-lease-file=/var/lib/dhclient/dhclient.leases \
+		--with-cli6-lease-file=/var/lib/dhclient/dhclient6.leases
+
+	make
+}
+
+package_dhclient() {
+	pkgdesc="A standalone DHCP client from the dhcp package"
+
+	cd "${srcdir}/dhcp-${pkgver}"
+
+	make -C client install DESTDIR="${pkgdir}"
+
+	mv "${pkgdir}/usr/sbin" "${pkgdir}"
+	rm -rf "${pkgdir}"/etc/dhcp/*
+
+	install -v -Dm755 client/scripts/linux "${pkgdir}/sbin/dhclient-script"
+
+	install -v -Dm644 "${srcdir}/dhclient.conf" "${pkgdir}/etc/dhcp/dhclient.conf"
+
+	install -v -dm755 "${pkgdir}/var/lib/dhclient"
+}
+
+package_dhcpd() {
+	pkgdesc="A DHCP server and relay agent"
+
+	cd "${srcdir}/dhcp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+	make -C client uninstall DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/etc/dhcp/*
+
+	install -v -Dm644 "${srcdir}/dhcpd.default" "${pkgdir}/etc/default/dhcpd"
+	install -v -Dm644 "${srcdir}/dhcpd6.default" "${pkgdir}/etc/default/dhcpd6"
+
+	install -v -Dm644 "${srcdir}/dhcpd.conf" "${pkgdir}/etc/dhcp/dhcpd.conf"
+	install -v -Dm644 "${srcdir}/dhcpd6.conf" "${pkgdir}/etc/dhcp/dhcpd6.conf"
+
+	install -v -Dm644 "${srcdir}/dhcpd.service" "${pkgdir}/lib/systemd/system/dhcpd.service"
+	install -v -Dm644 "${srcdir}/dhcpd6.service" "${pkgdir}/lib/systemd/system/dhcpd6.service"
+
+	install -v -dm755 "${pkgdir}/var/lib/dhcpd"
+}
+
+md5sums=('2b5e5b2fa31c2e27e487039d86f83d3f'
+         'bb71502db5f25eac074f242f587df85f'
+         '4e35868ad012c18e0d60727a022f7150'
+         '2840c434ec982b1420db1a1c479efce0'
+         'faeaea56196d156ecd7947566b506257'
+         'c8578a7975f57c13db6446384588ebc7'
+         'c007a7b17e9392c53a649489a330655b'
+         '8abd72eac34f25bb700325c5228d5f29'
+         '906f1d0c118f93a2985a833813b82be1')

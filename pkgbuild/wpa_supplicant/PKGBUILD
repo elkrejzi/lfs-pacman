@@ -1,0 +1,55 @@
+pkgname=wpa_supplicant
+pkgver=2.6
+pkgrel=1
+pkgdesc="A utility providing key negotiation for WPA wireless networks"
+arch=('x86_64')
+url="https://w1.fi/wpa_supplicant/"
+license=('GPL')
+#depends=()
+options=(docs)
+source=("https://w1.fi/releases/wpa_supplicant-${pkgver}.tar.gz"
+	"config")
+
+prepare() {
+	cd "${srcdir}/wpa_supplicant-${pkgver}/wpa_supplicant"
+
+	install -v -m644 "${srcdir}/config" .config
+
+	sed -i "s#wpa_supplicant -u#& -s -O /var/run/wpa_supplicant#g" dbus/*.service.in
+	sed -i "s#wpa_supplicant -u#& -s -O /var/run/wpa_supplicant#g" systemd/wpa_supplicant.service.in
+}
+
+build() {
+	cd "${srcdir}/wpa_supplicant-${pkgver}/wpa_supplicant"
+
+	make BINDIR=/sbin LIBDIR=/lib V=1
+}
+
+package() {
+	cd "${srcdir}/wpa_supplicant-${pkgver}/wpa_supplicant"
+
+	install -v -dm755 "${pkgdir}/lib/systemd/system" "${pkgdir}/sbin" "${pkgdir}/usr/bin"
+	install -v -dm755 "${pkgdir}/usr/share/doc/wpa_supplicant" "${pkgdir}/usr/share/man/man5"
+	install -v -dm755 "${pkgdir}/usr/share/man/man8"
+
+	install -v -m755 wpa_cli wpa_supplicant "${pkgdir}/sbin"
+	install -v -m755 wpa_passphrase "${pkgdir}/usr/bin"
+
+	install -v -m644 doc/docbook/wpa_supplicant.conf.5 "${pkgdir}/usr/share/man/man5"
+	install -v -m644 doc/docbook/wpa_background.8 doc/docbook/wpa_cli.8 "${pkgdir}/usr/share/man/man8"
+	install -v -m644 doc/docbook/wpa_passphrase.8 doc/docbook/wpa_supplicant.8 "${pkgdir}/usr/share/man/man8"
+
+	install -v -Dm644 dbus/fi.epitest.hostap.WPASupplicant.service \
+		"${pkgdir}/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service"
+
+	install -v -Dm644 dbus/fi.w1.wpa_supplicant1.service \
+		"${pkgdir}/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service"
+
+	install -v -Dm644 dbus/dbus-wpa_supplicant.conf "${pkgdir}/etc/dbus-1/system.d/wpa_supplicant.conf"
+
+	install -v -m644 examples/*.conf "${pkgdir}/usr/share/doc/wpa_supplicant"
+	install -v -m644 systemd/*.service "${pkgdir}"/lib/systemd/system
+}
+
+md5sums=('091569eb4440b7d7f2b4276dbfc03c3c'
+         '3124d9a6958b0c83c83bd03a72aee89b')

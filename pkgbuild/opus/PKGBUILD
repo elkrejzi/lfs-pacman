@@ -1,0 +1,25 @@
+pkgname=opus
+pkgver=1.1.4
+pkgrel=1
+pkgdesc="Totally open, royalty-free, highly versatile audio codec"
+arch=('x86_64')
+url="https://www.opus-codec.org/"
+license=('BSD')
+#depends=()
+source=("http://downloads.us.xiph.org/releases/opus/opus-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/opus-${pkgver}"
+
+	./configure --prefix=/usr --enable-custom-modes 
+
+	make
+}
+
+package() {
+	cd "${srcdir}/opus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a2c09d995d0885665ff83b5df2505a5f')

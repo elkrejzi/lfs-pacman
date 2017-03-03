@@ -1,0 +1,25 @@
+pkgname=jansson
+pkgver=2.10
+pkgrel=1
+pkgdesc="C library for encoding, decoding and manipulating JSON data"
+arch=('x86_64')
+url="http://www.digip.org/jansson/"
+license=('MIT')
+#depends=()
+source=("http://www.digip.org/jansson/releases/jansson-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/jansson-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/jansson-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8f85f653fba3ac8220ad8f2f47646ef1')

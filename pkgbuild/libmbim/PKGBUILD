@@ -1,0 +1,25 @@
+pkgname=libmbim
+pkgver=1.14.0
+pkgrel=1
+pkgdesc="MBIM modem protocol helper library"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/libmbim/"
+license=('GPL2')
+#depends=()
+source=("https://www.freedesktop.org/software/libmbim/libmbim-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libmbim-${pkgver}"
+
+	./configure --prefix=/usr --disable-more-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmbim-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2ed809e65c85353d3ab59e372890e549')

@@ -1,0 +1,25 @@
+pkgname=libndp
+pkgver=1.6
+pkgrel=1
+pkgdesc="Library for Neighbor Discovery Protocol"
+arch=('x86_64')
+url="http://libndp.org/"
+license=('LGPL2.1')
+#depends=()
+source=("http://libndp.org/files/libndp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libndp-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libndp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1e54d26bcb4a4110bc3f90c5dd04f1a7')

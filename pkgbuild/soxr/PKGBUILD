@@ -1,0 +1,33 @@
+pkgname=soxr
+pkgver=0.1.2
+pkgrel=1
+pkgdesc="The SoX Resampler library that aims to give fast and high quality results for any constant resampling ratio"
+arch=('x86_64')
+url="https://sourceforge.net/p/soxr/wiki/Home/"
+license=('GPL')
+#depends=()
+source=("https://downloads.sourceforge.net/soxr/soxr-${pkgver}-Source.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_TESTS=OFF \
+		-DWITH_AVFFT=OFF \
+		"${srcdir}/soxr-${pkgver}-Source"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0866fc4320e26f47152798ac000de1c0')

@@ -1,0 +1,25 @@
+pkgname=webrtc-audio-processing
+pkgver=0.3
+pkgrel=1
+pkgdesc="AudioProcessing library based on Google's implementation of WebRTC"
+arch=('x86_64')
+url="https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/"
+license=('custom')
+#depends=()
+source=("http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/webrtc-audio-processing-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/webrtc-audio-processing-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('336ae032f608e65808ac577cde0ab72c')
