@@ -1,0 +1,25 @@
+pkgname=media-player-info
+pkgver=22
+pkgrel=1
+pkgdesc="Data files describing media player capabilities, for post-HAL systems"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/media-player-info/"
+license=('BSD')
+#depends=()
+source=("https://www.freedesktop.org/software/media-player-info/media-player-info-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/media-player-info-${pkgver}"
+
+	./configure --prefix=/usr --with-udevdir=/lib/udev
+
+	make
+}
+
+package() {
+	cd "${srcdir}/media-player-info-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2d4b94104e2266ed4a8ae306086e4243')

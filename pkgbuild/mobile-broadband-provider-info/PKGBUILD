@@ -1,0 +1,25 @@
+pkgname=mobile-broadband-provider-info
+pkgver=20151214
+pkgrel=1
+pkgdesc="Network Management daemon"
+arch=('x86_64')
+url="https://git.gnome.org/browse/mobile-broadband-provider-info/"
+license=('custom')
+#depends=()
+source=("https://download.gnome.org/sources/mobile-broadband-provider-info/${pkgver}/mobile-broadband-provider-info-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mobile-broadband-provider-info-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mobile-broadband-provider-info-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e4724479823c526cd26bd1d5fc9e5af8')

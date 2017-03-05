@@ -1,0 +1,31 @@
+pkgname=intel-hybrid-driver
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="VA-API VP9 codec support for Intel Haswell and newer graphics processors"
+arch=('x86_64')
+url="https://01.org/linuxmedia/vaapi"
+license=('MIT')
+#depends=()
+source=("intel-hybrid-driver-${pkgver}.tar.gz::https://github.com/01org/intel-hybrid-driver/archive/${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/intel-hybrid-driver-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/intel-hybrid-driver-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/intel-hybrid-driver-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('05e97e6948963f08eb14a4a8f68bcf69')

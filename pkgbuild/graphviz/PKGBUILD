@@ -1,0 +1,49 @@
+pkgname=graphviz
+pkgver=2.40.1
+pkgrel=1
+pkgdesc="Graph visualization software"
+arch=('x86_64')
+url="http://www.graphviz.org/"
+license=('CPL')
+#depends=()
+install=graphviz.install
+source=("http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-${pkgver}.tar.gz"
+	"graphviz-qt5.patch")
+
+prepare() {
+	cd "${srcdir}/graphviz-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/graphviz-qt5.patch"
+
+	autoreconf -fi
+
+	sed -i "s:ruby-1.9:ruby-2.4:g" configure
+	sed -i "s/ e_/ gs_error_/" plugin/gs/gvloadimage_gs.c
+}
+
+build() {
+	cd "${srcdir}/graphviz-${pkgver}"
+
+	export PYTHON=python2
+	export LIBPOSTFIX=/
+
+	export CXX="${CXX} -std=c++11"
+
+	CFLAGS+=" -fPIC -w"
+	CXXFLAGS+=" -fPIC -w"
+
+	./configure --prefix=/usr \
+		--disable-java \
+		--disable-php
+
+	make
+}
+
+package() {
+	cd "${srcdir}/graphviz-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4ea6fd64603536406166600bcc296fc8'
+         '0c8a8f7a6e24d92acdbd85326b0e57a0')

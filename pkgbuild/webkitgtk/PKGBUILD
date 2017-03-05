@@ -1,0 +1,40 @@
+pkgname=webkitgtk
+pkgver=2.14.5
+pkgrel=1
+pkgdesc="GTK+ Web content engine library"
+arch=('x86_64')
+url="https://webkitgtk.org/"
+license=('custom')
+#depends=()
+source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/webkitgtk-${pkgver}"
+
+	sed -i "/stdlib.h/i#include <stdio.h>" Source/WebKit2/UIProcess/linux/MemoryPressureMonitor.cpp
+
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	CXXFLAGS+=" -w"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DPORT=GTK \
+		-DLIB_INSTALL_DIR=/usr/lib \
+		"${srcdir}/webkitgtk-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7fe3cb2699e64f969b285823c5ae2516')

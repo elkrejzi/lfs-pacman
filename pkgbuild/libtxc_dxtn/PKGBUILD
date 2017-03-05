@@ -1,0 +1,56 @@
+pkgbase=libtxc_dxtn
+pkgname=('libtxc_dxtn' 'lib32-libtxc_dxtn')
+pkgver=1.0.1
+pkgrel=1
+arch=('x86_64')
+url="https://dri.freedesktop.org/wiki/S3TC/"
+license=('custom:BSD')
+#depends=()
+source=("https://people.freedesktop.org/~cbrill/libtxc_dxtn/libtxc_dxtn-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/libtxc_dxtn{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libtxc_dxtn-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/libtxc_dxtn32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libtxc_dxtn-${pkgver}"
+	make -C "${srcdir}/libtxc_dxtn32-${pkgver}"
+}
+
+package_libtxc_dxtn() {
+	pkgdesc="S3 Texture Compression (S3TC) library for Mesa"
+
+	cd "${srcdir}/libtxc_dxtn-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libtxc_dxtn() {
+	pkgdesc="S3 Texture Compression (S3TC) library for Mesa (32 bit)"
+
+	cd "${srcdir}/libtxc_dxtn32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+md5sums=('7105107f07ac49753f4b61ba9d0c79c5')

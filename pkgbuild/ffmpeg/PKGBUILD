@@ -1,0 +1,74 @@
+pkgname=ffmpeg
+pkgver=3.2.4
+pkgrel=1
+pkgdesc="Complete solution to record, convert and stream audio and video"
+arch=('x86_64')
+url="http://www.ffmpeg.org/"
+license=('GPL3')
+#depends=()
+source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/ffmpeg-${pkgver}"
+
+	sed -i "s: -lstdc++::g" configure
+}
+
+build() {
+	cd "${srcdir}/ffmpeg-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-chromaprint \
+		--enable-gpl \
+		--enable-libass \
+		--enable-libbluray \
+		--enable-libcdio \
+		--enable-libfdk-aac \
+		--enable-libfontconfig \
+		--enable-libfreetype \
+		--enable-libfribidi \
+		--enable-libmp3lame \
+		--enable-libopenjpeg \
+		--enable-libopus \
+		--enable-libpulse \
+		--enable-librtmp \
+		--enable-libsoxr \
+		--enable-libspeex \
+		--enable-libssh \
+		--enable-libtheora \
+		--enable-libv4l2 \
+		--enable-libvo-amrwbenc \
+		--enable-libvorbis \
+		--enable-libvpx \
+		--enable-libwavpack \
+		--enable-libwebp \
+		--enable-libx264 \
+		--enable-libx265 \
+		--enable-libxvid \
+		--enable-nonfree \
+		--enable-openal \
+		--enable-opencl  \
+		--enable-opengl \
+		--enable-openssl \
+		--enable-postproc \
+		--enable-shared \
+		--enable-vaapi \
+		--enable-vdpau \
+		--enable-version3 \
+		--enable-x11grab \
+		--disable-debug \
+		--disable-static \
+		--extra-cflags="${CFLAGS}" \
+		--extra-cxxflags="${CXXFLAGS}" \
+		--cc="${CC}" --cxx="${CXX}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ffmpeg-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('39fd71024ac76ba35f04397021af5606')

@@ -1,0 +1,29 @@
+pkgname=ijs
+pkgver=0.35
+pkgrel=1
+pkgdesc="A library which implements a protocol for transmission of raster page images"
+arch=('x86_64')
+url="https://www.openprinting.org/download/ijs/"
+license=('GPL')
+#depends=()
+source=("https://www.openprinting.org/download/ijs/download/ijs-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/ijs-${pkgver}"
+
+	./configure --prefix=/usr \
+		--mandir=/usr/share/man \
+		--enable-shared
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ijs-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/bin/*example*
+}
+
+md5sums=('896fdcb7a01c586ba6eb81398ea3f6e9')

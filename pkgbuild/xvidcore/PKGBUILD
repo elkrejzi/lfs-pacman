@@ -1,0 +1,31 @@
+pkgname=xvidcore
+pkgver=1.3.4
+pkgrel=1
+pkgdesc="XviD is an open source MPEG-4 video codec"
+arch=('x86_64')
+url="https://www.xvid.com/"
+license=('GPL')
+#depends=()
+source=("http://downloads.xvid.org/downloads/xvidcore-${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/xvidcore/build/generic"
+
+	sed -i 's/^LN_S=@LN_S@/& -f/' platform.inc.in
+}
+
+build() {
+	cd "${srcdir}/xvidcore/build/generic"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xvidcore/build/generic"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5e68b84e3286b7bbaa95ddc34f0fcace')

@@ -1,0 +1,33 @@
+pkgname=cmrt
+pkgver=1.0.6
+pkgrel=1
+pkgdesc="Media GPU kernel manager for Intel G45 & HD Graphics family"
+arch=('x86_64')
+url="https://github.com/01org/cmrt"
+license=('MIT')
+#depends=()
+source=("cmrt-${pkgver}.tar.gz::https://github.com/01org/cmrt/archive/${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/cmrt-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/cmrt-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cmrt-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -m755 jitter/igfxcmjit64.so "${pkgdir}/usr/lib"
+}
+
+md5sums=('91f5845c9354cce44a5133337f4e881c')

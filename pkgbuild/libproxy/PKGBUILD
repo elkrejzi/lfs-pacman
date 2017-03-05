@@ -1,0 +1,36 @@
+pkgname=libproxy
+pkgver=0.4.14
+pkgrel=1
+pkgdesc="A library that provides automatic proxy configuration management"
+arch=('x86_64')
+url="http://libproxy.github.io/libproxy/"
+license=('LGPL')
+#depends=()
+source=("https://github.com/libproxy/libproxy/releases/download/${pkgver}/libproxy-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DBUILD_TESTING=OFF \
+		-DPERL_VENDORINSTALL=yes \
+		-DWITH_WEBKIT3=ON \
+		-DWITH_VALA=ON \
+		"${srcdir}/libproxy-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e7514f78f5432210e17a01b6b618dde2')

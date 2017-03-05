@@ -1,0 +1,25 @@
+pkgname=aspell-hr
+pkgver=0.51
+pkgrel=1
+pkgdesc="Croatian dictionary for aspell"
+arch=('x86_64')
+url="http://aspell.net/"
+license=('custom')
+#depends=()
+source=("https://ftp.gnu.org/gnu/aspell/dict/hr/aspell-hr-${pkgver}-0.tar.bz2")
+
+build() {
+	cd "${srcdir}/aspell-hr-${pkgver}-0"
+
+	./configure
+
+	make
+}
+
+package() {
+	cd "${srcdir}/aspell-hr-${pkgver}-0"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7d2fb9af47266884c731691123a95a8d')

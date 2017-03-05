@@ -1,0 +1,41 @@
+pkgname=wireless_tools
+pkgver=30.pre9
+_pkgver=${pkgver%.pre*}
+pkgrel=1
+pkgdesc="Tools allowing to manipulate the Wireless Extensions"
+arch=('x86_64')
+url="https://hewlettpackard.github.io/wireless-tools/Tools.html"
+license=('GPL')
+#depends=()
+source=("https://hewlettpackard.github.io/wireless-tools/wireless_tools.${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/wireless_tools.${_pkgver}"
+
+	sed -i "s:BUILD_STATIC:# &:" Makefile
+	sed -i "s:-Os:& ${CFLAGS}:g" Makefile
+	sed -i "s:CC = gcc:CC = ${CC}:g" Makefile
+}
+
+build() {
+	cd "${srcdir}/wireless_tools.${_pkgver}"
+
+	unset CFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/wireless_tools.${_pkgver}"
+
+	make PREFIX="${pkgdir}/usr" INSTALL_MAN="${pkgdir}/usr/share/man" install
+
+	mv "${pkgdir}/usr/sbin" "${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/lib"
+
+	mv -v "${pkgdir}"/usr/lib/libiw.so.* "${pkgdir}/lib"
+	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libiw.so") "${pkgdir}/usr/lib/libiw.so"
+}
+
+md5sums=('ca91ba7c7eff9bfff6926b1a34a4697d')

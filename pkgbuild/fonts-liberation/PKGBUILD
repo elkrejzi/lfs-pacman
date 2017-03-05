@@ -1,0 +1,19 @@
+pkgname=fonts-liberation
+pkgver=2.00.1
+pkgrel=1
+pkgdesc="Red Hats Liberation fonts"
+arch=('x86_64')
+url="https://www.redhat.com/promo/fonts/"
+license=('custom:OFL')
+#depends=()
+source=("http://distcache.freebsd.org/local-distfiles/thierry/liberation-fonts-ttf-${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/liberation-fonts-ttf-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/liberation"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/liberation"
+}
+
+md5sums=('5c781723a0d9ed6188960defba8e91cf')

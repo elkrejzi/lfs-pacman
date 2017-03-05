@@ -1,0 +1,36 @@
+pkgname=upower
+pkgver=0.99.4
+pkgrel=1
+pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
+arch=('x86_64')
+url="https://upower.freedesktop.org/"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://upower.freedesktop.org/releases/upower-${pkgver}.tar.xz"
+	"upower-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/upower-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/upower-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/upower-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/upower-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('78800e1ac7f92b24aabdf433e38f75d2'
+         '290d9a56b3c7ae6b72d59e4bae9e31ca')

@@ -1,0 +1,40 @@
+pkgname=ghostscript
+pkgver=9.20
+pkgrel=1
+pkgdesc="An interpreter for the PostScript language"
+arch=('x86_64')
+url="https://ghostscript.com/"
+license=('AGPL' 'custom')
+#depends=()
+source=("https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkgver/./}/ghostscript-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/ghostscript-${pkgver}"
+
+	rm -rf cups/libs expat freetype ijs jpeg jpegxr lcms lcms2 libpng tiff zlib
+}
+
+build() {
+	cd "${srcdir}/ghostscript-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-dynamic \
+		--disable-compile-inits \
+		--disable-gtk \
+		--with-drivers=ALL \
+		--with-system-libtiff \
+		--with-fontpath=/usr/share/fonts/ghostscript:/usr/share/fonts
+
+	make so all SHARE_JPEG=1 SHARE_LIBPNG=1 SHARE_LIBTIFF=1 SHARE_ZLIB=1 SHARE_IJS=1 \
+		SHARE_EXPAT=1 WHICH_CMS=lcms2 SHARE_LCMS=1 LCMS2DIR=/usr SHARE_FT=1
+}
+
+package() {
+	cd "${srcdir}/ghostscript-${pkgver}"
+
+	make install soinstall DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/bin/*.sh "${pkgdir}/usr/bin/gsx"
+}
+
+md5sums=('93c5987cd3ab341108be1ebbaadc24fe')

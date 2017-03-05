@@ -1,0 +1,21 @@
+# Begin /etc/pam.d/sshd
+
+auth     required       pam_nologin.so
+auth     optional       pam_group.so
+
+auth     include        system-auth
+
+account  required       pam_access.so
+account  include        system-account
+
+password include        system-password
+
+session  required       pam_env.so
+session  required       pam_limits.so
+session  optional       pam_lastlog.so
+session  optional       pam_motd.so
+session  optional       pam_mail.so standard
+
+session  include        system-session
+
+# End /etc/pam.d/sshd

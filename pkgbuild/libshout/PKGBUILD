@@ -1,0 +1,25 @@
+pkgname=libshout
+pkgver=2.4.1
+pkgrel=1
+pkgdesc="Library for accessing a shoutcast/icecast server"
+arch=('x86_64')
+url="http://www.icecast.org/"
+license=('LGPL')
+#depends=()
+source=("http://downloads.xiph.org/releases/libshout/libshout-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libshout-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libshout-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('89cebf8cb0197f639cde69c95177fe47')

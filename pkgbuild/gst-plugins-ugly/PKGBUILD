@@ -1,0 +1,30 @@
+pkgname=gst-plugins-ugly
+pkgver=1.10.4
+pkgrel=1
+pkgdesc="GStreamer Multimedia Framework Ugly Plugins"
+arch=('x86_64')
+url="https://gstreamer.freedesktop.org/"
+license=('LGPL')
+#depends=()
+source=("https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gst-plugins-ugly-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libexecdir=/usr/lib \
+		--with-package-name="GStreamer Ugly Plugins ${pkgver} Krejzi" \
+		--with-package-origin="https://github.com/elkrejzi/"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gst-plugins-ugly-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c68d0509c9980b0b70a4b836ff73fff1')

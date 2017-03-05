@@ -1,0 +1,25 @@
+pkgname=startup-notification
+pkgver=0.12
+pkgrel=1
+pkgdesc="Monitor and display application startup"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/startup-notification/"
+license=('LGPL')
+#depends=()
+source=("https://www.freedesktop.org/software/startup-notification/releases/startup-notification-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/startup-notification-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/startup-notification-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2cd77326d4dcaed9a5a23a1232fb38e9')

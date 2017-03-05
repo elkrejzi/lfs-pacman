@@ -1,0 +1,7 @@
+post_install() {
+	/usr/bin/dot -c
+}
+
+post_remove() {
+	rm -f /usr/lib/graphviz/config6
+}

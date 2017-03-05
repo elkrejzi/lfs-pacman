@@ -1,0 +1,25 @@
+pkgname=libmtp
+pkgver=1.1.12
+pkgrel=1
+pkgdesc="Library implementation of the Media Transfer Protocol"
+arch=('x86_64')
+url="https://sourceforge.net/projects/libmtp/"
+license=('LGPL')
+#depends=()
+source=("https://downloads.sourceforge.net/libmtp/libmtp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libmtp-${pkgver}"
+
+	./configure --prefix=/usr --with-udev=/lib/udev
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmtp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0c59559ea253d02170511ecf6b05d577')

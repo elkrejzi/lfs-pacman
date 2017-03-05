@@ -1,0 +1,25 @@
+pkgname=parted
+pkgver=3.2
+pkgrel=1
+pkgdesc="A program for creating, destroying, resizing, checking and copying partitions"
+arch=('x86_64')
+url="https://www.gnu.org/software/parted/parted.html"
+license=('GPL3')
+#depends=()
+source=("https://ftp.gnu.org/gnu/parted/parted-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/parted-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/parted-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0247b6a7b314f8edeb618159fa95f9cb')

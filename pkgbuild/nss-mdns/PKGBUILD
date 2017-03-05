@@ -1,0 +1,25 @@
+pkgname=nss-mdns
+pkgver=0.10
+pkgrel=1
+pkgdesc="glibc plugin providing host name resolution via mDNS"
+arch=('x86_64')
+url="http://0pointer.de/lennart/projects/nss-mdns/"
+license=('LGPL')
+#depends=()
+source=("http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/nss-mdns-${pkgver}"
+
+	./configure --prefix=
+
+	make
+}
+
+package() {
+	cd "${srcdir}/nss-mdns-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('03938f17646efbb50aa70ba5f99f51d7')

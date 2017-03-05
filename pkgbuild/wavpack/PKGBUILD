@@ -1,0 +1,25 @@
+pkgname=wavpack
+pkgver=5.1.0
+pkgrel=1
+pkgdesc="Audio compression format with lossless, lossy and hybrid compression modes"
+arch=('x86_64')
+url="http://www.wavpack.com/"
+license=('BSD')
+#depends=()
+source=("http://www.wavpack.com/wavpack-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/wavpack-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/wavpack-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7f06272651f0c2292c1d0ba353386782')

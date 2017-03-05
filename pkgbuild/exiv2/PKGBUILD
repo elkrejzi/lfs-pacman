@@ -1,0 +1,25 @@
+pkgname=exiv2
+pkgver=0.25
+pkgrel=1
+pkgdesc="Exif, Iptc and XMP metadata manipulation library and tools"
+arch=('x86_64')
+url="http://www.exiv2.org"
+license=('GPL2')
+#depends=()
+source=("http://www.exiv2.org/exiv2-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/exiv2-${pkgver}"
+
+	./configure --prefix=/usr --enable-video
+
+	make
+}
+
+package() {
+	cd "${srcdir}/exiv2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('258d4831b30f75a01e0234065c6c2806')

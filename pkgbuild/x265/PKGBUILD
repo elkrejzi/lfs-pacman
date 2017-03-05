@@ -1,0 +1,31 @@
+pkgname=x265
+pkgver=2.3
+pkgrel=1
+pkgdesc="Open Source H265/HEVC video encoder"
+arch=('x86_64')
+url="https://bitbucket.org/multicoreware/x265/wiki/Home"
+license=('GPL')
+#depends=()
+source=("https://bitbucket.org/multicoreware/x265/downloads/x265_${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		"${srcdir}/x265_${pkgver}/source"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('18716a7e0c6f6ebd2a1035b82cec30de')

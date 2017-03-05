@@ -1,0 +1,33 @@
+pkgname=enchant
+pkgver=1.6.0
+pkgrel=1
+pkgdesc="A wrapper library for generic spell checking"
+arch=('x86_64')
+url="https://abiword.github.io/enchant/"
+license=('LGPL')
+#depends=()
+source=("https://www.abisource.com/downloads/enchant/${pkgver}/enchant-${pkgver}.tar.gz"
+	"enchant-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/enchant-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/enchant-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/enchant-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/enchant-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('de11011aff801dc61042828041fb59c7'
+         '0989a58ae93f72fc6763328c11ee32c4')

@@ -1,0 +1,40 @@
+pkgname=mpv
+pkgver=0.24.0
+_wafrelease=1.8.12
+pkgrel=1
+pkgdesc="A free, open source, and cross-platform media player"
+arch=('x86_64')
+url="https://mpv.io/"
+license=('GPL')
+#depends=()
+source=("mpv-${pkgver}.tar.gz::https://github.com/mpv-player/mpv/archive/v${pkgver}.tar.gz"
+	"waf::https://waf.io/waf-${_wafrelease}")
+
+prepare() {
+	cd "${srcdir}/mpv-${pkgver}"
+
+	install -v -m755 "${srcdir}/waf" waf
+}
+
+build() {
+	cd "${srcdir}/mpv-${pkgver}"
+
+	./waf configure --prefix=/usr \
+		--confdir=/etc/mpv \
+		--lua=luajit \
+		--enable-cdda \
+		--enable-openal \
+		--enable-sdl2 \
+		--enable-libmpv-shared
+
+	./waf build
+}
+
+package() {
+	cd "${srcdir}/mpv-${pkgver}"
+
+	./waf install --destdir="${pkgdir}"
+}
+
+md5sums=('5c85d1163911e49315a5bf1ca1fae13d'
+         'cef4ee82206b1843db082d0b0506bf71')

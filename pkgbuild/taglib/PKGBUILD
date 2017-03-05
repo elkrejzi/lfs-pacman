@@ -1,0 +1,32 @@
+pkgname=taglib
+pkgver=1.11.1
+pkgrel=1
+pkgdesc="A Library for reading and editing the meta-data of several popular audio formats"
+arch=('x86_64')
+url="http://taglib.org/"
+license=('LGPL' 'MPL')
+#depends=()
+source=("http://taglib.org/releases/taglib-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_SHARED_LIBS=ON \
+		"${srcdir}/taglib-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('cee7be0ccfc892fa433d6c837df9522a')

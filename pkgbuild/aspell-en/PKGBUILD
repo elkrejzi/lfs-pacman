@@ -1,0 +1,25 @@
+pkgname=aspell-en
+pkgver=2017.01.22
+pkgrel=1
+pkgdesc="English dictionary for aspell"
+arch=('x86_64')
+url="http://aspell.net/"
+license=('custom')
+#depends=()
+source=("https://downloads.sourceforge.net/wordlist/aspell6-en-${pkgver}-0.tar.bz2")
+
+build() {
+	cd "${srcdir}/aspell6-en-${pkgver}-0"
+
+	./configure
+
+	make
+}
+
+package() {
+	cd "${srcdir}/aspell6-en-${pkgver}-0"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a6e002076574de9dc4915967032a1dab')

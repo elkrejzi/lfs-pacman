@@ -1,0 +1,12 @@
+post_install() {
+	if [ ! -e /etc/bind/rndc.key ]
+	then
+		rndc-confgen -r /dev/urandom -a
+		chown root:20 /etc/bind/rndc.key
+		chmod 660 /etc/bind/rndc.key
+	fi
+}
+
+pre_remove() {
+	rm -f /etc/bind/rndc.key
+}

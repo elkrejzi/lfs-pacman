@@ -1,0 +1,31 @@
+pkgname=lm_sensors
+pkgver=3.4.0
+pkgrel=1
+pkgdesc="Collection of user space tools for general SMBus access and hardware monitoring"
+arch=('x86_64')
+url="http://www.lm-sensors.org/"
+license=('GPL' 'LGPL')
+#depends=()
+options=(emptydirs)
+source=("https://ftp.gwdg.de/pub/linux/misc/lm-sensors/lm_sensors-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/lm_sensors-${pkgver}"
+
+	make PREFIX=/usr \
+		BUILD_STATIC_LIB=0 \
+		MANDIR=/usr/share/man \
+		CC="${CC}" CFLAGS="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/lm_sensors-${pkgver}"
+
+	make PREFIX=/usr \
+		BUILD_STATIC_LIB=0 \
+		MANDIR=/usr/share/man \
+		CC="${CC}" CFLAGS="${CFLAGS}" \
+		install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c03675ae9d43d60322110c679416901a')

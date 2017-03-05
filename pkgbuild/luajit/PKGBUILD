@@ -1,0 +1,23 @@
+pkgname=luajit
+pkgver=2.0.4
+pkgrel=1
+pkgdesc="Just-in-time compiler and drop-in replacement for Lua 5.1"
+arch=('x86_64')
+url="https://luajit.org/"
+license=('MIT')
+#depends=()
+source=("https://luajit.org/download/LuaJIT-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/LuaJIT-${pkgver}"
+
+	make amalg PREFIX=/usr CC="${CC}" XCFLAGS="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/LuaJIT-${pkgver}"
+
+	make install PREFIX=/usr CC="${CC}" XCFLAGS="${CFLAGS}" DESTDIR="${pkgdir}"
+}
+
+md5sums=('dd9c38307f2223a504cbfb96e477eca0')

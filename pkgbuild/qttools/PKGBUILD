@@ -1,0 +1,55 @@
+pkgname=qttools
+pkgver=5.8.0
+pkgrel=1
+pkgdesc="A cross-platform application and UI framework (Development Tools, QtHelp)"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qttools-opensource-src-${pkgver}.tar.xz"
+	"assistant.desktop"
+	"designer.desktop"
+	"linguist.desktop"
+	"qdbusviewer.desktop")
+
+build() {
+	cd "${srcdir}/qttools-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qttools-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d" "${pkgdir}"/usr/lib/*.prl
+
+	install -v -Dm644 src/assistant/assistant/images/assistant-128.png \
+		"${pkgdir}/usr/share/pixmaps/assistant.png"
+
+	install -v -Dm644 "${srcdir}/assistant.desktop" "${pkgdir}/usr/share/applications/assistant.desktop"
+
+	install -v -Dm644 src/designer/src/designer/images/designer.png \
+		"${pkgdir}/usr/share/pixmaps/designer.png"
+
+	install -v -Dm644 "${srcdir}/designer.desktop" "${pkgdir}/usr/share/applications/designer.desktop"
+
+	install -v -Dm644 src/linguist/linguist/images/icons/linguist-128-32.png \
+		"${pkgdir}/usr/share/pixmaps/linguist.png"
+
+	install -v -Dm644 "${srcdir}/linguist.desktop" "${pkgdir}/usr/share/applications/linguist.desktop"
+
+	install -v -Dm644 src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+		"${pkgdir}/usr/share/pixmaps/qdbusviewer.png"
+
+	install -v -Dm644 "${srcdir}/qdbusviewer.desktop" "${pkgdir}/usr/share/applications/qdbusviewer.desktop"
+
+}
+
+md5sums=('506e53a228fe0c3d6c8b6fbebd8e47ae'
+         '005d2c5ae3f60e601c63756895550086'
+         '049871a4f38ec7cb4634640dd554d3bc'
+         '05ed78705800223dca802b438b3f1025'
+         'daca223ba680ccaee11f1d159e09f8ae')

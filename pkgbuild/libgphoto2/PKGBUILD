@@ -1,0 +1,41 @@
+pkgname=libgphoto2
+pkgver=2.5.12
+pkgrel=1
+pkgdesc="The core library of gphoto2, designed to allow access to digital camera by external programs"
+arch=('x86_64')
+url="http://www.gphoto.org/"
+license=('LGPL')
+#depends=()
+options=(libtool)
+source=("https://downloads.sourceforge.net/gphoto/libgphoto2-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libgphoto2-${pkgver}"
+
+	./configure --prefix=/usr --disable-rpath
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgphoto2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/include/gphoto2/gphoto2" "${pkgdir}/usr/lib/udev" \
+	rm -rf "${pkgdir}"/usr/lib/*.la
+
+	install -v -dm755 ${pkgdir}/lib/udev/hwdb.d ${pkgdir}/lib/udev/rules.d
+
+	LD_LIBRARY_PATH="${pkgdir}"/usr/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
+	CAMLIBS="${pkgdir}/usr/lib/libgphoto2/${pkgver}" \
+		"${pkgdir}/usr/lib/libgphoto2/print-camera-list" hwdb > \
+		"${pkgdir}/lib/udev/hwdb.d/20-gphoto2.hwdb"
+
+	LD_LIBRARY_PATH="${pkgdir}"/usr/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
+	CAMLIBS="${pkgdir}/usr/lib/libgphoto2/${pkgver}" \
+		"${pkgdir}/usr/lib/libgphoto2/print-camera-list" udev-rules version 201 > \
+		"${pkgdir}/lib/udev/rules.d/40-gphoto.rules"
+}
+
+md5sums=('a5999acc204c31515a6ec8e517d2cd91')

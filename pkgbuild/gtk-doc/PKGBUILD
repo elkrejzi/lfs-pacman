@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Documentation tool for public library API"
 arch=('x86_64')
 url="https://www.gtk.org/gtk-doc/"
-license=(GPL FDL)
+license=('GPL' 'FDL')
 #depends=()
 source=("https://download.gnome.org/sources/gtk-doc/${pkgver}/gtk-doc-${pkgver}.tar.xz")
 

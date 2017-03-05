@@ -1,0 +1,61 @@
+pkgbase=intel-vaapi-driver
+pkgname=('intel-vaapi-driver' 'lib32-intel-vaapi-driver')
+pkgver=1.7.3
+pkgrel=1
+arch=('x86_64')
+url="https://01.org/linuxmedia/vaapi"
+license=('MIT')
+#depends=()
+source=("intel-vaapi-driver-${pkgver}.tar.gz::https://github.com/01org/intel-vaapi-driver/archive/${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/intel-vaapi-driver-${pkgver}"
+
+	autoreconf -fi
+
+	cp -a "${srcdir}"/intel-vaapi-driver{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/intel-vaapi-driver-${pkgver}"
+
+	./configure --prefix=/usr --enable-hybrid-codec
+
+	cd "${srcdir}/intel-vaapi-driver32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/intel-vaapi-driver-${pkgver}"
+	make -C "${srcdir}/intel-vaapi-driver32-${pkgver}"
+}
+
+package_intel-vaapi-driver() {
+	pkgdesc="VA-API implementation for Intel G45 and HD Graphics family"
+
+	cd "${srcdir}/intel-vaapi-driver-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-intel-vaapi-driver() {
+	pkgdesc="VA-API implementation for Intel G45 and HD Graphics family (32 bit)"
+
+	cd "${srcdir}/intel-vaapi-driver32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+
+md5sums=('993625cce1bfeb9850edbde6ea9b8803')

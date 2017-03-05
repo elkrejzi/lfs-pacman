@@ -1,5 +1,5 @@
 pkgname=ruby
-pkgver=2.3.3
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="An object-oriented language for quick and easy programming"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('0cba3d1b677d2695236ace62ca6d2255')
+md5sums=('6a2ab52f161bb9e10596ab4330c50564')

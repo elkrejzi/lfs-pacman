@@ -1,0 +1,27 @@
+pkgname=neon
+pkgver=0.30.2
+pkgrel=1
+pkgdesc="HTTP and WebDAV client library with a C interface"
+arch=('x86_64')
+url="http://www.webdav.org/neon/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("http://www.webdav.org/neon/neon-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/neon-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-shared \
+		--with-ssl
+
+	make
+}
+
+package() {
+	cd "${srcdir}/neon-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e28d77bf14032d7f5046b3930704ef41')

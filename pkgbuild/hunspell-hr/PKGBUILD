@@ -1,0 +1,21 @@
+pkgname=hunspell-hr
+pkgver=20030928
+pkgrel=1
+pkgdesc="Croatian hunspell dictionaries"
+arch=('x86_64')
+url="http://www.linux.hr/"
+license=('LGPL2')
+#depends=()
+source=("http://ftp.linux.hr/pub/spell/myspell/hr_HR.aff"
+	"http://ftp.linux.hr/pub/spell/myspell/hr_HR.dic")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/hunspell"
+
+	install -v -m644 *.aff *.dic "${pkgdir}/usr/share/hunspell"
+}
+
+md5sums=('1082f1efb63b267e3625cdd09a5c8a78'
+         '2b85f07b6c63d2c0a1acf39fb05b0f8a')

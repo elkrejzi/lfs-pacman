@@ -1,0 +1,28 @@
+pkgname=x264
+pkgver=20170303
+pkgrel=1
+pkgdesc="Library for encoding H264/AVC video streams"
+arch=('x86_64')
+url="http://www.videolan.org/developers/x264.html"
+license=('GPL')
+#depends=()
+source=("http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-${pkgver}-2245.tar.bz2")
+
+build() {
+	cd "${srcdir}/x264-snapshot-${pkgver}-2245"
+
+	./configure --prefix=/usr \
+		--disable-cli \
+		--enable-shared \
+		--system-libx264
+
+	make
+}
+
+package() {
+	cd "${srcdir}/x264-snapshot-${pkgver}-2245"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5d634fc570536a1185ab0f61c5168aea')

@@ -1,0 +1,40 @@
+pkgname=hunspell-en
+pkgver=2017.01.22
+pkgrel=1
+pkgdesc="English hunspell dictionaries"
+arch=('x86_64')
+url="http://wordlist.aspell.net/dicts/"
+license=('LGPL' 'custom:scowl')
+#depends=()
+source=("https://downloads.sourceforge.net/wordlist/hunspell-en_CA-${pkgver}.zip"
+	"https://downloads.sourceforge.net/wordlist/hunspell-en_GB-large-${pkgver}.zip"
+	"https://downloads.sourceforge.net/wordlist/hunspell-en_US-${pkgver}.zip")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/hunspell"
+
+	install -v -m644 *.aff *.dic "${pkgdir}/usr/share/hunspell"
+
+	en_GB_aliases="en_AG en_AU en_BS en_BW en_BZ en_DK en_GB en_GH en_HK en_IE \
+		en_IN en_JM en_NA en_NG en_NZ en_SG en_TT en_ZA en_ZW"
+
+	for lang in ${en_GB_aliases}
+	do
+		ln -sfv en_GB-large.aff "${pkgdir}/usr/share/hunspell/${lang}.aff"
+		ln -sfv en_GB-large.dic "${pkgdir}/usr/share/hunspell/${lang}.dic"
+	done
+
+	en_US_aliases="en_PH"
+
+	for lang in ${en_US_aliases}
+	do
+		ln -sfv en_US.aff "${pkgdir}/usr/share/hunspell/${lang}.aff"
+		ln -sfv en_US.dic "${pkgdir}/usr/share/hunspell/${lang}.dic"
+	done
+}
+
+md5sums=('10e7b9ae290217a127056897496d26ea'
+         'e511d126a9b02413e81f501c28ff7f8c'
+         '9af4f5e765f02bce36c9ee91fcce02b5')

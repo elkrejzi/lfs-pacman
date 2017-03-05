@@ -1,0 +1,33 @@
+pkgname=libcanberra
+pkgver=0.30
+pkgrel=1
+pkgdesc="A small and lightweight implementation of the XDG Sound Theme Specification"
+arch=('x86_64')
+url="http://0pointer.de/lennart/projects/libcanberra/"
+license=('LGPL')
+#depends=()
+source=("http://0pointer.de/lennart/projects/libcanberra/libcanberra-${pkgver}.tar.xz"
+	"libcanberra-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/libcanberra-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/libcanberra-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/libcanberra-${pkgver}"
+
+	./configure --prefix=/usr --disable-null --disable-oss
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libcanberra-${pkgver}"
+
+	make -j1 install DESTDIR="${pkgdir}"
+}
+
+md5sums=('34cb7e4430afaf6f447c4ebdb9b42072'
+         'e95e0964579db0821a93577d2db9c152')

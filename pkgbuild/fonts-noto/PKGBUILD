@@ -1,0 +1,28 @@
+pkgname=fonts-noto
+pkgver=20170302
+_notorev=62b3177
+pkgrel=1
+pkgdesc="Google Noto TTF fonts"
+arch=('x86_64')
+url="https://www.google.com/get/noto/"
+license=('custom:SIL')
+#depends=()
+source=("noto-fonts.zip::https://github.com/googlei18n/noto-fonts/archive/${_notorev}.zip")
+noextract=("noto-fonts.zip")
+
+prepare() {
+	install -v -dm755 "${srcdir}/noto-fonts"
+
+	bsdtar xf "${srcdir}/noto-fonts.zip" -C "${srcdir}/noto-fonts" --strip-components=1
+}
+
+package() {
+	cd "${srcdir}/noto-fonts"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/noto"
+
+	install -v -m644 hinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
+	install -v -m644 unhinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
+}
+
+md5sums=('03374ea8239c6f608232e3f65de2464d')

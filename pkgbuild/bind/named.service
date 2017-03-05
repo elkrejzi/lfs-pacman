@@ -1,0 +1,12 @@
+[Unit]
+Description=Internet domain name server
+Documentation=man:named(8)
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/named -4 -f -u named
+ExecReload=/usr/sbin/rndc reload
+ExecStop=/usr/sbin/rndc stop
+
+[Install]
+WantedBy=multi-user.target

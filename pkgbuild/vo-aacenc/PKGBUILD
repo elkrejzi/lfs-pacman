@@ -1,0 +1,25 @@
+pkgname=vo-aacenc
+pkgver=0.1.3
+pkgrel=1
+pkgdesc="VisualOn Advanced Audio Coding (AAC) encoder"
+arch=('x86_64')
+url="https://sourceforge.net/projects/opencore-amr/"
+license=('APACHE')
+#depends=()
+source=("https://downloads.sourceforge.net/opencore-amr/vo-aacenc-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/vo-aacenc-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vo-aacenc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b574da1d92d75fc40b0b75aa16f24ac4')

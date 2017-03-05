@@ -1,0 +1,25 @@
+pkgname=mpg123
+pkgver=1.24.0
+pkgrel=1
+pkgdesc="A console based real time MPEG Audio Player for Layer 1, 2 and 3"
+arch=('x86_64')
+url="https://sourceforge.net/projects/mpg123/"
+license=('LGPL2.1')
+#depends=()
+source=("https://downloads.sourceforge.net/mpg123/mpg123-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/mpg123-${pkgver}"
+
+	./configure --prefix=/usr --with-module-suffix=.so
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mpg123-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('75d62ac0cb713a7bac5af4ded4af2bb4')

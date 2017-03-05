@@ -1,0 +1,25 @@
+pkgname=pinentry
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol"
+arch=('x86_64')
+url="https://www.gnupg.org/related_software/pinentry/index.html"
+license=('GPL')
+#depends=()
+source=("https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/pinentry-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/pinentry-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4a3fad8b31f9b4c5526c8837495015dc')

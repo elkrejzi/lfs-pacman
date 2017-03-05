@@ -1,0 +1,29 @@
+pkgname=dmz-cursor-theme
+pkgver=0.4.4
+pkgrel=1
+pkgdesc="Vanilla DMZ cursor theme"
+arch=('x86_64')
+url="http://jimmac.musichall.cz/"
+license=('CCPL:by-nc-sa')
+#depends=()
+source=("http://http.debian.net/debian/pool/main/d/dmz-cursor-theme/dmz-cursor-theme_${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/dmz-cursor-theme-${pkgver}"
+
+	for d in DMZ-Black DMZ-White
+	do
+		pushd ${d}/pngs
+			./make.sh
+		popd
+
+		install -v -dm755 "${pkgdir}/usr/share/icons/${d}/cursors"
+		install -v -m644 ${d}/*.theme "${pkgdir}/usr/share/icons/${d}"
+		cp -r ${d}/xcursors/* "${pkgdir}/usr/share/icons/${d}/cursors"
+	done
+
+	install -v -dm755 "${pkgdir}/usr/share/icons/default"
+	ln -sfv ../DMZ-White/cursor.theme "${pkgdir}/usr/share/icons/default/index.theme"
+}
+
+md5sums=('06fbab13df89c5770ce61b0e3e31e5f6')

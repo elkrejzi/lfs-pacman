@@ -1,0 +1,17 @@
+pkgname=mime-types
+pkgver=9
+pkgrel=1
+pkgdesc="Provides /etc/mime.types"
+arch=('x86_64')
+url="https://packages.gentoo.org/package/app-misc/mime-types"
+license=('GPL2')
+#depends=()
+source=("https://mirrors.kernel.org/gentoo/distfiles/mime-types-${pkgver}.tar.bz2")
+
+package() {
+	cd "${srcdir}/mime-types-${pkgver}"
+
+	install -v -Dm644 mime.types "${pkgdir}/etc/mime.types"
+}
+
+md5sums=('75c88966b6516cf085125072dc8b39e5')

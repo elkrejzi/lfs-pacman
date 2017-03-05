@@ -1,0 +1,25 @@
+pkgname=libcdio-paranoia
+pkgver=10.2+0.93+1
+pkgrel=1
+pkgdesc="CD paranoia libraries from libcdio"
+arch=('x86_64')
+url="https://www.gnu.org/software/libcdio/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://ftp.gnu.org/gnu/libcdio/libcdio-paranoia-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libcdio-paranoia-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libcdio-paranoia-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4fb07fa47db24b71d315d40c9c6cecfb')

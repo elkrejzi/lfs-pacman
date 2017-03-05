@@ -1,0 +1,69 @@
+pkgname=openssh
+pkgver=7.4p1
+pkgrel=1
+pkgdesc="Free version of the SSH connectivity tools"
+arch=('x86_64')
+url="https://www.openssh.com/portable.html"
+license=('custom:BSD')
+#depends=()
+source=("http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${pkgver}.tar.gz"
+	"sshd.pam"
+	"sshd.sysusers"
+	"sshd.tmpfiles"
+	"sshdgenkeys.service"
+	"sshd.service"
+	"sshd@.service"
+	"sshd.socket")
+
+build() {
+	cd "${srcdir}/openssh-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc/ssh \
+		--localstatedir=/var \
+		--with-mantype=doc \
+		--with-4in6 \
+		--with-privsep-path=/run/sshd \
+		--with-kerberos5=/usr \
+		--with-pam \
+		--with-ssl-engine \
+		--with-xauth=/usr/bin/xauth \
+		--with-default-path=/usr/local/bin:/usr/bin:/bin \
+		--with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+	make
+}
+
+package() {
+	cd "${srcdir}/openssh-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/run"
+
+	install -v -m755 contrib/ssh-copy-id "${pkgdir}/usr/bin"
+	install -v -m644 contrib/ssh-copy-id.1 "${pkgdir}/usr/share/man/man1"
+
+	sed -i "/OpenBSD/d" "${pkgdir}"/etc/ssh/*
+
+	sed -i "s:^#X11Forwarding no:X11Forwarding yes:g" "${pkgdir}/etc/ssh/sshd_config"
+	sed -i "s:^#UsePAM no:UsePAM yes:g" "${pkgdir}/etc/ssh/sshd_config"
+
+	install -v -Dm644 "${srcdir}/sshd.pam" "${pkgdir}/etc/pam.d/sshd"
+	install -v -Dm644 "${srcdir}/sshd.sysusers" "${pkgdir}/usr/lib/sysusers.d/sshd.conf"
+	install -v -Dm644 "${srcdir}/sshd.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/sshd.conf"
+
+	install -v -Dm644 "${srcdir}/sshdgenkeys.service" "${pkgdir}/lib/systemd/system/sshdgenkeys.service"
+	install -v -Dm644 "${srcdir}/sshd.service" "${pkgdir}/lib/systemd/system/sshd.service"
+	install -v -Dm644 "${srcdir}/sshd@.service" "${pkgdir}/lib/systemd/system/sshd@.service"
+	install -v -Dm644 "${srcdir}/sshd.socket" "${pkgdir}/lib/systemd/system/sshd.socket"
+}
+
+md5sums=('b2db2a83caf66a208bb78d6d287cdaa3'
+         'c9f2e6c974a6e2cc17e250778fcee10a'
+         'c099cd6facd5ef59c790bb636b25af3d'
+         '5177c6a5bec624829a3a51cda7eb80d3'
+         'f7c35eab2ca1ea6352da19eb2e1f6b6b'
+         '5d28d49a3a19aa0e24e97ada401d92ea'
+         '5dc57078c442105e56fa97ee75617298'
+         '76f52c66fb3193f301fe0a666e047ab1')

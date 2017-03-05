@@ -1,0 +1,25 @@
+pkgname=libdvdcss
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="Portable abstraction library for DVD decryption"
+arch=('x86_64')
+url="http://www.videolan.org/developers/libdvdcss.html"
+license=('GPL')
+#depends=()
+source=("http://download.videolan.org/pub/videolan/libdvdcss/${pkgver}/libdvdcss-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libdvdcss-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdvdcss-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2edba36e6af3f0223c4f0454cdf3d159')

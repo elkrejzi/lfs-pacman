@@ -1,0 +1,25 @@
+pkgname=libbluray
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Library to access Blu-Ray disks for video playback"
+arch=('x86_64')
+url="http://www.videolan.org/developers/libbluray.html"
+license=('LGPL2.1')
+#depends=()
+source=("http://download.videolan.org/pub/videolan/libbluray/${pkgver}/libbluray-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libbluray-${pkgver}"
+
+	./configure --prefix=/usr --disable-bdjava
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libbluray-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a1cc86a5a78d4212141b06ed098c672c')

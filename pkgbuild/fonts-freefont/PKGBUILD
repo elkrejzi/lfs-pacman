@@ -1,0 +1,19 @@
+pkgname=fonts-freefont
+pkgver=20120503
+pkgrel=1
+pkgdesc="Set of free outline fonts covering the Unicode character set"
+arch=('x86_64')
+url="https://www.nongnu.org/freefont/"
+license=('GPL')
+#depends=()
+source=("https://ftp.gnu.org/pub/gnu/freefont/freefont-ttf-${pkgver}.zip")
+
+package() {
+	cd "${srcdir}/freefont-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/freefont"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/freefont"
+}
+
+md5sums=('879b76d2e3c8003d567b555743f39154')

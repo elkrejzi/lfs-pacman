@@ -1,0 +1,39 @@
+pkgname=fonts-corefonts
+pkgver=2.0
+pkgrel=1
+pkgdesc="Core TTF Fonts from Microsoft"
+arch=('x86_64')
+url="http://corefonts.sourceforge.net/"
+license=('custom:microsoft')
+#depends=()
+source=("https://downloads.sourceforge.net/corefonts/andale32.exe"
+	"https://downloads.sourceforge.net/corefonts/arial32.exe"
+	"https://downloads.sourceforge.net/corefonts/arialb32.exe"
+	"https://downloads.sourceforge.net/corefonts/comic32.exe"
+	"https://downloads.sourceforge.net/corefonts/courie32.exe"
+	"https://downloads.sourceforge.net/corefonts/georgi32.exe"
+	"https://downloads.sourceforge.net/corefonts/impact32.exe"
+	"https://downloads.sourceforge.net/corefonts/times32.exe"
+	"https://downloads.sourceforge.net/corefonts/trebuc32.exe"
+	"https://downloads.sourceforge.net/corefonts/verdan32.exe"
+	"https://downloads.sourceforge.net/corefonts/webdin32.exe")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/corefonts"
+
+	install -v -m644 *.{ttf,TTF} "${pkgdir}/usr/share/fonts/corefonts"
+}
+
+md5sums=('cbdc2fdd7d2ed0832795e86a8b9ee19a'
+         '9637df0e91703179f0723ec095a36cb5'
+         'c9089ae0c3b3d0d8c4b0a95979bb9ff0'
+         '2b30de40bb5e803a0452c7715fc835d1'
+         '4e412c772294403ab62fb2d247d85c60'
+         '4d90016026e2da447593b41a8d8fa8bd'
+         '7907c7dd6684e9bade91cff82683d9d7'
+         'ed39c8ef91b9fb80f76f702568291bd5'
+         '0d7ea16cac6261f8513a061fbfcdb2b5'
+         '12d2a75f8156e10607be1eaa8e8ef120'
+         '230a1d13a365b22815f502eb24d9149b')

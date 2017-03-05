@@ -1,0 +1,31 @@
+pkgname=libraw
+pkgver=0.18.1
+pkgrel=1
+pkgdesc="A library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)"
+arch=('x86_64')
+url="http://www.libraw.org/"
+license=('CDDL' 'LGPL')
+#depends=()
+source=("http://www.libraw.org/data/LibRaw-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/LibRaw-${pkgver}"
+
+	sed -i "s:-lstdc++::g" configure
+}
+
+build() {
+	cd "${srcdir}/LibRaw-${pkgver}"
+
+	./configure --prefix=/usr --disable-examples
+
+	make
+}
+
+package() {
+	cd "${srcdir}/LibRaw-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('93d7a3fee17aa847bf976bff93cec7c7')

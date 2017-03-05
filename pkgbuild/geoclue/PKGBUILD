@@ -1,0 +1,30 @@
+pkgname=geoclue
+pkgver=2.4.5
+pkgrel=1
+pkgdesc="Modular geoinformation service built on the D-Bus messaging system"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/GeoClue/"
+license=('LGPL')
+#depends=()
+source=("https://www.freedesktop.org/software/geoclue/releases/${pkgver:0:3}/geoclue-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/geoclue-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/geoclue-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/libexec/geoclue-2.0"
+	rm -rf "${pkgdir}/usr/share/applications"
+}
+
+md5sums=('a88535b4600a8195faeb30aa6b0590a4')

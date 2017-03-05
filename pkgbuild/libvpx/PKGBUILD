@@ -1,0 +1,28 @@
+pkgname=libvpx
+pkgver=1.6.1
+pkgrel=1
+pkgdesc="VP8 and VP9 codec"
+arch=('x86_64')
+url="http://www.webmproject.org/"
+license=('BSD')
+#depends=()
+source=("http://downloads.webmproject.org/releases/webm/libvpx-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libvpx-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-shared \
+		--enable-experimental \
+		--enable-spatial-svc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libvpx-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a19518c8111fa93bdabdd85259162611')

@@ -3,21 +3,25 @@ pkgname=('libva' 'lib32-libva')
 pkgver=1.7.3
 pkgrel=1
 arch=('x86_64')
-url="https://www.freedesktop.org/wiki/Software/vaapi/"
+url="https://01.org/linuxmedia/vaapi"
 license=('MIT')
 #depends=()
-source=("https://www.freedesktop.org/software/vaapi/releases/libva/libva-${pkgver}.tar.bz2")
+source=("https://github.com/01org/libva/archive/libva-${pkgver}.tar.gz")
 
 prepare() {
+	cd "${srcdir}/libva-libva-${pkgver}"
+
+	autoreconf -fi
+
 	cp -a "${srcdir}"/libva{,32}-${pkgver}
 }
 
 build() {
-	cd "${srcdir}/libva-${pkgver}"
+	cd "${srcdir}/libva-libva-${pkgver}"
 
 	./configure --prefix=/usr
 
-	cd "${srcdir}/libva32-${pkgver}"
+	cd "${srcdir}/libva-libva32-${pkgver}"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
@@ -30,14 +34,14 @@ build() {
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/libva-${pkgver}"
-	make -C "${srcdir}/libva32-${pkgver}"
+	make -C "${srcdir}/libva-libva-${pkgver}"
+	make -C "${srcdir}/libva-libva32-${pkgver}"
 }
 
 package_libva() {
 	pkgdesc="Video Acceleration (VA) API for Linux"
 
-	cd "${srcdir}/libva-${pkgver}"
+	cd "${srcdir}/libva-libva-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
 }
@@ -45,7 +49,7 @@ package_libva() {
 package_lib32-libva() {
 	pkgdesc="Video Acceleration (VA) API for Linux (32 bit)"
 
-	cd "${srcdir}/libva32-${pkgver}"
+	cd "${srcdir}/libva-libva32-${pkgver}"
 
 	make install DESTDIR="${PWD}/dest"
 
@@ -53,4 +57,4 @@ package_lib32-libva() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('dafb1d7d6449e850e9eb1a099895c683')
+md5sums=('2be82b775a6d5fb3bd031531124e1c66')

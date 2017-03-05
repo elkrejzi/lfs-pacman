@@ -1,0 +1,39 @@
+pkgname=doxygen
+pkgver=1.8.13
+pkgrel=1
+pkgdesc="A documentation system for C++, C, Java, IDL and PHP"
+arch=('x86_64')
+url="http://www.stack.nl/~dimitri/doxygen/"
+license=('GPL')
+#depends=()
+source=("http://ftp.stack.nl/pub/users/dimitri/doxygen-${pkgver}.src.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-Dbuild_search=ON \
+		-Dbuild_wizard=ON \
+		-Duse_libclang=ON \
+		"${srcdir}/doxygen-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+
+	cd "${srcdir}/doxygen-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/man/man1"
+	install -v -m644 doc/*.1 "${pkgdir}/usr/share/man/man1"
+}
+
+md5sums=('0fa414975f8cd6d30e126c28327c1f7c')

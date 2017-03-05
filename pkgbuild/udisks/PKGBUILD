@@ -1,0 +1,29 @@
+pkgname=udisks
+pkgver=2.1.8
+pkgrel=1
+pkgdesc="Disk Management Service"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/udisks/"
+license=('GPL2')
+#depends=()
+source=("https://udisks.freedesktop.org/releases/udisks-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/udisks-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/udisks-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	mv "${pkgdir}/usr/sbin" "${pkgdir}"
+}
+
+md5sums=('501d11c243bd8c6c00650474cd2afaab')

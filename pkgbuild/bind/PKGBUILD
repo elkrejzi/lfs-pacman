@@ -1,0 +1,69 @@
+pkgname=bind
+_pkgver=9.11.0-P3
+pkgver=${_pkgver//-/.}
+pkgrel=1
+pkgdesc="The ISC DNS Server"
+arch=('x86_64')
+url="https://www.isc.org/software/bind/"
+license=('custom:ISC')
+#depends=()
+options=(emptydirs)
+install=bind.install
+source=("ftp://ftp.isc.org/isc/bind/${_pkgver}/bind-${_pkgver}.tar.gz"
+	"db.127"
+	"db.local"
+	"db.root"
+	"named.conf"
+	"named.service"
+	"named.sysusers"
+	"named.tmpfiles")
+
+build() {
+	cd "${srcdir}/bind-${_pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc/bind \
+		--localstatedir=/var \
+		--enable-seccomp \
+		--without-libjson \
+		--with-openssl=/usr \
+		--with-gssapi=/usr \
+		--with-libtool
+
+	make
+}
+
+package() {
+	cd "${srcdir}/bind-${_pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/var/run"
+
+	install -v -dm755 "${pkgdir}/var/cache/bind"
+	install -v -dm775 "${pkgdir}/var/lib/bind"
+
+	install -v -Dm664 "${srcdir}/named.conf" "${pkgdir}/etc/bind/named.conf"
+
+	install -v -Dm644 "${srcdir}/db.127" "${pkgdir}/etc/bind/db.127"
+	install -v -Dm644 "${srcdir}/db.local" "${pkgdir}/etc/bind/db.local"
+	install -v -Dm644 "${srcdir}/db.root" "${pkgdir}/etc/bind/db.root"
+
+	chown -v root:20 "${pkgdir}/etc/bind" "${pkgdir}/etc/bind/named.conf"
+	chown -v root:20 "${pkgdir}/var/lib/bind" "${pkgdir}/var/cache/bind"
+
+	chmod 2755 "${pkgdir}/etc/bind"
+
+	install -v -Dm644 "${srcdir}/named.service" "${pkgdir}/lib/systemd/system/named.service"
+	install -v -Dm644 "${srcdir}/named.sysusers" "${pkgdir}/usr/lib/sysusers.d/named.conf"
+	install -v -Dm644 "${srcdir}/named.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/named.conf"
+}
+
+md5sums=('311787a0a69345a1f1cf7869b0266bf0'
+         '64f5cf50e8d8192109dad43b779e5e36'
+         'e5d27ead2d238928a08d33c7a7333477'
+         '96d953fc698b3b34f7f24ed532a88abc'
+         '9ac624bd3abd75c97910b9b17f425dfc'
+         'd3840448545658e23a3d54ef803d28f7'
+         'de5af23f7cb28347cf430f351846a101'
+         '62fa972c76e9f504453aebdbfadcefa0')

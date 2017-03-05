@@ -1,0 +1,32 @@
+pkgname=gst-plugins-bad
+pkgver=1.10.4
+pkgrel=1
+pkgdesc="GStreamer Multimedia Framework Bad Plugins"
+arch=('x86_64')
+url="https://gstreamer.freedesktop.org/"
+license=('LGPL')
+#depends=()
+source=("https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gst-plugins-bad-${pkgver}"
+
+	export CXX="${CXX} -std=c++11"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libexecdir=/usr/lib \
+		--with-package-name="GStreamer Bad Plugins ${pkgver} Krejzi" \
+		--with-package-origin="https://github.com/elkrejzi/"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gst-plugins-bad-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2757103e57a096a1a05b3ab85b8381af')

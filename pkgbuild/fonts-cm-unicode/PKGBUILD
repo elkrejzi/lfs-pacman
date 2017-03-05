@@ -1,0 +1,19 @@
+pkgname=fonts-cm-unicode
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="Computer Modern Unicode ttf fonts"
+arch=('x86_64')
+url="http://canopus.iacp.dvo.ru/~panov/cm-unicode/"
+license=('custom:OFL1.1')
+#depends=()
+source=("https://downloads.sourceforge.net/cm-unicode/cm-unicode-${pkgver}-ttf.tar.xz")
+
+package() {
+	cd "${srcdir}/cm-unicode-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/cm-unicode"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/cm-unicode"
+}
+
+md5sums=('8dc72a959ced139847f4160ff9413fd8')

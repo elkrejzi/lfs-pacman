@@ -1,0 +1,25 @@
+pkgname=libgd
+pkgver=2.2.4
+pkgrel=1
+pkgdesc="Library for the dynamic creation of images by programmers"
+arch=('x86_64')
+url="https://libgd.github.io/"
+license=('custom')
+#depends=()
+source=("https://github.com/libgd/libgd/releases/download/gd-${pkgver}/libgd-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgd-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a244855a323a3ea1975d708eb1e12b7a')

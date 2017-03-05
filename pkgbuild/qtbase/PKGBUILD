@@ -1,0 +1,66 @@
+pkgname=qtbase
+pkgver=5.8.0
+pkgrel=1
+pkgdesc="A cross-platform application and UI framework"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtbase-opensource-src-${pkgver}.tar.xz"
+	"qtbase-journald.patch::https://github.com/qt/qtbase/commit/0c8f3229.patch")
+
+prepare() {
+	cd "${srcdir}/qtbase-opensource-src-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/qtbase-journald.patch"
+}
+
+build() {
+	cd "${srcdir}/qtbase-opensource-src-${pkgver}"
+
+	./configure -prefix /usr \
+		-sysconfdir /etc/xdg \
+		-headerdir /usr/include/qt5 \
+		-archdatadir /usr/lib/qt5 \
+		-datadir /usr/share/qt5 \
+		-docdir /usr/share/doc/qt5 \
+		-translationdir /usr/share/qt5/translations \
+		-examplesdir /usr/share/doc/qt5/examples \
+		-confirm-license \
+		-opensource \
+		-c++std c++14 \
+		-dbus-linked \
+		-openssl-linked \
+		-journald \
+		-libinput \
+		-system-harfbuzz \
+		-system-sqlite \
+		-nomake examples \
+		-reduce-relocations \
+		-no-rpath \
+		-no-strip \
+		-no-separate-debug-info \
+		-optimized-qmake \
+		-no-use-gold-linker \
+		-platform linux-clang-libc++
+
+	make
+
+	find . -name "*.pc" -exec perl -pi -e "s, -L${PWD}/?\S+,,g" {} \;
+}
+
+package() {
+	cd "${srcdir}/qtbase-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "s:${PWD}:/usr/lib/qt5:g" \
+		"${pkgdir}/usr/lib/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d" "${pkgdir}"/usr/lib/*.prl
+
+	rm -rf "${pkgdir}/usr/share"
+}
+
+md5sums=('6e1f7f6fb6333eb66e563b175c4e87e9'
+         '160fde81fe882c4241f04634f53691ad')

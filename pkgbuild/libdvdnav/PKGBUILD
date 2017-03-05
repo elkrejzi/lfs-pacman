@@ -1,0 +1,25 @@
+pkgname=libdvdnav
+pkgver=5.0.3
+pkgrel=1
+pkgdesc="The library for xine-dvdnav plugin"
+arch=('x86_64')
+url="https://dvdnav.mplayerhq.hu/"
+license=('GPL')
+#depends=()
+source=("http://download.videolan.org/pub/videolan/libdvdnav/${pkgver}/libdvdnav-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libdvdnav-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdvdnav-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e9ea4de3bd8f204e61301d407d09f033')

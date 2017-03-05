@@ -1,0 +1,30 @@
+pkgname=gstreamer-vaapi
+pkgver=1.10.4
+pkgrel=1
+pkgdesc="GStreamer Multimedia Framework VAAPI Plugins"
+arch=('x86_64')
+url="https://gstreamer.freedesktop.org/"
+license=('GPL')
+#depends=()
+source=("https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gstreamer-vaapi-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libexecdir=/usr/lib \
+		--with-package-name="GStreamer VAAPI Plugins ${pkgver} Krejzi" \
+		--with-package-origin="https://github.com/elkrejzi/"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gstreamer-vaapi-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('318af17f906637570b61dd7be9b5581d')

@@ -1,3 +1,4 @@
+*.exe
 *.tar.*
 *.tgz
 *.xz
@@ -10,6 +11,10 @@
 *.bin
 *.ucode
 *.bseq
+*.aff
+*.dic
+waf
 bash*-0*
 readline*-0*
 mpfr-cumulative.patch
+qtbase-journald.patch

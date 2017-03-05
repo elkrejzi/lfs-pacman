@@ -1,0 +1,39 @@
+pkgname=imagemagick
+_pkgver=6.9.7-9
+pkgver=${_pkgver/-/.}
+pkgrel=1
+pkgdesc="An image viewing/manipulation program"
+arch=('x86_64')
+url="http://www.imagemagick.org/"
+license=('custom')
+#depends=()
+options=(libtool)
+source=("http://www.imagemagick.org/download/ImageMagick-${_pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/ImageMagick-${_pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-hdri \
+		--with-gslib \
+		--with-gvc \
+		--with-modules \
+		--with-perl \
+		--with-rsvg \
+		--with-dejavu-font-dir=/usr/share/fonts/dejavu \
+		--with-gs-font-dir=/usr/share/ghostscript/fonts \
+		--with-perl-options=INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ImageMagick-${_pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/*.la "${pkgdir}/usr/lib/perl"
+}
+
+md5sums=('bd9873edd326361ed274c18c7eb731ee')

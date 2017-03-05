@@ -1,0 +1,31 @@
+pkgname=hunspell
+pkgver=1.6.0
+pkgrel=1
+pkgdesc="Spell checker and morphological analyzer library and program"
+arch=('x86_64')
+url="http://hunspell.github.io/"
+license=('GPL' 'LGPL' 'MPL')
+#depends=()
+source=("hunspell-${pkgver}.tar.gz::https://github.com/hunspell/hunspell/archive/v${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/hunspell-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/hunspell-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/hunspell-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('047c3feb121261b76dc16cdb62f54483')

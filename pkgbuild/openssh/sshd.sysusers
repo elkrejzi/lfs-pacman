@@ -1,0 +1,1 @@
+u sshd 50 "OpenSSH PrivSep" /run/sshd

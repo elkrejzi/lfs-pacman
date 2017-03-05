@@ -1,0 +1,31 @@
+pkgname=libvdpau-va-gl
+pkgver=0.4.2
+pkgrel=1
+pkgdesc="VDPAU driver with OpenGL/VAAPI backend"
+arch=('x86_64')
+url="https://github.com/i-rinat/libvdpau-va-gl"
+license=('LGPL3')
+#depends=()
+source=("https://github.com/i-rinat/libvdpau-va-gl/releases/download/v${pkgver}/libvdpau-va-gl-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		"${srcdir}/libvdpau-va-gl-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8db21dcfd5cd14c6ec51b992e20369dc')

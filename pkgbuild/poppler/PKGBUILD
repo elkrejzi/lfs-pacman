@@ -1,0 +1,29 @@
+pkgname=poppler
+pkgver=0.52.0
+pkgrel=1
+pkgdesc="PDF rendering library based on xpdf 3.0"
+arch=('x86_64')
+url="https://poppler.freedesktop.org/"
+license=('GPL')
+#depends=()
+source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/poppler-${pkgver}"
+
+	export CXX="${CXX} -std=c++11"
+
+	./configure --prefix=/usr --enable-xpdf-headers
+
+	make
+}
+
+package() {
+	cd "${srcdir}/poppler-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
+}
+
+md5sums=('dfdd55d5df39685bbb82b0c08fa4ef66')

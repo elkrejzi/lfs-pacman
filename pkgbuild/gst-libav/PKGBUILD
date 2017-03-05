@@ -1,0 +1,31 @@
+pkgname=gst-libav
+pkgver=1.10.4
+pkgrel=1
+pkgdesc="GStreamer Multimedia Framework ffmpeg Plugins"
+arch=('x86_64')
+url="https://gstreamer.freedesktop.org/"
+license=('GPL')
+#depends=()
+source=("https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gst-libav-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--libexecdir=/usr/lib \
+		--with-system-libav \
+		--with-package-name="GStreamer ffmpeg Plugins ${pkgver} Krejzi" \
+		--with-package-origin="https://github.com/elkrejzi/"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gst-libav-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e2bdd9fde6ca3ff7efffb93df121f4fd')

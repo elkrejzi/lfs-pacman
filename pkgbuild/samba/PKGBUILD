@@ -1,0 +1,96 @@
+pkgname=samba
+pkgver=4.5.5
+pkgrel=1
+pkgdesc="SMB Fileserver and AD Domain server"
+arch=('x86_64')
+url="https://www.samba.org/"
+license=('GPL3')
+#depends=()
+backup=(etc/samba/samba.conf)
+options=(emptydirs)
+source=("https://www.samba.org/ftp/samba/samba-${pkgver}.tar.gz"
+	"samba.default"
+	"samba.pam"
+	"samba.sysusers"
+	"samba.tmpfiles"
+	"nmbd.service"
+	"samba.service"
+	"smbd.service"
+	"smbd@.service"
+	"smbd.socket"
+	"winbindd.service")
+
+_samba4_idmap_modules=idmap_ad,idmap_rid,idmap_adex,idmap_hash,idmap_tdb2
+_samba4_pdb_modules=pdb_tdbsam,pdb_ldap,pdb_ads,pdb_smbpasswd,pdb_wbc_sam,pdb_samba4
+_samba4_auth_modules=auth_unix,auth_wbc,auth_server,auth_netlogond,auth_script,auth_samba4
+
+prepare() {
+	cd "${srcdir}/samba-${pkgver}"
+
+	sed -i 's|MYGROUP|WORKGROUP|g' examples/smb.conf.default
+	sed -i 's|log file = .*$|log file = /var/log/samba/log.%m|g' examples/smb.conf.default
+	sed -i 's|/usr/spool/samba|/var/spool/samba|g' examples/smb.conf.default
+	sed -i 's|log.%m|%m.log|g' examples/smb.conf.default
+}
+
+build() {
+	cd "${srcdir}/samba-${pkgver}"
+
+	CFLAGS+=" -w"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-fhs \
+		--with-lockdir=/var/run/samba \
+		--with-pammodulesdir=/lib/security \
+		--enable-gnutls \
+		--bundled-libraries=!tdb,!talloc,!pytalloc-util,!tevent,!popt,!ldb,!pyldb-util \
+		--with-shared-modules=${_samba4_idmap_modules},${_samba4_pdb_modules},${_samba4_auth_modules} \
+		--disable-rpath-install
+
+	make
+}
+
+package() {
+	cd "${srcdir}/samba-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/var/run"
+
+	install -v -dm755 "${pkgdir}/lib" "${pkgdir}/usr/lib/cups/backend"
+	install -v -dm1770 -g 97 "${pkgdir}/var/lib/samba/usershares"
+	install -v -dm1777 "${pkgdir}/var/spool/samba"
+
+	mv "${pkgdir}"/usr/lib/libnss_win{bind,s}.so* "${pkgdir}/lib"
+
+	install -v -m644 examples/smb.conf.default "${pkgdir}/etc/samba/smb.conf"
+
+	ln -sfv /usr/bin/smbspool "${pkgdir}/usr/lib/cups/backend/smb"
+
+	install -v -Dm644 "${srcdir}/samba.default" "${pkgdir}/etc/default/samba"
+	install -v -Dm644 "${srcdir}/samba.pam" "${pkgdir}/etc/pam.d/samba"
+
+	install -v -Dm644 "${srcdir}/samba.sysusers" "${pkgdir}/usr/lib/sysusers.d/samba.conf"
+	install -v -Dm644 "${srcdir}/samba.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/samba.conf"
+
+	install -v -Dm644 "${srcdir}/nmbd.service" "${pkgdir}/lib/systemd/system/nmbd.service"
+	install -v -Dm644 "${srcdir}/smbd.service" "${pkgdir}/lib/systemd/system/smbd.service"
+	install -v -Dm644 "${srcdir}/samba.service" "${pkgdir}/lib/systemd/system/samba.service"
+	install -v -Dm644 "${srcdir}/smbd@.service" "${pkgdir}/lib/systemd/system/smbd@.service"
+	install -v -Dm644 "${srcdir}/smbd.socket" "${pkgdir}/lib/systemd/system/smbd.socket"
+	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/lib/systemd/system/winbindd.service"
+}
+
+md5sums=('b6d784970333387cbafdd172d914bed2'
+         'fae97803c0d9bb7a0aa79dbc1943355e'
+         '98385ebf94161102037a194dd0576751'
+         '192a5cd2da89fa694c253871dd8a53cf'
+         'a27f3fd7b0baed828d6bb3974d109d14'
+         'c6f3476830de69680bc35b1f291845e4'
+         '5f2f4fe8e9fdd7d021d0cbb55f58e42b'
+         '72df5fafd37589f5fe0a1e36f15a4b8b'
+         '858a46ed882e0d9961cc328ae6381ebb'
+         'a78b9aa93eb14b0ac445897395693225'
+         '9a9828c3752f5f6b2304cb410cb255d3')

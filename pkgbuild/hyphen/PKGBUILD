@@ -1,0 +1,25 @@
+pkgname=hyphen
+pkgver=2.8.8
+pkgrel=1
+pkgdesc="Library for high quality hyphenation and justification"
+arch=('x86_64')
+url="http://hunspell.sf.net"
+license=('GPL2' 'LGPL2.1' 'MPL')
+#depends=()
+source=("https://downloads.sourceforge.net/hunspell/hyphen-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/hyphen-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/hyphen-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5ade6ae2a99bc1e9e57031ca88d36dad')

@@ -1,0 +1,25 @@
+pkgname=libass
+pkgver=0.13.6
+pkgrel=1
+pkgdesc="A portable library for SSA/ASS subtitles rendering"
+arch=('x86_64')
+url="https://github.com/libass/libass/"
+license=('BSD')
+#depends=()
+source=("https://github.com/libass/libass/releases/download/${pkgver}/libass-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libass-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libass-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('daa6cfca437c0776af5f79750cdd9b4e')
