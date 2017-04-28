@@ -1,0 +1,27 @@
+pkgname=gnome-menus
+pkgver=3.13.3
+pkgrel=1
+pkgdesc="GNOME menu specifications"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-menus/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-menus/${pkgver:0:4}/gnome-menus-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-menus-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-menus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('eef5ef2308d7afc56119d7248f2aa6db')

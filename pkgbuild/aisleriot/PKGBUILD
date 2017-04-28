@@ -1,0 +1,30 @@
+pkgname=aisleriot
+pkgver=3.22.1
+pkgrel=1
+pkgdesc="A collection of patience games written in guile scheme"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Aisleriot"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/aisleriot/${pkgver:0:4}/aisleriot-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/aisleriot-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-platform=gtk-only \
+		--with-card-theme-formats=svg,fixed,pysol \
+		--with-pysol-card-theme-path=/usr/share/PySolFC
+
+	make
+}
+
+package() {
+	cd "${srcdir}/aisleriot-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('45dfa5af56454529d8216972958e9245')

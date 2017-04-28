@@ -1,0 +1,41 @@
+pkgname=evolution-data-server
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Centralized access to appointments and contacts"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Evolution"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/evolution-data-server/${pkgver:0:4}/evolution-data-server-${pkgver}.tar.xz")
+
+prepare() {
+        install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	export CXX="${CXX} -std=c++11"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DSYSCONF_INSTALL_DIR=/etc \
+		-DENABLE_INTROSPECTION=ON \
+		-DENABLE_VALA_BINDINGS=ON \
+		-DENABLE_UOA=OFF \
+		-DENABLE_GOOGLE_AUTH=ON \
+		-DENABLE_GTK_DOC=ON \
+		-DENABLE_SCHEMAS_COMPILE=OFF \
+		-DENABLE_EXAMPLES=OFF \
+		"${srcdir}/evolution-data-server-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('63b3ed2b19bbd1e227b62cab7932995d')

@@ -1,0 +1,16 @@
+pkgname=osinfo-db
+pkgver=20170423
+pkgrel=1
+pkgdesc="Osinfo database of information about operating systems for virtualization provisioning tools"
+arch=('x86_64')
+url="https://libosinfo.org/"
+license=('GPL')
+#depends=()
+source=("https://releases.pagure.org/libosinfo/osinfo-db-${pkgver}.tar.xz")
+noextract=('osinfo-db-${pkgver}.tar.xz')
+
+package() {
+	osinfo-db-import --root "${pkgdir}" --system "${srcdir}/osinfo-db-${pkgver}.tar.xz"
+}
+
+md5sums=('51bfbdda5d7b4ab079bd5f3d9ed6434c')

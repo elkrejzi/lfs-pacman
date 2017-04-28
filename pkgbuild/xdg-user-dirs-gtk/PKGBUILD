@@ -1,0 +1,25 @@
+pkgname=xdg-user-dirs-gtk
+pkgver=0.10
+pkgrel=1
+pkgdesc="Creates user dirs and asks to relocalize them"
+arch=('x86_64')
+url="https://www.gnome.org"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/xdg-user-dirs-gtk/${pkgver}/xdg-user-dirs-gtk-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/xdg-user-dirs-gtk-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xdg-user-dirs-gtk-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c4469eeeb0416d734a4592f8030d1bcf')

@@ -1,0 +1,27 @@
+pkgname=gssdp
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="A GObject-based API for handling resource discovery and announcement over SSDP"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GUPnP"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gssdp/${pkgver:0:3}/gssdp-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gssdp-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gssdp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b30c9a406853c6a3a012d151d6e7ad2c')

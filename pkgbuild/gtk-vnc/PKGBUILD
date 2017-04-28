@@ -1,0 +1,29 @@
+pkgname=gtk-vnc
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="A VNC viewer widget for GTK+"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/gtk-vnc"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gtk-vnc/${pkgver:0:3}/gtk-vnc-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gtk-vnc-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-gtk=3.0 \
+		--enable-vala
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtk-vnc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('cf55bce70ff1f7b1643468a001be1bef')

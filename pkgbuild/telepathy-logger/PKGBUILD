@@ -1,0 +1,27 @@
+pkgname=telepathy-logger
+pkgver=0.8.2
+pkgrel=1
+pkgdesc="Telepathy framework logging daemon"
+arch=('x86_64')
+url="https://telepathy.freedesktop.org"
+license=('LGPL2.1')
+#depends=()
+source=("https://telepathy.freedesktop.org/releases/telepathy-logger/telepathy-logger-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/telepathy-logger-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/telepathy-logger-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c2f6a31c76cbdf8790500cf4f872ba71')

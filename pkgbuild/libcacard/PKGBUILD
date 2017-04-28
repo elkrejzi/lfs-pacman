@@ -1,0 +1,25 @@
+pkgname=libcacard
+pkgver=2.5.3
+pkgrel=1
+pkgdesc="Library that provides emulation of smart cards to a virtual card reader running in a guest virtual machine"
+arch=('x86_64')
+url="https://www.spice-space.org/page/Libcacard"
+license=('GPL2')
+#depends=()
+source=("https://www.spice-space.org/download/libcacard/libcacard-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libcacard-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libcacard-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('362a021853699008e00aaa1fecdc26c0')

@@ -1,0 +1,33 @@
+pkgname=tracker
+pkgver=1.12.0
+pkgrel=1
+pkgdesc="Desktop-neutral user information store, search tool and indexer"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Tracker"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/tracker/${pkgver:0:4}/tracker-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/tracker-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-miner-firefox \
+		--disable-miner-thunderbird \
+		--disable-miner-user-guides \
+		--disable-unit-tests \
+		--enable-libflac \
+		--enable-libvorbis
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tracker-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('53bf7c3aead0fbc70823d26a9199c34e')

@@ -1,0 +1,25 @@
+pkgname=telepathy-idle
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="An IRC connection manager for Telepathy"
+arch=('x86_64')
+url="https://telepathy.freedesktop.org"
+license=('LGPL')
+#depends=()
+source=("https://telepathy.freedesktop.org/releases/telepathy-idle/telepathy-idle-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/telepathy-idle-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/telepathy-idle-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('92a2de5198284cbd3c430b0d1a971a86')

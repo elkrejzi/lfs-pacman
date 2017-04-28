@@ -1,0 +1,25 @@
+pkgname=gom
+pkgver=0.3.2
+pkgrel=1
+pkgdesc="A GObject to SQLite object mapper"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Gom"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/gom/${pkgver:0:3}/gom-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gom-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gom-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4191f13d5ec1803a60c0e08330680d8f')

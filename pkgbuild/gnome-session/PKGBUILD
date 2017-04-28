@@ -1,0 +1,28 @@
+pkgname=gnome-session
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="The GNOME Session Handler"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-session/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-session/${pkgver:0:4}/gnome-session-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-session-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-session-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('210ed46444e5b8da89d2963ec2f62e7e')

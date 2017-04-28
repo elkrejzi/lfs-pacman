@@ -1,0 +1,28 @@
+pkgname=gnome-nettool
+pkgver=3.8.1
+pkgrel=1
+pkgdesc="Graphical interface for various networking tools"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-nettool/"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-nettool/${pkgver:0:3}/gnome-nettool-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-nettool-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-nettool-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d4fc944b7ba8fd5f49f04a73e0d37e80')

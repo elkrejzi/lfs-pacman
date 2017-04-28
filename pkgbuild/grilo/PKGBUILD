@@ -1,0 +1,28 @@
+pkgname=grilo
+pkgver=0.3.3
+pkgrel=1
+pkgdesc="Framework that provides access to various sources of multimedia content"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Grilo"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/grilo/${pkgver:0:3}/grilo-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/grilo-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-compile-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/grilo-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('bbbbef2edfdfb9edd43ffa7036f3985b')

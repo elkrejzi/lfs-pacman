@@ -1,0 +1,25 @@
+pkgname=celt051
+pkgver=0.5.1.3
+pkgrel=1
+pkgdesc="Low-latency audio communication codec - SPICE version"
+arch=('x86_64')
+url="http://www.celt-codec.org"
+license=('BSD')
+#depends=()
+source=("http://downloads.xiph.org/releases/celt/celt-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/celt-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/celt-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('67e7b5e45db57a6f1f0a6962f5ecb190')

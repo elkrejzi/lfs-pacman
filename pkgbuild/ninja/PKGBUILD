@@ -1,0 +1,23 @@
+pkgname=ninja
+pkgver=1.7.2
+pkgrel=1
+pkgdesc="Small build system with a focus on speed"
+arch=('x86_64')
+url="https://ninja-build.org/"
+license=('APACHE')
+#depends=()
+source=("ninja-${pkgver}.tar.gz::https://github.com/ninja-build/ninja/archive/v${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/ninja-${pkgver}"
+
+	python ./configure.py --bootstrap --verbose
+}
+
+package() {
+	cd "${srcdir}/ninja-${pkgver}"
+
+	install -Dm755 ninja "${pkgdir}/usr/bin/ninja"
+}
+
+md5sums=('7b482218757acbaeac4d4d54a3cd94e1')

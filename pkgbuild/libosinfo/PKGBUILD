@@ -1,0 +1,27 @@
+pkgname=libosinfo
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support"
+arch=('x86_64')
+url="https://libosinfo.org/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://releases.pagure.org/libosinfo/libosinfo-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libosinfo-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libosinfo-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('22a09db53246e4a54be14d82a59b15db')

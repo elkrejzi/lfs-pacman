@@ -1,0 +1,25 @@
+pkgname=spice-protocol
+pkgver=0.12.12
+pkgrel=1
+pkgdesc="Headers for SPICE protocol"
+arch=('x86_64')
+url="https://www.spice-space.org/"
+license=('BSD' 'LGPL2.1')
+#depends=()
+source=("https://www.spice-space.org/download/releases/spice-protocol-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/spice-protocol-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/spice-protocol-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3b2886cceaefc228b7afa12300462abd')

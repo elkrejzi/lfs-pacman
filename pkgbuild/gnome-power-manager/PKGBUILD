@@ -1,0 +1,28 @@
+pkgname=gnome-power-manager
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="System power information and statistics"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-power-manager/"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-power-manager/${pkgver:0:4}/gnome-power-manager-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-power-manager-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-power-manager-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('18da3d95a97ec51164a40e098b257fdb')

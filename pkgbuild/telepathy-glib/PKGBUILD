@@ -1,0 +1,25 @@
+pkgname=telepathy-glib
+pkgver=0.24.1
+pkgrel=1
+pkgdesc="GLib bindings for the Telepathy D-Bus protocol"
+arch=('x86_64')
+url="https://telepathy.freedesktop.org"
+license=('LGPL2.1')
+#depends=()
+source=("https://telepathy.freedesktop.org/releases/telepathy-glib/telepathy-glib-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/telepathy-glib-${pkgver}"
+
+	./configure --prefix=/usr --enable-vala-bindings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/telepathy-glib-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('cbeb0a24acc26e7f095be281c324da69')

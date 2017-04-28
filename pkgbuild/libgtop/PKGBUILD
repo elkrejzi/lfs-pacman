@@ -1,0 +1,27 @@
+pkgname=libgtop
+pkgver=2.36.0
+pkgrel=1
+pkgdesc="A library that reads information about processes and the running system"
+arch=('x86_64')
+url="https://git.gnome.org/browse/libgtop/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/libgtop/${pkgver:0:4}/libgtop-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgtop-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgtop-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d4591bd3ee9a7312ef2dd38d4b65f5a9')

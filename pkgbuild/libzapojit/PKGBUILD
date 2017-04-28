@@ -1,0 +1,25 @@
+pkgname=libzapojit
+pkgver=0.0.3
+pkgrel=1
+pkgdesc="GLib/GObject wrapper for the SkyDrive and Hotmail REST APIs"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Zapojit"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/libzapojit/${pkgver:0:3}/libzapojit-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libzapojit-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libzapojit-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9de0d94e2c6a86852133a6f2f0b5fee1')

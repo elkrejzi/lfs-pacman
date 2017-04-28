@@ -1,0 +1,25 @@
+pkgname=geocode-glib
+pkgver=3.23.90
+pkgrel=1
+pkgdesc="Helper library for geocoding services"
+arch=('x86_64')
+url="https://git.gnome.org/browse/geocode-glib/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/geocode-glib/${pkgver:0:4}/geocode-glib-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/geocode-glib-${pkgver}"
+
+	./configure --prefix=/usr 
+
+	make
+}
+
+package() {
+	cd "${srcdir}/geocode-glib-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c1c599bb0d34e5fe4f7376867d2585b7')

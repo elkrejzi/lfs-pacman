@@ -1,0 +1,27 @@
+pkgname=gedit-plugins
+pkgver=3.22.0
+pkgrel=1
+pkgdesc="Collection of plugins for the gedit Text Editor"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Gedit/ShippedPlugins"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gedit-plugins/${pkgver:0:4}/gedit-plugins-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gedit-plugins-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gedit-plugins-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4c904e539fe5da928bf935bcfbd4322d')

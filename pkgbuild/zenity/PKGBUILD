@@ -1,0 +1,27 @@
+pkgname=zenity
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="Display graphical dialog boxes from shell scripts"
+arch=('x86_64')
+url="https://git.gnome.org/browse/zenity/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/zenity/${pkgver:0:4}/zenity-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/zenity-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/zenity-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c905318c3ca76172d53829ed2471ac53')

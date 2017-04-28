@@ -1,0 +1,25 @@
+pkgname=rest
+pkgver=0.8.0
+pkgrel=1
+pkgdesc="Helper library for RESTful services"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Librest"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/rest/${pkgver:0:3}/rest-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/rest-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/rest-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('07ae736561aab03ee9bdd451445926ba')

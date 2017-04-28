@@ -1,0 +1,27 @@
+pkgname=libwnck
+pkgver=3.20.1
+pkgrel=1
+pkgdesc="Library to manage X windows and workspaces (via pagers, tasklists, etc.)"
+arch=('x86_64')
+url="https://git.gnome.org/browse/libwnck/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/libwnck/${pkgver:0:4}/libwnck-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libwnck-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libwnck-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('487938d65d4bfae1f2501052b1bd7492')

@@ -1,0 +1,27 @@
+pkgname=dleyna-connector-dbus
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Provides a D-Bus API for the dLeyna services"
+arch=('x86_64')
+url="https://01.org/dleyna"
+license=('LGPL2.1')
+#depends=()
+source=("https://01.org/sites/default/files/downloads/dleyna/dleyna-connector-dbus-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/dleyna-connector-dbus-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dleyna-connector-dbus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('04c2425239d092f4da457c061be7aa81')

@@ -1,0 +1,27 @@
+pkgname=dleyna-renderer
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="Library to discover and manipulate Digital Media Renderers"
+arch=('x86_64')
+url="https://01.org/dleyna"
+license=('LGPL2.1')
+#depends=()
+source=("https://01.org/sites/default/files/downloads/dleyna/dleyna-renderer-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/dleyna-renderer-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dleyna-renderer-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5a7dc061fa26c3f3b34210fa0cef5d56')

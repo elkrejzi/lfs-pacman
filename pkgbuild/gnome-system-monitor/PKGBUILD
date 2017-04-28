@@ -1,0 +1,28 @@
+pkgname=gnome-system-monitor
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="View current processes and monitor system state"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/SystemMonitor"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-system-monitor/${pkgver:0:4}/gnome-system-monitor-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-system-monitor-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-systemd
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-system-monitor-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('14d6bc9d8b4978f2123f82c40ad6445f')

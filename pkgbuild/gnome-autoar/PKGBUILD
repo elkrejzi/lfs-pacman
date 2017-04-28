@@ -1,0 +1,25 @@
+pkgname=gnome-autoar
+pkgver=0.2.2
+pkgrel=1
+pkgdesc="Automatic archives creating and extracting library"
+arch=('x86_64')
+url="https://wiki.gnome.org/TingweiLan/GSoC2013Final"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-autoar/${pkgver:0:3}/gnome-autoar-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-autoar-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-autoar-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('90b4980c96614bcc376af44717deef99')

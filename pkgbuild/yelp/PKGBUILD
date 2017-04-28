@@ -1,0 +1,27 @@
+pkgname=yelp
+pkgver=3.22.0
+pkgrel=1
+pkgdesc="Get help with GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Yelp"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/yelp/${pkgver:0:4}/yelp-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/yelp-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/yelp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2195842c812b4bf3d9903e4e41cb5dd1')

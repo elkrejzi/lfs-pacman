@@ -1,0 +1,40 @@
+pkgname=gdm
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Display manager and login screen"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GDM"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://download.gnome.org/sources/gdm/${pkgver:0:4}/gdm-${pkgver}.tar.xz"
+	"gdm.sysusers")
+
+build() {
+	cd "${srcdir}/gdm-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile \
+		--enable-gdm-xsession \
+		--with-default-pam-config=lfs \
+		--without-plymouth
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gdm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	chown -R 21:21 "${pkgdir}/var/lib/gdm"
+
+	rm -rf "${pkgdir}"/var/{cache,log,run}
+
+	install -v -Dm644 "${srcdir}/gdm.sysusers" "${pkgdir}/usr/lib/sysusers.d/gdm.conf"
+}
+
+md5sums=('05b53688c3ad8b9ffd6047d271262e3a'
+         'aaf276e44a4eb74d125f5def22001441')

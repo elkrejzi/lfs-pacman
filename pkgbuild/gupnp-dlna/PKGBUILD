@@ -1,0 +1,27 @@
+pkgname=gupnp-dlna
+pkgver=0.10.5
+pkgrel=1
+pkgdesc="Library to ease DLNA-related bits for applications using GUPnP"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GUPnP"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gupnp-dlna/${pkgver:0:4}/gupnp-dlna-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gupnp-dlna-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gupnp-dlna-${pkgver}"
+
+	make -j1 install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2d0dc1e4189d0243ac3838ece1e8fea0')

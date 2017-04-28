@@ -1,0 +1,25 @@
+pkgname=atkmm
+pkgver=2.24.2
+pkgrel=1
+pkgdesc="C++ bindings for ATK"
+arch=('x86_64')
+url="http://www.gtkmm.org/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/atkmm/${pkgver:0:4}/atkmm-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/atkmm-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/atkmm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d53b60b0f1be597e86070954a49cf0c3')

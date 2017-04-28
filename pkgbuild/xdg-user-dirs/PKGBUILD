@@ -1,0 +1,25 @@
+pkgname=xdg-user-dirs
+pkgver=0.15
+pkgrel=1
+pkgdesc="Manage user directories like ~/Desktop and ~/Music"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/xdg-user-dirs/"
+license=('GPL')
+#depends=()
+source=("https://user-dirs.freedesktop.org/releases/xdg-user-dirs-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/xdg-user-dirs-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xdg-user-dirs-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f5aaf5686ad7d8809a664bfb4566a54d')

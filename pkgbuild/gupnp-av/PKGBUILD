@@ -1,0 +1,27 @@
+pkgname=gupnp-av
+pkgver=0.12.10
+pkgrel=1
+pkgdesc="Library to ease handling and implementation of UPnP A/V profiles"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GUPnP"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gupnp-av/${pkgver:0:4}/gupnp-av-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gupnp-av-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gupnp-av-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('215f626508d76b767f5da7c9b92e87d8')

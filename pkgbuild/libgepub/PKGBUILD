@@ -1,0 +1,25 @@
+pkgname=libgepub
+pkgver=0.4
+pkgrel=1
+pkgdesc="Simple library to read epub files using glib"
+arch=('x86_64')
+url="https://git.gnome.org/browse/libgepub/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/libgepub/${pkgver}/libgepub-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgepub-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgepub-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('431a1be6408825a6a7df5eb5f2362791')

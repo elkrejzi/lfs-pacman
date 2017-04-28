@@ -1,0 +1,25 @@
+pkgname=gnome-contacts
+pkgver=3.22.1
+pkgrel=1
+pkgdesc="Contacts Manager for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Contacts"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-contacts/${pkgver:0:4}/gnome-contacts-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-contacts-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-contacts-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6a2b5adcaab4274feb45c94be8123c88')

@@ -1,0 +1,25 @@
+pkgname=uhttpmock
+pkgver=0.5.1
+pkgrel=1
+pkgdesc="HTTP web service mocking project for projects which use libsoup"
+arch=('x86_64')
+url="https://gitlab.com/uhttpmock/uhttpmock"
+license=('LGPL2.1')
+#depends=()
+source=("http://tecnocode.co.uk/downloads/uhttpmock/uhttpmock-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/uhttpmock-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/uhttpmock-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('3c566039f7b338d1f923b707a31e12a3')

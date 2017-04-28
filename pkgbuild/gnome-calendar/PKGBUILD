@@ -1,0 +1,25 @@
+pkgname=gnome-calendar
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Calendar"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-calendar/${pkgver:0:4}/gnome-calendar-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-calendar-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-calendar-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0b9f861c9b283949646486128cfff827')

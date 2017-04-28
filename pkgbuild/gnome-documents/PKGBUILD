@@ -1,0 +1,27 @@
+pkgname=gnome-documents
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="A document manager application for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Documents"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-documents/${pkgver:0:4}/gnome-documents-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-documents-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-documents-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a94d3be7f4092298f91fb24809ec5bf6')

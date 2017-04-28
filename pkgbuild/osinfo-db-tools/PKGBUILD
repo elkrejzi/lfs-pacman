@@ -1,0 +1,25 @@
+pkgname=osinfo-db-tools
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Tools for managing the osinfo database"
+arch=('x86_64')
+url="https://libosinfo.org/"
+license=('GPL')
+#depends=()
+source=("https://releases.pagure.org/libosinfo/osinfo-db-tools-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/osinfo-db-tools-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/osinfo-db-tools-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5b346d7e361a7f510aa62da923cbdd8b')

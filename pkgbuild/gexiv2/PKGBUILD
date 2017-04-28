@@ -1,0 +1,27 @@
+pkgname=gexiv2
+pkgver=0.10.5
+pkgrel=1
+pkgdesc="GObject-based wrapper around the Exiv2 library"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/gexiv2"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/gexiv2/${pkgver:0:4}/gexiv2-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gexiv2-${pkgver}"
+
+	sed -i "s:-Wl,-lstdc++::g" Makefile.in
+
+	./configure --prefix=/usr --enable-introspection
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gexiv2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('ee99e45cfc72db3041e7eb83f1c64372')

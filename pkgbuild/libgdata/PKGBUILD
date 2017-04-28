@@ -1,0 +1,25 @@
+pkgname=libgdata
+pkgver=0.17.8
+pkgrel=1
+pkgdesc="GLib-based library for accessing online service APIs using the GData protocol"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/libgdata"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/libgdata/${pkgver:0:4}/libgdata-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgdata-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgdata-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7a67dde280078bf12de3f98bd21c4931')

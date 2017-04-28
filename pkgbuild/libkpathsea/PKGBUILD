@@ -1,0 +1,36 @@
+pkgname=libkpathsea
+pkgver=20160523
+pkgrel=1
+pkgdesc="Path search library for TeX"
+arch=('x86_64')
+url="http://tug.org/texlive/"
+license=('LGPL2.1')
+#depends=()
+source=("ftp://tug.org/texlive/historic/2016/texlive-${pkgver}b-source.tar.xz")
+
+prepare() {
+	cd "${srcdir}/texlive-${pkgver}-source/texk/kpathsea"
+
+	sed -i "s@TEXMFROOT = \$SELFAUTOPARENT@TEXMFROOT = /usr/share@g" texmf.cnf
+	sed -i "s@TEXMFSYSVAR = \$TEXMFROOT/texmf-var@TEXMFSYSVAR = /var/lib/texmf@g" texmf.cnf
+	sed -i "s@TEXMFSYSCONFIG = \$TEXMFROOT/texmf-config@TEXMFSYSCONFIG = /etc/texmf@g" texmf.cnf
+	sed -i "s@TEXMFHOME = ~/texmf@TEXMFHOME = ~/.texmf@g" texmf.cnf
+}
+
+build() {
+	cd "${srcdir}/texlive-${pkgver}-source/texk/kpathsea"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/texlive-${pkgver}-source/texk/kpathsea"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('45e6b7ed13c0829811048c5fc3665694')

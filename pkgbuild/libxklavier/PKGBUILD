@@ -1,0 +1,25 @@
+pkgname=libxklavier
+pkgver=5.4
+pkgrel=1
+pkgdesc="High-level API for X Keyboard Extension"
+arch=('x86_64')
+url="http://gswitchit.sourceforge.net"
+license=('LGPL')
+#depends=()
+source=("https://people.freedesktop.org/~svu/libxklavier-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libxklavier-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxklavier-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('13af74dcb6011ecedf1e3ed122bd31fa')

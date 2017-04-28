@@ -1,0 +1,25 @@
+pkgname=spice
+pkgver=0.12.8
+pkgrel=1
+pkgdesc="SPICE client and server"
+arch=('x86_64')
+url="https://www.spice-space.org/"
+license=('LGPL2.1')
+#depends=()
+source=("https://www.spice-space.org/download/releases/spice-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/spice-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/spice-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('376853d11b9921aa34a06c4dbef81874')

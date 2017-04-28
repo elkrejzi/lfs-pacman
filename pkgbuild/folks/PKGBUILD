@@ -1,0 +1,27 @@
+pkgname=folks
+pkgver=0.11.3
+pkgrel=1
+pkgdesc="Library to aggregates people into metacontacts"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Folks"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/folks/${pkgver:0:4}/folks-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/folks-${pkgver}"
+
+	./configure --prefix=/usr \
+		--disable-schemas-compile \
+		--disable-fatal-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/folks-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1e3a1a78e3f1d5fef6711826ccc5ca8b')

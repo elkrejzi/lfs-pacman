@@ -1,0 +1,25 @@
+pkgname=babl
+pkgver=0.1.24
+pkgrel=1
+pkgdesc="Dynamic, any to any, pixel format conversion library"
+arch=('x86_64')
+url="http://gegl.org/babl/"
+license=('LGPL3')
+#depends=()
+source=("https://download.gimp.org/pub/babl/${pkgver:0:3}/babl-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/babl-${pkgver}"
+
+	./configure --prefix=/usr --disable-docs
+
+	make
+}
+
+package() {
+	cd "${srcdir}/babl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c32245f90a0b59e4714b546308d2ee34')

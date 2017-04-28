@@ -1,0 +1,27 @@
+pkgname=gupnp
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="An object-oriented UPNP framework"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GUPnP"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gupnp/${pkgver:0:3}/gupnp-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gupnp-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gupnp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('afd96fe73856b38aaf1baf7526e08edd')

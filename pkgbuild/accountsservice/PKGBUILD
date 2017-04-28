@@ -1,0 +1,29 @@
+pkgname=accountsservice
+pkgver=0.6.45
+pkgrel=1
+pkgdesc="D-Bus interface for user account query and manipulation"
+arch=('x86_64')
+url="https://www.freedesktop.org/software/accountsservice/"
+license=('GPL3')
+#depends=()
+options=(emptydirs)
+source=("https://www.freedesktop.org/software/accountsservice/accountsservice-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/accountsservice-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-admin-group=adm
+
+	make
+}
+
+package() {
+	cd "${srcdir}/accountsservice-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b4c0a74bb5f8680dda0b7be27b1c02d9')

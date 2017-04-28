@@ -1,0 +1,25 @@
+pkgname=cairomm
+pkgver=1.12.2
+pkgrel=1
+pkgdesc="C++ bindings for Cairo"
+arch=('x86_64')
+url="https://www.cairographics.org/cairomm/"
+license=('LGPL' 'MPL')
+#depends=()
+source=("https://www.cairographics.org/releases/cairomm-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/cairomm-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cairomm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9d2282ea34cf9aaa89208bb4bb911909')

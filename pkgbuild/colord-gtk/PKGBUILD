@@ -1,0 +1,27 @@
+pkgname=colord-gtk
+pkgver=0.1.26
+pkgrel=1
+pkgdesc="Additional GTK support code for colord"
+arch=('x86_64')
+url="https://www.freedesktop.org/software/colord/"
+license=('GPL2')
+#depends=()
+source=("https://www.freedesktop.org/software/colord/releases/colord-gtk-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/colord-gtk-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-vala
+
+	make
+}
+
+package() {
+	cd "${srcdir}/colord-gtk-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('bb9d6f3c037152ad791003375aa6c16c')

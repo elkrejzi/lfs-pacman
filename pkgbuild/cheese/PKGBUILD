@@ -1,0 +1,29 @@
+pkgname=cheese
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="Take photos and videos with your webcam, with fun graphical effects"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Cheese"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/cheese/${pkgver:0:4}/cheese-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/cheese-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-compile-warnings \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cheese-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5f29e62b88fbac4c79c7003a03bcdc74')

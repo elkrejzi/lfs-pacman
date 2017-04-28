@@ -1,0 +1,25 @@
+pkgname=libgrss
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="Glib-based library to manage RSS and Atom feeds"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Libgrss"
+license=('LGPL3')
+#depends=()
+source=("https://download.gnome.org/sources/libgrss/${pkgver:0:3}/libgrss-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgrss-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgrss-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7c0ee46a82dc0e9610183fe9ef8c7c1d')

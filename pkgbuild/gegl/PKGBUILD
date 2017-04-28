@@ -1,0 +1,25 @@
+pkgname=gegl
+pkgver=0.3.14
+pkgrel=1
+pkgdesc="Graph based image processing framework"
+arch=('x86_64')
+url="http://gegl.org/"
+license=('GPL3' 'LGPL3')
+#depends=()
+source=("https://download.gimp.org/pub/gegl/${pkgver:0:3}/gegl-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gegl-${pkgver}"
+
+	./configure --prefix=/usr --disable-docs --disable-introspection
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gegl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0c4fbdc68d9bcebb21898379a438b862')

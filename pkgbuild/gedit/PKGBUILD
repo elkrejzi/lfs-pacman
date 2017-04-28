@@ -1,0 +1,29 @@
+pkgname=gedit
+pkgver=3.22.0
+pkgrel=1
+pkgdesc="GNOME Text Editor"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Gedit"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gedit/${pkgver:0:4}/gedit-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gedit-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile \
+		--disable-updater
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gedit-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2f41105c5a87a5b4e4a82934cf7e01b7')

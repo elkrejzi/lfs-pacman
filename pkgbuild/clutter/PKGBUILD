@@ -1,0 +1,34 @@
+pkgname=clutter
+pkgver=1.26.0
+pkgrel=1
+pkgdesc="A toolkit for creating fast, portable, compelling dynamic UIs"
+arch=('x86_64')
+url="https://blogs.gnome.org/clutter/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/clutter/${pkgver:0:4}/clutter-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/clutter-${pkgver}"
+
+        sed -i "/int main (void)/d" configure
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-egl-backend \
+		--enable-gdk-backend \
+		--enable-wayland-backend \
+		--enable-wayland-compositor \
+		--enable-x11-backend \
+		--enable-evdev-input
+
+	make
+}
+
+package() {
+	cd "${srcdir}/clutter-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b065e9ca53d1f6bc1ec26aeb27338bb7')

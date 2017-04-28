@@ -1,0 +1,28 @@
+pkgname=caribou
+pkgver=0.4.21
+pkgrel=1
+pkgdesc="A text entry and UI navigation application (on-screen keyboard)"
+arch=('x86_64')
+url="http://live.gnome.org/Caribou"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/caribou/${pkgver:0:3}/caribou-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/caribou-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/caribou-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('16b76cd7453b99e2871e8d4da88bf976')

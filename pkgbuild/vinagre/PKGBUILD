@@ -1,0 +1,28 @@
+pkgname=vinagre
+pkgver=3.22.0
+pkgrel=1
+pkgdesc="A VNC server for the GNOME desktop"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Vino"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/vinagre/${pkgver:0:4}/vinagre-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/vinagre-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-compile-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vinagre-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('451554ddf46636105cd5f0330e98d254')

@@ -1,0 +1,27 @@
+pkgname=zeitgeist
+pkgver=1.0
+pkgrel=1
+pkgdesc="Service logging user activities and events"
+arch=('x86_64')
+url="https://launchpad.net/zeitgeist/"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+source=("https://launchpad.net/zeitgeist/${pkgver}/${pkgver}/+download/zeitgeist-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/zeitgeist-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/zeitgeist-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5f894639cce2293c17407c9bd2689031')

@@ -1,0 +1,27 @@
+pkgname=gnome-clocks
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="Clocks applications for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Clocks"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-clocks/${pkgver:0:4}/gnome-clocks-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-clocks-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-clocks-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('4e44dce30074afc621dda14c45e46a97')

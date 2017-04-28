@@ -1,0 +1,34 @@
+pkgname=exempi
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="A library to parse XMP metadata"
+arch=('x86_64')
+url="https://libopenraw.freedesktop.org/wiki/Exempi"
+license=('custom:BSD')
+#depends=()
+source=("https://libopenraw.freedesktop.org/download/exempi-${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/exempi-${pkgver}"
+
+	sed -i "s:tr1/memory:memory:g" XMPFiles/source/PluginHandler/ModuleUtils.h
+	sed -i "s#std::tr1::shared_ptr#std::shared_ptr#g" XMPFiles/source/PluginHandler/PluginManager.h XMPFiles/source/PluginHandler/OS_Utils_Linux.cpp
+}
+
+build() {
+	cd "${srcdir}/exempi-${pkgver}"
+
+	export CXX="${CXX} -std=c++11"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/exempi-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('47ed187dd8c007e0ed4d06165814f559')

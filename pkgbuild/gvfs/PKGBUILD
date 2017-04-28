@@ -1,0 +1,27 @@
+pkgname=gvfs
+pkgver=1.32.1
+pkgrel=1
+pkgdesc="Virtual filesystem implementation for GIO"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/gvfs"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gvfs/${pkgver:0:4}/gvfs-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gvfs-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gvfs-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('cbe766b46f324e17d7abcfb4a89a1684')

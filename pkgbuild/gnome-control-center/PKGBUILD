@@ -1,0 +1,27 @@
+pkgname=gnome-control-center
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="GNOME's main interface to configure various aspects of the desktop"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-control-center/"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-control-center/${pkgver:0:4}/gnome-control-center-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-control-center-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-control-center-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f322b6336af8090ca893de3a2961dba5')

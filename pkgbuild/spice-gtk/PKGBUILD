@@ -1,0 +1,30 @@
+pkgname=spice-gtk
+pkgver=0.33
+pkgrel=1
+pkgdesc="Gtk client and libraries for SPICE remote desktop servers"
+arch=('x86_64')
+url="https://www.spice-space.org"
+license=('LGPL2.1')
+#depends=()
+source=("https://www.spice-space.org/download/gtk/spice-gtk-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/spice-gtk-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-vala \
+		--with-audio=pulse \
+		--with-coroutine=gthread
+
+	make
+}
+
+package() {
+	cd "${srcdir}/spice-gtk-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('19e1b9aa6c59cab776ba5aa633491b7e')

@@ -1,0 +1,27 @@
+pkgname=gnome-weather
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="Access current weather conditions and forecasts"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Weather"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-weather/${pkgver:0:4}/gnome-weather-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-weather-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-weather-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('9f7e4162322a65170f664d8d6065518d')

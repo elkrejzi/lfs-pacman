@@ -1,0 +1,25 @@
+pkgname=gfbgraph
+pkgver=0.2.3
+pkgrel=1
+pkgdesc="GLib/GObject wrapper for the Facebook Graph API"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GFBGraph"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gfbgraph/${pkgver:0:3}/gfbgraph-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gfbgraph-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gfbgraph-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('81f216f637b40dc9b3a7298651305763')

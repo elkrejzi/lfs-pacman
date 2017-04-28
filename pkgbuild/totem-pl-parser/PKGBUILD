@@ -1,0 +1,27 @@
+pkgname=totem-pl-parser
+pkgver=3.10.7
+pkgrel=1
+pkgdesc="Simple GObject-based library to parse and save a host of playlist formats"
+arch=('x86_64')
+url="https://git.gnome.org/browse/totem-pl-parser/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/totem-pl-parser/${pkgver:0:4}/totem-pl-parser-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/totem-pl-parser-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/totem-pl-parser-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('a316c4c82ac64758d7b57e422a07a75e')

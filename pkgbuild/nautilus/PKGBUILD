@@ -1,0 +1,31 @@
+pkgname=nautilus
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Default file manager for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Nautilus"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/nautilus/${pkgver:0:4}/nautilus-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/nautilus-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-packagekit \
+		--disable-schemas-compile \
+		--disable-update-mimedb \
+		--disable-tracker
+
+	make
+}
+
+package() {
+	cd "${srcdir}/nautilus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('ab342340fd2a02546b60f1558c952b15')

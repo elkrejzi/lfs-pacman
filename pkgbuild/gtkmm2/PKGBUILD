@@ -1,0 +1,25 @@
+pkgname=gtkmm2
+pkgver=2.24.5
+pkgrel=1
+pkgdesc="C++ bindings for GTK+ 2"
+arch=('x86_64')
+url="http://www.gtkmm.org/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gtkmm/${pkgver:0:4}/gtkmm-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gtkmm-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtkmm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6c59ae8bbff48fad9132f23af347acf1')

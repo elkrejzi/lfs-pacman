@@ -1,0 +1,25 @@
+pkgname=gnome-shell-extensions
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Extensions for GNOME shell, including classic mode"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-shell-extensions/${pkgver:0:4}/gnome-shell-extensions-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-shell-extensions-${pkgver}"
+
+	./configure --prefix=/usr --enable-extensions=all
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-shell-extensions-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('8d2dc3c29dc670196cfbfe7d63526de5')

@@ -1,0 +1,29 @@
+pkgname=gnome-online-accounts
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="Single sign-on framework for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-online-accounts/${pkgver:0:4}/gnome-online-accounts-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-online-accounts-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-kerberos \
+		--disable-compile-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-online-accounts-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c024b92ad70db1e8ba2553e755f00c43')

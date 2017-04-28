@@ -1,0 +1,29 @@
+pkgname=libpeas
+pkgver=1.20.0
+pkgrel=1
+pkgdesc="A GObject-based plugins engine"
+arch=('x86_64')
+url="http://www.gtk.org/"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/libpeas/${pkgver:0:4}/libpeas-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libpeas-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libpeas-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/bin" "${pkgdir}/usr/lib/peas-demo"
+}
+
+md5sums=('67a698cd64c9d9efc1289f68420883b1')

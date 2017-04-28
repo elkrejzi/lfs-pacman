@@ -1,0 +1,36 @@
+pkgname=libpaper
+pkgver=1.1.24
+pkgrel=1
+pkgdesc="Library for handling paper characteristics"
+arch=('x86_64')
+url="https://packages.debian.org/source/sid/libpaper"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("http://http.debian.net/debian/pool/main/libp/libpaper/libpaper_${pkgver}+nmu5.tar.gz")
+
+prepare() {
+	cd "${srcdir}/libpaper-${pkgver}+nmu5"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/libpaper-${pkgver}+nmu5"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libpaper-${pkgver}+nmu5"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/etc/libpaper.d"
+
+	echo "# Simply write the paper name. See papersize(5) for possible values" > "${pkgdir}/etc/papersize"
+}
+
+md5sums=('38bc55688c0fc5544edaa5a951a45fbd')

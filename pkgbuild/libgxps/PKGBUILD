@@ -1,0 +1,25 @@
+pkgname=libgxps
+pkgver=0.2.5
+pkgrel=1
+pkgdesc="XPS Documents library"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/libgxps"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/libgxps/${pkgver:0:3}/libgxps-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libgxps-${pkgver}"
+
+	./configure --prefix=/usr --disable-compile-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libgxps-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c10e1ef5b2d61c88f4da2bd252a9e239')

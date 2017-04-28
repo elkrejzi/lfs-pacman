@@ -1,0 +1,30 @@
+pkgname=gnome-keyring
+pkgver=3.20.0
+pkgrel=1
+pkgdesc="Stores passwords and encryption keys"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeKeyring"
+license=('GPL' 'LGPL')
+#depends=()
+install=gnome-keyring.install
+source=("https://download.gnome.org/sources/gnome-keyring/${pkgver:0:4}/gnome-keyring-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-keyring-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile \
+		--with-pam-dir=/lib/security
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-keyring-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e09efe8021944dae404736b5a2adb98e')

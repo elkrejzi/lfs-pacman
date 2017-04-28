@@ -1,0 +1,28 @@
+pkgname=vte
+pkgver=0.48.2
+pkgrel=1
+pkgdesc="Virtual Terminal Emulator widget for use with GTK3"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Terminal/VTE"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/vte/${pkgver:0:4}/vte-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/vte-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-introspection
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vte-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('bc0601624af5668df5cd37e3fe1237b2')

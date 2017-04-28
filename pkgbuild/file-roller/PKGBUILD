@@ -1,0 +1,29 @@
+pkgname=file-roller
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Create and modify archives"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/FileRoller"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/file-roller/${pkgver:0:4}/file-roller-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/file-roller-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-packagekit \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/file-roller-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1e6be71792c7a8e4950297e9fdcf33e7')

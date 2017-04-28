@@ -1,0 +1,25 @@
+pkgname=liboauth
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="C library implementing OAuth Core RFC 5849"
+arch=('x86_64')
+url="https://github.com/x42/liboauth"
+license=('MIT')
+#depends=()
+source=("https://downloads.sourceforge.net/liboauth/liboauth-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/liboauth-${pkgver}"
+
+	./configure --prefix=/usr --enable-nss
+
+	make
+}
+
+package() {
+	cd "${srcdir}/liboauth-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('689b46c2b3ab1a39735ac33f714c4f7f')

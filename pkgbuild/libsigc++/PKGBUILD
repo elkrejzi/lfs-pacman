@@ -1,0 +1,25 @@
+pkgname=libsigc++
+pkgver=2.10.0
+pkgrel=1
+pkgdesc="Library implementing full callback system for use in widget libraries"
+arch=('x86_64')
+url="http://libsigc.sourceforge.net/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/libsigc++/${pkgver:0:4}/libsigc++-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libsigc++-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libsigc++-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('70bcbde2c900e4925d6ef4bf50954195')

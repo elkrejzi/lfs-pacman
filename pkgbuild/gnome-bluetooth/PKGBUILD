@@ -1,0 +1,30 @@
+pkgname=gnome-bluetooth
+pkgver=3.20.1
+pkgrel=1
+pkgdesc="The GNOME Bluetooth Subsystem"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeBluetooth"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-bluetooth/${pkgver:0:4}/gnome-bluetooth-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-bluetooth-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-desktop-update \
+		--disable-icon-update \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-bluetooth-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0768931f17eaba8b05eddacf17204f60')

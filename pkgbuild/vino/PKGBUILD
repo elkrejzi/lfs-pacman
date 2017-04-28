@@ -1,0 +1,28 @@
+pkgname=vino
+pkgver=3.22.0
+pkgrel=1
+pkgdesc="A VNC Client for the GNOME desktop"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Vinagre"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/vino/${pkgver:0:4}/vino-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/vino-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-compile-warnings
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vino-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7305feaa5cc9acb788d7a13389922012')

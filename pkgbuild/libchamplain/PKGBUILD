@@ -1,0 +1,25 @@
+pkgname=libchamplain
+pkgver=0.12.15
+pkgrel=1
+pkgdesc="A map widget"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/libchamplain"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/libchamplain/${pkgver:0:4}/libchamplain-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libchamplain-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libchamplain-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0dea22ea7f50e4ab6133e73730e8f18e')

@@ -1,0 +1,24 @@
+pkgname=gnome-online-miners
+pkgver=3.22.0
+pkgrel=1
+pkgdesc="Crawls through your online content"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeOnlineMiners"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-online-miners/${pkgver:0:4}/gnome-online-miners-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-online-miners-${pkgver}"
+
+	./configure --prefix=/usr
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-online-miners-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('5cac03eb769de4dc02f25635f8a32071')

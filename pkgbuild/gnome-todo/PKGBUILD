@@ -1,0 +1,25 @@
+pkgname=gnome-todo
+pkgver=3.24.0.1
+pkgrel=1
+pkgdesc="Task manager for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Todo"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-todo/${pkgver:0:4}/gnome-todo-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-todo-${pkgver}"
+
+	./configure --prefix=/usr --disable-debug
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-todo-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0f9312e4c67e5f23549bd2ebb5512fc2')

@@ -1,0 +1,29 @@
+pkgname=epiphany
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="A GNOME web browser based on the WebKit rendering engine"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Web"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/epiphany/${pkgver:0:4}/epiphany-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/epiphany-${pkgver}"
+
+	sed -i "s#multipart/related;##" data/org.gnome.Epiphany.desktop.in
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/epiphany-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d5471f6f1aaa0818d9bcd9b2c902c458')

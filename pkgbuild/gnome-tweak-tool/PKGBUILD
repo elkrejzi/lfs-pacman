@@ -1,0 +1,25 @@
+pkgname=gnome-tweak-tool
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="Customize advanced GNOME 3 options"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/GnomeTweakTool"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-tweak-tool/${pkgver:0:4}/gnome-tweak-tool-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-tweak-tool-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-tweak-tool-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1a76b6fa741cb80c31821b28e895fa5b')

@@ -1,0 +1,27 @@
+pkgname=gmime
+pkgver=2.6.23
+pkgrel=1
+pkgdesc="Glorious MIME Utility Library"
+arch=('x86_64')
+url="http://spruce.sourceforge.net/gmime/"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gmime/${pkgver:0:3}/gmime-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gmime-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-smime
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gmime-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('247072236d84bd0fbbff299d69bdf333')

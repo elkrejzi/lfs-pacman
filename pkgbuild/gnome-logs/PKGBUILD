@@ -1,0 +1,25 @@
+pkgname=gnome-logs
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="A log viewer for the systemd journal"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Logs"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-logs/${pkgver:0:4}/gnome-logs-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-logs-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-logs-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('c0249380300e64ca8de2329e20007b76')

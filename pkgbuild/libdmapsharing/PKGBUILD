@@ -1,0 +1,25 @@
+pkgname=libdmapsharing
+pkgver=2.9.37
+pkgrel=1
+pkgdesc="A library that implements the DMAP family of protocols"
+arch=('x86_64')
+url="https://www.flyn.org/projects/libdmapsharing/"
+license=('LGPL2.1')
+#depends=()
+source=("https://www.flyn.org/projects/libdmapsharing/libdmapsharing-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libdmapsharing-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdmapsharing-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('80adb0a653980513e216d910824a829a')
