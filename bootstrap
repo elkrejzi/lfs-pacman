@@ -72,8 +72,10 @@ readline
 bzip2
 xz
 pcre
+pcre2
 libsepol
 libselinux
+ed
 sed
 pkg-config
 binutils
@@ -109,6 +111,7 @@ perl
 python2
 python3
 autoconf
+autoconf2.13
 automake
 diffutils
 findutils
@@ -345,7 +348,8 @@ scons
 yasm
 apr
 apr-util
-fuse
+fuse2
+fuse3
 guile
 libevent
 libical
@@ -363,6 +367,7 @@ subversion
 linux-firmware
 libomxil-bellagio
 libva
+libva-utils
 libvdpau
 opencl-headers
 ocl-icd
@@ -466,6 +471,7 @@ talloc
 tdb
 tevent
 ldb
+fftw
 jansson
 libmbim
 libndp
@@ -501,6 +507,7 @@ webrtc-audio-processing
 pulseaudio
 alsa-plugins
 alsa-utils
+beignet
 clinfo
 cmrt
 intel-vaapi-driver
@@ -599,8 +606,12 @@ xapian-core
 doxygen
 udisks
 upower
+firefox
+thunderbird
 bind
-openssh)
+openssh
+rtkit
+smartmontools)
 
 for pkg in "${PKGS[@]}"
 do

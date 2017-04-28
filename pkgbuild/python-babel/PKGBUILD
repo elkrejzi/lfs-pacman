@@ -1,6 +1,6 @@
 pkgbase=python-babel
 pkgname=('python2-babel' 'python3-babel')
-pkgver=2.3.4
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Internationalization utilities"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package_python2-babel() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('afa20bc55b0e991833030129ad498f35')
+md5sums=('90e7a0add19b2036a9b415630a0d9388')

@@ -1,5 +1,5 @@
 pkgname=ghostscript
-pkgver=9.20
+pkgver=9.21
 pkgrel=1
 pkgdesc="An interpreter for the PostScript language"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/bin/*.sh "${pkgdir}/usr/bin/gsx"
 }
 
-md5sums=('93c5987cd3ab341108be1ebbaadc24fe')
+md5sums=('5f213281761d2750fcf27476c404d17f')

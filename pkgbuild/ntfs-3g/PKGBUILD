@@ -1,5 +1,5 @@
 pkgname=ntfs-3g
-pkgver=2016.2.22
+pkgver=2017.3.23
 pkgrel=1
 pkgdesc="NTFS filesystem driver and utilities"
 arch=('x86_64')
@@ -37,5 +37,4 @@ package() {
 
 	rm -rf "${pkgdir}/lib/libntfs-3g.so"
 }
-
-md5sums=('ccbe8672d0f757bd0c975b50aa4c512e')
+md5sums=('d97474ae1954f772c6d2fa386a6f462c')

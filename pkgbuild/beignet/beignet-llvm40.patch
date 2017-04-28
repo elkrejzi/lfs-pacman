@@ -1,0 +1,1709 @@
+--- a/backend/src/backend/gen_program.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/backend/gen_program.cpp	2017-04-28 00:23:00.289091468 +0200
+@@ -24,18 +24,16 @@
+ 
+ #ifdef GBE_COMPILER_AVAILABLE
+ #include "llvm/Config/llvm-config.h"
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 2
+-#include "llvm/LLVMContext.h"
+-#include "llvm/Module.h"
+-#include "llvm/DataLayout.h"
+-#else
+ #include "llvm/IR/LLVMContext.h"
+ #include "llvm/IR/Module.h"
+ #include "llvm/IR/DataLayout.h"
+-#endif  /* LLVM_VERSION_MINOR <= 2 */
+ #include "llvm-c/Linker.h"
+ #include "llvm/Transforms/Utils/Cloning.h"
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++#include "llvm/Bitcode/BitcodeWriter.h"
++#else
+ #include "llvm/Bitcode/ReaderWriter.h"
++#endif /* LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40 */
+ #include "llvm/Support/raw_ostream.h"
+ #include "llvm/ADT/StringRef.h"
+ #include "llvm/Support/MemoryBuffer.h"
+@@ -335,13 +333,13 @@
+     //the first byte stands for binary_type.
+     binary_content.assign(binary+1, size-1);
+     llvm::StringRef llvm_bin_str(binary_content);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     llvm::LLVMContext& c = GBEGetLLVMContext();
+ #else
+     llvm::LLVMContext& c = llvm::getGlobalContext();
+ #endif
+     llvm::SMDiagnostic Err;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+     std::unique_ptr<llvm::MemoryBuffer> memory_buffer = llvm::MemoryBuffer::getMemBuffer(llvm_bin_str, "llvm_bin_str");
+     acquireLLVMContextLock();
+     llvm::Module* module = llvm::parseIR(memory_buffer->getMemBufferRef(), Err, c).release();
+@@ -488,14 +486,14 @@
+     using namespace gbe;
+     char* errMsg;
+     if(((GenProgram*)dst_program)->module == NULL){
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+       ((GenProgram*)dst_program)->module = llvm::CloneModule((llvm::Module*)((GenProgram*)src_program)->module).release();
+ #else
+       ((GenProgram*)dst_program)->module = llvm::CloneModule((llvm::Module*)((GenProgram*)src_program)->module);
+ #endif
+       errSize = 0;
+     }else{
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+       // Src now will be removed automatically. So clone it.
+       llvm::Module* src = llvm::CloneModule((llvm::Module*)((GenProgram*)src_program)->module).release();
+ #else
+@@ -503,9 +501,9 @@
+ #endif
+       llvm::Module* dst = (llvm::Module*)((GenProgram*)dst_program)->module;
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+       if (LLVMLinkModules2(wrap(dst), wrap(src))) {
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+       if (LLVMLinkModules(wrap(dst), wrap(src), LLVMLinkerPreserveSource_Removed, &errMsg)) {
+ #else
+       if (LLVMLinkModules(wrap(dst), wrap(src), LLVMLinkerPreserveSource, &errMsg)) {
+--- a/backend/src/backend/program.cpp	2017-02-14 10:40:26.000000000 +0100
++++ b/backend/src/backend/program.cpp	2017-04-28 00:23:00.292424831 +0200
+@@ -52,34 +52,23 @@
+ #include <mutex>
+ 
+ #ifdef GBE_COMPILER_AVAILABLE
+-/* Not defined for LLVM 3.0 */
+-#if !defined(LLVM_VERSION_MAJOR)
+-#define LLVM_VERSION_MAJOR 3
+-#endif /* !defined(LLVM_VERSION_MAJOR) */
+-
+-/* Not defined for LLVM 3.0 */
+-#if !defined(LLVM_VERSION_MINOR)
+-#define LLVM_VERSION_MINOR 0
+-#endif /* !defined(LLVM_VERSION_MINOR) */
+ 
+ #include <clang/CodeGen/CodeGenAction.h>
+ #include <clang/Frontend/CompilerInstance.h>
+ #include <clang/Frontend/CompilerInvocation.h>
+-#if LLVM_VERSION_MINOR <= 1
+-#include <clang/Frontend/DiagnosticOptions.h>
+-#else
+ #include <clang/Basic/DiagnosticOptions.h>
+-#endif  /* LLVM_VERSION_MINOR <= 1 */
+ #include <clang/Frontend/TextDiagnosticPrinter.h>
+ #include <clang/Basic/TargetInfo.h>
+ #include <clang/Basic/TargetOptions.h>
+ #include <llvm/ADT/IntrusiveRefCntPtr.h>
+-#if LLVM_VERSION_MINOR <= 2
+-#include <llvm/Module.h>
+-#else
+ #include <llvm/IR/Module.h>
+-#endif  /* LLVM_VERSION_MINOR <= 2 */
++
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++#include <llvm/Bitcode/BitcodeWriter.h>
++#include <clang/Lex/PreprocessorOptions.h>
++#else
+ #include <llvm/Bitcode/ReaderWriter.h>
++#endif
+ #include <llvm/Support/raw_ostream.h>
+ #endif
+ 
+@@ -132,7 +121,7 @@
+     llvm::Module * cloned_module = NULL;
+     bool ret = false;
+     if(module){
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+       cloned_module = llvm::CloneModule((llvm::Module*)module).release();
+ #else
+       cloned_module = llvm::CloneModule((llvm::Module*)module);
+@@ -141,7 +130,7 @@
+     bool strictMath = true;
+     if (fast_relaxed_math || !OCL_STRICT_CONFORMANCE)
+       strictMath = false;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     llvm::Module * linked_module = module ? llvm::CloneModule((llvm::Module*)module).release() : NULL;
+     // Src now will be removed automatically. So clone it.
+     if (llvmToGen(*unit, fileName, linked_module, optLevel, strictMath, OCL_PROFILING_LOG, error) == false) {
+@@ -668,7 +657,7 @@
+     // The ParseCommandLineOptions used for mllvm args can not be used with multithread
+     // and GVN now have a 100 inst limit on block scan. Now only pass a bigger limit
+     // for each context only once, this can also fix multithread bug.
+-#if LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+     static bool ifsetllvm = false;
+     if(!ifsetllvm) {
+       args.push_back("-mllvm");
+@@ -686,10 +675,6 @@
+     args.push_back("-disable-llvm-optzns");
+     if(bFastMath)
+       args.push_back("-D __FAST_RELAXED_MATH__=1");
+-#if LLVM_VERSION_MINOR <= 2
+-    args.push_back("-triple");
+-    args.push_back("nvptx");
+-#else
+     args.push_back("-x");
+     args.push_back("cl");
+     args.push_back("-triple");
+@@ -698,7 +683,6 @@
+       args.push_back("-fblocks");
+     } else
+       args.push_back("spir");
+-#endif /* LLVM_VERSION_MINOR <= 2 */
+     args.push_back("stringInput.cl");
+     args.push_back("-ffp-contract=on");
+     if(OCL_DEBUGINFO) args.push_back("-g");
+@@ -716,24 +700,33 @@
+     llvm::IntrusiveRefCntPtr<clang::DiagnosticIDs> DiagID(new clang::DiagnosticIDs());
+     clang::DiagnosticsEngine Diags(DiagID, &*DiagOpts, DiagClient);
+ 
++    llvm::StringRef srcString(source);
+     // Create the compiler invocation
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    auto CI = std::make_shared<clang::CompilerInvocation>();
++    CI->getPreprocessorOpts().addRemappedFile("stringInput.cl",
++#else
+     std::unique_ptr<clang::CompilerInvocation> CI(new clang::CompilerInvocation);
+-    clang::CompilerInvocation::CreateFromArgs(*CI,
+-                                              &args[0],
+-                                              &args[0] + args.size(),
+-                                              Diags);
+-    llvm::StringRef srcString(source);
+     (*CI).getPreprocessorOpts().addRemappedFile("stringInput.cl",
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#endif
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+                 llvm::MemoryBuffer::getMemBuffer(srcString)
+ #else
+                 llvm::MemoryBuffer::getMemBuffer(srcString).release()
+ #endif
+                 );
+ 
++    clang::CompilerInvocation::CreateFromArgs(*CI,
++                                              &args[0],
++                                              &args[0] + args.size(),
++                                              Diags);
+     // Create the compiler instance
+     clang::CompilerInstance Clang;
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    Clang.setInvocation(std::move(CI));
++#else
+     Clang.setInvocation(CI.release());
++#endif
+     // Get ready to report problems
+     Clang.createDiagnostics(DiagClient, false);
+ 
+@@ -777,7 +770,7 @@
+     if (!retVal)
+       return false;
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+     llvm::Module *module = Act->takeModule();
+ #else
+     llvm::Module *module = Act->takeModule().release();
+@@ -786,16 +779,12 @@
+     *out_module = module;
+ 
+ // Dump the LLVM if requested.
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 6)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 36
+     if (!dumpLLVMFileName.empty()) {
+       std::string err;
+       llvm::raw_fd_ostream ostream (dumpLLVMFileName.c_str(),
+                                     err,
+-      #if LLVM_VERSION_MINOR == 3
+-                                    0
+-      #else
+                                     llvm::sys::fs::F_None
+-      #endif
+                                     );
+ 
+       if (err.empty()) {
+@@ -807,11 +796,7 @@
+       std::string err;
+       llvm::raw_fd_ostream ostream (dumpSPIRBinaryName.c_str(),
+                                     err,
+-      #if LLVM_VERSION_MINOR == 3
+-                                    0
+-      #else
+                                     llvm::sys::fs::F_None
+-      #endif
+                                     );
+       if (err.empty())
+         llvm::WriteBitcodeToFile(*out_module, ostream);
+@@ -1151,7 +1136,7 @@
+     //FIXME: if use new allocated context to link two modules there would be context mismatch
+     //for some functions, so we use global context now, need switch to new context later.
+     llvm::Module * out_module;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     llvm::LLVMContext* llvm_ctx = &GBEGetLLVMContext();
+ #else
+     llvm::LLVMContext* llvm_ctx = &llvm::getGlobalContext();
+@@ -1625,7 +1610,7 @@
+     }
+ 
+     ~CallBackInitializer() {
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR > 3)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 34
+       llvm::llvm_shutdown();
+ #endif
+     }
+--- a/backend/src/ir/function.hpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/ir/function.hpp	2017-04-28 00:22:52.269021483 +0200
+@@ -186,7 +186,7 @@
+ 
+ 
+       // only llvm-3.6 or later has kernel_arg_base_type in metadata.
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR <= 5)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+       bool isImage1dT() const {
+         return typeName.compare("image1d_t") == 0;
+       }
+--- a/backend/src/ir/half.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/ir/half.cpp	2017-04-28 00:23:00.292424831 +0200
+@@ -29,7 +29,11 @@
+   {
+     uint64_t v64 = static_cast<uint64_t>(v);
+     llvm::APInt apInt(16, v64, false);
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    return llvm::APFloat(llvm::APFloat::IEEEhalf(), apInt);
++#else
+     return llvm::APFloat(llvm::APFloat::IEEEhalf, apInt);
++#endif
+   }
+ 
+   static uint16_t convAPFloatToU16(const llvm::APFloat& apf)
+@@ -42,14 +46,22 @@
+   half::operator float(void) const {
+     bool loseInfo;
+     llvm::APFloat apf_self = convU16ToAPFloat(this->val);
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    apf_self.convert(llvm::APFloat::IEEEsingle(), llvm::APFloat::rmNearestTiesToEven, &loseInfo);
++#else
+     apf_self.convert(llvm::APFloat::IEEEsingle, llvm::APFloat::rmNearestTiesToEven, &loseInfo);
++#endif
+     return apf_self.convertToFloat();
+   }
+ 
+   half::operator double(void) const {
+     bool loseInfo;
+     llvm::APFloat apf_self = convU16ToAPFloat(this->val);
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    apf_self.convert(llvm::APFloat::IEEEdouble(), llvm::APFloat::rmNearestTiesToEven, &loseInfo);
++#else
+     apf_self.convert(llvm::APFloat::IEEEdouble, llvm::APFloat::rmNearestTiesToEven, &loseInfo);
++#endif
+     return apf_self.convertToDouble();
+   }
+ 
+@@ -70,7 +82,11 @@
+   }
+ 
+   half half::convToHalf(uint16_t u16) {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    llvm::APFloat res(llvm::APFloat::IEEEhalf(), llvm::APInt(16, 0, false));
++#else
+     llvm::APFloat res(llvm::APFloat::IEEEhalf, llvm::APInt(16, 0, false));
++#endif
+     uint64_t u64 = static_cast<uint64_t>(u16);
+     llvm::APInt apInt(16, u64, false);
+     res.convertFromAPInt(apInt, false, llvm::APFloat::rmNearestTiesToEven);
+@@ -78,7 +94,11 @@
+   }
+ 
+   half half::convToHalf(int16_t v16) {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    llvm::APFloat res(llvm::APFloat::IEEEhalf(), llvm::APInt(16, 0, true));
++#else
+     llvm::APFloat res(llvm::APFloat::IEEEhalf, llvm::APInt(16, 0, true));
++#endif
+     uint64_t u64 = static_cast<uint64_t>(v16);
+     llvm::APInt apInt(16, u64, true);
+     res.convertFromAPInt(apInt, true, llvm::APFloat::rmNearestTiesToEven);
+--- a/backend/src/ir/profiling.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/ir/profiling.cpp	2017-04-28 00:22:41.928931153 +0200
+@@ -24,6 +24,7 @@
+ #include <stdlib.h>
+ #include "ir/profiling.hpp"
+ #include "src/cl_device_data.h"
++#include <inttypes.h>
+ 
+ namespace gbe
+ {
+--- a/backend/src/ir/unit.hpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/ir/unit.hpp	2017-04-28 00:22:41.928931153 +0200
+@@ -32,8 +32,6 @@
+ #include "sys/map.hpp"
+ #include <string.h>
+ 
+-#include "llvm/IR/Instructions.h"
+-
+ namespace gbe {
+ namespace ir {
+ 
+@@ -46,7 +44,7 @@
+   public:
+     typedef map<std::string, Function*> FunctionSet;
+     /*! Moved from printf pass */
+-    map<llvm::CallInst*, PrintfSet::PrintfFmt*> printfs;
++    map<void *, PrintfSet::PrintfFmt*> printfs;
+     vector<std::string> blockFuncs;
+     /*! Create an empty unit */
+     Unit(PointerSize pointerSize = POINTER_32_BITS);
+--- a/backend/src/libocl/CMakeLists.txt	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/libocl/CMakeLists.txt	2017-04-28 00:23:00.292424831 +0200
+@@ -211,7 +211,7 @@
+ 	)
+ ENDMACRO(ADD_LL_TO_BC_TARGET)
+ 
+-SET (OCL_LL_MODULES_12 ocl_barrier ocl_clz ocl_ctz)
++SET (OCL_LL_MODULES_12 ocl_barrier ocl_clz ocl_ctz ocl_sampler)
+ FOREACH(f ${OCL_LL_MODULES_12})
+     COPY_THE_LL(${f})
+     ADD_LL_TO_BC_TARGET(${f})
+@@ -255,7 +255,7 @@
+     ADD_CL_TO_BC_TARGET(${f} ${bc_name} "${CLANG_OCL_FLAGS_20}")
+   ENDFOREACH(f)
+ 
+-  SET (OCL_LL_MODULES_20 ocl_barrier_20 ocl_clz_20 ocl_ctz_20 ocl_atomic_20)
++  SET (OCL_LL_MODULES_20 ocl_barrier_20 ocl_clz_20 ocl_ctz_20 ocl_atomic_20 ocl_sampler_20)
+   FOREACH(f ${OCL_LL_MODULES_20})
+     COPY_THE_LL(${f})
+     ADD_LL_TO_BC_TARGET(${f})
+--- a/backend/src/libocl/include/ocl_enqueue.h	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/libocl/include/ocl_enqueue.h	2017-04-28 00:23:00.292424831 +0200
+@@ -38,7 +38,7 @@
+   void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
+   int flags;
+   int reserved;
+-  __global void (*invoke)(void *, ...);
++  __global void* invoke;
+   struct Block_descriptor_1 {
+     unsigned long int reserved;         // NULL
+     unsigned long int size;         // sizeof(struct Block_literal_1)
+@@ -65,10 +65,6 @@
+ OVERLOADABLE int enqueue_kernel(queue_t q, int flag, ndrange_t ndrange,
+                                 uint num_events_in_wait_list, const clk_event_t *event_wait_list,
+                                 clk_event_t *event_ret, void (^block)(void));
+-OVERLOADABLE int enqueue_kernel(queue_t q, int flag, ndrange_t ndrange, __private void *block, uint size0, ...);
+-OVERLOADABLE int enqueue_kernel(queue_t q, int flag, ndrange_t ndrange,
+-                                uint num_events_in_wait_list, const clk_event_t *event_wait_list,
+-                                clk_event_t *event_ret,  __private void *block, uint size0, ...);
+ 
+ queue_t get_default_queue(void);
+ int __gen_enqueue_kernel(queue_t q, int flag, ndrange_t ndrange, void (^block)(void), int size);
+--- a/backend/src/libocl/src/ocl_image.cl	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/libocl/src/ocl_image.cl	2017-04-28 00:23:00.292424831 +0200
+@@ -295,17 +295,18 @@
+ // The work around is to use a LD message instead of normal sample message.
+ ///////////////////////////////////////////////////////////////////////////////
+ 
+-bool __gen_ocl_sampler_need_fix(sampler_t);
+-bool __gen_ocl_sampler_need_rounding_fix(sampler_t);
++bool __gen_ocl_sampler_need_fix(int);
++bool __gen_ocl_sampler_need_rounding_fix(int);
++int __gen_ocl_sampler_to_int(sampler_t);
+ 
+ bool __gen_sampler_need_fix(const sampler_t sampler)
+ {
+-  return __gen_ocl_sampler_need_fix(sampler);
++  return __gen_ocl_sampler_need_fix(__gen_ocl_sampler_to_int(sampler));
+ }
+ 
+ bool __gen_sampler_need_rounding_fix(const sampler_t sampler)
+ {
+-  return __gen_ocl_sampler_need_rounding_fix(sampler);
++  return __gen_ocl_sampler_need_rounding_fix(__gen_ocl_sampler_to_int(sampler));
+ }
+ 
+ INLINE_OVERLOADABLE float __gen_fixup_float_coord(float tmpCoord)
+--- a/backend/src/libocl/src/ocl_sampler_20.ll	1970-01-01 01:00:00.000000000 +0100
++++ b/backend/src/libocl/src/ocl_sampler_20.ll	2017-04-28 00:23:00.295758193 +0200
+@@ -0,0 +1,10 @@
++target datalayout = "e-i64:64-v16:16-v24:32-v32:32-v48:64-v96:128-v192:256-v256:256-v512:512-v1024:1024"
++target triple = "spir64"
++%opencl.sampler_t = type opaque
++
++declare %opencl.sampler_t addrspace(2)*@__gen_ocl_int_to_sampler(i32)
++
++define %opencl.sampler_t addrspace(2)*@__translate_sampler_initializer(i32 %s) {
++  %call = call %opencl.sampler_t addrspace(2)*@__gen_ocl_int_to_sampler(i32 %s)
++  ret %opencl.sampler_t addrspace(2)* %call
++}
+--- a/backend/src/libocl/src/ocl_sampler.ll	1970-01-01 01:00:00.000000000 +0100
++++ b/backend/src/libocl/src/ocl_sampler.ll	2017-04-28 00:23:00.292424831 +0200
+@@ -0,0 +1,10 @@
++target datalayout = "e-p:32:32-i64:64-v16:16-v24:32-v32:32-v48:64-v96:128-v192:256-v256:256-v512:512-v1024:1024"
++target triple = "spir"
++%opencl.sampler_t = type opaque
++
++declare %opencl.sampler_t addrspace(2)*@__gen_ocl_int_to_sampler(i32)
++
++define %opencl.sampler_t addrspace(2)*@__translate_sampler_initializer(i32 %s) {
++  %call = call %opencl.sampler_t addrspace(2)*@__gen_ocl_int_to_sampler(i32 %s)
++  ret %opencl.sampler_t addrspace(2)* %call
++}
+--- a/backend/src/llvm/ExpandLargeIntegers.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/ExpandLargeIntegers.cpp	2017-04-28 00:22:52.269021483 +0200
+@@ -93,7 +93,7 @@
+ 
+ using namespace llvm;
+ 
+-#if LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+ #define DEBUG_TYPE "nacl-expand-ints"
+ #endif
+ 
+@@ -766,7 +766,7 @@
+ bool ExpandLargeIntegers::runOnFunction(Function &F) {
+   // Don't support changing the function arguments. Illegal function arguments
+   // should not be generated by clang.
+-#if LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+   for (const Argument &Arg : F.args())
+ #else
+   for (const Argument &Arg : F.getArgumentList())
+@@ -789,7 +789,7 @@
+       // Only attempt to convert an instruction if its result or any of its
+       // operands are illegal.
+       bool ShouldConvert = shouldConvert(&I);
+-#if LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+       for (Value *Op : I.operands())
+         ShouldConvert |= shouldConvert(Op);
+ #else
+--- a/backend/src/llvm/ExpandUtils.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/ExpandUtils.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -101,7 +101,11 @@
+   Function *RecreateFunction(Function *Func, FunctionType *NewType) {
+     Function *NewFunc = Function::Create(NewType, Func->getLinkage());
+     NewFunc->copyAttributesFrom(Func);
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    Func->getParent()->getFunctionList().insert(Func->getIterator(), NewFunc);
++#else
+     Func->getParent()->getFunctionList().insert(ilist_iterator<Function>(Func), NewFunc);
++#endif
+     NewFunc->takeName(Func);
+     NewFunc->getBasicBlockList().splice(NewFunc->begin(),
+                                         Func->getBasicBlockList());
+--- a/backend/src/llvm/llvm_barrier_nodup.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_barrier_nodup.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -48,7 +48,12 @@
+ 
+       }
+ 
+-      virtual const char *getPassName() const {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      virtual StringRef getPassName() const
++#else
++      virtual const char *getPassName() const
++#endif
++      {
+         return "SPIR backend: set barrier no duplicate attr";
+       }
+ 
+--- a/backend/src/llvm/llvm_bitcode_link.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_bitcode_link.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -60,7 +60,7 @@
+       return NULL;
+     }
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+     oclLib = getLazyIRFileModule(FilePath, Err, ctx);
+ #else
+     oclLib = getLazyIRFileModule(FilePath, Err, ctx).release();
+@@ -117,17 +117,28 @@
+ 
+         std::string ErrInfo;// = "Not Materializable";
+         if (!fromSrc && newMF->isMaterializable()) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
+-          if (newMF->Materialize(&ErrInfo)) {
+-            printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), ErrInfo.c_str());
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++          if (llvm::Error EC = newMF->materialize()) {
++            std::string Msg;
++            handleAllErrors(std::move(EC), [&](ErrorInfoBase &EIB) {
++              Msg = EIB.message();
++            });
++            printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), Msg.c_str());
+             return false;
+           }
+-#else
++          Gvs.push_back((GlobalValue *)newMF);
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+           if (std::error_code EC = newMF->materialize()) {
+             printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), EC.message().c_str());
+             return false;
+           }
+           Gvs.push_back((GlobalValue *)newMF);
++#else
++         if (newMF->Materialize(&ErrInfo)) {
++            printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), ErrInfo.c_str());
++            return false;
++          }
++
+ #endif
+         }
+         if (!materializedFuncCall(src, lib, *newMF, MFS, Gvs))
+@@ -250,21 +261,30 @@
+       }
+       std::string ErrInfo;// = "Not Materializable";
+       if (newMF->isMaterializable()) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
+-        if (newMF->Materialize(&ErrInfo)) {
+-          printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), ErrInfo.c_str());
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++        if (llvm::Error EC = newMF->materialize()) {
++          std::string Msg;
++          handleAllErrors(std::move(EC), [&](ErrorInfoBase &EIB) {
++            Msg = EIB.message();
++          });
++          printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), Msg.c_str());
+           delete clonedLib;
+           return NULL;
+         }
+-      }
+-#else
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+         if (std::error_code EC = newMF->materialize()) {
+           printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), EC.message().c_str());
+           delete clonedLib;
+           return NULL;
+         }
+-      }
++#else
++        if (newMF->Materialize(&ErrInfo)) {
++          printf("Can not materialize the function: %s, because %s\n", fnName.c_str(), ErrInfo.c_str());
++          delete clonedLib;
++          return NULL;
++        }
+ #endif
++      }
+ 
+       if (!materializedFuncCall(*mod, *clonedLib, *newMF, materializedFuncs, Gvs)) {
+         delete clonedLib;
+@@ -287,12 +307,17 @@
+    * pass to extract the functions and values in Gvs from the library module.
+    * After extract what we need and remove what we do not need, we use 
+    * materializeAll to mark the module as materialized. */
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+     /* Get all GlobalValue from module. */
+     Module::GlobalListType &GVlist = clonedLib->getGlobalList();
+     for(Module::global_iterator GVitr = GVlist.begin();GVitr != GVlist.end();++GVitr) {
+       GlobalValue * GV = &*GVitr;
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      ExitOnError ExitOnErr("Can not materialize the clonedLib: ");
++      ExitOnErr(clonedLib->materialize(GV));
++#else
+       clonedLib->materialize(GV);
++#endif
+       Gvs.push_back(GV);
+     }
+     llvm::legacy::PassManager Extract;
+@@ -300,8 +325,13 @@
+     Extract.add(createGVExtractionPass(Gvs, false));
+     Extract.run(*clonedLib);
+     /* Mark the library module as materialized for later use. */
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    ExitOnError ExitOnErr("Can not materialize the clonedLib: ");
++    ExitOnErr(clonedLib->materializeAll());
++#else
+     clonedLib->materializeAll();
+ #endif
++#endif
+ 
+     /* the SPIR binary datalayout maybe different with beignet's bitcode */
+     if(clonedLib->getDataLayout() != mod->getDataLayout())
+@@ -309,23 +339,23 @@
+ 
+     /* We use beignet's bitcode as dst because it will have a lot of
+        lazy functions which will not be loaded. */
+-    char* errorMsg;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     if(LLVMLinkModules2(wrap(clonedLib), wrap(mod))) {
+ #else
++    char* errorMsg;
+     if(LLVMLinkModules(wrap(clonedLib), wrap(mod), LLVMLinkerDestroySource, &errorMsg)) {
++      printf("Fatal Error: link the bitcode error:\n%s\n", errorMsg);
+ #endif
+       delete clonedLib;
+-      printf("Fatal Error: link the bitcode error:\n%s\n", errorMsg);
+       return NULL;
+     }
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     llvm::legacy::PassManager passes;
+ #else
+     llvm::PassManager passes;
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     auto PreserveKernel = [=](const GlobalValue &GV) {
+       for(size_t i = 0;i < kernels.size(); ++i)
+         if(strcmp(GV.getName().data(), kernels[i]))
+--- a/backend/src/llvm/llvm_device_enqueue.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_device_enqueue.cpp	2017-04-28 00:22:52.269021483 +0200
+@@ -62,7 +62,7 @@
+       for (Value::use_iterator iter = v->use_begin(); iter != v->use_end(); ++iter) {
+         // After LLVM 3.5, use_iterator points to 'Use' instead of 'User',
+         // which is more straightforward.
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+         User *theUser = *iter;
+ #else
+         User *theUser = iter->getUser();
+@@ -84,7 +84,7 @@
+ 
+   Function* setFunctionAsKernel(Module *mod, Function *Fn)
+   {
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 9)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     LLVMContext &Context = mod->getContext();
+     Type *intTy = IntegerType::get(mod->getContext(), 32);
+     SmallVector<llvm::Metadata *, 5> kernelMDArgs;
+@@ -210,7 +210,7 @@
+           }
+ 
+           for (Value::use_iterator iter = bt->use_begin(); iter != bt->use_end(); ++iter) {
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+             User *theUser = *iter;
+ #else
+             User *theUser = iter->getUser();
+@@ -298,7 +298,7 @@
+             if(AllocaInst *ai = dyn_cast<AllocaInst>(ld->getPointerOperand())) {
+               Value *v = NULL;
+               for (Value::use_iterator iter = ai->use_begin(); iter != ai->use_end(); ++iter) {
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+                 User *theUser = *iter;
+ #else
+                 User *theUser = iter->getUser();
+@@ -347,7 +347,7 @@
+             if(ld) {
+               Value *block = ld->getPointerOperand();
+               for (Value::use_iterator iter = block->use_begin(); iter != block->use_end(); ++iter) {
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+                 User *theUser = *iter;
+ #else
+                 User *theUser = iter->getUser();
+--- a/backend/src/llvm/llvm_gen_backend.cpp	2017-02-14 10:38:44.000000000 +0100
++++ b/backend/src/llvm/llvm_gen_backend.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -95,9 +95,9 @@
+ #define LLVM_VERSION_MINOR 0
+ #endif /* !defined(LLVM_VERSION_MINOR) */
+ 
+-#if (LLVM_VERSION_MAJOR != 3) || (LLVM_VERSION_MINOR < 3)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 33
+ #error "Only LLVM 3.3 and newer are supported"
+-#endif /* (LLVM_VERSION_MAJOR != 3) || (LLVM_VERSION_MINOR > 4) */
++#endif
+ 
+ using namespace llvm;
+ 
+@@ -357,6 +357,15 @@
+       GBE_ASSERT(! (isa<Constant>(value) && !isa<GlobalValue>(value)));
+       Type *type = value->getType();
+       auto typeID = type->getTypeID();
++      if (typeID == Type::PointerTyID)
++      {
++        Type *eltTy = dyn_cast<PointerType>(type)->getElementType();
++        if (eltTy->isStructTy()) {
++          StructType *strTy = dyn_cast<StructType>(eltTy);
++          if (strTy->getName().data() && strstr(strTy->getName().data(), "sampler"))
++            type = Type::getInt32Ty(value->getContext());
++        }
++      }
+       switch (typeID) {
+         case Type::IntegerTyID:
+         case Type::FloatTyID:
+@@ -565,7 +574,7 @@
+         has_errors(false),
+         legacyMode(true)
+     {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+       initializeLoopInfoWrapperPassPass(*PassRegistry::getPassRegistry());
+ #else
+       initializeLoopInfoPass(*PassRegistry::getPassRegistry());
+@@ -573,10 +582,14 @@
+       pass = PASS_EMIT_REGISTERS;
+     }
+ 
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    virtual llvm::StringRef getPassName() const { return "Gen Back-End"; }
++#else
+     virtual const char *getPassName() const { return "Gen Back-End"; }
++#endif
+ 
+     void getAnalysisUsage(AnalysisUsage &AU) const {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+       AU.addRequired<LoopInfoWrapperPass>();
+ #else
+       AU.addRequired<LoopInfo>();
+@@ -611,7 +624,7 @@
+       if (legacyMode)
+         analyzePointerOrigin(F);
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+       LI = &getAnalysis<LoopInfoWrapperPass>().getLoopInfo();
+ #else
+       LI = &getAnalysis<LoopInfo>();
+@@ -745,9 +758,6 @@
+     void visitVAArgInst(VAArgInst &I) {NOT_SUPPORTED;}
+     void visitSwitchInst(SwitchInst &I) {NOT_SUPPORTED;}
+     void visitInvokeInst(InvokeInst &I) {NOT_SUPPORTED;}
+-#if LLVM_VERSION_MINOR == 0
+-    void visitUnwindInst(UnwindInst &I) {NOT_SUPPORTED;}
+-#endif /* __LLVM_30__ */
+     void visitResumeInst(ResumeInst &I) {NOT_SUPPORTED;}
+     void visitInlineAsm(CallInst &I) {NOT_SUPPORTED;}
+     void visitIndirectBrInst(IndirectBrInst &I) {NOT_SUPPORTED;}
+@@ -766,7 +776,7 @@
+     void emitUnalignedDQLoadStore(ir::Register ptr, Value *llvmValues, ir::AddressSpace addrSpace, ir::Register bti, bool isLoad, bool dwAligned, bool fixedBTI);
+     void visitInstruction(Instruction &I) {NOT_SUPPORTED;}
+     ir::PrintfSet::PrintfFmt* getPrintfInfo(CallInst* inst) {
+-      if (unit.printfs.find(inst) == unit.printfs.end())
++      if (unit.printfs.find((void *)inst) == unit.printfs.end())
+         return NULL;
+       return unit.printfs[inst];
+     }
+@@ -837,7 +847,7 @@
+       for (Value::use_iterator iter = work->use_begin(); iter != work->use_end(); ++iter) {
+       // After LLVM 3.5, use_iterator points to 'Use' instead of 'User',
+       // which is more straightforward.
+-  #if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++  #if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+         User *theUser = *iter;
+   #else
+         User *theUser = iter->getUser();
+@@ -1091,7 +1101,7 @@
+             if (predBB->getTerminator())
+               Builder2.SetInsertPoint(predBB->getTerminator());
+ 
+-#if (LLVM_VERSION_MAJOR== 3 && LLVM_VERSION_MINOR < 6)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 36
+   // llvm 3.5 and older version don't have CreateBitOrPointerCast() define
+             Type *srcTy = base->getType();
+             Type *dstTy = ptr->getType();
+@@ -1250,7 +1260,7 @@
+      uint32_t ops = clKernels->getNumOperands();
+       for(uint32_t x = 0; x < ops; x++) {
+         MDNode* node = clKernels->getOperand(x);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+         Value * op = node->getOperand(0);
+ #else
+         auto *V = cast<ValueAsMetadata>(node->getOperand(0));
+@@ -1274,7 +1284,7 @@
+     MDNode *typeNameNode = NULL;
+     MDNode *typeBaseNameNode = NULL;
+     MDNode *typeQualNode = NULL;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     typeNameNode = F.getMetadata("kernel_arg_type");
+     typeBaseNameNode = F.getMetadata("kernel_arg_base_type");
+     typeQualNode = F.getMetadata("kernel_arg_type_qual");
+@@ -1300,7 +1310,7 @@
+     ir::FunctionArgument::InfoFromLLVM llvmInfo;
+     for (Function::arg_iterator I = F.arg_begin(), E = F.arg_end(); I != E; ++I, argID++) {
+       unsigned opID = argID;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR < 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 39
+       opID += 1;
+ #endif
+ 
+@@ -1342,7 +1352,7 @@
+       for (Value::use_iterator iter = work->use_begin(); iter != work->use_end(); ++iter) {
+       // After LLVM 3.5, use_iterator points to 'Use' instead of 'User',
+       // which is more straightforward.
+-  #if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++  #if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+         User *theUser = *iter;
+   #else
+         User *theUser = iter->getUser();
+@@ -1749,7 +1759,6 @@
+   {
+     GBE_ASSERT(dyn_cast<ConstantExpr>(CPV) == NULL);
+ 
+-#if LLVM_VERSION_MINOR > 0
+     ConstantDataSequential *seq = dyn_cast<ConstantDataSequential>(CPV);
+ 
+     if (seq) {
+@@ -1772,7 +1781,6 @@
+         GBE_ASSERTM(0, "Const data array never be half float\n");
+       }
+     } else
+-#endif /* LLVM_VERSION_MINOR > 0 */
+ 
+     if (dyn_cast<ConstantAggregateZero>(CPV)) {
+       Type* Ty = CPV->getType();
+@@ -2124,7 +2132,7 @@
+ 
+     std::string functionAttributes;
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     /* LLVM 3.9 change kernel arg info as function metadata */
+     addrSpaceNode = F.getMetadata("kernel_arg_addr_space");
+     accessQualNode = F.getMetadata("kernel_arg_access_qual");
+@@ -2226,7 +2234,7 @@
+ 
+       if (attrName->getString() == "reqd_work_group_size") {
+         GBE_ASSERT(attrNode->getNumOperands() == 4);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+         ConstantInt *x = dyn_cast<ConstantInt>(attrNode->getOperand(1));
+         ConstantInt *y = dyn_cast<ConstantInt>(attrNode->getOperand(2));
+         ConstantInt *z = dyn_cast<ConstantInt>(attrNode->getOperand(3));
+@@ -2268,13 +2276,13 @@
+       } else if (attrName->getString() == "vec_type_hint") {
+         GBE_ASSERT(attrNode->getNumOperands() == 3);
+         functionAttributes += attrName->getString();
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+         Value* V = attrNode->getOperand(1);
+ #else
+         auto *Op1 = cast<ValueAsMetadata>(attrNode->getOperand(1));
+         Value *V = Op1 ? Op1->getValue() : NULL;
+ #endif
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+         ConstantInt *sign = dyn_cast<ConstantInt>(attrNode->getOperand(2));
+ #else
+         ConstantInt *sign = mdconst::extract<ConstantInt>(attrNode->getOperand(2));
+@@ -2303,7 +2311,7 @@
+         functionAttributes += " ";
+       } else if (attrName->getString() == "work_group_size_hint") {
+         GBE_ASSERT(attrNode->getNumOperands() == 4);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+         ConstantInt *x = dyn_cast<ConstantInt>(attrNode->getOperand(1));
+         ConstantInt *y = dyn_cast<ConstantInt>(attrNode->getOperand(2));
+         ConstantInt *z = dyn_cast<ConstantInt>(attrNode->getOperand(3));
+@@ -2343,18 +2351,15 @@
+       Function::arg_iterator I = F.arg_begin(), E = F.arg_end();
+ 
+       // Insert a new register for each function argument
+-#if LLVM_VERSION_MINOR <= 1
+-      const AttrListPtr &PAL = F.getAttributes();
+-#endif /* LLVM_VERSION_MINOR <= 1 */
+       for (; I != E; ++I, ++argID) {
+         uint32_t opID = argID;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR < 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 39
+         opID += 1;
+ #endif
+         const std::string &argName = I->getName().str();
+         Type *type = I->getType();
+         if(addrSpaceNode) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+           llvmInfo.addrSpace = (cast<ConstantInt>(addrSpaceNode->getOperand(opID)))->getZExtValue();
+ #else
+           llvmInfo.addrSpace = (mdconst::extract<ConstantInt>(addrSpaceNode->getOperand(opID)))->getZExtValue();
+@@ -2417,10 +2422,11 @@
+         }
+ 
+         if (llvmInfo.isSamplerType()) {
+-          ctx.input(argName, ir::FunctionArgument::SAMPLER, reg, llvmInfo, getTypeByteSize(unit, type), getAlignmentByte(unit, type), 0);
++          ctx.input(argName, ir::FunctionArgument::SAMPLER, reg, llvmInfo, 4, 4, 0);
+           (void)ctx.getFunction().getSamplerSet()->append(reg, &ctx);
+           continue;
+         }
++
+         if(llvmInfo.isPipeType()) {
+           llvmInfo.typeSize = getTypeSize(F.getParent(),unit,llvmInfo.typeName);
+           ctx.input(argName, ir::FunctionArgument::PIPE, reg, llvmInfo, getTypeByteSize(unit, type), getAlignmentByte(unit, type), BtiMap.find(&*I)->second);
+@@ -2435,11 +2441,7 @@
+             continue;
+           Type *pointed = pointerType->getElementType();
+           // By value structure
+-#if LLVM_VERSION_MINOR <= 1
+-          if (PAL.paramHasAttr(argID+1, Attribute::ByVal)) {
+-#else
+           if (I->hasByValAttr()) {
+-#endif /* LLVM_VERSION_MINOR <= 1 */
+             const size_t structSize = getTypeByteSize(unit, pointed);
+             ctx.input(argName, ir::FunctionArgument::STRUCTURE, reg, llvmInfo, structSize, getAlignmentByte(unit, type), 0);
+           }
+@@ -2925,7 +2927,7 @@
+     const Instruction *insn = NULL;
+     for(Value::const_use_iterator iter = v->use_begin(); iter != v->use_end(); ++iter) {
+     // After LLVM 3.5, use_iterator points to 'Use' instead of 'User', which is more straightforward.
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR < 35
+       const User *theUser = *iter;
+ #else
+       const User *theUser = iter->getUser();
+@@ -3163,15 +3165,9 @@
+   void GenWriter::emitFunction(Function &F)
+   {
+     switch (F.getCallingConv()) {
+-#if LLVM_VERSION_MINOR <= 2
+-      case CallingConv::PTX_Device: // we do not emit device function
+-        return;
+-      case CallingConv::PTX_Kernel:
+-#else
+       case CallingConv::C:
+       case CallingConv::Fast:
+       case CallingConv::SPIR_KERNEL:
+-#endif
+         break;
+       default:
+         GBE_ASSERTM(false, "Unsupported calling convention");
+@@ -3788,14 +3784,12 @@
+           break;
+           case Intrinsic::stackrestore:
+           break;
+-#if LLVM_VERSION_MINOR >= 2
+           case Intrinsic::lifetime_start:
+           case Intrinsic::lifetime_end:
+           break;
+           case Intrinsic::fmuladd:
+             this->newRegister(&I);
+           break;
+-#endif /* LLVM_VERSION_MINOR >= 2 */
+           case Intrinsic::debugtrap:
+           case Intrinsic::trap:
+           case Intrinsic::dbg_value:
+@@ -4081,6 +4075,15 @@
+         regTranslator.newValueProxy(srcValue, dst);
+         break;
+       }
++      case GEN_OCL_INT_TO_SAMPLER:
++      case GEN_OCL_SAMPLER_TO_INT:
++      {
++        Value *srcValue = I.getOperand(0);
++        //srcValue->dump();
++        //dst->dump();
++        regTranslator.newValueProxy(srcValue, dst);
++        break;
++      }
+       case GEN_OCL_ENQUEUE_GET_ENQUEUE_INFO_ADDR:
+         regTranslator.newScalarProxy(ir::ocl::enqueuebufptr, dst);
+         break;
+@@ -4499,10 +4502,19 @@
+   /* append a new sampler. should be called before any reference to
+    * a sampler_t value. */
+   uint8_t GenWriter::appendSampler(CallSite::arg_iterator AI) {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    CallInst *TC = dyn_cast<CallInst>(*AI);
++    Constant *CPV = TC ? dyn_cast<Constant>(TC->getOperand(0)) : NULL;
++#else
+     Constant *CPV = dyn_cast<Constant>(*AI);
++#endif
+     uint8_t index;
+     if (CPV != NULL)
+     {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      // Check if the Callee is sampler convert function
++      GBE_ASSERT(TC->getCalledFunction()->getName().str() == "__gen_ocl_int_to_sampler");
++#endif
+       // This is not a kernel argument sampler, we need to append it to sampler set,
+       // and allocate a sampler slot for it.
+       const ir::Immediate &x = processConstantImm(CPV);
+@@ -4549,11 +4561,9 @@
+             ctx.MOV(ir::getType(family), dst, src);
+           }
+           break;
+-#if LLVM_VERSION_MINOR >= 2
+           case Intrinsic::lifetime_start:
+           case Intrinsic::lifetime_end:
+           break;
+-#endif /* LLVM_VERSION_MINOR >= 2 */
+           case Intrinsic::debugtrap:
+           case Intrinsic::trap:
+           case Intrinsic::dbg_value:
+@@ -5484,6 +5494,8 @@
+           case GEN_OCL_GET_PIPE:
+           case GEN_OCL_MAKE_RID:
+           case GEN_OCL_GET_RID:
++          case GEN_OCL_INT_TO_SAMPLER:
++          case GEN_OCL_SAMPLER_TO_INT:
+           {
+             break;
+           }
+--- a/backend/src/llvm/llvm_gen_backend.hpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_gen_backend.hpp	2017-04-28 00:22:52.269021483 +0200
+@@ -146,7 +146,7 @@
+   /*! Insert the time stamp for profiling. */
+   llvm::FunctionPass* createProfilingInserterPass(int profilingType, ir::Unit &unit);
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+   /* customized loop unrolling pass. */
+   llvm::LoopPass *createCustomLoopUnrollPass();
+ #endif
+--- a/backend/src/llvm/llvm_gen_ocl_function.hxx	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_gen_ocl_function.hxx	2017-04-28 00:23:00.295758193 +0200
+@@ -266,3 +266,7 @@
+ DECL_LLVM_GEN_FUNCTION(ENQUEUE_SET_NDRANGE_INFO, __gen_ocl_set_ndrange_info)
+ DECL_LLVM_GEN_FUNCTION(ENQUEUE_GET_NDRANGE_INFO, __gen_ocl_get_ndrange_info)
+ DECL_LLVM_GEN_FUNCTION(ENQUEUE_GET_ENQUEUE_INFO_ADDR, __gen_ocl_get_enqueue_info_addr)
++
++// sampler helper functions
++DECL_LLVM_GEN_FUNCTION(SAMPLER_TO_INT, __gen_ocl_sampler_to_int)
++DECL_LLVM_GEN_FUNCTION(INT_TO_SAMPLER, __gen_ocl_int_to_sampler)
+--- a/backend/src/llvm/llvm_includes.hpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_includes.hpp	2017-04-28 00:23:00.295758193 +0200
+@@ -24,6 +24,7 @@
+ #ifndef __GBE_IR_LLVM_INCLUDES_HPP__
+ #define __GBE_IR_LLVM_INCLUDES_HPP__
+ 
++#ifdef GBE_COMPILER_AVAILABLE
+ #include "llvm/Config/llvm-config.h"
+ 
+ #include "llvm/IR/BasicBlock.h"
+@@ -75,7 +76,12 @@
+ 
+ #include "llvm-c/Linker.h"
+ #include "llvm/IRReader/IRReader.h"
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++#include <llvm/Bitcode/BitcodeWriter.h>
++//#include <llvm/Bitcode/BitcodeReader.h>
++#else
+ #include "llvm/Bitcode/ReaderWriter.h"
++#endif
+ #include "llvm/Transforms/IPO.h"
+ #include "llvm/Transforms/Utils/Cloning.h"
+ 
+@@ -91,7 +97,7 @@
+ #include "llvm/MC/MCSubtargetInfo.h"
+ #include "llvm/MC/MCSymbol.h"
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+ #include "llvm/IR/Mangler.h"
+ #include "llvm/IR/CallSite.h"
+ #include "llvm/IR/CFG.h"
+@@ -111,7 +117,7 @@
+ #include "llvm/Target/Mangler.h"
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+ #include "llvm/Analysis/TargetLibraryInfo.h"
+ #include "llvm/IR/LegacyPassManager.h"
+ #else
+@@ -122,14 +128,20 @@
+ 
+ #include <clang/CodeGen/CodeGenAction.h>
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+ #include "llvm/Analysis/BasicAliasAnalysis.h"
+ #include "llvm/Analysis/TypeBasedAliasAnalysis.h"
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+ #include "llvm/Transforms/IPO/FunctionAttrs.h"
+ #include "llvm/Transforms/Scalar/GVN.h"
+ #endif
+ 
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
++#include "llvm/Support/Error.h"
++#endif
++
++#endif /*GBE_COMPILER_AVAILABLE */
++
+ #endif /* __GBE_IR_LLVM_INCLUDES_HPP__ */
+--- a/backend/src/llvm/llvm_intrinsic_lowering.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_intrinsic_lowering.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -40,7 +40,12 @@
+ 
+       }
+ 
+-      virtual const char *getPassName() const {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      virtual StringRef getPassName() const
++#else
++      virtual const char *getPassName() const
++#endif
++      {
+         return "SPIR backend: lowering instrinsics";
+       }
+       static char convertSpaceToName(Value *val) {
+--- a/backend/src/llvm/llvm_loadstore_optimization.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_loadstore_optimization.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -35,7 +35,7 @@
+     GenLoadStoreOptimization() : BasicBlockPass(ID) {}
+ 
+     void getAnalysisUsage(AnalysisUsage &AU) const {
+-#if LLVM_VERSION_MAJOR == 3 &&  LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+       AU.addRequired<ScalarEvolutionWrapperPass>();
+       AU.addPreserved<ScalarEvolutionWrapperPass>();
+ #else
+@@ -46,12 +46,12 @@
+     }
+ 
+     virtual bool runOnBasicBlock(BasicBlock &BB) {
+-#if LLVM_VERSION_MAJOR == 3 &&  LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+       SE = &getAnalysis<ScalarEvolutionWrapperPass>().getSE();
+ #else
+       SE = &getAnalysis<ScalarEvolution>();
+ #endif
+-      #if LLVM_VERSION_MINOR >= 7
++      #if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+         TD = &BB.getModule()->getDataLayout();
+       #elif LLVM_VERSION_MINOR >= 5
+         DataLayoutPass *DLP = getAnalysisIfAvailable<DataLayoutPass>();
+@@ -75,8 +75,12 @@
+                                   const BasicBlock::iterator &start,
+                                   unsigned maxVecSize,
+                                   bool isLoad);
+-
+-    virtual const char *getPassName() const {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    virtual StringRef getPassName() const
++#else
++    virtual const char *getPassName() const
++#endif
++    {
+       return "Merge compatible Load/stores for Gen";
+     }
+   };
+--- a/backend/src/llvm/llvm_passes.cpp	2017-02-14 10:36:11.000000000 +0100
++++ b/backend/src/llvm/llvm_passes.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -42,7 +42,7 @@
+ {
+   bool isKernelFunction(const llvm::Function &F) {
+     bool bKernel = false;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     bKernel = F.getMetadata("kernel_arg_name") != NULL;
+ #else
+     const Module *module = F.getParent();
+@@ -53,7 +53,7 @@
+       uint32_t ops = md.getNumOperands();
+       for(uint32_t x = 0; x < ops; x++) {
+         MDNode* node = md.getOperand(x);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR <= 35
+         Value * op = node->getOperand(0);
+ #else
+         Value * op = cast<ValueAsMetadata>(node->getOperand(0))->getValue();
+@@ -74,7 +74,7 @@
+     if(ops > 0) {
+       uint32_t major = 0, minor = 0;
+       MDNode* node = version->getOperand(0);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+       major = mdconst::extract<ConstantInt>(node->getOperand(0))->getZExtValue();
+       minor = mdconst::extract<ConstantInt>(node->getOperand(1))->getZExtValue();
+ #else
+@@ -222,7 +222,11 @@
+       AU.setPreservesCFG();
+     }
+ 
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    virtual StringRef getPassName() const {
++#else
+     virtual const char *getPassName() const {
++#endif
+       return "SPIR backend: insert special spir instructions";
+     }
+ 
+--- a/backend/src/llvm/llvm_printf_parser.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_printf_parser.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -309,7 +309,11 @@
+     bool parseOnePrintfInstruction(CallInst * call);
+     bool generateOneParameterInst(PrintfSlot& slot, Value* arg, Value*& new_arg);
+ 
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    virtual StringRef getPassName() const
++#else
+     virtual const char *getPassName() const
++#endif
+     {
+       return "Printf Parser";
+     }
+@@ -381,7 +385,7 @@
+     }
+ 
+     GBE_ASSERT(unit.printfs.find(call) == unit.printfs.end());
+-    unit.printfs.insert(std::pair<llvm::CallInst*, PrintfSet::PrintfFmt*>(call, printf_fmt));
++    unit.printfs.insert(std::pair<void *, PrintfSet::PrintfFmt*>((void *)call, printf_fmt));
+     return true;
+   }
+ 
+@@ -389,15 +393,9 @@
+   {
+     bool hasPrintf = false;
+     switch (F.getCallingConv()) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 2
+-      case CallingConv::PTX_Device:
+-        return false;
+-      case CallingConv::PTX_Kernel:
+-#else
+       case CallingConv::C:
+       case CallingConv::Fast:
+       case CallingConv::SPIR_KERNEL:
+-#endif
+         break;
+       default:
+         GBE_ASSERTM(false, "Unsupported calling convention");
+@@ -521,7 +519,11 @@
+       case Type::FloatTyID: {
+         /* llvm 3.6 will give a undef value for NAN. */
+         if (dyn_cast<llvm::UndefValue>(arg)) {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++          APFloat nan = APFloat::getNaN(APFloat::IEEEsingle(), false);
++#else
+           APFloat nan = APFloat::getNaN(APFloat::IEEEsingle, false);
++#endif
+           new_arg = ConstantFP::get(module->getContext(), nan);
+         }
+ 
+--- a/backend/src/llvm/llvm_profiling.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_profiling.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -26,29 +26,15 @@
+ #include <stdlib.h>
+ 
+ #include "llvm/Config/llvm-config.h"
+-#if LLVM_VERSION_MINOR <= 2
+-#include "llvm/Function.h"
+-#include "llvm/InstrTypes.h"
+-#include "llvm/Instructions.h"
+-#include "llvm/IntrinsicInst.h"
+-#include "llvm/Module.h"
+-#else
+ #include "llvm/IR/Function.h"
+ #include "llvm/IR/InstrTypes.h"
+ #include "llvm/IR/Instructions.h"
+ #include "llvm/IR/IntrinsicInst.h"
+ #include "llvm/IR/Module.h"
+-#endif  /* LLVM_VERSION_MINOR <= 2 */
+ #include "llvm/Pass.h"
+-#if LLVM_VERSION_MINOR <= 1
+-#include "llvm/Support/IRBuilder.h"
+-#elif LLVM_VERSION_MINOR == 2
+-#include "llvm/IRBuilder.h"
+-#else
+ #include "llvm/IR/IRBuilder.h"
+-#endif /* LLVM_VERSION_MINOR <= 1 */
+ 
+-#if LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+ #include "llvm/IR/CallSite.h"
+ #include "llvm/IR/CFG.h"
+ #else
+@@ -97,7 +83,11 @@
+     {
+     }
+ 
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++    virtual StringRef getPassName() const
++#else
+     virtual const char *getPassName() const
++#endif
+     {
+       return "Timestamp Parser";
+     }
+@@ -111,15 +101,9 @@
+     int pointNum = 0;
+ 
+     switch (F.getCallingConv()) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 2
+-      case CallingConv::PTX_Device:
+-        return false;
+-      case CallingConv::PTX_Kernel:
+-#else
+       case CallingConv::C:
+       case CallingConv::Fast:
+       case CallingConv::SPIR_KERNEL:
+-#endif
+         break;
+       default:
+         GBE_ASSERTM(false, "Unsupported calling convention");
+--- a/backend/src/llvm/llvm_sampler_fix.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_sampler_fix.cpp	2017-04-28 00:22:52.272354846 +0200
+@@ -33,7 +33,7 @@
+   class SamplerFix : public FunctionPass {
+   public:
+     SamplerFix() : FunctionPass(ID) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+       initializeDominatorTreeWrapperPassPass(*PassRegistry::getPassRegistry());
+ #else
+       initializeDominatorTreePass(*PassRegistry::getPassRegistry());
+--- a/backend/src/llvm/llvm_scalarize.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_scalarize.cpp	2017-04-28 00:22:52.272354846 +0200
+@@ -96,7 +96,7 @@
+ 
+     Scalarize() : FunctionPass(ID)
+     {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+       initializeDominatorTreeWrapperPassPass(*PassRegistry::getPassRegistry());
+ #else
+       initializeDominatorTreePass(*PassRegistry::getPassRegistry());
+@@ -873,15 +873,9 @@
+   bool Scalarize::runOnFunction(Function& F)
+   {
+     switch (F.getCallingConv()) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 2
+-    case CallingConv::PTX_Device:
+-      return false;
+-    case CallingConv::PTX_Kernel:
+-#else
+     case CallingConv::C:
+     case CallingConv::Fast:
+     case CallingConv::SPIR_KERNEL:
+-#endif
+       break;
+     default:
+       GBE_ASSERTM(false, "Unsupported calling convention");
+--- a/backend/src/llvm/llvm_to_gen.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_to_gen.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -46,14 +46,14 @@
+   BVAR(OCL_OUTPUT_CFG_GEN_IR, false);
+   using namespace llvm;
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+   llvm::LLVMContext& GBEGetLLVMContext() {
+     static llvm::LLVMContext GBEContext;
+     return GBEContext;
+   }
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+   #define TARGETLIBRARY  TargetLibraryInfoImpl
+ #else
+   #define TARGETLIBRARY  TargetLibraryInfo
+@@ -61,32 +61,32 @@
+ 
+   void runFuntionPass(Module &mod, TARGETLIBRARY *libraryInfo, const DataLayout &DL)
+   {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     legacy::FunctionPassManager FPM(&mod);
+ #else
+     FunctionPassManager FPM(&mod);
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+     FPM.add(new DataLayoutPass());
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR == 5
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR == 35
+     FPM.add(new DataLayoutPass(DL));
+ #else
+     FPM.add(new DataLayout(DL));
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >=5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+     FPM.add(createVerifierPass(true));
+ #else
+     FPM.add(createVerifierPass());
+ #endif
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     FPM.add(new TargetLibraryInfoWrapperPass(*libraryInfo));
+ #else
+     FPM.add(new TargetLibraryInfo(*libraryInfo));
+ #endif
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+     FPM.add(createTypeBasedAAWrapperPass());
+     FPM.add(createBasicAAWrapperPass());
+ #else
+@@ -108,27 +108,27 @@
+ 
+   void runModulePass(Module &mod, TARGETLIBRARY *libraryInfo, const DataLayout &DL, int optLevel, bool strictMath)
+   {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     legacy::PassManager MPM;
+ #else
+     PassManager MPM;
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+     MPM.add(new DataLayoutPass());
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR == 5
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR == 35
+     MPM.add(new DataLayoutPass(DL));
+ #else
+     MPM.add(new DataLayout(DL));
+ #endif
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     MPM.add(new TargetLibraryInfoWrapperPass(*libraryInfo));
+ #else
+     MPM.add(new TargetLibraryInfo(*libraryInfo));
+ #endif
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+     MPM.add(createTypeBasedAAWrapperPass());
+     MPM.add(createBasicAAWrapperPass());
+ #else
+@@ -149,9 +149,9 @@
+     MPM.add(createInstructionCombiningPass());// Clean up after IPCP & DAE
+     MPM.add(createCFGSimplificationPass());   // Clean up after IPCP & DAE
+     MPM.add(createPruneEHPass());             // Remove dead EH info
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+     MPM.add(createPostOrderFunctionAttrsLegacyPass());
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+     MPM.add(createPostOrderFunctionAttrsPass());       // Set readonly/readnone attrs
+ #else
+     MPM.add(createFunctionAttrsPass());       // Set readonly/readnone attrs
+@@ -159,7 +159,7 @@
+ 
+     //MPM.add(createScalarReplAggregatesPass(64, true, -1, -1, 64))
+     if(optLevel > 0)
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+       MPM.add(createSROAPass());
+ #else
+       MPM.add(createSROAPass(/*RequiresDomTree*/ false));
+@@ -182,14 +182,14 @@
+     MPM.add(createLoopDeletionPass());          // Delete dead loops
+     MPM.add(createLoopUnrollPass(640)); //1024, 32, 1024, 512)); //Unroll loops
+     if(optLevel > 0) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+       MPM.add(createSROAPass());
+ #else
+       MPM.add(createSROAPass(/*RequiresDomTree*/ false));
+ #endif
+       MPM.add(createGVNPass());                 // Remove redundancies
+     }
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+     // FIXME Workaround: we find that CustomLoopUnroll may increase register pressure greatly,
+     // and it may even make som cl kernel cannot compile because of limited scratch memory for spill.
+     // As we observe this under strict math. So we disable CustomLoopUnroll if strict math is enabled.
+@@ -199,7 +199,7 @@
+ #endif
+       MPM.add(createLoopUnrollPass()); //1024, 32, 1024, 512)); //Unroll loops
+       if(optLevel > 0) {
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+         MPM.add(createSROAPass());
+ #else
+         MPM.add(createSROAPass(/*RequiresDomTree*/ false));
+@@ -230,7 +230,7 @@
+   }
+ 
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+ #define OUTPUT_BITCODE(STAGE, MOD)  do {         \
+   legacy::PassManager passes__;           \
+    if (OCL_OUTPUT_LLVM_##STAGE) {                \
+@@ -238,7 +238,7 @@
+      passes__.run(MOD);                          \
+    }                                             \
+  }while(0)
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 5
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+ #define OUTPUT_BITCODE(STAGE, MOD)  do {         \
+    PassManager passes__;           \
+    if (OCL_OUTPUT_LLVM_##STAGE) {                \
+@@ -303,12 +303,12 @@
+     if (module) {
+       cl_mod = reinterpret_cast<Module*>(const_cast<void*>(module));
+     } else if (fileName){
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+       llvm::LLVMContext& c = GBEGetLLVMContext();
+ #else
+       llvm::LLVMContext& c = llvm::getGlobalContext();
+ #endif
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+       cl_mod = parseIRFile(fileName, Err, c).release();
+ #else
+       cl_mod = ParseIRFile(fileName, Err, c);
+@@ -318,7 +318,7 @@
+     if (!cl_mod) return false;
+ 
+     OUTPUT_BITCODE(BEFORE_LINK, (*cl_mod));
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     legacy::PassManager passes__;
+ #else
+     PassManager passes__;
+@@ -346,7 +346,7 @@
+     gbeDiagnosticContext dc;
+     mod.getContext().setDiagnosticHandler(&gbeDiagnosticHandler,&dc);
+ 
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     mod.setDataLayout(DL);
+ #endif
+     Triple TargetTriple(mod.getTargetTriple());
+@@ -357,15 +357,15 @@
+ 
+     runFuntionPass(mod, libraryInfo, DL);
+     runModulePass(mod, libraryInfo, DL, optLevel, strictMath);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     legacy::PassManager passes;
+ #else
+     PassManager passes;
+ #endif
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+     passes.add(new DataLayoutPass());
+-#elif LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR == 5
++#elif LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR == 35
+     passes.add(new DataLayoutPass(DL));
+ #else
+     passes.add(new DataLayout(DL));
+@@ -374,7 +374,7 @@
+     passes.add(createIntrinsicLoweringPass());
+     passes.add(createStripAttributesPass());     // Strip unsupported attributes and calling conventions.
+     passes.add(createFunctionInliningPass(20000));
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 7
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+     passes.add(createSROAPass());
+ #else
+     passes.add(createScalarReplAggregatesPass(64, true, -1, -1, 64));
+@@ -402,9 +402,17 @@
+     passes.add(createScalarizePass());             // Expand all vector ops
+ 
+     if(OCL_OUTPUT_CFG)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      passes.add(createCFGPrinterLegacyPassPass());
++#else
+       passes.add(createCFGPrinterPass());
++#endif
+     if(OCL_OUTPUT_CFG_ONLY)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      passes.add(createCFGOnlyPrinterLegacyPassPass());
++#else
+       passes.add(createCFGOnlyPrinterPass());
++#endif
+     passes.add(createGenPass(unit));
+     passes.run(mod);
+     errors = dc.str();
+--- a/backend/src/llvm/llvm_to_gen.hpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_to_gen.hpp	2017-04-28 00:22:52.272354846 +0200
+@@ -23,7 +23,7 @@
+  */
+ #ifndef __GBE_IR_LLVM_TO_GEN_HPP__
+ #define __GBE_IR_LLVM_TO_GEN_HPP__
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+ #include "llvm/IR/LLVMContext.h"
+ #endif
+ 
+@@ -37,7 +37,7 @@
+ 		  optLevel 0 equal to clang -O1 and 1 equal to clang -O2*/
+   bool llvmToGen(ir::Unit &unit, const char *fileName, const void* module,
+                  int optLevel, bool strictMath, int profiling, std::string &errors);
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 9
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 39
+   extern llvm::LLVMContext& GBEGetLLVMContext();
+ #endif
+ 
+--- a/backend/src/llvm/llvm_unroll.cpp	2017-01-20 11:40:51.000000000 +0100
++++ b/backend/src/llvm/llvm_unroll.cpp	2017-04-28 00:23:00.295758193 +0200
+@@ -16,7 +16,7 @@
+  */
+ 
+ #include "llvm/Config/llvm-config.h"
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 5
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 35
+ #include <set>
+ 
+ #include "llvm_includes.hpp"
+@@ -36,7 +36,7 @@
+        LoopPass(ID) {}
+ 
+       void getAnalysisUsage(AnalysisUsage &AU) const {
+-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 7)
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 37
+         AU.addRequired<LoopInfoWrapperPass>();
+         AU.addPreserved<LoopInfoWrapperPass>();
+ #else
+@@ -47,7 +47,7 @@
+         AU.addPreservedID(LoopSimplifyID);
+         AU.addRequiredID(LCSSAID);
+         AU.addPreservedID(LCSSAID);
+-#if LLVM_VERSION_MAJOR == 3 &&  LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+         AU.addRequired<ScalarEvolutionWrapperPass>();
+         AU.addPreserved<ScalarEvolutionWrapperPass>();
+ #else
+@@ -91,7 +91,7 @@
+           assert(MD->getNumOperands() == 2 &&
+                  "Unroll count hint metadata should have two operands.");
+           unsigned Count;
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+           Count = mdconst::extract<ConstantInt>(MD->getOperand(1))->getZExtValue();
+ #else
+           Count = cast<ConstantInt>(MD->getOperand(1))->getZExtValue();
+@@ -105,7 +105,7 @@
+       void setUnrollID(Loop *L, bool enable) {
+         assert(enable);
+         LLVMContext &Context = L->getHeader()->getContext();
+-#if LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR >= 6
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 36
+         SmallVector<Metadata *, 2> forceUnroll;
+         forceUnroll.push_back(MDString::get(Context, "llvm.loop.unroll.enable"));
+         MDNode *forceUnrollNode = MDNode::get(Context, forceUnroll);
+@@ -169,7 +169,7 @@
+       // be unrolled.
+       bool handleParentLoops(Loop *L, LPPassManager &LPM) {
+         Loop *currL = L;
+-#if LLVM_VERSION_MAJOR == 3 &&  LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+         ScalarEvolution *SE = &getAnalysis<ScalarEvolutionWrapperPass>().getSE();
+         LoopInfo &loopInfo = getAnalysis<LoopInfoWrapperPass>().getLoopInfo();
+ #else
+@@ -205,7 +205,7 @@
+           if (parentTripCount != 0 && currTripCount * parentTripCount > 32) {
+             //Don't change the unrollID if doesn't force unroll.
+             //setUnrollID(parentL, false);
+-#if LLVM_VERSION_MAJOR == 3 &&  LLVM_VERSION_MINOR >= 8
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 38
+             loopInfo.markAsRemoved(parentL);
+ #else
+             LPM.deleteLoopFromQueue(parentL);
+@@ -238,7 +238,12 @@
+         return true;
+       }
+ 
+-      virtual const char *getPassName() const {
++#if LLVM_VERSION_MAJOR * 10 + LLVM_VERSION_MINOR >= 40
++      virtual StringRef getPassName() const
++#else
++      virtual const char *getPassName() const
++#endif
++      {
+         return "SPIR backend: custom loop unrolling pass";
+       }
+ 

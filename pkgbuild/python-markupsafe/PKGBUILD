@@ -1,6 +1,6 @@
 pkgbase=python-markupsafe
 pkgname=('python2-markupsafe' 'python3-markupsafe')
-pkgver=0.23
+pkgver=1.0
 pkgrel=1
 pkgdesc="Implements a XML/HTML/XHTML Markup safe string for Python"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-markupsafe() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('f5ab3deee4c37cd6a922fb81e730da6e')
+md5sums=('2fcedc9284d50e577b5192e8e3578355')

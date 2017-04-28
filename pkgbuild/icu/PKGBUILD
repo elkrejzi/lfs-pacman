@@ -1,6 +1,6 @@
 pkgbase=icu
 pkgname=('icu' 'lib32-icu')
-pkgver=58.2
+pkgver=59.1
 pkgrel=1
 arch=('x86_64')
 url="http://www.icu-project.org/"
@@ -59,4 +59,4 @@ package_lib32-icu() {
 	mv dest/usr/bin/icu-config "${pkgdir}/usr/bin/icu-config32"
 }
 
-md5sums=('fac212b32b7ec7ab007a12dff1f3aea1')
+md5sums=('54923fa9fab5b2b83f235fb72523de37')

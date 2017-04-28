@@ -1,5 +1,5 @@
 pkgname=xf86-input-wacom
-pkgver=0.34.0
+pkgver=0.34.2
 pkgrel=1
 pkgdesc="X.Org Wacom tablet driver"
 arch=('x86_64')
@@ -25,3 +25,4 @@ package() {
 }
 
 md5sums=('066a0b5fc0f33379b6cee429a616b7b4')
+md5sums=('bfc2bb315210f735bcdb9f7887c9d609')

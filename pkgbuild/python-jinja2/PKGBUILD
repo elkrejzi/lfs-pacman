@@ -1,6 +1,6 @@
 pkgbase=python-jinja2
 pkgname=('python2-jinja2' 'python3-jinja2')
-pkgver=2.9.5
+pkgver=2.9.6
 pkgrel=1
 pkgdesc="A small but fast and easy to use stand-alone template engine"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-jinja2() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('9e55f0db6620dd99a1b366183a94270d')
+md5sums=('6411537324b4dba0956aaa8109f3c77b')

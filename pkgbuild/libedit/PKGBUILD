@@ -1,5 +1,5 @@
 pkgname=libedit
-_realver=20160903-3.1
+_realver=20170329-3.1
 pkgver=${_realver/-/+}
 pkgrel=1
 pkgdesc="Command line editor library providing generic line editing, history, and tokenization functions"
@@ -25,4 +25,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man3/history.3"
 }
 
-md5sums=('0467d27684c453a351fbcefebbcb16a3')
+md5sums=('c57a0690e62ef523c083598730272cfd')

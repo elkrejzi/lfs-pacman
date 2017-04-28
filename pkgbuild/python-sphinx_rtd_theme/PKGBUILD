@@ -1,6 +1,6 @@
 pkgbase=python-sphinx_rtd_theme
 pkgname=('python2-sphinx_rtd_theme' 'python3-sphinx_rtd_theme')
-pkgver=0.1.9
+pkgver=0.2.4
 pkgrel=1
 pkgdesc="ReadTheDocs.org theme for Sphinx, 2013 version"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-sphinx_rtd_theme() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('86a25c8d47147c872e42dc84cc66f97b')
+md5sums=('53b50a917bcc9d61fdf30fbe96c3c13b')

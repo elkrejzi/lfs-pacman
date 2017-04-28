@@ -1,5 +1,5 @@
 pkgname=db
-pkgver=6.2.23
+pkgver=6.2.32
 pkgrel=1
 pkgdesc="The Berkeley DB embedded database system"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	rm -rf "${pkgdir}/usr/docs"
 }
 
-md5sums=('9da126afb937a48171ff1e569ce67cf1')
+md5sums=('33491b4756cb44b91c3318b727e71023')

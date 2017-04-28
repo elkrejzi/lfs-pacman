@@ -1,5 +1,5 @@
 pkgname=at-spi2-core
-pkgver=2.22.0
+pkgver=2.24.0
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('3da5fe62a653e49dad1c47f9a46fee56')
+md5sums=('27598276ec58371a6254a4f8b949bf8c')

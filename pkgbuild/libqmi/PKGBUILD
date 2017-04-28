@@ -1,5 +1,5 @@
 pkgname=libqmi
-pkgver=1.16.2
+pkgver=1.18.0
 pkgrel=1
 pkgdesc="QMI modem protocol helper library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('052318439128e428b1a41e75a605d91f')
+md5sums=('25bae4e383ad77f491ad49b49e04fdcf')

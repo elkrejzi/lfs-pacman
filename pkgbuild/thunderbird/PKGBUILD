@@ -1,0 +1,30 @@
+pkgname=thunderbird
+pkgver=52.0.1
+pkgrel=1
+pkgdesc="Standalone mail and news reader from mozilla.org"
+arch=('x86_64')
+url="https://www.mozilla.org/thunderbird/"
+license=('MPL' 'GPL' 'LGPL')
+#depends=()
+source=("https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/linux-x86_64/en-US/thunderbird-${pkgver}.tar.bz2"
+	"thunderbird.desktop")
+
+package() {
+	cd "${srcdir}/thunderbird"
+
+	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/lib/thunderbird"
+	install -v -dm755 "${pkgdir}/usr/share/applications"
+
+	install -v -m644 "${srcdir}/thunderbird.desktop" "${pkgdir}/usr/share/applications/thunderbird.desktop"
+
+	ln -sfv ../lib/thunderbird/thunderbird "${pkgdir}/usr/bin/thunderbird"
+
+	for s in 16 22 24 32 48 256
+	do
+		install -v -Dm644 chrome/icons/default/default${s}.png "${pkgdir}/usr/share/icons/hicolor/${s}x${s}/apps/thunderbird.png"
+	done
+
+	mv * "${pkgdir}/usr/lib/thunderbird"
+}
+md5sums=('42aefd65571dd1e134e5a27134442bd7'
+         '31d705c909ab7695f5076bb5612b17a4')

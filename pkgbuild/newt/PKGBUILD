@@ -1,5 +1,5 @@
 pkgname=newt
-pkgver=0.52.19
+pkgver=0.52.20
 pkgrel=1
 pkgdesc="Not Erik's Windowing Toolkit - text mode windowing with slang"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('e4aa0f7943edd39c52481a87f68f412a')
+md5sums=('70b288f821234593a8e7920e435b259b')

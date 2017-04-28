@@ -1,6 +1,6 @@
 pkgbase=libpciaccess
 pkgname=('libpciaccess' 'lib32-libpciaccess')
-pkgver=0.13.4
+pkgver=0.13.5
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -52,5 +52,4 @@ package_lib32-libpciaccess() {
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
-
-md5sums=('ace78aec799b1cf6dfaea55d3879ed9f')
+md5sums=('d810ab17e24c1418dedf7207fb2841d4')

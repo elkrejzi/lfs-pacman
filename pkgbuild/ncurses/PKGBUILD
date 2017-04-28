@@ -1,6 +1,6 @@
 pkgbase=ncurses
 pkgname=('ncurses' 'lib32-ncurses')
-_pkgver=6.0-20170212
+_pkgver=6.0-20170422
 pkgver=${_pkgver/-/+}
 pkgrel=1
 arch=('x86_64')
@@ -115,5 +115,4 @@ package_lib32-ncurses() {
 
 	install_shared lib32
 }
-
-md5sums=('d25d131da8b13062138544c0d0934f31')
+md5sums=('b09b768e15e6c8dbc7772bc5da1beeea')

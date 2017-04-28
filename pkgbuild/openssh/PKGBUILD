@@ -1,5 +1,5 @@
 pkgname=openssh
-pkgver=7.4p1
+pkgver=7.5p1
 pkgrel=1
 pkgdesc="Free version of the SSH connectivity tools"
 arch=('x86_64')
@@ -59,7 +59,7 @@ package() {
 	install -v -Dm644 "${srcdir}/sshd.socket" "${pkgdir}/lib/systemd/system/sshd.socket"
 }
 
-md5sums=('b2db2a83caf66a208bb78d6d287cdaa3'
+md5sums=('652fdc7d8392f112bef11cacf7e69e23'
          'c9f2e6c974a6e2cc17e250778fcee10a'
          'c099cd6facd5ef59c790bb636b25af3d'
          '5177c6a5bec624829a3a51cda7eb80d3'

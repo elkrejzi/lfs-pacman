@@ -1,5 +1,5 @@
 pkgname=libcdio-paranoia
-pkgver=10.2+0.93+1
+pkgver=10.2+0.94+1
 pkgrel=1
 pkgdesc="CD paranoia libraries from libcdio"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('4fb07fa47db24b71d315d40c9c6cecfb')
+md5sums=('808a711b0a5646f57469f35e8aa41172')

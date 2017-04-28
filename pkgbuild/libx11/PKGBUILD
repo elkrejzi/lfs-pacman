@@ -1,6 +1,6 @@
 pkgbase=libx11
 pkgname=('libx11' 'lib32-libx11')
-pkgver=1.6.4
+pkgver=1.6.5
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -54,3 +54,4 @@ package_lib32-libx11() {
 }
 
 md5sums=('6d54227082f3aa2c596f0b3a3fbb9175')
+md5sums=('0f618db70c4054ca67cee0cc156a4255')

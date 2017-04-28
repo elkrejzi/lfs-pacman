@@ -1,5 +1,5 @@
 pkgname=atk
-pkgver=2.22.0
+pkgver=2.24.0
 pkgrel=1
 pkgdesc="A library providing a set of interfaces for accessibility"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('c7f2adcf75e4058727174cde970e9129')
+md5sums=('3747a80089dfa3c0bbcf21adfff9968b')

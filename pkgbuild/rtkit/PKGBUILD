@@ -1,0 +1,48 @@
+pkgname=rtkit
+pkgver=0.11
+pkgrel=1
+pkgdesc="Realtime Policy and Watchdog Daemon"
+arch=('x86_64')
+url="http://0pointer.de/blog/projects/rtkit.html"
+license=('GPL3' 'custom:BSD')
+#depends=()
+source=("http://0pointer.de/public/rtkit-${pkgver}.tar.xz"
+	"rtkit-fixes.patch"
+	"rtkit.sysusers")
+
+prepare() {
+	cd "${srcdir}/rtkit-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/rtkit-fixes.patch"
+
+	autoreconf -fi
+
+	sed -i "s:libsystemd-daemon:libsystemd:g" configure
+}
+
+build() {
+	cd "${srcdir}/rtkit-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-systemdsystemunitdir=/lib/systemd/system
+
+	make
+}
+
+package() {
+	cd "${srcdir}/rtkit-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -dm755 "${pkgdir}/usr/share/dbus-1/interfaces"
+
+	./rtkit-daemon --introspect > "${pkgdir}/usr/share/dbus-1/interfaces/org.freedesktop.RealtimeKit1.xml"
+
+	install -v -Dm644 "${srcdir}/rtkit.sysusers" "${pkgdir}/usr/lib/sysusers.d/rtkit.conf"
+}
+
+md5sums=('a96c33b9827de66033d2311f82d79a5d'
+         '170a7b7718641d7fcc27ff9655808750'
+         'd4ee9667f95cb504774577462d25cf65')

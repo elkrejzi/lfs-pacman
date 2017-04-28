@@ -1,6 +1,6 @@
 pkgbase=glib
 pkgname=('glib' 'lib32-glib')
-pkgver=2.50.3
+pkgver=2.52.1
 pkgrel=1
 arch=('x86_64')
 url="http://www.gtk.org/"
@@ -80,7 +80,7 @@ package_lib32-glib() {
 	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
 }
 
-md5sums=('381ab22934f296750d036aa55a397ded'
+md5sums=('36b4c7bf4f2b398ac8ad90578d05c950'
          '9a2c5949a8d352c5887c099ed3a9003d'
          'a52ea506b5cf162a4f72d09cc33fae50'
          'f013ccc9643a2cb191bddcae0754732e'

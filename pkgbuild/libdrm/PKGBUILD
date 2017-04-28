@@ -1,6 +1,6 @@
 pkgbase=libdrm
 pkgname=('libdrm' 'lib32-libdrm')
-pkgver=2.4.75
+pkgver=2.4.80
 pkgrel=1
 arch=('x86_64')
 url="https://dri.freedesktop.org/wiki/"
@@ -9,11 +9,6 @@ license=('custom')
 source=("https://dri.freedesktop.org/libdrm/libdrm-${pkgver}.tar.bz2")
 
 prepare() {
-	cd "${srcdir}/libdrm-${pkgver}"
-
-	sed -i "/pthread-stubs/d" configure.ac
-	autoreconf -fi
-
 	cp -a "${srcdir}"/libdrm{,32}-${pkgver}
 }
 
@@ -63,4 +58,4 @@ package_lib32-libdrm() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('57b0589122ec4b8d5dfb9e430a21f0b3')
+md5sums=('4867866477f228973a64e68051ca9c66')

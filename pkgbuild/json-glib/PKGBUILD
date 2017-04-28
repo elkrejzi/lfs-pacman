@@ -1,5 +1,5 @@
 pkgname=json-glib
-pkgver=1.2.2
+pkgver=1.2.8
 pkgrel=1
 pkgdesc="JSON library built on GLib"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('c1daefb8d0fb59612af0c072c8aabb58')
+md5sums=('ff31e7d0594df44318e12facda3d086e')

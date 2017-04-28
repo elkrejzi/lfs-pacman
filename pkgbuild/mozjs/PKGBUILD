@@ -1,42 +1,56 @@
 pkgname=mozjs
-pkgver=24.2.0
+pkgver=38.2.1
 pkgrel=1
-pkgdesc="JavaScript interpreter and libraries"
+pkgdesc="JavaScript interpreter and libraries - Version 38"
 arch=('x86_64')
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/24"
-license=(MPL)
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/38"
+license=('MPL')
 #depends=()
-source=("https://ftp.mozilla.org/pub/mozilla.org/js/mozjs-${pkgver}.tar.bz2")
+source=("https://people.mozilla.org/~sstangl/mozjs-${pkgver}.rc0.tar.bz2"
+	"mozjs-fixes.patch")
 
 prepare() {
-	cd "${srcdir}/mozjs-${pkgver}/js/src"
+	cd "${srcdir}/mozjs-38.0.0"
 
-	sed -i "s:defined(@TEMPLATE_FILE):@TEMPLATE_FILE:g" config/milestone.pl
+	patch -Np1 -i "${srcdir}/mozjs-fixes.patch"
 }
 
 build() {
-	cd "${srcdir}/mozjs-${pkgver}/js/src"
+	cd "${srcdir}/mozjs-38.0.0/js/src"
 
 	export CC="gcc"
 	export CXX="g++"
 	export SHELL="/bin/bash"
 
+export PYTHON=/usr/bin/python2
+
+	CXXFLAGS+=" -fno-delete-null-pointer-checks -fpermissive -fno-tree-vrp -fno-strict-aliasing"
+	CFLAGS+=" -fno-delete-null-pointer-checks -fno-tree-vrp -fno-strict-aliasing"
+
+	touch configure
+
 	./configure --prefix=/usr \
+		--enable-ctypes \
 		--enable-readline \
+		--enable-shared-js \
+		--enable-system-ffi \
 		--enable-threadsafe \
-		--with-system-ffi \
+		--with-system-icu \
 		--with-system-nspr \
+		--with-system-zlib
 
 	make
 }
 
 package() {
-	cd "${srcdir}/mozjs-${pkgver}/js/src"
+	cd "${srcdir}/mozjs-38.0.0/js/src"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/lib/libjs_static.ajs"
 
 	find "${pkgdir}/usr/include" -type f -exec chmod 644 {} \;
 	find "${pkgdir}/usr/lib/pkgconfig" -type f -exec chmod 644 {} \;
 }
-
-md5sums=('5db79c10e049a2dc117a6e6a3bc78a8e')
+md5sums=('cb602e21f5fc798b88163a3aa4e03e0a'
+         'a57b6b2baebaa5127ae3e295c805f9b3')

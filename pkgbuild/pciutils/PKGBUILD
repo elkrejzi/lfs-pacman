@@ -1,5 +1,5 @@
 pkgname=pciutils
-pkgver=3.5.3
+pkgver=3.5.4
 pkgrel=1
 pkgdesc="PCI bus configuration space access library and tools"
 arch=('x86_64')
@@ -40,4 +40,4 @@ package() {
 	mv -v "${pkgdir}/usr/sbin/lspci" "${pkgdir}/usr/bin"
 }
 
-md5sums=('4c436733b99fb0a29a2b7d39e077179c')
+md5sums=('e82537cd2194111c45fa7e684b52252e')

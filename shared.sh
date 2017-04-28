@@ -9,6 +9,8 @@ export PKGBUILDS=/sources/pacman/pkgbuild
 export BUILDDIR=/sources/build
 export PKGBUILD_ID=5000
 
+shopt -s -o pipefail
+
 if [ ! -d "${LFS}/${PKGBUILDS}" ]
 then
   echo "PKGBUILD root unavailable. Please adjust the variable"
@@ -51,7 +53,7 @@ lfs_chroot_build_temp() {
   local pkg=${1}
   local cmd="export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin; \
              pushd ${BUILDDIR}/${pkg}; \
-             /tools/bin/makepkg -f; \
+             /tools/bin/makepkg -f || exit 1; \
              popd"
 
   rm -rf ${LFS}/${BUILDDIR}/${pkg}
@@ -68,6 +70,8 @@ lfs_chroot_build_temp() {
       PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
       /tools/bin/su -pl pkgbuild -c "${cmd}"
 
+  [ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
   rm -rf ${LFS}/${BUILDDIR}/${pkg}/{pkg,src}
 }
 
@@ -81,9 +85,11 @@ lfs_pacman_install_temp() {
         *-debug-[0-9]* )
         ;;
         * )
-          PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff}
+          PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff} || exit 1
         ;;
       esac
     done
   popd
+
+  [ $PIPESTATUS = 0 ] || exit $PIPESTATUS
 }

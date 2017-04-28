@@ -1,5 +1,5 @@
 pkgname=libcroco
-pkgver=0.6.11
+pkgver=0.6.12
 pkgrel=1
 pkgdesc="A CSS parsing library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('dabc1911dfbfa85f8e6859ca47863168')
+md5sums=('bc0984fce078ba2ce29f9500c6b9ddce')

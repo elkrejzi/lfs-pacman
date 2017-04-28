@@ -1,5 +1,5 @@
 pkgname=lzo
-pkgver=2.09
+pkgver=2.10
 pkgrel=1
 pkgdesc="Portable lossless data compression library"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/liblzo2.so") "${pkgdir}/usr/lib/liblzo2.so"
 }
 
-md5sums=('c7ffc9a103afe2d1bba0b015e7aa887f')
+md5sums=('39d3f3f9c55c87b1e5d6888e1420f4b5')

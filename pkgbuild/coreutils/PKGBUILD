@@ -1,5 +1,5 @@
 pkgname=coreutils
-pkgver=8.26
+pkgver=8.27
 pkgrel=1
 pkgdesc="The basic file, shell and text manipulation utilities of the GNU operating system"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	mv -v "${pkgdir}/usr/bin/chroot" "${pkgdir}/usr/sbin"
 }
 
-md5sums=('d5aa2072f662d4118b9f4c63b94601a6')
+md5sums=('502795792c212932365e077946d353ae')

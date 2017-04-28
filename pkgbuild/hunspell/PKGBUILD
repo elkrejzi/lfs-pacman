@@ -1,5 +1,5 @@
 pkgname=hunspell
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Spell checker and morphological analyzer library and program"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('047c3feb121261b76dc16cdb62f54483')
+md5sums=('0df1c18c1284f8625af5ae5a8d5c4cef')

@@ -1,5 +1,5 @@
 pkgname=bind
-_pkgver=9.11.0-P3
+_pkgver=9.11.1
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="The ISC DNS Server"
@@ -59,7 +59,7 @@ package() {
 	install -v -Dm644 "${srcdir}/named.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/named.conf"
 }
 
-md5sums=('311787a0a69345a1f1cf7869b0266bf0'
+md5sums=('c384ab071d902bac13487c1268e5a32f'
          '64f5cf50e8d8192109dad43b779e5e36'
          'e5d27ead2d238928a08d33c7a7333477'
          '96d953fc698b3b34f7f24ed532a88abc'

@@ -1,6 +1,6 @@
 pkgname=fftw
 pkgver=3.3.6
-_pkgver=${pkgver}-pl1
+_pkgver=${pkgver}-pl2
 pkgrel=1
 pkgdesc="A library for computing the discrete Fourier transform (DFT)"
 arch=('x86_64')
@@ -42,4 +42,4 @@ package() {
 	make -C "${srcdir}/build3" install DESTDIR="${pkgdir}"
 }
 
-md5sums=('682a0e78d6966ca37c7446d4ab4cc2a1')
+md5sums=('927e481edbb32575397eb3d62535a856')

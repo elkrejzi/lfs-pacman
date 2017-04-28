@@ -1,5 +1,5 @@
 pkgname=krb5
-pkgver=1.15
+pkgver=1.15.1
 pkgrel=1
 pkgdesc="The Kerberos network authentication system"
 arch=('x86_64')
@@ -63,7 +63,7 @@ package() {
 	install -v -Dm644 "${srcdir}/krb5-kpropd.service" "${pkgdir}/lib/systemd/system/krb5-kpropd.service"
 }
 
-md5sums=('cd43a3316ebbb86b2a9020b485b1a819'
+md5sums=('8022f3a1cde8463e44fd35ef42731f85'
          'd4cd0bab047f2c07551bdac710574dde'
          'f0245d33083337f95654f4caf1d32f57'
          '7b5af1efb0c7e50839c39caf04aff1ae')

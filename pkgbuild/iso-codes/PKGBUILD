@@ -1,5 +1,5 @@
 pkgname=iso-codes
-pkgver=3.74
+pkgver=3.75
 pkgrel=1
 pkgdesc="Lists of the country, language, and currency names"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('d5448475d087756b78391b8c53c5b83a')
+md5sums=('9ba173b69d4360003414f23837597a92')

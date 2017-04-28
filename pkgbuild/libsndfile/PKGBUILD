@@ -1,6 +1,6 @@
 pkgbase=libsndfile
 pkgname=('libsndfile' 'lib32-libsndfile')
-pkgver=1.0.27
+pkgver=1.0.28
 pkgrel=1
 arch=('x86_64')
 url="http://www.mega-nerd.com/libsndfile"
@@ -53,4 +53,4 @@ package_lib32-libsndfile() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('fd1d97c6077f03b5d984d7956ffedb7a')
+md5sums=('646b5f98ce89ac60cdb060fcd398247c')

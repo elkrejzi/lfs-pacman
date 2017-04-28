@@ -1,5 +1,5 @@
 pkgname=gnutls
-pkgver=3.5.9
+pkgver=3.5.11
 pkgrel=1
 pkgdesc="A library which provides a secure layer over a reliable transport layer"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/info/*.png "${pkgdir}"/usr/share/info/*guile*
 }
 
-md5sums=('0ab25eb6a1509345dd085bc21a387951')
+md5sums=('a3ff8cf5ca7522e3ba14f487e6326e11')

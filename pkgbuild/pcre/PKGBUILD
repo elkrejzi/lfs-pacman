@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://www.pcre.org/"
 license=('BSD')
 #depends=()
-source=("https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${pkgver}.tar.bz2")
+source=("ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/pcre{,32}-${pkgver}

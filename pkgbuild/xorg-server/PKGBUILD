@@ -1,5 +1,5 @@
 pkgname=xorg-server
-pkgver=1.19.1
+pkgver=1.19.3
 pkgrel=1
 pkgdesc="Xorg X server"
 arch=('x86_64')
@@ -41,4 +41,4 @@ package() {
 	install -v -dm755 "${pkgdir}/etc/X11/xorg.conf.d"
 }
 
-md5sums=('caa8ee7b2950abbf734347d137529fb6')
+md5sums=('015d2fc4b9f2bfe7a626edb63a62c65e')

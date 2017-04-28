@@ -1,5 +1,5 @@
 pkgname=ibus
-pkgver=1.5.14
+pkgver=1.5.15
 pkgrel=1
 pkgdesc="Next Generation Input Bus for Linux"
 arch=('x86_64')
@@ -19,6 +19,8 @@ build() {
 		--enable-python-library \
 		--with-python=python3
 
+	rm -f tools/main.c
+
 	make
 }
 
@@ -28,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('debfafff1823952b69b248462f7a89a5')
+md5sums=('4e451cf4e8b1f160017987d728a47c2e')

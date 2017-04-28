@@ -1,5 +1,5 @@
 pkgname=audit
-pkgver=2.7.2
+pkgver=2.7.6
 pkgrel=1
 pkgdesc="Userspace components of the audit framework"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libaudit.so") "${pkgdir}/usr/lib/libaudit.so"
 }
 
-md5sums=('dcda449144d44030344c6a975769d44d')
+md5sums=('55a81bbed973b58a90590c949e71dc3e')

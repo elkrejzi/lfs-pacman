@@ -1,0 +1,29 @@
+pkgname=autoconf2.13
+pkgver=2.13
+pkgrel=1
+pkgdesc="A GNU tool for automatically configuring source code (Legacy 2.1x version)"
+arch=('x86_64')
+url="https://www.gnu.org/software/autoconf/"
+license=('GPL2')
+#depends=()
+source=("https://ftp.gnu.org/gnu/autoconf/autoconf-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/autoconf-${pkgver}"
+
+	sed -i "/acdatadir/s:autoconf:&2.13:g" Makefile.in
+
+	./configure --prefix=/usr --program-suffix=2.13
+
+	make
+}
+
+package() {
+	cd "${srcdir}/autoconf-${pkgver}"
+
+	make install prefix="${pkgdir}/usr"
+
+	rm -rf "${pkgdir}/usr/info"
+}
+
+md5sums=('9de56d4a161a723228220b0f425dc711')

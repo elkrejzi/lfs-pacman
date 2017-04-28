@@ -1,0 +1,24 @@
+pkgname=flashplayer
+pkgver=25.0.0.148
+pkgrel=1
+pkgdesc="Adobe Flash Player"
+arch=('x86_64')
+url="https://get.adobe.com/flashplayer/"
+license=('custom')
+#depends=()
+source=("https://fpdownload.adobe.com/get/flashplayer/pdc/${pkgver}/flash_player_npapi_linux.x86_64.tar.gz")
+
+package() {
+	cd "${srcdir}"
+
+	rm -rf usr/lib usr/lib64 usr/share/kde4
+
+	mv usr "${pkgdir}"
+
+	install -v -Dm755 libflashplayer.so "${pkgdir}/usr/lib/flashplayer/libflashplayer.so"
+
+	install -v -dm755 "${pkgdir}/usr/lib/mozilla/plugins"
+	ln -sfv ../../flashplayer/libflashplayer.so "${pkgdir}/usr/lib/mozilla/plugins/libflashplayer.so"
+}
+
+md5sums=('d03f607cf2814884d0db497dff934b34')

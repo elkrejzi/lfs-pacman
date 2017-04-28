@@ -1,5 +1,5 @@
 pkgname=nano
-pkgver=2.7.5
+pkgver=2.8.1
 pkgrel=1
 pkgdesc="Pico editor clone with enhancements"
 arch=('x86_64')
@@ -27,5 +27,5 @@ package() {
 	install -v -Dm644 "${srcdir}/nanorc" "${pkgdir}/etc/nanorc"
 }
 
-md5sums=('002703e368e07882f75e304c8860d83d'
+md5sums=('57393f25f6cc3fb1de455df743819e29'
          'fc57b93c907fefbccf12317d40b4a204')

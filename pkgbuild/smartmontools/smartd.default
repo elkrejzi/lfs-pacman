@@ -1,0 +1,2 @@
+# Additional options to pass to smartd command line
+SMARTD_OPTS=

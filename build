@@ -9,7 +9,7 @@ realfilepath=$(dirname ${realfile})
 
 lfs_mount_virt
 
-lfs_chroot_build_temp ${thispkg}
+lfs_chroot_build_temp ${thispkg} || exit 1
 
 case ${thispkg} in
   "bash" )
@@ -31,7 +31,7 @@ case ${thispkg} in
   ;;
 esac
 
-lfs_pacman_install_temp ${thispkg}
+lfs_pacman_install_temp ${thispkg} || exit 1
 
 case ${thispkg} in
   "glibc" )

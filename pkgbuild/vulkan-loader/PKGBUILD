@@ -1,6 +1,6 @@
 pkgbase=vulkan-loader
 pkgname=('vulkan-loader' 'lib32-vulkan-loader')
-pkgver=1.0.39.1
+pkgver=1.0.46.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.khronos.org/vulkan/"
@@ -101,3 +101,4 @@ package_lib32-vulkan-loader() {
 }
 
 md5sums=('25d6693172741c81710189c7c1fe8dda')
+md5sums=('c28756aa4165fbbdf324811b9fb9d40e')

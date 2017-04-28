@@ -1,0 +1,39 @@
+pkgname=smartmontools
+pkgver=6.5
+pkgrel=1
+pkgdesc="Control and monitor S.M.A.R.T. enabled ATA and SCSI Hard Drives"
+arch=('x86_64')
+url="https://www.smartmontools.org/"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://downloads.sourceforge.net/smartmontools/smartmontools-${pkgver}.tar.gz"
+	"smartd.default")
+
+build() {
+	cd "${srcdir}/smartmontools-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-systemdsystemunitdir=/lib/systemd/system \
+		--with-smartdscriptdir=/usr/share/smartmontools \
+		--with-smartdplugindir=/usr/share/smartmontools/smartd_warning.d
+
+	make
+}
+
+package() {
+	cd "${srcdir}/smartmontools-${pkgver}"
+
+	sed -e "s:sysconfig/smartmontools:default/smartd:" \
+	    -e "s:smartd_opts:SMARTD_OPTS:"                \
+	    -e "/syslog.target/d" -i smartd.service
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/smartd.default" "${pkgdir}/etc/default/smartd"
+}
+
+md5sums=('093aeec3f8f39fa9a37593c4012d3156'
+         '58500581f759a74602219a1ad418c920')

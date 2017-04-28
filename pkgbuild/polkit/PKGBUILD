@@ -1,5 +1,6 @@
 pkgname=polkit
-pkgver=0.113
+_commit=766a2ea
+pkgver=0.113+${_commit}
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
@@ -7,32 +8,37 @@ url="https://www.freedesktop.org/wiki/Software/polkit/"
 license=(LGPL)
 #depends=()
 options=(emptydirs)
-source=("https://www.freedesktop.org/software/polkit/releases/polkit-${pkgver}.tar.gz"
-	"polkit-mozjs24.patch"
+source=("git+https://anongit.freedesktop.org/git/polkit.git#commit=${_commit}"
+	"polkit-mozjs38.patch"
 	"polkit-1.pam"
 	"polkit.sysusers")
 
 prepare() {
-	cd "${srcdir}/polkit-${pkgver}"
+	cd "${srcdir}/polkit"
 
-	patch -Np1 -i "${srcdir}/polkit-mozjs24.patch"
+	patch -Np1 -i "${srcdir}/polkit-mozjs38.patch"
+
+	NOCONFIGURE=1 ./autogen.sh
 
 	sed -i "s:/sys/fs/cgroup/systemd/:/bin:g" configure
 }
 
 build() {
-	cd "${srcdir}/polkit-${pkgver}"
+	cd "${srcdir}/polkit"
+
+	export CXX="${CXX} -std=c++11"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
+		--enable-gtk-doc \
 		--with-systemdsystemunitdir=/lib/systemd/system
 
 	make
 }
 
 package() {
-	cd "${srcdir}/polkit-${pkgver}"
+	cd "${srcdir}/polkit"
 
 	make install DESTDIR="${pkgdir}"
 
@@ -43,7 +49,7 @@ package() {
 	chown 27:27 "${pkgdir}/etc/polkit-1/rules.d" "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-md5sums=('4b77776c9e4f897dcfe03b2c34198edf'
-         'fb0b81782309ece1ad705dc88c13a20f'
+md5sums=('SKIP'
+         '5034798259834cbe838f919bf93ea9aa'
          '4ce755378335620cc004fd5802a46907'
          '6006bfdf134f1f8c97762155584de238')

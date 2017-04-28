@@ -1,5 +1,5 @@
 pkgname=cryptsetup
-pkgver=1.7.3
+pkgver=1.7.5
 pkgrel=1
 pkgdesc="Userspace setup tool for transparent encryption of block devices using dm-crypt"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcryptsetup.so") "${pkgdir}/usr/lib/libcryptsetup.so"
 }
 
-md5sums=('7e3fdb1a1cd055cb9c5f847b15230d81')
+md5sums=('d2d668223e795dcf750da44dc3e7076b')

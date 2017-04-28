@@ -1,0 +1,30 @@
+pkgname=firefox
+pkgver=53.0
+pkgrel=1
+pkgdesc="Standalone web browser from mozilla.org"
+arch=('x86_64')
+url="https://www.mozilla.org/firefox/"
+license=('MPL' 'GPL' 'LGPL')
+#depends=()
+source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/linux-x86_64/en-US/firefox-${pkgver}.tar.bz2"
+	"firefox.desktop")
+
+package() {
+	cd "${srcdir}/firefox"
+
+	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/lib/firefox"
+	install -v -dm755 "${pkgdir}/usr/lib/mozilla/plugins"
+	install -v -dm755 "${pkgdir}/usr/share/applications"
+	install -v -dm755 "${pkgdir}/usr/share/pixmaps"
+
+	install -v -m644 "${srcdir}/firefox.desktop" "${pkgdir}/usr/share/applications/firefox.desktop"
+	install -v -m644 browser/icons/mozicon128.png "${pkgdir}/usr/share/pixmaps/firefox.png"
+
+	ln -sfv ../lib/firefox/firefox "${pkgdir}/usr/bin/firefox"
+	ln -sfv ../mozilla/plugins "${pkgdir}/usr/lib/firefox/plugins"
+
+	mv * "${pkgdir}/usr/lib/firefox"
+}
+
+md5sums=('faca6dfe64df2d8e6acd7b9876b5aa4e'
+         '14e0f6237a79b85e60256f4808163160')

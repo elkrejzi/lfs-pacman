@@ -1,5 +1,5 @@
 pkgname=pkg-config
-pkgver=0.29.1
+pkgver=0.29.2
 pkgrel=1
 pkgdesc="A system for managing library compile/link flags"
 arch=('x86_64')
@@ -21,5 +21,4 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 }
-
-md5sums=('f739a28cae4e0ca291f82d1d41ef107d')
+md5sums=('f6e931e319531b736fadc017f470e68a')

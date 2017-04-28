@@ -1,5 +1,5 @@
 pkgname=libunwind
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc="Portable and efficient C programming interface (API) to determine the call-chain of a program"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('fb4ea2f6fbbe45bf032cd36e586883ce')
+md5sums=('eefcb5d7f78fdc8f1ed172a26ea4202f')

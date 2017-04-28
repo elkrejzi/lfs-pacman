@@ -1,8 +1,8 @@
 pkgbase=llvm
 pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang' 'lib32-clang' 'clang-tools-extra' 'lld' 'lldb')
 _realver=4.0.0
-_rcver=rc2
-pkgver=${_realver}.${_rcver}
+#_rcver=rc2
+pkgver=${_realver} #.${_rcver}
 pkgrel=1
 arch=('x86_64')
 url="http://www.llvm.org/"
@@ -341,17 +341,17 @@ package_lldb() {
 	rm -rf "${pkgdir}/usr/lib/python2.7/site-packages/six.py"
 }
 
-md5sums=('4fb882706c9a57ad4d974390e995f944'
-         'd806d7b2a34617169f04c633c8abdcba'
-         'b1c0cf71f58514793c6779c7fa5ff949'
-         'f1ca7e66422d25744380182dff50fa9d'
-         'c65b6b17d01d5ab3bd2239d269a37ca5'
-         'da69e4a5422693baedee44ed2d427ff3'
-         'c54369598511bbdf1aa73c54257b4c52'
-         '2d4bad1097ac204ab155d8fbe6934cd2'
-         '6eb8f4eee1229f33d5a6ae2b2e10adb3'
-         '250560f9da5245382cee8e88e5267c70'
-         '51a4e5914a13ba88a6df31725370e5f5'
+md5sums=('ea9139a604be702454f6acf160b4f3a2'
+         '756e17349fdc708c62974b883bf72d37'
+         '2ec11fb7df827b086341131c5d7f1814'
+         '4cf7df466e6f803ec4611ee410ff6781'
+         '8b5d7b9bfcf7dec2dc901c8a6746f97c'
+         '0c3534eaa11c0cae33a1dcf5f36ce287'
+         'e5784656e0f38e3578f10ff7551d3896'
+         'bd41ba7fcca55d2a554409bbccd34d2d'
+         '3d06d2801dd4808f551a1a70068e01f5'
+         'f36e4e7cf872f8b3bbb9cdcddc5fd964'
+         '99e711337ec3e9a8bb36e8dd62b2cd6e'
          '9e98c06093a21bfcfee49dd76aaa54af'
          'd2bd2de31e094a8b9427bb33fc2eaa0b'
          'e9460bb300738c5037f563d24b3f6cc7'

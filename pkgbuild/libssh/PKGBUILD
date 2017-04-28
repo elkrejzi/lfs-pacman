@@ -1,6 +1,6 @@
 pkgname=libssh
-pkgver=0.7.4
-_dlid=210
+pkgver=0.7.5
+_dlid=218
 pkgrel=1
 pkgdesc="Library for accessing ssh client services through C libraries"
 arch=('x86_64')
@@ -29,5 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('895c42ba6d769840a2e10e507ad9f14d')
-md5sums=('ec36040a9d0cc343ba78edf3b6580855')
+md5sums=('d3fc864208bf607ad87cdee836894feb')

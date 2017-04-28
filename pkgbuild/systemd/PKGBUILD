@@ -1,5 +1,5 @@
 pkgname=systemd
-pkgver=232
+pkgver=233
 pkgrel=1
 pkgdesc="system and service manager"
 arch=('x86_64')
@@ -26,10 +26,14 @@ source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.x
 	"systemd-tmpfiles.hook"
 	"systemd-user")
 
-build() {
+prepare() {
 	cd "${srcdir}/systemd-${pkgver}"
 
-	sed -i "s#lz4 >= 125#lz4#g" configure
+	sed -i "s#-Werror=format=2##g" configure
+}
+
+build() {
+	cd "${srcdir}/systemd-${pkgver}"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -103,7 +107,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/sbin/init"
 }
 
-md5sums=('281604885d5a87f0359244f6f84037cb'
+md5sums=('e67d7664714ff5efe5b59cddedbe26a4'
          'd3a0e0ea0e21fe180a925c17cc5edf72'
          '0421aa8d1494acf5468e686889d57b65'
          '8d5a42b5ae3f65c2112eaee51d0acd3b'

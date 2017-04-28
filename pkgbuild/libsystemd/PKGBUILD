@@ -1,6 +1,6 @@
 pkgbase=libsystemd
 pkgname=('libsystemd' 'lib32-libsystemd')
-pkgver=232
+pkgver=233
 pkgrel=1
 arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
@@ -11,7 +11,7 @@ source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.x
 prepare() {
 	cd "${srcdir}/systemd-${pkgver}"
 
-	sed -i "s#lz4 >= 125#lz4#g" configure
+	sed -i "s#-Werror=format=2##g" configure
 
 	cp -a "${srcdir}"/systemd{,32}-${pkgver}
 }
@@ -94,4 +94,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('281604885d5a87f0359244f6f84037cb')
+md5sums=('e67d7664714ff5efe5b59cddedbe26a4')

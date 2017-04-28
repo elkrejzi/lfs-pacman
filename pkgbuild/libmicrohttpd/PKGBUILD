@@ -1,5 +1,5 @@
 pkgname=libmicrohttpd
-pkgver=0.9.52
+pkgver=0.9.53
 pkgrel=1
 pkgdesc="C library that is supposed to make it easy to run an HTTP server as part of another application"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('767111e817e2497ff92f943c5653497a')
+md5sums=('5a425e993a0f5295aecb5d6607a1c242')

@@ -1,5 +1,5 @@
 pkgname=ffmpeg
-pkgver=3.2.4
+pkgver=3.3
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
@@ -55,7 +55,6 @@ build() {
 		--enable-vaapi \
 		--enable-vdpau \
 		--enable-version3 \
-		--enable-x11grab \
 		--disable-debug \
 		--disable-static \
 		--extra-cflags="${CFLAGS}" \
@@ -71,4 +70,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('39fd71024ac76ba35f04397021af5606')
+md5sums=('368f1fff4bdadaf2823934cc0aadd71d')
