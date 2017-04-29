@@ -1,0 +1,34 @@
+pkgname=wireshark
+pkgver=2.2.6
+pkgrel=1
+pkgdesc="A free network protocol analyzer for Unix/Linux and Windows"
+arch=('x86_64')
+url="https://www.wireshark.org/"
+license=('GPL2')
+#depends=()
+source=("https://1.eu.dl.wireshark.org/src/wireshark-${pkgver}.tar.bz2"
+	"wireshark.sysusers")
+
+build() {
+	cd "${srcdir}/wireshark-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/wireshark-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/wireshark.sysusers" "${pkgdir}/usr/lib/sysusers.d/wireshark.conf"
+
+	chown 0:62 "${pkgdir}/usr/bin/tshark"
+	chown 0:62 "${pkgdir}/usr/bin/dumpcap"
+	chmod 6550 "${pkgdir}/usr/bin/tshark"
+	chmod 6550 "${pkgdir}/usr/bin/dumpcap"
+}
+
+md5sums=('2cd9a35c2df8c32668c1776784f074df'
+         'dfddc67a07265ccae91a1678f5ca1443')

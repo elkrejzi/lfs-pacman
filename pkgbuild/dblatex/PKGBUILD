@@ -1,0 +1,17 @@
+pkgname=dblatex
+pkgver=0.3.10
+pkgrel=1
+pkgdesc="DocBook (XML and SGML) to DVI, PDF, PostScript converter using LaTeX"
+arch=('x86_64')
+url="http://dblatex.sourceforge.net/"
+license=('GPL')
+#depends=()
+source=("https://downloads.sourceforge.net/dblatex/dblatex-${pkgver}.tar.bz2")
+
+package() {
+	cd "${srcdir}/dblatex-${pkgver}"
+
+	python setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('437513c07101cefe5be3cbe83f313878')

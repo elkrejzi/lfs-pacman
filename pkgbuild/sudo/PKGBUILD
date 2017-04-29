@@ -1,0 +1,40 @@
+pkgname=sudo
+_pkgver=1.8.19p2
+pkgver=${_pkgver/p/.p}
+pkgrel=1
+pkgdesc="Give certain users the ability to run some commands as root"
+arch=('x86_64')
+url="https://www.sudo.ws/sudo/"
+license=('custom')
+#depends=()
+source=("https://www.sudo.ws/sudo/dist/sudo-${_pkgver}.tar.gz"
+	"sudo.pam")
+
+build() {
+	cd "${srcdir}/sudo-${_pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir=/usr/lib \
+		--enable-tmpfiles.d \
+		--with-all-insults \
+		--with-env-editor \
+		--with-pam \
+		--with-rundir=/run/sudo \
+		--with-passprompt="[sudo] password for %p: "
+
+	make
+}
+
+package() {
+	cd "${srcdir}/sudo-${_pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/run"
+
+	install -v -Dm644 "${srcdir}/sudo.pam" "${pkgdir}/etc/pam.d/sudo"
+}
+
+md5sums=('31a6090ed1d0946fa22cba19e86aafef'
+         '39e65caf258a38aebfe847a89ac5822f')

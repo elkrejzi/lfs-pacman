@@ -1,0 +1,31 @@
+pkgname=rfkill
+pkgver=0.5
+pkgrel=1
+pkgdesc="Tool for enabling and disabling wireless devices"
+arch=('x86_64')
+url="https://wireless.wiki.kernel.org/en/users/Documentation/rfkill"
+license=('custom')
+#depends=()
+source=("https://www.kernel.org/pub/software/network/rfkill/rfkill-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/rfkill-${pkgver}"
+
+	sed -i "s:-O2 -g:${CFLAGS}:g" Makefile
+}
+
+build() {
+	cd "${srcdir}/rfkill-${pkgver}"
+
+	unset CFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/rfkill-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('ce834c00c049cd86a04ab115c92ef548')

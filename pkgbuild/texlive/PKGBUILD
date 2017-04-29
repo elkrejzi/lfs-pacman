@@ -1,0 +1,80 @@
+pkgname=texlive
+pkgver=20160523
+_pkgver=${pkgver}b
+pkgrel=1
+pkgdesc="TeX Live distribution"
+arch=('x86_64')
+url="http://tug.org/texlive/"
+license=('GPL')
+#depends=()
+install=texlive.install
+source=("ftp://tug.org/texlive/historic/2016/texlive-${_pkgver}-source.tar.xz"
+	"ftp://tug.org/texlive/historic/2016/texlive-${_pkgver}-texmf.tar.xz"
+	"ftp://tug.org/texlive/historic/2016/texlive-${pkgver}-extra.tar.xz")
+noextract=("texlive-${_pkgver}-texmf.tar.xz"
+	   "texlive-${pkgver}-extra.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/texlive-${pkgver}-source/build"
+}
+
+build() {
+	cd "${srcdir}/texlive-${pkgver}-source/build"
+
+	#export CXX="${CXX} -std=c++11" doesn't work yet
+
+	../configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--datarootdir=/usr/share \
+		--datadir=/usr/share \
+		--disable-native-texlive-build \
+		--disable-dialog \
+		--disable-multiplatform \
+		--disable-psutils \
+		--disable-t1utils \
+		--enable-shared \
+		--with-system-cairo \
+		--with-system-freetype2 \
+		--with-system-gd \
+		--with-system-gmp \
+		--with-system-graphite2 \
+		--with-system-kpathsea \
+		--with-system-libgs \
+		--with-system-libpaper \
+		--with-system-libpng \
+		--with-system-mpfr \
+		--with-system-pixman \
+		--with-system-zlib \
+		--with-system-zziplib \
+		--with-banner-add=" - Krejzi"
+
+		#--with-system-poppler \ stupid amount of rebuilds
+		#--with-system-xpdf \
+
+		#--with-system-harfbuzz \ requires system icu
+		#--with-system-icu \ icu 59.1 requires c++11
+
+	make
+}
+
+package() {
+	cd "${srcdir}/texlive-${pkgver}-source/build"
+
+	make install DESTDIR="${pkgdir}"
+	make texlinks DESTDIR="${pkgdir}"
+
+	tar --exclude=*/texmf-dist/doc --exclude=*/texmf-dist/source --strip-components=1 -xf "${srcdir}/texlive-${_pkgver}-texmf.tar.xz" -C "${pkgdir}/usr/share"
+	tar --wildcards --strip-components=1 -xf "${srcdir}/texlive-${pkgver}-extra.tar.xz" -C "${pkgdir}/usr/share" "*/tlpkg"
+
+	# libkpathsea
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktex.opt
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexdir{,.opt}
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexnam{,.opt}
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexupd
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/texmf.cnf
+}
+
+md5sums=('45e6b7ed13c0829811048c5fc3665694'
+         '54ec58699862f770ae60386018bbfb4d'
+         '7e099bbcce654526bb8b2546c6d72f18')

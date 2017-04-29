@@ -1,0 +1,31 @@
+pkgname=iw
+pkgver=4.9
+pkgrel=1
+pkgdesc="nl80211 based CLI configuration utility for wireless devices"
+arch=('x86_64')
+url="https://wireless.wiki.kernel.org/en/users/Documentation/iw"
+license=('GPL')
+#depends=()
+source=("https://www.kernel.org/pub/software/network/iw/iw-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/iw-${pkgver}"
+
+	sed -i "s:-O2 -g:${CFLAGS}:g" Makefile
+}
+
+build() {
+	cd "${srcdir}/iw-${pkgver}"
+
+	unset CFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/iw-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('02d36655b45a0288feb0e87e461e365a')

@@ -1,0 +1,44 @@
+pkgname=iputils
+pkgver=20161105
+pkgrel=1
+pkgdesc="Network monitoring tools, including ping"
+arch=('x86_64')
+url="http://www.skbuff.net/iputils/"
+license=('GPL')
+#depends=()
+source=("iputils-s${pkgver}.tar.gz::https://github.com/iputils/iputils/archive/s${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/iputils-s${pkgver}"
+
+	sed -i "s#-O3#${CFLAGS}#g" Makefile
+}
+
+build() {
+	cd "${srcdir}/iputils-s${pkgver}"
+
+	unset CFLAGS
+
+	make
+	make -C doc man
+}
+
+package() {
+	cd "${srcdir}/iputils-s${pkgver}"
+
+	install -v -Dm755 ping "${pkgdir}/bin/ping"
+	install -v -Dm755 arping "${pkgdir}/sbin/arping"
+	install -v -Dm755 tracepath "${pkgdir}/usr/bin/tracepath"
+
+	install -v -dm755 "${pkgdir}/usr/share/man/man8"
+	install -v -m644 doc/arping.8 doc/tracepath.8 doc/ping.8 "${pkgdir}/usr/share/man/man8"
+
+	# compat symlinks
+	ln -sfv ping "${pkgdir}/bin/ping6"
+	ln -sfv ping.8 "${pkgdir}/usr/share/man/man8/ping6.8"
+
+	ln -sfv tracepath "${pkgdir}/usr/bin/tracepath6"
+	ln -sfv tracepath.8 "${pkgdir}/usr/share/man/man8/tracepath6.8"
+}
+
+md5sums=('06f0be2dabe10dc80fdb328073230e69')

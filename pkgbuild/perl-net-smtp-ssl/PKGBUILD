@@ -1,0 +1,27 @@
+pkgname=perl-net-smtp-ssl
+pkgver=1.04
+pkgrel=1
+pkgdesc="SSL support for Net::SMTP"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Net-SMTP-SSL/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/Net-SMTP-SSL-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Net-SMTP-SSL-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Net-SMTP-SSL-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('62b49c961043898b43b041dafbc1b389')

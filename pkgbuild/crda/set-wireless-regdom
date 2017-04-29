@@ -1,0 +1,7 @@
+#!/bin/bash
+
+unset WIRELESS_REGDOM
+
+. /etc/default/wireless-regdom
+
+[ -n "${WIRELESS_REGDOM}" ] && iw reg set ${WIRELESS_REGDOM}

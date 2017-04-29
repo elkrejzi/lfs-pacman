@@ -1,0 +1,9 @@
+post_install() {
+	/usr/bin/mktexlsr
+	/usr/bin/fmtutil-sys --all 1>/dev/null
+	/usr/bin/updmap-sys --quiet --nohash
+}
+
+post_upgrade() {
+	post_install
+}

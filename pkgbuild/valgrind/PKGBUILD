@@ -1,0 +1,31 @@
+pkgname=valgrind
+pkgver=3.12.0
+pkgrel=1
+pkgdesc="A tool to help find memory-management problems in programs"
+arch=('x86_64')
+url="http://valgrind.org/"
+license=('GPL')
+#depends=()
+source=("http://valgrind.org/downloads/valgrind-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/valgrind-${pkgver}"
+
+	sed -i "s/-mt//g" configure
+
+	unset CFLAGS CXXFLAGS
+
+	./configure --prefix=/usr
+
+	sed -i "s#-lgcc#-lcompiler-rt#g" $(grep -rl lgcc)
+
+	make
+}
+
+package() {
+	cd "${srcdir}/valgrind-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6eb03c0c10ea917013a7622e483d61bb')

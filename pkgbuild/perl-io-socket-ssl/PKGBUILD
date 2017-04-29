@@ -1,0 +1,27 @@
+pkgname=perl-io-socket-ssl
+pkgver=2.048
+pkgrel=1
+pkgdesc="Nearly transparent SSL encapsulation for IO::Socket::INET"
+arch=('x86_64')
+url="http://search.cpan.org/dist/IO-Socket-SSL/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/IO-Socket-SSL-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/IO-Socket-SSL-${pkgver}"
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/IO-Socket-SSL-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('b78810bd8ee1d10a2d8c87170b7b42ba')

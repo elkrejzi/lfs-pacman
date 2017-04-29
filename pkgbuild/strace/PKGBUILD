@@ -1,0 +1,25 @@
+pkgname=strace
+pkgver=4.16
+pkgrel=1
+pkgdesc="A useful diagnositic, instructional, and debugging tool"
+arch=('x86_64')
+url="https://sourceforge.net/projects/strace/"
+license=('custom')
+#depends=()
+source=("https://downloads.sourceforge.net/strace/strace-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/strace-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/strace-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2873366cac98770efcbed6e748d5ef23')

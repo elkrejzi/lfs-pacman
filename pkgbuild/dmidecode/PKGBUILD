@@ -1,0 +1,31 @@
+pkgname=dmidecode
+pkgver=3.0
+pkgrel=1
+pkgdesc="Desktop Management Interface table related utilities"
+arch=('x86_64')
+url="http://www.nongnu.org/dmidecode"
+license=('GPL')
+#depends=()
+source=("http://download.savannah.gnu.org/releases/dmidecode/dmidecode-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/dmidecode-${pkgver}"
+
+	sed -i "s:-O2:${CFLAGS}:g;/CC/s:gcc:${CC}:g" Makefile
+}
+
+build() {
+	cd "${srcdir}/dmidecode-${pkgver}"
+
+	unset CFLAGS
+
+	make prefix=/usr
+}
+
+package() {
+	cd "${srcdir}/dmidecode-${pkgver}"
+
+	make install prefix=/usr DESTDIR="${pkgdir}"
+}
+
+md5sums=('281ee572d45c78eca73a14834c495ffd')

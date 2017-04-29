@@ -1,0 +1,31 @@
+pkgname=unrar
+pkgver=5.5.3
+pkgrel=1
+pkgdesc="The RAR uncompression program"
+arch=('x86_64')
+url="http://www.rarlab.com/rar_add.htm"
+license=('custom')
+#depends=()
+source=("http://www.rarlab.com/rar/unrarsrc-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/unrar"
+
+	sed -i "s:-O2:${CFLAGS} -w:g;/CXX/s:c++:${CXX}:g" makefile
+}
+
+build() {
+	cd "${srcdir}/unrar"
+
+	unset CFLAGS CXXFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/unrar"
+
+	install -v -Dm755 unrar "${pkgdir}/usr/bin/unrar"
+}
+
+md5sums=('21aacd1ce6c3e07f89801c78dbc31c01')

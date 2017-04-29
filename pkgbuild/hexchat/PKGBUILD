@@ -1,0 +1,27 @@
+pkgname=hexchat
+pkgver=2.12.3
+pkgrel=1
+pkgdesc="A popular and easy to use graphical IRC (chat) client"
+arch=('x86_64')
+url="https://hexchat.github.io/"
+license=('GPL')
+#depends=()
+source=("https://dl.hexchat.net/hexchat/hexchat-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/hexchat-${pkgver}"
+
+	./configure --prefix=/usr \
+		--enable-textfe \
+		--enable-python=python3
+
+	make
+}
+
+package() {
+	cd "${srcdir}/hexchat-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('14577055cf2df57d25be48c2b57ddfaa')

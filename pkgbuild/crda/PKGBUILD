@@ -1,0 +1,44 @@
+pkgname=crda
+pkgver=3.18
+pkgrel=1
+pkgdesc="Central Regulatory Domain Agent for wireless networks"
+arch=('x86_64')
+url="https://wireless.wiki.kernel.org/en/developers/Regulatory/CRDA"
+license=('custom')
+#depends=()
+source=("https://www.kernel.org/pub/software/network/crda/crda-${pkgver}.tar.xz"
+	"crda-fixes.patch"
+	"set-wireless-regdom")
+
+prepare() {
+	cd "${srcdir}/crda-${pkgver}"
+
+	sed -i "s:-O2 -fpic:${CFLAGS} -fpic:g" Makefile
+	sed -i "s:-Werror ::g" Makefile
+
+	patch -Np1 -i "${srcdir}/crda-fixes.patch"
+}
+
+build() {
+	cd "${srcdir}/crda-${pkgver}"
+
+	export CC="gcc"
+
+	unset CFLAGS
+
+	make LIBDIR=/lib/crda REG_BIN=/lib/crda/regulatory.bin RUNTIME_PUBKEY_DIR=/lib/crda/pubkeys RUNTIME_PUBKEY_ONLY=1 V=1
+}
+
+package() {
+	cd "${srcdir}/crda-${pkgver}"
+
+	make install LIBDIR=/lib/crda DESTDIR="${pkgdir}"
+
+	echo 'ACTION=="add" SUBSYSTEM=="module", DEVPATH=="/module/cfg80211", RUN+="/lib/crda/set-wireless-regdom"' >> "${pkgdir}/lib/udev/rules.d/85-regulatory.rules"
+
+	install -Dm755 "${srcdir}/set-wireless-regdom" "${pkgdir}/lib/crda/set-wireless-regdom"
+}
+
+md5sums=('0431fef3067bf503dfb464069f06163a'
+         'a1389e85d66d77a51a3992e638888a2c'
+         'eaba94405d69080a76947d55cc4ccdbc')

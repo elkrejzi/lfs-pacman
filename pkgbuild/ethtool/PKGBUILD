@@ -1,0 +1,25 @@
+pkgname=ethtool
+pkgver=4.10
+pkgrel=1
+pkgdesc="Utility for controlling network drivers and hardware"
+arch=('x86_64')
+url="https://www.kernel.org/pub/software/network/ethtool/"
+license=('GPL')
+#depends=()
+source=("https://www.kernel.org/pub/software/network/ethtool/ethtool-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/ethtool-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ethtool-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e462579c12bcf306730600d571b0458c')

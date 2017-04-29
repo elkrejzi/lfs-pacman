@@ -1,0 +1,42 @@
+pkgname=libreoffice
+pkgver=5.3.2
+_lover=${pkgver}.2
+pkgrel=1
+pkgdesc="Free Office Suite"
+arch=('x86_64')
+url="http://www.libreoffice.org/"
+license=('LGPL3')
+#depends=()
+source=("http://download.documentfoundation.org/libreoffice/stable/${pkgver}/deb/x86_64/LibreOffice_${pkgver}_Linux_x86-64_deb.tar.gz"
+	"http://download.documentfoundation.org/libreoffice/stable/${pkgver}/deb/x86_64/LibreOffice_${pkgver}_Linux_x86-64_deb_langpack_bs.tar.gz"
+	"http://download.documentfoundation.org/libreoffice/stable/${pkgver}/deb/x86_64/LibreOffice_${pkgver}_Linux_x86-64_deb_langpack_hr.tar.gz")
+
+prepare() {
+	cd "${srcdir}"
+
+	rm -rf LibreOffice_${_lover}_Linux_x86-64_deb/DEBS/*-kde-integration*
+	rm -rf LibreOffice_${_lover}_Linux_x86-64_deb/DEBS/*-onlineupdate*
+
+	install -dm755 temp
+}
+
+package() {
+	cd "${srcdir}/temp"
+
+	rm -rf usr opt
+
+	for deb in \
+		"${srcdir}"/LibreOffice_${_lover}_Linux_x86-64_deb/DEBS/*.deb \
+		"${srcdir}"/LibreOffice_${_lover}_Linux_x86-64_deb_langpack_bs/DEBS/*.deb \
+		"${srcdir}"/LibreOffice_${_lover}_Linux_x86-64_deb_langpack_hr/DEBS/*.deb
+	do
+		ar x ${deb}
+		bsdtar -xf data.tar.gz -C "${pkgdir}"
+	done
+
+	rm -rf  "${pkgdir}/usr/lib" "${pkgdir}/usr/share/icons/gnome" "${pkgdir}/usr/share/icons/locolor"
+}
+
+md5sums=('a155055d7fb8232e7acdcc095fa68709'
+         '2352362d12b339ebf22f892aea78a47d'
+         '2d7887b7c850f93e27476ead039dca24')

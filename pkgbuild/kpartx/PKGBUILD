@@ -1,0 +1,34 @@
+pkgname=kpartx
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="Multipath tools for Linux (kpartx only)"
+arch=('x86_64')
+url="http://christophe.varoqui.free.fr/"
+license=('GPL2')
+#depends=()
+source=("multipath-tools::git+http://git.opensvc.com/multipath-tools/.git#tag=${pkgver}")
+
+prepare() {
+	cd "${srcdir}/multipath-tools/kpartx"
+
+	sed -i "s:lib64:lib:g" ../Makefile.inc
+	sed -i "s:-O2:${CFLAGS}:g" ../Makefile.inc
+}
+
+build() {
+	cd "${srcdir}/multipath-tools/kpartx"
+
+	unset CFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/multipath-tools/kpartx"
+
+	make install DESTDIR="${pkgdir}"
+
+	mv "${pkgdir}/usr/lib" "${pkgdir}/lib"
+}
+
+md5sums=('SKIP')

@@ -1,0 +1,28 @@
+pkgname=gimp
+pkgver=2.9.4
+pkgrel=1
+pkgdesc="GNU Image Manipulation Program"
+arch=('x86_64')
+url="https://www.gimp.org/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://download.gimp.org/pub/gimp/v${pkgver:0:3}/gimp-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gimp-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-python \
+		--with-lcms=lcms2
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gimp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('6b3d425a7949110eeb532badedf721f3')

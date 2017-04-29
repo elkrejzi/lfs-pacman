@@ -1,0 +1,29 @@
+pkgname=bluefish
+pkgver=2.2.10
+pkgrel=1
+pkgdesc="A powerful HTML editor for experienced web designers and programmers"
+arch=('x86_64')
+url="http://bluefish.openoffice.nl/"
+license=('GPL3')
+#depends=()
+source=("http://www.bennewitz.com/bluefish/stable/source/bluefish-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/bluefish-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-update-databases \
+		--disable-xml-catalog-update
+
+	make
+}
+
+package() {
+	cd "${srcdir}/bluefish-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('06cc710505856cb328444d834f5e9666')

@@ -1,0 +1,37 @@
+pkgname=lsof
+pkgver=4.89
+pkgrel=1
+pkgdesc="Lists open files for running Unix processes"
+arch=('x86_64')
+url="http://people.freebsd.org/~abe/"
+license=('custom')
+#depends=()
+source=("ftp://ftp.fu-berlin.de/pub/unix/tools/lsof/lsof_${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/lsof_${pkgver}"
+
+	bsdtar xf lsof_${pkgver}_src.tar
+}
+
+build() {
+	cd "${srcdir}/lsof_${pkgver}/lsof_${pkgver}_src"
+
+	export LSOF_CC="${CC}"
+
+	./Configure -n linux
+
+	sed -i "/DEBUG/s:-O:${CFLAGS}:" Makefile
+	unset CFLAGS
+
+	make
+}
+
+package() {
+	cd "${srcdir}/lsof_${pkgver}/lsof_${pkgver}_src"
+
+	install -Dm755 lsof "${pkgdir}/usr/bin/lsof"
+	install -Dm644 lsof.8 "${pkgdir}/usr/share/man/man8/lsof.8"
+}
+
+md5sums=('1b9cd34f3fb86856a125abbf2be3a386')

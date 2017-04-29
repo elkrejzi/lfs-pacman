@@ -1,0 +1,77 @@
+pkgname=jdk
+_jmajor=8
+_jminor=131
+_jbuild=b11
+pkgver=${_jmajor}u${_jminor}
+pkgrel=1
+pkgdesc="Oracle Java Development Kit"
+arch=('x86_64')
+url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+license=('custom')
+#depends=()
+options=(!strip)
+source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_jbuild}/d54c1d3a095b4ff2b6607d096fa80163/jdk-${pkgver}-linux-x64.tar.gz"
+	"http://download.oracle.com/otn-pub/java/jce/${_jmajor}/jce_policy-${_jmajor}.zip"
+	"jdk.sh")
+
+DLAGENTS=('http::/usr/bin/curl -fLC - --retry 3 --retry-delay 3 -b oraclelicense=a -o %o %u')
+
+prepare() {
+	cd "${srcdir}/jdk1.${_jmajor}.0_${_jminor}"
+
+	rm -rf jre/lib/fontconfig.*
+	rm -rf jre/plugin man/ja man/ja_JP.UTF-8
+	rm -rf jre/Welcome.html README.html
+	rm -rf db javafx-src.zip src.zip
+
+	rm -rf {,jre/}{COPYRIGHT,LICENSE}
+	rm -rf {,jre/}{README,release}
+	rm -rf {,jre/}THIRDPARTYLICENSEREADME{,-JAVAFX}.txt
+
+	find lib -name "*.so" -exec chmod 755 {} \;
+}
+
+package() {
+	cd "${srcdir}/jdk1.${_jmajor}.0_${_jminor}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/truetype"
+
+	mv jre/lib/desktop/* "${pkgdir}/usr/share"
+	mv jre/lib/fonts "${pkgdir}/usr/share/fonts/truetype/lucida"
+	mv man "${pkgdir}/usr/share"
+
+	rmdir jre/lib/desktop
+
+	install -v -dm755 "${pkgdir}/usr/lib/java"
+
+	mv * "${pkgdir}/usr/lib/java"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+
+	for file in "${pkgdir}"/usr/lib/java/bin/*
+	do
+		ln -sfv ../lib/java/bin/$(basename $file) "${pkgdir}"/usr/bin/$(basename $file)
+	done
+
+	for file in "${pkgdir}"/usr/lib/java/jre/bin/*
+	do
+		ln -sfv ../lib/java/jre/bin/$(basename $file) "${pkgdir}"/usr/bin/$(basename $file)
+	done
+
+	ln -sfv ../../../../share/fonts/truetype/lucida "${pkgdir}/usr/lib/java/jre/lib/fonts"
+
+	install -v -dm755 "${pkgdir}/usr/lib/mozilla/plugins"
+	ln -sfv ../../java/jre/lib/amd64/libnpjp2.so "${pkgdir}/usr/lib/mozilla/plugins/libnpjp2.so"
+
+	sed s:.png:: -i "${pkgdir}"/usr/share/applications/*.desktop
+
+	cd "${srcdir}/UnlimitedJCEPolicyJDK8"
+
+	install -v -m644 *.jar "${pkgdir}/usr/lib/java/jre/lib/security"
+
+	install -Dm644 "${srcdir}/jdk.sh" "${pkgdir}/etc/profile.d/jdk.sh"
+}
+
+md5sums=('75b2cb2249710d822a60f83e28860053'
+         'b3c7031bc65c28c2340302065e7d00d3'
+         '601386392c47f7628b277c2b41f635e3')

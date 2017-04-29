@@ -1,0 +1,27 @@
+pkgname=perl-net-ssleay
+pkgver=1.81
+pkgrel=1
+pkgdesc="Perl extension for using OpenSSL"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Net-SSLeay/"
+license=('custom:BSD')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/M/MI/MIKEM/Net-SSLeay-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Net-SSLeay-${pkgver}"
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Net-SSLeay-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('71932ce34d4db44de8d00399c3405792')

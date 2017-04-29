@@ -1,0 +1,59 @@
+pkgbase=libjpeg-turbo6
+pkgname=('libjpeg-turbo6' 'lib32-libjpeg-turbo6')
+pkgver=1.5.1
+pkgrel=1
+arch=('x86_64')
+url="http://libjpeg-turbo.virtualgl.org/"
+license=('custom')
+#depends=()
+source=("https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/libjpeg-turbo{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libjpeg-turbo-${pkgver}"
+
+	./configure --prefix=/usr --without-simd
+
+	cd "${srcdir}/libjpeg-turbo32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--without-simd
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libjpeg-turbo-${pkgver}"
+	make -C "${srcdir}/libjpeg-turbo32-${pkgver}"
+}
+
+package_libjpeg-turbo6() {
+	pkgdesc="JPEG image codec with accelerated baseline compression and decompression (soversion 6)"
+
+	cd "${srcdir}/libjpeg-turbo-${pkgver}"
+
+	make lib_LTLIBRARIES="libjpeg.la" install-libLTLIBRARIES DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/*.{a,so}
+}
+
+package_lib32-libjpeg-turbo6() {
+	pkgdesc="JPEG image codec with accelerated baseline compression and decompression (soversion 6) (32 bit)"
+
+	cd "${srcdir}/libjpeg-turbo32-${pkgver}"
+
+	make lib_LTLIBRARIES="libjpeg.la" install-libLTLIBRARIES DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib32/*.{a,so}
+}
+
+md5sums=('55deb139b0cac3c8200b75d485fc13f3')

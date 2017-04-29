@@ -1,0 +1,31 @@
+pkgname=GConf
+pkgver=3.2.6
+pkgrel=1
+pkgdesc="A configuration database system (shared library)"
+arch=('x86_64')
+url="https://git.gnome.org/browse/GConf/"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/GConf/${pkgver:0:3}/GConf-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/GConf-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-orbit
+
+	make -C gconf gconfmarshal.c gconfmarshal.h
+	make -C gconf libgconf-2.la
+}
+
+package() {
+	cd "${srcdir}/GConf-${pkgver}"
+
+	make -C gconf lib_LTLIBRARIES="libgconf-2.la" install-libLTLIBRARIES DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/*.{a,so}
+}
+
+md5sums=('2b16996d0e4b112856ee5c59130e822c')

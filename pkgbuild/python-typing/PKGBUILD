@@ -1,0 +1,23 @@
+pkgname=python2-typing
+pkgver=3.6.1
+pkgrel=1
+pkgdesc="Type Hints for Python"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/typing/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/t/typing/typing-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/typing-${pkgver}"
+
+	python2 setup.py build
+}
+
+package() {
+	cd "${srcdir}/typing-${pkgver}"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('3fec97415bae6f742fb3c3013dedeb89')

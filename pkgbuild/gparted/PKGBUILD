@@ -1,0 +1,30 @@
+pkgname=gparted
+pkgver=0.28.1
+pkgrel=1
+pkgdesc="A Partition Magic clone, frontend to GNU Parted"
+arch=('x86_64')
+url="http://gparted.sourceforge.net"
+license=('GPL')
+#depends=()
+source=("https://downloads.sourceforge.net/gparted/gparted-${pkgver}.tar.gz"
+	"org.gnome.pkexec.gparted.policy")
+
+build() {
+	cd "${srcdir}/gparted-${pkgver}"
+
+	./configure --prefix=/usr --disable-doc
+
+	make GKSUPROG=pkexec
+}
+
+package() {
+	cd "${srcdir}/gparted-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -Dm644 "${srcdir}/org.gnome.pkexec.gparted.policy" \
+		"${pkgdir}/usr/share/polkit-1/actions/org.gnome.pkexec.gparted.policy"
+}
+
+md5sums=('ab72464a3ab2137664d9df8462befd3f'
+         'fb2d3a08a0fe664a8d6c25eccf9ed130')

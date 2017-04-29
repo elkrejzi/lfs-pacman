@@ -1,0 +1,30 @@
+pkgname=wireless-regdb
+pkgver=2017.03.07
+pkgrel=1
+pkgdesc="Central Regulatory Domain Database"
+arch=('x86_64')
+url="https://wireless.wiki.kernel.org/en/developers/Regulatory"
+license=('custom')
+#depends=()
+source=("https://www.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-${pkgver}.tar.xz"
+	"wireless-regdom.default")
+
+package() {
+	cd "${srcdir}/wireless-regdb-${pkgver}"
+
+	install -v -Dm644 regulatory.bin "${pkgdir}/lib/crda/regulatory.bin"
+	install -v -Dm644 sforshee.key.pub.pem "${pkgdir}/lib/crda/pubkeys/sforshee.key.pub.pem"
+	install -v -Dm644 regulatory.bin.5 "${pkgdir}/usr/share/man/man5/regulatory.bin.5"
+
+	install -v -Dm644 "${srcdir}/wireless-regdom.default" "${pkgdir}/etc/default/wireless-regdom"
+
+	for dom in $(grep ^country db.txt | cut -d' ' -f2 | sed "s#:##g")
+	do
+		echo "#WIRELESS_REGDOM=\"${dom}\"" >> "${srcdir}/wireless-regdom.tmp"
+	done
+
+	sort -u "${srcdir}/wireless-regdom.tmp" >> "${pkgdir}/etc/default/wireless-regdom"
+}
+
+md5sums=('52816bd259b1b28508a17e2592a5669c'
+         '48a50fbe9849f5676ba3c99f5343b8ec')

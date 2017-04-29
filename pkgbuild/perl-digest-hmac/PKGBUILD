@@ -1,0 +1,27 @@
+pkgname=perl-digest-hmac
+pkgver=1.03
+pkgrel=1
+pkgdesc="Perl Module: Keyed-Hashing for Message Authentication"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Digest-HMAC/"
+license=('PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/Digest-HMAC-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Digest-HMAC-${pkgver}"
+
+	PERL_MM_USE_DEFAULT=1  perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Digest-HMAC-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('e6a5d6f552da16eacb5157ea4369ff9d')

@@ -1,0 +1,27 @@
+pkgname=dosfstools
+pkgver=4.1
+pkgrel=1
+pkgdesc="DOS filesystem utilities"
+arch=('x86_64')
+url="https://github.com/dosfstools/dosfstools"
+license=('GPL2')
+#depends=()
+source=("https://github.com/dosfstools/dosfstools/releases/download/v${pkgver}/dosfstools-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/dosfstools-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sbindir=/sbin \
+		--enable-compat-symlinks
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dosfstools-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('07a1050db1a898e9a2e03b0c4569c4bd')

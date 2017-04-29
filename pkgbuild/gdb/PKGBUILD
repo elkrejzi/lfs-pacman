@@ -1,0 +1,29 @@
+pkgname=gdb
+pkgver=7.12.1
+pkgrel=1
+pkgdesc="The GNU Debugger"
+arch=('x86_64')
+url="https://www.gnu.org/software/gdb/"
+license=('GPL3')
+#depends=()
+source=("https://ftp.gnu.org/gnu/gdb/gdb-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gdb-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-system-readline \
+		--without-guile \
+		--with-system-gdbinit=/etc/gdb/gdbinit
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gdb-${pkgver}"
+
+	make install -C gdb DESTDIR="${pkgdir}"
+}
+
+md5sums=('193453347ddced7acb6b1cd2ee8f2e4b')

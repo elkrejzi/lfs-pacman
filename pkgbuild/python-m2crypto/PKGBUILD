@@ -1,0 +1,23 @@
+pkgname=python2-m2crypto
+pkgver=0.26.0
+pkgrel=1
+pkgdesc="A crypto and SSL toolkit for Python"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/M2Crypto/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/M/M2Crypto/M2Crypto-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/M2Crypto-${pkgver}"
+
+	python2 setup.py build
+}
+
+package() {
+	cd "${srcdir}/M2Crypto-${pkgver}"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('9f02f0b88fbe225cc6ea8680945cafa0')
