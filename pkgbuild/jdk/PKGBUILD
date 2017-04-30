@@ -9,7 +9,7 @@ arch=('x86_64')
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 license=('custom')
 #depends=()
-options=(!strip)
+options=(!strip emptydirs)
 source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_jbuild}/d54c1d3a095b4ff2b6607d096fa80163/jdk-${pkgver}-linux-x64.tar.gz"
 	"http://download.oracle.com/otn-pub/java/jce/${_jmajor}/jce_policy-${_jmajor}.zip"
 	"jdk.sh")
@@ -34,10 +34,10 @@ prepare() {
 package() {
 	cd "${srcdir}/jdk1.${_jmajor}.0_${_jminor}"
 
-	install -v -dm755 "${pkgdir}/usr/share/fonts/truetype"
+	install -v -dm755 "${pkgdir}/usr/share/fonts"
 
 	mv jre/lib/desktop/* "${pkgdir}/usr/share"
-	mv jre/lib/fonts "${pkgdir}/usr/share/fonts/truetype/lucida"
+	mv jre/lib/fonts "${pkgdir}/usr/share/fonts/lucida"
 	mv man "${pkgdir}/usr/share"
 
 	rmdir jre/lib/desktop
@@ -58,7 +58,7 @@ package() {
 		ln -sfv ../lib/java/jre/bin/$(basename $file) "${pkgdir}"/usr/bin/$(basename $file)
 	done
 
-	ln -sfv ../../../../share/fonts/truetype/lucida "${pkgdir}/usr/lib/java/jre/lib/fonts"
+	ln -sfv ../../../../share/fonts/lucida "${pkgdir}/usr/lib/java/jre/lib/fonts"
 
 	install -v -dm755 "${pkgdir}/usr/lib/mozilla/plugins"
 	ln -sfv ../../java/jre/lib/amd64/libnpjp2.so "${pkgdir}/usr/lib/mozilla/plugins/libnpjp2.so"

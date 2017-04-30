@@ -6,6 +6,7 @@ arch=('x86_64')
 url="http://linux-pam.org"
 license=('GPL2')
 #depends=()
+options=(emptydirs)
 source=("http://linux-pam.org/library/Linux-PAM-${pkgver}.tar.bz2"
 	"other"
 	"pam.conf"
@@ -20,7 +21,8 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--libdir=/usr/lib \
-		--enable-securedir=/lib/security
+		--enable-securedir=/lib/security \
+		--disable-regenerate-docu
 
 	make
 }
@@ -46,6 +48,8 @@ package() {
 		mv -v "${pkgdir}"/usr/lib/lib${file}.so.* "${pkgdir}/lib"
 		ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/lib${file}.so") "${pkgdir}/usr/lib/lib${file}.so"
 	done
+
+	rm -rf "${pkgdir}/var"
 }
 
 md5sums=('da4b2289b7cfb19583d54e9eaaef1c3a'

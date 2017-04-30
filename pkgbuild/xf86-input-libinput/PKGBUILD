@@ -11,6 +11,9 @@ source=("https://www.x.org/releases/individual/driver/xf86-input-libinput-${pkgv
 build() {
 	cd "${srcdir}/xf86-input-libinput-${pkgver}"
 
+	export CC="gcc"
+	export CXX="g++"
+
 	./configure --prefix=/usr
 
 	make

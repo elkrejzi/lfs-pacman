@@ -1,0 +1,25 @@
+pkgname=gtef
+pkgver=2.0.1
+pkgrel=1
+pkgdesc="A library that eases the development of GtkSourceView-based text editors and IDEs"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Gtef"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/gtef/${pkgver:0:3}/gtef-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gtef-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtef-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('fbd29e1b3503156e5d40714839474b25')

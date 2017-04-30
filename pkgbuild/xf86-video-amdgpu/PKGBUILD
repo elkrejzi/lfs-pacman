@@ -11,6 +11,9 @@ source=("https://www.x.org/releases/individual/driver/xf86-video-amdgpu-${pkgver
 build() {
 	cd "${srcdir}/xf86-video-amdgpu-${pkgver}"
 
+	export CC="gcc"
+	export CXX="g++"
+
 	./configure --prefix=/usr
 
 	make

@@ -6,6 +6,7 @@ arch=('x86_64')
 url="http://www.gtk.org/"
 license=('LGPL')
 #depends=()
+options=(emptydirs)
 source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
 	"glib-compile-schemas-quiet.patch"
 	"gio-querymodules.hook"

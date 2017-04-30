@@ -6,6 +6,7 @@ arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/fontconfig/"
 license=('custom')
 #depends=()
+options=(emptydirs)
 source=("https://www.freedesktop.org/software/fontconfig/release/fontconfig-${pkgver}.tar.bz2"
 	"fontconfig.hook")
 

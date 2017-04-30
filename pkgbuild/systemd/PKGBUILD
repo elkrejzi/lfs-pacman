@@ -40,7 +40,9 @@ build() {
 		--localstatedir=/var \
 		--enable-split-usr \
 		--disable-firstboot \
+		--disable-ima \
 		--disable-lto \
+		--disable-smack \
 		--disable-tests \
 		--disable-wheel-group \
 		--enable-gnuefi \
@@ -70,11 +72,12 @@ package() {
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 	rm -rf "${pkgdir}/usr/lib/sysusers.d/basic.conf"
 
+	echo 'disable *' > "${pkgdir}/lib/systemd/system-preset/99-default.preset"
+
 	chown root:systemd-journal "${pkgdir}/var/log/journal"
 	chmod 2755 "${pkgdir}/var/log/journal"
 
-	chown root:systemd-journal-remote "${pkgdir}/var/log/journal/remote"
-	chmod 2755 "${pkgdir}/var/log/journal/remote"
+	rm -rf "${pkgdir}/var/log/journal/remote"
 
 	rm -rf "${pkgdir}/etc/init.d" "${pkgdir}/etc/rpm" "${pkgdir}/usr/lib/rpm"
 	rm -rf "${pkgdir}/etc/systemd/system/ctrl-alt-del.target"

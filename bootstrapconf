@@ -1,0 +1,157 @@
+#!/bin/bash -e
+
+systemctl enable accounts-daemon auditd avahi-daemon bluetooth ModemManager named NetworkManager NetworkManager-dispatcher rtkit-daemon systemd-timesyncd upower wpa_supplicant
+systemctl enable sshd.socket
+
+install -dm755 /media/ntfs /media/other /media/win
+
+cat > /etc/fstab << "EOF"
+#
+# /etc/fstab: static file system information
+#
+# <file system>	<dir>	<type>	<options>	<dump>	<pass>
+
+/dev/sda9 /     ext4 noatime,errors=remount-ro 0 1
+/dev/sda8 /home ext4 noatime                   0 2
+/dev/sda7 none  swap defaults                  0 0
+
+/dev/sda2 /boot vfat defaults                  0 0
+
+none /var/tmp tmpfs defaults 0 0
+
+UUID=FEB8D68CB8D64337 /media/win   ntfs defaults 0 0
+UUID=C228EA6328EA5647 /media/ntfs  ntfs defaults 0 0
+UUID=3CB8F34AB8F30166 /media/other ntfs defaults 0 0
+EOF
+
+userdel pkgbuild
+
+useradd -u 1000 -g 1000 -c "Armin K" -s /bin/bash -MU armin
+
+#gpasswd -a armin kvm
+gpasswd -a armin systemd-journal
+gpasswd -a armin wireshark
+
+cat > /etc/hosts << "EOF"
+# Begin /etc/hosts
+
+127.0.0.1	localhost	localhost.localdomain
+::1		localhost	localhost.localdomain
+127.0.1.1	krejzi
+
+# End /etc/hosts
+EOF
+
+echo "krejzi" > /etc/hostname
+echo "nameserver 127.0.0.1" > /etc/resolv.conf
+
+ln -sf /usr/share/zoneinfo/Europe/Sarajevo /etc/localtime
+
+cat > /etc/locale.conf << "EOF"
+LANG=en_US.UTF-8
+EOF
+
+cat > /etc/vconsole.conf << "EOF"
+KEYMAP=croat
+FONT=Lat2-Terminus16
+FONT_MAP=8859-2
+EOF
+
+cat > /etc/X11/xorg.conf.d/00-keyboard.conf << "EOF"
+# Read and parsed by systemd-localed. It's probably wise not to edit this file
+# manually too freely.
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "hr"
+        Option "XkbModel" "pc105"
+EndSection
+EOF
+
+#cat > /etc/X11/xorg.conf.d/90-tigervnc.conf << "EOF"
+#Section "Module"
+#	Load		"vnc"
+#EndSection
+
+#Section "Screen"
+#	Identifier	"Screen0"
+#	DefaultDepth	24
+#	Option		"SecurityTypes"		"VncAuth"
+#	Option		"UserPasswdVerifier"	"VncAuth"
+#	Option		"PasswordFile"		"/home/armin/.vnc/passwd"
+#EndSection
+#EOF
+
+echo -e "armin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99-local
+
+chmod 440 /etc/sudoers.d/99-local
+
+install -dm755 /etc/adobe
+install -dm755 /etc/modprobe.d
+install -dm755 /etc/wpa_supplicant
+
+echo "EnableLinuxHWVideoDecode=1" > /etc/adobe/mms.cfg
+
+install -m600 /media/ntfs/Other/Linux/conf/nm/* /etc/NetworkManager/system-connections
+install -m644 /media/ntfs/Other/Linux/conf/network/* /etc/systemd/network
+install -m600 /media/ntfs/Other/Linux/conf/wpa/* /etc/wpa_supplicant
+
+cat > /etc/rc.local << "EOF"
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+#test -e /sys/kernel/debug/vgaswitcheroo/switch && echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
+
+#echo 5 > /proc/sys/vm/laptop_mode
+
+#echo 976 > /sys/class/backlight/intel_backlight/brightness
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+iptables -A FORWARD -i wlan0 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
+
+#ethtool -s eth0 wol d
+#echo 'auto' > '/sys/bus/usb/devices/1-1.3/power/control'
+
+exit 0
+EOF
+
+sed -i "s:#HandleLidSwitch=suspend:HandleLidSwitch=ignore:g" /etc/systemd/logind.conf
+sed -i "s:#DefaultTimeoutStopSec=90s:DefaultTimeoutStopSec=30s:g" /etc/systemd/system.conf
+
+systemctl enable gdm
+
+echo "Entering password for user root:"
+passwd
+echo "Entering password for user armin:"
+passwd armin
+
+rm -rf  /etc/group- /etc/gshadow- /etc/passwd- /etc/shadow-
+rm -rf /run/* /tmp/*
+
+cat << "EOF"
+Now run the following from outside the chroot
+
+export LFS=/mnt/lfs
+
+for D in AccountsService alsa bluetooth   \
+         NetworkManager upower            \
+         systemd/backlight systemd/rfkill
+do
+  rm -rf $LFS/var/lib/${D}
+  cp -a /var/lib/${D} $LFS/var/lib/${D}
+done
+EOF

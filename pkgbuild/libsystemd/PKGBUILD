@@ -22,7 +22,9 @@ build() {
 		--localstatedir=/var
 		--enable-split-usr
 		--disable-firstboot
+		--disable-ima
 		--disable-lto
+		--disable-smack
 		--disable-tests
 		--disable-wheel-group
 		--with-pamlibdir=/lib/security

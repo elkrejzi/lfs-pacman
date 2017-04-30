@@ -11,6 +11,9 @@ source=("https://freedesktop.org/software/libinput/libinput-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/libinput-${pkgver}"
 
+	export CC="gcc"
+	export CXX="g++"
+
 	./configure --prefix=/usr \
 		--disable-event-gui \
 		--disable-tests \

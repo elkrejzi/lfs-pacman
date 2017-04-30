@@ -6,6 +6,7 @@ arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/udisks/"
 license=('GPL2')
 #depends=()
+options=(emptydirs)
 source=("https://udisks.freedesktop.org/releases/udisks-${pkgver}.tar.bz2")
 
 build() {

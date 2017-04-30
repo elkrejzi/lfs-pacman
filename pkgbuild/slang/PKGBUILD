@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://www.jedsoft.org/slang/"
 license=('GPL')
 #depends=()
-options=(!makeflags staticlibs)
+options=(!makeflags staticlibs emptydirs)
 source=("http://www.jedsoft.org/releases/slang/slang-${pkgver}.tar.bz2")
 
 build() {

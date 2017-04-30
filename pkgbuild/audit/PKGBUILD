@@ -6,12 +6,22 @@ arch=('x86_64')
 url="https://people.redhat.com/sgrubb/audit"
 license=(GPL)
 #depends=()
+options=(emptydirs)
 source=("https://people.redhat.com/sgrubb/audit/audit-${pkgver}.tar.gz")
 
-build() {
+prepare() {
 	cd "${srcdir}/audit-${pkgver}"
 
 	sed -i "s#/sbin#/usr&#g" init.d/auditd.service
+	sed -i "s#/sbin/audispd#/usr&#g" init.d/auditd.conf
+	sed -i "s#/sbin/audisp-remote#/usr&#g" audisp/plugins/remote/au-remote.conf
+
+	sed -i "s#/sbin/auditctl#/usr&#g"  init.d/augenrules
+	sed -i "s#/usr/sbin/restorecon#/sbin/restorecon#g" init.d/augenrules
+}
+
+build() {
+	cd "${srcdir}/audit-${pkgver}"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -30,6 +40,7 @@ package() {
 
 	rm -rf "${pkgdir}/usr/libexec"
 
+	install -v -dm700 "${pkgdir}/var/log/audit"
 	install -v -dm755 "${pkgdir}/lib"
 
 	mv -v "${pkgdir}"/usr/lib/libaudit.so.* "${pkgdir}/lib"

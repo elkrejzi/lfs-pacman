@@ -6,6 +6,7 @@ arch=('x86_64')
 url="http://xmlsoft.org/XSLT/"
 license=('custom')
 #depends=()
+options=(emptydirs)
 source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz")
 
 build() {

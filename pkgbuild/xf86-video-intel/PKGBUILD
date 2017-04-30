@@ -12,6 +12,9 @@ source=("git://anongit.freedesktop.org/xorg/driver/xf86-video-intel#commit=${_co
 build() {
 	cd "${srcdir}/xf86-video-intel"
 
+	export CC="gcc"
+	export CXX="g++"
+
 	./autogen.sh --prefix=/usr \
 		--enable-kms-only \
 		--enable-sna \

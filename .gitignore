@@ -1,6 +1,8 @@
 *.exe
 *.tar.*
 *.tgz
+*.pkg.tar
+*.deb
 *.xz
 *.zip
 *.gz

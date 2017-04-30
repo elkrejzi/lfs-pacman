@@ -7,6 +7,7 @@ arch=('x86_64')
 url="https://www.sudo.ws/sudo/"
 license=('custom')
 #depends=()
+options=(emptydirs)
 source=("https://www.sudo.ws/sudo/dist/sudo-${_pkgver}.tar.gz"
 	"sudo.pam")
 
@@ -19,9 +20,12 @@ build() {
 		--enable-tmpfiles.d \
 		--with-all-insults \
 		--with-env-editor \
+		--with-linux-audit \
 		--with-pam \
+		--with-selinux \
 		--with-rundir=/run/sudo \
-		--with-passprompt="[sudo] password for %p: "
+		--with-passprompt="[sudo] password for %p: " \
+		--with-secure-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 
 	make
 }

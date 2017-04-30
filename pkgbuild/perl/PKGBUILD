@@ -8,6 +8,7 @@ arch=('x86_64')
 url="http://www.perl.org"
 license=('GPL' 'PerlArtistic')
 #depends=()
+options=(emptydirs)
 source=("http://www.cpan.org/src/5.0/perl-${pkgver}.tar.bz2")
 
 build() {

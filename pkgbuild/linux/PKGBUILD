@@ -1,13 +1,14 @@
 pkgbase=linux
 pkgname=('linux' 'linux-headers')
 _basever=4.10
-pkgver=4.10
+pkgver=4.10.13
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
 source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz"
-#	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
+	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
+	"linux-march-native.patch"
 	"config")
 
 export KBUILD_BUILD_USER="krejzi"
@@ -16,6 +17,8 @@ export KBUILD_BUILD_HOST="email.com"
 prepare() {
 	cd "${srcdir}/linux-${_basever}"
 	[ ${_basever} != ${pkgver} ] && patch -Np1 -i "${srcdir}/patch-${pkgver}" || true
+
+	patch -Np1 -i "${srcdir}/linux-march-native.patch"
 
 	install -v -m644 "${srcdir}/config" .config
 }
@@ -86,4 +89,7 @@ package_linux-headers() {
 	find "${_hdrdir}/scripts" -name "*.c*" -delete
 }
 
-md5sums=('b5e7f6b9b2fe1b6cc7bc56a3a0bfc090')
+md5sums=('b5e7f6b9b2fe1b6cc7bc56a3a0bfc090'
+         'f7f6515047207f3e4f0f32238e3ec80e'
+         '3604459db68b60961e5b7572922f7358'
+         '2500dbdc6e84b2970a23ab38b7d8b1fe')

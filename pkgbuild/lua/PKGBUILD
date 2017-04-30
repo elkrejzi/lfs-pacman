@@ -8,6 +8,7 @@ arch=('x86_64')
 url="http://www.lua.org/"
 license=('MIT')
 #depends=()
+options=(emptydirs)
 source=("http://www.lua.org/ftp/lua-${pkgver}.tar.gz"
 	"lua.pc"
 	"lua-shared-lib.patch")

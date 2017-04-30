@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://www.ruby-lang.org/en/"
 license=('BSD' 'custom')
 #depends=()
-options=(staticlibs)
+options=(staticlibs emptydirs)
 source=("http://cache.ruby-lang.org/pub/ruby/${pkgver:0:3}/ruby-${pkgver}.tar.xz")
 
 build() {

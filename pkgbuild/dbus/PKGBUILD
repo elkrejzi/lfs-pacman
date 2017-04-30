@@ -6,6 +6,7 @@ arch=('x86_64')
 url="https://wiki.freedesktop.org/www/Software/dbus/"
 license=('GPL' 'custom')
 #depends=()
+options=(emptydirs)
 source=("https://dbus.freedesktop.org/releases/dbus/dbus-${pkgver}.tar.gz")
 
 prepare() {

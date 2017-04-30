@@ -6,6 +6,7 @@ arch=('x86_64')
 url="https://www.gimp.org/"
 license=('GPL' 'LGPL')
 #depends=()
+options=(emptydirs)
 source=("https://download.gimp.org/pub/gimp/v${pkgver:0:3}/gimp-${pkgver}.tar.bz2")
 
 build() {

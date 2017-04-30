@@ -40,8 +40,7 @@ package() {
 
 	rm -rf "${pkgdir}/var/run"
 
-	install -v -dm755 "${pkgdir}/var/cache/bind"
-	install -v -dm775 "${pkgdir}/var/lib/bind"
+	install -v -dm775 "${pkgdir}/var/cache/bind" "${pkgdir}/var/lib/bind"
 
 	install -v -Dm664 "${srcdir}/named.conf" "${pkgdir}/etc/bind/named.conf"
 

@@ -1,0 +1,39 @@
+pkgname=viber
+pkgver=6.5.5.1481
+pkgrel=1
+pkgdesc="Proprietary cross-platform IM and VoIP software"
+arch=('x86_64')
+url="http://viber.com"
+license=('custom')
+#depends=()
+options=(!strip)
+source=("http://download.cdn.viber.com/cdn/desktop/Linux/viber.deb")
+
+pkgver() {
+	cd "${srcdir}"
+
+	bsdtar xf control.tar.gz
+	grep Version control | awk '{print $2}' | cut -d \- -f 1
+}
+
+package() {
+	cd "${srcdir}"
+
+	bsdtar xf data.tar.xz
+
+	sed -i "s#/usr/share/pixmaps/viber.png#viber#g" usr/share/applications/viber.desktop
+
+	cp -a opt "${pkgdir}"
+
+	find "${pkgdir}" -type d -exec chmod 755 {} \;
+
+	install -v -Dm644 usr/share/applications/viber.desktop "${pkgdir}/usr/share/applications/viber.desktop"
+
+	for isize in 16x16 24x24 32x32 48x48 64x64 96x96 128x128 256x256
+	do
+		install -v -Dm644 "${srcdir}/opt/viber/icons/${isize}.png" "${pkgdir}/usr/share/icons/hicolor/${isize}/apps/viber.png"
+	done
+	install -v -Dm644 "${srcdir}/opt/viber/icons/Viber.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/viber.svg"
+}
+
+md5sums=('SKIP')

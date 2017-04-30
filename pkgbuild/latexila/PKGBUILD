@@ -1,0 +1,25 @@
+pkgname=latexila
+pkgver=3.24.0
+pkgrel=1
+pkgdesc="A LaTeX editor designed for the GNOME desktop"
+arch=('x86_64')
+url="http://projects.gnome.org/latexila/"
+license=('GPL3')
+#depends=()
+source=("https://download.gnome.org/sources/latexila/${pkgver:0:4}/latexila-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/latexila-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/latexila-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2d701ebbc814905146ef78d03999fbe2')
