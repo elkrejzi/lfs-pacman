@@ -1,30 +1,57 @@
 pkgname=thunderbird
-pkgver=52.0.1
+pkgver=52.1.0
 pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=('x86_64')
 url="https://www.mozilla.org/thunderbird/"
 license=('MPL' 'GPL' 'LGPL')
 #depends=()
-source=("https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/linux-x86_64/en-US/thunderbird-${pkgver}.tar.bz2"
-	"thunderbird.desktop")
+options=(emptydirs !strip)
+source=("https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/source/thunderbird-${pkgver}.source.tar.xz"
+	"thunderbird.desktop"
+	"vendor.js"
+	"mozconfig"
+	"thunderbird-rust.patch")
+
+prepare() {
+	cd "${srcdir}/thunderbird-${pkgver}"
+
+	install -m644 "${srcdir}/mozconfig" mozconfig
+
+	sed -i "s:-\$(MOZ_APP_VERSION)::g" config/baseconfig.mk mozilla/config/baseconfig.mk
+
+	patch -d mozilla -Np1 -i "${srcdir}/thunderbird-rust.patch"
+}
+
+build() {
+	cd "${srcdir}/thunderbird-${pkgver}"
+
+	unset CFLAGS CXXFLAGS
+	export SHELL="/bin/bash"
+
+	make -f client.mk build
+}
 
 package() {
-	cd "${srcdir}/thunderbird"
+	cd "${srcdir}/thunderbird-${pkgver}"
 
-	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/lib/thunderbird"
-	install -v -dm755 "${pkgdir}/usr/share/applications"
+	make -j1 -f client.mk install INSTALL_SDK= DESTDIR="${pkgdir}"
 
-	install -v -m644 "${srcdir}/thunderbird.desktop" "${pkgdir}/usr/share/applications/thunderbird.desktop"
+	install -v -Dm644 "${srcdir}/vendor.js" "${pkgdir}/usr/lib/thunderbird/defaults/preferences/vendor.js"
 
-	ln -sfv ../lib/thunderbird/thunderbird "${pkgdir}/usr/bin/thunderbird"
+	rm -rf "${pkgdir}/usr/lib/thunderbird/dictionaries"
+	ln -sfv ../../share/hunspell "${pkgdir}/usr/lib/thunderbird/dictionaries"
 
-	for s in 16 22 24 32 48 256
+	for i in 16 22 24 32 48 256
 	do
-		install -v -Dm644 chrome/icons/default/default${s}.png "${pkgdir}/usr/share/icons/hicolor/${s}x${s}/apps/thunderbird.png"
+		install -v -Dm644 other-licenses/branding/thunderbird/mailicon${i}.png "${pkgdir}/usr/share/icons/hicolor/${i}x${i}/apps/thunderbird.png"
 	done
 
-	mv * "${pkgdir}/usr/lib/thunderbird"
+	install -v -Dm644 "${srcdir}/thunderbird.desktop" "${pkgdir}/usr/share/applications/thunderbird.desktop"
 }
-md5sums=('42aefd65571dd1e134e5a27134442bd7'
-         '31d705c909ab7695f5076bb5612b17a4')
+
+md5sums=('0cd0b6ac2740a1fd74b3c4a6cb846e53'
+         '31d705c909ab7695f5076bb5612b17a4'
+         '5a53179d14ae9631b7afe5e4d0fc0b25'
+         'a6f47a8c1284bf2df387b88d29cf2bc1'
+         '4d338d1b4b9308284979e3d19401b98d')

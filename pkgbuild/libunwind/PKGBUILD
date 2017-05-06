@@ -1,27 +1,64 @@
-pkgname=libunwind
+pkgbase=libunwind
+pkgname=('libunwind' 'lib32-libunwind')
 pkgver=1.2
 pkgrel=1
-pkgdesc="Portable and efficient C programming interface (API) to determine the call-chain of a program"
 arch=('x86_64')
 url="http://www.nongnu.org/libunwind/"
 license=('GPL')
 #depends=()
 source=("http://download.savannah.gnu.org/releases/libunwind/libunwind-${pkgver}.tar.gz")
 
+prepare() {
+	cd "${srcdir}/libunwind-${pkgver}"
+
+	sed -i "/LIBCRTS/s#-lgcc_s##g" configure
+
+	cp -a "${srcdir}"/libunwind{,32}-${pkgver}
+}
+
 build() {
 	cd "${srcdir}/libunwind-${pkgver}"
 
-	sed -i "/LIBCRTS/s#-lgcc##g" configure
-
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/libunwind32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--build=i686-pc-linux-gnu
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libunwind-${pkgver}"
+	make -C "${srcdir}/libunwind32-${pkgver}"
 }
 
-package() {
+package_libunwind() {
+	pkgdesc="Portable and efficient C programming interface (API) to determine the call-chain of a program"
+
 	cd "${srcdir}/libunwind-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libunwind() {
+	pkgdesc="Portable and efficient C programming interface (API) to determine the call-chain of a program (32 bit)"
+
+	cd "${srcdir}/libunwind32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/include"
+
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/include/libunwind-x86.h "${pkgdir}/usr/include"
 }
 
 md5sums=('eefcb5d7f78fdc8f1ed172a26ea4202f')

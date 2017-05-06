@@ -1,5 +1,5 @@
 pkgname=libevdev
-pkgver=1.5.6
+pkgver=1.5.7
 pkgrel=1
 pkgdesc="Wrapper library for evdev devices"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('d4ce9f061f8f954bea7adba0cb768a53')
+md5sums=('4f1cfaee8d75ea3fbbfeb99a98730952')

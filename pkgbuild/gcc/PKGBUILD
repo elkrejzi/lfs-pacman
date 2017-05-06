@@ -1,15 +1,23 @@
-pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-gfortran' 'gcc-objc')
+pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
-pkgver=6.3.0
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
 arch=('x86_64')
 url="http://gcc.gnu.org"
 license=('GPL' 'LGPL' 'FDL' 'custom')
 #depends=()
-options=(staticlibs debug !emptydirs)
+options=(staticlibs debug)
 source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.bz2"
 	"gcc-pure64.patch")
+
+gnat_available=0
+test -e "/usr/bin/gnatmake" && gnat_available=1
+
+if [ "${gnat_available}" == "0" ]
+then
+	source+=("gnat-gpl-2016-x86_64-linux-bin.tar.gz")
+fi
 
 prepare() {
 	cd "gcc-${pkgver}"
@@ -25,6 +33,15 @@ prepare() {
 	ln -sfv "gcc-${pkgver}" "${srcdir}/src"
 
 	install -v -dm755 "${srcdir}/build"
+
+	if [ "${gnat_available}" == "0" ]
+	then
+		cd "${srcdir}/gnat-gpl-2016-x86_64-linux-bin"
+		make ins-all prefix="${srcdir}/build/gnat-bin"
+
+		find "${srcdir}/build/gnat-bin" -name ld -exec mv -v {} {}.old \;
+		find "${srcdir}/build/gnat-bin" -name as -exec mv -v {} {}.old \;
+	fi
 }
 
 build() {
@@ -35,9 +52,20 @@ build() {
 
 	export SED=sed
 
+	enable_bootstrap="--disable-bootstrap"
+
+	if [ "${gnat_available}" == "0" ]
+	then
+		export CFLAGS=${CFLAGS/-march=skylake/-march=native}
+		export CXXFLAGS=${CXXFLAGS/-march=skylake/-march=native}
+		export PATH="${srcdir}/build/gnat-bin/bin:$PATH"
+
+		enable_bootstrap="--enable-bootstrap"
+	fi
+
 	../src/configure --prefix=/usr \
 		--libdir=/usr/lib \
-		--disable-bootstrap \
+		${enable_bootstrap} \
 		--disable-cloog-version-check \
 		--disable-libssp \
 		--disable-libstdcxx-pch \
@@ -47,7 +75,7 @@ build() {
 		--enable-clocale=gnu \
 		--enable-gnu-unique-object \
 		--enable-install-libiberty \
-		--enable-languages=c,c++,fortran,lto,objc,obj-c++ \
+		--enable-languages=c,c++,ada,fortran,lto,objc,obj-c++ \
 		--enable-linker-build-id \
 		--enable-lto \
 		--enable-multilib \
@@ -62,6 +90,7 @@ build() {
 	unset CC CXX SED
 
 	make
+	make -j1 -k install DESTDIR="${srcdir}/fakeinstall"
 }
 
 package_gcc() {
@@ -70,22 +99,22 @@ package_gcc() {
 	_gccarch=$(gcc/xgcc -dumpmachine)
 	_gccver=$(cat ../src/gcc/BASE-VER)
 
-	for d in gcc intl libbacktrace libcc1 libcpp libdecnumber \
-		libiberty lto-plugin ${_gccarch}/libgcc
-	do
- 		make -C ${d} install DESTDIR="${pkgdir}"
-	done
+	cp -r "${srcdir}"/fakeinstall/* "${pkgdir}"
+
+	if [ -e "${pkgdir}/usr/lib64" ]
+	then
+		mv "${pkgdir}"/usr/lib64/* "${pkgdir}/usr/lib"
+		rm -rf "${pkgdir}/usr/lib64"
+	fi
 
 	install -v -m644 libiberty/pic/libiberty.a "${pkgdir}/usr/lib"
 
+	mv "${pkgdir}"/usr/lib/libcc1.so* "${pkgdir}"
+	rm -rf "${pkgdir}"/usr/lib/*.so* "${pkgdir}"/usr/lib32/*.so*
+	mv "${pkgdir}"/libcc1.so* "${pkgdir}/usr/lib"
+
 	install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
  	ln -sfv ../../libexec/gcc/${_gccarch}/${_gccver}/liblto_plugin.so "${pkgdir}/usr/lib/bfd-plugins/"
-
-	rm -rf "${pkgdir}"/usr/bin/*gfortran*
-	rm -rf "${pkgdir}"/usr/lib{,32}/libgcc_s.so*
-	rm -rf "${pkgdir}"/usr/libexec/gcc/x86_64-pc-linux-gnu/6.3.0/{cc1obj,cc1objplus,f951}
-	rm -rf "${pkgdir}"/usr/share/info/gfortran.info
-	rm -rf "${pkgdir}"/usr/share/man/man1/gfortran.1
 
 	install -v -dm755 "${pkgdir}/lib"
 	ln -sfv ../usr/bin/cpp "${pkgdir}/lib/cpp"
@@ -93,97 +122,86 @@ package_gcc() {
 	pushd "${pkgdir}/usr/bin"
 		ln -f gcc cc
 	popd
+
+	# gcc-ada package
+	rm -rf "${pkgdir}"/usr/bin/gnat*
+	rm -rf "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/{adalib,adainclude}
+	rm -rf "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/{adalib,adainclude}
+	rm -rf "${pkgdir}"/usr/libexec/gcc/${_gccarch}/${_gccver}/gnat1
+	rm -rf "${pkgdir}"/usr/share/info/gnat*.info
+
+	# gcc-libs package
+	rm -rf "${pkgdir}"/usr/share/info/lib{gomp,itm,quadmath}.info
+	rm -rf "${pkgdir}"/usr/share/locale/*/LC_MESSAGES/libstdc++.mo
 }
 
 package_gcc-libs() {
+	pkgdesc+=" - Shared libraries"
+
 	cd "${srcdir}/build"
 
 	_gccarch=$(gcc/xgcc -dumpmachine)
 
-	make -C ${_gccarch}/libgcc install DESTDIR="${pkgdir}"
-	rm -rf "${pkgdir}/usr/lib/gcc"
+	install -v -dm755 "${pkgdir}/lib" "${pkgdir}/usr/lib"
 
-	for d in libatomic libbacktrace libcilkrts libgomp libitm libmpx libsanitizer libstdc++-v3 libvtv
+	cp -r "${srcdir}"/fakeinstall/usr/lib/*.so* "${pkgdir}/usr/lib"
+	rm -rf "${pkgdir}"/usr/lib/libcc1.so*
+	rm -rf "${pkgdir}"/usr/lib/*.py
+
+	for l in libgomp libitm libquadmath
 	do
-		make -C ${_gccarch}/${d} install DESTDIR="${pkgdir}"
+		make -C ${_gccarch}/${l} install-info DESTDIR="${pkgdir}"
 	done
 
-	rm -rf "${pkgdir}/usr/lib32"
+	make -C ${_gccarch}/libstdc++-v3/po install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/lib"
 	mv -v "${pkgdir}/usr/lib/libgcc_s.so.1" "${pkgdir}/lib"
-
-	ln -sfv ../../lib/libgcc_s.so.1 "${pkgdir}/usr/lib/libgcc_s.so"
-
-	rm -rf "${pkgdir}"/usr/lib64
-	rm -rf "${pkgdir}"/usr/lib/*.py
-	rm -rf "${pkgdir}"/usr/share/gcc-*
+	sed -i "s#libgcc_s.so.1#../../lib/&#g" "${pkgdir}/usr/lib/libgcc_s.so"
 
 	chmod -v 755 "${pkgdir}/lib/libgcc_s.so.1"
 }
 
 package_lib32-gcc-libs() {
+	pkgdesc+=" - Shared libraries (32 bit)"
+
 	cd "${srcdir}/build"
 
 	_gccarch=$(gcc/xgcc -dumpmachine)
 
-	for d in boehm-gc libatomic libbacktrace libcilkrts libgcc libgomp libitm libmpx \
-		libobjc libquadmath libsanitizer libstdc++-v3 libvtv libgfortran
-	do
-		make -C ${_gccarch}/32/${d} install DESTDIR="${pkgdir}"
-	done
+	install -v -dm755 "${pkgdir}/usr/lib32"
 
-	rm -rf "${pkgdir}"/usr/{include,lib,share}
+	cp -r "${srcdir}"/fakeinstall/usr/lib32/*.so* "${pkgdir}/usr/lib32"
 	rm -rf "${pkgdir}"/usr/lib32/*.py
 
 	chmod -v 755 "${pkgdir}/usr/lib32/libgcc_s.so.1"
 }
 
-package_gcc-gfortran() {
+package_gcc-ada() {
+	pkgdesc+=" - ADA Compiler"
+
 	cd "${srcdir}/build"
 
 	_gccarch=$(gcc/xgcc -dumpmachine)
 	_gccver=$(cat ../src/gcc/BASE-VER)
 
-	install -v -dm755 "${pkgdir}/usr/bin"
-	install -v -dm755 "${pkgdir}/usr/libexec/gcc/${_gccarch}/${_gccver}"
-	install -v -dm755 "${pkgdir}/usr/share/info"
-	install -v -dm755 "${pkgdir}/usr/share/man/man1"
+	make -C gcc ada.install-common DESTDIR="${pkgdir}"
+	make -C gcc ada.install-info DESTDIR="${pkgdir}"
 
-	install -v -m755 gcc/gfortran "${pkgdir}/usr/bin"
-	install -v -m755 gcc/f951 "${pkgdir}/usr/libexec/gcc/${_gccarch}/${_gccver}"
-	install -v -m644 gcc/doc/gfortran.info "${pkgdir}/usr/share/info"
-	install -v -m644 gcc/doc/gfortran.1 "${pkgdir}/usr/share/man/man1"
+	install -v -Dm755 gcc/gnat1 "${pkgdir}/usr/libexec/gcc/${_gccarch}/${_gccver}/gnat1"
 
-	pushd "${pkgdir}/usr/bin"
-		ln -f gfortran ${_gccarch}-gfortran
-	popd
+	make -C ${_gccarch}/32/libada INSTALL="install" INSTALL_DATA="install -m644" \
+		install-gnatlib DESTDIR="${pkgdir}"
 
-	for d in libquadmath libgfortran
-	do
-		make -C ${_gccarch}/${d} install DESTDIR="${pkgdir}"
-	done
+	install -v -dm755 "${pkgdir}/usr/lib32"
 
-	rm -rf "${pkgdir}/usr/lib32"
+	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/adalib/*.so "${pkgdir}/usr/lib"
+	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-package_gcc-objc() {
-	cd "${srcdir}/build"
-
-	_gccarch=$(gcc/xgcc -dumpmachine)
-	_gccver=$(cat ../src/gcc/BASE-VER)
-
-	install -v -dm755 "${pkgdir}/usr/libexec/gcc/${_gccarch}/${_gccver}"
-
-	install -v -m755 gcc/{cc1obj,cc1objplus} "${pkgdir}/usr/libexec/gcc/${_gccarch}/${_gccver}"
-
-	for d in libobjc boehm-gc
-	do
-		make -C ${_gccarch}/${d} install DESTDIR="${pkgdir}"
-	done
-
-	rm -rf "${pkgdir}/usr/lib32"
-}
-
-md5sums=('677a7623c7ef6ab99881bc4e048debb6'
+md5sums=('6bf56a2bca9dac9dbbf8e8d1036964a8'
          '8e765eb7c873eda6dd9552add6d8d624')
+
+if [ "${gnat_available}" == "0" ]
+then
+	md5sums+=('9741107cca1a6a4ddb0d5e8de824a90c')
+fi

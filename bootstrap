@@ -77,9 +77,11 @@ pcre
 pcre2
 libsepol
 libselinux
+libatomic_ops
 ed
 sed
 pkg-config
+gc
 binutils
 gcc
 libutil-linux
@@ -201,7 +203,6 @@ python-sphinx_rtd_theme
 elfutils
 gobject-introspection
 libaio
-libatomic_ops
 libedit
 libpng
 libsasl
@@ -219,7 +220,6 @@ popt
 rtmpdump
 vala
 chrpath
-gc
 gnutls
 krb5
 libarchive
@@ -367,7 +367,9 @@ ntfs-3g
 ruby
 subversion
 linux-firmware
+linux
 libomxil-bellagio
+libunwind
 libva
 libva-utils
 libvdpau
@@ -401,7 +403,6 @@ gtk2
 hicolor-icon-theme
 libepoxy
 libevdev
-libunwind
 mtdev
 libwacom
 libinput
@@ -604,6 +605,7 @@ libatasmart
 lm_sensors
 nss-mdns
 parted
+rust
 tidy-html5
 xapian-core
 doxygen

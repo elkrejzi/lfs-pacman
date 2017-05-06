@@ -1,11 +1,12 @@
 pkgname=man-pages
-pkgver=4.10
+pkgver=4.11
 pkgrel=1
 pkgdesc="Linux man pages"
 arch=('x86_64')
 url="http://man7.org/linux/man-pages/index.html"
 license=('GPL' 'custom')
 #depends=()
+options=(!strip)
 source=("https://www.kernel.org/pub/linux/docs/man-pages/man-pages-${pkgver}.tar.xz")
 
 package() {
@@ -18,4 +19,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man5/passwd.5"
 }
 
-md5sums=('c76a2844ea70e374fdff9c2e61bbe85b')
+md5sums=('c2f25e2367fc12267bb85abe7b39f173')

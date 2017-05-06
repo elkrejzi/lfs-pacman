@@ -1,5 +1,5 @@
 pkgname=iproute2
-pkgver=4.10.0
+pkgver=4.11.0
 pkgrel=1
 pkgdesc="IP Routing Utilities"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	ln -sfv ../bin/ip "${pkgdir}/sbin/ip"
 }
 
-md5sums=('b94a2b0edefaeac124dc8f5d006931b9')
+md5sums=('7a9498de88bcca95c305df6108ae197e')

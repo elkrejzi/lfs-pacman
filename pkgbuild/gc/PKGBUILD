@@ -1,31 +1,63 @@
-pkgname=gc
+pkgbase=gc
+pkgname=('gc' 'lib32-gc')
 pkgver=7.6.0
 pkgrel=1
-pkgdesc="A garbage collector for C and C++"
 arch=('x86_64')
 url="http://www.hboehm.info/gc/"
 license=('GPL')
 #depends=()
 source=("http://www.hboehm.info/gc/gc_source//gc-${pkgver}.tar.gz")
 
+prepare() {
+	cp -a "${srcdir}"/gc{,32}-${pkgver}
+}
+
 build() {
 	cd "${srcdir}/gc-${pkgver}"
 
 	./configure --prefix=/usr --enable-cplusplus
 
-	make
+	cd "${srcdir}/gc32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--enable-cplusplus
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/gc-${pkgver}"
+	make -C "${srcdir}/gc32-${pkgver}"
 }
 
-package() {
+package_gc() {
+	pkgdesc="A garbage collector for C and C++"
+
 	cd "${srcdir}/gc-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
 
-  rm -rf "${pkgdir}/usr/share"
+	rm -rf "${pkgdir}/usr/share"
 
-  install -v -Dm644 doc/gc.man "${pkgdir}/usr/share/man/man3/gc_malloc.3"
-  ln -sfv gc_malloc.3.gz "${pkgdir}/usr/share/man/man3/gc.3.gz"
+	install -v -Dm644 doc/gc.man "${pkgdir}/usr/share/man/man3/gc_malloc.3"
+	ln -sfv gc_malloc.3.gz "${pkgdir}/usr/share/man/man3/gc.3.gz"
 }
 
-md5sums=('85adef240c5f370b308da8c938951a68')
+package_lib32-gc() {
+	pkgdesc="A garbage collector for C and C++ (32 bit)"
+
+	cd "${srcdir}/gc32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
 md5sums=('bf46ccbdaccfa3186c2ab87191c8855a')

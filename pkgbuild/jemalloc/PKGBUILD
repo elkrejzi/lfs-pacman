@@ -1,0 +1,27 @@
+pkgname=jemalloc
+pkgver=4.5.0
+pkgrel=1
+pkgdesc="General-purpose scalable concurrent malloc implementation"
+arch=('x86_64')
+url="http://www.canonware.com/jemalloc/"
+license=('BSD')
+#depends=()
+source=("https://github.com/jemalloc/jemalloc/releases/download/${pkgver}/jemalloc-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/jemalloc-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/jemalloc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	chmod 644 "${pkgdir}/usr/lib/libjemalloc_pic.a"
+}
+
+md5sums=('a5624318fbf5bf653697306642683a11')

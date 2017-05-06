@@ -1,5 +1,5 @@
 pkgname=gstreamer
-pkgver=1.10.4
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('7c91a97e4a2dc81eafd59d0a2f8b0d6e')
+md5sums=('8f76b6b5e4b3307e505bd6ab9304dd03')

@@ -1,6 +1,6 @@
 pkgbase=graphite2
 pkgname=('graphite2' 'lib32-graphite2')
-pkgver=1.3.9
+pkgver=1.3.10
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/silnrsi/graphite"
@@ -62,4 +62,4 @@ package_lib32-graphite2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('17e6a3b1a88c100c9e3fc0763c85d269')
+md5sums=('b39d5ed21195f8b709bcee548c87e2b5')

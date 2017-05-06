@@ -1,22 +1,18 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=17.0.5
+pkgver=17.1.0.rc3
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
 license=('custom')
 #depends=()
-source=("https://mesa.freedesktop.org/archive/mesa-${pkgver}.tar.xz"
-	"mesa-pthread-stubs.patch")
+source=("https://mesa.freedesktop.org/archive/mesa-${pkgver/.rc/-rc}.tar.xz")
 
 prepare() {
-	cd "${srcdir}/mesa-${pkgver}"
+	#cd "${srcdir}/mesa-${pkgver/.r/-r}"
+	#autoreconf -fi
 
-	patch -Np1 -i "${srcdir}/mesa-pthread-stubs.patch"
-
-	autoreconf -fi
-
-	cp -a "${srcdir}"/mesa{,32}-${pkgver}
+	cp -a "${srcdir}"/mesa{,32}-${pkgver/.rc/-rc}
 }
 
 build() {
@@ -32,19 +28,19 @@ build() {
 		--enable-glx-tls
 		--enable-llvm-shared-libs
 		--with-dri-drivers=i965
-		--with-egl-platforms=drm,x11,wayland
+		--with-platforms=drm,x11,wayland
 		--with-gallium-drivers=radeonsi,swrast
 		--with-vulkan-drivers=intel,radeon)
 
 	export DLOPEN_LIBS="-ldl"
 
-	cd "${srcdir}/mesa-${pkgver}"
+	cd "${srcdir}/mesa-${pkgver/.rc/-rc}"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		"${configure_flags[@]}"
 
-	cd "${srcdir}/mesa32-${pkgver}"
+	cd "${srcdir}/mesa32-${pkgver/.rc/-rc}"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
@@ -64,14 +60,14 @@ build() {
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/mesa-${pkgver}"
-	make -C "${srcdir}/mesa32-${pkgver}"
+	make -C "${srcdir}/mesa-${pkgver/.rc/-rc}"
+	make -C "${srcdir}/mesa32-${pkgver/.rc/-rc}"
 }
 
 package_mesa() {
 	pkgdesc="Mesa 3D graphics library"
 
-	cd "${srcdir}/mesa-${pkgver}"
+	cd "${srcdir}/mesa-${pkgver/.rc/-rc}"
 
 	make install DESTDIR="${pkgdir}"
 }
@@ -79,7 +75,7 @@ package_mesa() {
 package_lib32-mesa() {
 	pkgdesc="Mesa 3D graphics library (32 bit)"
 
-	cd "${srcdir}/mesa32-${pkgver}"
+	cd "${srcdir}/mesa32-${pkgver/.rc/-rc}"
 
 	make install DESTDIR="${PWD}/dest"
 
@@ -89,6 +85,4 @@ package_lib32-mesa() {
 	mv dest/usr/share "${pkgdir}/usr"
 }
 
-
-md5sums=('5587b6b693260e3a3125f60fed6a625d'
-         'd61267f467dc5c029bcf4af4d11b0fe4')
+md5sums=('0630035d846918e5b291b2a893d066b2')

@@ -140,7 +140,6 @@ echo "Entering password for user armin:"
 passwd armin
 
 rm -rf  /etc/group- /etc/gshadow- /etc/passwd- /etc/shadow-
-rm -rf /run/* /tmp/*
 
 cat << "EOF"
 Now run the following from outside the chroot

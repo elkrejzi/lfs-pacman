@@ -25,17 +25,25 @@ fi
 lfs_mount_virt() {
   mountpoint ${LFS}/dev 2>&1>/dev/null || mount --bind /dev ${LFS}/dev
   mountpoint ${LFS}/dev/pts 2>&1>/dev/null || mount --bind /dev/pts ${LFS}/dev/pts
+  mountpoint ${LFS}/dev/shm 2>&1>/dev/null || mount -t tmpfs none ${LFS}/dev/shm
 
   mountpoint ${LFS}/proc 2>&1>/dev/null || mount -t proc none ${LFS}/proc
   mountpoint ${LFS}/sys 2>&1>/dev/null || mount -t sysfs none ${LFS}/sys
+
+  mountpoint ${LFS}/run 2>&1>/dev/null || mount -t tmpfs none ${LFS}/run
+  mountpoint ${LFS}/tmp 2>&1>/dev/null || mount -t tmpfs none ${LFS}/tmp
 }
 
 lfs_umount_virt() {
+  mountpoint ${LFS}/dev/shm 2>&1>/dev/null && umount ${LFS}/dev/shm
   mountpoint ${LFS}/dev/pts 2>&1>/dev/null && umount ${LFS}/dev/pts
   mountpoint ${LFS}/dev 2>&1>/dev/null && umount ${LFS}/dev
 
   mountpoint ${LFS}/proc 2>&1>/dev/null && umount ${LFS}/proc
   mountpoint ${LFS}/sys 2>&1>/dev/null && umount ${LFS}/sys
+
+  mountpoint ${LFS}/run 2>&1>/dev/null && umount ${LFS}/run
+  mountpoint ${LFS}/tmp 2>&1>/dev/null && umount ${LFS}/tmp
 }
 
 lfs_chroot_exec_cmd() {

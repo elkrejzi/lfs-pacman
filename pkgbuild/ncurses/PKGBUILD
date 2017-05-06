@@ -18,6 +18,7 @@ build_shared() {
 		--libdir=/usr/${LIB}
 		--mandir=/usr/share/man
 		--with-shared
+		--without-ada
 		--without-debug)
 
 	pushd buildncursesw6-${LIB}

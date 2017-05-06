@@ -1,5 +1,5 @@
 pkgname=linux-firmware
-pkgver=1
+pkgver=2
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 arch=('x86_64')
@@ -24,7 +24,7 @@ i915/skl_guc_ver6_1.bin
 intel/dsp_fw_release_v969.bin
 intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq
 intel/ibt-hw-37.8.bseq
-iwlwifi-7265D-22.ucode
+iwlwifi-7265D-27.ucode
 rtl_nic/rtl8168h-2.fw)
 
 for ff in ${firmwares[@]}
@@ -58,5 +58,5 @@ md5sums=('7a6c5da66b967d8851ad66bce463fbec'
          'ec8d14d090393c6b0ca5257df222b243'
          'd7b57c4e5adf30ac2b40d1061073a637'
          '9dea22db70b1e18541348f931f8079be'
-         '748759353f324a0451d79154f871251c'
+         'ec5dc88ea666d3eb7741b1a629d795ab'
          '11b4899d299ed119ba41099739145f69')

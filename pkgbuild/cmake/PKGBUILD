@@ -1,5 +1,5 @@
 pkgname=cmake
-pkgver=3.8.0
+pkgver=3.8.1
 pkgrel=1
 pkgdesc="A cross-platform open-source make system"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('f28cba717ba38ad82a488daed8f45b5b')
+md5sums=('e8ef820ddf7a650845252bca846696e7')

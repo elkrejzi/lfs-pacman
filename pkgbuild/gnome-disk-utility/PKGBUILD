@@ -1,5 +1,5 @@
 pkgname=gnome-disk-utility
-pkgver=3.24.0
+pkgver=3.24.1
 pkgrel=1
 pkgdesc="Disk Management Utility for GNOME"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('bf31db0fa2a79a58c254aab95d825752')
+md5sums=('42c24b84d657c8828023740131bcd36e')

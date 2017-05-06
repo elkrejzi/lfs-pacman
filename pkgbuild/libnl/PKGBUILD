@@ -1,5 +1,5 @@
 pkgname=libnl
-pkgver=3.2.29
+pkgver=3.3.0
 pkgrel=1
 pkgdesc="Library for applications dealing with netlink sockets"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	done
 }
 
-md5sums=('a8ba62a5c4f883f4e493a46d1f3733fe')
+md5sums=('ab3ef137cad95bdda5ff0ffa5175dfa5')

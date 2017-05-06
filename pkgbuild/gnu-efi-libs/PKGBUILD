@@ -12,6 +12,8 @@ source=("https://downloads.sourceforge.net/gnu-efi/gnu-efi-${pkgver}.tar.bz2")
 build() {
 	cd "${srcdir}/gnu-efi-${pkgver}"
 
+	sed -i "s#-Werror##g" Make.defaults
+
 	make lib gnuefi inc apps CC="gcc"
 }
 
