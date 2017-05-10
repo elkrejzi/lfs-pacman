@@ -1,5 +1,5 @@
 pkgname=git
-pkgver=2.12.2
+pkgver=2.13.0
 pkgrel=1
 pkgdesc="The fast distributed version control system"
 arch=('x86_64')
@@ -53,8 +53,8 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/perl"
 }
 
-md5sums=('ad5ae08664c40caf074392abc301cccd'
-         '9358777e9a67e57427b03884c82311bd'
+md5sums=('a18711ae968ded392d2208c8c6277b7d'
+         'fda8d6d5314eb5a47e315405830f9970'
          'b068d3a75c01dc33de84d2d18efab981'
          'f67869315c2cc112e076f0c73f248002'
          '6b7b0f057f1294a000832c52627242af')

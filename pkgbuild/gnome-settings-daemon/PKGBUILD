@@ -1,5 +1,5 @@
 pkgname=gnome-settings-daemon
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}" udevrulesdir=/lib/udev/rules.d
 }
 
-md5sums=('5d1c67ba57afe938a30a686b2dfc2afc')
+md5sums=('d317e64cc389ecfbbeeb1dfcf3f1fc51')

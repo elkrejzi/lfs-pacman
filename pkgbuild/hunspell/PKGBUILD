@@ -26,6 +26,8 @@ package() {
 	cd "${srcdir}/hunspell-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('0df1c18c1284f8625af5ae5a8d5c4cef')

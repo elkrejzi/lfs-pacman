@@ -77,6 +77,8 @@ package() {
 	do
 		sed "s:chage:${PROGRAM}:g" "${srcdir}/chage" > "${pkgdir}/etc/pam.d/${PROGRAM}"
 	done
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('c06f8c2571b44899e60662f9ad259dd6'

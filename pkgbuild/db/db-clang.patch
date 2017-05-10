@@ -1,0 +1,195 @@
+--- a/lang/cxx/cxx_channel.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_channel.cpp	2017-05-09 17:17:51.820173011 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ // Helper macro for simple methods that pass through to the
+--- a/lang/cxx/cxx_dbc.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_dbc.cpp	2017-05-09 17:18:41.725175391 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/db_page.h"
+--- a/lang/cxx/cxx_db.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_db.cpp	2017-05-09 17:18:13.301174036 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/db_page.h"
+--- a/lang/cxx/cxx_dbstream.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_dbstream.cpp	2017-05-09 17:18:57.917176163 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/db_page.h"
+--- a/lang/cxx/cxx_dbt.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_dbt.cpp	2017-05-09 17:20:04.917179358 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/db_page.h"
+--- a/lang/cxx/cxx_env.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_env.cpp	2017-05-09 17:20:01.445179192 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/db_page.h"
+--- a/lang/cxx/cxx_except.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_except.cpp	2017-05-09 17:19:57.101178985 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ static const int MAX_DESCRIPTION_LENGTH = 1024;
+--- a/lang/cxx/cxx_lock.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_lock.cpp	2017-05-09 17:19:53.405178809 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ ////////////////////////////////////////////////////////////////////////
+--- a/lang/cxx/cxx_logc.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_logc.cpp	2017-05-09 17:19:49.005178599 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/db_page.h"
+--- a/lang/cxx/cxx_mpool.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_mpool.cpp	2017-05-09 17:19:42.709178299 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ // Helper macros for simple methods that pass through to the
+--- a/lang/cxx/cxx_multi.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_multi.cpp	2017-05-09 17:19:37.261178039 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ 
+ DbMultipleIterator::DbMultipleIterator(const Dbt &dbt)
+  : data_((u_int8_t*)dbt.get_data()),
+--- a/lang/cxx/cxx_rid.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_rid.cpp	2017-05-09 17:19:33.165177844 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ 
+ DbHeapRecordId::DbHeapRecordId()
+ {
+--- a/lang/cxx/cxx_seq.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_seq.cpp	2017-05-09 17:19:26.597177531 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ // Helper macro for simple methods that pass through to the
+--- a/lang/cxx/cxx_site.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_site.cpp	2017-05-09 17:19:21.965177310 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ // Helper macro for simple methods that pass through to the
+--- a/lang/cxx/cxx_txn.cpp	2017-04-13 16:06:15.000000000 +0200
++++ b/lang/cxx/cxx_txn.cpp	2017-05-09 17:19:17.373177091 +0200
+@@ -8,9 +8,8 @@
+ 
+ #include "db_config.h"
+ 
+-#include "db_int.h"
+-
+ #include "db_cxx.h"
++#include "db_int.h"
+ #include "dbinc/cxx_int.h"
+ 
+ #include "dbinc/txn.h"

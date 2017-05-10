@@ -36,6 +36,8 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libiw.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libiw.so") "${pkgdir}/usr/lib/libiw.so"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('ca91ba7c7eff9bfff6926b1a34a4697d')

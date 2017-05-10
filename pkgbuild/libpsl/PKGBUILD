@@ -1,0 +1,26 @@
+pkgname=libpsl
+pkgver=0.17.0
+pkgrel=1
+pkgdesc="Public Suffix List library"
+arch=('x86_64')
+url="https://github.com/rockdaboot/libpsl"
+license=('MIT')
+source=("https://github.com/rockdaboot/libpsl/releases/download/libpsl-${pkgver}/libpsl-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libpsl-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libpsl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 docs/libpsl/libpsl.3 "${pkgdir}/usr/share/man/man3/libpsl.3"
+}
+
+md5sums=('fed13f33d0d6dc13ef24de255630bfcb')

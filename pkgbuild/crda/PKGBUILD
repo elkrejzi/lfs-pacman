@@ -16,13 +16,13 @@ prepare() {
 	sed -i "s:-O2 -fpic:${CFLAGS} -fpic:g" Makefile
 	sed -i "s:-Werror ::g" Makefile
 
+	sed -i "s:regdb.h reglib.h reglib.c:reglib.c:g" Makefile
+
 	patch -Np1 -i "${srcdir}/crda-fixes.patch"
 }
 
 build() {
 	cd "${srcdir}/crda-${pkgver}"
-
-	export CC="gcc"
 
 	unset CFLAGS
 

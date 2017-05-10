@@ -1,5 +1,5 @@
 pkgname=epiphany
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('d5471f6f1aaa0818d9bcd9b2c902c458')
+md5sums=('e035dc6f64f0c1909de823e03f16b2f3')

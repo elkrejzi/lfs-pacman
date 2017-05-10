@@ -1,5 +1,5 @@
 pkgname=glibmm
-pkgver=2.51.6
+pkgver=2.51.7
 pkgrel=1
 pkgdesc="C++ bindings for GLib"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('4000e530c06fa2691c604f48524e8a52')
+md5sums=('1104fe22c45a6963b2b6b92d5eb3ddce')

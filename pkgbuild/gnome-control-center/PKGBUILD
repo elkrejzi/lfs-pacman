@@ -1,5 +1,5 @@
 pkgname=gnome-control-center
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('f322b6336af8090ca893de3a2961dba5')
+md5sums=('6c6fb7166d5b069c81648f65d273ce1c')

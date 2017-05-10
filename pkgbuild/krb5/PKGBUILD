@@ -62,6 +62,8 @@ package() {
 	install -v -Dm644 "${srcdir}/krb5-kadmind.service" "${pkgdir}/lib/systemd/system/krb5-kadmind.service"
 	install -v -Dm644 "${srcdir}/krb5-kdc.service" "${pkgdir}/lib/systemd/system/krb5-kdc.service"
 	install -v -Dm644 "${srcdir}/krb5-kpropd.service" "${pkgdir}/lib/systemd/system/krb5-kpropd.service"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('8022f3a1cde8463e44fd35ef42731f85'

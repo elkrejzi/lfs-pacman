@@ -1,5 +1,5 @@
 pkgname=gnome-photos
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="Access, organize, and share your photos on GNOME"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('e945aee82baacf29f3a7c1ef59bfd849')
+md5sums=('bd97b395f27a9fdea907eb737da86752')

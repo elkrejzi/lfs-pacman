@@ -1,5 +1,5 @@
 pkgname=gtk3
-pkgver=3.22.12
+pkgver=3.22.13
 pkgrel=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 arch=('x86_64')
@@ -10,7 +10,14 @@ source=("https://download.gnome.org/sources/gtk+/${pkgver:0:4}/gtk+-${pkgver}.ta
 	"gtk-query-immodules-3.0.hook"
 	"gtk-update-icon-cache.hook"
 	"gtk-update-icon-cache.script"
-	"settings.ini")
+	"settings.ini"
+	"clipboard.patch::https://git.gnome.org/browse/gtk+/patch/?id=7d9450fb60b03dcead85a462f30f24e60119c520")
+
+prepare() {
+	cd "${srcdir}/gtk+-${pkgver}"
+
+	patch -Np1 -R -i "${srcdir}/clipboard.patch"
+}
 
 build() {
 	cd "${srcdir}/gtk+-${pkgver}"
@@ -38,8 +45,9 @@ package() {
 	install -v -Dm755 "${srcdir}/gtk-update-icon-cache.script" "${pkgdir}/usr/share/libalpm/scripts/gtk-update-icon-cache"
 }
 
-md5sums=('d9018f05f5617c6e1bbfb5b6afce4143'
+md5sums=('c6a55b21a68628a7e0d2341d8cd666e4'
          '47d92cc1080c92e8a022334b620f0629'
          'c792ef5bb74ceba564b4d8ad306a6592'
          '0ca18b2689f0d2e8acb61a3dcf154e7c'
-         'ed43a8d7b5c99796134e2db56eb61805')
+         'ed43a8d7b5c99796134e2db56eb61805'
+         '7b0c4381baa6f85a019870435c4d14b1')

@@ -4,15 +4,19 @@ pkgrel=1
 pkgdesc="Input device management and event handling library"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/libinput/"
-license=(custom:X11)
+license=('custom:X11')
 #depends=()
-source=("https://freedesktop.org/software/libinput/libinput-${pkgver}.tar.xz")
+source=("https://freedesktop.org/software/libinput/libinput-${pkgver}.tar.xz"
+	"clang-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/libinput-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/clang-fixes.patch"
+}
 
 build() {
 	cd "${srcdir}/libinput-${pkgver}"
-
-	export CC="gcc"
-	export CXX="g++"
 
 	./configure --prefix=/usr \
 		--disable-event-gui \
@@ -28,4 +32,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('d138d62c528fbf9aba300a97bae453cb')
+md5sums=('d138d62c528fbf9aba300a97bae453cb'
+         '4847cd7dc4af03e0fbba3bb54b2e76a6')

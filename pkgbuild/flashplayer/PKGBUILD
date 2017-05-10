@@ -1,5 +1,5 @@
 pkgname=flashplayer
-pkgver=25.0.0.148
+pkgver=25.0.0.171
 pkgrel=1
 pkgdesc="Adobe Flash Player"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	ln -sfv ../../flashplayer/libflashplayer.so "${pkgdir}/usr/lib/mozilla/plugins/libflashplayer.so"
 }
 
-md5sums=('d03f607cf2814884d0db497dff934b34')
+md5sums=('e1fab816f44ccc6201cd58cc5791e242')

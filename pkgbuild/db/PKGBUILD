@@ -6,13 +6,18 @@ arch=('x86_64')
 url="http://www.oracle.com/technology/software/products/berkeley-db/index.html"
 license=('custom')
 #depends=()
-source=("http://download.oracle.com/berkeley-db/db-${pkgver}.tar.gz")
+source=("http://download.oracle.com/berkeley-db/db-${pkgver}.tar.gz"
+	"db-clang.patch")
+
+
+prepare() {
+	cd "${srcdir}/db-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/db-clang.patch"
+}
 
 build() {
 	cd "${srcdir}/db-${pkgver}/build_unix"
-
-	export CC="gcc"
-	export CXX="g++"
 
 	../dist/configure --prefix=/usr \
 		--enable-compat185 \
@@ -22,8 +27,6 @@ build() {
 		--enable-sql \
 		--enable-tcl \
 		--with-tcl=/usr/lib
-
-	unset CC CXX
 
 	make
 }
@@ -36,4 +39,5 @@ package() {
 	rm -rf "${pkgdir}/usr/docs"
 }
 
-md5sums=('33491b4756cb44b91c3318b727e71023')
+md5sums=('33491b4756cb44b91c3318b727e71023'
+         '3dff9f4b1796bd677978d149ce31f1a3')

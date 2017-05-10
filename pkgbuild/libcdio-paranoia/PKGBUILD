@@ -20,6 +20,8 @@ package() {
 	cd "${srcdir}/libcdio-paranoia-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('808a711b0a5646f57469f35e8aa41172')

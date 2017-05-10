@@ -1,0 +1,25 @@
+pkgname=libidn2
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="A free software implementation of IDNA2008, Punycode and TR46"
+arch=('x86_64')
+url="https://www.gnu.org/software/libidn2/"
+license=('GPL2' 'LGPL3')
+#depends=()
+source=("https://ftp.gnu.org/gnu/libidn/libidn2-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libidn2-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libidn2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7bbf566f521c0b015564ce6058a6b0ba')

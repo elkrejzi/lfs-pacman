@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Wrapper library for evdev devices"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/libevdev/"
-license=(custom:X11)
+license=('custom:X11')
 #depends=()
 source=("https://freedesktop.org/software/libevdev/libevdev-${pkgver}.tar.xz")
 

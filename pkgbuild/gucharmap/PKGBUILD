@@ -1,5 +1,5 @@
 pkgname=gucharmap
-pkgver=9.0.3
+pkgver=9.0.4
 pkgrel=1
 pkgdesc="Gnome Unicode Charmap"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('892b1dc2e02300ed7c99d812f200d734')
+md5sums=('b7aa267293a350a9661c654798b99f27')

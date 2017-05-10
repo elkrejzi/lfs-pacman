@@ -11,7 +11,7 @@ source=("http://ftp.debian.org/debian/pool/main/w/whois/whois_${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/whois-${pkgver}"
 
-	make CONFIG_FILE=/etc/whois.conf HAVE_LIBIDN=1 HAVE_ICONV=1
+	make CONFIG_FILE=/etc/whois.conf HAVE_LIBIDN2=1 HAVE_ICONV=1
 }
 
 package() {

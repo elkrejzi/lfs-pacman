@@ -1,5 +1,5 @@
 pkgname=network-manager-applet
-pkgver=1.4.6
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Applet for managing network connections"
 arch=('x86_64')
@@ -7,13 +7,6 @@ url="https://wiki.gnome.org/Projects/NetworkManager/"
 license=('GPL2' 'LGPL2.1')
 #depends=()
 source=("https://download.gnome.org/sources/network-manager-applet/${pkgver:0:3}/network-manager-applet-${pkgver}.tar.xz")
-
-prepare() {
-	cd "${srcdir}/network-manager-applet-${pkgver}"
-
-	sed -i "s:-Werror::g" configure
-	sed -i "/Wno-unused-but-set-variable/d" configure
-}
 
 build() {
 	cd "${srcdir}/network-manager-applet-${pkgver}"
@@ -31,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('7f5bb421678f844649d8d581def2191e')
+md5sums=('cb4990434109a0b29b077d59fbecb303')

@@ -1,0 +1,25 @@
+pkgname=libmetalink
+pkgver=0.1.3
+pkgrel=1
+pkgdesc="A Metalink library written in C language"
+arch=('x86_64')
+url="https://launchpad.net/libmetalink"
+license=('MIT')
+#depends=()
+source=("https://launchpad.net/libmetalink/trunk/libmetalink-${pkgver}/+download/libmetalink-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libmetalink-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmetalink-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f2c097557e2487313cd0be62d55952de')

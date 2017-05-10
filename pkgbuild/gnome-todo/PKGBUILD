@@ -1,5 +1,5 @@
 pkgname=gnome-todo
-pkgver=3.24.0.1
+pkgver=3.24.1
 pkgrel=1
 pkgdesc="Task manager for GNOME"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('0f9312e4c67e5f23549bd2ebb5512fc2')
+md5sums=('d6a7b4b4ec269c811cc96b8d7bb4ed09')

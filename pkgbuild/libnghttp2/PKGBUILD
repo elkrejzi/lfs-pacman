@@ -1,0 +1,28 @@
+pkgname=libnghttp2
+pkgver=1.22.0
+pkgrel=1
+pkgdesc="Framing layer of HTTP/2 is implemented as a reusable C library"
+arch=('x86_64')
+url="https://nghttp2.org/"
+license=('MIT')
+#depends=()
+source=("https://github.com/nghttp2/nghttp2/releases/download/v${pkgver}/nghttp2-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/nghttp2-${pkgver}"
+
+	./configure --prefix=/usr \
+		--disable-examples \
+		--disable-python-bindings \
+		--enable-lib-only
+
+	make
+}
+
+package() {
+	cd "${srcdir}/nghttp2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('99d7d2c8073be8dd8801e453a4307037')

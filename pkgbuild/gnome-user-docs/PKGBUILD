@@ -1,5 +1,5 @@
 pkgname=gnome-user-docs
-pkgver=3.24.0
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="User documentation for GNOME"
 arch=('x86_64')
@@ -24,4 +24,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('1c73b32bf963a6925af220c0d5e68b3e')
+
+md5sums=('38931bd2b9102e48b8d6068a84f85be1')

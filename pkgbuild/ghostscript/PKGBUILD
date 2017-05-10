@@ -35,6 +35,8 @@ package() {
 	make install soinstall DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}"/usr/bin/*.sh "${pkgdir}/usr/bin/gsx"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('5f213281761d2750fcf27476c404d17f')

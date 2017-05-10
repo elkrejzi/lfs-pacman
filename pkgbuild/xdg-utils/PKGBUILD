@@ -1,5 +1,5 @@
 pkgname=xdg-utils
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Command line tools that assist applications with a variety of desktop integration tasks"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('2d0aec6037769a5f138ff404b1bb4b15')
+md5sums=('361e75eb76c94d19f6f4f330d8ee626b')

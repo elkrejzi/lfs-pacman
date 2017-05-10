@@ -25,6 +25,8 @@ package() {
 	ln -sfv nano "${pkgdir}/usr/bin/editor"
 
 	install -v -Dm644 "${srcdir}/nanorc" "${pkgdir}/etc/nanorc"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('088e6a6ac6df028f7cd2ea90c7b790e9'

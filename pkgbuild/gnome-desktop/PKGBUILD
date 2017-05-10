@@ -1,5 +1,5 @@
 pkgname=gnome-desktop
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="Library with common API for various GNOME modules"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('dee073be777895a375ee0fb1e7d700d0')
+md5sums=('af7c6a243df7a335a010bdc05b34ca93')

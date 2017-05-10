@@ -1,0 +1,75 @@
+--- a/src/evdev.c	2017-05-05 07:45:41.000000000 +0200
++++ b/src/evdev.c	2017-05-10 18:38:58.151178988 +0200
+@@ -92,7 +92,7 @@
+ 	{"ID_INPUT_SWITCH",		EVDEV_UDEV_TAG_SWITCH},
+ 
+ 	/* sentinel value */
+-	{ 0 },
++	{0, 0},
+ };
+ 
+ static inline bool
+--- a/src/libinput.c	2017-05-05 07:45:41.000000000 +0200
++++ b/src/libinput.c	2017-05-10 18:38:46.487178431 +0200
+@@ -42,10 +42,41 @@
+ 	if (!check_event_type(li_, __func__, type_, __VA_ARGS__, -1)) \
+ 		return retval_; \
+ 
++#define ASSERT_INT_SIZE(type_) \
++	static_assert(sizeof(type_) == sizeof(unsigned int), \
++		      "sizeof("  #type_ ") must be sizeof(uint)")
++
++ASSERT_INT_SIZE(enum libinput_log_priority);
++ASSERT_INT_SIZE(enum libinput_device_capability);
++ASSERT_INT_SIZE(enum libinput_key_state);
++ASSERT_INT_SIZE(enum libinput_led);
++ASSERT_INT_SIZE(enum libinput_button_state);
++ASSERT_INT_SIZE(enum libinput_pointer_axis);
++ASSERT_INT_SIZE(enum libinput_pointer_axis_source);
++ASSERT_INT_SIZE(enum libinput_tablet_pad_ring_axis_source);
++ASSERT_INT_SIZE(enum libinput_tablet_pad_strip_axis_source);
++ASSERT_INT_SIZE(enum libinput_tablet_tool_type);
++ASSERT_INT_SIZE(enum libinput_tablet_tool_proximity_state);
++ASSERT_INT_SIZE(enum libinput_tablet_tool_tip_state);
++ASSERT_INT_SIZE(enum libinput_switch_state);
++ASSERT_INT_SIZE(enum libinput_switch);
++ASSERT_INT_SIZE(enum libinput_event_type);
++ASSERT_INT_SIZE(enum libinput_config_status);
++ASSERT_INT_SIZE(enum libinput_config_tap_state);
++ASSERT_INT_SIZE(enum libinput_config_tap_button_map);
++ASSERT_INT_SIZE(enum libinput_config_drag_state);
++ASSERT_INT_SIZE(enum libinput_config_drag_lock_state);
++ASSERT_INT_SIZE(enum libinput_config_send_events_mode);
++ASSERT_INT_SIZE(enum libinput_config_accel_profile);
++ASSERT_INT_SIZE(enum libinput_config_click_method);
++ASSERT_INT_SIZE(enum libinput_config_middle_emulation_state);
++ASSERT_INT_SIZE(enum libinput_config_scroll_method);
++ASSERT_INT_SIZE(enum libinput_config_dwt_state);
++
+ static inline bool
+ check_event_type(struct libinput *libinput,
+ 		 const char *function_name,
+-		 enum libinput_event_type type_in,
++		 unsigned int type_in,
+ 		 ...)
+ {
+ 	bool rc = false;
+--- a/src/libinput-util.h	2017-05-05 07:45:41.000000000 +0200
++++ b/src/libinput-util.h	2017-05-10 18:38:01.391176281 +0200
+@@ -70,15 +70,9 @@
+ void list_remove(struct list *elm);
+ bool list_empty(const struct list *list);
+ 
+-#ifdef __GNUC__
+ #define container_of(ptr, sample, member)				\
+ 	(__typeof__(sample))((char *)(ptr)	-			\
+-		 ((char *)&(sample)->member - (char *)(sample)))
+-#else
+-#define container_of(ptr, sample, member)				\
+-	(void *)((char *)(ptr)	-				        \
+-		 ((char *)&(sample)->member - (char *)(sample)))
+-#endif
++		 ((char *)&((typeof(sample))0)->member))
+ 
+ #define list_for_each(pos, head, member)				\
+ 	for (pos = 0, pos = container_of((head)->next, pos, member);	\

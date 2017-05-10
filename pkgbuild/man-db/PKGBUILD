@@ -37,6 +37,8 @@ package() {
 
 	install -v -dm755 "${pkgdir}/lib/systemd/system/multi-user.target.wants"
 	ln -sfv ../man-db.timer "${pkgdir}/lib/systemd/system/multi-user.target.wants/man-db.timer"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 md5sums=('2948d49d0ed7265f60f83aa4a9ac9268'

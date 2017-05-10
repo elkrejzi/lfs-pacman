@@ -33,6 +33,9 @@ package() {
 	install -v -dm755 "${pkgdir}/etc/ld.so.conf.d"
 
 	echo "/usr/lib/libfakeroot" > "${pkgdir}/etc/ld.so.conf.d/fakeroot.conf"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
+	rm -rf "${pkgdir}"/usr/share/man/nl
 }
 
 md5sums=('a4b4564a75024aa96c86e4d1017ac786'

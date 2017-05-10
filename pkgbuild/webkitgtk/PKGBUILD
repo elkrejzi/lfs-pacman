@@ -1,21 +1,18 @@
 pkgname=webkitgtk
-pkgver=2.16.1
+pkgver=2.16.2
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
 url="https://webkitgtk.org/"
 license=('custom')
 #depends=()
-source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz"
-	"webkitgtk-fixes.patch")
+source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/webkitgtk-${pkgver}"
 
 	sed -i "/unistd.h/i#include <stdio.h>" Source/WTF/wtf/NumberOfCores.cpp
 	sed -i "/stdlib.h/i#include <stdio.h>" Source/WebKit2/UIProcess/linux/MemoryPressureMonitor.cpp
-
-	patch -Np1 -i "${srcdir}/webkitgtk-fixes.patch"
 
 	install -v -dm755 "${srcdir}/build"
 }
@@ -41,5 +38,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('d3bcf995a667fd9febb9ab991acf0ca7'
-         '795437becda11805cb24a6f3f1ae113f')
+md5sums=('2276087cd4b8b82bce2fad5e846cdc74')

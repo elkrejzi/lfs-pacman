@@ -1,5 +1,5 @@
 pkgname=flex
-pkgver=2.6.3
+pkgver=2.6.4
 pkgrel=1
 pkgdesc="A tool for generating text-scanning programs"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	ln -sfv flex "${pkgdir}/usr/bin/lex"
 }
 
-md5sums=('a5f65570cd9107ec8a8ec88f17b31bb1')
+md5sums=('2882e3179748cc9f9c23ec593d6adc8d')

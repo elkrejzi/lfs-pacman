@@ -147,13 +147,16 @@ perl-parse-yapp
 perl-sgmls
 perl-uri
 icu
+libunistring
 boost
 libgpg-error
 libgcrypt
 libidn
-libunistring
+libidn2
+libmetalink
 libxml2
 libxslt
+libpsl
 lua
 highlight
 ca-certificates
@@ -204,6 +207,7 @@ elfutils
 gobject-introspection
 libaio
 libedit
+libnghttp2
 libpng
 libsasl
 libssh2
