@@ -1,0 +1,26 @@
+pkgname=mesa-demos
+pkgver=8.3.0
+pkgrel=1
+pkgdesc="Mesa demos and tools"
+arch=('x86_64')
+url="http://mesa3d.sourceforge.net"
+license=('custom')
+#depends=()
+source=("ftp://ftp.freedesktop.org/pub/mesa/demos/${pkgver}/mesa-demos-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/mesa-demos-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mesa-demos-${pkgver}"
+
+	make -C src/egl/opengles2 install DESTDIR="${pkgdir}" bin_PROGRAMS="es2gears_x11 es2_info"
+	make -C src/xdemos install DESTDIR="${pkgdir}" bin_PROGRAMS="glxgears glxinfo"
+}
+
+md5sums=('628e75c23c17394f11a316c36f8e4164')

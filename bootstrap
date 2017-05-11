@@ -384,6 +384,7 @@ mesa
 libva
 glu
 freeglut
+glew
 libjpeg-turbo
 tiff
 giflib
@@ -521,6 +522,7 @@ intel-vaapi-driver
 intel-hybrid-driver
 libtxc_dxtn
 libvdpau-va-gl
+mesa-demos
 gstreamer
 gst-plugins-base
 aspell
@@ -792,6 +794,7 @@ gdb
 iputils
 iw
 kpartx
+linux-tools
 lsof
 mtools
 netkit-telnet
@@ -810,6 +813,8 @@ libpng12
 google-chrome
 jdk
 libreoffice
+packettracer62
+steam
 viber
 youtube-dl)
 

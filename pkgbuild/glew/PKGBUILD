@@ -1,0 +1,32 @@
+pkgname=glew
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="The OpenGL Extension Wrangler Library"
+arch=('x86_64')
+url="http://glew.sourceforge.net"
+license=('BSD' 'MIT' 'GPL')
+#depends=()
+source=("https://downloads.sourceforge.net/glew/glew-${pkgver}.tgz")
+
+prepare() {
+	cd "${srcdir}/glew-${pkgver}"
+
+	sed -i "s#lib64#lib#" config/Makefile.linux-clang
+	sed -i "/^.PHONY: .*\.pc$/d" Makefile
+}
+
+build() {
+	cd "${srcdir}/glew-${pkgver}"
+
+	make POPT="${CFLAGS}" SYSTEM="linux-clang"
+}
+
+package() {
+	cd "${srcdir}/glew-${pkgver}"
+
+	make POPT="${CFLAGS}" SYSTEM="linux-clang" install.all GLEW_DEST="${pkgdir}/usr"
+
+	chmod -v 755 "${pkgdir}/usr/lib/libGLEW.so"
+}
+
+md5sums=('2a2cd7c98f13854d2fcddae0d2b20411')

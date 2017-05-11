@@ -1,0 +1,64 @@
+pkgbase=linux-tools
+pkgname=('acpidump' 'perf' 'tmon' 'turbostat' 'x86_energy_perf_policy')
+pkgver=4.11
+pkgrel=1
+arch=('x86_64')
+url="https://www.kernel.org/"
+license=('GPL2')
+source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${pkgver}.tar.xz")
+
+build() {
+	make -C "${srcdir}/linux-${pkgver}/tools/power/acpi/tools/acpidump" V=1
+	make -C "${srcdir}/linux-${pkgver}/tools/perf" prefix=/usr lib=lib V=1
+	make -C "${srcdir}/linux-${pkgver}/tools/thermal/tmon"
+	make -C "${srcdir}/linux-${pkgver}/tools/power/x86/turbostat"
+	make -C "${srcdir}/linux-${pkgver}/tools/power/x86/x86_energy_perf_policy"
+}
+
+package_acpidump() {
+	pkgdesc="Dumps system's ACPI tables to an ASCII file"
+
+	cd "${srcdir}/linux-${pkgver}/tools/power/acpi/tools/acpidump"
+
+	make install mandir=/usr/share/man DESTDIR="${pkgdir}" V=1
+}
+
+package_perf() {
+	pkgdesc="Performance analysis tools for Linux"
+
+	cd "${srcdir}/linux-${pkgver}/tools/perf"
+
+	make prefix=/usr lib=lib install DESTDIR="${pkgdir}" V=1
+
+	rm -rf "${pkgdir}/etc/bash_completion.d"
+}
+
+package_tmon() {
+	pkgdesc="Monitoring and testing tool for Linux kernel thermal subsystem"
+
+	cd "${srcdir}/linux-${pkgver}/tools/thermal/tmon"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	install -v -Dm644 tmon.8 "${pkgdir}/usr/share/man/man8/tmon.8"
+}
+
+package_turbostat() {
+	pkgdesc="Reports processor frequency and idle statistics"
+
+	cd "${srcdir}/linux-${pkgver}/tools/power/x86/turbostat"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_x86_energy_perf_policy() {
+	pkgdesc="Reads or writes MSR_IA32_ENERGY_PERF_BIAS"
+
+	cd "${srcdir}/linux-${pkgver}/tools/power/x86/x86_energy_perf_policy"
+
+	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/share/man/man8"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('251a5deee0fa6daf3f356b1bbda9eab8')

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export LD_LIBRARY_PATH="/usr/lib32/packettracer"
+
+/usr/share/packettracer/bin/PacketTracer6 "$@"

@@ -1,8 +1,8 @@
-pkgname=openssl
+pkgbase=openssl
+pkgname=('openssl' 'lib32-openssl')
 _basever=1.0.2k
-pkgver=${_basever/[a-z]/.${_ver//[0-9.]/}}
+pkgver=${_basever/[a-z]/.${_basever//[0-9.]/}}
 pkgrel=1
-pkgdesc="The Open Source toolkit for Secure Sockets Layer and Transport Layer Security"
 arch=('x86_64')
 url="https://www.openssl.org"
 license=('custom:BSD')
@@ -17,6 +17,8 @@ prepare() {
 
 	patch -Np1 -i "${srcdir}/openssl.patch"
 	patch -Np1 -i "${srcdir}/openssl-fixes.patch"
+
+	cp -a "${srcdir}"/openssl{,32}-${_basever}
 }
 
 build() {
@@ -31,10 +33,33 @@ build() {
 		linux-x86_64 \
 		"-Wa,--noexecstack ${CFLAGS}"
 
-	make
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	cd "${srcdir}/openssl32-${_basever}"
+
+	./Configure --prefix=/usr \
+		--openssldir=/etc/ssl \
+		--libdir=lib32 \
+		shared \
+		no-ssl3-method \
+		linux-elf \
+		"-Wa,--noexecstack ${CFLAGS}"
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/openssl-${_basever}"
+	make -C "${srcdir}/openssl32-${_basever}"
+
 }
 
-package() {
+package_openssl() {
+	pkgdesc="The Open Source toolkit for Secure Sockets Layer and Transport Layer Security"
+
 	cd "${srcdir}/openssl-${_basever}"
 
 	make install INSTALL_PREFIX="${pkgdir}" MANDIR=/usr/share/man MANSUFFIX=ssl
@@ -46,6 +71,17 @@ package() {
 
 	mv -v "${pkgdir}"/usr/lib/libssl.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libssl.so") "${pkgdir}/usr/lib/libssl.so"
+}
+
+package_lib32-openssl() {
+	pkgdesc="The Open Source toolkit for Secure Sockets Layer and Transport Layer Security (32 bit)"
+
+	cd "${srcdir}/openssl32-${_basever}"
+
+	make install INSTALL_PREFIX="${PWD}/dest" MANDIR=/usr/share/man MANSUFFIX=ssl
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 md5sums=('f965fc0bf01bf882b31314b61391ae65'

@@ -1,5 +1,5 @@
 pkgname=gnome-shell
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="The next generation GNOME Shell"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	ln -sfv ../../gnome-shell/mozilla/libgnome-shell-browser-plugin.so "${pkgdir}/usr/lib/mozilla/plugins/libgnome-shell-browser-plugin.so"
 }
 
-md5sums=('ba84d4100e77cbda8eccd0eca1e12c39')
+md5sums=('e84e5813cc87f3a228a9d9ce9bb4a6e4')

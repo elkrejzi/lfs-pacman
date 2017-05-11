@@ -1,0 +1,56 @@
+pkgname=packettracer62
+pkgver=6.2
+pkgrel=1
+pkgdesc="Network design and emulation software for Cisco's Networking Academy instructors and students (version 6.2)"
+arch=('x86_64')
+url="http://www.netacad.com/about-networking-academy/packet-tracer"
+license=('custom')
+#depends=()
+options=(!strip)
+source=("Cisco Packet Tracer 6.2 for Linux - Ubuntu installation - Student version.tar.gz"
+	"linguist"
+	"packettracer"
+	"packettracer.sh")
+
+package() {
+	cd "${srcdir}/PacketTracer${pkgver/./}Student"
+
+	local _dest="${pkgdir}/usr/share/packettracer"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	install -v -dm755 "${pkgdir}/usr/lib32/packettracer"
+	install -v -dm755 "${pkgdir}/usr/share/applications"
+	install -v -dm755 "${pkgdir}/usr/share/mime/packages"
+
+	install -v -dm755 "${_dest}"
+
+	cp -r lib/* "${pkgdir}/usr/lib32/packettracer"
+
+	for d in art backgrounds bin extensions help LANGUAGES saves sounds templates
+	do
+		install -v -dm755 "${_dest}/${d}"
+		cp -r ${d}/* "${_dest}/${d}"
+	done
+
+	for d in pka pkt pkz
+	do
+		mv "${_dest}/bin/Cisco-${d}.xml" "${pkgdir}/usr/share/mime/packages/Cisco-${d}.xml"
+		install -v -Dm644 art/${d}.png "${pkgdir}/usr/share/icons/hicolor/48x48/mimetypes/application-x-${d}.png"
+	done
+
+	mv "${_dest}/bin/Cisco-PacketTracer.desktop" "${pkgdir}/usr/share/applications/Cisco-PacketTracer.desktop"
+	sed -i "s#/usr/local/PacketTracer6#/usr/share/packettracer#g" \
+		"${pkgdir}/usr/share/applications/Cisco-PacketTracer.desktop"
+
+	install -v -Dm755 "${srcdir}/linguist" "${_dest}/linguist"
+	install -v -Dm755 "${srcdir}/packettracer" "${_dest}/packettracer"
+
+	ln -sfv ../share/packettracer/packettracer "${pkgdir}/usr/bin/packettracer"
+
+	install -v -Dm644 "${srcdir}/packettracer.sh" "${pkgdir}/etc/profile.d/packettracer.sh"
+}
+
+md5sums=('403fa8f9b1f974935587bf8b8227653a'
+         '8282f02292f767d232b840036cd79152'
+         '325c42910eda5d79fb316d0de7c44783'
+         '521fd3d3ec75354496019b06f5668530')

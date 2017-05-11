@@ -1,5 +1,5 @@
 pkgname=libreoffice
-pkgver=5.3.2
+pkgver=5.3.3
 _lover=${pkgver}.2
 pkgrel=1
 pkgdesc="Free Office Suite"
@@ -37,6 +37,6 @@ package() {
 	rm -rf  "${pkgdir}/usr/lib" "${pkgdir}/usr/share/icons/gnome" "${pkgdir}/usr/share/icons/locolor"
 }
 
-md5sums=('a155055d7fb8232e7acdcc095fa68709'
-         '2352362d12b339ebf22f892aea78a47d'
-         '2d7887b7c850f93e27476ead039dca24')
+md5sums=('7f3e102ae6dbd3d2b517f5c72127d486'
+         '61b8ba49ef00ce4a9050ef9cdc637caf'
+         '77dec1ecdf04052f12e8112cc584f294')

@@ -1,0 +1,19 @@
+pkgname=steam
+pkgver=1.0.0.54
+pkgrel=1
+pkgdesc="Valve's digital software delivery system"
+arch=('x86_64')
+url="http://store.steampowered.com/"
+license=('custom')
+#depends=()
+source=("http://repo.steampowered.com/steam/pool/steam/s/steam/steam_${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/steam"
+
+	make install DESTDIR="${pkgdir}"
+
+	ln -sfv /bin/true "${pkgdir}/usr/bin/steamdeps"
+}
+
+md5sums=('d1398490635615c428165e984a1ec71b')

@@ -1,5 +1,5 @@
 pkgname=gnome-shell-extensions
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="Extensions for GNOME shell, including classic mode"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('8d2dc3c29dc670196cfbfe7d63526de5')
+md5sums=('1a68fc702f186a7557c1152104d83e04')

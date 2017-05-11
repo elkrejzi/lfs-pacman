@@ -1,5 +1,5 @@
 pkgname=sudo
-_pkgver=1.8.19p2
+_pkgver=1.8.20
 pkgver=${_pkgver/p/.p}
 pkgrel=1
 pkgdesc="Give certain users the ability to run some commands as root"
@@ -40,5 +40,5 @@ package() {
 	install -v -Dm644 "${srcdir}/sudo.pam" "${pkgdir}/etc/pam.d/sudo"
 }
 
-md5sums=('31a6090ed1d0946fa22cba19e86aafef'
+md5sums=('a3a84b7ac38d74f29e9211bff2fa0aa5'
          '39e65caf258a38aebfe847a89ac5822f')
