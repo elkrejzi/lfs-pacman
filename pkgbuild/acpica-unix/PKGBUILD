@@ -1,0 +1,32 @@
+pkgname=acpica-unix
+pkgver=20170303
+pkgrel=1
+pkgdesc="Group of software components that together create an implementation of the ACPI specification"
+arch=('x86_64')
+url="https://acpica.org"
+license=('custom')
+#depends=()
+source=("https://acpica.org/sites/acpica/files/acpica-unix-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/acpica-unix-${pkgver}/generate/unix"
+
+	sed -i "/ifneq.*_APPLE/s#APPLE#LINUX#g" Makefile.config
+	sed -i "/Werror/d" Makefile.config
+}
+
+build() {
+	cd "${srcdir}/acpica-unix-${pkgver}/generate/unix"
+
+	make CC="clang" HOST="_LINUX"
+}
+
+package() {
+	cd "${srcdir}/acpica-unix-${pkgver}/generate/unix"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/bin/acpidump"
+}
+
+md5sums=('704c7d0ba7ee826ea489995c4837ebd2')

@@ -1,9 +1,16 @@
 #!/bin/bash -e
 
+# Cleanup
+mountpoint /media/ntfs 2>&1> /dev/null && umount /media/ntfs
+rm -rf /media/ntfs /tools
+
+userdel pkgbuild
+
 systemctl enable accounts-daemon auditd avahi-daemon bluetooth ModemManager named NetworkManager NetworkManager-dispatcher rtkit-daemon systemd-timesyncd upower wpa_supplicant
 systemctl enable sshd.socket
 
 install -dm755 /media/ntfs /media/other /media/win
+install -dm755 /etc/wpa_supplicant
 
 cat > /etc/fstab << "EOF"
 #
@@ -24,11 +31,9 @@ UUID=C228EA6328EA5647 /media/ntfs  ntfs defaults 0 0
 UUID=3CB8F34AB8F30166 /media/other ntfs defaults 0 0
 EOF
 
-userdel pkgbuild
+useradd -u 1000 -c "Armin K" -s /bin/bash -MU armin
 
-useradd -u 1000 -g 1000 -c "Armin K" -s /bin/bash -MU armin
-
-#gpasswd -a armin kvm
+gpasswd -a armin kvm
 gpasswd -a armin systemd-journal
 gpasswd -a armin wireshark
 
@@ -86,49 +91,6 @@ echo -e "armin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99-local
 
 chmod 440 /etc/sudoers.d/99-local
 
-install -dm755 /etc/adobe
-install -dm755 /etc/modprobe.d
-install -dm755 /etc/wpa_supplicant
-
-echo "EnableLinuxHWVideoDecode=1" > /etc/adobe/mms.cfg
-
-install -m600 /media/ntfs/Other/Linux/conf/nm/* /etc/NetworkManager/system-connections
-install -m644 /media/ntfs/Other/Linux/conf/network/* /etc/systemd/network
-install -m600 /media/ntfs/Other/Linux/conf/wpa/* /etc/wpa_supplicant
-
-cat > /etc/rc.local << "EOF"
-#!/bin/sh -e
-#
-# rc.local
-#
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "exit 0" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
-
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-#test -e /sys/kernel/debug/vgaswitcheroo/switch && echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
-
-#echo 5 > /proc/sys/vm/laptop_mode
-
-#echo 976 > /sys/class/backlight/intel_backlight/brightness
-
-echo 1 > /proc/sys/net/ipv4/ip_forward
-iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
-iptables -A FORWARD -i wlan0 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
-iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
-
-#ethtool -s eth0 wol d
-#echo 'auto' > '/sys/bus/usb/devices/1-1.3/power/control'
-
-exit 0
-EOF
-
 sed -i "s:#HandleLidSwitch=suspend:HandleLidSwitch=ignore:g" /etc/systemd/logind.conf
 sed -i "s:#DefaultTimeoutStopSec=90s:DefaultTimeoutStopSec=30s:g" /etc/systemd/system.conf
 
@@ -146,11 +108,18 @@ Now run the following from outside the chroot
 
 export LFS=/mnt/lfs
 
+install -m600 /media/ntfs/Other/Linux/conf/nm/* ${LFS}/etc/NetworkManager/system-connections
+install -m644 /media/ntfs/Other/Linux/conf/network/* ${LFS}/etc/systemd/network
+install -m600 /media/ntfs/Other/Linux/conf/wpa/* ${LFS}/etc/wpa_supplicant
+
 for D in AccountsService alsa bluetooth   \
          NetworkManager upower            \
          systemd/backlight systemd/rfkill
 do
   rm -rf $LFS/var/lib/${D}
-  cp -a /var/lib/${D} $LFS/var/lib/${D}
+  cp -a /var/lib/${D} ${LFS}/var/lib/${D}
 done
+
+umount ${LFS}/sources
+rmdir ${LFS}/sources
 EOF

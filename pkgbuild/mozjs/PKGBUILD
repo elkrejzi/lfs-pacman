@@ -18,12 +18,8 @@ prepare() {
 build() {
 	cd "${srcdir}/mozjs-38.0.0/js/src"
 
-	export CC="gcc"
-	export CXX="g++"
+	export PYTHON="/usr/bin/python"
 	export SHELL="/bin/bash"
-
-	CXXFLAGS+=" -fno-delete-null-pointer-checks -fpermissive -fno-tree-vrp -fno-strict-aliasing"
-	CFLAGS+=" -fno-delete-null-pointer-checks -fno-tree-vrp -fno-strict-aliasing"
 
 	touch configure
 

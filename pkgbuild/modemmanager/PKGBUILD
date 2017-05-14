@@ -1,5 +1,5 @@
 pkgname=modemmanager
-pkgver=1.6.4
+pkgver=1.6.6
 pkgrel=1
 pkgdesc="Mobile broadband modem management service"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('06488186c7dd53f8104183b86f7a1568')
+md5sums=('99a46bd34ce65f8c18bd48994982922e')

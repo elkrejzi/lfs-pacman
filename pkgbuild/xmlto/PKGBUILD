@@ -3,10 +3,10 @@ pkgver=0.0.28
 pkgrel=1
 pkgdesc="Convert xml to many other formats"
 arch=('x86_64')
-url="http://cyberelk.net/tim/software/xmlto/"
+url="https://pagure.io/xmlto/"
 license=('GPL')
 #depends=()
-source=("https://fedorahosted.org/releases/x/m/xmlto/xmlto-${pkgver}.tar.bz2")
+source=("https://releases.pagure.org/xmlto/xmlto-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/xmlto-${pkgver}"

@@ -1,6 +1,6 @@
 pkgbase=python-requests
 pkgname=('python2-requests' 'python3-requests')
-pkgver=2.13.0
+pkgver=2.14.2
 pkgrel=1
 pkgdesc="Python HTTP for Humans"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-requests() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('921ec6b48f2ddafc8bb6160957baf444')
+md5sums=('4c3c169ed67466088a2a6947784fe444')

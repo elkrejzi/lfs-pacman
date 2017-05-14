@@ -74,6 +74,9 @@ package() {
 
 	echo 'disable *' > "${pkgdir}/lib/systemd/system-preset/99-default.preset"
 
+	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
+	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
+
 	chown root:systemd-journal "${pkgdir}/var/log/journal"
 	chmod 2755 "${pkgdir}/var/log/journal"
 

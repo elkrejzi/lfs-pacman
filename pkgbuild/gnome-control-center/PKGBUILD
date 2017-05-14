@@ -22,6 +22,9 @@ package() {
 	cd "${srcdir}/gnome-control-center-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
+	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
 md5sums=('6c6fb7166d5b069c81648f65d273ce1c')

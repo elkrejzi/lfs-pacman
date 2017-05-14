@@ -1,0 +1,25 @@
+pkgname=usbredir
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="USB traffic redirection protocol"
+arch=('x86_64')
+url="https://www.spice-space.org/page/UsbRedir"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+source=("https://www.spice-space.org/download/usbredir/usbredir-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/usbredir-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/usbredir-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('35cfb1720967727dea523b943cc4126b')

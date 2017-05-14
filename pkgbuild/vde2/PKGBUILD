@@ -1,0 +1,26 @@
+pkgname=vde2
+pkgver=2.3.2
+pkgrel=1
+pkgdesc="Virtual Distributed Ethernet for emulators like QEMU"
+arch=('x86_64')
+url="https://sourceforge.net/projects/vde/"
+license=('GPL' 'LGPL' 'CUSTOM')
+#depends=()
+options=(!makeflags)
+source=("https://downloads.sourceforge.net/vde/vde2-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/vde2-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vde2-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('46fbc5f97f03dc517aa3b2c9d9ea6628')

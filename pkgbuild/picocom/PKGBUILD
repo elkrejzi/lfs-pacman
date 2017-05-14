@@ -1,0 +1,24 @@
+pkgname=picocom
+pkgver=2.2
+pkgrel=1
+pkgdesc="Minimal dumb-terminal emulation program, very much like minicom"
+arch=('x86_64')
+url="https://github.com/npat-efault/picocom"
+license=('GPL2')
+#depends=()
+source=("picocom-${pkgver}.tar.gz::https://github.com/npat-efault/picocom/archive/${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/picocom-${pkgver}"
+
+	make CFLAGS="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/picocom-${pkgver}"
+
+	install -v -Dm755 picocom "${pkgdir}/usr/bin/picocom"
+	install -v -Dm644 picocom.1 "${pkgdir}/usr/share/man/man1/picocom.1"
+}
+
+md5sums=('65da5cd32f8cfa456bbe79bbcc908daf')

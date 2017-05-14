@@ -22,6 +22,9 @@ package() {
 	cd "${srcdir}/gvfs-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
+	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
 md5sums=('cbe766b46f324e17d7abcfb4a89a1684')

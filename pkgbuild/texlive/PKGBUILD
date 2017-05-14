@@ -75,6 +75,6 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/texmf.cnf
 }
 
-md5sums=('45e6b7ed13c0829811048c5fc3665694'
-         '54ec58699862f770ae60386018bbfb4d'
-         '7e099bbcce654526bb8b2546c6d72f18')
+md5sums=('1e75db3412b3e2945fa94b0a423a29c7'
+         '65da9b4e2514379d128d4cf4e889b63b'
+         'f94e287c45ffd8c0702701c1c6f21c10')

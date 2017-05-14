@@ -1,0 +1,72 @@
+pkgname=seabios
+pkgver=1.10.2
+pkgrel=1
+pkgdesc="A 16-bit x86 bios"
+arch=('x86_64')
+url="https://www.coreboot.org/SeaBIOS"
+license=('GPL3' 'LGPL3')
+#depends=()
+options=(!makeflags !strip)
+source=("https://code.coreboot.org/p/seabios/downloads/get/seabios-${pkgver}.tar.gz"
+	"config-bios"
+	"config-bios-256k"
+	"config-bios-coreboot"
+	"config-bios-csm"
+	"config-vgabios-cirrus"
+	"config-vgabios-isavga"
+	"config-vgabios-qxl"
+	"config-vgabios-stdvga"
+	"config-vgabios-vmware")
+
+build_shared() {
+	local _component=${1}
+	local _name=${2}
+
+	make clean distclean
+
+	cp "${srcdir}/config-${_component}" .config
+
+	make oldnoconfig
+	make ${3}
+
+	mv out/${_name} binaries/${_component}.bin
+}
+
+build() {
+	cd "${srcdir}/seabios-${pkgver}"
+
+	export CC="gcc"
+
+	rm -rf binaries
+	install -v -dm755 binaries
+
+	build_shared bios-coreboot bios.bin.elf
+	build_shared bios-csm Csm16.bin
+	build_shared bios bios.bin
+	build_shared bios-256k bios.bin
+
+	build_shared vgabios-cirrus vgabios.bin out/vgabios.bin
+	build_shared vgabios-isavga vgabios.bin out/vgabios.bin
+	build_shared vgabios-qxl vgabios.bin out/vgabios.bin
+	build_shared vgabios-stdvga vgabios.bin out/vgabios.bin
+	build_shared vgabios-vmware vgabios.bin out/vgabios.bin
+}
+
+package() {
+	cd "${srcdir}/seabios-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/qemu"
+
+	install -v -m644 binaries/*.bin "${pkgdir}/usr/share/qemu"
+}
+
+md5sums=('03387d3c84c7f43d6b8ab894155e1289'
+         '86331e4f5264f2f8068515665cf15162'
+         '7150e476381c89fcc9703ad0fc86dbc3'
+         'e2e4c8e2bbc9e6250bccb7754e714534'
+         '446b2e19edbd1db3bb30f550ce705838'
+         '0958ef6ea9a61af57ad8132400f66386'
+         '4c9895f9c5fe7a2d45bd570afa9a05ee'
+         '8c3d5ebdd98f736143ccd4456f79e125'
+         '19dcddeb5aa9e8fbdf6975205e867c8e'
+         'c2d2b8d0f7b9024f9d157f8db100fec3')

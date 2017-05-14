@@ -1,0 +1,31 @@
+pkgname=libiscsi
+pkgver=1.18.0
+pkgrel=1
+pkgdesc="Clientside library to implement the iSCSI protocol"
+arch=('x86_64')
+url="https://github.com/sahlberg/libiscsi"
+license=('LGPL')
+#depends=()
+source=("libiscsi-${pkgver}.tar.gz::https://github.com/sahlberg/libiscsi/archive/${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/libiscsi-${pkgver}"
+
+	./autogen.sh
+}
+
+build() {
+	cd "${srcdir}/libiscsi-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libiscsi-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('0a8638d5017e462984e90d81030b2d47')

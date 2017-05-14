@@ -34,8 +34,8 @@ rm -rf ${LFS}/{dev,etc,proc}
 
 lfs_pacman_install_temp filesystem
 
-ln -sf /tools/bin/{bash,cat,echo,pwd,stty} ${LFS}/bin
-ln -sf /tools/bin/perl ${LFS}/usr/bin
+ln -sf /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} ${LFS}/bin
+ln -sf /tools/bin/{install,perl} ${LFS}/usr/bin
 
 ln -sf /tools/lib/libgcc_s.so ${LFS}/usr/lib
 ln -sf /tools/lib/libgcc_s.so.1 ${LFS}/lib
@@ -54,7 +54,13 @@ ln -sf /tools/lib32/libomp.so ${LFS}/usr/lib32
 
 ln -sf bash ${LFS}/bin/sh
 
-cp /etc/resolv.conf ${LFS}/etc/resolv.conf
+cp -L /etc/resolv.conf ${LFS}/etc/resolv.conf
+
+if [ "$(hostname)" == "krejzi" ]
+then
+	install -dm755 ${LFS}/media/ntfs
+	install -m644 /media/ntfs/*-api.key ${LFS}/media/ntfs
+fi
 
 PKGS=(linux-api-headers
 glibc
@@ -807,6 +813,16 @@ valgrind
 whois
 texlive
 dblatex
+picocom
+stlink
+acpica-unix
+jemalloc
+libiscsi
+usbredir
+virglrenderer
+vde2
+seabios
+qemu
 libgconf
 libjpeg-turbo6
 libpng12

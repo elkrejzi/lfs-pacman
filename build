@@ -16,7 +16,8 @@ case ${thispkg} in
     rm -rf ${LFS}/bin/{bash,sh}
   ;;
   "coreutils" )
-    rm -rf ${LFS}/bin/{cat,echo,pwd,stty}
+    rm -rf ${LFS}/bin/{cat,dd,echo,ln,pwd,rm,stty}
+    rm -rf ${LFS}/usr/bin/install
   ;;
   "gcc" )
     rm -rf ${LFS}/usr/lib/libgcc_s.so ${LFS}/lib/libgcc_s.so.1 ${LFS}/usr/lib/libstdc++.so{,.6}
