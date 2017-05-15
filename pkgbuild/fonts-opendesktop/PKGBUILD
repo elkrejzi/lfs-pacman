@@ -1,0 +1,19 @@
+pkgname=fonts-opendesktop
+pkgver=1.4.2
+pkgrel=1
+pkgdesc="Chinese TrueType Fonts"
+arch=('x86_64')
+url="http://www.opendesktop.org.tw/"
+license=('custom:Arphic Public License')
+#depends=()
+source=("http://ftp.nsysu.edu.tw/FreeBSD/ports/local-distfiles/chinsan/fonts/opendesktop-fonts-${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/opendesktop-fonts-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/opendesktop"
+
+	install -v -m644 *.ttc *.ttf "${pkgdir}/usr/share/fonts/opendesktop"
+}
+
+md5sums=('c33e83d27ac3401bc51a2b8a88705c78')

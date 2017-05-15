@@ -1,0 +1,45 @@
+pkgname=fonts-noto-cjk
+pkgver=20170512
+_notorev=9beb8b8
+pkgrel=1
+pkgdesc="Google Noto CJK fonts"
+arch=('x86_64')
+url="https://www.google.com/get/noto/"
+license=('custom:SIL')
+#depends=()
+source=("https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-Black.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-Bold.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-DemiLight.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-Light.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-Medium.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-Regular.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSansCJK-Thin.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-Black.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-Bold.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-ExtraLight.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-Light.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-Medium.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-Regular.ttc"
+	"https://raw.githubusercontent.com/googlei18n/noto-cjk/${_notorev}/NotoSerifCJK-SemiBold.ttc")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/noto"
+	install -v -m644 *.ttc "${pkgdir}/usr/share/fonts/noto"
+}
+
+md5sums=('284dcc76b561e57d38021a4280c6bcc2'
+         '324ddfd1732a41a9a1be5d94c8072e9d'
+         'a8ad023ed05b4329dba3897941521e45'
+         '9d57c51fc090805a42269195856b7ebd'
+         'e4d6789d7bb8add777dbb95e6e204266'
+         '3be0458e320f1df8f04726a768c5d695'
+         'a0457b1c785864b188b7f8e9b7c8ce07'
+         '88e87caea4f186adc38e38e8895899a8'
+         '82636bb297505e8ce2796369b25576d3'
+         '78912718e6e01c9f4390076ee38899db'
+         '601915af9f2b3140893458419c26ebcb'
+         'b58412caf673fdb48fcb778a3f6b1ff3'
+         '776e130c2253fdbfc9e9dd827c71e8cc'
+         'afc4c638fc1b0e4a7e45e92565dcd1f9')

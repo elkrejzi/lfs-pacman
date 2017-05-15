@@ -15,6 +15,7 @@
 *.bseq
 *.aff
 *.dic
+*.ttc
 waf
 bash*-0*
 readline*-0*

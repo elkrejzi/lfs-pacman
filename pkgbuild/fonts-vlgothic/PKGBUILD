@@ -1,0 +1,19 @@
+pkgname=fonts-vlgothic
+pkgver=20141206
+pkgrel=1
+pkgdesc="Japanese TrueType fonts from Vine Linux"
+arch=('x86_64')
+url="http://vlgothic.dicey.org/"
+license=('custom')
+#depends=()
+source=("http://jaist.dl.sourceforge.jp/vlgothic/62375/VLGothic-${pkgver}.tar.xz")
+
+package() {
+	cd "${srcdir}/VLGothic"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/vlgothic"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/vlgothic"
+}
+
+md5sums=('bb7fadb2dff09a4fb6a11dc9dfdc0c36')

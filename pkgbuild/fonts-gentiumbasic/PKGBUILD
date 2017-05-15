@@ -1,0 +1,19 @@
+pkgname=fonts-gentiumbasic
+pkgver=1.102
+pkgrel=1
+pkgdesc="Fonts based on the original Gentium design with additional weights"
+arch=('x86_64')
+url="http://software.sil.org/gentium/"
+license=('custom:OFL')
+#depends=()
+source=("http://software.sil.org/downloads/r/gentium/GentiumBasic_${pkgver/./}.zip")
+
+package() {
+	cd "${srcdir}/GentiumBasic_${pkgver/./}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/gentiumbasic"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/gentiumbasic"
+}
+
+md5sums=('1725634df4bb3dcb1b2c91a6175f8789')

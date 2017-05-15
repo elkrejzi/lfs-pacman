@@ -1,0 +1,19 @@
+pkgname=fonts-baekmuk
+pkgver=2.2
+pkgrel=1
+pkgdesc="Korean fonts"
+arch=('x86_64')
+url="https://kldp.net/baekmuk/"
+license=('custom:BSD')
+#depends=()
+source=("https://kldp.net/baekmuk/release/865-baekmuk-ttf-${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/baekmuk-ttf-${pkgver}/ttf"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/baekmuk"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/baekmuk"
+}
+
+md5sums=('a6f4349179cbe3557641782cefba4d70')

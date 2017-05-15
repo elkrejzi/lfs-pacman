@@ -1,0 +1,19 @@
+pkgname=fonts-gentiumplus
+pkgver=5.000
+pkgrel=1
+pkgdesc="Fonts based on the original Gentium design with more extended Latin glyphs (Unicode 5.1), archaic Greek symbols, and full extended Cyrillic script support"
+arch=('x86_64')
+url="http://software.sil.org/gentium/"
+license=('custom:OFL')
+#depends=()
+source=("http://software.sil.org/downloads/r/gentium/GentiumPlus-${pkgver}.zip")
+
+package() {
+	cd "${srcdir}/GentiumPlus-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/gentiumplus"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/gentiumplus"
+}
+
+md5sums=('acedcd2696ea14d1a9296ba6d3075288')

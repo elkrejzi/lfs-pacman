@@ -24,4 +24,5 @@ package() {
 	install -v -m644 hinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
 	install -v -m644 unhinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
 }
+
 md5sums=('8330a71b2ccc745bc684c092c772c3e9')

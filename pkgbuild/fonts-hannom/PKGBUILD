@@ -1,0 +1,19 @@
+pkgname=fonts-hannom
+pkgver=2005
+pkgrel=1
+pkgdesc="Chinese and Vietnamese TrueType fonts"
+arch=('x86_64')
+url="http://vietunicode.sourceforge.net/fonts/fonts_hannom.html"
+license=('custom:non-profit')
+#depends=()
+source=("http://downloads.sourceforge.net/project/vietunicode/hannom/hannom%20v${pkgver}/hannomH.zip")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/hannom"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/hannom"
+}
+
+md5sums=('06c26da5cf910a6762bab2b576cd8a45')
