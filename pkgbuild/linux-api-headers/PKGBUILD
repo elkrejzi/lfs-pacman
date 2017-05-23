@@ -1,6 +1,6 @@
 pkgname=linux-api-headers
 _basever=4.11
-pkgver=4.11.1
+pkgver=4.11.2
 pkgrel=1
 pkgdesc="Kernel headers sanitized for use in userspace"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 }
 
 md5sums=('251a5deee0fa6daf3f356b1bbda9eab8'
-         '947496600f57dfb4431e023816048870')
+         'e0aae229c24dbc16021617de6955f8b8')

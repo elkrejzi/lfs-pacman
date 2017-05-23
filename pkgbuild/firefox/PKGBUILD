@@ -1,5 +1,5 @@
 pkgname=firefox
-pkgver=53.0.2
+pkgver=53.0.3
 pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org"
 arch=('x86_64')
@@ -58,7 +58,7 @@ package() {
 	install -v -Dm644 "${srcdir}/firefox.desktop" "${pkgdir}/usr/share/applications/firefox.desktop"
 }
 
-md5sums=('bf4643f9a95f13adf8336532490ea3d2'
+md5sums=('16be3d9774f1e3bf74e2c4e198652d19'
          '14e0f6237a79b85e60256f4808163160'
          'aa9f776d2187cba09de65cbb02b39ca0'
          '5d8d4f5e713ce38b985f5ff47b463aa9'

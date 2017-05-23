@@ -1,33 +1,38 @@
-pkgname=python3-cairo
-pkgver=1.10.0
+pkgbase=python-pycairo
+pkgname=('python2-cairo' 'python3-cairo')
+pkgver=1.13.2
 pkgrel=1
-pkgdesc="Python 3 bindings for the cairo graphics library"
+pkgdesc="Python bindings for the Cairo graphics library"
 arch=('x86_64')
-url="https://www.cairographics.org/pycairo"
-license=('LGPL3')
+url="https://pycairo.readthedocs.io"
+license=('LGPL2.1' 'MPL')
 #depends=()
-source=("https://www.cairographics.org/releases/pycairo-${pkgver}.tar.bz2"
-	"pycairo-fixes.patch")
+source=("https://github.com/pygobject/pycairo/releases/download/v${pkgver}/pycairo-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/pycairo-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/pycairo-fixes.patch"
+	cp -a "${srcdir}/pycairo-${pkgver}" "${srcdir}/pycairo-${pkgver}-py2"
 }
 
 build() {
 	cd "${srcdir}/pycairo-${pkgver}"
 
-	PYTHON=/usr/bin/python3 ./waf configure --prefix=/usr
+	python3 setup.py build
 
-	./waf build
+	cd "${srcdir}/pycairo-${pkgver}-py2"
+
+	python2 setup.py build
 }
 
-package() {
+package_python3-cairo() {
 	cd "${srcdir}/pycairo-${pkgver}"
 
-	./waf install --destdir="${pkgdir}"
+	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('e6fd3f2f1e6a72e0db0868c4985669c5'
-         '418e36055c75392f6501918d1c33d448')
+package_python2-cairo() {
+	cd "${srcdir}/pycairo-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+md5sums=('e6e8407d3f51b0b89863872da0760616')

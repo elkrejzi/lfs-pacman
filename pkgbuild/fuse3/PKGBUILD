@@ -35,5 +35,6 @@ package() {
 	mv -v "${pkgdir}"/usr/lib/libfuse3.so.* "${pkgdir}/lib"
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse3.so") "${pkgdir}/usr/lib/libfuse3.so"
 }
+
 md5sums=('8fbe5e8293deaa7a2072f30dbdc29669'
          '298587592c8444196833f317def414f2')

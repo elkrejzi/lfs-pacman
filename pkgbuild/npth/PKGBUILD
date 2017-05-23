@@ -1,5 +1,5 @@
 pkgname=npth
-pkgver=1.3
+pkgver=1.4
 pkgrel=1
 pkgdesc="New portable threads library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('efe1524c53670b5755dc27893d2d68a0')
+md5sums=('76cef5542e0db6a339cf960641ed86f8')

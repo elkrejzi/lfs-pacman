@@ -1,5 +1,5 @@
 pkgname=gegl
-pkgver=0.3.14
+pkgver=0.3.16
 pkgrel=1
 pkgdesc="Graph based image processing framework"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('0c4fbdc68d9bcebb21898379a438b862')
+md5sums=('e4a523420c5f050c0ca0187b3758ce23')

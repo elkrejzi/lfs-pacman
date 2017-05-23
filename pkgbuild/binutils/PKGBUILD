@@ -43,4 +43,5 @@ package() {
 	rm -rf "${pkgdir}/usr/lib64"
 	rm -rf "${pkgdir}"/usr/share/man/man1/{dlltool,nlmconv,windres,windmc}.1
 }
+
 md5sums=('9e8340c96626b469a603c15c9d843727')

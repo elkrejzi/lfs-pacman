@@ -1,5 +1,5 @@
 pkgname=ibus
-pkgver=1.5.15
+pkgver=1.5.16
 pkgrel=1
 pkgdesc="Next Generation Input Bus for Linux"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('4e451cf4e8b1f160017987d728a47c2e')
+md5sums=('31ea7c1259c7285bd9d71f3000cbd95b')

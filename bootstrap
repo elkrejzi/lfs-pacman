@@ -477,7 +477,6 @@ xf86-video-intel
 weston
 iso-codes
 libnotify
-py2cairo
 pycairo
 pygobject
 ibus

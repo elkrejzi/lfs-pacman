@@ -62,6 +62,7 @@ package() {
 
 	chgrp -R lp "${pkgdir}/etc/cups"
 }
+
 md5sums=('006a8156680a516e43c59034e31df8bf'
          '9e5f7f34bdde3b774e864ee27c64ee2b'
          '26ec8039dbcb9b470ef1449f08f951a6'

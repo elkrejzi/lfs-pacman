@@ -1,12 +1,12 @@
 pkgname=libva-utils
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="Video Acceleration (VA) API for Linux (client utilities)"
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
 license=('MIT')
 #depends=()
-source=("https://www.freedesktop.org/software/vaapi/releases/libva/libva-utils-${pkgver}.tar.bz2")
+source=("https://github.com/01org/libva-utils/releases/download/${pkgver}/libva-utils-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/libva-utils-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('1a79895b039d273409318b5d1dc1a8c9')
+md5sums=('4a8edb92fb0b439f1146adbfa0fba76d')

@@ -1,5 +1,5 @@
 pkgname=gtk-vnc
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="A VNC viewer widget for GTK+"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('cf55bce70ff1f7b1643468a001be1bef')
+md5sums=('474644cfaf9c65d800c51d009bd32408')

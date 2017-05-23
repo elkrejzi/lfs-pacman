@@ -46,5 +46,6 @@ package() {
 	find "${pkgdir}/usr/include" -type f -exec chmod 644 {} \;
 	find "${pkgdir}/usr/lib/pkgconfig" -type f -exec chmod 644 {} \;
 }
+
 md5sums=('cb602e21f5fc798b88163a3aa4e03e0a'
          'a57b6b2baebaa5127ae3e295c805f9b3')

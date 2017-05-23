@@ -19,7 +19,6 @@ prepare() {
 	cp -a "${srcdir}"/freetype{,32}-${pkgver}
 }
 
-
 build() {
 	cd "${srcdir}/freetype-${pkgver}"
 

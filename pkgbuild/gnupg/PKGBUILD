@@ -1,5 +1,5 @@
 pkgname=gnupg
-pkgver=2.1.20
+pkgver=2.1.21
 pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 arch=('x86_64')
@@ -30,4 +30,5 @@ package() {
 		ln -sfv ${f}2.1 "${pkgdir}/usr/share/man/man1/${f}.1"
 	done
 }
-md5sums=('f6bc7e0b82893dfafe09109d86ff6e9b')
+
+md5sums=('685ebf4c3a7134ba0209c96b18b2f064')

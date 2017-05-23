@@ -78,6 +78,5 @@ package_lib32-fontconfig() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-
 md5sums=('b5af5a423ee3b5cfc34846838963c058'
          'ba07f578513842a325e397aa0f696319')

@@ -85,5 +85,4 @@ package_lib32-mesa() {
 	mv dest/usr/share "${pkgdir}/usr"
 }
 
-md5sums=('e5aa715d6e6cd3bb39726801f7004503')
 md5sums=('ab1c7d44df6afd5d35286de57f762a74')

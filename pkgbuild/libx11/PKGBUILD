@@ -53,5 +53,4 @@ package_lib32-libx11() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('6d54227082f3aa2c596f0b3a3fbb9175')
 md5sums=('0f618db70c4054ca67cee0cc156a4255')

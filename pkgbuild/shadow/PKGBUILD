@@ -1,5 +1,5 @@
 pkgname=shadow
-pkgver=4.4
+pkgver=4.5
 pkgrel=1
 pkgdesc="Password and account management tool suite with support for shadow files and PAM"
 arch=('x86_64')
@@ -25,9 +25,6 @@ prepare() {
 
 	sed -i -e 's@PATH=/sbin:/bin:/usr/sbin:/usr/bin@&:/usr/local/sbin:/usr/local/bin@' \
 		-e 's@PATH=/bin:/usr/bin@&:/usr/local/bin@' etc/login.defs
-
-	sed -i -e '/snprintf/s@_msg,@_msg, 256,@' src/su.c
-	sed -i -e '47 d' -e '60,65 d' libmisc/myname.c
 }
 
 build() {
@@ -81,7 +78,7 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-md5sums=('c06f8c2571b44899e60662f9ad259dd6'
+md5sums=('c350da50c2120de6bb29177699d89fe3'
          '6cfcfabf9c11d0518e3b0130d5d6b591'
          '8b46d31d64f2e74619a567554312732d'
          'cd389067eb976d1bf3f58091bcd72ade'

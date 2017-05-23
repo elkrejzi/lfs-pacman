@@ -1,5 +1,6 @@
 pkgname=gimp
-pkgver=2.9.4
+_commit=9e9feac # gtk+3 port
+pkgver=2.99.0.${_commit}
 pkgrel=1
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
@@ -7,23 +8,31 @@ url="https://www.gimp.org/"
 license=('GPL' 'LGPL')
 #depends=()
 options=(emptydirs)
-source=("https://download.gimp.org/pub/gimp/v${pkgver:0:3}/gimp-${pkgver}.tar.bz2")
+source=("git+https://github.com/GNOME/gimp.git#commit=${_commit}")
+
+prepare() {
+	cd "${srcdir}/gimp"
+
+	sed -i "/babl_required_v/s:.27:.26:g" configure.ac
+	sed -i "/BABL_REQUIRED_MICRO/s:27:26:g" app/sanity.c
+
+	NOCONFIGURE=1 ./autogen.sh
+}
 
 build() {
-	cd "${srcdir}/gimp-${pkgver}"
+	cd "${srcdir}/gimp"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--disable-python \
-		--with-lcms=lcms2
+		--disable-python
 
 	make
 }
 
 package() {
-	cd "${srcdir}/gimp-${pkgver}"
+	cd "${srcdir}/gimp"
 
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('6b3d425a7949110eeb532badedf721f3')
+md5sums=('SKIP')

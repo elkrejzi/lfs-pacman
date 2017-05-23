@@ -1,5 +1,5 @@
 pkgname=poppler
-pkgver=0.54.0
+pkgver=0.55.0
 pkgrel=1
 pkgdesc="PDF rendering library based on xpdf 3.0"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-md5sums=('ed0b36e3f577e669dcc58bd408cacde6')
+md5sums=('f7a8230626b6d2061acfdc852930b7dd')

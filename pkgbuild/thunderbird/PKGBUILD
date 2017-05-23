@@ -1,5 +1,5 @@
 pkgname=thunderbird
-pkgver=52.1.0
+pkgver=52.1.1
 pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=('x86_64')
@@ -50,7 +50,7 @@ package() {
 	install -v -Dm644 "${srcdir}/thunderbird.desktop" "${pkgdir}/usr/share/applications/thunderbird.desktop"
 }
 
-md5sums=('0cd0b6ac2740a1fd74b3c4a6cb846e53'
+md5sums=('af4e6390883f3a3b082ecba7f85180b8'
          '31d705c909ab7695f5076bb5612b17a4'
          '5a53179d14ae9631b7afe5e4d0fc0b25'
          'a6f47a8c1284bf2df387b88d29cf2bc1'

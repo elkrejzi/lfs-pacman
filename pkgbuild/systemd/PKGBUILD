@@ -30,6 +30,7 @@ prepare() {
 	cd "${srcdir}/systemd-${pkgver}"
 
 	sed -i "s#-Werror=format=2##g" configure
+	sed -i "/MemoryDenyWriteExecute=yes/d" units/systemd-timesyncd.service.in
 }
 
 build() {
