@@ -1,0 +1,27 @@
+pkgname=perl-module-install
+pkgver=1.18
+pkgrel=1
+pkgdesc="Standalone, extensible Perl module installer"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Module-Install/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/Module-Install-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Module-Install-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Module-Install-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('243903a09fe8f4efa7665e2e533f21b2')

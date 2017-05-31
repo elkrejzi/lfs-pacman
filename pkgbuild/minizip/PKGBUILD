@@ -1,0 +1,31 @@
+pkgname=minizip
+pkgver=1.2.11
+pkgrel=1
+pkgdesc="Mini zip and unzip based on zlib"
+arch=('x86_64')
+url="http://www.zlib.net/"
+license=('custom')
+#depends=()
+source=("http://zlib.net/zlib-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/zlib-${pkgver}/contrib/minizip"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/zlib-${pkgver}/contrib/minizip"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/zlib-${pkgver}/contrib/minizip"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('85adef240c5f370b308da8c938951a68')

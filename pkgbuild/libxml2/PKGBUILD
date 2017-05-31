@@ -15,7 +15,9 @@ prepare() {
 build() {
 	cd "${srcdir}/libxml2-${pkgver}"
 
-	./configure --prefix=/usr --with-history
+	./configure --prefix=/usr \
+		--with-history \
+		--with-icu
 
 	cd "${srcdir}/libxml232-${pkgver}"
 
@@ -26,6 +28,7 @@ build() {
 	./configure --prefix=/usr \
 		--libdir=/usr/lib32 \
 		--with-history \
+		--with-icu \
 		--without-python
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"

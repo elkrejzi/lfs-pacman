@@ -1,5 +1,5 @@
 pkgname=libpwquality
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="Library for password quality checking and generating random passwords"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('2a3d4ba1d11b52b4f6a7f39622ebf736')
+md5sums=('b8defcc7280a90e9400d6689c93a279c')

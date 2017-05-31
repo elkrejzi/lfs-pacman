@@ -1,18 +1,13 @@
 pkgname=libclc
-pkgver=0.2.0.296233
+_revision=304297
+pkgver=0.2.0.${_revision}
 pkgrel=1
 pkgdesc="Library requirements of the OpenCL C programming language"
 arch=('x86_64')
 url="http://libclc.llvm.org/"
 license=('MIT')
 #depends=()
-source=("libclc::svn+http://llvm.org/svn/llvm-project/libclc/trunk#revision=296233")
-
-pkgver() {
-	cd "${srcdir}/libclc"
-
-	echo "0.2.0."$(svnversion)
-}
+source=("libclc::svn+http://llvm.org/svn/llvm-project/libclc/trunk#revision=${_revision}")
 
 build() {
 	cd "${srcdir}/libclc"
@@ -24,6 +19,8 @@ build() {
 
 package() {
 	cd "${srcdir}/libclc"
+
+	sed -i "s#/generic/include/clc#generic/include/clc#g" Makefile
 
 	make install DESTDIR="${pkgdir}"
 }

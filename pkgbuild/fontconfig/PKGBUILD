@@ -1,6 +1,6 @@
 pkgbase=fontconfig
 pkgname=('fontconfig' 'lib32-fontconfig')
-pkgver=2.12.1
+pkgver=2.12.3
 pkgrel=1
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/fontconfig/"
@@ -12,12 +12,6 @@ source=("https://www.freedesktop.org/software/fontconfig/release/fontconfig-${pk
 
 prepare() {
 	cd "${srcdir}/fontconfig-${pkgver}"
-
-	sed -e '/FC_CHAR_WIDTH/s/CHAR_WIDTH/CHARWIDTH/' \
-    		-e '/FC_CHARWIDTH/a #define FC_CHAR_WIDTH FC_CHARWIDTH' \
-    		-i fontconfig/fontconfig.h
-
-	sed -i 's/CHAR_WIDTH/CHARWIDTH/' -i src/fcobjs.h
 
 	cp -a "${srcdir}"/fontconfig{,32}-${pkgver}
 }
@@ -78,5 +72,5 @@ package_lib32-fontconfig() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('b5af5a423ee3b5cfc34846838963c058'
+md5sums=('872f757ec180e8c51918ff39705c40de'
          'ba07f578513842a325e397aa0f696319')

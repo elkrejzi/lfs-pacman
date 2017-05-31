@@ -1,0 +1,26 @@
+pkgname=qtwayland
+pkgver=5.9.0
+pkgrel=1
+pkgdesc="Provides APIs for Wayland"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtwayland-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtwayland-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtwayland-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+md5sums=('eb0d671cdaf23fc71818561c259bb5ba')

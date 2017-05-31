@@ -1,0 +1,27 @@
+pkgname=perl-test-requires
+pkgver=0.10
+pkgrel=1
+pkgdesc="Checks to see if the module can be loaded"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Test-Requires/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/Test-Requires-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Test-Requires-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Test-Requires-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('0d5da779609d0c8fa6f796b45ff8c6f3')

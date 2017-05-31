@@ -1,0 +1,27 @@
+pkgname=perl-file-remove
+pkgver=1.57
+pkgrel=1
+pkgdesc="Remove files and directories"
+arch=('x86_64')
+url="http://search.cpan.org/dist/File-Remove/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/File-Remove-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/File-Remove-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/File-Remove-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('fe7da64339206d6568037209a577724f')

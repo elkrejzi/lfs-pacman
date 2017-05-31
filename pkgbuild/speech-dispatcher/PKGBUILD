@@ -1,0 +1,43 @@
+pkgname=speech-dispatcher
+pkgver=0.8.7
+pkgrel=1
+pkgdesc="High-level device independent layer for speech synthesis interface"
+arch=('x86_64')
+url="https://devel.freebsoft.org/speechd"
+license=('GPL2' 'FDL')
+#depends=()
+options=(emptydirs)
+source=("https://devel.freebsoft.org/pub/projects/speechd/speech-dispatcher-${pkgver}.tar.gz"
+	"speech-dispatcherd.service")
+
+prepare() {
+	cd "${srcdir}/speech-dispatcher-${pkgver}"
+
+	sed -i "s/cicero //g" configure.ac
+	sed -i "s/sd_cicero//g" src/modules/Makefile.am
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/speech-dispatcher-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--without-flite
+
+	make
+}
+
+package() {
+	cd "${srcdir}/speech-dispatcher-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/var/log/speech-dispatcher"
+
+	install -v -Dm644 "${srcdir}/speech-dispatcherd.service" "${pkgdir}/lib/systemd/system/speech-dispatcherd.service"
+}
+
+md5sums=('6ffe4aff58154a06c14da66cd045fa8c'
+         'd26f52e2e95a30eaa83560f0e63faca5')

@@ -1,0 +1,27 @@
+pkgname=perl-module-build
+pkgver=0.4224
+pkgrel=1
+pkgdesc="Build and install Perl modules"
+arch=('x86_64')
+url="http://search.cpan.org/dist/Module-Build/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/Module-Build-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Module-Build-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('b74c2f6e84b60aad3a3defd30b6f0f4d')

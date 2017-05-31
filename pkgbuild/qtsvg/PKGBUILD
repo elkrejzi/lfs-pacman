@@ -1,0 +1,26 @@
+pkgname=qtsvg
+pkgver=5.9.0
+pkgrel=1
+pkgdesc="Classes for displaying the contents of SVG files"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtsvg-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtsvg-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtsvg-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+md5sums=('ea6f6334dfdc3ce8add835cf3fdd8e14')

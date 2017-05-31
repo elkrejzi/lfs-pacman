@@ -1,0 +1,31 @@
+pkgname=espeak
+pkgver=1.48.04
+pkgrel=1
+pkgdesc="Text to Speech engine for English, with support for other languages"
+arch=('x86_64')
+url="http://espeak.sourceforge.net/"
+license=('GPL')
+#depends=()
+source=("https://downloads.sourceforge.net/espeak/espeak-${pkgver}-source.zip")
+
+prepare() {
+	cd "${srcdir}/espeak-${pkgver}-source/src"
+
+	cp portaudio19.h portaudio.h
+
+	sed -i "s#-lstdc++##g" Makefile
+}
+
+build() {
+	cd "${srcdir}/espeak-${pkgver}-source/src"
+
+	make AUDIO=runtime CXXFLAGS="${CXXFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/espeak-${pkgver}-source/src"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('cadd7482eaafe9239546bdc09fa244c3')

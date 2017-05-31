@@ -1,0 +1,25 @@
+pkgname=libmng
+pkgver=2.0.3
+pkgrel=1
+pkgdesc="A collection of routines used to create and manipulate MNG format graphics files"
+arch=('x86_64')
+url="http://www.libmng.com"
+license=('custom')
+#depends=()
+source=("https://downloads.sourceforge.net/libmng/libmng-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libmng-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmng-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('e9e899adb1b681b17f14d91e261878c5')

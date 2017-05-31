@@ -13,9 +13,6 @@ source=("git+https://github.com/GNOME/gimp.git#commit=${_commit}")
 prepare() {
 	cd "${srcdir}/gimp"
 
-	sed -i "/babl_required_v/s:.27:.26:g" configure.ac
-	sed -i "/BABL_REQUIRED_MICRO/s:27:26:g" app/sanity.c
-
 	NOCONFIGURE=1 ./autogen.sh
 }
 

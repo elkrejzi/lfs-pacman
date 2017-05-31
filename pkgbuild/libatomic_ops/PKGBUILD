@@ -1,12 +1,12 @@
 pkgbase=libatomic_ops
 pkgname=('libatomic_ops' 'lib32-libatomic_ops')
-pkgver=7.4.4
+pkgver=7.6.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/ivmai/libatomic_ops"
 license=('GPL2' 'MIT')
 #depends=()
-source=("http://www.ivmaisoft.com/_bin/atomic_ops/libatomic_ops-${pkgver}.tar.gz")
+source=("https://github.com/ivmai/libatomic_ops/releases/download/v${pkgver}/libatomic_ops-${pkgver}.tar.gz")
 
 prepare() {
 	cp -a "${srcdir}"/libatomic_ops{,32}-${pkgver}
@@ -58,4 +58,4 @@ package_lib32-libatomic_ops() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('426d804baae12c372967a6d183e25af2')
+md5sums=('4d4cd729e55fafb56d48f667c3e46331')

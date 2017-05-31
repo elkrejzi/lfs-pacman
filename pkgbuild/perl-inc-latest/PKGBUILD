@@ -1,0 +1,27 @@
+pkgname=perl-inc-latest
+pkgver=0.500
+pkgrel=1
+pkgdesc="use modules bundled in inc/ if they are newer than installed ones"
+arch=('x86_64')
+url="http://search.cpan.org/dist/inc-latest/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/inc-latest-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/inc-latest-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/inc-latest-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('d1e0deb52bcc9f9b0f990ceb077a8ffd')

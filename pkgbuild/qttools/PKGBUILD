@@ -1,5 +1,5 @@
 pkgname=qttools
-pkgver=5.8.0
+pkgver=5.9.0
 pkgrel=1
 pkgdesc="A cross-platform application and UI framework (Development Tools, QtHelp)"
 arch=('x86_64')
@@ -48,7 +48,7 @@ package() {
 
 }
 
-md5sums=('506e53a228fe0c3d6c8b6fbebd8e47ae'
+md5sums=('ff272ef2640414442efdb8c8ce1fe031'
          '005d2c5ae3f60e601c63756895550086'
          '049871a4f38ec7cb4634640dd554d3bc'
          '05ed78705800223dca802b438b3f1025'

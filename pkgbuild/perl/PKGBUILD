@@ -1,6 +1,6 @@
 pkgname=perl
-_perlmajor=5.24
-_perlminor=1
+_perlmajor=5.26
+_perlminor=0
 pkgver=${_perlmajor}.${_perlminor}
 pkgrel=1
 pkgdesc="A highly capable, feature-rich programming language"
@@ -9,7 +9,7 @@ url="http://www.perl.org"
 license=('GPL' 'PerlArtistic')
 #depends=()
 options=(emptydirs)
-source=("http://www.cpan.org/src/5.0/perl-${pkgver}.tar.bz2")
+source=("http://www.cpan.org/src/5.0/perl-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/perl-${pkgver}"
@@ -83,4 +83,4 @@ package() {
 	ln -sfv ${pkgver} "${pkgdir}/usr/share/perl/${_perlmajor}"
 }
 
-md5sums=('178ee0e8fa544dbc76d99cf041e2c9f0')
+md5sums=('8c6995718e4cb62188f0d5e3488cd91f')

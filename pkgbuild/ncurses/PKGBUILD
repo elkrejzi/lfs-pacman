@@ -7,7 +7,7 @@ arch=('x86_64')
 url="http://invisible-island.net/ncurses/ncurses.html"
 license=('MIT')
 #depends=()
-source=("ftp://ftp.invisible-island.net/ncurses/current/ncurses-${_pkgver}.tgz")
+source=("http://invisible-mirror.net/archives/ncurses/current/ncurses-${_pkgver}.tgz")
 
 build_shared() {
 	local LIB=${1}

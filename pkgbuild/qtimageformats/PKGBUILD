@@ -1,0 +1,24 @@
+pkgname=qtimageformats
+pkgver=5.9.0
+pkgrel=1
+pkgdesc="Plugins for additional image formats: TIFF, MNG, TGA, WBMP"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtimageformats-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtimageformats-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtimageformats-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+}
+
+md5sums=('0f579113cd7619c0392b0778c14b17e5')

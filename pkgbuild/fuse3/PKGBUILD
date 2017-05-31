@@ -1,5 +1,5 @@
 pkgname=fuse3
-pkgver=3.0.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="A library that makes it possible to implement a filesystem in a userspace program"
 arch=('x86_64')
@@ -36,5 +36,5 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse3.so") "${pkgdir}/usr/lib/libfuse3.so"
 }
 
-md5sums=('8fbe5e8293deaa7a2072f30dbdc29669'
+md5sums=('51e832a27095ca7c5d835dc0ecb01565'
          '298587592c8444196833f317def414f2')

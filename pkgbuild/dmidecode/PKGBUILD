@@ -1,5 +1,5 @@
 pkgname=dmidecode
-pkgver=3.0
+pkgver=3.1
 pkgrel=1
 pkgdesc="Desktop Management Interface table related utilities"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install prefix=/usr DESTDIR="${pkgdir}"
 }
 
-md5sums=('281ee572d45c78eca73a14834c495ffd')
+md5sums=('679c2c015c515aa6ca5f229aee49c102')

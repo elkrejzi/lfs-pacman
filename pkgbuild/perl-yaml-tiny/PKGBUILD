@@ -1,0 +1,27 @@
+pkgname=perl-yaml-tiny
+pkgver=1.70
+pkgrel=1
+pkgdesc="Read/Write YAML files with as little code as possible"
+arch=('x86_64')
+url="http://search.cpan.org/dist/YAML-Tiny/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/YAML-Tiny-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/YAML-Tiny-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/YAML-Tiny-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+md5sums=('a475714e8d512aafc410ca4d7a117aa2')

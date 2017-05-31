@@ -1,0 +1,26 @@
+pkgname=qtwebchannel
+pkgver=5.9.0
+pkgrel=1
+pkgdesc="Provides access to QObject or QML objects from HTML clients for seamless integration of Qt applications with HTML/JavaScript clients"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtwebchannel-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtwebchannel-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtwebchannel-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+md5sums=('7afea472594be4e9a6b62761c6773984')

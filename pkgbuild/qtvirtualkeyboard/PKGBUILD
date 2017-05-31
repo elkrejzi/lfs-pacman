@@ -1,0 +1,24 @@
+pkgname=qtvirtualkeyboard
+pkgver=5.9.0
+pkgrel=1
+pkgdesc="Virtual keyboard framework"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtvirtualkeyboard-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtvirtualkeyboard-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtvirtualkeyboard-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+}
+
+md5sums=('524e88d0ba9104699869ca8f1f8d0180')

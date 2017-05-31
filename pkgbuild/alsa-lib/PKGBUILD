@@ -1,6 +1,6 @@
 pkgbase=alsa-lib
 pkgname=('alsa-lib' 'lib32-alsa-lib')
-pkgver=1.1.4
+pkgver=1.1.4.1
 pkgrel=1
 arch=('x86_64')
 url="http://www.alsa-project.org"
@@ -55,4 +55,4 @@ package_lib32-alsa-lib() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('824082c6b2e341500902973dcc47d2e9')
+md5sums=('29fa3e69122d3cf3e8f0e01a0cb1d183')

@@ -1,19 +1,12 @@
 pkgname=qtbase
-pkgver=5.8.0
+pkgver=5.9.0
 pkgrel=1
 pkgdesc="A cross-platform application and UI framework"
 arch=('x86_64')
 url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
-source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtbase-opensource-src-${pkgver}.tar.xz"
-	"qtbase-journald.patch::https://github.com/qt/qtbase/commit/0c8f3229.patch")
-
-prepare() {
-	cd "${srcdir}/qtbase-opensource-src-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/qtbase-journald.patch"
-}
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtbase-opensource-src-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/qtbase-opensource-src-${pkgver}"
@@ -62,5 +55,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share"
 }
 
-md5sums=('6e1f7f6fb6333eb66e563b175c4e87e9'
-         '160fde81fe882c4241f04634f53691ad')
+md5sums=('d9984e18fb826fa3bb63457dc90ba14a')
