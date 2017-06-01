@@ -11,8 +11,8 @@ PKGBUILDs are written from scratch, some using BLFS/LFS,
 instructions, some written by me, and some parts taken from
 Arch Linux as-is (pacman hooks come to mind). Requirement to
 bootstrap this Linux From Scratch based system is a temporary
-toolchain built using my pacman-bootstrap set of scripts
-located at https://github.com/elkrejzi/pacman-bootstrap
+toolchain built using my set of scripts located at
+tools/ subdirectory of this repository.
 
 The order of packages is not entirely dictated by the
 Linux From Scratch book, but rather on my own preference
