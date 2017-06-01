@@ -1,0 +1,21 @@
+--- a/libfakeroot.c	2014-10-05 17:16:00.000000000 +0200
++++ b/libfakeroot.c	2017-02-19 17:08:08.269404922 +0100
+@@ -256,10 +256,16 @@
+  /* clear dlerror() just in case dlsym() legitimately returns NULL */
+     msg = dlerror();
+     *(next_wrap[i].doit)=dlsym(get_libc(), next_wrap[i].name);
++
+     if ( (msg = dlerror()) != NULL){
+-      fprintf (stderr, "dlsym(%s): %s\n", next_wrap[i].name, msg);
+-/*    abort ();*/
++#ifdef LIBFAKEROOT_DEBUGGING
++      if (fakeroot_debug) {
++        fprintf (stderr, "dlsym(%s): %s\n", next_wrap[i].name, msg);
++/*      abort ();*/
++      }
++#endif
+     }
++
+   }
+ }
+ 

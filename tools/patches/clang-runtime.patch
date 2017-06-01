@@ -1,0 +1,73 @@
+--- a/lib/Driver/ToolChains.cpp	2017-01-10 22:13:08.000000000 +0100
++++ b/lib/Driver/ToolChains.cpp	2017-02-18 22:59:45.878554646 +0100
+@@ -4158,11 +4158,22 @@
+   // to the link paths.
+   path_list &Paths = getFilePaths();
+ 
++  SmallString<128> P(D.ResourceDir);
++  SmallString<128> Ext;
++
++  if (Arch == llvm::Triple::x86)
++    Ext = "i386";
++  else
++    Ext = "x86_64";
++
++  llvm::sys::path::append(P, Ext);
++  addPathIfExists(D, P, Paths);
++
+   const std::string OSLibDir = getOSLibDir(Triple, Args);
+   const std::string MultiarchTriple = getMultiarchTriple(D, Triple, SysRoot);
+ 
+   // Add the multilib suffixed paths where they are available.
+-  if (GCCInstallation.isValid()) {
++  if (false && GCCInstallation.isValid()) {
+     const llvm::Triple &GCCTriple = GCCInstallation.getTriple();
+     const std::string &LibPath = GCCInstallation.getParentLibPath();
+     const Multilib &Multilib = GCCInstallation.getMultilib();
+@@ -4231,7 +4242,7 @@
+ 
+   // Try walking via the GCC triple path in case of biarch or multiarch GCC
+   // installations with strange symlinks.
+-  if (GCCInstallation.isValid()) {
++  if (false && GCCInstallation.isValid()) {
+     addPathIfExists(D,
+                     SysRoot + "/usr/lib/" + GCCInstallation.getTriple().str() +
+                         "/../../" + OSLibDir,
+@@ -4420,13 +4431,13 @@
+     Loader = "ld64.so.1";
+     break;
+   case llvm::Triple::x86:
+-    LibDir = "lib";
++    LibDir = "lib32";
+     Loader = "ld-linux.so.2";
+     break;
+   case llvm::Triple::x86_64: {
+     bool X32 = Triple.getEnvironment() == llvm::Triple::GNUX32;
+ 
+-    LibDir = X32 ? "libx32" : "lib64";
++    LibDir = X32 ? "libx32" : "lib";
+     Loader = X32 ? "ld-linux-x32.so.2" : "ld-linux-x86-64.so.2";
+     break;
+   }
+@@ -4435,7 +4446,7 @@
+   if (Distro == Distro::Exherbo && (Triple.getVendor() == llvm::Triple::UnknownVendor ||
+                                     Triple.getVendor() == llvm::Triple::PC))
+     return "/usr/" + Triple.str() + "/lib/" + Loader;
+-  return "/" + LibDir + "/" + Loader;
++  return (getenv("LFS_TOOLS_BOOTSTRAP") ? "/tools/" : "/") + LibDir + "/" + Loader;
+ }
+ 
+ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+--- a/lib/Driver/ToolChains.h	2017-01-05 17:52:29.000000000 +0100
++++ b/lib/Driver/ToolChains.h	2017-02-18 22:56:57.456642487 +0100
+@@ -889,6 +889,10 @@
+ 
+   std::vector<std::string> ExtraOpts;
+ 
++  RuntimeLibType GetDefaultRuntimeLibType() const override {
++    return ToolChain::RLT_CompilerRT;
++  }
++
+ protected:
+   Tool *buildAssembler() const override;
+   Tool *buildLinker() const override;

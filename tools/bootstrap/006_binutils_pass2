@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf binutils-${BINUTILS_VER} ${LOGDIR}/binutils-pass2-${BINUTILS_VER}.log
+
+tar xf ${SROOT}/binutils-${BINUTILS_VER}.tar.bz2
+
+{
+
+  time {
+  mkdir binutils-${BINUTILS_VER}/binutils-build
+  pushd binutils-${BINUTILS_VER}/binutils-build
+    CC=$LFS_TGT-gcc        \
+    AR=$LFS_TGT-ar         \
+    RANLIB=$LFS_TGT-ranlib \
+    ../configure           \
+        --prefix=/tools    \
+        --with-sysroot     \
+        --disable-nls      \
+        --disable-werror   \
+        --enable-multilib  \
+        --with-lib-path=/tools/lib32:/tools/lib
+    make tooldir=/tools
+    make tooldir=/tools install
+    make -C ld clean
+    make -C ld LIB_PATH=/usr/lib32:/lib32:/usr/lib:/lib
+    cp ld/ld-new /tools/bin
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/binutils-pass2-${BINUTILS_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf binutils-${BINUTILS_VER} binutils-build

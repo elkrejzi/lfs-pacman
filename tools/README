@@ -1,0 +1,46 @@
+Linux From Scratch pacman project by Armin K.
+
+This repository contains set of scripts used to build a temporary
+toolchain as used by the Linux From Scratch project which is
+required to build my personal Linux From Scratch pacman managed
+distribution located at https://github.com/elkrejzi/pacman
+
+These scripts build so called "Chapter 5" of the Linux From Scratch
+book (usually the SVN version of the book), with some additions
+specific to this project, and are only meant to be used on 64 bit
+distributions.
+
+More packages were added to support pacman package manager, as well
+some extras, such as the nano editor, wget utility and a special
+toolchain, used on my system. Pacman is configured to use clang as
+a system compiler, as well to apply set of compiler flags specific
+to my own machine. If you decide to use these scripts, make sure you
+change them to fit you. Glibc is built twice, once for 64 bit, once
+for 32 bit, in order for final system to be able to utilize multilib.
+
+How to use:
+
+ - Make sure all the sources are downloaded. Scripts can download the
+   necessary sources automatically. Just run
+   "/path/to/repo/bootstrap/001_binutils_pass1 fetch" from a directory
+   you want to download them to. Make sure to adjust SROOT in
+   /path/to/repo/bootstrap/000_shared to point to the downloads
+   location. Default package location is /path/to/repo/sources,
+   no matter where this repo is cloned.
+
+ - Set LFS in /path/to/repo/bootstrap/000_shared to the desired mount
+   point for LFS (default is /mnt/lfs) and mount the partition there.
+
+ - Create $LFS/tools and symlink /tools to it (mkdir $LFS/tools ;
+   ln -sf $LFS/tools /tools as root), and change its permissions so
+   it's writable by the user that's going to run these scripts.
+
+ - Issue /path/to/repo/bootstrap from a directory that's on partition
+   with enough of space and is writable by the user LFS is being built
+   as (separate user isn't required, any user can be used (not sure
+   about root)) to start building the toolchain.
+
+ - Backup $LFS/tools in case something goes wrong further along the
+   way.
+
+Feel free to report bugs and send pull requests.

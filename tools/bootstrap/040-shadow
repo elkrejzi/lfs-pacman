@@ -1,0 +1,25 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf shadow-${SHADOW_VER} ${LOGDIR}/shadow-${SHADOW_VER}.log
+
+tar xf ${SROOT}/shadow-${SHADOW_VER}.tar.xz
+
+{
+
+  time {
+  pushd shadow-${SHADOW_VER}
+    sed -i -e '/snprintf/s@_msg,@_msg, 256,@' src/su.c
+    sed -i -e '47 d' -e '60,65 d' libmisc/myname.c
+    ./configure --prefix=/tools
+    make
+    cp -v src/su /tools/bin
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/shadow-${SHADOW_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf shadow-${SHADOW_VER}

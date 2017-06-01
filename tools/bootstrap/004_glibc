@@ -1,0 +1,61 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf glibc-${GLIBC_VER} ${LOGDIR}/glibc-${GLIBC_VER}.log
+
+tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
+
+{
+
+  time {
+  pushd glibc-${GLIBC_VER}
+    patch -Np1 -i ${PROOT}/glibc-pure64.patch
+  popd
+  mkdir glibc-${GLIBC_VER}/build64
+  pushd glibc-${GLIBC_VER}/build64
+    echo slibdir=/tools/lib > configparms
+    ../configure                             \
+          --prefix=/tools                    \
+          --libdir=/tools/lib                \
+          --libexecdir=/tools/lib            \
+          --host=$LFS_TGT                    \
+          --build=$(../scripts/config.guess) \
+          --enable-kernel=2.6.32             \
+          --enable-obsolete-rpc              \
+          --with-headers=/tools/include      \
+          libc_cv_forced_unwind=yes          \
+          libc_cv_c_cleanup=yes              \
+          libc_cv_ssp=no
+    make
+    make install
+  popd
+  mkdir glibc-${GLIBC_VER}/build32
+  pushd glibc-${GLIBC_VER}/build32
+    echo slibdir=/tools/lib32 > configparms
+    CC="$LFS_TGT-gcc -m32"                   \
+    ../configure                             \
+          --prefix=/tools                    \
+          --libdir=/tools/lib32              \
+          --libexecdir=/tools/lib32          \
+          --host=i686-lfs-linux-gnu          \
+          --build=$(../scripts/config.guess) \
+          --enable-kernel=2.6.32             \
+          --enable-obsolete-rpc              \
+          --with-headers=/tools/include      \
+          libc_cv_forced_unwind=yes          \
+          libc_cv_c_cleanup=yes              \
+          libc_cv_ssp=no
+    make
+    make install install_root=$PWD/dest
+    mv dest/tools/lib32 /tools
+    mv dest/tools/include/gnu/lib-names-32.h /tools/include/gnu
+    mv dest/tools/include/gnu/stubs-32.h /tools/include/gnu
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/glibc-${GLIBC_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf glibc-${GLIBC_VER} glibc-build64 glibc-build32

@@ -1,0 +1,176 @@
+# Do not execute. This file is included in every other file.
+
+export LFS=/mnt/lfs
+export LFS_TGT=x86_64-lfs-linux-gnu
+export PATH=/tools/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
+
+# Use the mirror closest to you or use the
+# standard http://ftp.gnu.org/gnu
+#
+# export GNU_MIRROR=http://ftp.gnu.org/gnu
+export GNU_MIRROR=http://mirror.checkdomain.de/gnu
+
+# Root directory of the repository.
+export ROOT_PATH="$(realpath $(dirname $(realpath $0))/..)"
+
+# To download all the required sources into
+# the current directory, call any of the
+# scripts with "fetch" as an argument.
+
+# Path to downloaded sources
+#
+# export SROOT=${PWD}
+export SROOT=${ROOT_PATH}/sources
+
+# Path to patches
+#
+# export PROOT=${PWD}
+export PROOT=${ROOT_PATH}/patches
+
+# export CFLAGS="-g -O2"
+# export CXXFLAGS="-g -O2"
+# export LDFLAGS=""
+
+export MAKEFLAGS="-j4"
+
+export LC_ALL=C
+
+# Directory where the build logs are stored
+#
+export LOGDIR=$(dirname $0)
+
+set +h
+
+BINUTILS_VER=2.28
+GMP_VER=6.1.2
+MPFR_VER=3.1.5
+MPC_VER=1.0.3
+GCC_VER=7.1.0
+LINUX_VER=4.11
+LINUX_PATCH_VER=4.11.1
+GLIBC_VER=2.25
+TCL_VER=8.6.6
+EXPECT_VER=5.45
+DEJAGNU_VER=1.6
+CHECK_VER=0.11.0
+NCURSES_VER=6.0
+BASH_VER=4.4
+BZIP2_VER=1.0.6
+COREUTILS_VER=8.27
+DIFFUTILS_VER=3.5
+FILE_VER=5.30
+FINDUTILS_VER=4.6.0
+GAWK_VER=4.1.4
+GETTEXT_VER=0.19.8.1
+GREP_VER=3.0
+GZIP_VER=1.8
+M4_VER=1.4.18
+MAKE_VER=4.2.1
+PATCH_VER=2.7.5
+PERL_VER=5.24.1
+SED_VER=4.4
+TAR_VER=1.29
+TEXINFO_VER=6.3
+UTIL_LINUX_VER=2.29.2
+XZ_VER=5.2.3
+ZLIB_VER=1.2.11
+LIBARCHIVE_VER=3.3.1
+OPENSSL_VER=1.0.2k
+WGET_VER=1.19.1
+NANO_VER=2.8.2
+LIBFFI_VER=3.2.1
+LLVM_VER=4.0.0
+SHADOW_VER=4.4
+CURL_VER=7.54.0
+ATTR_VER=2.4.47
+ACL_VER=2.2.52
+LIBCAP_VER=2.25
+FAKEROOT_VER=1.20.2
+PACMAN_VER=5.0.1
+
+#export LLVM_RELEASE_BRANCH=""
+export LLVM_RELEASE=releases/${LLVM_VER}
+#export LLVM_RELEASE=pre-releases/4.0.0/rc2
+export LLVM_FINAL_VERSION=${LLVM_VER}
+#export LLVM_FINAL_VERSION=4.0.0
+
+if [ ! -z $1 ]
+then
+  if [ $1 == "fetch" ]
+  then
+
+cat << EOF | wget -c -i - | true
+${GNU_MIRROR}/binutils/binutils-${BINUTILS_VER}.tar.bz2
+ftp://ftp.gmplib.org/pub/gmp-${GMP_VER%a}/gmp-${GMP_VER}.tar.xz
+${GNU_MIRROR}/mpfr/mpfr-${MPFR_VER}.tar.xz
+${GNU_MIRROR}/mpc/mpc-${MPC_VER}.tar.gz
+${GNU_MIRROR}/gcc/gcc-${GCC_VER}/gcc-${GCC_VER}.tar.bz2
+https://www.kernel.org/pub/linux/kernel/v4.x/linux-${LINUX_VER}.tar.xz
+${GNU_MIRROR}/glibc/glibc-${GLIBC_VER}.tar.xz
+http://downloads.sourceforge.net/tcl/tcl-core${TCL_VER}-src.tar.gz
+http://downloads.sourceforge.net/expect/expect${EXPECT_VER}.tar.gz
+${GNU_MIRROR}/dejagnu/dejagnu-${DEJAGNU_VER}.tar.gz
+https://github.com/libcheck/check/releases/download/${CHECK_VER}/check-${CHECK_VER}.tar.gz
+${GNU_MIRROR}/ncurses/ncurses-${NCURSES_VER}.tar.gz
+${GNU_MIRROR}/bash/bash-${BASH_VER}.tar.gz
+http://www.bzip.org/${BZIP2_VER}/bzip2-${BZIP2_VER}.tar.gz
+${GNU_MIRROR}/coreutils/coreutils-${COREUTILS_VER}.tar.xz
+${GNU_MIRROR}/diffutils/diffutils-${DIFFUTILS_VER}.tar.xz
+https://distfiles.macports.org/file/file-${FILE_VER}.tar.gz
+${GNU_MIRROR}/findutils/findutils-${FINDUTILS_VER}.tar.gz
+${GNU_MIRROR}/gawk/gawk-${GAWK_VER}.tar.xz
+${GNU_MIRROR}/gettext/gettext-${GETTEXT_VER}.tar.xz
+${GNU_MIRROR}/grep/grep-${GREP_VER}.tar.xz
+${GNU_MIRROR}/gzip/gzip-${GZIP_VER}.tar.xz
+${GNU_MIRROR}/m4/m4-${M4_VER}.tar.xz
+${GNU_MIRROR}/make/make-${MAKE_VER}.tar.bz2
+${GNU_MIRROR}/patch/patch-${PATCH_VER}.tar.xz
+http://www.cpan.org/src/5.0/perl-${PERL_VER}.tar.bz2
+${GNU_MIRROR}/sed/sed-${SED_VER}.tar.xz
+${GNU_MIRROR}/tar/tar-${TAR_VER}.tar.xz
+${GNU_MIRROR}/texinfo/texinfo-${TEXINFO_VER}.tar.xz
+https://www.kernel.org/pub/linux/utils/util-linux/v${UTIL_LINUX_VER:0:4}/util-linux-${UTIL_LINUX_VER}.tar.xz
+http://tukaani.org/xz/xz-${XZ_VER}.tar.xz
+http://zlib.net/zlib-${ZLIB_VER}.tar.xz
+http://libarchive.org/downloads/libarchive-${LIBARCHIVE_VER}.tar.gz
+https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz
+${GNU_MIRROR}/wget/wget-${WGET_VER}.tar.xz
+https://nano-editor.org/dist/v${NANO_VER:0:3}/nano-${NANO_VER}.tar.xz
+ftp://sourceware.org/pub/libffi/libffi-${LIBFFI_VER}.tar.gz
+http://llvm.org/${LLVM_RELEASE}/llvm-${LLVM_VER}.src.tar.xz
+http://llvm.org/${LLVM_RELEASE}/cfe-${LLVM_VER}.src.tar.xz
+http://llvm.org/${LLVM_RELEASE}/compiler-rt-${LLVM_VER}.src.tar.xz
+http://llvm.org/${LLVM_RELEASE}/libcxx-${LLVM_VER}.src.tar.xz
+http://llvm.org/${LLVM_RELEASE}/libcxxabi-${LLVM_VER}.src.tar.xz
+http://llvm.org/${LLVM_RELEASE}/libunwind-${LLVM_VER}.src.tar.xz
+http://llvm.org/${LLVM_RELEASE}/openmp-${LLVM_VER}.src.tar.xz
+https://github.com/shadow-maint/shadow/releases/download/${SHADOW_VER}/shadow-${SHADOW_VER}.tar.xz
+http://curl.haxx.se/download/curl-${CURL_VER}.tar.bz2
+http://download.savannah.gnu.org/releases/attr/attr-${ATTR_VER}.src.tar.gz
+http://download.savannah.gnu.org/releases/acl/acl-${ACL_VER}.src.tar.gz
+https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${LIBCAP_VER}.tar.xz
+http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_${FAKEROOT_VER}.orig.tar.bz2
+https://sources.archlinux.org/other/pacman/pacman-${PACMAN_VER}.tar.gz
+EOF
+
+    if [ ! -z "${LINUX_PATCH_VER}" ]
+    then
+      wget -c https://www.kernel.org/pub/linux/kernel/v4.x/patch-${LINUX_PATCH_VER}.xz
+    fi
+
+    exit 0
+  fi
+fi
+
+if [ ! -d ${LOGDIR} ]
+then
+   install -dm755 ${LOGDIR} || { echo "Cannot create ${LOGDIR}"; exit 1; }
+fi
+
+if [ ! -e "/tools" ]
+then
+  echo "You must create /tools"; exit 1
+fi
+
+touch "/tools/.test" 2>/dev/null || { echo "Cannot write to /tools"; exit 1; }
+rm -f "/tools/.test"

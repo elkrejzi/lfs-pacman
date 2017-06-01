@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf fakeroot-${FAKEROOT_VER} ${LOGDIR}/fakeroot-${FAKEROOT_VER}.log
+
+tar xf ${SROOT}/fakeroot_${FAKEROOT_VER}.orig.tar.bz2
+
+{
+
+  time {
+  pushd fakeroot-${FAKEROOT_VER}
+    patch -Np1 -i ${PROOT}/fakeroot-fixes.patch
+
+    ./configure --prefix=/tools
+    make
+    make install
+
+    sed -i "s#/bin/sh#/tools/bin/sh#g" /tools/bin/fakeroot
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/fakeroot-${FAKEROOT_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf fakeroot-${FAKEROOT_VER}

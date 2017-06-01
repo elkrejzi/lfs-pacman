@@ -1,0 +1,170 @@
+--- a/doc/PKGBUILD.5.txt	2016-01-29 00:50:49.000000000 +0100
++++ b/doc/PKGBUILD.5.txt	2017-04-27 13:13:45.051703647 +0200
+@@ -52,10 +52,10 @@
+ +
+ The `pkgver` variable can be automatically updated by providing a `pkgver()`
+ function in the PKGBUILD that outputs the new package version.
+-This is run after downloading and extracting the sources so it can use those
+-files in determining the new `pkgver`.
+-This is most useful when used with sources from version control systems (see
+-below).
++This is run after downloading and extracting the sources and running the
++`prepare()` function (if present), so it can use those files in determining the
++new `pkgver`.  This is most useful when used with sources from version control
++systems (see below).
+ 
+ *pkgrel*::
+ 	This is the release number specific to the Arch Linux release. This
+--- a/lib/libalpm/add.c	2016-02-23 03:51:26.000000000 +0100
++++ b/lib/libalpm/add.c	2017-04-27 13:13:55.905175889 +0200
+@@ -110,6 +110,7 @@
+ 		struct archive_entry *entry, const char *filename)
+ {
+ 	int ret;
++	struct archive *archive_writer;
+ 	const int archive_flags = ARCHIVE_EXTRACT_OWNER |
+ 	                          ARCHIVE_EXTRACT_PERM |
+ 	                          ARCHIVE_EXTRACT_TIME |
+@@ -118,7 +119,20 @@
+ 
+ 	archive_entry_set_pathname(entry, filename);
+ 
+-	ret = archive_read_extract(archive, entry, archive_flags);
++	archive_writer = archive_write_disk_new();
++	if (archive_writer == NULL) {
++		_alpm_log(handle, ALPM_LOG_ERROR, _("cannot allocate disk archive object"));
++		alpm_logaction(handle, ALPM_CALLER_PREFIX,
++				"error: cannot allocate disk archive object");
++		return 1;
++	}
++
++	archive_write_disk_set_options(archive_writer, archive_flags);
++
++	ret = archive_read_extract2(archive, entry, archive_writer);
++
++	archive_write_free(archive_writer);
++
+ 	if(ret == ARCHIVE_WARN && archive_errno(archive) != ENOSPC) {
+ 		/* operation succeeded but a "non-critical" error was encountered */
+ 		_alpm_log(handle, ALPM_LOG_WARNING, _("warning given when extracting %s (%s)\n"),
+--- a/scripts/libmakepkg/tidy/emptydirs.sh.in	2016-01-04 04:27:45.000000000 +0100
++++ b/scripts/libmakepkg/tidy/emptydirs.sh.in	2017-04-27 13:13:45.041703517 +0200
+@@ -33,6 +33,7 @@
+ tidy_emptydirs() {
+ 	if check_option "emptydirs" "n"; then
+ 		msg2 "$(gettext "Removing empty directories...")"
+-		find . -depth -type d -exec rmdir '{}' + 2>/dev/null
++		# we are unable to use '-empty' as it is non-POSIX and not support by all find variants
++		find . -depth -type d -exec rmdir '{}' \; 2>/dev/null
+ 	fi
+ }
+--- a/scripts/libmakepkg/util/util.sh	2016-02-22 02:26:22.000000000 +0100
++++ b/scripts/libmakepkg/util/util.sh	2017-04-27 13:13:45.035036763 +0200
+@@ -46,7 +46,7 @@
+ 	local shellopts=$(shopt -p)
+ 	shopt -s extglob
+ 
+-	if [[ $(declare -p "$i") == declare\ -*([[:alnum:]])a*([[:alnum:]])\ * ]]; then
++	if [[ $(declare -p "$v") == declare\ -*([[:alnum:]])a*([[:alnum:]])\ * ]]; then
+ 		ret=0
+ 	fi
+ 
+--- a/scripts/pacman-key.sh.in	2016-01-04 04:27:45.000000000 +0100
++++ b/scripts/pacman-key.sh.in	2017-04-27 13:13:45.055037024 +0200
+@@ -483,7 +483,7 @@
+ 	local ret=0
+ 	for sig; do
+ 		msg "Checking %s..." "$sig"
+-		if ! "${GPG_PACMAN[@]}" --status-fd 1 --verify "$sig" | grep -qE '^\[GNUPG:\] TRUST_(FULLY|ULTIMATE)$'; then
++		if ! "${GPG_PACMAN[@]}" --status-fd 1 --verify "$sig" | grep -qE '^\[GNUPG:\] TRUST_(FULLY|ULTIMATE).*$'; then
+ 			error "$(gettext "The signature identified by %s could not be verified.")" "$sig"
+ 			ret=1
+ 		fi
+--- a/src/pacman/check.c	2016-01-04 04:27:45.000000000 +0100
++++ b/src/pacman/check.c	2017-04-27 13:13:45.045036894 +0200
+@@ -254,7 +254,6 @@
+ 	const char *root, *pkgname;
+ 	size_t errors = 0;
+ 	size_t rootlen;
+-	char filepath[PATH_MAX];
+ 	struct archive *mtree;
+ 	struct archive_entry *entry = NULL;
+ 	size_t file_count = 0;
+@@ -267,7 +266,6 @@
+ 		pm_printf(ALPM_LOG_ERROR, _("path too long: %s%s\n"), root, "");
+ 		return 1;
+ 	}
+-	strcpy(filepath, root);
+ 
+ 	pkgname = alpm_pkg_get_name(pkg);
+ 	mtree = alpm_pkg_mtree_open(pkg);
+@@ -282,6 +280,8 @@
+ 	while(alpm_pkg_mtree_next(pkg, mtree, &entry) == ARCHIVE_OK) {
+ 		struct stat st;
+ 		const char *path = archive_entry_pathname(entry);
++		char filepath[PATH_MAX];
++		int filepath_len;
+ 		mode_t type;
+ 		size_t file_errors = 0;
+ 		int backup = 0;
+@@ -292,32 +292,38 @@
+ 			path += 2;
+ 		}
+ 
+-		if(strcmp(path, ".INSTALL") == 0) {
+-			char filename[PATH_MAX];
+-			snprintf(filename, PATH_MAX, "%slocal/%s-%s/install",
+-					alpm_option_get_dbpath(config->handle) + 1,
+-					pkgname, alpm_pkg_get_version(pkg));
+-			archive_entry_set_pathname(entry, filename);
+-			path = archive_entry_pathname(entry);
+-		} else if(strcmp(path, ".CHANGELOG") == 0) {
+-			char filename[PATH_MAX];
+-			snprintf(filename, PATH_MAX, "%slocal/%s-%s/changelog",
+-					alpm_option_get_dbpath(config->handle) + 1,
+-					pkgname, alpm_pkg_get_version(pkg));
+-			archive_entry_set_pathname(entry, filename);
+-			path = archive_entry_pathname(entry);
+-		} else if(*path == '.') {
+-			continue;
++		if(*path == '.') {
++			const char *dbfile = NULL;
++
++			if(strcmp(path, ".INSTALL") == 0) {
++				dbfile = "install";
++			} else if(strcmp(path, ".CHANGELOG") == 0) {
++				dbfile = "changelog";
++			} else {
++				continue;
++			}
++
++			/* Do not append root directory as alpm_option_get_dbpath is already
++			 * an absoute path */
++			filepath_len = snprintf(filepath, PATH_MAX, "%slocal/%s-%s/%s",
++					alpm_option_get_dbpath(config->handle),
++					pkgname, alpm_pkg_get_version(pkg), dbfile);
++			if(filepath_len >= PATH_MAX) {
++				pm_printf(ALPM_LOG_WARNING, _("path too long: %slocal/%s-%s/%s\n"),
++						alpm_option_get_dbpath(config->handle),
++						pkgname, alpm_pkg_get_version(pkg), dbfile);
++				continue;
++			}
++		} else {
++			filepath_len = snprintf(filepath, PATH_MAX, "%s%s", root, path);
++			if(filepath_len >= PATH_MAX) {
++				pm_printf(ALPM_LOG_WARNING, _("path too long: %s%s\n"), root, path);
++				continue;
++			}
+ 		}
+ 
+ 		file_count++;
+ 
+-		if(rootlen + 1 + strlen(path) > PATH_MAX) {
+-			pm_printf(ALPM_LOG_WARNING, _("path too long: %s%s\n"), root, path);
+-			continue;
+-		}
+-		strcpy(filepath + rootlen, path);
+-
+ 		exists = check_file_exists(pkgname, filepath, rootlen, &st);
+ 		if(exists == 1) {
+ 			errors++;
