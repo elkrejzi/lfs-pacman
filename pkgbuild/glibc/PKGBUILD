@@ -32,9 +32,9 @@ build() {
 	local configure_flags=(
 		--disable-profile --enable-add-ons --enable-kernel=4.0
 		--enable-bind-now --enable-multi-arch --enable-obsolete-rpc
-		--enable-stackguard-randomization --enable-lock-elision
-		--with-headers=/usr/include --with-pkgversion="Krejzi ${pkgver}"
-		--disable-werror
+		--enable-stackguard-randomization --enable-stack-protector=strong
+		--enable-lock-elision --with-headers=/usr/include
+		--with-pkgversion="Krejzi ${pkgver}" --disable-werror
 	)
 
 	cd "${srcdir}/build64"

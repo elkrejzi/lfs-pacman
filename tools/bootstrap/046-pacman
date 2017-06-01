@@ -40,14 +40,14 @@ CC=clang
 CXX=clang++
 
 CPPFLAGS=""
-CFLAGS="-march=skylake -fomit-frame-pointer -O2 -pipe"
-CXXFLAGS="-march=skylake -fomit-frame-pointer -O2 -pipe"
+CFLAGS="-march=skylake -fomit-frame-pointer -fstack-protector-strong -O2 -pipe"
+CXXFLAGS="-march=skylake -fomit-frame-pointer -fstack-protector-strong -O2 -pipe"
 LDFLAGS=""
 
 MAKEFLAGS="-j4"
 
-DEBUG_CFLAGS="-march=skylake -g -O2 -pipe"
-DEBUG_CXXFLAGS="-march=skylake -g -O2 -pipe"
+DEBUG_CFLAGS="-march=skylake -fstack-protector-strong -g -O2 -pipe"
+DEBUG_CXXFLAGS="-march=skylake -fstack-protector-strong -g -O2 -pipe"
 
 BUILDENV=(!distcc color !ccache check !sign)
 OPTIONS=(strip !docs !libtool !staticlibs !emptydirs zipman purge !optipng !upx !debug)

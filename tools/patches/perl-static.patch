@@ -1,0 +1,20 @@
+--- a/regexec.c	2017-04-19 15:37:06.000000000 +0200
++++ b/regexec.c	2017-06-01 20:38:58.145404539 +0200
+@@ -9749,6 +9749,8 @@
+     return TRUE;
+ }
+ 
++#ifndef PERL_IN_XSUB_RE
++
+ bool
+ Perl__is_grapheme(pTHX_ const U8 * strbeg, const U8 * s, const U8 * strend, const UV cp)
+ {
+@@ -9804,7 +9806,7 @@
+     return isGCB(cp_gcb_val, next_cp_gcb_val, strbeg, s, TRUE);
+ }
+ 
+-
++#endif
+ 
+ 
+ /*

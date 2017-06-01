@@ -11,6 +11,8 @@ source=("http://http.debian.net/debian/pool/main/liba/libaio/libaio_${pkgver}.or
 build() {
 	cd "${srcdir}/libaio-${pkgver}"
 
+	CFLAGS=${CFLAGS/-fstack-protector-strong}
+
 	make
 }
 
