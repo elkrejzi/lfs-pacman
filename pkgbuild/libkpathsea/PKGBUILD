@@ -1,12 +1,12 @@
 pkgname=libkpathsea
-pkgver=20160523
+pkgver=20170524
 pkgrel=1
 pkgdesc="Path search library for TeX"
 arch=('x86_64')
 url="http://tug.org/texlive/"
 license=('LGPL2.1')
 #depends=()
-source=("ftp://tug.org/texlive/historic/2016/texlive-${pkgver}b-source.tar.xz")
+source=("ftp://tug.org/texlive/historic/2016/texlive-${pkgver}-source.tar.xz")
 
 prepare() {
 	cd "${srcdir}/texlive-${pkgver}-source/texk/kpathsea"
@@ -33,4 +33,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('1e75db3412b3e2945fa94b0a423a29c7')
+md5sums=('f98f6bde0a2c20fc894d983d542beaad')

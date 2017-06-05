@@ -1,5 +1,5 @@
 pkgname=openldap
-pkgver=2.4.44
+pkgver=2.4.45
 pkgrel=1
 url="http://www.openldap.org/"
 arch=('x86_64')
@@ -72,7 +72,7 @@ package() {
 	chown root:83 "${pkgdir}/etc/openldap/slapd.conf" "${pkgdir}/etc/openldap/slapd.ldif"
 }
 
-md5sums=('693ac26de86231f8dcae2b4e9d768e51'
+md5sums=('00ff8301277cdfd0af728a6927042a13'
          'e7ec324d539cc6462611df340b4419da'
          'f39582c00ed6e17a143745fae2fc0da3'
          '198fadd97fe7917eeca785efc287d35e'

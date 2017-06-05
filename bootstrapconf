@@ -101,6 +101,8 @@ passwd
 echo "Entering password for user armin:"
 passwd armin
 
+systemd-machine-id-setup
+
 rm -rf  /etc/group- /etc/gshadow- /etc/passwd- /etc/shadow-
 
 cat << "EOF"

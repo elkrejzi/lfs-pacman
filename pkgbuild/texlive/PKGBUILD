@@ -1,6 +1,5 @@
 pkgname=texlive
-pkgver=20160523
-_pkgver=${pkgver}b
+pkgver=20170524
 pkgrel=1
 pkgdesc="TeX Live distribution"
 arch=('x86_64')
@@ -8,10 +7,11 @@ url="http://tug.org/texlive/"
 license=('GPL')
 #depends=()
 install=texlive.install
-source=("ftp://tug.org/texlive/historic/2016/texlive-${_pkgver}-source.tar.xz"
-	"ftp://tug.org/texlive/historic/2016/texlive-${_pkgver}-texmf.tar.xz"
-	"ftp://tug.org/texlive/historic/2016/texlive-${pkgver}-extra.tar.xz")
-noextract=("texlive-${_pkgver}-texmf.tar.xz"
+options=(!strip)
+source=("ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-source.tar.xz"
+	"ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-texmf.tar.xz"
+	"ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-extra.tar.xz")
+noextract=("texlive-${pkgver}-texmf.tar.xz"
 	   "texlive-${pkgver}-extra.tar.xz")
 
 prepare() {
@@ -21,7 +21,12 @@ prepare() {
 build() {
 	cd "${srcdir}/texlive-${pkgver}-source/build"
 
-	#export CXX="${CXX} -std=c++11" doesn't work yet
+	CXXFLAGS+=" -Wno-reserved-user-defined-literal" # Required for building in C++11 mode
+
+	export CXX="${CXX} -std=c++11"
+
+	# An ugly hack, to avoid future rebuilds when bumping poppler
+	export LDFLAGS="-Wl,-rpath,/usr/lib/texlive-poppler"
 
 	../configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -39,21 +44,19 @@ build() {
 		--with-system-gd \
 		--with-system-gmp \
 		--with-system-graphite2 \
+		--with-system-harfbuzz \
+		--with-system-icu \
 		--with-system-kpathsea \
 		--with-system-libgs \
 		--with-system-libpaper \
 		--with-system-libpng \
 		--with-system-mpfr \
 		--with-system-pixman \
+		--with-system-poppler \
+		--with-system-xpdf \
 		--with-system-zlib \
 		--with-system-zziplib \
 		--with-banner-add=" - Krejzi"
-
-		#--with-system-poppler \ stupid amount of rebuilds
-		#--with-system-xpdf \
-
-		#--with-system-harfbuzz \ requires system icu
-		#--with-system-icu \ icu 59.1 requires c++11
 
 	make
 }
@@ -64,7 +67,7 @@ package() {
 	make install DESTDIR="${pkgdir}"
 	make texlinks DESTDIR="${pkgdir}"
 
-	tar --exclude=*/texmf-dist/doc --exclude=*/texmf-dist/source --strip-components=1 -xf "${srcdir}/texlive-${_pkgver}-texmf.tar.xz" -C "${pkgdir}/usr/share"
+	tar --exclude=*/texmf-dist/doc --exclude=*/texmf-dist/source --no-same-permissions --strip-components=1 -xf "${srcdir}/texlive-${pkgver}-texmf.tar.xz" -C "${pkgdir}/usr/share"
 	tar --wildcards --strip-components=1 -xf "${srcdir}/texlive-${pkgver}-extra.tar.xz" -C "${pkgdir}/usr/share" "*/tlpkg"
 
 	# libkpathsea
@@ -73,8 +76,20 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexnam{,.opt}
 	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexupd
 	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/texmf.cnf
+
+	# Add current libpoppler.so
+	install -v -dm755 "${pkgdir}/usr/lib/texlive-poppler"
+	cp -rv /usr/lib/libpoppler.so.* "${pkgdir}/usr/lib/texlive-poppler"
+
+	# Manual strip, pacman strip is taking ages
+	find "${pkgdir}/usr/bin" "${pkgdir}/usr/lib" -type f 2>/dev/null | while read BUILD_BINARY
+	do
+		case "$(file -bi "${BUILD_BINARY}")" in *application/x-sharedlib* | *application/x-executable*)
+			strip --strip-unneeded "${BUILD_BINARY}"
+		esac
+	done
 }
 
-md5sums=('1e75db3412b3e2945fa94b0a423a29c7'
-         '65da9b4e2514379d128d4cf4e889b63b'
-         'f94e287c45ffd8c0702701c1c6f21c10')
+md5sums=('f98f6bde0a2c20fc894d983d542beaad'
+         '44bb5d71fc64ac90118f8c5013e39b89'
+         'cddbe8458ff5ee3e4826f3746b5cab29')

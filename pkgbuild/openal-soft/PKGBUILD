@@ -1,5 +1,5 @@
 pkgname=openal-soft
-pkgver=1.17.2
+pkgver=1.18.0
 pkgrel=1
 pkgdesc="Cross-platform 3D audio library, software implementation"
 arch=('x86_64')
@@ -17,8 +17,10 @@ build() {
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DALSOFT_EXAMPLES=OFF \
 		-DALSOFT_TESTS=OFF \
+		-DALSOFT_NO_CONFIG_UTIL=ON \
 		"${srcdir}/openal-soft-${pkgver}"
 
 	make
@@ -30,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('1764e0d8fec499589b47ebc724e0913d')
+md5sums=('704d41343b52dd04115de2dcdac5de03')

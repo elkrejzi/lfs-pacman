@@ -1,5 +1,5 @@
 pkgname=util-linux
-pkgver=2.29.2
+pkgver=2.30
 pkgrel=1
 pkgdesc="Miscellaneous system utilities for Linux"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man5/fstab.5"
 }
 
-md5sums=('63c40c2068fcbb7e1d5c1d281115d973')
+md5sums=('eaa3429150268027908a1b8ae6ee9a62')
