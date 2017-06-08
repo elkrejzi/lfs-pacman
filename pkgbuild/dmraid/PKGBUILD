@@ -1,0 +1,37 @@
+pkgname=dmraid
+_pkgver=1.0.0.rc16-3
+pkgver=${_pkgver/-/.}
+pkgrel=1
+pkgdesc="Device mapper RAID interface"
+arch=('x86_64')
+url="http://people.redhat.com/~heinzm/sw/dmraid/"
+license=('GPL')
+#depends=()
+source=("http://people.redhat.com/~heinzm/sw/dmraid/src/dmraid-${_pkgver}.tar.bz2"
+	"dmraid.service"
+	"dmraid.tmpfiles")
+
+build() {
+	cd "${srcdir}/dmraid/${_pkgver}/dmraid"
+
+	./configure --prefix=/usr \
+		--exec-prefix= \
+		--enable-led \
+		--enable-intel_led \
+		--enable-shared_lib
+
+	make -j1
+}
+
+package() {
+	cd "${srcdir}/dmraid/${_pkgver}/dmraid"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/dmraid.service" "${pkgdir}/lib/systemd/system/dmraid.service"
+	install -v -Dm644 "${srcdir}/dmraid.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/dmraid.conf"
+}
+
+md5sums=('819338fcef98e8e25819f0516722beeb'
+         '1cd201496e52bd05c1c3048bf6dd809f'
+         '56a8bb0ece8d206cd8efb504ee072ddd')

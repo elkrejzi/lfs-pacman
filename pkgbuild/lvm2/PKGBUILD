@@ -22,7 +22,9 @@ build() {
 		--with-confdir=/etc \
 		--enable-applib \
 		--enable-cmdlib \
+		--enable-dmeventd \
 		--enable-pkgconfig \
+		--enable-udev_rules \
 		--enable-udev_sync \
 		--enable-udev-systemd-background-jobs \
 		--with-tmpfilesdir=/usr/lib/tmpfiles.d \

@@ -1,12 +1,12 @@
 pkgname=samba
-pkgver=4.6.4
+pkgver=4.6.5
 pkgrel=1
 pkgdesc="SMB Fileserver and AD Domain server"
 arch=('x86_64')
 url="https://www.samba.org/"
 license=('GPL3')
 #depends=()
-backup=(etc/samba/samba.conf)
+backup=(etc/samba/smb.conf)
 options=(emptydirs)
 source=("https://www.samba.org/ftp/samba/samba-${pkgver}.tar.gz"
 	"samba.default"
@@ -83,7 +83,7 @@ package() {
 	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/lib/systemd/system/winbindd.service"
 }
 
-md5sums=('08a0bca1f4db06169cdeb442b3598aaf'
+md5sums=('2ae8ce2862d8bfa95e4681371ebb1623'
          'fae97803c0d9bb7a0aa79dbc1943355e'
          '98385ebf94161102037a194dd0576751'
          '192a5cd2da89fa694c253871dd8a53cf'

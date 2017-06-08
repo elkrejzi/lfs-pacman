@@ -1,5 +1,5 @@
 pkgname=libass
-pkgver=0.13.6
+pkgver=0.13.7
 pkgrel=1
 pkgdesc="A portable library for SSA/ASS subtitles rendering"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('daa6cfca437c0776af5f79750cdd9b4e')
+md5sums=('ed16057b34a7f13330f416dd8c9a2032')

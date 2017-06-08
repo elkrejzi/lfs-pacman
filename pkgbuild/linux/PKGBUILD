@@ -1,7 +1,7 @@
 pkgbase=linux
 pkgname=('linux' 'linux-headers')
 _basever=4.11
-pkgver=4.11.3
+pkgver=4.11.4
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
@@ -90,6 +90,6 @@ package_linux-headers() {
 }
 
 md5sums=('251a5deee0fa6daf3f356b1bbda9eab8'
-         'a7c30a3d106d76972eda427b19145844'
+         '6a339a5b60e6a65676e6c16fb23827f5'
          '3604459db68b60961e5b7572922f7358'
          'c53bcbd6900b974fe499aac7ed80f528')

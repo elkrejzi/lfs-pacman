@@ -1,5 +1,5 @@
 pkgname=libepoxy
-pkgver=1.4.2
+pkgver=1.4.3
 pkgrel=1
 pkgdesc="Library handling OpenGL function pointer management"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('632fcfd7ae9d21f5a634326d753a89c4')
+md5sums=('af4c3ce0fb1143bdc4e43f85695a9bed')

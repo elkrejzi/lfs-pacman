@@ -568,6 +568,9 @@ fonts-vlgothic
 dmz-cursor-theme
 mime-types
 glib-networking
+re2c
+ninja
+meson
 dotconf
 espeak
 libao
@@ -657,13 +660,17 @@ gcr
 pinentry
 media-player-info
 mobile-broadband-provider-info
+dmraid
 libatasmart
+libbytesize
 lm_sensors
 nss-mdns
 parted
 rust
 tidy-html5
+volume-key
 xapian-core
+libblockdev
 doxygen
 udisks
 upower
@@ -674,9 +681,6 @@ bind
 openssh
 rtkit
 smartmontools
-re2c
-ninja
-meson
 cogl
 geocode-glib
 gmime
@@ -734,6 +738,7 @@ telepathy-idle
 totem-pl-parser
 uhttpmock
 vte
+vte2
 yelp-xsl
 zeitgeist
 zenity

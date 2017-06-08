@@ -1,0 +1,33 @@
+pkgname=libblockdev
+pkgver=2.8
+pkgrel=1
+pkgdesc="A library for manipulating block devices"
+arch=('x86_64')
+url="https://github.com/rhinstaller/libblockdev"
+license=('LGPL')
+#depends=()
+source=("libblockdev-${pkgver}-1.tar.gz::https://github.com/rhinstaller/libblockdev/archive/${pkgver}-1.tar.gz")
+
+prepare() {
+	cd "${srcdir}/libblockdev-${pkgver}-1"
+
+	sed -i "s# -Werror##" $(grep -rl Werror)
+
+	./autogen.sh
+}
+
+build() {
+	cd "${srcdir}/libblockdev-${pkgver}-1"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libblockdev-${pkgver}-1"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f3f01f91e5b9d07d9835cb6da1cc8504')
