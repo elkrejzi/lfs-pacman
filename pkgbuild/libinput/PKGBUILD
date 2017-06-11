@@ -1,19 +1,12 @@
 pkgname=libinput
-pkgver=1.7.2
+pkgver=1.7.3
 pkgrel=1
 pkgdesc="Input device management and event handling library"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/libinput/"
 license=('custom:X11')
 #depends=()
-source=("https://freedesktop.org/software/libinput/libinput-${pkgver}.tar.xz"
-	"clang-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/libinput-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/clang-fixes.patch"
-}
+source=("https://freedesktop.org/software/libinput/libinput-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/libinput-${pkgver}"
@@ -32,5 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('d138d62c528fbf9aba300a97bae453cb'
-         '4847cd7dc4af03e0fbba3bb54b2e76a6')
+md5sums=('f2993b477db8d7ec0e785ce04ffecb03')

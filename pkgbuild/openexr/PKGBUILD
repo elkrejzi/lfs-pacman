@@ -1,0 +1,25 @@
+pkgname=openexr
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="An high dynamic-range image file format library"
+arch=('x86_64')
+url="http://www.openexr.com"
+license=('BSD')
+#depends=()
+source=("http://download.savannah.nongnu.org/releases/openexr/openexr-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/openexr-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/openexr-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b64e931c82aa3790329c21418373db4e')

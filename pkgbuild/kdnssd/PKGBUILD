@@ -1,0 +1,35 @@
+pkgname=kdnssd
+pkgver=5.35.0
+pkgrel=1
+pkgdesc="Abstraction to system DNSSD features"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kdnssd-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kdnssd-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('f9403e5e80b7c0f70e95c5e4fe8f71f3')

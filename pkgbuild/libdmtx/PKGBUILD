@@ -1,0 +1,25 @@
+pkgname=libdmtx
+pkgver=0.7.4
+pkgrel=1
+pkgdesc="A software for reading and writing Data Matrix 2D barcodes"
+arch=('x86_64')
+url="http://www.libdmtx.org/"
+license=('GPL2')
+#depends=()
+source=("https://downloads.sourceforge.net/libdmtx/libdmtx-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libdmtx-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdmtx-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d3a4c0becd92895eb606dbdb78b023e2')

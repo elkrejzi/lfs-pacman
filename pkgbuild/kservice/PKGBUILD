@@ -1,0 +1,35 @@
+pkgname=kservice
+pkgver=5.35.0
+pkgrel=1
+pkgdesc="Advanced plugin and service introspection"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kservice-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kservice-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('d693bee949d034c330b09f26aacf6f5c')

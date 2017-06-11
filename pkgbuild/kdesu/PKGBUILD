@@ -1,0 +1,35 @@
+pkgname=kdesu
+pkgver=5.35.0
+pkgrel=1
+pkgdesc="Integration with su for elevated privileges"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kdesu-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kdesu-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('bb776859316ba7a82751b18960ff7781')

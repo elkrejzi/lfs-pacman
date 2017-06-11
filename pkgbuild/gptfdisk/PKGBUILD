@@ -1,0 +1,31 @@
+pkgname=gptfdisk
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="A text-mode partitioning tool that works on GUID Partition Table (GPT) disks"
+arch=('x86_64')
+url="http://www.rodsbooks.com/gdisk/"
+license=('GPL2')
+#depends=()
+source=("https://downloads.sourceforge.net/gptfdisk/gptfdisk-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/gptfdisk-${pkgver}"
+
+	sed -i "/CC=/d;/CXX=/d" Makefile
+}
+
+build() {
+	cd "${srcdir}/gptfdisk-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gptfdisk-${pkgver}"
+
+	install -v -dm755 "${pkgdir}/sbin" "${pkgdir}/usr/share/man/man8"
+	install -v -t "${pkgdir}/sbin" cgdisk fixparts gdisk sgdisk
+	install -v -t "${pkgdir}/usr/share/man/man8" *.8
+}
+
+md5sums=('d7f3d306b083123bcc6f5941efade586')

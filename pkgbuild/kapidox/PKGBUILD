@@ -1,0 +1,32 @@
+pkgname=kapidox
+pkgver=5.35.0
+pkgrel=1
+pkgdesc="Frameworks API Documentation Tools"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kapidox-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		"${srcdir}/kapidox-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2dfcf1ab7e153ae493f064a4f3be98a5')

@@ -1,0 +1,32 @@
+pkgname=polkit-qt
+pkgver=0.112.0
+pkgrel=1
+pkgdesc="A library that allows developers to access PolicyKit API with a nice Qt-style API"
+arch=('x86_64')
+url="https://www.kde.org/"
+license=('LGPL')
+#depends=()
+source=("https://download.kde.org/stable/apps/KDE4.x/admin/polkit-qt-1-${pkgver}.tar.bz2")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		"${srcdir}/polkit-qt-1-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('bee71b71c12797e6fc498540a06c829b')

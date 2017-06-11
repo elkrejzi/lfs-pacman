@@ -1,0 +1,23 @@
+pkgname=lmdb
+pkgver=0.9.21
+pkgrel=1
+pkgdesc="Symas Lightning Memory-Mapped Database"
+arch=('x86_64')
+url="https://symas.com/lightning-memory-mapped-database/"
+license=('custom:OpenLDAP')
+#depends=()
+source=("https://github.com/LMDB/lmdb/archive/LMDB_${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/lmdb-LMDB_${pkgver}/libraries/liblmdb"
+
+	make prefix=/usr mandir=/usr/share/man CC="${CC}" OPT="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/lmdb-LMDB_${pkgver}/libraries/liblmdb"
+
+	make prefix=/usr mandir=/usr/share/man CC="${CC}" OPT="${CFLAGS}" install DESTDIR="${pkgdir}"
+}
+
+md5sums=('41a4f7b63212a00e53fabd8159008201')

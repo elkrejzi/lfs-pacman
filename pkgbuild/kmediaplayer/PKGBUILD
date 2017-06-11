@@ -1,0 +1,35 @@
+pkgname=kmediaplayer
+pkgver=5.35.0
+pkgrel=1
+pkgdesc="Plugin interface for media player features"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/portingAids/kmediaplayer-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kmediaplayer-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('95a4d5fa8436ce97a9f0d66f7a3d7c6d')

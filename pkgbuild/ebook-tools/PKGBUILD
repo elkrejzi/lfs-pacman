@@ -1,0 +1,31 @@
+pkgname=ebook-tools
+pkgver=0.2.2
+pkgrel=1
+pkgdesc="Provides functionality for small OpenGL programs"
+arch=('x86_64')
+url="https://sourceforge.net/projects/ebook-tools/"
+license=('custom')
+#depends=()
+source=("https://downloads.sourceforge.net/ebook-tools/ebook-tools-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		"${srcdir}/ebook-tools-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('67bce67ceb72dcc3578d6a81ef92b29b')

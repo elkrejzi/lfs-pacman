@@ -1,0 +1,28 @@
+pkgname=qgpgme
+pkgver=1.9.0
+pkgrel=1
+pkgdesc="Qt bindings for GPGme"
+arch=('x86_64')
+url="https://www.gnupg.org/related_software/gpgme/index.html"
+license=('LGPL')
+#depends=()
+source=("https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gpgme-${pkgver}"
+
+	./configure --prefix=/usr \
+		--disable-fd-passing \
+		--disable-gpgsm-test \
+		--enable-languages=cpp,qt
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gpgme-${pkgver}/lang/qt"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('1e00bb8ef04d1d05d5a0f19e143854c3')

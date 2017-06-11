@@ -1,0 +1,32 @@
+pkgname=xfsprogs
+pkgver=4.11.0
+pkgrel=1
+pkgdesc="XFS filesystem utilities"
+arch=('x86_64')
+url="http://oss.sgi.com/projects/xfs/"
+license=('LGPL')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/fs/xfs/xfsprogs/xfsprogs-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/xfsprogs-${pkgver}"
+
+	export OPTIMIZER="${CFLAGS}"
+	unset CFLAGS
+
+	make DEBUG=-DNDEBUG     \
+		INSTALL_USER=root  \
+		INSTALL_GROUP=root \
+		LOCAL_CONFIGURE_OPTIONS="--enable-readline --disable-lib64"
+}
+
+package() {
+	cd "${srcdir}/xfsprogs-${pkgver}"
+
+	make -j1 install install-dev DESTDIR="${pkgdir}"
+
+	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libhandle.so") "${pkgdir}/usr/lib/libhandle.so"
+	rm -rf "${pkgdir}/lib/libhandle.a" "${pkgdir}/lib/libhandle.so"
+}
+
+md5sums=('f1f9b8c752347eefdb56483dafa0cefb')

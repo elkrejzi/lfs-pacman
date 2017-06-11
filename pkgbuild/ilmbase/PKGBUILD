@@ -1,0 +1,25 @@
+pkgname=ilmbase
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="Base libraries from ILM for OpenEXR"
+arch=('x86_64')
+url="http://www.openexr.com"
+license=('custom')
+#depends=()
+source=("http://download.savannah.nongnu.org/releases/openexr/ilmbase-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/ilmbase-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ilmbase-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('b540db502c5fa42078249f43d18a4652')

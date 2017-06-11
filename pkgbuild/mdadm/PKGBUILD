@@ -1,0 +1,29 @@
+pkgname=mdadm
+pkgver=4.0
+pkgrel=1
+pkgdesc="A tool for managing/monitoring Linux md device arrays, also known as Software RAID"
+arch=('x86_64')
+url="http://neil.brown.name/blog/mdadm"
+license=('GPL')
+#depends=()
+source=("https://www.kernel.org/pub/linux/utils/raid/mdadm/mdadm-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/mdadm-${pkgver}"
+
+	sed -i "s#-Werror##g" Makefile
+}
+
+build() {
+	cd "${srcdir}/mdadm-${pkgver}"
+
+	make CXFLAGS="${CFLAGS}"
+}
+
+package() {
+	cd "${srcdir}/mdadm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('2cb4feffea9167ba71b5f346a0c0a40d')

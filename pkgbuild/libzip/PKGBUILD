@@ -1,0 +1,27 @@
+pkgname=libzip
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="A C library for reading, creating, and modifying zip archives"
+arch=('x86_64')
+url="https://nih.at/libzip/index.html"
+license=('BSD')
+#depends=()
+source=("https://nih.at/libzip/libzip-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libzip-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libzip-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	ln -sfv ../lib/libzip/include/zipconf.h "${pkgdir}/usr/include/zipconf.h"
+}
+
+md5sums=('2a9b316d16218f1b7562d5a5e0fcbd79')

@@ -1,0 +1,36 @@
+pkgname=phonon
+pkgver=4.9.1
+pkgrel=1
+pkgdesc="The multimedia framework for KF5"
+arch=('x86_64')
+url="http://phonon.kde.org/"
+license=('LGPL')
+#depends=()
+source=("https://download.kde.org/stable/phonon/${pkgver}/phonon-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DPHONON_BUILD_PHONON4QT5=ON \
+		-DPHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT=ON \
+		-Wno-dev \
+		"${srcdir}/phonon-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+md5sums=('7896a560f5da345a626e782610c8e71e')
