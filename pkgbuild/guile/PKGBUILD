@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/*.scm
 }
 
-md5sums=('c64977c775effd19393364b3018fd8cd')
+sha512sums=('2cad60ab8aa77be44bc4988eaa3a2f0652637f315322abd6011c18f1800c3a461eefa15a14fd54d0d48031b093bc56dfc6cd15dc0a8260b97b40521bff793db6')

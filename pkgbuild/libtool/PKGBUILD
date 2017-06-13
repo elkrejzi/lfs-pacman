@@ -53,4 +53,4 @@ package_lib32-libtool() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('1bfb9b923f2c1339b4d2ce1807064aa5')
+sha512sums=('a6eef35f3cbccf2c9e2667f44a476ebc80ab888725eb768e91a3a6c33b8c931afc46eb23efaee76c8696d3e4eed74ab1c71157bcb924f38ee912c8a90a6521a4')

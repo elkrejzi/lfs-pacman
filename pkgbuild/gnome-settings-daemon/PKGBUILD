@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}" udevrulesdir=/lib/udev/rules.d
 }
 
-md5sums=('d317e64cc389ecfbbeeb1dfcf3f1fc51')
+sha512sums=('fa75a499750c9e8f8fd2c1af44d033e55f90f97ef39c4159fa58a2957aeae036b4ae505dede6333b640b0dfcd0400eacd3715aeb184fc021c1d787230b1a1f12')

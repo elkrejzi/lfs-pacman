@@ -33,4 +33,4 @@ package() {
 	echo "# Simply write the paper name. See papersize(5) for possible values" > "${pkgdir}/etc/papersize"
 }
 
-md5sums=('38bc55688c0fc5544edaa5a951a45fbd')
+sha512sums=('4d20d454dd7d09dd7e84b9ccc3b0ff8d65d95e0ae3874ec41462f812882e7ead032310396801a47a32bfff112c4a9adaf2d8d3e6235a1fa6fbb853196a363c56')

@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/cm-unicode"
 }
 
-md5sums=('8dc72a959ced139847f4160ff9413fd8')
+sha512sums=('6340b7c6b220c8c887a4b77e77a01a43bedf13d08dd1d62570de70866d0bff908adf3fcb7907149ab2f5ab060650b39eaad3c01c1e8d028bbeb879b058190e70')

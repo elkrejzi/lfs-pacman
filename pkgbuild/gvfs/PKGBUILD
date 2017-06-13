@@ -27,4 +27,4 @@ package() {
 	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-md5sums=('cbe766b46f324e17d7abcfb4a89a1684')
+sha512sums=('7bd4d137437c1704faf6a9c2712bddcc327284e752c552c2cc18c64beb5e6d291af321e92d02d4f09b619762121129cee82c13ec2a4ca39d045196ebeeb28dd8')

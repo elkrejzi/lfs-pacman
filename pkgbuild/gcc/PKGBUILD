@@ -198,10 +198,10 @@ package_gcc-ada() {
 	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-md5sums=('6bf56a2bca9dac9dbbf8e8d1036964a8'
-         '8e765eb7c873eda6dd9552add6d8d624')
+sha512sums=('b5d952be9a10f0e0926bb2868877d10544039d6d2f35ba0a08f51231dd622a007650764a03e173194701467547789ad7d2d9cbc10adcdf118d619cdedbd14aec'
+            'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')
 
 if [ "${gnat_available}" == "0" ]
 then
-	md5sums+=('9741107cca1a6a4ddb0d5e8de824a90c')
+	sha512sums+=('5115ac3be0badc5125ee048a98230f18363d72107da3325ce602c0e618cee2e3646a0decc00a2388f14bc61bfed51dd0622f365f5f7ee8b0cec2187ebcf8e075')
 fi

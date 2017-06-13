@@ -24,4 +24,4 @@ package() {
 	make -C doc/reference install-data-local DESTDIR="${pkgdir}"
 }
 
-md5sums=('5c724bd1f73aaf4a311833e1cd297b21')
+sha512sums=('6c551670949881193e39122f72948e4999ff1ba377f9ee5963d0a4ad1b84256e4fe42e9f6d6a2aa9f7d4ef7acc0e5174fb5cc3df5298524cdeda92f4b8c104f7')

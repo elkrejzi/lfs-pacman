@@ -40,5 +40,5 @@ package() {
 	install -v -Dm644 "${srcdir}/sudo.pam" "${pkgdir}/etc/pam.d/sudo"
 }
 
-md5sums=('03da8e711caca6fd93e57751bfb74adc'
-         '39e65caf258a38aebfe847a89ac5822f')
+sha512sums=('8bf67e687f7a84605fdef8d547b5cd661141b6c8fd25820c33c7e37e97ca7f21f564c3bae691f8a8cd08df7d80338e36a8f06bb5086cc104509d71d6ab1bceda'
+            'a8c8ae1d8c500bcbefd48109af1b28932d17cec83ffcca9b04e2cd827c011c68106fddd7a1066b6f89927f9195286d60ab771d4006dd08e446d99c709741b8a9')

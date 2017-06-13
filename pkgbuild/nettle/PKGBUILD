@@ -29,4 +29,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libnettle.so") "${pkgdir}/usr/lib/libnettle.so"
 }
 
-md5sums=('10f969f78a463704ae73529978148dbe')
+sha512sums=('271981d89766f151af3cdc4e5fc43c438222f0f6f44475bad114f4209955b5235fced6526c7abca001cca223e8cfcd2a6bf389b160b305a499e7acf52425ec70')

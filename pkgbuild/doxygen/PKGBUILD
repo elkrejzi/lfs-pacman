@@ -36,4 +36,4 @@ package() {
 	install -v -m644 doc/*.1 "${pkgdir}/usr/share/man/man1"
 }
 
-md5sums=('0fa414975f8cd6d30e126c28327c1f7c')
+sha512sums=('85da5bd28ad9f33a8e50fa92796817d31e59c024127cb647cb967e4321dd51378feaacdf099d578b7e6020fd646a3c63e99c77420e49e3894fc18ca89ba3e0a2')

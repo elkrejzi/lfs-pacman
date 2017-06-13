@@ -37,5 +37,5 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libprocps.so") "${pkgdir}/usr/lib/libprocps.so"
 }
 
-md5sums=('957e42e8b193490b2111252e4a2b443c'
-         'dac3e52469ebb46eeb63a2fdcea341b9')
+sha512sums=('ea816740ff72cc53d99b5d2e78a511b627ea5b295e0efff67605c56d1ab075abc6b0e2da3df4facbfe903fc9d679e892d351b6884a966d37c6f4bfd9141a924b'
+            'c9ff7b04d1bf5a4c8c474d62f17a99e80f000dd9ab88c5ee31e5cc944eb5626158858720c3e4c414c5cd5d687142ed9f4e741d3ef3450e8e50751371253bead0')

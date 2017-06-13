@@ -1,5 +1,5 @@
 pkgname=gnome-tweak-tool
-pkgver=3.24.0
+pkgver=3.24.1
 pkgrel=1
 pkgdesc="Customize advanced GNOME 3 options"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('1a76b6fa741cb80c31821b28e895fa5b')
+sha512sums=('b76e9a46de07d12b586fb7326fcd51fff1565b831fe8f4d1ab4bbefe36450b5d2cb7c7a168922960894ba57ac9bd412afa61973c034bd1b5f2b45c52eb34adcd')

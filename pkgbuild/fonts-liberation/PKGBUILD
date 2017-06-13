@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/liberation"
 }
 
-md5sums=('5c781723a0d9ed6188960defba8e91cf')
+sha512sums=('52dce5cf2c35165f81c903f2c7245d7f0e37a37eeb4003a015d8cc2404728f17ff4d723ddc5d4b6a6c03044d7ec97b98cf4eecfbc91607fcfed6e0aaff260739')

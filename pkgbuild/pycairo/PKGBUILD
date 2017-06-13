@@ -35,4 +35,4 @@ package_python2-cairo() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('405cce9d6d987df924200dc6efb0696e')
+sha512sums=('74836ad0c4cc05a1e9d4d8660510debf5486b85dc015ca143a38d9bcf006957822ae2be07e7011cc507c1dc382d3b7c272b436afca631362d0f1a1e531727293')

@@ -1,5 +1,5 @@
 pkgname=meson
-pkgver=0.40.1
+pkgver=0.41.0
 pkgrel=1
 pkgdesc="High productivity build system"
 arch=('x86_64')
@@ -8,10 +8,16 @@ license=('APACHE')
 #depends=()
 source=("https://github.com/mesonbuild/meson/releases/download/${pkgver}/meson-${pkgver}.tar.gz")
 
+build() {
+	cd "${srcdir}/meson-${pkgver}"
+
+	python3 setup.py build
+}
+
 package() {
 	cd "${srcdir}/meson-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('8475b19d5f5f3bd5c40f4bb1f31b93f3')
+sha512sums=('5d2c48dce7d278086f919da1bcebb4a49a0aaa929826dae03cef2a6201f1778f06bfed3382d8cffb94125dde7d1655885cd4f806f05876c3f1463c0b23fa550e')

@@ -59,4 +59,4 @@ package_lib32-cairo() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('4ef0db2eacb271c74f8a3fd87822aa98')
+sha512sums=('dfe77a01ca72e21e11610243a5f6e92e6b0821c4ace11686fb0bac8f0bf9217a79974ff46bdf3d19fd85173f5f24f2c3f6d4e00cf729a55a6492e6798d6c4ec2')

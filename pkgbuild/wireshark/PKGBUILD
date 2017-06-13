@@ -30,5 +30,5 @@ package() {
 	chmod 6550 "${pkgdir}/usr/bin/dumpcap"
 }
 
-md5sums=('a4d880554c7f925dafef60fa313b580d'
-         'dfddc67a07265ccae91a1678f5ca1443')
+sha512sums=('417836810eb895b3f2a6ac1cfd138fb0275382ea2edc60fc5f5e5f8ce433b56b8120aa8b58b4f77296986630fdf49e4c5c3859b2c2c5e26b1ce0651393b7d716'
+            'bdee1ea7d453df57fbb5d862feab5b5d6b3d770952bc7f5272e7a21ef434a861ff83620fb8361460381c54d6fa4bba1d7f0dc0b3a49cb0a4e765a863cceb75d4')

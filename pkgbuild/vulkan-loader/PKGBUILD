@@ -127,7 +127,7 @@ package_lib32-vulkan-loader() {
 	install -v -Dm755 demos/vulkaninfo "${pkgdir}/usr/bin/vulkaninfo32"
 }
 
-md5sums=('SKIP'
-         'SKIP'
-         'SKIP'
-         'SKIP')
+sha512sums=('SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')

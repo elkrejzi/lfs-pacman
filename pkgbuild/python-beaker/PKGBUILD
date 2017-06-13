@@ -35,4 +35,4 @@ package_python2-beaker() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('05a8e74d2fa2f349fcd424baf5bc7774')
+sha512sums=('87aa5713390695a899bb3250e29e0acd29e42023f4cb6b74a1b82e99bbcb1f45a52e9533ca67dc8fa8589b54122ca92bfeb198e0f65ccb18c6baa91617aa1731')

@@ -39,4 +39,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-md5sums=('5f213281761d2750fcf27476c404d17f')
+sha512sums=('c5ff632dc9b418ebeecaae796cecbaf9ffcb84d7a1b62c1af2e6c9082f7b9f24fe9dd9f6a57bde3640f54c3036f0b99b32aac9f8ca1f489c012369ab2b72ae92')

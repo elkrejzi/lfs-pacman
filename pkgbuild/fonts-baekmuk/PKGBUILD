@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/baekmuk"
 }
 
-md5sums=('a6f4349179cbe3557641782cefba4d70')
+sha512sums=('779e0bef5fe17e08e0e08ccdad9ad0e91123a5d5cbcb3d66256d517a0903c5fd91c4a8c75eb42f82fcb0d82e26455cf13aeec5ba3a04002133dbbaf1357ec14b')

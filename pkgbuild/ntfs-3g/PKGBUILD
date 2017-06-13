@@ -38,4 +38,4 @@ package() {
 	rm -rf "${pkgdir}/lib/libntfs-3g.so"
 }
 
-md5sums=('d97474ae1954f772c6d2fa386a6f462c')
+sha512sums=('3a607f0d7be35204c992d8931de0404fbc52032c13b4240d2c5e6f285c318a28eb2a385d7cf5ac4cd445876aee5baa5753bb636ada0d870d84a9d3fdbce794ef')

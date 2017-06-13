@@ -40,4 +40,4 @@ package_python2-rdflib() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('534fe35b13c5857d53fa1ac5a41eca67')
+sha512sums=('efc24d8ce1080e59950cecc9c779ae0d63673c8690f74db1772f6c2dbf24d6f4de5214d5870a074bffe549b42d8d5f5d131df29bbfd174b763ae1f843aec7d5c')

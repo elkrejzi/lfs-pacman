@@ -43,6 +43,6 @@ package() {
 	install -v -Dm644 "${srcdir}/rtkit.sysusers" "${pkgdir}/usr/lib/sysusers.d/rtkit.conf"
 }
 
-md5sums=('a96c33b9827de66033d2311f82d79a5d'
-         '170a7b7718641d7fcc27ff9655808750'
-         'd4ee9667f95cb504774577462d25cf65')
+sha512sums=('4641af965dc64c0f498ae469fbee1ceb337204fa7d778fbbb41f2b5c5e88947e633c7e9ad037274fdd778c3c097a4a1dbb0b2add287d74eccbcd2d357cb2da22'
+            'c658facb0fcfb2125904f48490eff68817e20adb257bab3b10532bfc64c8cb4c6dae1bf0404b2d3d1b74884f77cf9822b3cb9c2cb2253bc56b5a5250c49ee8e5'
+            '07a56a757db178b3df56fcba2a7378112e608f4d1619cb9ae49e1910d9d3549b5c72eb48b3a64b4a77a68b17dd459753f0e9a366a8b048e8e2bbcf35bcdfca45')

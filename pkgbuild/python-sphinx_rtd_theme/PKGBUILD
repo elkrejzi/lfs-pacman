@@ -35,4 +35,4 @@ package_python2-sphinx_rtd_theme() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('53b50a917bcc9d61fdf30fbe96c3c13b')
+sha512sums=('865b09febc1c289d47a8be3f3d7caa9d2a4715b350e2e2d058855831321a6f870e8339b2ef22eafc2b9fe72ad48f96b8d2fda4bc032c5f8dcdf23f314869cfbb')

@@ -54,4 +54,4 @@ package_lib32-libpng12() {
 	rm -rf "${pkgdir}"/usr/lib32/*.{a,so}
 }
 
-md5sums=('307052e5e8af97b82b17b64fb1b3677a')
+sha512sums=('51338d900690fc2d28ea1b5b364d311d73ce7ad498d000985e0c3926b5df0df97fcd7bb079fc954c6caa532fc6e6cbbc266e671d62fc67eca30e79a5f0e26f31')

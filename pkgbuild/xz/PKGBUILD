@@ -60,4 +60,4 @@ package_lib32-xz() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('60fb79cab777e3f71ca43d298adacbd5')
+sha512sums=('a5b8f3c402ec3df5c1875a32081136606dd7701190d8b8091bae1bac36553ebe3480985c8069bf5d9e24f374ea64b1fe22614d3eebac1c10e5d609701bceca95')

@@ -35,4 +35,4 @@ package_python2-cssselect() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('3fa03bf82a9f0b1223c0f1eb1369e139')
+sha512sums=('060c4b8d427a935b851b4b20d10ef89b9d6f685692b7144afc8f848e318abaa182ed60538355ea3f25050e358f24904fa0d9c01fe77e3d2428e2ef2a825e2928')

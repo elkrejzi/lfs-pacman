@@ -49,4 +49,4 @@ package_python3-gobject() {
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 }
 
-md5sums=('69a843311d0f0385dff376e11a2d83d2')
+sha512sums=('f35968ab12b872c85af6b2410cadedcf9fa7e17352a40f3dc557c86203aa1c38753710aab9ce55e986ee2c98b64e14123c65083655445e993d0b53431db6dc93')

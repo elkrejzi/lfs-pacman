@@ -27,4 +27,4 @@ package() {
 	install -v -Dm644 teamd/redhat/systemd/teamd@.service "${pkgdir}/lib/systemd/system/teamd@.service"
 }
 
-md5sums=('f8529a3bfee28500bef5faff6aeb0063')
+sha512sums=('7f30d3b5cfbbe455b6d895f3b796557823e71d79d8eb9955c03d1b021b9f731e9040c3cf35b9511179ab9527e81813f43c6252df8849b4e2ed4568064e091b6d')

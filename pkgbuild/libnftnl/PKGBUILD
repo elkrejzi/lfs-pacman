@@ -34,5 +34,5 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libnftnl.so") "${pkgdir}/usr/lib/libnftnl.so"
 }
 
-md5sums=('82183867168eb6644926c48b991b8aac'
-         'bddf3d6c44a8e808d133b0856f1ff518')
+sha512sums=('a220c6a2857b4ff7325bfa4fbf537c5afeb66232a7e190b50c3077f01b86f0fb1842055ccc719280b36820ac7103cbe8168944ffe10c55444830ff77449fa6a5'
+            'cfce55bbe0a4884f5a9a9449a7a91e28ec58bd7c31f47ca9d4ef799c50a1d018d9a4b02144de09e76466a87115a1b03c5aed2159d123b273281f68ebad90ce84')

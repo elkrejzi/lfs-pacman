@@ -27,4 +27,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcap-ng.so") "${pkgdir}/usr/lib/libcap-ng.so"
 }
 
-md5sums=('0dece96644bd798020e170fbf7663802')
+sha512sums=('c32a4c5780c183b13611615abe9061221fd8987188b08828d1617cdaee338ad8de67b3430aa83bde60128efc76449a688546bfbf697f0847b6a835cb1a868756')

@@ -76,4 +76,4 @@ package_lib32-dbus() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('1209c455598165a0c5263d4201894179')
+sha512sums=('726f97d0a2016f4f0625ba332e93e2d33bb16857cd35cb6c79da0f44fff297df948c3df62c31ffbec34713a7b85b3ff5b65f31517fe3511ddbd3bf18bd4748ed')

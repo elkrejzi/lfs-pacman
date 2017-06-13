@@ -25,5 +25,5 @@ package() {
 	install -v -Dm644 "${srcdir}/update-desktop-database.hook" "${pkgdir}/usr/share/libalpm/hooks/update-desktop-database.hook"
 }
 
-md5sums=('599133d51cc9a41bfec186414906b6f1'
-         '63b2a090a303cbf9e244dc79b40fd81b')
+sha512sums=('66a8ddfbb2be8edc14e16427e0dafa6fb1ef7491c816f19221fb5d5782e964cdcc3ae89807339f1c565af828aa83403cc56edeb2d03b3f93e013f3c5e9e6fe6a'
+            'a12917f81c13aacd0dd28c4c7db29e85db1fba8b9ef7d80c3b96de4926742f180fcafde353552e35fdfea1dba9fb6ac020305447ed86e0bf51a62efc53812b01')

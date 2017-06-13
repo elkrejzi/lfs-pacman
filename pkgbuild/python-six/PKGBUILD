@@ -35,4 +35,4 @@ package_python2-six() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('34eed507548117b2ab523ab14b2f8b55')
+sha512sums=('9a53b7bc8f7e8b358c930eaecf91cc5639176a699830153f586780c3e6d637f1bd31349a69c383574f99da19cb3a36524e7733a318f3572b27aefb69c6409c2e')

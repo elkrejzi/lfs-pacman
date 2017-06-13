@@ -53,4 +53,4 @@ package_lib32-libxscrnsaver() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('7a773b16165e39e938650bcc9027c1d5')
+sha512sums=('973aed3ad296c7160b66fccd4fff7375afc4332239acbe0ae1644fed9c453de69040f8174882ba264c731448edba9b499d398d013d556aea72434339399ed29f')

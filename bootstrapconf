@@ -26,7 +26,7 @@ cat > /etc/fstab << "EOF"
 
 none /var/tmp tmpfs defaults 0 0
 
-UUID=FEB8D68CB8D64337 /media/win   ntfs defaults 0 0
+UUID=5228A9FE28A9E169 /media/win   ntfs defaults 0 0
 UUID=C228EA6328EA5647 /media/ntfs  ntfs defaults 0 0
 UUID=3CB8F34AB8F30166 /media/other ntfs defaults 0 0
 EOF

@@ -40,4 +40,4 @@ package() {
 	make -C tea install DESTDIR="${pkgdir}"
 }
 
-md5sums=('c93070d5bf136ce271db23d2dfbc2435')
+sha512sums=('7896c99726da75818f1027d5675b24724bc89c738874c868868e60c09d4509ad5a6da93f54cfcecb3a1052e4f164f7cb864ede333b9ccfb4f6b811b052ca1d3d')

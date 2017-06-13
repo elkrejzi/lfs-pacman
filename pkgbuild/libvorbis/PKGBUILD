@@ -53,4 +53,4 @@ package_lib32-libvorbis() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('28cb28097c07a735d6af56e598e1c90f')
+sha512sums=('f18f32edc43f65fea2dd4133e2828a0ced9e5b0797c4569bd26989fc1409ad599359e7c796bffc082ad36189f9722c7b38837384cea66d217beac8b425299ef8')

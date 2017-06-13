@@ -35,4 +35,4 @@ package_python2-snowballstemmer() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('643b019667a708a922172e33a99bf2fa')
+sha512sums=('09f860f383d84d12a83c87ef6654fba4ac10bca07e8d2ce88dd428c72754110d56a4b698e125a18818699a289455bf61cf67ea68e349ee8a12d6dfff0a3fbed9')

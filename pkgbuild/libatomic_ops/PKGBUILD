@@ -58,4 +58,4 @@ package_lib32-libatomic_ops() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('4d4cd729e55fafb56d48f667c3e46331')
+sha512sums=('58f1f1df94ff33bda5833af2e3a6a4af120ccfc0cec0fb15e2db24341e2ffd5a6436169cb4e7dbd96a6cb0431c1295dc4b5270d4b01806e470bacadc902720fc')

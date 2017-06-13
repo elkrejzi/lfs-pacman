@@ -34,4 +34,4 @@ package() {
 	ln -sfv xsl-stylesheets-${pkgver} "${pkgdir}/usr/share/xml/docbook/xsl-stylesheets-current"
 }
 
-md5sums=('b48cbf929a2ad85e6672f710777ca7bc')
+sha512sums=('83325cbaf1545da6b9b8b77f5f0e6fdece26e3c455164b300a1aa3d19e3bd29ae71fd563553a714a5394968d1a65684c6c7987c77524469358d18b8c227025c7')

@@ -33,4 +33,4 @@ package_python3-libselinux() {
 	make PYTHON=python3 install-pywrap DESTDIR="${pkgdir}"
 }
 
-md5sums=('0e066ba6d6e590ba4b53eed64905d901')
+sha512sums=('906e1bf98c669862ab4f4e883d511db8d739a5763dc857c9405ad3cc6c70766a482853d07134698a1a98257a8632cc756d0549a7640c2915d051714f502ff14b')

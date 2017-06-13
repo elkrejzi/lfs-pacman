@@ -59,4 +59,4 @@ package_lib32-icu() {
 	mv dest/usr/bin/icu-config "${pkgdir}/usr/bin/icu-config32"
 }
 
-md5sums=('54923fa9fab5b2b83f235fb72523de37')
+sha512sums=('9348aa68d72a74cd1f26588c30c80eee1b48800a26930d7eb0749390fd65f7930ee8843058b6a6dd5f265e79054fef661e807ded16a1ad691cbc5ebc5ab944c4')

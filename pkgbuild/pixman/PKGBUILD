@@ -56,4 +56,4 @@ package_lib32-pixman() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('e80ebae4da01e77f68744319f01d52a3')
+sha512sums=('81caca5b71582b53aaac473bc37145bd66ba9acebb4773fa8cdb51f4ed7fbcb6954790d8633aad85b2826dd276bcce725e26e37997a517760e9edd72e2669a6d')

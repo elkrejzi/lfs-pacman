@@ -37,5 +37,5 @@ package() {
 	find "${pkgdir}/usr/include/CL" ! -name "cl_intel.h" -type f -delete
 }
 
-md5sums=('850886a71a34672ca26a42046d0bb442'
-         'e46ad71dc5f838435423cedee939794b')
+sha512sums=('727c8ce68dc39672aa37370ebf2748955925a7cfd58c970c9a641706b45cc31d4a7d3eeebc366ed32ef69add5dd36189814454e5b31f12a6f09ea1a51c810338'
+            '2b49ef2464ced849dad6b55da0ca5fa0105961ade3f1403442735b28d34fe1e9bb1b6a7b11294d519ee86b2ee2d1ca4af55fad4c1d235daa79e64ab8cd4b1a4b')

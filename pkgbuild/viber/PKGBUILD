@@ -36,4 +36,4 @@ package() {
 	install -v -Dm644 "${srcdir}/opt/viber/icons/Viber.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/viber.svg"
 }
 
-md5sums=('SKIP')
+sha512sums=('63feee92fb696132680c2c9b3ca29adcba1c250c0eae94c142dd6a3a7e39cdff7a2b7ff46a1629f434dc8a544693fe959ba58bb43c833bb3e22b271ea6cd5c44')

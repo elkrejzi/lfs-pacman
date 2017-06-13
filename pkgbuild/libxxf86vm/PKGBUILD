@@ -53,4 +53,4 @@ package_lib32-libxxf86vm() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('298b8fff82df17304dfdb5fe4066fe3a')
+sha512sums=('c5f92d86e143db02ebb36bcd25618acaa2cb2831f5a23800a06dd431cd73b6702d95de8fe7407ce626336bf614c288d5256f4d87ea7781fad2ab6c517cbf09e0')

@@ -32,4 +32,4 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/libstlink.a"
 }
 
-md5sums=('1f347803b68600ee14ca7f93c5166f07')
+sha512sums=('ce77d0cf76e4c4b973389599af5d736a0f22ffc2ef7231b2b157dae6dfe5018c2d2ed1b28c14bbbaaa7819847382fe93e437ae682b7eb30d4e44552f4e948043')

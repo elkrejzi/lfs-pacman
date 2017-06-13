@@ -55,4 +55,4 @@ package_lib32-wayland() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('cae152ed956da6de53f9727bc1c45039')
+sha512sums=('163bae2c2c2e79e03dda9a57b1e3a1060eff9e0b053b70ad00a6949a1d40f4c40d0244340c2603109fcbfe919533c2ce196338b27587fd3bda996e615d51e543')

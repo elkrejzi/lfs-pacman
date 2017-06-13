@@ -47,4 +47,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libaudit.so") "${pkgdir}/usr/lib/libaudit.so"
 }
 
-md5sums=('55a81bbed973b58a90590c949e71dc3e')
+sha512sums=('b219bf64b4cc9f1178751bd4f16a91d75d05b76165b57c4a1493e6a55c66481edfa2a661f479d7ecd46f6d719319776e9eabffb5dc7129dd953a3af3389aa8b8')

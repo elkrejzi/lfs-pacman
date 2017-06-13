@@ -21,4 +21,4 @@ package() {
 	install -v -Dm644 picocom.1 "${pkgdir}/usr/share/man/man1/picocom.1"
 }
 
-md5sums=('65da5cd32f8cfa456bbe79bbcc908daf')
+sha512sums=('21495af30b81dfd1b3f4fea1ecf93c3a9252be1ae2ba94c7a2a07ceb75f562bc2ebc6ef6a8ae61f810ff5c121d4ab572a6f8ba75283e2cb28cf9886f834df0fa')

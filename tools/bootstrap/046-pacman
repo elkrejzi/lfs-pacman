@@ -12,7 +12,6 @@ tar xf ${SROOT}/pacman-${PACMAN_VER}.tar.gz
   pushd pacman-${PACMAN_VER}
     sed -i "s#CPPFLAGS CFLAGS CXXFLAGS LDFLAGS#CC CXX &#" scripts/makepkg.sh.in
     sed -i "/C*LAGS+=.*DEBUG/s#FLAGS+=#FLAGS=#g" scripts/makepkg.sh.in
-    patch -Np1 -i ${PROOT}/pacman.patch
     ./configure --prefix=/tools   \
                 --without-gpgme   \
                 --without-libcurl
@@ -52,7 +51,7 @@ DEBUG_CXXFLAGS="-march=skylake -fstack-protector-strong -g -O2 -pipe"
 BUILDENV=(!distcc color !ccache check !sign)
 OPTIONS=(strip !docs !libtool !staticlibs !emptydirs zipman purge !optipng !upx !debug)
 
-INTEGRITY_CHECK=(md5)
+INTEGRITY_CHECK=(sha512)
 STRIP_BINARIES="--strip-all"
 STRIP_SHARED="--strip-unneeded"
 STRIP_STATIC="--strip-debug"

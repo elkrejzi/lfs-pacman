@@ -17,5 +17,5 @@ package() {
 	install -v -m644 *.aff *.dic "${pkgdir}/usr/share/hunspell"
 }
 
-md5sums=('1082f1efb63b267e3625cdd09a5c8a78'
-         '2b85f07b6c63d2c0a1acf39fb05b0f8a')
+sha512sums=('448ca6dd5fbb671bca1c56a19ce42af12965c5c15e536697c006b9fff77acfcf39afccfb440a4b67f9b2f413be7ff13269e5998a445c2acf1ab0bdc748783e78'
+            '5fc6b0ac7c1cefadd473885ef7238798cca2b60fd4eea2f8fa528757d4ffdd1479bcbf628e54b396517503f4d57999c6ce2b40205d3ed536abe75c25172227b7')

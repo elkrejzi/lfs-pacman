@@ -53,4 +53,4 @@ package_lib32-libtxc_dxtn() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('7105107f07ac49753f4b61ba9d0c79c5')
+sha512sums=('56714a8c947d9b1f47e3ccb23cff9e4e57bd131907a82968de521d094a000275b3aaeecff28e9184bcc4f3932baa1a8bfbbefbc970fcd034ff953d0617148479')

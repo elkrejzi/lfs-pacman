@@ -39,6 +39,6 @@ package() {
 	install -Dm755 "${srcdir}/set-wireless-regdom" "${pkgdir}/lib/crda/set-wireless-regdom"
 }
 
-md5sums=('0431fef3067bf503dfb464069f06163a'
-         'a1389e85d66d77a51a3992e638888a2c'
-         'eaba94405d69080a76947d55cc4ccdbc')
+sha512sums=('57ae6309159f396448f052c127f401c2f63d47f4193e87dca231c4b7bbbd7e69b5e5666f356fc76dfc8a6ae58ffa55c3794428d6eb34d9937df77c4276036588'
+            '551d7b1877fdf0f9d5766fc8d889db88bae24b6fdb23f9c7389200a5bc36371e9931cbb59267a2410e291bdb55b3fac8e29bea573289eddb133aa79690a0f882'
+            'ebe61a0ed67bf94276007facab93e95993ddf609ae35aba7e16334e38cae6ce5cb729342cacfb7517ee4e79cec20ba8ccf273379061aaa2fda6551411d2b5b57')

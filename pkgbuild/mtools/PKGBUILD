@@ -31,4 +31,4 @@ package() {
 	install -Dm644 mtools.conf "${pkgdir}/etc/mtools.conf"
 }
 
-md5sums=('17b9f525c1ae3583a478338deb7fbc19')
+sha512sums=('149963c10570a9cb22b90d469a82823f010f819321aae58fb47c66e318da726098ab7c185b3ecd462586a9512b01785432f8cda9c14087c8517af886c6a35af1')

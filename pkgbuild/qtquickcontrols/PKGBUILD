@@ -21,4 +21,4 @@ package() {
 	make install INSTALL_ROOT="${pkgdir}"
 }
 
-md5sums=('0382a4cd64875feee4c3e1225c705b72')
+sha512sums=('24259d70d70e4222264383f9a571e343c1a35a387e8b053a3e992453a432d93c4aff4d4e59e30a4d1a040cfbf0581e88fba7ace8701989ff27df8239a8f9d52a')

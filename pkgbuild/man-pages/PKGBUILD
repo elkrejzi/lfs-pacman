@@ -19,4 +19,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man5/passwd.5"
 }
 
-md5sums=('c2f25e2367fc12267bb85abe7b39f173')
+sha512sums=('cc1282467255d5c078b099ab6dbc407c5f56fa66fb3f5789286bc66c98b229cae88bf8afdafa7c9609a37c87cdb1401bb381cec25c64690ab69faf4d00787187')

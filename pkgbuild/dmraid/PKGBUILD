@@ -32,6 +32,6 @@ package() {
 	install -v -Dm644 "${srcdir}/dmraid.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/dmraid.conf"
 }
 
-md5sums=('819338fcef98e8e25819f0516722beeb'
-         '1cd201496e52bd05c1c3048bf6dd809f'
-         '56a8bb0ece8d206cd8efb504ee072ddd')
+sha512sums=('7c45e5117adc52fc2094b1b2bad4f4c518a46317a2196611966d72085ba3587c4ac8d1080f9d934888c01788f2b2d3d621c6f0d3e2a023c0fb1f9f3fa7fc127e'
+            'c0d7bcf45befe7fa920f0d614f8c53322778bf6da572158a002a380ac1b7f9c119a89dff597cb13588fd77d40cd78cd0752d90268ec8bd17befcaf47df033248'
+            '0e09657b58e4af4cd927a80adb5e5192992166891beb0ffde315fc7c6540dc561659d795a1d8c5dc4ef41471b3fb612503e3d6f1ab0bc5ca939883c32d11dfcd')

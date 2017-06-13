@@ -53,4 +53,4 @@ package_lib32-libfs() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('d79d9fe2aa55eb0f69b1a4351e1368f7')
+sha512sums=('3596e87710c14706ab345377799e9b2dbab79500fd75b4213f9615bf7db7df3265b4dbc65fdeca9d32343b848013780cfa1a43e76229665ce80246332bb8b96f')

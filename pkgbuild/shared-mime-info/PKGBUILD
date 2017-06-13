@@ -26,5 +26,5 @@ package() {
 	install -v -Dm644 "${srcdir}/update-mime-database.hook" "${pkgdir}/usr/share/libalpm/hooks/update-mime-database.hook"
 }
 
-md5sums=('f6dcadce764605552fc956563efa058c'
-         'fc48155d8fb2147b8fc72597e79936b4')
+sha512sums=('e3fd57898ca85033a29f17d075b9a18a6ebee14db5f996183fd1183a6c6382c3d10c74cd1863563cd031359937ab95c886909ba6f9d7ecc8f2056464673b5fff'
+            '365e2bca04e108a6a65c1e8a2b82efcee3916630ca522808e51074db7fb499d7f7c67bb84b304f5f398c17379ff26ec7fd1e44d56991a47581111c1c360ffdb8')

@@ -36,4 +36,4 @@ package() {
 	ln -sfv kmod "${pkgdir}/bin/lsmod"
 }
 
-md5sums=('08297dfb6f2b3f625f928ca3278528af')
+sha512sums=('58c8da100418b6325de1595bceee4115cbdd7151d03a028c0b1f6d5d3e6611c667e27f3a0245d29781125581849fd1e854fa8d87b63c4b8fa3f196d0a97e1779')

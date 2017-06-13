@@ -18,4 +18,4 @@ package() {
 		--root="${pkgdir}"
 }
 
-md5sums=('aaaf09e1351a598f98d17b0cf1103e7a')
+sha512sums=('0e39f7f22a6c4ecc13edcd843b050754da5ded5371b3a8b406395f7b53dd280f95f804707eec271f8de3624d06f5b4ba3cc788dc4eb891cad224a163544f51b9')

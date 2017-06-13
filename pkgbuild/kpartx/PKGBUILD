@@ -31,4 +31,4 @@ package() {
 	mv "${pkgdir}/usr/lib" "${pkgdir}/lib"
 }
 
-md5sums=('SKIP')
+sha512sums=('SKIP')

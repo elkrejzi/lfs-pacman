@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/vlgothic"
 }
 
-md5sums=('bb7fadb2dff09a4fb6a11dc9dfdc0c36')
+sha512sums=('b6f21c7aaccefc9301dc63e7b001703e5708d9717f80c03517a0bd09907e833477812d4a58f3e9a909be8b246f5c8f3678839f1e278d4181c983217a86c31aec')

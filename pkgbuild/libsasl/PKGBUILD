@@ -50,5 +50,5 @@ package() {
 	sed -i "s:libdir =:exec_prefix=/usr\n&:" "${pkgdir}/usr/lib/pkgconfig/libsasl2.pc"
 }
 
-md5sums=('a7f4e5e559a0e37b3ffc438c9456e425'
-         '72904b854e0af28ba0f3dbc30470f6af')
+sha512sums=('78819cb9bb38bea4537d6770d309deeeef09ff44a67526177609d3e1257ff4334d2b5e5131d5a1e4dea7430d8db1918ea9d171f0dee38b5e8337f4b72ed068f0'
+            'f40936566e88eec8cddfa5b024bd1fce3b951e162d39e410f11dfb563d888c3795d4e4be5215c75503440ac867c50bc57f3f2be2ef235213c20a7c52ce817676')

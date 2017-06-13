@@ -37,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/ivtv-ctl"
 }
 
-md5sums=('98ade56409bb1beb665c9cf2e4d99592')
+sha512sums=('ed2e7545a728360b9684db68330885b498a3a5611f49b80e54da72109d9ba2aa75e85f89f085ff0a6f077b17c880101fa5b78c9dff8a0df2eac1866bd80a04ea')

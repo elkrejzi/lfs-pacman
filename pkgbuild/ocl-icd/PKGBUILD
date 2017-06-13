@@ -54,4 +54,4 @@ package_lib32-ocl-icd() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('32335dc7dd3ea2a4b994ca87f2f80554')
+sha512sums=('54d6a281f0fc04858323ef8d1764c5d2276d9a003853d5af5821a6dd24c74a744da0ff2204179a5877d0e3f156d03c83236797cd5ca88e6897457c75da6713cd')

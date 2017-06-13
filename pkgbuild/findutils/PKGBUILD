@@ -28,4 +28,4 @@ package() {
 	sed -i 's|find:=${BINDIR}|find:=/bin|' "${pkgdir}/usr/bin/updatedb"
 }
 
-md5sums=('9936aa8009438ce185bea2694a997fc1')
+sha512sums=('41fcd4197c1efbd77f7420e5754e2cf9332dfef19f90c65a8fa1844bb4bc5d529c8393ee0ff979a054e9ac65ff71d7fe3921ea079f9960843412fc9a71f8afd4')

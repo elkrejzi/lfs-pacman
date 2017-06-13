@@ -23,4 +23,4 @@ package() {
 	install -v -Dm644 docs/libpsl/libpsl.3 "${pkgdir}/usr/share/man/man3/libpsl.3"
 }
 
-md5sums=('fed13f33d0d6dc13ef24de255630bfcb')
+sha512sums=('10632d462a749c24a1de67daf33e28fad8e9f63531f5b43d399db09a2dbfb7c843162290f0279d80459018ab3465d4d128689e1740cd3334b1276c3d112fdff6')

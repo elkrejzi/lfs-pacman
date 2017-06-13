@@ -62,4 +62,4 @@ package_lib32-graphite2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('b39d5ed21195f8b709bcee548c87e2b5')
+sha512sums=('d6d578feaa2d9304dc9bcd3926958070b8c23b27437a9fcb801e08e62f33a5549b7a6aa9636c7f8eb80a2a2c6d5cac97d58050fb30fd102b9fd0f8c558f4252b')

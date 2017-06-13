@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-md5sums=('b74c2f6e84b60aad3a3defd30b6f0f4d')
+sha512sums=('c08e84c542a882aa16a682a81cbb7a4860774a3f6a0ec2e720ba9e9bcea76dab331999fee86bf8b92edc08560d7cef4a7c2dfa4e626ab9b22da965e715af531f')

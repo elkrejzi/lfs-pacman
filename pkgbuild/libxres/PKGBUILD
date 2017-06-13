@@ -53,4 +53,4 @@ package_lib32-libxres() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('45ef29206a6b58254c81bea28ec6c95f')
+sha512sums=('796a79ab694317910442cb10a936711df9dde95764eef11efb8dedc85114977e56409de2f640553f1ad492325df178b8cfbeaeec3f03bf084638c555e44292e0')

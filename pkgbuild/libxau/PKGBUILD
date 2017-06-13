@@ -53,4 +53,4 @@ package_lib32-libxau() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('685f8abbffa6d145c0f930f00703b21b')
+sha512sums=('9f933d22f8f2411ae770094589cbe170c631a1437d572664e0fa6b9608e6ec39deef752f2dd6408ab45acdf01bf1827ef3ced640a33da787d9cfb546f12397b5')

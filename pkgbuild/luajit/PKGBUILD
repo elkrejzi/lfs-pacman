@@ -20,4 +20,4 @@ package() {
 	make install PREFIX=/usr CC="${CC}" XCFLAGS="${CFLAGS}" DESTDIR="${pkgdir}"
 }
 
-md5sums=('dd9c38307f2223a504cbfb96e477eca0')
+sha512sums=('a72957bd85d8f457269e78bf08c19b28c5707df5d19920d61918f8a6913f55913ce13037fb9a6463c04cefde0c6644739f390e09d656e4bbc2c236927aa3f8f9')

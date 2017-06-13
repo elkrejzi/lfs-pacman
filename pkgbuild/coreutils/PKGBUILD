@@ -33,4 +33,4 @@ package() {
 	mv -v "${pkgdir}/usr/bin/chroot" "${pkgdir}/usr/sbin"
 }
 
-md5sums=('502795792c212932365e077946d353ae')
+sha512sums=('abf3280aaa54e9bd5851df0eda2af1de1017ca174633e52d1e592455d46ea0e99812dda46d2f320e979553cef271485d8818c595bba6ed31264511a511c93679')

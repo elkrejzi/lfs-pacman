@@ -16,4 +16,4 @@ package() {
 	ln -sfv /bin/true "${pkgdir}/usr/bin/steamdeps"
 }
 
-md5sums=('d1398490635615c428165e984a1ec71b')
+sha512sums=('1820f596359d829a4e119f1f916a741ecb7973d36684916cdbbfa435fcdc9c288852491fd6d0b064e8154a43c60d8dcce3c7ed9275aed8f5f116c2782489bf32')

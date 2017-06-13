@@ -35,4 +35,4 @@ package_python2-imagesize() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('976148283286a6ba5f69b0f81aef8052')
+sha512sums=('61ff92167cc90bb1dcc78bb358419a526f09dc567709548bbe399694aa15dab63744f56c67bf33a940f5f443fd3a5ddc08ef9e17799b6fede1b11c0ad6a17f75')

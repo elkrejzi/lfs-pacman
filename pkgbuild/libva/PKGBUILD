@@ -55,4 +55,4 @@ package_lib32-libva() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('2ce6901495b64f4cc26dd0fb53eb5b14')
+sha512sums=('8837368886bd9815cb30154c0f087b020737326eaa4ee03c430ba3e980600edeb2f1754d198490d64c8cf7e46c308661e61a4326f1f6742feb179cd8d0836ace')

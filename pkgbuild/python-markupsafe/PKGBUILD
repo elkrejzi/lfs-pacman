@@ -35,4 +35,4 @@ package_python2-markupsafe() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('2fcedc9284d50e577b5192e8e3578355')
+sha512sums=('7437a02cb1b9c1d6d6c20b13d394f24a1cd1cb8c743f832d8b1cbb6ab8846f70f54d924dd693423b33c4d592e772983ae38fd4a35961e233457c48bd3584ecb8')

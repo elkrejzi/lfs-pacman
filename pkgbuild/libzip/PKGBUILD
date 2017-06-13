@@ -24,4 +24,4 @@ package() {
 	ln -sfv ../lib/libzip/include/zipconf.h "${pkgdir}/usr/include/zipconf.h"
 }
 
-md5sums=('2a9b316d16218f1b7562d5a5e0fcbd79')
+sha512sums=('1ba8626d72e6b47f735568afaf007d1e18beb3ebedf6b69a6b575f9e04d3b84550371191a89be153f8fcedb4a8eac2f996e141da95cdbb52380b6283cc99cf8b')

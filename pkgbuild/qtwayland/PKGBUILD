@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-md5sums=('eb0d671cdaf23fc71818561c259bb5ba')
+sha512sums=('40c6853bcf5b5bb349c80a64b170f56862482d123d2cfe35c9d71ed047137ddd45c387c2293caeab8a67ed5cd8c3e0f07ed2dc82652d55b99a15c1d93156f56c')

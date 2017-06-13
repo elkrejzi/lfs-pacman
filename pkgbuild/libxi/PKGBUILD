@@ -53,4 +53,4 @@ package_lib32-libxi() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('1f0f2719c020655a60aee334ddd26d67')
+sha512sums=('9f1536944fcd232ba725addbc3afb1154c4e0df3c4380f4a54bada31371029ce3714fe0458529cd6b2787e3283f3bd35366420bca15fedfbd41f2f6b10eddce5')

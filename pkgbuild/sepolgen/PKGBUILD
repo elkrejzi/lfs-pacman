@@ -22,4 +22,4 @@ package() {
 	make install PYTHON=python3 DESTDIR="${pkgdir}"
 }
 
-md5sums=('84faa46a0eb0b603e903efeed239c244')
+sha512sums=('b04d0b78416dde4857888f94bad1f6f83909cb4f9fb50519778ec8a50662be38ccac19f5fc6db269754cb63668c5324258ba4a4cb79440789b759ad5eb6148c0')

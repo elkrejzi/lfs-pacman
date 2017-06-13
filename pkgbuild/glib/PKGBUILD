@@ -81,8 +81,8 @@ package_lib32-glib() {
 	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
 }
 
-md5sums=('ec099bce26ce6a85104ed1d89bb45856'
-         '9a2c5949a8d352c5887c099ed3a9003d'
-         'a52ea506b5cf162a4f72d09cc33fae50'
-         'f013ccc9643a2cb191bddcae0754732e'
-         '9e25d7de10bc4dc105f171e9ae46ef69')
+sha512sums=('3ea49b75b6f80d9974ebd3c40518d5aaffffd9d9d008c1ae3302690fa34899b91ae59c87f8235077129bbd8b01ef19211efb89bc7fdb08d0254b07735b1ba92d'
+            'eb248c6be91b918369d74a21ecfc74a8ad8f77ff46d1ca62b192ad03a9fcadd472b10ccaea0197cbab7ed23d6fd5ff166399de125c151f8a95dd56855854905d'
+            '5afd6f275c8fff16df3e685818f2e7989b39ffb3b8f5fc261a5a6d54a9b28ef53af62f3bf5067cf87cb74691572f85730cbc508691956ae048a0f3ecc1a0a39c'
+            '1ea3011bbf658c71fce167399775cca4ec7fd6267cbea9dc39555c10636035dd56391208a56c35e84f127ad23fd7126e025ea8e7de9ba5cd6912ac984a8b60af'
+            'c04fe25afc217c295b5ce4034733cec046126482d00fb8d0299e4815ac57129dd3f1c9ac824b9386d208a4f113e9dae682ea5b72f75387ed6b6b96a9cbbee8ca')

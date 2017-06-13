@@ -69,4 +69,4 @@ package_lib32-libcap() {
 	chmod 755 "${pkgdir}/usr/lib32/libcap.so"
 }
 
-md5sums=('6666b839e5d46c2ad33fc8aa2ceb5f77')
+sha512sums=('c3ab491885292adc171cde542b96f1295e84132febb50112a46575c3bde3a3eb6fcf733f7a756b4b656e013c0abb5ed6571db24799f8c0b23d8f759f992864f9')

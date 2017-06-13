@@ -35,4 +35,4 @@ package_python2-lxml() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('e54e2fae44d684d6b9c636fe189e93ff')
+sha512sums=('08f6f352e22ed2bc199a5f34a1c6b5f7b41ec282dc0026c9f16a06466c27e39e8eb18608ba4493636170eeac4b0194f7050445e1cc9bd0a4628573c404593088')

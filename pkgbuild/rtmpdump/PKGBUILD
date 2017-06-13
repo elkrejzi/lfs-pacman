@@ -20,4 +20,4 @@ package() {
 	make -j1 prefix=/usr mandir=/usr/share/man install DESTDIR="${pkgdir}"
 }
 
-md5sums=('fac465fb24cba9b0dd3b96023fa0e27b')
+sha512sums=('b5dbb694005e47efd40207c874f8673dfed0cca487600b5789c6a0cae6d883d1a1a29cb8d0997630cdd481a39b8e3c6a2f19bf9b3cfe9e205f1e0cf677df0331')

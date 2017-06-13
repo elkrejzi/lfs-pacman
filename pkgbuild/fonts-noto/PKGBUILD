@@ -25,4 +25,4 @@ package() {
 	install -v -m644 unhinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
 }
 
-md5sums=('8330a71b2ccc745bc684c092c772c3e9')
+sha512sums=('4f96b66348c2bf2cdd6dfd76958ec250f7f468a01f26926f265b06c6784c785ac0964e20dab60feb9c0bd37c2964591fda593552feb2f239f0ec804efaa12fe1')

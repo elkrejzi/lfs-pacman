@@ -1,5 +1,5 @@
 pkgname=youtube-dl
-pkgver=2017.04.28
+pkgver=2017.06.12
 pkgrel=1
 pkgdesc="A small command-line program to download videos from YouTube.com and a few more sites"
 arch=('x86_64')
@@ -12,6 +12,8 @@ package() {
 	cd "${srcdir}/youtube-dl"
 
 	python setup.py install --root="${pkgdir}" --optimize=1
+
+	rm -rf "${pkgdir}/usr/etc"
 }
 
-md5sums=('6a3c7920991520f0d24c716578270c5b')
+sha512sums=('cd4d97efb5b12d89be65407d4ea91ab8cbc12d6d03d6b06158e4f58ff9df27eb384313001b5cc609d5557de0f4d647e17c87ad05abb292e1848cfbd1bfa0c8ad')

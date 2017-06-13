@@ -60,4 +60,4 @@ package_lib32-libgcrypt() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('d1769481b1b506a632fd66c5e5f62e41')
+sha512sums=('2ec96c5e772b73002e25af89363170c37e882197db578eae35a8f542a785fbe52843eed029a5bd6f1a8b6dc5d32803961af425db082e2db597767ebd67779118')

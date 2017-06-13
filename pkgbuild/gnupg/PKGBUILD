@@ -31,4 +31,4 @@ package() {
 	done
 }
 
-md5sums=('685ebf4c3a7134ba0209c96b18b2f064')
+sha512sums=('ddced44c37a220af8371ba36357fc0f23b22b57daec1cba6d4a1a015d345eac7f6060c88b22a5cd457ee364d0ec1f02175644aed1970a97abfa84a3d285bc512')

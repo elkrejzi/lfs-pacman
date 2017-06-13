@@ -14,4 +14,4 @@ package() {
 	python setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('437513c07101cefe5be3cbe83f313878')
+sha512sums=('33a5ee3d23d3b9a1576be248a312ca741ea7cb629334a98fb6cb49e0f0f932334506ea934312de04ec645c86ec52699687bd2574b1802d3c23815b44c8514b7b')

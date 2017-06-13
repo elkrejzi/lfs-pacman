@@ -37,4 +37,4 @@ package_python2-mako() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('a28e22a339080316b2acc352b9ee631c')
+sha512sums=('15608f2487783ea3a48faf743ee1b8e811adc34281c613e56f1a4548f3c614d1d5dbc943911943a7f8f6d34a962a27387d8fc17862038c1abee2e6c3328a79cf')

@@ -37,6 +37,6 @@ package() {
 	install -v -Dm644 "${srcdir}/gtk-query-immodules-2.0.hook" "${pkgdir}/usr/share/libalpm/hooks/gtk-query-immodules-2.0.hook"
 }
 
-md5sums=('526a1008586094a2cbb4592fd3f9ee10'
-         '01735166750a40a539d4bad5dbd5f664'
-         'dd4fe16d8099fb2d535eaab80035b78e')
+sha512sums=('75b846661308d94b5236e7e1c367deabf57753792ca87e92f9769822dd5ec90e00cd8d5574adcc12162e3702e1ae6dc152278a1d218f9bd9e4d1c8dc1dd520c1'
+            'be7a807046f27e5796f6069dfd2c88f9b7508e3b9e209d97c1575e0d809b279aacacd0e1247f1f7643fa47eede2d987bf433cd17cea0524526ad31982ae8d90d'
+            'b124433dd4b20d1d62f073df87e253ca23b3b51625cce55f29a220a4369eda5108c0de07fdc686f570232322c3ff04f7758383f2be5aeace40f843907aa3696d')

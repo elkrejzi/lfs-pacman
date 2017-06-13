@@ -23,4 +23,4 @@ package() {
 	install -v -dm755 "${pkgdir}/var/lib/selinux"
 }
 
-md5sums=('666a48c4058c07f2b07ede9eaf210c5f')
+sha512sums=('38741d6e6f7a2669bfeee362e42d6bfd720cceeaf61331e329b2210fdc070444e529656ce86dd82e94aa248eafcfaea4c5d013d9cce76c1039be6fc6a6b2c790')

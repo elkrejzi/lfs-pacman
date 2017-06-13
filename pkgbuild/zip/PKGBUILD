@@ -25,4 +25,4 @@ package() {
 	make -f unix/Makefile install prefix="${pkgdir}/usr" MANDIR="${pkgdir}/usr/share/man/man1"
 }
 
-md5sums=('7b74551e63f8ee6aab6fbc86676c0d37')
+sha512sums=('c1c3d62bf1426476c0f9919b568013d6d7b03514912035f09ee283226d94c978791ad2af5310021e96c4c2bf320bfc9d0b8f4045c48e4667e034d98197e1a9b3')

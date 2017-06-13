@@ -55,4 +55,4 @@ package_lib32-flac() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('454f1bfa3f93cc708098d7890d0499bd')
+sha512sums=('63910e8ebbe508316d446ffc9eb6d02efbd5f47d29d2ea7864da9371843c8e671854db6e89ba043fe08aef1845b8ece70db80f1cce853f591ca30d56ef7c3a15')

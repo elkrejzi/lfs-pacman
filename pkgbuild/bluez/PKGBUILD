@@ -32,4 +32,4 @@ package() {
 	ln -sfv /usr/lib/systemd/user/obex.service "${pkgdir}/usr/lib/systemd/user/dbus-org.bluez.obex.service"
 }
 
-md5sums=('20d936917afc7e1ffa091f5213081c55')
+sha512sums=('ecefb2cddb5b40ac4b5650a849e5635d84ec3f6819849ca97af5a5d1eb220f0fe5734c81340c00c41e0a77613e19c35a9191a00094a2e4d9db6d597ec590010d')

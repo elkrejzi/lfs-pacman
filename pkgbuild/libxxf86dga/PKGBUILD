@@ -53,4 +53,4 @@ package_lib32-libxxf86dga() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('d7dd9b9df336b7dd4028b6b56542ff2c')
+sha512sums=('58d81a7850275fc8382018bcc56dbc65b4200828b1f1379dcee3da1878f12a83ee681a9d474bcd564d99bf93bedfeb7b243370e0ebb89177652b37cee158a3f2')

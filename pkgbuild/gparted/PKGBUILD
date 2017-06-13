@@ -26,5 +26,5 @@ package() {
 		"${pkgdir}/usr/share/polkit-1/actions/org.gnome.pkexec.gparted.policy"
 }
 
-md5sums=('ab72464a3ab2137664d9df8462befd3f'
-         'fb2d3a08a0fe664a8d6c25eccf9ed130')
+sha512sums=('533adc9c2896063532f109ee6ee5fd1e1f510f47aad4ed2b673fc74ba2406f1f8d86db8096965920608028ce255385e04a60926bbf771f7df96100c3e0546a67'
+            '5a6fe15aef9432317167c73f8d84a4d3f3736495698b487d27b19a564108c3fff8cd16536234e8617de068c87779c399944b6502956ea7de2db530e5cb5de60f')

@@ -37,4 +37,4 @@ package_python2-babel() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('90e7a0add19b2036a9b415630a0d9388')
+sha512sums=('4e1341144dfb319c172a446facc47204c9b9f49972c8646b62e082975d8ec41c35e503e610d7114ef5346a5c073e87ed8d40a65a60d9540fb7ca947681cc0beb')

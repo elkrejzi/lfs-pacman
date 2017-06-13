@@ -49,7 +49,7 @@ package() {
 	chown 27:27 "${pkgdir}/etc/polkit-1/rules.d" "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-md5sums=('SKIP'
-         '5034798259834cbe838f919bf93ea9aa'
-         '4ce755378335620cc004fd5802a46907'
-         '6006bfdf134f1f8c97762155584de238')
+sha512sums=('SKIP'
+            '319c57d4deaec45913d1e543350eed95433f062657e3b6607ae10eb356b770567db48a653a9dbecbadbb7365b6cf8988e3c2b3a4393e86838f6e8791ff57c132'
+            '3f6dbf7119083ce09cbfc543e93c1007e91d5706d0cfefdcecd89d788cb3827d0764c11205fa562ebc936bacda60bd645c7d40f85c42d334faab9f21f325beac'
+            '327822bfd25ca317e75626b206cec5520482ddbbba86a4e933b71a1fed2052ff1ba0d9e50a498a50f64d626dccd8a3573b9572237bb919c3f7fa4c63b52ef467')

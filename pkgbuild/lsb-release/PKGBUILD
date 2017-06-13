@@ -24,4 +24,4 @@ package() {
 	gunzip -c lsb_release.1.gz > "${pkgdir}/usr/share/man/man1/lsb_release.1"
 }
 
-md5sums=('30537ef5a01e0ca94b7b8eb6a36bb1e4')
+sha512sums=('84f6f8794380463587005043f601b7a40190cd9e3409abff7f5ce7658cf029a14346eff87838296d90307192bdeff68cc00480c5c04814da7acdb3e220640fde')

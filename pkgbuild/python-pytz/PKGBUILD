@@ -35,4 +35,4 @@ package_python2-pytz() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('f89bde8a811c8a1a5bac17eaaa94383c')
+sha512sums=('d67d64a64b4c21e0bd41da56020fc7b016aec9da7f3243f79b65704119f70b8a9cd4f5f905631b6761e06ecef93830e5e479e16c7b1611ac70e0cd2b39d5b916')

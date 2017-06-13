@@ -35,4 +35,4 @@ package_python2-requests() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('4c3c169ed67466088a2a6947784fe444')
+sha512sums=('f6531ada6d854a261cad874044daa9e7f79d55c8f8fcfec1b25862563127318fbf717ed640644ddf0dbe4d7fe1298d478fcd76825a3604e06cefae5990fa9dd4')

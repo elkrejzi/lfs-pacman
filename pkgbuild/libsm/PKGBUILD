@@ -53,4 +53,4 @@ package_lib32-libsm() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('499a7773c65aba513609fe651853c5f3')
+sha512sums=('dfb91dcc7200fce8d0a62953ae4b81fcb00d525674bbcc6dfcaa23ecb35e1213ceb07cc51f590072dce2107909903160d9f3636a0434fe2a605b1e9a9bd0a6ca')

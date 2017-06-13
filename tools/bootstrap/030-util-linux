@@ -11,6 +11,7 @@ tar xf ${SROOT}/util-linux-${UTIL_LINUX_VER}.tar.xz
   time {
   pushd util-linux-${UTIL_LINUX_VER}
     ./configure --prefix=/tools                \
+                --without-ncurses              \
                 --without-python               \
                 --disable-makeinstall-chown    \
                 --without-systemdsystemunitdir \

@@ -26,4 +26,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin" "${pkgdir}/usr/lib/peas-demo"
 }
 
-md5sums=('67a698cd64c9d9efc1289f68420883b1')
+sha512sums=('b3ddebf65e1a76493b5cd5150f60c13597c90398eea16c002e51d25449a595f7591bd0ccd1214ca3a8cbce724eb10f38a316e8c95092442034c048bc95cfdbf4')

@@ -27,4 +27,4 @@ package() {
 		"${pkgdir}/usr/share/gnu-efi/apps/x86_64/"
 }
 
-md5sums=('1f719c9c135778aa6b087b89a1cc2423')
+sha512sums=('848ea9b0a9b900a237d04c2fe95fbaaa08d786c8abe4cbfdca9b666a5cd955ad1097668561aa90899b654a606ff822509fb23b6aeafce69bc4407e5b4547fdcf')

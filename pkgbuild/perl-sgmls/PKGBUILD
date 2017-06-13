@@ -30,4 +30,4 @@ package() {
 	ln -sfv sgmlspl.pl "${pkgdir}/usr/bin/sgmlspl"
 }
 
-md5sums=('746c74ae969992cedb1a2879b4168090')
+sha512sums=('0ca3f0f3265f20661ae88ad4764fbf82f226382f79f62c01653265cc7372524dfdf30ce5abffc0344624f5e6138e483952471f8c18d59794b40035af0b7526bc')

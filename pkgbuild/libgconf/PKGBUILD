@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/*.{a,so}
 }
 
-md5sums=('2b16996d0e4b112856ee5c59130e822c')
+sha512sums=('35f5f659f9d03f7531a7102adacbda0eb310d8a55a831c768c91a82e07dae21247726e00e0e411f63b1de9ade0f042ded572a3ea4a4b2ad3135231f344540b58')

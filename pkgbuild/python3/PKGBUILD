@@ -49,5 +49,5 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{ctypes/test,tkinter/test,test,sqlite3/test}
 }
 
-md5sums=('692b4fc3a2ba0d54d1495d4ead5b0b5c'
-         '7c18d200bdd31f975c3a29a9af49a2f9')
+sha512sums=('8605fb7019386fec227d4b06d06f00ae500a8a89df289bfe6141bb56196c75483a60cc0ee553930742b31cefce68add5ccf226e0f27b7b915f5026d597e1ac29'
+            '18338db251551c4f6606862a4abf6f7ef05ab90d98dd3a011eefcf6a3c140d56beb7a08c05484bf62b5c51de208cc73567f566011563cfc420e2b87977bf1504')

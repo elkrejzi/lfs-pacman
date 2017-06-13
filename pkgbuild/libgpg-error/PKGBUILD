@@ -60,4 +60,4 @@ package_lib32-libgpg-error() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('5217ef3e76a7275a2a3b569a12ddc989')
+sha512sums=('51b313c1159074fdbbce84f63bd8afd84b3b58cd608714865b25bed84c1862d050708aa06ac3dab92f1906593df5121161e594c2809653b0fb2c236cae5dcc2f')

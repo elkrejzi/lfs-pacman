@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/hannom"
 }
 
-md5sums=('06c26da5cf910a6762bab2b576cd8a45')
+sha512sums=('623032a7f54c9bc6e59314fe7f8067dc21b4016a763b1d3ff3c9b15a2ef26bdf78b74141403ad73a5cbcbc5e673f1630d56a75f071dfe3d42256b6fe3c7bb4dc')

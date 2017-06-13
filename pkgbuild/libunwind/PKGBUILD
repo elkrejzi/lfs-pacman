@@ -61,4 +61,4 @@ package_lib32-libunwind() {
 	mv dest/usr/include/libunwind-x86.h "${pkgdir}/usr/include"
 }
 
-md5sums=('eefcb5d7f78fdc8f1ed172a26ea4202f')
+sha512sums=('985d0817944e3cafd99aaa5642862d878972e0851f7954289247e808c9319f399ca29342395f0571cb6568a1104a82bd92d585936f2ca888dda37ac796fde0d4')

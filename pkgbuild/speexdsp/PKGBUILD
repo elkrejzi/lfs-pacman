@@ -53,4 +53,4 @@ package_lib32-speexdsp() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('70d9d31184f7eb761192fd1ef0b73333')
+sha512sums=('29dfa8345df025eeb076561648a9b5c0485692be699b6da3c2a3734b4329187a1c2eb181252f4df12b21f1309ecdf59797437dfb123d160fd723491ab216e858')

@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/info/*.png "${pkgdir}"/usr/share/info/*guile*
 }
 
-md5sums=('4fd41ad86572933c2379b4cc321a0959')
+sha512sums=('e98f23a589042f879936c3f8b474535e695fb7dd68a9e81323668c013241f765c2d3af6c6a072ecf867acc1e551ec46e15bb842144d3a06bdd5d2f4fc3d828a7')

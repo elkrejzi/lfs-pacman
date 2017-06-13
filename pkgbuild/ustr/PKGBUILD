@@ -27,5 +27,5 @@ package() {
 	make install mandir=/usr/share/man DESTDIR="${pkgdir}"
 }
 
-md5sums=('93147d9f0c9765d4cd0f04f7e44bdfce'
-         '3286bd35be5738b225b7fa4295ce93ae')
+sha512sums=('b7df6ca3a9f25ee6f5c9ab4325732d348de27c5e02ebff36a7d5706f56b2df994df35bd652825a28e27bbde731c6a5933248d99c670d192b1952e7534eec1510'
+            'f29e3e4ae3dde69bcbf7678e77c7b38bd65b964d79006275d9029cc2819f8e5169f92b7aa2b080113af181b65851ba67a47119cd89a8ff0d7b9a8e03b3eab9aa')

@@ -62,4 +62,4 @@ package_lib32-elfutils() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('1ce77c5315d6bba7d883c3c4f0c2697e')
+sha512sums=('0a81a20bb2aff533d035d6b76f1403437b2e11bce390db57e34b8c26e4b9b3150346d83dddcbfbbdc58063f046ca3223508dba35c6ce88e375d201e7a777a8b9')

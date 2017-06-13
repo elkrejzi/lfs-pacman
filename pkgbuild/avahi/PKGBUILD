@@ -53,5 +53,5 @@ package() {
 	install -v -Dm644 "${srcdir}/avahi.sysusers" "${pkgdir}/usr/lib/sysusers.d/avahi.conf"
 }
 
-md5sums=('22b5e705d3eabb31d26f2e1e7b074013'
-         'c40a09d7b95a876990ef3caca1b7216c')
+sha512sums=('6f8d0a64292439cbb989c531a4ba2f25a53ee9cf7ad9df04dedf73149489a92612f3b5955e10aa4b1c76496c34b90ad75590e8aa49468249508267c1c8b899ee'
+            'ac999de61e2faa91faf015c68d9c7e8646b244899cb34b0518cf0e31a2de06dee655fd9f584bffa1850f8276242ed86571fafb1c7140810e0f70bbc957bbb2c9')

@@ -35,4 +35,4 @@ package_python2-isodate() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('9da3ea2af54a6261d854e73d2266030e')
+sha512sums=('ef5fd27ffa61ad10abf499723c452fd8fd6c2f08a0d5aca6ead88857e5d159f50a3d01769b9fe0aed59a57b0f89a70b359135b0d7c5e6a75d023daa824e5d80a')

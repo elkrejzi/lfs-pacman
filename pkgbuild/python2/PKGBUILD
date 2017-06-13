@@ -49,5 +49,5 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py2majorver}/{ctypes/test,lib2to3/tests,email/test,unittest/test,bsddb/test}
 }
 
-md5sums=('53b43534153bb2a0363f08bae8b9d990'
-         'e991395f810f0a5ec3121eab96893c41')
+sha512sums=('f37c9a28ce129d01e63c84d7db627a06402854578f62d17927334ea21ede318e04bbf66e890e3f47c85333e6b19f6e5581fb3f3e27efd24be27017d1b6529c4b'
+            '831f402f5fa8f4fbf7b93d5f49568bd734e4f284a649badc2770b7eacac61e94d433bd1bef7a71c9692c364a6836dee63eb245b1417ffaac90fb7a7f8b2962b5')

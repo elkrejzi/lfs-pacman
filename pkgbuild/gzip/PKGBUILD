@@ -27,4 +27,4 @@ package() {
 	mv -v "${pkgdir}"/bin/{zfgrep,zforce,zgrep,zless,zmore,znew} "${pkgdir}/usr/bin"
 }
 
-md5sums=('f7caabb65cddc1a4165b398009bd05b9')
+sha512sums=('efd3e2439476054badeb127d9156e24e9252129111219f13fd939596c057b2a96291630b2717181984b391abf249ac8699488bbd01ceeb8a70b121c500b10c55')

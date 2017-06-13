@@ -55,4 +55,4 @@ package_lib32-intel-vaapi-driver() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('fd70a5f739b5d8a8dbf612843ebedf39')
+sha512sums=('ca847a5abb957ea5c13942c3cceef7f367b4c8e0e1da8d8dcf830315128cd0d15699e116caf11f65c09a39a1c30ac05c27e7fcecc40690395f690f2c055935da')

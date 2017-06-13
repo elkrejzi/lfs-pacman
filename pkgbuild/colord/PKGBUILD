@@ -37,5 +37,5 @@ package() {
 	chown -R 71:71 "${pkgdir}/var/lib/colord"
 }
 
-md5sums=('a8e7fcf0a45383ca7a65cef91ca5e019'
-         '7dd3af6937b1a9ee77d84607f5a743e6')
+sha512sums=('a0084ad2c08ae88c8023b8bade68f6cf25e13c77a6a37ef127b2914e86b06e6a7a783f9ab3585243d975dbbe1120d5daae13bdb586aefe519bf675458683025f'
+            '46d421c626bf135b5cb2c491f3090b15bde6b4a06e5400ccea1e6d455c3fd406364555e34bfdeafac40072d9e64c1a9d9feb07d3dbac8594e83182f5b38eecf8')

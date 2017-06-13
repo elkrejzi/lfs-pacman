@@ -27,5 +27,5 @@ package() {
 	install -v -Dm644 "${srcdir}/gdk-pixbuf-query-loaders.hook" "${pkgdir}/usr/share/libalpm/hooks/gdk-pixbuf-query-loaders.hook"
 }
 
-md5sums=('5dd53760750670d27c194ff6ace7eb51'
-         '6f0b295e93b2c599622e9af078583e01')
+sha512sums=('b963f01161b58463c83499079545aa946fd824ec5e7167e0898698ac46e0cc3fb3dcb0cac5afabd6b7d957391b9c9bba55f340294076433155fc91052d5403ec'
+            'a3d558fb92a0802307427f5c936ca4b86dd966acb96978f247f64cac54b434657cc9b952cece266b992d22655bb658129025718b29beb380a4a0429c34fdd417')

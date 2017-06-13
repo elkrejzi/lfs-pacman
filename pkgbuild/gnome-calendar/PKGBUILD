@@ -1,5 +1,5 @@
 pkgname=gnome-calendar
-pkgver=3.24.2
+pkgver=3.24.3
 pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('9dab9e5a34e95c81362cbbfe2f636064')
+sha512sums=('979a369a5c5fc7d4621ff1ae69dfb1b53002cc014b2f1c480c0122da5bf4282c1928df9dcdb3528352e9589099184ab51f96d1a065e346be8e639aa5fc96ac67')

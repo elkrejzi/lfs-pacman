@@ -33,4 +33,4 @@ package() {
 	sed -i 's#^ET_DIR=.*#ET_DIR="/usr/share/et"#' "${pkgdir}/usr/bin/compile_et"
 }
 
-md5sums=('8903379ef0b902f4e29b6cafea359fe1')
+sha512sums=('c0f699e70d6d346a8130d965053f7951bb10a56aabce37938ec8f28d07b976adf5680c941cddae17c17b2f73bfaf5491f05e39e667d2416b7d30c807fbd8a630')

@@ -41,4 +41,4 @@ package() {
 	ln -sfv tracepath.8 "${pkgdir}/usr/share/man/man8/tracepath6.8"
 }
 
-md5sums=('06f0be2dabe10dc80fdb328073230e69')
+sha512sums=('1593077b6eff1e57eb8a32897dd9624a745d0c87db1501a96436b168b109ef22d41ee69406a4a2154d8d72c823c1df723b4c52eeec8d82ba2762fb01dc0d4797')

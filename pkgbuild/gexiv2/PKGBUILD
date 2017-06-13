@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('ee99e45cfc72db3041e7eb83f1c64372')
+sha512sums=('350e9db388d0aa1c106f3e5bf8862206977d650be0223229c61c6a3ee20642890fbfd7681a215b9c85c10d0787a00a25bc05a639e19a5f39be27cb6d1bb0fc06')

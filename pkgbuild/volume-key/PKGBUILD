@@ -24,4 +24,4 @@ package() {
 	sed -i "/#include <config.h>/d" "${pkgdir}/usr/include/volume_key/libvolume_key.h"
 }
 
-md5sums=('a2d14931177c660e1f3ebbcf5f47d8e2')
+sha512sums=('bc0e690997b9fa1c9fff361d04e7eddcac4cac09779d7a1f9e161be117f5c589a7e444ac16dab25fb3e3ce201591f7dc937595ddf2745d7daa625d4ab0a255e0')

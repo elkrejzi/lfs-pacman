@@ -27,4 +27,4 @@ package() {
 	mv "${pkgdir}/usr/share/X11/xorg.conf.d/40-libinput.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/60-libinput.conf"
 }
 
-md5sums=('14003139614b25cc76c9a4cad059df89')
+sha512sums=('9a8d16bdffb73a5318d22e352826c410ccb6f8c7ade31c23823bd6c17202bb67e917dfe8d4cab6e54fdf15f201d14d80b6306cedc5f93f66989edfcab5082ece')

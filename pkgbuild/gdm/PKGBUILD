@@ -36,5 +36,5 @@ package() {
 	install -v -Dm644 "${srcdir}/gdm.sysusers" "${pkgdir}/usr/lib/sysusers.d/gdm.conf"
 }
 
-md5sums=('73a529efe0230794105840732bb1cbcf'
-         'aaf276e44a4eb74d125f5def22001441')
+sha512sums=('6e2649bce5520532a2976bac8a47629fc4c852d7127b913c29a9c43a7dba26d75472a083cbfff7b64bab56deb38ed13d8387d4d302d55f263c80120255a4a270'
+            'afdfe702121ab9b9b64450e736a9d7fcd603a5c373e13e3a2ad6caa993fedca23b673d9bcaa3465e830f19bb6bc4c6c71d9f2699a57807f11d6706a97d190573')

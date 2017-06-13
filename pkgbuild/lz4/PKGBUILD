@@ -59,4 +59,4 @@ package_lib32-lz4() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('c9610c5ce97eb431dddddf0073d919b9')
+sha512sums=('b4e5b17fe06805e676608e636a45f0b480b79a02c6b7ffce84dc4d607861cb2652b2852493ab9d9249e7caeae6f00b6834801fdc39f58d901cbc1c7347915295')

@@ -29,4 +29,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse.so") "${pkgdir}/usr/lib/libfuse.so"
 }
 
-md5sums=('9bd4ce8184745fd3d000ca2692adacdb')
+sha512sums=('f47304d9c7a1815f7a2905b7bdb7785d4c10292a80c8dc1ec45d895af96bc6ffd6d84ff2617bd976a1d0867ab8ec1a404a5a05ace85a69ecca830f371d08f8e2')

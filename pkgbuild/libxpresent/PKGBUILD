@@ -53,4 +53,4 @@ package_lib32-libxpresent() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('edd87ac15bb666081898dd7382fcbff5')
+sha512sums=('e88b4ec4fcbc0417a0cbecc0ecd73f8085c496dc6d1a4902b6550750a69a1cb8bb76c436c7941ee3bf3c61ffc85bbd8f8327fca30f14815dbef1cd53bb8db16b')

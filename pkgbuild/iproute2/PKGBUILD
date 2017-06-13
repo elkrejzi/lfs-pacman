@@ -30,4 +30,4 @@ package() {
 	ln -sfv ../bin/ip "${pkgdir}/sbin/ip"
 }
 
-md5sums=('7a9498de88bcca95c305df6108ae197e')
+sha512sums=('e6cc3dbe2779670a752ab346c1a432b496033448d1645aa0161b3f7b683b3f9939ab09db12199b794cc64dff257faaf0d151046feea9031a6139176e08b4f4fa')

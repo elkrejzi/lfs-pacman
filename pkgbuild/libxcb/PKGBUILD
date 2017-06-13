@@ -63,4 +63,4 @@ package_lib32-libxcb() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('28e552bd78bc1050b6b26ca1db0e5bb6')
+sha512sums=('4ce3e3f62b7e1c3a9e61c149c720ef2a4a760539ea615d7d52ae39e7f5a08456dc87d7a1ac5d85ca15dcc468a9a02d56fb8f8f6361c959af9b8780f011995896')

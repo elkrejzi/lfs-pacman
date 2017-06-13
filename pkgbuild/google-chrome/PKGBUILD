@@ -38,4 +38,4 @@ package() {
 	ln -sfv google-chrome-stable "${pkgdir}/usr/bin/google-chrome"
 }
 
-md5sums=('SKIP')
+sha512sums=('c6089748b1c2c50f55a343e467cd3ce0877a32b69d532ec8d11153ac0675f81624a335f0ab2b821d32669a942bf6776bf66ffc3f36b6e60a6c55f8532a9e11a3')

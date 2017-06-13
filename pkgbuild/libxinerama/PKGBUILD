@@ -53,4 +53,4 @@ package_lib32-libxinerama() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('9336dc46ae3bf5f81c247f7131461efd')
+sha512sums=('c9f059697c04fdc600d9e63873e924032d6cff456674ee28a885270c54722d96df0ef7a78432c2bdc0844241f115e00ad730c29d84681efc1c45a2e1acb3288c')

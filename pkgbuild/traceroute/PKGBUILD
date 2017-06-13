@@ -31,4 +31,4 @@ package() {
 	ln -sfv traceroute.8 "${pkgdir}/usr/share/man/man8/traceroute6.8"
 }
 
-md5sums=('84d329d67abc3fb83fc8cb12aeaddaba')
+sha512sums=('3578007c734091ea0c906637c03fd133a8b0154fbf2e6b5c0c881184947918196bc03aeaf872d3bd53777b9b771cba5cf97f73fb5916bb53b75037f429b40ed3')

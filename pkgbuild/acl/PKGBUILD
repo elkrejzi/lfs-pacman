@@ -31,4 +31,4 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libacl.so") "${pkgdir}/usr/lib/libacl.so"
 }
 
-md5sums=('a61415312426e9c2212bd7dc7929abda')
+sha512sums=('59973199d371cd0b2368e95bc829a1b47f04e808a174fefba4c6854e766158bd19a71d9dbcc8d6fdc1573a1f971cdda39c453f7fa243bce02c1ab97c6e7c72e7')

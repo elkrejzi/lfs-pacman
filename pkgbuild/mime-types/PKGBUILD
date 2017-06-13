@@ -14,4 +14,4 @@ package() {
 	install -v -Dm644 mime.types "${pkgdir}/etc/mime.types"
 }
 
-md5sums=('75c88966b6516cf085125072dc8b39e5')
+sha512sums=('066cea30c02a326e64680422b31aff0849c0a8c7486738f2edf339b88426c6ac5a365d4fa4c80c84df0fa4c39b5e13d45db314a1bf47ce369c132dd1c46130d6')

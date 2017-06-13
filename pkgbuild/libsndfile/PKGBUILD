@@ -53,4 +53,4 @@ package_lib32-libsndfile() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('646b5f98ce89ac60cdb060fcd398247c')
+sha512sums=('890731a6b8173f714155ce05eaf6d991b31632c8ab207fbae860968861a107552df26fcf85602df2e7f65502c7256c1b41735e1122485a3a07ddb580aa83b57f')

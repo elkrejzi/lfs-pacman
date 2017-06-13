@@ -61,4 +61,4 @@ package_x86_energy_perf_policy() {
 	make install DESTDIR="${pkgdir}"
 }
 
-md5sums=('251a5deee0fa6daf3f356b1bbda9eab8')
+sha512sums=('6610eed97ffb7207c71771198c36179b8244ace7222bebb109507720e26c5f17d918079a56d5febdd8605844d67fb2df0ebe910fa2f2f53690daf6e2a8ad09c3')

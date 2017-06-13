@@ -41,4 +41,4 @@ package() {
 	install -v -dm755 "${pkgdir}/etc/X11/xorg.conf.d"
 }
 
-md5sums=('015d2fc4b9f2bfe7a626edb63a62c65e')
+sha512sums=('b988897418399e1361fdcca9465a781f55f8f6fbfdc5a59edfaee9046a0c6ad7a76f348d88b6004ce3d3fb3966b4c5af0b854f6549c32b2b8d7a43758809f669')

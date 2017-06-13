@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/scheherazade"
 }
 
-md5sums=('1eacddeee942adcb28280c7cb5e8cd39')
+sha512sums=('53a6b684a9c6a6f136da28cc2f663fca9e22d1951203587394ff979c4769e4beb898ab73a7cabedf5ed6eaa2775d10c7281439f10331b203f0e03bd434aa2fb2')

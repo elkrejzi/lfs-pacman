@@ -28,6 +28,6 @@ package() {
 	install -v -Dm644 "${srcdir}/texinfo-remove.hook" "${pkgdir}/usr/share/libalpm/hooks/texinfo-remove.hook"
 }
 
-md5sums=('32baefe5c7080dfb512a4eac5ce67b2a'
-         '9a98fb162650ff3065f9a4ebec22db36'
-         '5590fb3ef9ec309c98f5a4d85eca49da')
+sha512sums=('ef6c5878d9db497d7963bd9138418b30c39a5605c215bf2f4e8f1f083d93c3c99f8c459aa675f7da3b78da6189cb6bbf3cf19a2ee1d52e569de2f6ce82762bf4'
+            '9e41d028d3eed2fdf3170648677e25a676bb8f5e308dacd62ed61a73aa06f54a90bef73f00faf1b9dd693c99dca9124629d88c371b7aa9018295f3b69d23dcf9'
+            '8bc1822a48c66804e53559eed7a99275866b12f16e0a6efbd8b358108f5753432d6afb0a056f4182bcde50e753b06420dea4459edb3a95ee6695ed403f16a461')

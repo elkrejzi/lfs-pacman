@@ -1,12 +1,12 @@
 pkgname=psmisc
-pkgver=22.21
+pkgver=23.0
 pkgrel=1
 pkgdesc="Miscellaneous procfs tools"
 arch=('x86_64')
 url="http://psmisc.sourceforge.net/index.html"
 license=('GPL')
 #depends=()
-source=("https://downloads.sourceforge.net/psmisc/psmisc-${pkgver}.tar.gz")
+source=("https://downloads.sourceforge.net/psmisc/psmisc-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/psmisc-${pkgver}"
@@ -25,4 +25,4 @@ package() {
 	mv -v "${pkgdir}"/usr/bin/{fuser,killall} "${pkgdir}/bin"
 }
 
-md5sums=('935c0fd6eb208288262b385fa656f1bf')
+sha512sums=('334d625202fccd741363787c3f1d750515d63e2b5322b8ada5979144c8d841f505244c569bae9b63ce332aeace41b7caacd5354014c0301b56aca720a227f10d')

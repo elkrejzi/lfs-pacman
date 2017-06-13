@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}/usr/libexec"
 }
 
-md5sums=('9287e4187492fc0ae9a6b7fe5c6de11c')
+sha512sums=('6fdfb4fb17336f94a077e0d1a5a98c88437a2d3cc361677672e10d36dc220b46f2554cfe6fc3c71e644ea63ff38d5e638c667e3f5f85db7332cdf4ae6326f27f')

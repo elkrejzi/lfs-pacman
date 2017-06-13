@@ -96,4 +96,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('e67d7664714ff5efe5b59cddedbe26a4')
+sha512sums=('a749a208df75a75afd714a07d9f61dd2c641c62f432c7a707baebdf4db0e24b5ed3e213cd0a82af6687aa14943193e0b7e9e70a3a603015a2a483eaaeee8bc41')

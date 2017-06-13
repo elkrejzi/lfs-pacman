@@ -38,4 +38,4 @@ find . -name '*.crt' | sort | cut -b3-
 ) > "${pkgdir}/etc/ca-certificates.conf"
 }
 
-md5sums=('1a0a3a1b3390dc83affed4b0c2ae1c05')
+sha512sums=('8395f27d2369d694b069e1bb250b06df05f732bd9f4a4dc8652091e9c96ad1a84003e28f59cb9e13fdfd22ca5818f495d80149692e74b2d63e34db4f6a95ee9f')

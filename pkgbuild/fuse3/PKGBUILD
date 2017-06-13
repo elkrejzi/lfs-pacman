@@ -36,5 +36,5 @@ package() {
 	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse3.so") "${pkgdir}/usr/lib/libfuse3.so"
 }
 
-md5sums=('51e832a27095ca7c5d835dc0ecb01565'
-         '298587592c8444196833f317def414f2')
+sha512sums=('1eced537670dd2337e7df316c9ef7afd70e81af57a39340ac405ed76ec6b2f0da8d7427dab10ed09a6d6eac55984a7dbbe49b93836b733a53c4fd8f3f30aba9f'
+            '2d2be62dad148a71d072cff5ae01c9788e7a9a01baad79ae4d696b0192567ac46cdb92a836a2a33cafca3c07b322c970c1f91db35af426bbd105d43d5968b1a0')

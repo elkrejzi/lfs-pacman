@@ -47,5 +47,5 @@ package() {
 	find "${pkgdir}/usr/lib/pkgconfig" -type f -exec chmod 644 {} \;
 }
 
-md5sums=('cb602e21f5fc798b88163a3aa4e03e0a'
-         'a57b6b2baebaa5127ae3e295c805f9b3')
+sha512sums=('60262c7619cc418569aec81775a671105acbc5bf372273828868f2fbbbc4ea33f78380f7455710816bfcdae828fb4115a08234d599cb30d0db859fcba17f019d'
+            '6d84a79199cd520d1b9e2d614e6a748375510cf1cf996a4f2b83185d71174b1a155f086905f5c4d186b6b468b2367b0dd5a5aa2bb02aaa3bfb084a2b4810e0e5')

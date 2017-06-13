@@ -83,4 +83,4 @@ package() {
 	ln -sfv ${pkgver} "${pkgdir}/usr/share/perl/${_perlmajor}"
 }
 
-md5sums=('8c6995718e4cb62188f0d5e3488cd91f')
+sha512sums=('cd5af6495fe4c46c0d5d0f51d4015b54daa221f08a5fb48899c247cb57c2ba85cffb97e6d258d0f931504828bb23e175d899f311c73805d924d1042058ac42e4')

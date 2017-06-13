@@ -30,5 +30,5 @@ package() {
 	install -Dm644 telnet/telnet.1 "${pkgdir}/usr/share/man/man1/telnet.1"
 }
 
-md5sums=('d6beabaaf53fe6e382c42ce3faa05a36'
-         'c35370c6fb8a7f2032e907ddecf537c6')
+sha512sums=('e2cfabed12326af5e288def1821353eacffb4586008263dcd1bed1a9dd9d8548e51e68d7ede58ea75927783ba534ea8807ec722271843a77146f064f3d826dd3'
+            '82b5ef1ffcb693f7b9a30378ad97fe138628d124888a71341619f38df3bc89f8705de5b0f61ffa40035704c06d1c1e75e0c799b31859e38c0dc15e482108fe62')

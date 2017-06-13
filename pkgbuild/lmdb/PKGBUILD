@@ -20,4 +20,4 @@ package() {
 	make prefix=/usr mandir=/usr/share/man CC="${CC}" OPT="${CFLAGS}" install DESTDIR="${pkgdir}"
 }
 
-md5sums=('41a4f7b63212a00e53fabd8159008201')
+sha512sums=('e0f998507da654ccac02aa199367e8363c37f47e06ee0984085aae60fb086e49087824915bf8896f90187f1cc96e5c9caf5e5f72fa3911415151ca1e56f0309f')

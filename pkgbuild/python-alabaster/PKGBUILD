@@ -35,4 +35,4 @@ package_python2-alabaster() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('7934dccf38801faa105f6e7b4784f493')
+sha512sums=('e2391079360e050e532f878619e70a120f141a3e84d1e213e508e4be25ff2ac704717fe8398dfaf016dfb6dd3ad1105a67e1d5438737f45064f7602a5ce5fda8')

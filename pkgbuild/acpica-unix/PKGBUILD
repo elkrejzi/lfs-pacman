@@ -29,4 +29,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/acpidump"
 }
 
-md5sums=('704c7d0ba7ee826ea489995c4837ebd2')
+sha512sums=('efe4e59b10e297f65828f2f397082920d4f171c8847057514b2c3982e4fac111a55a932de41f01d4b54bc7ea1022d3feb682b8fc2c51878410898ea1b5f7602b')

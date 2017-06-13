@@ -26,5 +26,5 @@ package() {
 	sort -u "${srcdir}/wireless-regdom.tmp" >> "${pkgdir}/etc/default/wireless-regdom"
 }
 
-md5sums=('52816bd259b1b28508a17e2592a5669c'
-         '48a50fbe9849f5676ba3c99f5343b8ec')
+sha512sums=('91e2458feb5bf4d4b7d9008afd9c2d40b700d53cb898855f6278b93a7779aefeed283bfff2dd77b89bcbcc98c5e131f5187730356e5bba858d96774d610ab450'
+            '389e4edf429de5336ec902203ccdfcf786b65ff6da3b1a4b4e4708037fc88b407430a8e211c7a8b3954562e7e1a7d05f0618c957ad22e0992ec5ffbd55dd04f2')

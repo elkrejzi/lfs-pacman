@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttc *.ttf "${pkgdir}/usr/share/fonts/opendesktop"
 }
 
-md5sums=('c33e83d27ac3401bc51a2b8a88705c78')
+sha512sums=('cf7f4ccd7088a78fa10cb649aec3e3673efd0bfbe3d2383e1cb8144cd2d8b9bcec8a4db1c231be8bf7773c55cf68c37e7e741a948131f212312535c1678b2a0f')

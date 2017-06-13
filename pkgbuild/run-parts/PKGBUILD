@@ -23,4 +23,4 @@ package() {
 	install -Dm644 run-parts.8 "${pkgdir}/usr/share/man/man8/run-parts.8"
 }
 
-md5sums=('ee5fcecaab071bd0c93e8a0cee65d6c4')
+sha512sums=('22f27692a7d3847fad1be223d73e5575581db8621771e92e68fe91bd31e67084fd655fef857905be46ab3a45340503b0af9399b8fe28f221ea5cee4b49970821')

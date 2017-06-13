@@ -104,4 +104,4 @@ package_mount() {
 	make install-exec-hook-mount DESTDIR="${pkgdir}"
 }
 
-md5sums=('eaa3429150268027908a1b8ae6ee9a62')
+sha512sums=('30e311768718508066829567200e975fd08a22360915b27c8839f368fe6d84c8eca6c2f69a60f113d934eea9934e49f05cd98c3db7fd6bc5ad8f7f770badbc97')

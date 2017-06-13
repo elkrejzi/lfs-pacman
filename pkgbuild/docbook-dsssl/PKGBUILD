@@ -33,4 +33,4 @@ package() {
 	ln -sfv dsssl-stylesheets-${pkgver} "${pkgdir}/usr/share/sgml/docbook/dsssl-stylesheets-current"
 }
 
-md5sums=('bc192d23266b9a664ca0aba4a7794c7c')
+sha512sums=('fad71e67227b54b0a7c31a351b4d5c0695517b3687714807d7b144d239dc6f7e0d556520e705eb75581c82e0deea4b32ccfde1eccad2718337b757eddd64843e')

@@ -25,4 +25,4 @@ package() {
 		"${pkgdir}/usr/include/cdio/cdio_config.h"
 }
 
-md5sums=('d8734266a20fbc2605a97b701b838ab6')
+sha512sums=('e1d3c96c4acc7be923c97109c3f76223adc00b293278daef7d5008b1e5d67f33402f9f224f05120e9e1e8b3a8d1fa1b0bd5069dc6dd309741e3590e2c19e0e66')

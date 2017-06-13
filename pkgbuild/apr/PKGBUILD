@@ -24,4 +24,4 @@ package() {
 	sed -i "s#${srcdir}#/usr/src#g" "${pkgdir}/usr/bin/apr-1-config"
 }
 
-md5sums=('4e9769f3349fe11fc0a5e1b224c236aa')
+sha512sums=('d1156ad16abf07887797777b56c2147c890f16d8445829b3e3b4917950d24c5fd2f8febd439992467a5ea0511da562c0fb4a7cfd8a235ab55882388bfa2b919d')

@@ -53,4 +53,4 @@ package_lib32-libxext() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('52df7c4c1f0badd9f82ab124fb32eb97')
+sha512sums=('669d61545d10b999872addbf5628127840a221cbeaafb5ffa4328e0e0e1823583ece973bcafd5f13852ed58d4b0fe313a35f304ac80c6ed2b382cbbca977761a')

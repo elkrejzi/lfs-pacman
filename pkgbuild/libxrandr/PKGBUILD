@@ -53,4 +53,4 @@ package_lib32-libxrandr() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('28e486f1d491b757173dd85ba34ee884')
+sha512sums=('ddcee1c50da8810412fd747b05a073ee5522b2f3b0a74e6a9b48b489ce9712356d1bc3009f8898aeee85671cdb44e2dafa04c8caf23d97963b36b1af9174445a')

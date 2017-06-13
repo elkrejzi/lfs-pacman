@@ -52,6 +52,6 @@ package() {
 	install -v -Dm644 "${srcdir}/qemu.sysusers" "${pkgdir}/usr/lib/sysusers.d/qemu.conf"
 }
 
-md5sums=('02781eb15b364aedef79da7a5113f5b7'
-         '33ab286a20242dda7743a900f369d68a'
-         'a189577c41f7575db67a87f406e7d7c8')
+sha512sums=('4b28966eec0ca44681e35fcfb64a4eaef7c280b8d65c91d03f2efa37f76278fd8c1680e5798c7a30dbfcc8f3c05f4a803f48b8a2dfec3a4181bac079b2a5e422'
+            '13a097ee0ac9f740ad3de8d24c71bdb9a655dc18e3afc1bac990643a120a3ec9de45be887a89ef840e5a88c2f4dc8e3a3a435fd3185b1884d57d6c292864e7c5'
+            'e3e0b8a6df627fa150332b070fa2e78372af2cba3925670ad351250e92f7748a9675ee0beec3b4c21b32a57c24a1482a44aef7191c3b5905a71ecedc55fc2096')

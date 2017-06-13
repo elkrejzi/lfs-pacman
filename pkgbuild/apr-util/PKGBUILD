@@ -33,4 +33,4 @@ package() {
 	sed -i "s#${srcdir}#/usr/src#g" "${pkgdir}/usr/bin/apu-1-config"
 }
 
-md5sums=('2202b18f269ad606d70e1864857ed93c')
+sha512sums=('ca877d8e444218c4ba0f28063ee075ddcd6c0a487b692dc80ef442fe775ec4eeb337c6957853772e8082e27edcb450d7e909c2c6c3ab4a95bbf0a5ee5ea4a2d1')

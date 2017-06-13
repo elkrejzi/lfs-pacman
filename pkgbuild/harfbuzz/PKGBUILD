@@ -59,4 +59,4 @@ package_lib32-harfbuzz() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-md5sums=('e246c08a3bac98e31e731b2a1bf97edf')
+sha512sums=('aade3902adadf3a8339ba1d05279e639da7cb53981adc64e2a2d32a5d49335a6a9782a62cdf80beca569ec8a639792bf0368c0b6ecad08f35bc85878678aa096')

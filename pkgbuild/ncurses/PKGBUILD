@@ -117,4 +117,4 @@ package_lib32-ncurses() {
 	install_shared lib32
 }
 
-md5sums=('6579471d8032c3903cfac8d4d1ddbdb1')
+sha512sums=('dc3a27f2a749631c52b16aca316256a2af740eeacfdbf512300b444853de85225e7bad17384e48efdd0edf62c082d00a4c9ae59bda1d4a9c34c47e299a4fbec5')

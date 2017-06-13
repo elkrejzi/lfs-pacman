@@ -26,4 +26,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-md5sums=('f7a8230626b6d2061acfdc852930b7dd')
+sha512sums=('ea3008f2945da862236fcc64d320367e04e3c71d4cc5e996e0c50ac49457e5e42eb06af92486fe7f15c04f07a88367f5344f8dc76549c57c4a19e2fbb60f55d6')

@@ -32,4 +32,4 @@ package() {
 	install -Dm644 usb.ids "${pkgdir}/usr/share/misc/usb.ids"
 }
 
-md5sums=('2780b6ae21264c888f8f30fb2aab1259')
+sha512sums=('ab1ad36467ff79ff5ab0b924620001612cae44def58c05ade01a4e58d8a4d48df61c09faba49a20497b7d6314045bbaf137b51a9f4e6b65ed0ea3bb339bf1c45')

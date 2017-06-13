@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/gentiumplus"
 }
 
-md5sums=('acedcd2696ea14d1a9296ba6d3075288')
+sha512sums=('6580fb6717154d25230c837ca6150265349171cf2ad670b638c5029e034ba446dd6adb9508c9b667c6ebad1b05357326f7684daa5517df55235a8728c48f419b')

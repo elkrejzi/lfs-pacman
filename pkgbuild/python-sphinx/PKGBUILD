@@ -40,4 +40,4 @@ package_python2-sphinx() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-md5sums=('f9581b3556df9722143c47290273bcf8')
+sha512sums=('67bd2800da6886391a852175db52d9f9115eb71fa0c925d49809f3ca15f58deafb55cc4fc42d83b4c9494b38962a61f33de52c21b4b140ec377f696f4fa7bf7e')

@@ -27,4 +27,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/applications"
 }
 
-md5sums=('e50086e742740413669ab72d8572db05')
+sha512sums=('472cf923abfd40dee296eee2e6888c47f273ad709e1bdcce534bd794cf9f7073ceabd6addf918277e10498e094af5a6e9539b5cf24171577e78bc3b0b2d17b72')

@@ -55,4 +55,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share"
 }
 
-md5sums=('d9984e18fb826fa3bb63457dc90ba14a')
+sha512sums=('15b921c26dbedc7c339a5e1a235255a18b66fa53ac8af6f2d1ad64d939f1fee9817c8f115eac9a417ed0d2f832fb895b29acc61e393c97415447a067ea031be7')

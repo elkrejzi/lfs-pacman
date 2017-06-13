@@ -53,5 +53,5 @@ package() {
 	install -v -m644 ../dist/Linux*/lib/pkgconfig/nss.pc "${pkgdir}/usr/lib/pkgconfig/nss.pc"
 }
 
-md5sums=('4c1204af8372a9a07c6fc7ed5c636f74'
-         'fdce782a63ed66545ebd3a3e33f98fe8')
+sha512sums=('2b56405b32d37cc4386cbbe54462cc57092e47b3418a743adbae14e1825ca69d07256fbfe16c0cfd7540c46cea67259151b42a0d95419c80964015eacdcafea1'
+            'b73ca36624132cf02c279e090b12f00522ec7d7741ed26a17d23d2d93d2944239fa6959af5442dabea4e8004a536143c48345eb53f92d54d3d6ae6e7bb77fd8c')

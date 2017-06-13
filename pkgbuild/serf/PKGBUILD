@@ -28,4 +28,4 @@ package() {
 	scons CC="${CC}" CFLAGS="${CFLAGS}" PREFIX="${pkgdir}/usr" install
 }
 
-md5sums=('370a6340ff20366ab088012cd13f2b57')
+sha512sums=('9f5418d991840a08d293d1ecba70cd9534a207696d002f22dbe62354e7b005955112a0d144a76c89c7f7ad3b4c882e54974441fafa0c09c4aa25c49c021ca75d')

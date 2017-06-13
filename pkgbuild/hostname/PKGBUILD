@@ -20,4 +20,4 @@ package() {
 	make install BASEDIR="${pkgdir}"
 }
 
-md5sums=('c03661d3e6ff449c45546d48e75342cb')
+sha512sums=('1e42adb404479aa3c694658d7ce2e7db125f1b4b74001faef3ac5f2f57b77e8684a03827ed275bfc4145f187924b4c025d78ae29e5f8469b682e6d76345dfde6')
