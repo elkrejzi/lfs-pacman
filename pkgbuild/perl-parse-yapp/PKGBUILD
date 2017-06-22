@@ -1,12 +1,12 @@
 pkgname=perl-parse-yapp
-pkgver=1.05
+pkgver=1.2
 pkgrel=1
 pkgdesc="Perl/CPAN Module Parse::Yapp - Generates OO LALR parser modules"
 arch=('x86_64')
 url="http://search.cpan.org/dist/Parse-Yapp"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/F/FD/FDESAR/Parse-Yapp-${pkgver}.tar.gz")
+source=("http://search.cpan.org/CPAN/authors/id/W/WB/WBRASWELL/Parse-Yapp-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Parse-Yapp-${pkgver}"
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('27375b333bf4358f04354baa1d389b082863e12925bc16425b8b029fa4780a04f6d2e314fd011be4ddcc8dff5f17e9921b257c7a3b1c3cea728220c971bb059b')
+sha512sums=('f421f7130c1e1ddc0699b83c210c266bb14f7bc47a3f14ecfd1b2fe6cc48454eb3dbd9d4a32901b92072e68d07e4acfb3ebcebd133986ac9cbfba70d05b394d6')

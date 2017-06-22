@@ -1,5 +1,5 @@
 pkgname=flashplayer
-pkgver=26.0.0.126
+pkgver=26.0.0.131
 pkgrel=1
 pkgdesc="Adobe Flash Player"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	ln -sfv ../../flashplayer/libflashplayer.so "${pkgdir}/usr/lib/mozilla/plugins/libflashplayer.so"
 }
 
-sha512sums=('11e484b2d5990d5145e040d1f4fe40d109a9f2be688c1f19651f4ce7ea1b9c4f70e7625badeacbb2275f91d5ca5181c36410992363e202f6250a589498770d7f')
+sha512sums=('2f984b75374bba1335e3a3e386d87d1ef4b8c550acd7565d23a73aed0c33d13816c10b32d146e0d4e75481fb2d9b810a1926a66f5e9691da96ea43283711a16b')

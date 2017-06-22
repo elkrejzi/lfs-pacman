@@ -1,5 +1,5 @@
 pkgname=thunderbird
-pkgver=52.1.1
+pkgver=52.2.0
 pkgrel=1
 pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=('x86_64')
@@ -48,9 +48,11 @@ package() {
 	done
 
 	install -v -Dm644 "${srcdir}/thunderbird.desktop" "${pkgdir}/usr/share/applications/thunderbird.desktop"
+
+	sed -i "s#${srcdir}##" "${pkgdir}"/usr/lib/thunderbird/distribution/extensions/*/defaults/preferences/lightning.js
 }
 
-sha512sums=('84b54ae4401c9728c38f32f58e0df24e049471b3613f9973981b305e0ed09b2e8c2c1b5a35d4fee85ce2cf1d6fa99e80418bc216ae0d35d40e9fdeef61a6c06e'
+sha512sums=('e5c2ad5f7bbea4fb9abca94db6c149ee459c1c35b756b7840ee87b5fb631ccbcd323c743a12cddf8d504e0175bb93378beb7fe100b185ea6ab03a4968859ea89'
             '760edafe6079f342dffa755cacd050d0c8f72bef38b972951c58e3d3ab97f665bf202ebb5787692a250c74a3f7f25335af84f38d7191e2e0352b23d93468451a'
             'aeb444784732267f1b1e87e6084a776f82a1912c4c2637d2cf1de1c135dd9d41d2ef66d2bd3f9cbd3a79fad32d17ea6e2968ba644d5f887cb66ba6c09a2098f5'
             'aa9a0c4f3c236f238106747a060c9a740eeb0cc0213cf81c530c0a9d21c18f98b5f4d6602a6add4c3c4520885fcd13402cba26f12d6113d92176ce09007e1a37'

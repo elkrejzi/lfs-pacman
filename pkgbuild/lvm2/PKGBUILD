@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://sourceware.org/lvm2/"
 license=('GPL2' 'LGPL2.1')
 #depends=()
-source=("ftp://sources.redhat.com/pub/lvm2/releases/LVM2.${pkgver}.tgz")
+source=("ftp://sourceware.org/pub/lvm2/releases/LVM2.${pkgver}.tgz")
 
 prepare() {
 	cd "${srcdir}/LVM2.${pkgver}"

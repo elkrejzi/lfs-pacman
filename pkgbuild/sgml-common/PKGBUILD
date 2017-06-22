@@ -7,7 +7,7 @@ url="http://www.docbook.org/xml/"
 license=('GPL')
 #depends=()
 install=sgml-common.install
-source=("ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/sgml-common-${pkgver}.tgz"
+source=("ftp://sourceware.org/pub/docbook-tools/new-trials/SOURCES/sgml-common-${pkgver}.tgz"
 	"sgml-common.patch")
 
 prepare() {

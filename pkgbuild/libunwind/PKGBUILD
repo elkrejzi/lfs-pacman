@@ -1,6 +1,6 @@
 pkgbase=libunwind
 pkgname=('libunwind' 'lib32-libunwind')
-pkgver=1.2
+pkgver=1.2.1
 pkgrel=1
 arch=('x86_64')
 url="http://www.nongnu.org/libunwind/"
@@ -61,4 +61,4 @@ package_lib32-libunwind() {
 	mv dest/usr/include/libunwind-x86.h "${pkgdir}/usr/include"
 }
 
-sha512sums=('985d0817944e3cafd99aaa5642862d878972e0851f7954289247e808c9319f399ca29342395f0571cb6568a1104a82bd92d585936f2ca888dda37ac796fde0d4')
+sha512sums=('af7c280d2a963779a4a2711887618bc96383011e4e5d52e4085aa7fb351e55e357468f6ff85e66a216f1c6826538f498335a917a5970575c93be74c96316319b')

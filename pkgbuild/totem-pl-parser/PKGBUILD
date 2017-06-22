@@ -1,5 +1,5 @@
 pkgname=totem-pl-parser
-pkgver=3.10.7
+pkgver=3.10.8
 pkgrel=1
 pkgdesc="Simple GObject-based library to parse and save a host of playlist formats"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('681ebd61680a4aab3fc4d1d1d158d1d938c0a015f25464169862e0fa3b108af0d0392151a0f4661aa0edafdd7f83ea7f3296dfd01cabdcf3bcac36be488e764e')
+sha512sums=('1692fe6d183838bdfb9125ae2bf9fbf74762333a7ebb6becc755bfdbfb8d2ea1ae257f42aab7b7a1ab419aee2b35902176a731f26736a62015806d1423adae70')

@@ -1,5 +1,5 @@
 pkgname=automake
-pkgver=1.15
+pkgver=1.15.1
 pkgrel=1
 pkgdesc="A GNU tool for automatically creating Makefiles"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('200a13f49a3f492ed27bc2eb615aa2f47e775e470a781f6821cd43e0f7b927d091e690b4a23fe5cc8fa79c48daaa9436be4b968784696c3bdbf1634b456cda47')
+sha512sums=('02f661b2676f1d44334ce1c7188f9913a6874bf46ba487708ad8090ad57905f14aead80fefed815e21effacfbb925e23b944ea7dd32563dca39c1a4174eda688')
