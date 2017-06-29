@@ -1,5 +1,5 @@
 pkgname=webkitgtk
-pkgver=2.16.4
+pkgver=2.16.5
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
@@ -22,20 +22,21 @@ build() {
 
 	CXXFLAGS+=" -w"
 
-	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DPORT=GTK \
 		-DLIB_INSTALL_DIR=/usr/lib \
 		"${srcdir}/webkitgtk-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('9643b40f5425cb6c13daf39cbe66db7103e588c8a6a1822709d1b2d24ddf73662c139337327a403c25678cec96df7e5ccf186c14aca162b6f32b5bc31310709c')
+sha512sums=('9d7573da44267edcd83b4918e5f1e0516eb8d84c58ac6b239a2328448f96b39067b62bcd18e7d730ec0ef44b9f4b0a03712d17f9f465f00346a1f45a0a4ebb10')

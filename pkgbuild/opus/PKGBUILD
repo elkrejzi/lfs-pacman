@@ -1,5 +1,5 @@
 pkgname=opus
-pkgver=1.2
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Totally open, royalty-free, highly versatile audio codec"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1bc8489012923c14fc38577c7b9c78368b627b088be55f6c7a40a825864da5006ec36c65686adbeba7e402fdc6ea793d6f1a6dfd281a2aadd79064ff07091ebc')
+sha512sums=('4a98d0a7dbd1a313e89407576805fd733c1192e8ef7e1137e3260025478a1cf1c5a8b71b48c372a0cffe6340524137fe47f181651888284f8221fb4d673f7cd5')

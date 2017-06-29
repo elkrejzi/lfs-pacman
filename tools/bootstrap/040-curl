@@ -13,10 +13,9 @@ tar xf ${SROOT}/curl-${CURL_VER}.tar.bz2
     ./configure --prefix=/tools            \
                 --with-ssl                 \
                 --enable-threaded-resolver \
-                --disable-shared           \
                 --with-ca-bundle=/tools/etc/ssl/certs/ca-certificates.crt
     make
-    cp -v src/curl /tools/bin
+    make install
   popd
   }
 

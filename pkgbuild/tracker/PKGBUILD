@@ -1,5 +1,5 @@
 pkgname=tracker
-pkgver=1.12.0
+pkgver=1.12.1
 pkgrel=1
 pkgdesc="Desktop-neutral user information store, search tool and indexer"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7c4282f18b08afbda893a6fad8c4851cfd6cd1e4dde214e55bf2fe1c82c992217d57b026da0ad98f0f1b62cbbf3dd4e48e067f4dbcdfbc64039b84a748b3bdb5')
+sha512sums=('a99bc07515d74e2a3b578ddba061060566aad00d8d9579fb726105db66da5374b40222dc23e7323b244a595c856ddb3b6c7ccc6be1a13cbb8669f93d0afd8b59')

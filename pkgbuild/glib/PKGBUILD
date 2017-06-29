@@ -1,6 +1,6 @@
 pkgbase=glib
 pkgname=('glib' 'lib32-glib')
-pkgver=2.52.2
+pkgver=2.52.3
 pkgrel=1
 arch=('x86_64')
 url="http://www.gtk.org/"
@@ -81,7 +81,7 @@ package_lib32-glib() {
 	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
 }
 
-sha512sums=('3ea49b75b6f80d9974ebd3c40518d5aaffffd9d9d008c1ae3302690fa34899b91ae59c87f8235077129bbd8b01ef19211efb89bc7fdb08d0254b07735b1ba92d'
+sha512sums=('a068f2519cfb82de8d4b7f004e7c1f15e841cad4046430a83b02b359d011e0c4077cdff447a1687ed7c68f1a11b4cf66b9ed9fc23ab5f0c7c6be84eb0ddc3017'
             'eb248c6be91b918369d74a21ecfc74a8ad8f77ff46d1ca62b192ad03a9fcadd472b10ccaea0197cbab7ed23d6fd5ff166399de125c151f8a95dd56855854905d'
             '5afd6f275c8fff16df3e685818f2e7989b39ffb3b8f5fc261a5a6d54a9b28ef53af62f3bf5067cf87cb74691572f85730cbc508691956ae048a0f3ecc1a0a39c'
             '1ea3011bbf658c71fce167399775cca4ec7fd6267cbea9dc39555c10636035dd56391208a56c35e84f127ad23fd7126e025ea8e7de9ba5cd6912ac984a8b60af'

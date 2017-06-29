@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf ninja-${NINJA_VER} ${LOGDIR}/ninja-${NINJA_VER}.log
+
+tar xf ${SROOT}/ninja-${NINJA_VER}.tar.gz
+
+{
+
+  time {
+  pushd ninja-${NINJA_VER}
+    python3 ./configure.py --bootstrap
+    cp -v ninja /tools/bin
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/ninja-${NINJA_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf ninja-${NINJA_VER}

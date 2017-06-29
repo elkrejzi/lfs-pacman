@@ -1,0 +1,21 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf meson-${MESON_VER} ${LOGDIR}/meson-${MESON_VER}.log
+
+tar xf ${SROOT}/meson-${MESON_VER}.tar.gz
+
+{
+
+  time {
+  pushd meson-${MESON_VER}
+    python3 setup.py install --root=/ --optimize=1
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/meson-${MESON_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf meson-${MESON_VER}

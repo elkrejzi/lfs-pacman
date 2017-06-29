@@ -1,11 +1,12 @@
 pkgname=gtkmm3
-pkgver=3.22.0
+pkgver=3.22.1
 pkgrel=1
 pkgdesc="C++ bindings for GTK+ 3"
 arch=('x86_64')
 url="http://www.gtkmm.org/"
 license=('LGPL')
 #depends=()
+options=(docs)
 source=("https://download.gnome.org/sources/gtkmm/${pkgver:0:4}/gtkmm-${pkgver}.tar.xz")
 
 build() {
@@ -22,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0bc141ff09bc78697e89c6f071a1411cbc06e015ee664f3a6f9143bdb31793982e09533c8cff6d8c19cc53c4d32a1e5ad016db48141f5cfc21edfb333bf37988')
+sha512sums=('f2a924774c6f4a9a1ec66bde65201fc6b8e17bf48d306ad78bdcabe9a2ce4b8d67c0714b52406534708c1c505efc7ff5a651a1df21531568795202e2717d1eaf')

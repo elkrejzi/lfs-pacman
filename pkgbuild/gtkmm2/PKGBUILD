@@ -6,6 +6,7 @@ arch=('x86_64')
 url="http://www.gtkmm.org/"
 license=('LGPL')
 #depends=()
+options=(docs)
 source=("https://download.gnome.org/sources/gtkmm/${pkgver:0:4}/gtkmm-${pkgver}.tar.xz")
 
 build() {
