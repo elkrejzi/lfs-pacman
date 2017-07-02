@@ -1,5 +1,5 @@
 pkgname=libwnck
-pkgver=3.20.1
+pkgver=3.24.0
 pkgrel=1
 pkgdesc="Library to manage X windows and workspaces (via pagers, tasklists, etc.)"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('68e9ec8795a0c54edfb31299f48daed5b8c8aab9462a38fd6336f88c29cb96cff66bf852a6049fc34c28bd6cab2e5e6863a711b0ce726999ca7f8e9b07f0eaf0')
+sha512sums=('8b89dde4682d140ad39eb31d52de3549cbfee79ddd92d8bc32632aa785932a3300bbcd2f68325df42eac8bdcbaaf01c274e4894c0661fe493543cff6db7a95d1')

@@ -32,7 +32,7 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--enable-gtk-doc \
-		--with-systemdsystemunitdir=/lib/systemd/system
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 	make
 }

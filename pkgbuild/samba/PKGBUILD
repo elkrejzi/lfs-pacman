@@ -41,9 +41,10 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
+		--libdir=/usr/lib \
 		--enable-fhs \
-		--with-lockdir=/var/run/samba \
-		--with-pammodulesdir=/lib/security \
+		--with-lockdir=/run/samba \
+		--with-pammodulesdir=/usr/lib/security \
 		--enable-gnutls \
 		--bundled-libraries=!tdb,!talloc,!pytalloc-util,!tevent,!popt,!ldb,!pyldb-util \
 		--with-shared-modules=${_samba4_idmap_modules},${_samba4_pdb_modules},${_samba4_auth_modules} \
@@ -57,13 +58,11 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	rm -rf "${pkgdir}/var/run"
+	rm -rf "${pkgdir}/run" "${pkgdir}/var/run"
 
-	install -v -dm755 "${pkgdir}/lib" "${pkgdir}/usr/lib/cups/backend"
+	install -v -dm755 "${pkgdir}/usr/lib/cups/backend"
 	install -v -dm1770 -g 97 "${pkgdir}/var/lib/samba/usershares"
 	install -v -dm1777 "${pkgdir}/var/spool/samba"
-
-	mv "${pkgdir}"/usr/lib/libnss_win{bind,s}.so* "${pkgdir}/lib"
 
 	install -v -m644 examples/smb.conf.default "${pkgdir}/etc/samba/smb.conf"
 
@@ -75,12 +74,12 @@ package() {
 	install -v -Dm644 "${srcdir}/samba.sysusers" "${pkgdir}/usr/lib/sysusers.d/samba.conf"
 	install -v -Dm644 "${srcdir}/samba.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/samba.conf"
 
-	install -v -Dm644 "${srcdir}/nmbd.service" "${pkgdir}/lib/systemd/system/nmbd.service"
-	install -v -Dm644 "${srcdir}/smbd.service" "${pkgdir}/lib/systemd/system/smbd.service"
-	install -v -Dm644 "${srcdir}/samba.service" "${pkgdir}/lib/systemd/system/samba.service"
-	install -v -Dm644 "${srcdir}/smbd@.service" "${pkgdir}/lib/systemd/system/smbd@.service"
-	install -v -Dm644 "${srcdir}/smbd.socket" "${pkgdir}/lib/systemd/system/smbd.socket"
-	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/lib/systemd/system/winbindd.service"
+	install -v -Dm644 "${srcdir}/nmbd.service" "${pkgdir}/usr/lib/systemd/system/nmbd.service"
+	install -v -Dm644 "${srcdir}/smbd.service" "${pkgdir}/usr/lib/systemd/system/smbd.service"
+	install -v -Dm644 "${srcdir}/samba.service" "${pkgdir}/usr/lib/systemd/system/samba.service"
+	install -v -Dm644 "${srcdir}/smbd@.service" "${pkgdir}/usr/lib/systemd/system/smbd@.service"
+	install -v -Dm644 "${srcdir}/smbd.socket" "${pkgdir}/usr/lib/systemd/system/smbd.socket"
+	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/usr/lib/systemd/system/winbindd.service"
 }
 
 sha512sums=('045d7288e164a0682e84a6cb1d1811c3469c656f6f2c58f73fa350d611ade689b9a108941ebca482abd7d4a636a95571e2e613fcc7dbdc3c516d6fb370c208cb'

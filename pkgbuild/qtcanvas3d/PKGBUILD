@@ -1,5 +1,5 @@
 pkgname=qtcanvas3d
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="A JavaScript 3D rendering API for Qt Quick"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	make install INSTALL_ROOT="${pkgdir}"
 }
 
-sha512sums=('9e977e28f23574f06e162dcc756ed2fcf700c935a02ef5eab2fd014da02fed0347cac55a92d757a3ad4e478a8955c0c65490068f62d079a3d3d699f84c4487a5')
+sha512sums=('8fd87b6e12df572dbc3b024d94625f775720b448a7c89b9d10d7ea125d479ef8ec945a2eb854971bbc2296ac80b68a64ac07ee168f2ed2ce07d9dffa62d3e2f8')

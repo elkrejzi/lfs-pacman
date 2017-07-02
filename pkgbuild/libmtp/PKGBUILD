@@ -11,7 +11,7 @@ source=("https://downloads.sourceforge.net/libmtp/libmtp-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/libmtp-${pkgver}"
 
-	./configure --prefix=/usr --with-udev=/lib/udev
+	./configure --prefix=/usr --with-udev=/usr/lib/udev
 
 	make
 }

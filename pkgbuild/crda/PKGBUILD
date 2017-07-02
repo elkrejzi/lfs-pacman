@@ -13,12 +13,9 @@ source=("https://www.kernel.org/pub/software/network/crda/crda-${pkgver}.tar.xz"
 prepare() {
 	cd "${srcdir}/crda-${pkgver}"
 
-	sed -i "s:-O2 -fpic:${CFLAGS} -fpic:g" Makefile
-	sed -i "s:-Werror ::g" Makefile
-
-	sed -i "s:regdb.h reglib.h reglib.c:reglib.c:g" Makefile
-
 	patch -Np1 -i "${srcdir}/crda-fixes.patch"
+
+	sed -i "s:-O2 -fpic:${CFLAGS} -fpic:g" Makefile
 }
 
 build() {
@@ -26,19 +23,19 @@ build() {
 
 	unset CFLAGS
 
-	make LIBDIR=/lib/crda REG_BIN=/lib/crda/regulatory.bin RUNTIME_PUBKEY_DIR=/lib/crda/pubkeys RUNTIME_PUBKEY_ONLY=1 V=1
+	make PREFIX=/usr RUNTIME_PUBKEY_ONLY=1
 }
 
 package() {
 	cd "${srcdir}/crda-${pkgver}"
 
-	make install LIBDIR=/lib/crda DESTDIR="${pkgdir}"
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
 
-	echo 'ACTION=="add" SUBSYSTEM=="module", DEVPATH=="/module/cfg80211", RUN+="/lib/crda/set-wireless-regdom"' >> "${pkgdir}/lib/udev/rules.d/85-regulatory.rules"
+	echo 'ACTION=="add" SUBSYSTEM=="module", DEVPATH=="/module/cfg80211", RUN+="/usr/lib/crda/set-wireless-regdom"' >> "${pkgdir}/usr/lib/udev/rules.d/85-regulatory.rules"
 
-	install -Dm755 "${srcdir}/set-wireless-regdom" "${pkgdir}/lib/crda/set-wireless-regdom"
+	install -Dm755 "${srcdir}/set-wireless-regdom" "${pkgdir}/usr/lib/crda/set-wireless-regdom"
 }
 
 sha512sums=('57ae6309159f396448f052c127f401c2f63d47f4193e87dca231c4b7bbbd7e69b5e5666f356fc76dfc8a6ae58ffa55c3794428d6eb34d9937df77c4276036588'
-            '551d7b1877fdf0f9d5766fc8d889db88bae24b6fdb23f9c7389200a5bc36371e9931cbb59267a2410e291bdb55b3fac8e29bea573289eddb133aa79690a0f882'
+            '830476fda4a8b85f14bb9b135f21e880bcac12177a74fdcd71e5ed1ad148e7dd18d121a12a9657344cae03f338b1ecf0ad441e736dce3caac4f1bd1371922cff'
             'ebe61a0ed67bf94276007facab93e95993ddf609ae35aba7e16334e38cae6ce5cb729342cacfb7517ee4e79cec20ba8ccf273379061aaa2fda6551411d2b5b57')

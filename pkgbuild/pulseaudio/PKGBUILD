@@ -36,7 +36,7 @@ build() {
 		--disable-rpath \
 		--disable-samplerate \
 		--with-module-dir=/usr/lib/pulse/modules \
-		--with-udev-rules-dir=/lib/udev/rules.d
+		--with-udev-rules-dir=/usr/lib/udev/rules.d
 
 	cd "${srcdir}/pulseaudio32-${pkgver}"
 
@@ -52,7 +52,7 @@ build() {
 		--disable-rpath \
 		--disable-samplerate \
 		--with-module-dir=/usr/lib/pulse/modules \
-		--with-udev-rules-dir=/lib/udev/rules.d
+		--with-udev-rules-dir=/usr/lib/udev/rules.d
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH

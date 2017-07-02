@@ -16,7 +16,6 @@ build() {
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--sbindir=/sbin \
 		--enable-watch8bit
 
 	make
@@ -27,14 +26,9 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/lib" "${pkgdir}/usr/lib/sysctl.d"
+	install -v -dm755 "${pkgdir}/usr/lib/sysctl.d"
 
 	install -v -m644 "${srcdir}/99-procps.conf" "${pkgdir}/usr/lib/sysctl.d"
-
-	mv -v "${pkgdir}"/usr/bin/{kill,pidof,ps} "${pkgdir}/bin"
-
-	mv -v "${pkgdir}"/usr/lib/libprocps.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libprocps.so") "${pkgdir}/usr/lib/libprocps.so"
 }
 
 sha512sums=('ea816740ff72cc53d99b5d2e78a511b627ea5b295e0efff67605c56d1ab075abc6b0e2da3df4facbfe903fc9d679e892d351b6884a966d37c6f4bfd9141a924b'

@@ -12,11 +12,7 @@ source=("https://github.com/libfuse/libfuse/releases/download/fuse-${pkgver}/fus
 build() {
 	cd "${srcdir}/fuse-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		MOUNT_FUSE_PATH=/sbin \
-		UDEV_RULES_PATH=/lib/udev/rules.d
-
+	./configure --prefix=/usr --sysconfdir=/etc
 	make
 }
 
@@ -29,11 +25,6 @@ package() {
 
 	rm -rf "${pkgdir}/dev" "${pkgdir}/etc/init.d"
 	mv "${pkgdir}"/usr/share/man/man8/mount.fuse{,3}.8
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libfuse3.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse3.so") "${pkgdir}/usr/lib/libfuse3.so"
 }
 
 sha512sums=('1eced537670dd2337e7df316c9ef7afd70e81af57a39340ac405ed76ec6b2f0da8d7427dab10ed09a6d6eac55984a7dbbe49b93836b733a53c4fd8f3f30aba9f'

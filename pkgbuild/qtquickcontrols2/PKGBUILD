@@ -1,5 +1,5 @@
 pkgname=qtquickcontrols2
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Next generation user interface controls based on Qt Quick"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('b17717cd0df10f76f11cd5bde5b3fcb5aed9f1169950dd17f2492f62d54bf78a7ecfd3885e8480356fd25b63193dd0b18763b398aa2bdec52f79d903e7ad965b')
+sha512sums=('277a56adde27f2552cdc392f9c1f312104887624c0ecc6b3e465b61d17f01ea63bd9bcff45e00903dc3b53e6bcb211ac41fd28702fa72f48db35dfacc2d072e4')

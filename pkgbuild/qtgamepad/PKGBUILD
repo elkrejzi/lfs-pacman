@@ -1,5 +1,5 @@
 pkgname=qtgamepad
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Adds support for getting events from gamepad devices"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('a25d02b8536dba2185b2065a4af48ab50edaa3ab9e9e96e2f4f6428103a603e40224bdf9ab3035670dec59682dd8fb023871896c3f9f3797872047f74547b15b')
+sha512sums=('88873973de39750a8cb03cdba88bddca7e743d785a7c8ac04e282879acff1bb65664c48d22beca338d466ba99e5bde70e66cf8876bff52a8953e9d7fad3f4a5e')

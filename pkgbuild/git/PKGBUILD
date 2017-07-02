@@ -45,8 +45,8 @@ package() {
 	install -v -Dm755 contrib/credential/libsecret/git-credential-libsecret \
 		"${pkgdir}/usr/libexec/git-core/git-credential-libsecret"
 
-	install -v -Dm644 "${srcdir}/git-daemon@.service" "${pkgdir}/lib/systemd/system/git-daemon@.service"
-	install -v -Dm644 "${srcdir}/git-daemon.socket" "${pkgdir}/lib/systemd/system/git-daemon.socket"
+	install -v -Dm644 "${srcdir}/git-daemon@.service" "${pkgdir}/usr/lib/systemd/system/git-daemon@.service"
+	install -v -Dm644 "${srcdir}/git-daemon.socket" "${pkgdir}/usr/lib/systemd/system/git-daemon.socket"
 
 	install -v -Dm644 "${srcdir}/git.sysusers" "${pkgdir}/usr/lib/sysusers.d/git.conf"
 

@@ -16,7 +16,7 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--disable-schemas-compile \
-		--with-pam-dir=/lib/security
+		--with-pam-dir=/usr/lib/security
 
 	make
 }

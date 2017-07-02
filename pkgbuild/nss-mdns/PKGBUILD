@@ -11,7 +11,7 @@ source=("http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-${pkgver}.tar.gz"
 build() {
 	cd "${srcdir}/nss-mdns-${pkgver}"
 
-	./configure --prefix=
+	./configure --prefix=/usr
 
 	make
 }

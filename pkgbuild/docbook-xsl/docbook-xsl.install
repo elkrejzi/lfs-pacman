@@ -4,16 +4,6 @@ post_install() {
 	fi
 
 	xmlcatalog --noout --add "rewriteSystem" \
-		"http://docbook.sourceforge.net/release/xsl/${_NEW}" \
-		"/usr/share/xml/docbook/xsl-stylesheets-current" \
-		/etc/xml/catalog
-
-	xmlcatalog --noout --add "rewriteURI" \
-		"http://docbook.sourceforge.net/release/xsl/${_NEW}" \
-		"/usr/share/xml/docbook/xsl-stylesheets-current" \
-		/etc/xml/catalog
-
-	xmlcatalog --noout --add "rewriteSystem" \
 		"http://docbook.sourceforge.net/release/xsl/current" \
 		"/usr/share/xml/docbook/xsl-stylesheets-current" \
 		/etc/xml/catalog
@@ -24,6 +14,14 @@ post_install() {
 		/etc/xml/catalog
 }
 
-post_remove() {
+post_upgrade() {
+	post_install
+}
+
+pre_remove() {
 	xmlcatalog --noout --del "/usr/share/xml/docbook/xsl-stylesheets-current" /etc/xml/catalog
+}
+
+pre_upgrade() {
+	pre_remove
 }

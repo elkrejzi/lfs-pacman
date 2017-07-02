@@ -32,11 +32,11 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -Dm644 "${srcdir}/man-db.timer" "${pkgdir}/lib/systemd/system/man-db.timer"
-	install -v -Dm644 "${srcdir}/man-db.service" "${pkgdir}/lib/systemd/system/man-db.service"
+	install -v -Dm644 "${srcdir}/man-db.timer" "${pkgdir}/usr/lib/systemd/system/man-db.timer"
+	install -v -Dm644 "${srcdir}/man-db.service" "${pkgdir}/usr/lib/systemd/system/man-db.service"
 
-	install -v -dm755 "${pkgdir}/lib/systemd/system/multi-user.target.wants"
-	ln -sfv ../man-db.timer "${pkgdir}/lib/systemd/system/multi-user.target.wants/man-db.timer"
+	install -v -dm755 "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants"
+	ln -sfv ../man-db.timer "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/man-db.timer"
 
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }

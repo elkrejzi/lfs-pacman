@@ -11,15 +11,22 @@ source=("https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver:0:4}/util-l
 build() {
 	cd "${srcdir}/util-linux-${pkgver}"
 
-	./configure --enable-mesg \
+	./configure --prefix=/usr \
+		--bindir=/usr/bin \
+		--libdir=/usr/lib \
+		--sbindir=/usr/sbin \
+		--enable-mesg \
 		--disable-nologin \
 		--disable-chfn-chsh \
 		--disable-su \
 		--disable-login \
 		--disable-kill \
+		--with-audit \
 		--with-selinux \
 		--with-systemd \
-		--with-systemdsystemunitdir=/lib/systemd/system
+		--enable-fs-paths-default=/usr/sbin \
+		--with-systemdsystemunitdir=/usr/lib/systemd/system \
+		PYTHON=/usr/bin/python3
 
 	make
 }
@@ -29,10 +36,10 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	rm -rf "${pkgdir}"/lib/*.so* "${pkgdir}"/usr/lib/*.so* "${pkgdir}"/usr/lib/*.a
+	rm -rf "${pkgdir}"/usr/lib/*.so* "${pkgdir}"/usr/lib/*.a
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 
-	rm -rf "${pkgdir}"/bin/{mount,umount}
+	rm -rf "${pkgdir}"/usr/bin/{mount,umount}
 	rm -rf "${pkgdir}"/usr/share/man/man8/{mount,umount}.8
 	rm -rf "${pkgdir}/usr/share/man/man5/fstab.5"
 }

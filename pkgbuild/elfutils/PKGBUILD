@@ -41,14 +41,6 @@ package_elfutils() {
 	cd "${srcdir}/elfutils-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libdw.so.* "${pkgdir}"/usr/lib/libdw-*.so "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libdw.so") "${pkgdir}/usr/lib/libdw.so"
-
-	mv -v "${pkgdir}"/usr/lib/libelf.so.* "${pkgdir}"/usr/lib/libelf-*.so "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libelf.so") "${pkgdir}/usr/lib/libelf.so"
 }
 
 package_lib32-elfutils() {

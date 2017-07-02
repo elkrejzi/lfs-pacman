@@ -46,11 +46,6 @@ package_attr() {
 	make install install-lib install-dev DIST_ROOT="${pkgdir}"
 
 	chmod -v 755 "${pkgdir}/usr/lib/libattr.so"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libattr.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libattr.so") "${pkgdir}/usr/lib/libattr.so"
 }
 
 package_lib32-attr() {

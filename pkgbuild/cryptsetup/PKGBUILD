@@ -20,11 +20,6 @@ package() {
 	cd "${srcdir}/cryptsetup-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libcryptsetup.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcryptsetup.so") "${pkgdir}/usr/lib/libcryptsetup.so"
 }
 
 sha512sums=('d473f7b06d705a3868a70f3767fafc664436b5897ba59025ea1268f815cb80a9076841ff9ff96cc130fb83ba18b03c1eee38cfaf1b471fdd883a3e126b771439')

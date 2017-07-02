@@ -35,7 +35,7 @@ package_libselinux() {
 
 	cd "${srcdir}/libselinux-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install DESTDIR="${pkgdir}" SHLIBDIR="${pkgdir}/usr/lib"
 
 	install -v -Dm644 "${srcdir}/libselinux.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/libselinux.conf"
 }

@@ -21,7 +21,7 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--libdir=/usr/lib \
-		--enable-securedir=/lib/security \
+		--sbindir=/usr/sbin \
 		--disable-regenerate-docu
 
 	make
@@ -41,13 +41,7 @@ package() {
 	install -v -m644 "${srcdir}/system-password" "${pkgdir}/etc/pam.d"
 	install -v -m644 "${srcdir}/system-session" "${pkgdir}/etc/pam.d"
 
-	chmod 4755 "${pkgdir}/sbin/unix_chkpwd"
-
-	for file in pam pam_misc pamc
-	do
-		mv -v "${pkgdir}"/usr/lib/lib${file}.so.* "${pkgdir}/lib"
-		ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/lib${file}.so") "${pkgdir}/usr/lib/lib${file}.so"
-	done
+	chmod 4755 "${pkgdir}/usr/sbin/unix_chkpwd"
 
 	rm -rf "${pkgdir}/var"
 }

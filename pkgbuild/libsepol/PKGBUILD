@@ -18,7 +18,7 @@ build() {
 package() {
 	cd "${srcdir}/libsepol-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install DESTDIR="${pkgdir}" SHLIBDIR="${pkgdir}/usr/lib"
 }
 
 sha512sums=('17d007857634e3d581fcc9bafcbb75674a06e382bb258c2c6b3656c141d71493699c42b78c8e1917c628476aeb8ead73bb86e8ccf43d7ce59aa0b7884bea132a')

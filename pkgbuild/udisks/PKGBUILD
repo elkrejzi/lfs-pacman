@@ -23,8 +23,6 @@ package() {
 	cd "${srcdir}/udisks-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	mv "${pkgdir}/usr/sbin" "${pkgdir}"
 }
 
 sha512sums=('b04c6c2e40f052a83243f245f60446ef1664e528ee1554f777e89e3eefbcf26dac37ad5db8f255fd7cc2c1cae2813a33c7d51bbca062436785471e69456ffe20')

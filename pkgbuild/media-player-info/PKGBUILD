@@ -11,7 +11,7 @@ source=("https://www.freedesktop.org/software/media-player-info/media-player-inf
 build() {
 	cd "${srcdir}/media-player-info-${pkgver}"
 
-	./configure --prefix=/usr --with-udevdir=/lib/udev
+	./configure --prefix=/usr --with-udevdir=/usr/lib/udev
 
 	make
 }

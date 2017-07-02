@@ -60,7 +60,7 @@ package() {
 	install -dm755 "${pkgdir}/etc/openldap/slapd.d" "${pkgdir}/var/lib/openldap"
 
 	install -v -Dm644 "${srcdir}/slapd.default" "${pkgdir}/etc/default/slapd"
-	install -v -Dm644 "${srcdir}/slapd.service" "${pkgdir}/lib/systemd/system/slapd.service"
+	install -v -Dm644 "${srcdir}/slapd.service" "${pkgdir}/usr/lib/systemd/system/slapd.service"
 
 	install -v -Dm644 "${srcdir}/slapd.sysusers" "${pkgdir}/usr/lib/sysusers.d/slapd.conf"
 	install -v -Dm644 "${srcdir}/slapd.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/slapd.conf"

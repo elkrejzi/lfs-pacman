@@ -11,9 +11,7 @@ source=("https://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-${pkgver}
 build() {
 	cd "${srcdir}/xf86-input-wacom-${pkgver}"
 
-	./configure --prefix=/usr \
-		--with-udev-rules-dir=/lib/udev/rules.d \
-		--with-systemd-unit-dir=/lib/systemd/system
+	./configure --prefix=/usr
 
 	make
 }

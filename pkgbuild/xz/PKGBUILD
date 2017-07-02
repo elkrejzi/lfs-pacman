@@ -40,13 +40,6 @@ package_xz() {
 	cd "${srcdir}/xz-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/liblzma.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/liblzma.so") "${pkgdir}/usr/lib/liblzma.so"
-
-	mv -v "${pkgdir}"/usr/bin/{lzcat,lzma,unlzma,unxz,xz,xzcat} "${pkgdir}/bin"
 }
 
 package_lib32-xz() {

@@ -1,5 +1,5 @@
 pkgname=filesystem
-pkgver=1
+pkgver=2
 pkgrel=1
 pkgdesc="Base file system"
 arch=('x86_64')
@@ -40,8 +40,7 @@ package() {
 	install -dm755 "${pkgdir}"/{boot,dev,home,media,mnt,opt,proc,srv,sys}
 	install -dm755 "${pkgdir}"/etc/{ld.so.conf.d,opt,profile.d} "${pkgdir}/run/lock"
 
-	install -dm755 "${pkgdir}"/{,usr/}{bin,lib,lib32,sbin}
-	install -dm755 "${pkgdir}"/usr/local/{bin,lib,sbin}
+	install -dm755 "${pkgdir}"/usr/{,local}/{bin,lib,sbin}
 
 	install -dm755 "${pkgdir}"/usr/{,local/}{include,libexec,src}
 	install -dm755 "${pkgdir}"/usr/{,local/}share/{color,dict,doc,info,locale,misc}
@@ -50,7 +49,15 @@ package() {
 	install -dm755 "${pkgdir}"/var/{cache,local,log,mail,opt,spool}
 	install -dm755 "${pkgdir}"/var/lib/{color,locate,misc}
 
-	ln -sf lib "${pkgdir}/lib64"
+	install -dm755 "${pkgdir}/usr/lib32"
+
+	ln -sf usr/bin "${pkgdir}/bin"
+	ln -sf usr/sbin "${pkgdir}/sbin"
+
+	ln -sf usr/lib "${pkgdir}/lib"
+	ln -sf usr/lib "${pkgdir}/lib64"
+
+	ln -sf usr/lib32 "${pkgdir}/lib32"
 
 	ln -sf ../run "${pkgdir}/var/run"
 	ln -sf ../run/lock "${pkgdir}/var/lock"

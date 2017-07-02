@@ -13,8 +13,6 @@ build() {
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--bindir=/bin \
-		--with-rootlibdir=/lib \
 		--with-xz \
 		--with-zlib
 
@@ -26,14 +24,14 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/sbin"
+	install -v -dm755 "${pkgdir}/usr/sbin"
 
 	for file in depmod insmod lsmod modinfo modprobe rmmod
 	do
-		ln -sfv ../bin/kmod "${pkgdir}/sbin/${file}"
+		ln -sfv ../bin/kmod "${pkgdir}/usr/sbin/${file}"
 	done
 
-	ln -sfv kmod "${pkgdir}/bin/lsmod"
+	ln -sfv kmod "${pkgdir}/usr/bin/lsmod"
 }
 
 sha512sums=('58c8da100418b6325de1595bceee4115cbdd7151d03a028c0b1f6d5d3e6611c667e27f3a0245d29781125581849fd1e854fa8d87b63c4b8fa3f196d0a97e1779')

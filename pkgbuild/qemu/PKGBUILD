@@ -48,7 +48,7 @@ package() {
 		rm -f "${pkgdir}/usr/share/qemu/${f}"
 	done
 
-	install -v -Dm644 "${srcdir}/65-kvm.rules" "${pkgdir}/lib/udev/rules.d/65-kvm.rules"
+	install -v -Dm644 "${srcdir}/65-kvm.rules" "${pkgdir}/usr/lib/udev/rules.d/65-kvm.rules"
 	install -v -Dm644 "${srcdir}/qemu.sysusers" "${pkgdir}/usr/lib/sysusers.d/qemu.conf"
 }
 

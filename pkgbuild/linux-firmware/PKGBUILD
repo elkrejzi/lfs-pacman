@@ -35,10 +35,10 @@ done
 package() {
 	for ff in ${firmwares[@]}
 	do
-		install -v -Dm644 "${srcdir}"/$(basename ${ff}) "${pkgdir}/lib/firmware/${ff}"
+		install -v -Dm644 "${srcdir}"/$(basename ${ff}) "${pkgdir}/usr/lib/firmware/${ff}"
 	done
 
-	mv "${pkgdir}/lib/firmware/intel/dsp_fw_release_v969.bin" "${pkgdir}/lib/firmware/intel/dsp_fw_release.bin"
+	mv "${pkgdir}/usr/lib/firmware/intel/dsp_fw_release_v969.bin" "${pkgdir}/usr/lib/firmware/intel/dsp_fw_release.bin"
 }
 
 sha512sums=('252f62c4a263e9697d3ed4dc67af15a88da4e25b2641fa592e15c9f4529a3ae4e605f784ce2e6db765fe2aa0699f8ba967ee4ee94978db95c34b9dca301d951c'

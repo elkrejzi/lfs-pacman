@@ -15,7 +15,6 @@ build() {
 	cd "${srcdir}/dmraid/${_pkgver}/dmraid"
 
 	./configure --prefix=/usr \
-		--exec-prefix= \
 		--enable-led \
 		--enable-intel_led \
 		--enable-shared_lib
@@ -28,7 +27,7 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -Dm644 "${srcdir}/dmraid.service" "${pkgdir}/lib/systemd/system/dmraid.service"
+	install -v -Dm644 "${srcdir}/dmraid.service" "${pkgdir}/usr/lib/systemd/system/dmraid.service"
 	install -v -Dm644 "${srcdir}/dmraid.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/dmraid.conf"
 }
 

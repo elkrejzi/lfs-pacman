@@ -58,7 +58,7 @@ package() {
 	install -v -Dm755 distro/ipv6-up.d.iface-config.sh "${pkgdir}/etc/ppp/ipv6-up.d/00-iface-config.sh"
 
 	install -v -Dm644 distro/options     "${pkgdir}/etc/ppp/options"
-	install -v -Dm644 distro/ppp.systemd "${pkgdir}/lib/systemd/system/ppp@.service"
+	install -v -Dm644 distro/ppp.systemd "${pkgdir}/usr/lib/systemd/system/ppp@.service"
 }
 
 sha512sums=('e34ce24020af6a73e7a26c83c4f73a9c83fa455b7b363794dba27bf01f70368be06bff779777843949bd77f4bc9385d6ad455ea48bf8fff4e0d73cc8fef16ae2'

@@ -15,7 +15,7 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--disable-python-bindings \
-		--with-securedir=/lib/security
+		--with-securedir=/usr/lib/security
 
 	make
 }

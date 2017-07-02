@@ -20,9 +20,6 @@ package() {
 	cd "${srcdir}/psmisc-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/bin"
-	mv -v "${pkgdir}"/usr/bin/{fuser,killall} "${pkgdir}/bin"
 }
 
 sha512sums=('f678869ea555986a2538ada9630b74ce79304f3ee85cc9d69a3912d8d30ad491829eac0dcb69aae7003ee9b5de9645d2135b80a9e0b77824e60c417dc0be5f95')

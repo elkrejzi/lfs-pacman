@@ -6,6 +6,7 @@ pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
+options=(!strip)
 source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz"
 	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
 	"linux-march-native.patch"
@@ -41,10 +42,12 @@ package_linux() {
 	install -v -Dm644 System.map "${pkgdir}/boot/System.map"
 	install -v -Dm644 arch/x86/boot/bzImage "${pkgdir}/boot/vmlinuz"
 
-	make modules_install INSTALL_MOD_PATH="${pkgdir}"
+	make modules_install INSTALL_MOD_PATH="${pkgdir}/usr"
 
-	rm -rf "${pkgdir}/lib/firmware"
-	rm -rf "${pkgdir}"/lib/modules/${_kernver}/{build,source}
+	rm -rf "${pkgdir}/usr/lib/firmware"
+	rm -rf "${pkgdir}"/usr/lib/modules/${_kernver}/{build,source}
+
+	/usr/sbin/depmod -b "${pkgdir}/usr" ${pkgver}-krejzi
 }
 
 package_linux-headers() {
@@ -55,10 +58,10 @@ package_linux-headers() {
 	export _kernver=$(make kernelrelease)
 	export _hdrdir=${pkgdir}/usr/src/linux-headers-${_kernver}
 
-	install -v -dm755 "${pkgdir}/lib/modules/${_kernver}"
+	install -v -dm755 "${pkgdir}/usr/lib/modules/${_kernver}"
 
-	ln -sfv /usr/src/linux-headers-${_kernver} "${pkgdir}/lib/modules/${_kernver}/build"
-	ln -sfv /usr/src/linux-headers-${_kernver} "${pkgdir}/lib/modules/${_kernver}/source"
+	ln -sfv /usr/src/linux-headers-${_kernver} "${pkgdir}/usr/lib/modules/${_kernver}/build"
+	ln -sfv /usr/src/linux-headers-${_kernver} "${pkgdir}/usr/lib/modules/${_kernver}/source"
 
 	install -v -dm755 "${_hdrdir}/arch/x86/kernel"
 	install -v -dm755 "${_hdrdir}"/scripts/{basic,genksyms,kconfig,mod}

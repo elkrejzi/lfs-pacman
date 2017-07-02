@@ -26,15 +26,15 @@ build() {
 package() {
 	cd "${srcdir}/iputils-s${pkgver}"
 
-	install -v -Dm755 ping "${pkgdir}/bin/ping"
-	install -v -Dm755 arping "${pkgdir}/sbin/arping"
+	install -v -Dm755 ping "${pkgdir}/usr/bin/ping"
+	install -v -Dm755 arping "${pkgdir}/usr/sbin/arping"
 	install -v -Dm755 tracepath "${pkgdir}/usr/bin/tracepath"
 
 	install -v -dm755 "${pkgdir}/usr/share/man/man8"
 	install -v -m644 doc/arping.8 doc/tracepath.8 doc/ping.8 "${pkgdir}/usr/share/man/man8"
 
 	# compat symlinks
-	ln -sfv ping "${pkgdir}/bin/ping6"
+	ln -sfv ping "${pkgdir}/usr/bin/ping6"
 	ln -sfv ping.8 "${pkgdir}/usr/share/man/man8/ping6.8"
 
 	ln -sfv tracepath "${pkgdir}/usr/bin/tracepath6"

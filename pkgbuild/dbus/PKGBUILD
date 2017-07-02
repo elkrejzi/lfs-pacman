@@ -1,6 +1,6 @@
 pkgbase=dbus
 pkgname=('dbus' 'lib32-dbus')
-pkgver=1.10.18
+pkgver=1.10.20
 pkgrel=1
 arch=('x86_64')
 url="https://wiki.freedesktop.org/www/Software/dbus/"
@@ -22,7 +22,7 @@ build() {
 		--enable-systemd \
 		--enable-user-session \
 		--with-console-auth-dir=/run/console/ \
-		--with-systemdsystemunitdir=/lib/systemd/system
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 	cd "${srcdir}/dbus32-${pkgver}"
 
@@ -37,7 +37,7 @@ build() {
 		--enable-systemd \
 		--enable-user-session \
 		--with-console-auth-dir=/run/console/ \
-		--with-systemdsystemunitdir=/lib/systemd/system
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -57,11 +57,6 @@ package_dbus() {
 
 	rm -rf "${pkgdir}/var/run"
 
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libdbus-1.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libdbus-1.so") "${pkgdir}/usr/lib/libdbus-1.so"
-
 	ln -sfv /etc/machine-id "${pkgdir}/var/lib/dbus"
 }
 
@@ -76,4 +71,4 @@ package_lib32-dbus() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('726f97d0a2016f4f0625ba332e93e2d33bb16857cd35cb6c79da0f44fff297df948c3df62c31ffbec34713a7b85b3ff5b65f31517fe3511ddbd3bf18bd4748ed')
+sha512sums=('0e43866b56d6ae4a5d885044793573908ce95b4dd84822292efa87f5eb0dec3d09adf58af0574ca41259b16c3d70476ef956b6c8aa3bf9ca7461e6196be71daf')

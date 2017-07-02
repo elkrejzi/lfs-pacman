@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/ed/ed-${pkgver}.tar.lz")
 build() {
 	cd "${srcdir}/ed-${pkgver}"
 
-	./configure --prefix=/usr --bindir=/bin CFLAGS="${CFLAGS}" CC="${CC}"
+	./configure --prefix=/usr CFLAGS="${CFLAGS}" CC="${CC}"
 
 	make
 }

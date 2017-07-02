@@ -25,17 +25,17 @@ package() {
 	rm -rf "${pkgdir}/usr/include/gphoto2/gphoto2" "${pkgdir}/usr/lib/udev" \
 	rm -rf "${pkgdir}"/usr/lib/*.la
 
-	install -v -dm755 ${pkgdir}/lib/udev/hwdb.d ${pkgdir}/lib/udev/rules.d
+	install -v -dm755 ${pkgdir}/usr/lib/udev/hwdb.d ${pkgdir}/usr/lib/udev/rules.d
 
 	LD_LIBRARY_PATH="${pkgdir}"/usr/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
 	CAMLIBS="${pkgdir}/usr/lib/libgphoto2/${pkgver}" \
 		"${pkgdir}/usr/lib/libgphoto2/print-camera-list" hwdb > \
-		"${pkgdir}/lib/udev/hwdb.d/20-gphoto2.hwdb"
+		"${pkgdir}/usr/lib/udev/hwdb.d/20-gphoto2.hwdb"
 
 	LD_LIBRARY_PATH="${pkgdir}"/usr/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
 	CAMLIBS="${pkgdir}/usr/lib/libgphoto2/${pkgver}" \
 		"${pkgdir}/usr/lib/libgphoto2/print-camera-list" udev-rules version 201 > \
-		"${pkgdir}/lib/udev/rules.d/40-gphoto.rules"
+		"${pkgdir}/usr/lib/udev/rules.d/40-gphoto.rules"
 }
 
 sha512sums=('6dd75700e2b2afdf87f7eab4c62fbbe2c42f9154d644edfae25e3d5fbe5ed0894be832cc1367933fc6c113a1cc379d1956fecf108d6ee240935b9d7e2f614688')

@@ -42,11 +42,6 @@ package_libgcrypt() {
 	cd "${srcdir}/libgcrypt-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libgcrypt.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libgcrypt.so") "${pkgdir}/usr/lib/libgcrypt.so"
 }
 
 package_lib32-libgcrypt() {

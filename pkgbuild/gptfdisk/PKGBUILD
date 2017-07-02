@@ -23,8 +23,8 @@ build() {
 package() {
 	cd "${srcdir}/gptfdisk-${pkgver}"
 
-	install -v -dm755 "${pkgdir}/sbin" "${pkgdir}/usr/share/man/man8"
-	install -v -t "${pkgdir}/sbin" cgdisk fixparts gdisk sgdisk
+	install -v -dm755 "${pkgdir}/usr/sbin" "${pkgdir}/usr/share/man/man8"
+	install -v -t "${pkgdir}/usr/sbin" cgdisk fixparts gdisk sgdisk
 	install -v -t "${pkgdir}/usr/share/man/man8" *.8
 }
 

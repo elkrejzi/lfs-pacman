@@ -23,10 +23,7 @@ build() {
 package() {
 	cd "${srcdir}/xfsprogs-${pkgver}"
 
-	make -j1 install install-dev DESTDIR="${pkgdir}"
-
-	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libhandle.so") "${pkgdir}/usr/lib/libhandle.so"
-	rm -rf "${pkgdir}/lib/libhandle.a" "${pkgdir}/lib/libhandle.so"
+	make -j1 install install-dev DESTDIR="${pkgdir}" PKG_ROOT_LIB_DIR=/usr/lib PKG_ROOT_SBIN_DIR=/usr/sbin
 }
 
 sha512sums=('2db59553e4442c999a718ccf712b01de80b1e3acd1c3e5f9f7f5dc59e6c9180aa1a42085363303fe454d441bc2f886e118fc2958320afa49c7a8886fcfb5d72c')

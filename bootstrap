@@ -34,25 +34,22 @@ rm -rf ${LFS}/{dev,etc,proc}
 
 lfs_pacman_install_temp filesystem
 
-ln -sf /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} ${LFS}/bin
-ln -sf /tools/bin/{install,perl} ${LFS}/usr/bin
+ln -sf /tools/bin/{bash,cat,dd,echo,install} ${LFS}/usr/bin
+ln -sf /tools/bin/{ln,perl,pwd,rm,stty} ${LFS}/usr/bin
 
-ln -sf /tools/lib/libgcc_s.so ${LFS}/usr/lib
-ln -sf /tools/lib/libgcc_s.so.1 ${LFS}/lib
-
+ln -sf /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib
-ln -sf /tools/lib32/libgcc_s.so{,.1} ${LFS}/usr/lib32
-ln -sf /tools/lib32/libstdc++.so{,.6} ${LFS}/usr/lib32
-
 ln -sf /tools/lib/libc++.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libc++abi.so{,.1} ${LFS}/usr/lib
+ln -sf /tools/lib/libomp.so ${LFS}/usr/lib
+
+ln -sf /tools/lib32/libgcc_s.so{,.1} ${LFS}/usr/lib32
+ln -sf /tools/lib32/libstdc++.so{,.6} ${LFS}/usr/lib32
 ln -sf /tools/lib32/libc++.so{,.1} ${LFS}/usr/lib32
 ln -sf /tools/lib32/libc++abi.so{,.1} ${LFS}/usr/lib32
-
-ln -sf /tools/lib/libomp.so ${LFS}/usr/lib
 ln -sf /tools/lib32/libomp.so ${LFS}/usr/lib32
 
-ln -sf bash ${LFS}/bin/sh
+ln -sf bash ${LFS}/usr/bin/sh
 
 cp -L /etc/resolv.conf ${LFS}/etc/resolv.conf
 

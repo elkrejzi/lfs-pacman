@@ -1,5 +1,5 @@
 pkgname=firefox
-pkgver=54.0
+pkgver=54.0.1
 pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org"
 arch=('x86_64')
@@ -55,7 +55,7 @@ package() {
 	install -v -Dm644 "${srcdir}/firefox.desktop" "${pkgdir}/usr/share/applications/firefox.desktop"
 }
 
-sha512sums=('0ff6960804e7f6d3e15faeb14b237fee45acae31b4652a6cc5cafa1a1b1eab3537616c3e8ea6d8f3109c87dcc8f86f0df3da2627903b80061c8a62fb11598ed9'
+sha512sums=('43607c2c0af995a21dc7f0f68b24b7e5bdb3faa5ee06025901c826bfe4d169256ea1c9eb5fcc604c4d6426ced53e80787c12fc07cda014eca09199ef3df783a2'
             '0a534d59ac99d3a1e7d4d8b96cb002c3320f6eacf38ee0ba854a9e018a67970cc3bc9cb14a560fd3c1de810d5df10e641be71165ab9de5c8f1d56a2a92124081'
             'e46c15e864eeba68852b9b63917ece651d2f57835ba5978fdae8fff21e38c5a512723744b73578117332720b33e2c338f4bd78fbc2c6967229dfeceb1e0a7877'
             '9236c08c414d11493a6b986d018b4a6855af7824cc2d21525f33fb63c7bcfd2883e7e083ac92aa83d0ebe4930cbffba14be645ecb2c75e4b960eb62ad9b8b7ae')

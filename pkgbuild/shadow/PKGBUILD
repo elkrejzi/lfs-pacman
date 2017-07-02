@@ -31,6 +31,8 @@ build() {
 	cd "${srcdir}/shadow-${pkgver}"
 
 	./configure --prefix=/usr \
+		--bindir=/usr/bin \
+		--sbindir=/usr/sbin \
 		--sysconfdir=/etc \
 		--with-selinux \
 		--with-group-name-max-length=32

@@ -116,8 +116,7 @@ package_gcc() {
 	install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
  	ln -sfv ../../libexec/gcc/${_gccarch}/${_gccver}/liblto_plugin.so "${pkgdir}/usr/lib/bfd-plugins/"
 
-	install -v -dm755 "${pkgdir}/lib"
-	ln -sfv ../usr/bin/cpp "${pkgdir}/lib/cpp"
+	ln -sfv ../bin/cpp "${pkgdir}/usr/lib/cpp"
 
 	pushd "${pkgdir}/usr/bin"
 		ln -f gcc cc
@@ -155,10 +154,7 @@ package_gcc-libs() {
 
 	make -C ${_gccarch}/libstdc++-v3/po install DESTDIR="${pkgdir}"
 
-	mv -v "${pkgdir}/usr/lib/libgcc_s.so.1" "${pkgdir}/lib"
-	sed -i "s#libgcc_s.so.1#../../lib/&#g" "${pkgdir}/usr/lib/libgcc_s.so"
-
-	chmod -v 755 "${pkgdir}/lib/libgcc_s.so.1"
+	chmod -v 755 "${pkgdir}/usr/lib/libgcc_s.so.1"
 }
 
 package_lib32-gcc-libs() {

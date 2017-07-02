@@ -14,8 +14,6 @@ build() {
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--sbindir=/sbin \
-		--with-xtlibdir=/lib/xtables \
 		--enable-libipq
 
 	make
@@ -26,13 +24,7 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	ln -sfv ../../sbin/xtables-multi "${pkgdir}/usr/bin/iptables-xml"
-
-	for file in ip4tc ip6tc ipq iptc xtables
-	do
-		mv -v "${pkgdir}"/usr/lib/lib${file}.so.* "${pkgdir}/lib"
-		ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/lib${file}.so") "${pkgdir}/usr/lib/lib${file}.so"
-	done
+	ln -sfv ../sbin/xtables-multi "${pkgdir}/usr/bin/iptables-xml"
 }
 
 sha512sums=('12280db6e6ef8e68da2537e9da59fc601790fd02b1ba38a37c90dbb56272018329dccb8be995f96ecd5d94fafa6043204f3e8f8ee96531685d9e3c55359d2ee8')

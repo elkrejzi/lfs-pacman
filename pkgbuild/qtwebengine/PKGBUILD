@@ -1,19 +1,12 @@
 pkgname=qtwebengine
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Provides support for web applications using the Chromium browser project"
 arch=('x86_64')
 url="https://www.qt.io/"
 license=('GPL3' 'LGPL2.1' 'BSD')
 #depends=()
-source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtwebengine-opensource-src-${pkgver}.tar.xz"
-	"qtwebengine-clang.patch")
-
-prepare() {
-	cd "${srcdir}/qtwebengine-opensource-src-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/qtwebengine-clang.patch"
-}
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtwebengine-opensource-src-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/qtwebengine-opensource-src-${pkgver}"
@@ -30,5 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('1759804457baa0bf1abf710d07cbffc8d64e3412b8b35c492fa11c192fcd8a5f7927b3a1b16499ade33ed8b76ad02bddf63de910d7989f7b3b08958928e70461'
-            '55b83dcf12f757b1546cec8760b434eafdfdcb9268f540b897ffb41a76c714ee86bf28d61d2ef96719f0047329e6b62c5d90a1e4c8e8f9b2f56d18a9d93f8482')
+sha512sums=('ad8feeede6dfc2879a84efe5bf1ae9a43db7e0182b084d2ebb7d7881ddb8e773f53a1a3fd60743fee894c27401110a31bab8ce7e86aa73fae896e796fb0533c8')

@@ -1,5 +1,5 @@
 pkgname=qtwayland
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Provides APIs for Wayland"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('40c6853bcf5b5bb349c80a64b170f56862482d123d2cfe35c9d71ed047137ddd45c387c2293caeab8a67ed5cd8c3e0f07ed2dc82652d55b99a15c1d93156f56c')
+sha512sums=('619025f6db1234e2e85e8790ca152765696b3019414e4de1a7630ef3cb5a11fa3d0f3955f1e2e9e82f05a90a6da3a0a355c3c4de4dc0006cb91f122428031df3')

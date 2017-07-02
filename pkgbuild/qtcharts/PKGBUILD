@@ -1,5 +1,5 @@
 pkgname=qtcharts
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Provides a set of easy to use chart components"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('b67598887747755091edc486e766b70aa55804a931a195485e68c10c58eb4ab81287a0444a6ff629c2a9cfeb32127adb55ec4da7aafefe607272c50fe9bd9798')
+sha512sums=('897a024b8bcca10d30db2d1df1975cd19a8ebfe7914c0d9238c4044fc120970d32fbc667430c4386cfdf3b6bab3ca4cc92edc3843084237ac8bbf9057502d6ba')

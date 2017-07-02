@@ -38,7 +38,6 @@ build() {
 	cd "${srcdir}/bash-${_basever}"
 
 	./configure --prefix=/usr \
-		--bindir=/bin \
 		--without-bash-malloc \
 		--with-installed-readline
 
@@ -52,7 +51,7 @@ package() {
 
 	rm -rf "${pkgdir}/bin/bashbug" "${pkgdir}/usr/share/man/man1/bashbug.1"
 
-	ln -sfv bash "${pkgdir}/bin/sh"
+	ln -sfv bash "${pkgdir}/usr/bin/sh"
 	ln -sfv bash.1 "${pkgdir}/usr/share/man/man1/sh.1"
 
 	install -v -dm755 "${pkgdir}/etc/skel"

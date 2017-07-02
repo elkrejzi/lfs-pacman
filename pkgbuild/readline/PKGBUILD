@@ -59,15 +59,7 @@ package_readline() {
 
 	make SHLIB_LIBS=-lncurses install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/etc" "${pkgdir}/lib"
-
-	install -v -m644 "${srcdir}/inputrc" "${pkgdir}/etc"
-
-	mv -v "${pkgdir}"/usr/lib/libhistory.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libhistory.so") "${pkgdir}/usr/lib/libhistory.so"
-
-	mv -v "${pkgdir}"/usr/lib/libreadline.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libreadline.so") "${pkgdir}/usr/lib/libreadline.so"
+	install -v -Dm644 "${srcdir}/inputrc" "${pkgdir}/etc/inputrc"
 }
 
 package_lib32-readline() {

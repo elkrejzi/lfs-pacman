@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/tar/tar-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/tar-${pkgver}"
 
-	./configure --prefix=/usr --bindir=/bin
+	./configure --prefix=/usr
 
 	make
 }

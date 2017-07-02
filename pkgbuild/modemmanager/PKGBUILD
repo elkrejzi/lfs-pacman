@@ -18,8 +18,8 @@ build() {
 		--enable-gtk-doc \
 		--with-polkit=permissive \
 		--with-suspend-resume=systemd \
-		--with-systemdsystemunitdir=/lib/systemd/system \
-		--with-udev-base-dir=/lib/udev
+		--with-systemdsystemunitdir=/usr/lib/systemd/system \
+		--with-udev-base-dir=/usr/lib/udev
 
 	make
 }

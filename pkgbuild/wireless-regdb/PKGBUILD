@@ -12,8 +12,8 @@ source=("https://www.kernel.org/pub/software/network/wireless-regdb/wireless-reg
 package() {
 	cd "${srcdir}/wireless-regdb-${pkgver}"
 
-	install -v -Dm644 regulatory.bin "${pkgdir}/lib/crda/regulatory.bin"
-	install -v -Dm644 sforshee.key.pub.pem "${pkgdir}/lib/crda/pubkeys/sforshee.key.pub.pem"
+	install -v -Dm644 regulatory.bin "${pkgdir}/usr/lib/crda/regulatory.bin"
+	install -v -Dm644 sforshee.key.pub.pem "${pkgdir}/usr/lib/crda/pubkeys/sforshee.key.pub.pem"
 	install -v -Dm644 regulatory.bin.5 "${pkgdir}/usr/share/man/man5/regulatory.bin.5"
 
 	install -v -Dm644 "${srcdir}/wireless-regdom.default" "${pkgdir}/etc/default/wireless-regdom"

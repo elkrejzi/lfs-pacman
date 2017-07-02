@@ -23,12 +23,7 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/usr/sbin"
-
-	mv -v "${pkgdir}"/usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} "${pkgdir}/bin"
-	mv -v "${pkgdir}"/usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} "${pkgdir}/bin"
-	mv -v "${pkgdir}"/usr/bin/{rmdir,stty,sync,true,uname} "${pkgdir}/bin"
-	mv -v "${pkgdir}"/usr/bin/{head,sleep,nice,test,[} "${pkgdir}/bin"
+	install -v -dm755 "${pkgdir}/usr/sbin"
 
 	mv -v "${pkgdir}/usr/bin/chroot" "${pkgdir}/usr/sbin"
 }

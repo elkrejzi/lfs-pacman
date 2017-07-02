@@ -27,7 +27,7 @@ build() {
 		--enable-compat-libdns_sd \
 		--enable-compat-howl \
 		--with-distro=none \
-		--with-systemdsystemunitdir=/lib/systemd/system
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 	make
 }

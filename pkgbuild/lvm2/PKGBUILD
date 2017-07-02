@@ -18,7 +18,6 @@ build() {
 	cd "${srcdir}/LVM2.${pkgver}"
 
 	./configure --prefix=/usr \
-		--exec-prefix= \
 		--with-confdir=/etc \
 		--enable-applib \
 		--enable-cmdlib \
@@ -28,8 +27,8 @@ build() {
 		--enable-udev_sync \
 		--enable-udev-systemd-background-jobs \
 		--with-tmpfilesdir=/usr/lib/tmpfiles.d \
-		--with-systemdsystemunitdir=/lib/systemd/system \
-		systemdutildir=/lib/systemd
+		--with-systemdsystemunitdir=/usr/lib/systemd/system \
+		systemdutildir=/usr/lib/systemd
 
 	make
 }

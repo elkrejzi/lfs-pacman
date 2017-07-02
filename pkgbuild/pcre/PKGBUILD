@@ -52,11 +52,6 @@ package_pcre() {
 	cd "${srcdir}/pcre-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libpcre.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libpcre.so") "${pkgdir}/usr/lib/libpcre.so"
 }
 
 package_lib32-pcre() {

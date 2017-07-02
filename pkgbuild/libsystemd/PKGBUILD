@@ -20,16 +20,13 @@ build() {
 	local configure_shared=(--prefix=/usr
 		--sysconfdir=/etc
 		--localstatedir=/var
-		--enable-split-usr
 		--disable-firstboot
 		--disable-ima
 		--disable-lto
 		--disable-smack
 		--disable-tests
 		--disable-wheel-group
-		--with-pamlibdir=/lib/security
-		--with-rootprefix=
-		--with-rootlibdir=/lib
+		--with-pamlibdir=/usr/lib/security
 		--with-sysvinit-path=/etc/init.d
 		--with-sysvrcnd-path=/etc
 		--with-rc-local-script-path-stop=
@@ -49,7 +46,6 @@ build() {
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure "${configure_shared[@]}" \
-		--with-rootlibdir=/usr/lib32 \
 		--libdir=/usr/lib32 \
 		--disable-acl \
 		--disable-audit \
@@ -75,12 +71,6 @@ package_libsystemd() {
 	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" install-rootlibLTLIBRARIES \
 		install-includeHEADERS install-pkgincludeHEADERS install-pkgconfiglibDATA \
 		DESTDIR="${pkgdir}"
-
-	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libsystemd.so") "${pkgdir}/usr/lib/libsystemd.so"
-	rm -rf "${pkgdir}/lib/libsystemd.so"
-
-	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libudev.so") "${pkgdir}/usr/lib/libudev.so"
-	rm -rf "${pkgdir}/lib/libudev.so"
 }
 
 package_lib32-libsystemd() {

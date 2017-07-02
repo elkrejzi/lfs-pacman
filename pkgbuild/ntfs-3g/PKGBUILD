@@ -12,6 +12,7 @@ build() {
 	cd "${srcdir}/ntfs-3g_ntfsprogs-${pkgver}"
 
 	./configure --prefix=/usr \
+		--exec-prefix=/usr \
 		--with-fuse=external \
 		--disable-ldconfig \
 		--enable-extras \
@@ -23,19 +24,17 @@ build() {
 package() {
 	cd "${srcdir}/ntfs-3g_ntfsprogs-${pkgver}"
 
-	install -v -dm755 "${pkgdir}/lib"
-
 	make install DESTDIR="${pkgdir}"
 
-	ln -sfv ../../lib/$(readlink "${pkgdir}/lib/libntfs-3g.so") "${pkgdir}/usr/lib/libntfs-3g.so"
-	ln -sfv ..$(readlink "${pkgdir}/sbin/mkfs.ntfs") "${pkgdir}/sbin/mkfs.ntfs"
-	ln -sfv ..$(readlink "${pkgdir}/sbin/mount.lowntfs-3g") "${pkgdir}/sbin/mount.lowntfs-3g"
-	ln -sfv ..$(readlink "${pkgdir}/sbin/mount.ntfs-3g") "${pkgdir}/sbin/mount.ntfs-3g"
+	rm -rf "${pkgdir}/sbin"
 
-	ln -sfv ../bin/ntfs-3g "${pkgdir}/sbin/mount.ntfs"
+	ln -sfv mkntfs "${pkgdir}/usr/sbin/mkfs.ntfs"
+
+	ln -sfv ../bin/lowntfs-3g "${pkgdir}/usr/sbin/mount.lowntfs-3g"
+	ln -sfv ../bin/ntfs-3g "${pkgdir}/usr/sbin/mount.ntfs-3g"
+	ln -sfv ../bin/ntfs-3g "${pkgdir}/usr/sbin/mount.ntfs"
+
 	ln -sfv ntfs-3g.8.gz "${pkgdir}/usr/share/man/man8/mount.ntfs.8.gz"
-
-	rm -rf "${pkgdir}/lib/libntfs-3g.so"
 }
 
 sha512sums=('3a607f0d7be35204c992d8931de0404fbc52032c13b4240d2c5e6f285c318a28eb2a385d7cf5ac4cd445876aee5baa5753bb636ada0d870d84a9d3fdbce794ef')

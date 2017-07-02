@@ -21,8 +21,8 @@ build() {
 		--disable-bash-completion \
 		--disable-sane \
 		--enable-vala \
-		--with-udevrulesdir=/lib/udev/rules.d \
-		--with-systemdsystemunitdir=/lib/systemd/system
+		--with-udevrulesdir=/usr/lib/udev/rules.d \
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 	make
 }

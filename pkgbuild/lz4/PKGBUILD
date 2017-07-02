@@ -41,11 +41,6 @@ package_lz4() {
 	cd "${srcdir}/lz4-${pkgver}"
 
 	make install PREFIX=/usr DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/liblz4.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/liblz4.so") "${pkgdir}/usr/lib/liblz4.so"
 }
 
 package_lib32-lz4() {

@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/gzip/gzip-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/gzip-${pkgver}"
 
-	./configure --prefix=/usr --bindir=/bin
+	./configure --prefix=/usr
 
 	make
 }
@@ -20,11 +20,6 @@ package() {
 	cd "${srcdir}/gzip-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/usr/bin"
-
-	mv -v "${pkgdir}"/bin/{gzexe,uncompress,zcmp,zdiff,zegrep} "${pkgdir}/usr/bin"
-	mv -v "${pkgdir}"/bin/{zfgrep,zforce,zgrep,zless,zmore,znew} "${pkgdir}/usr/bin"
 }
 
 sha512sums=('efd3e2439476054badeb127d9156e24e9252129111219f13fd939596c057b2a96291630b2717181984b391abf249ac8699488bbd01ceeb8a70b121c500b10c55')

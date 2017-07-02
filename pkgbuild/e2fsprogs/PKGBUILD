@@ -12,7 +12,7 @@ build() {
 	cd "${srcdir}/e2fsprogs-${pkgver}"
 
 	./configure --prefix=/usr \
-		--with-root-prefix="" \
+		--sysconfdir=/etc \
 		--enable-elf-shlibs \
 		--disable-libblkid \
 		--disable-libuuid \
@@ -26,8 +26,6 @@ package() {
 	cd "${srcdir}/e2fsprogs-${pkgver}"
 
 	make -j1 install install-libs DESTDIR="${pkgdir}" LDCONFIG=true
-
-	for file in "${pkgdir}"/usr/lib/*.so ; do ln -sfv ../..$(readlink $file) $file ; done
 
 	sed -i 's#^SS_DIR=.*#SS_DIR="/usr/share/ss"#' "${pkgdir}/usr/bin/mk_cmds"
 	sed -i 's#^ET_DIR=.*#ET_DIR="/usr/share/et"#' "${pkgdir}/usr/bin/compile_et"

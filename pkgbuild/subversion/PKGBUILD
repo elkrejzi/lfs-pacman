@@ -47,7 +47,7 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/perl"
 
 	install -v -Dm644 "${srcdir}/svnserve.default" "${pkgdir}/etc/default/svnserve"
-	install -v -Dm644 "${srcdir}/svnserve.service" "${pkgdir}/lib/systemd/system/svnserve.service"
+	install -v -Dm644 "${srcdir}/svnserve.service" "${pkgdir}/usr/lib/systemd/system/svnserve.service"
 	install -v -Dm644 "${srcdir}/svnserve.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/svnserve.conf"
 }
 

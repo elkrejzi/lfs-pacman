@@ -1,5 +1,5 @@
 pkgname=qtspeech
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Qt module to make text to speech and speech recognition easy"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('96c1ece51d9c04bbe2caed0f2198144478bfb29d82db7941019b7f94687e321178873228c2e5fe7a0b0b715cc39101bdef67190efe688db491ff2ea478f4b696')
+sha512sums=('b1fb28726543e88c8a004ab5ced70dff129fff805b578f01f407fa994472d67f57bdb80ac4230198709efe1b4d4c0b014f0ac1f0d1d37c53cb94491ce594ffbe')

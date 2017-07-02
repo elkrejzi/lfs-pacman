@@ -30,13 +30,6 @@ package() {
 
 	make PREFIX="${pkgdir}/usr" INSTALL_MAN="${pkgdir}/usr/share/man" install
 
-	mv "${pkgdir}/usr/sbin" "${pkgdir}"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libiw.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libiw.so") "${pkgdir}/usr/lib/libiw.so"
-
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 

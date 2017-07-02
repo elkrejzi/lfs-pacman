@@ -1,5 +1,5 @@
 pkgname=qtdatavis3d
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Qt Data Visualization module"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('7581ee7a766781be99bc2645a7983ce5dc031f5e54f51e7f5bcadf8e4c5d1ca7f59a625915e2248f60153638ac956a65b3736bbce5ef072052735221ce7360da')
+sha512sums=('4883ca956ab916db7356d5538ed0112dc91d0b5ffb6f0e4a031c8e965f568e8cedadf0a0fddc410e94fa29cc95e3ca739c3a4b22dbfa1ff93044e073ff5de036')

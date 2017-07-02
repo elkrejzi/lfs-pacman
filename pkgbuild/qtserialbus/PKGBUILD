@@ -1,5 +1,5 @@
 pkgname=qtserialbus
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Qt module for general purpose serial bus access"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('1d6f95fb07ff62f32aacbf294bfc73acbe9e919384349517cd03df2ee3319bcd6fd33c105aa498c0476cee6bc0fda81d66df67cb720136cf637912504460004f')
+sha512sums=('335bf481ccd186ae9031ef52c58ab9b3afcaea2226c0ef20fdc9148b55e79fb7eefa7206dd5b96571c9ef7535b2ac0fbb55a5d9f76c09a7d9e38007ddc6bcac1')

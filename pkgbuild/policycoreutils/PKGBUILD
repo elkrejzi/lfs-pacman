@@ -19,7 +19,7 @@ build() {
 package() {
 	cd "${srcdir}/policycoreutils-${pkgver}"
 
-	make install DESTDIR="${pkgdir}" SYSTEMDDIR="${pkgdir}/lib/systemd"
+	make install DESTDIR="${pkgdir}" SBINDIR="${pkgdir}/usr/sbin" SYSTEMDDIR="${pkgdir}/usr/lib/systemd"
 
 	rm -rf "${pkgdir}/etc/rc.d"
 

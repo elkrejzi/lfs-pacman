@@ -15,23 +15,11 @@ prepare() {
 build() {
 	cd "${srcdir}/util-linux-${pkgver}"
 
-	./configure --enable-mesg \
-		--disable-nologin \
-		--disable-chfn-chsh \
-		--disable-su \
-		--disable-login \
-		--disable-kill \
-		--with-selinux \
-		--without-python \
-		--without-systemd
-
-	cd "${srcdir}/util-linux32-${pkgver}"
-
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
-	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
-
-	./configure --enable-mesg \
+	./configure --prefix=/usr \
+		--bindir=/usr/bin \
+		--libdir=/usr/lib \
+		--sbindir=/usr/sbin \
+		--enable-mesg \
 		--disable-nologin \
 		--disable-chfn-chsh \
 		--disable-su \
@@ -40,7 +28,28 @@ build() {
 		--with-selinux \
 		--without-python \
 		--without-systemd \
-		--libdir=/usr/lib32
+		--enable-fs-paths-default=/usr/sbin
+
+	cd "${srcdir}/util-linux32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--bindir=/usr/bin \
+		--libdir=/usr/lib32 \
+		--sbindir=/usr/sbin \
+		--enable-mesg \
+		--disable-nologin \
+		--disable-chfn-chsh \
+		--disable-su \
+		--disable-login \
+		--disable-kill \
+		--with-selinux \
+		--without-python \
+		--without-systemd \
+		--enable-fs-paths-default=/usr/sbin
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -95,9 +104,9 @@ package_mount() {
 
 	cd "${srcdir}/util-linux-${pkgver}"
 
-	install -v -dm755 "${pkgdir}/bin" "${pkgdir}"/usr/share/man/man{5,8}
+	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}"/usr/share/man/man{5,8}
 
-	install -v -m755 -t "${pkgdir}/bin" .libs/mount .libs/umount
+	install -v -m755 -t "${pkgdir}/usr/bin" .libs/mount .libs/umount
 	install -v -m644 -t "${pkgdir}/usr/share/man/man8" sys-utils/mount.8 sys-utils/umount.8
 	install -v -m644 sys-utils/fstab.5 "${pkgdir}/usr/share/man/man5"
 

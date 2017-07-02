@@ -11,23 +11,17 @@ source=("https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-${pkgver}.
 build() {
 	cd "${srcdir}/iproute2-${pkgver}"
 
-	make CCOPTS="${CFLAGS}" CC="${CC}"
+	make CCOPTS="${CFLAGS}" CC="${CC}" SBINDIR=/usr/bin
 }
 
 package() {
 	cd "${srcdir}/iproute2-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install SBINDIR=/usr/bin DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/bin" "${pkgdir}/usr/bin" "${pkgdir}/usr/sbin"
+	install -v -dm755 "${pkgdir}/usr/sbin"
 
-	mv -v "${pkgdir}/sbin/ip" "${pkgdir}/sbin/ss" "${pkgdir}/bin"
-	mv -v "${pkgdir}/sbin/arpd" "${pkgdir}/sbin/genl" "${pkgdir}/usr/sbin"
-
-	mv -v "${pkgdir}/sbin/ctstat" "${pkgdir}/sbin/lnstat" "${pkgdir}/sbin/nstat" "${pkgdir}/usr/bin"
-	mv -v "${pkgdir}/sbin/routef" "${pkgdir}/sbin/routel" "${pkgdir}/sbin/rtstat" "${pkgdir}/usr/bin"
-
-	ln -sfv ../bin/ip "${pkgdir}/sbin/ip"
+	mv "${pkgdir}/usr/bin/arpd" "${pkgdir}/usr/sbin"
 }
 
 sha512sums=('e6cc3dbe2779670a752ab346c1a432b496033448d1645aa0161b3f7b683b3f9939ab09db12199b794cc64dff257faaf0d151046feea9031a6139176e08b4f4fa')

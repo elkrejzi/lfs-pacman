@@ -11,9 +11,7 @@ source=("https://github.com/dosfstools/dosfstools/releases/download/v${pkgver}/d
 build() {
 	cd "${srcdir}/dosfstools-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sbindir=/sbin \
-		--enable-compat-symlinks
+	./configure --prefix=/usr --enable-compat-symlinks
 
 	make
 }

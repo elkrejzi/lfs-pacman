@@ -12,7 +12,6 @@ prepare() {
 	cd "${srcdir}/libcap-${pkgver}"
 
 	sed -i "s|-D_FILE_OFFSET_BITS=64|& ${CFLAGS}|" Make.Rules
-	sed -i "s:LIBDIR:PAM_&:g" pam_cap/Makefile
 
 	cp -a "${srcdir}"/libcap{,32}-${pkgver}
 }
@@ -24,7 +23,7 @@ build() {
 
 	sed -i "s| gcc| ${CC}|" Make.Rules
 
-	make
+	make BUILD_GPERF=no
 
 	cd "${srcdir}/libcap32-${pkgver}"
 
@@ -34,7 +33,7 @@ build() {
 
 	sed -i "s| gcc| ${CC}|" Make.Rules
 
-	make -C libcap
+	make -C libcap BUILD_GPERF=no
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -45,15 +44,12 @@ package_libcap() {
 
 	cd "${srcdir}/libcap-${pkgver}"
 
-	make install RAISE_SETFCAP=no prefix=/usr PAM_LIBDIR=/lib LIBDIR=/usr/lib DESTDIR="${pkgdir}"
+	make install BUILD_GPERF=no RAISE_SETFCAP=no prefix=/usr LIBDIR=/usr/lib DESTDIR="${pkgdir}"
 
 	chmod 755 "${pkgdir}/usr/lib/libcap.so"
 
 	install -v -dm755 "${pkgdir}/etc/security"
 	install -v -m644 pam_cap/capability.conf "${pkgdir}/etc/security"
-
-	mv -v "${pkgdir}"/usr/lib/libcap.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcap.so") "${pkgdir}/usr/lib/libcap.so"
 }
 
 package_lib32-libcap() {
@@ -61,7 +57,7 @@ package_lib32-libcap() {
 
 	cd "${srcdir}/libcap32-${pkgver}"
 
-	make -C libcap prefix=/usr lib=lib32 install DESTDIR="${PWD}/dest"
+	make -C libcap prefix=/usr lib=lib32 install BUILD_GPERF=no DESTDIR="${PWD}/dest"
 
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"

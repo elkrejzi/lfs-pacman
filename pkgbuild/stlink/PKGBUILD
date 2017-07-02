@@ -17,7 +17,7 @@ build() {
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DSTLINK_UDEV_RULES_DIR=/lib/udev/rules.d \
+		-DSTLINK_UDEV_RULES_DIR=/usr/lib/udev/rules.d \
 		-DSTLINK_MODPROBED_DIR=/usr/lib/modprobe.d \
 		"${srcdir}/stlink-${pkgver}"
 

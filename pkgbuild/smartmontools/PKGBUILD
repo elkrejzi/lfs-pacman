@@ -16,7 +16,7 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
-		--with-systemdsystemunitdir=/lib/systemd/system \
+		--with-systemdsystemunitdir=/usr/lib/systemd/system \
 		--with-smartdscriptdir=/usr/share/smartmontools \
 		--with-smartdplugindir=/usr/share/smartmontools/smartd_warning.d
 

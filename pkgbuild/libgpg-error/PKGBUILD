@@ -41,11 +41,6 @@ package_libgpg-error() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libgpg-error.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libgpg-error.so") "${pkgdir}/usr/lib/libgpg-error.so"
-
 	rm -rf "${pkgdir}/usr/share/common-lisp"
 }
 

@@ -59,9 +59,9 @@ package() {
 
 	rm -rf "${pkgdir}/usr/share/examples" "${pkgdir}/usr/share/gnats"
 
-	install -v -Dm644 "${srcdir}/krb5-kadmind.service" "${pkgdir}/lib/systemd/system/krb5-kadmind.service"
-	install -v -Dm644 "${srcdir}/krb5-kdc.service" "${pkgdir}/lib/systemd/system/krb5-kdc.service"
-	install -v -Dm644 "${srcdir}/krb5-kpropd.service" "${pkgdir}/lib/systemd/system/krb5-kpropd.service"
+	install -v -Dm644 "${srcdir}/krb5-kadmind.service" "${pkgdir}/usr/lib/systemd/system/krb5-kadmind.service"
+	install -v -Dm644 "${srcdir}/krb5-kdc.service" "${pkgdir}/usr/lib/systemd/system/krb5-kdc.service"
+	install -v -Dm644 "${srcdir}/krb5-kpropd.service" "${pkgdir}/usr/lib/systemd/system/krb5-kpropd.service"
 
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }

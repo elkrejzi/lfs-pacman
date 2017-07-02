@@ -31,6 +31,8 @@ prepare() {
 
 	sed -i "s#-Werror=format=2##g" configure
 	sed -i "/MemoryDenyWriteExecute=yes/d" units/systemd-timesyncd.service.in
+
+	rm -f src/resolve/dns_type-from-name.h
 }
 
 build() {
@@ -39,7 +41,6 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
-		--enable-split-usr \
 		--disable-firstboot \
 		--disable-ima \
 		--disable-lto \
@@ -47,9 +48,7 @@ build() {
 		--disable-tests \
 		--disable-wheel-group \
 		--enable-gnuefi \
-		--with-pamlibdir=/lib/security \
-		--with-rootprefix= \
-		--with-rootlibdir=/lib \
+		--with-pamlibdir=/usr/lib/security \
 		--with-sysvinit-path=/etc/init.d \
 		--with-sysvrcnd-path=/etc \
 		--with-rc-local-script-path-stop= \
@@ -73,7 +72,7 @@ package() {
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 	rm -rf "${pkgdir}/usr/lib/sysusers.d/basic.conf"
 
-	echo 'disable *' > "${pkgdir}/lib/systemd/system-preset/99-default.preset"
+	echo 'disable *' > "${pkgdir}/usr/lib/systemd/system-preset/99-default.preset"
 
 	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
 	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
@@ -88,7 +87,7 @@ package() {
 	rm -rf "${pkgdir}"/etc/systemd/system/multi-user.target.wants/systemd-{networkd,resolved,timesyncd}.service
 	rm -rf "${pkgdir}"/etc/systemd/system/multi-user.target.wants/machines.target
 	rm -rf "${pkgdir}"/etc/systemd/system/{network-online,sockets,sysinit}.target.wants
-	rm -rf "${pkgdir}"/lib/systemd/system/sysinit.target.wants/systemd-update-done.service
+	rm -rf "${pkgdir}"/usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service
 
 	sed -i "s@root lock@root root@g" "${pkgdir}/usr/lib/tmpfiles.d/legacy.conf"
 	sed -i "s@lock 0755@lock 1777@g" "${pkgdir}/usr/lib/tmpfiles.d/legacy.conf"
@@ -104,20 +103,20 @@ package() {
 	install -v -Dm644 "${srcdir}/systemd-sysusers.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-sysusers.hook"
 	install -v -Dm644 "${srcdir}/systemd-tmpfiles.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-tmpfiles.hook"
 
-	install -v -dm755 "${pkgdir}/sbin"
+	install -v -dm755 "${pkgdir}/usr/sbin"
 
 	for file in halt poweroff reboot runlevel shutdown telinit
 	do
-		ln -sfv ../bin/systemctl "${pkgdir}/sbin/${file}"
+		ln -sfv ../bin/systemctl "${pkgdir}/usr/sbin/${file}"
 	done
 
-	ln -sfv ../lib/systemd/systemd "${pkgdir}/sbin/init"
+	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
 sha512sums=('a749a208df75a75afd714a07d9f61dd2c641c62f432c7a707baebdf4db0e24b5ed3e213cd0a82af6687aa14943193e0b7e9e70a3a603015a2a483eaaeee8bc41'
             'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
-            '16d6c4c8133b7363a6998b0be2731d8f5ea229810c9012983d6cd0d7f9db70a2d8a2063d948494871056662f27d1721bd31044b738832e933cfa704c89de257d'
-            '8932345ffe25d09964059efaf3c14d39b9976f39c75a0eb973cf0d5febf9d2eab51f7f9722927231d505ac333b09c3ad1234ae9246d66de015b410be8dd515ac'
-            '28e5d219c0d0e94dfdd36ccc8fd29ee3ceefa868fff5e5b8c035c466fc5a826e59cf8593cd09879c8c95052128915051252f481e94a3211faa5348809f436190'
+            '08ddc283f0f554d9d334fe3c168fdfa839dda2bcb872968eb3c2a88719e0faf058f1e1eecbc2bde11d3b2f341142684bed1702aab2d26297a81d8d681a790b92'
+            '9d27d97f172a503f5b7044480a0b9ccc0c4ed5dbb2eb3b2b1aa929332c3bcfe38ef0c0310b6566f23b34f9c05b77035221164a7ab7677784c4a54664f12fca22'
+            '0f4efddd25256e09c42b953caeee4b93eb49ecc6eaebf02e616b4dcbfdac9860c3d8a3d1a106325b2ebc4dbc6e08ac46702abcb67a06737227ccb052aaa2a067'
             '5f48d342537c284ba85477bf9f78e93a46daf868381cd10a130d4f421687526dd4ee84b62cdf9564579506248d41d8c39265848bfc4047cdcf42e36766220a2e')

@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/sed/sed-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/sed-${pkgver}"
 
-	./configure --prefix=/usr --bindir=/bin
+	./configure --prefix=/usr
 
 	make
 }

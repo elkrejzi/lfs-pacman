@@ -56,17 +56,17 @@ package_bzip2() {
 
 	make PREFIX="${pkgdir}/usr" install
 
-	install -v -dm755 "${pkgdir}"/{bin,lib}
-	install -v -m755 bzip2-shared "${pkgdir}/bin/bzip2"
-	install -v -m755 libbz2.so.${pkgver} "${pkgdir}/lib"
-
-	ln -sfv bzip2 "${pkgdir}/bin/bunzip2"
-	ln -sfv bzip2 "${pkgdir}/bin/bzcat"
 	rm -rf "${pkgdir}"/usr/bin/{bunzip2,bzcat,bzip2} "${pkgdir}/usr/lib/libbz2.a"
 
-	ln -sfv libbz2.so.${pkgver} "${pkgdir}/lib/libbz2.so.1.0"
-	ln -sfv libbz2.so.${pkgver} "${pkgdir}/lib/libbz2.so.1"
-	ln -sfv ../../lib/libbz2.so.${pkgver} "${pkgdir}/usr/lib/libbz2.so"
+	install -v -m755 bzip2-shared "${pkgdir}/usr/bin/bzip2"
+	install -v -m755 libbz2.so.${pkgver} "${pkgdir}/usr/lib"
+
+	ln -sfv bzip2 "${pkgdir}/usr/bin/bunzip2"
+	ln -sfv bzip2 "${pkgdir}/usr/bin/bzcat"
+
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/usr/lib/libbz2.so.1.0"
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/usr/lib/libbz2.so.1"
+	ln -sfv libbz2.so.${pkgver} "${pkgdir}/usr/lib/libbz2.so"
 }
 
 package_lib32-bzip2() {

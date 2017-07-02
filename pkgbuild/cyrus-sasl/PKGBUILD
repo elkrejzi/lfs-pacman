@@ -53,7 +53,7 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/pkgconfig"
 
 	install -v -Dm644 "${srcdir}/saslauthd.default" "${pkgdir}/etc/default/saslauthd"
-	install -v -Dm644 "${srcdir}/saslauthd.service" "${pkgdir}/lib/systemd/system/saslauthd.service"
+	install -v -Dm644 "${srcdir}/saslauthd.service" "${pkgdir}/usr/lib/systemd/system/saslauthd.service"
 	install -v -Dm644 "${srcdir}/saslauthd.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/saslauthd.conf"
 }
 

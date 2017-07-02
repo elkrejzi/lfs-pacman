@@ -19,14 +19,9 @@ build() {
 package() {
 	cd "${srcdir}/fuse-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install MOUNT_FUSE_PATH=/usr/sbin DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/dev" "${pkgdir}/etc"
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libfuse.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libfuse.so") "${pkgdir}/usr/lib/libfuse.so"
 }
 
 sha512sums=('f47304d9c7a1815f7a2905b7bdb7785d4c10292a80c8dc1ec45d895af96bc6ffd6d84ff2617bd976a1d0867ab8ec1a404a5a05ace85a69ecca830f371d08f8e2')

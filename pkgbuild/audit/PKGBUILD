@@ -36,15 +36,11 @@ build() {
 package() {
 	cd "${srcdir}/audit-${pkgver}"
 
-	make install initdir=/lib/systemd/system DESTDIR="${pkgdir}"
+	make install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/usr/libexec"
 
 	install -v -dm700 "${pkgdir}/var/log/audit"
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libaudit.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libaudit.so") "${pkgdir}/usr/lib/libaudit.so"
 }
 
 sha512sums=('b219bf64b4cc9f1178751bd4f16a91d75d05b76165b57c4a1493e6a55c66481edfa2a661f479d7ecd46f6d719319776e9eabffb5dc7129dd953a3af3389aa8b8')

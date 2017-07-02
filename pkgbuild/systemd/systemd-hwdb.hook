@@ -8,4 +8,4 @@ Target = lib/udev/hwdb.d/*
 [Action]
 Description = Updating udev hardware database...
 When = PostTransaction
-Exec = /bin/systemd-hwdb update
+Exec = /usr/bin/systemd-hwdb update

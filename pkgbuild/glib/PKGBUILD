@@ -58,10 +58,6 @@ package_glib() {
 	make install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/usr/share/gdb"
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libglib-2.0.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libglib-2.0.so") "${pkgdir}/usr/lib/libglib-2.0.so"
 
 	install -v -Dm644 "${srcdir}/gio-querymodules.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules.hook"
 	install -v -Dm644 "${srcdir}/glib-compile-schemas.hook" "${pkgdir}/usr/share/libalpm/hooks/glib-compile-schemas.hook"

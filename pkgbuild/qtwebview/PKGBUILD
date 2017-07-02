@@ -1,5 +1,5 @@
 pkgname=qtwebview
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Provides a way to display web content in a QML application"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('65eab501ac3c70a5bc8dad579112cbb5dc2327b07a93b30d2e412dfadf5d467ba159e1faaf759df27e6819f5343204218246292df5d4e79aba7162a7a7444518')
+sha512sums=('aa8c2c973a683dd1fa9750bf03434c3d0788a2617215df1030d1a9339abf30a011027401a0635030b88f43bbf3d5065ac41f3013dd88f7f844c87ede3e0e19cd')

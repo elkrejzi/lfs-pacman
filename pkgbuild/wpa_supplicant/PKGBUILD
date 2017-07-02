@@ -15,24 +15,24 @@ prepare() {
 
 	install -v -m644 "${srcdir}/config" .config
 
-	sed -i "s#wpa_supplicant -u#& -s -O /var/run/wpa_supplicant#g" dbus/*.service.in
-	sed -i "s#wpa_supplicant -u#& -s -O /var/run/wpa_supplicant#g" systemd/wpa_supplicant.service.in
+	sed -i "s#wpa_supplicant -u#& -s -O /run/wpa_supplicant#g" dbus/*.service.in
+	sed -i "s#wpa_supplicant -u#& -s -O /run/wpa_supplicant#g" systemd/wpa_supplicant.service.in
 }
 
 build() {
 	cd "${srcdir}/wpa_supplicant-${pkgver}/wpa_supplicant"
 
-	make BINDIR=/sbin LIBDIR=/lib V=1
+	make BINDIR=/usr/sbin LIBDIR=/usr/lib
 }
 
 package() {
 	cd "${srcdir}/wpa_supplicant-${pkgver}/wpa_supplicant"
 
-	install -v -dm755 "${pkgdir}/lib/systemd/system" "${pkgdir}/sbin" "${pkgdir}/usr/bin"
+	install -v -dm755 "${pkgdir}/usr/lib/systemd/system" "${pkgdir}/usr/sbin" "${pkgdir}/usr/bin"
 	install -v -dm755 "${pkgdir}/usr/share/doc/wpa_supplicant" "${pkgdir}/usr/share/man/man5"
 	install -v -dm755 "${pkgdir}/usr/share/man/man8"
 
-	install -v -m755 wpa_cli wpa_supplicant "${pkgdir}/sbin"
+	install -v -m755 wpa_cli wpa_supplicant "${pkgdir}/usr/sbin"
 	install -v -m755 wpa_passphrase "${pkgdir}/usr/bin"
 
 	install -v -m644 doc/docbook/wpa_supplicant.conf.5 "${pkgdir}/usr/share/man/man5"
@@ -48,7 +48,7 @@ package() {
 	install -v -Dm644 dbus/dbus-wpa_supplicant.conf "${pkgdir}/etc/dbus-1/system.d/wpa_supplicant.conf"
 
 	install -v -m644 examples/*.conf "${pkgdir}/usr/share/doc/wpa_supplicant"
-	install -v -m644 systemd/*.service "${pkgdir}"/lib/systemd/system
+	install -v -m644 systemd/*.service "${pkgdir}"/usr/lib/systemd/system
 }
 
 sha512sums=('46442cddb6ca043b8b08d143908f149954c238e0f3a57a0df73ca4fab9c1acd91b078f3f26375a1d99cd1d65625986328018c735d8705882c8f91e389cad28a6'

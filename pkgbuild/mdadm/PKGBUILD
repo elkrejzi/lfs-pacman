@@ -17,13 +17,13 @@ prepare() {
 build() {
 	cd "${srcdir}/mdadm-${pkgver}"
 
-	make CXFLAGS="${CFLAGS}"
+	make CXFLAGS="${CFLAGS}" BINDIR=/usr/sbin
 }
 
 package() {
 	cd "${srcdir}/mdadm-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install BINDIR=/usr/sbin DESTDIR="${pkgdir}"
 }
 
 sha512sums=('12fb26e6b9c1912698defa406e5e47a7ca8d68d4a9aa7acdc9b463ee2d4a37fc6ecef6beb5395ff619018c3f6bdb6d8c573060d027707540f645ad2265170e8b')

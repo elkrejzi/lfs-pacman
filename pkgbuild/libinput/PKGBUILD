@@ -14,7 +14,7 @@ build() {
 	./configure --prefix=/usr \
 		--disable-event-gui \
 		--disable-tests \
-		--with-udev-dir=/lib/udev
+		--with-udev-dir=/usr/lib/udev
 
 	make
 }

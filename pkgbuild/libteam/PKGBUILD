@@ -24,7 +24,7 @@ package() {
 	make install DESTDIR="${pkgdir}"
 
 	install -v -Dm644 teamd/dbus/teamd.conf "${pkgdir}/etc/dbus-1/system.d/teamd.conf"
-	install -v -Dm644 teamd/redhat/systemd/teamd@.service "${pkgdir}/lib/systemd/system/teamd@.service"
+	install -v -Dm644 teamd/redhat/systemd/teamd@.service "${pkgdir}/usr/lib/systemd/system/teamd@.service"
 }
 
 sha512sums=('7f30d3b5cfbbe455b6d895f3b796557823e71d79d8eb9955c03d1b021b9f731e9040c3cf35b9511179ab9527e81813f43c6252df8849b4e2ed4568064e091b6d')

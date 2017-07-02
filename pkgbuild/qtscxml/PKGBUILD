@@ -1,5 +1,5 @@
 pkgname=qtscxml
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Static and runtime integration of SCXML models into Qt code"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('642873c176dde0b6773fca304667f685f455d33ebccd443f2eb64c0fbaf8f280865ca5bf9ce552dde7b0a2df89725fe7e765ab895295a445786cf79dac1d313e')
+sha512sums=('226c4f3f9eff08498b1ef39f7e36539a5f5777233061f900c50a8515b1b30ac8a344cb27b6b81eae6c280fe2c8e72befab2afd6b11e192cacc83433c28d04d52')

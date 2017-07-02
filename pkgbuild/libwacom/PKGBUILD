@@ -21,8 +21,8 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -dm755 "${pkgdir}/lib/udev/rules.d"
-	tools/generate-udev-rules > "${pkgdir}/lib/udev/rules.d/65-libwacom.rules"
+	install -v -dm755 "${pkgdir}/usr/lib/udev/rules.d"
+	tools/generate-udev-rules > "${pkgdir}/usr/lib/udev/rules.d/65-libwacom.rules"
 }
 
 sha512sums=('080d12706c3b685ee1cb963b79068e0e7c08e47296c1535cde4d2280239758d6bccbd38982a63d366cab1a77a4db287cc5bb329abaee6dbb285c4b8e010eaf67')

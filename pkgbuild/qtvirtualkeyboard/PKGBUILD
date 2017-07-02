@@ -1,5 +1,5 @@
 pkgname=qtvirtualkeyboard
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Virtual keyboard framework"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	make install INSTALL_ROOT="${pkgdir}"
 }
 
-sha512sums=('29a65bb48736094fcbd99161be9bcb76c474940578b8731526a45cdfe17cc0d044534ce81075a8c74c25828ef616346587408c4b3582eed8edde8ee9be0a0e13')
+sha512sums=('ce1fbd787b2722ab90d037e0d0012099c9eb301a942ef989ebc61763f9037703d2017f3c5abcc52790e6378589f443f9539494aa0bf8ed522500fa1606a8c34b')

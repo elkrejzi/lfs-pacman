@@ -1,6 +1,6 @@
 pkgbase=ncurses
 pkgname=('ncurses' 'lib32-ncurses')
-_pkgver=6.0-20170513
+_pkgver=6.0-20170701
 pkgver=${_pkgver/-/+}
 pkgrel=1
 arch=('x86_64')
@@ -97,11 +97,6 @@ package_ncurses() {
 	make -C buildncursesw6-lib install DESTDIR="${pkgdir}"
 
 	install_shared lib
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libncursesw.so.6* "${pkgdir}/lib"
-	ln -sfv ../../lib/libncursesw.so.6.0 "${pkgdir}/usr/lib/libncursesw.so"
 }
 
 package_lib32-ncurses() {
@@ -117,4 +112,4 @@ package_lib32-ncurses() {
 	install_shared lib32
 }
 
-sha512sums=('dc3a27f2a749631c52b16aca316256a2af740eeacfdbf512300b444853de85225e7bad17384e48efdd0edf62c082d00a4c9ae59bda1d4a9c34c47e299a4fbec5')
+sha512sums=('01a30d217a6328db197b68385cd7a16ed45f42589b7fd49271c30c475300ae97cc377811df3dd95fe7d1855c0978291a7ae0c2f5ee9a14a96cc2a6b8972b4ddc')

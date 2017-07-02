@@ -13,14 +13,13 @@ lfs_chroot_build_temp ${thispkg} || exit 1
 
 case ${thispkg} in
   "bash" )
-    rm -rf ${LFS}/bin/{bash,sh}
+    rm -rf ${LFS}/usr/bin/{bash,sh}
   ;;
   "coreutils" )
-    rm -rf ${LFS}/bin/{cat,dd,echo,ln,pwd,rm,stty}
-    rm -rf ${LFS}/usr/bin/install
+    rm -rf ${LFS}/usr/bin/{cat,dd,echo,install,ln,pwd,rm,stty}
   ;;
   "gcc" )
-    rm -rf ${LFS}/usr/lib/libgcc_s.so ${LFS}/lib/libgcc_s.so.1 ${LFS}/usr/lib/libstdc++.so{,.6}
+    rm -rf ${LFS}/usr/lib/libgcc_s.so{,.1} ${LFS}/usr/lib/libstdc++.so{,.6}
     rm -rf ${LFS}/usr/lib32/libgcc_s.so{,.1} ${LFS}/usr/lib32/libstdc++.so{,.6}
   ;;
   "llvm" )

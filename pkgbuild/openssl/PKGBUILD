@@ -63,14 +63,6 @@ package_openssl() {
 	cd "${srcdir}/openssl-${_basever}"
 
 	make install INSTALL_PREFIX="${pkgdir}" MANDIR=/usr/share/man MANSUFFIX=ssl
-
-	install -v -dm755 "${pkgdir}/lib"
-
-	mv -v "${pkgdir}"/usr/lib/libcrypto.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libcrypto.so") "${pkgdir}/usr/lib/libcrypto.so"
-
-	mv -v "${pkgdir}"/usr/lib/libssl.so.* "${pkgdir}/lib"
-	ln -sfv ../../lib/$(readlink "${pkgdir}/usr/lib/libssl.so") "${pkgdir}/usr/lib/libssl.so"
 }
 
 package_lib32-openssl() {

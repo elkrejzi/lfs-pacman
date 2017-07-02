@@ -20,15 +20,13 @@ build() {
 
 	unset CFLAGS
 
-	make
+	make bindir=/usr/sbin
 }
 
 package() {
 	cd "${srcdir}/multipath-tools/kpartx"
 
-	make install DESTDIR="${pkgdir}"
-
-	mv "${pkgdir}/usr/lib" "${pkgdir}/lib"
+	make install bindir=/usr/sbin DESTDIR="${pkgdir}"
 }
 
 sha512sums=('SKIP')

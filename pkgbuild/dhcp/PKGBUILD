@@ -26,7 +26,7 @@ prepare() {
 build() {
 	cd "${srcdir}/dhcp-${pkgver}"
 
-	CFLAGS+=" -D_PATH_DHCLIENT_SCRIPT='\"/sbin/dhclient-script\"'"
+	CFLAGS+=" -D_PATH_DHCLIENT_SCRIPT='\"/usr/sbin/dhclient-script\"'"
 	CFLAGS+=" -D_PATH_DHCPD_CONF='\"/etc/dhcp/dhcpd.conf\"'"
 	CFLAGS+=" -D_PATH_DHCLIENT_CONF='\"/etc/dhcp/dhclient.conf\"'"
 
@@ -48,13 +48,10 @@ package_dhclient() {
 
 	make -C client install DESTDIR="${pkgdir}"
 
-	mv "${pkgdir}/usr/sbin" "${pkgdir}"
-	rm -rf "${pkgdir}"/etc/dhcp/*
+	rm -rf "${pkgdir}/etc/dhcp"
 
-	install -v -Dm755 client/scripts/linux "${pkgdir}/sbin/dhclient-script"
-
+	install -v -Dm755 client/scripts/linux "${pkgdir}/usr/sbin/dhclient-script"
 	install -v -Dm644 "${srcdir}/dhclient.conf" "${pkgdir}/etc/dhcp/dhclient.conf"
-
 	install -v -dm755 "${pkgdir}/var/lib/dhclient"
 }
 
@@ -66,7 +63,7 @@ package_dhcpd() {
 	make install DESTDIR="${pkgdir}"
 	make -C client uninstall DESTDIR="${pkgdir}"
 
-	rm -rf "${pkgdir}"/etc/dhcp/*
+	rm -rf "${pkgdir}/etc/dhcp"
 
 	install -v -Dm644 "${srcdir}/dhcpd.default" "${pkgdir}/etc/default/dhcpd"
 	install -v -Dm644 "${srcdir}/dhcpd6.default" "${pkgdir}/etc/default/dhcpd6"
@@ -74,8 +71,8 @@ package_dhcpd() {
 	install -v -Dm644 "${srcdir}/dhcpd.conf" "${pkgdir}/etc/dhcp/dhcpd.conf"
 	install -v -Dm644 "${srcdir}/dhcpd6.conf" "${pkgdir}/etc/dhcp/dhcpd6.conf"
 
-	install -v -Dm644 "${srcdir}/dhcpd.service" "${pkgdir}/lib/systemd/system/dhcpd.service"
-	install -v -Dm644 "${srcdir}/dhcpd6.service" "${pkgdir}/lib/systemd/system/dhcpd6.service"
+	install -v -Dm644 "${srcdir}/dhcpd.service" "${pkgdir}/usr/lib/systemd/system/dhcpd.service"
+	install -v -Dm644 "${srcdir}/dhcpd6.service" "${pkgdir}/usr/lib/systemd/system/dhcpd6.service"
 
 	install -v -dm755 "${pkgdir}/var/lib/dhcpd"
 }
