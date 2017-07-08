@@ -1,89 +1,111 @@
 pkgbase=libsystemd
 pkgname=('libsystemd' 'lib32-libsystemd')
-pkgver=233
+pkgver=234
 pkgrel=1
 arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
 license=('GPL2' 'LGPL2.1')
 #depends=()
-source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.xz")
+source=("git+https://github.com/systemd/systemd.git#commit=65e1dee")
+#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/systemd-${pkgver}"
+	test -e "${srcdir}/systemd-${pkgver}" || ln -sf systemd "${srcdir}/systemd-${pkgver}"
 
-	sed -i "s#-Werror=format=2##g" configure
-
-	cp -a "${srcdir}"/systemd{,32}-${pkgver}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	local configure_shared=(--prefix=/usr
-		--sysconfdir=/etc
-		--localstatedir=/var
-		--disable-firstboot
-		--disable-ima
-		--disable-lto
-		--disable-smack
-		--disable-tests
-		--disable-wheel-group
-		--with-pamlibdir=/usr/lib/security
-		--with-sysvinit-path=/etc/init.d
-		--with-sysvrcnd-path=/etc
-		--with-rc-local-script-path-stop=
-		--with-rc-local-script-path-start=/etc/rc.local
-		--with-dbuspolicydir=/etc/dbus-1/system.d
-		--with-dbussessionservicedir=/usr/share/dbus-1/services
-		--with-dbussystemservicedir=/usr/share/dbus-1/system-services)
+	local configure_shared=(
+		--prefix /usr
+		--sysconfdir /etc
+		--localstatedir /var
+		--buildtype=plain
+		-Dfirstboot=false
+		-Dima=false
+		-Dsmack=false
+		-Dwheel-group=false
+		-Dpamlibdir=/usr/lib/security
+		-Dsysvinit-path=/etc/init.d
+		-Dsysvrcnd-path=/etc
+		-Dhalt-local=""
+		-Drc-local=/etc/rc.local
+		-Ddbuspolicydir=/etc/dbus-1/system.d
+		-Ddbussessionservicedir=/usr/share/dbus-1/services
+		-Ddbussystemservicedir=/usr/share/dbus-1/system-services
+		-Dbashcompletiondir=no
+		-Drpmmacrosdir=no
+		-Dzshcompletiondir=no
+		-Dnobody-group=nogroup
+		-Dacl=false
+		-Daudit=false
+		-Defi=false
+		-Dglib=false
+		-Dgnutls=false
+		-Dkmod=false
+		-Dlibcryptsetup=false
+		-Dlibcurl=false
+		-Dlibidn=false
+		-Dlibidn2=false
+		-Dlibiptc=false
+		-Dmicrohttpd=false
+		-Dman=false
+		-Dpam=false
+		-Dqrencode=false
+		-Dseccomp=false
+		-Dxkbcommon=false
+	)
 
-	cd "${srcdir}/systemd-${pkgver}"
+	cd "${srcdir}/build64"
 
-	./configure "${configure_shared[@]}"
+	meson "${configure_shared[@]}" "${srcdir}/systemd-${pkgver}"
 
-	cd "${srcdir}/systemd32-${pkgver}"
+	cd "${srcdir}/build32"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure "${configure_shared[@]}" \
-		--libdir=/usr/lib32 \
-		--disable-acl \
-		--disable-audit \
-		--disable-pam
+	meson "${configure_shared[@]}" \
+		--libdir /usr/lib32 \
+		"${srcdir}/systemd-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/systemd-${pkgver}" built-sources
-	make -C "${srcdir}/systemd-${pkgver}" libudev.la libsystemd.la
-
-	make -C "${srcdir}/systemd32-${pkgver}" built-sources
-	make -C "${srcdir}/systemd32-${pkgver}" libudev.la libsystemd.la
+	ninja -C build64 ${MAKEFLAGS}
+	ninja -C build32 ${MAKEFLAGS}
 }
 
 package_libsystemd() {
 	pkgdesc="System and service manager libraries"
 
-	cd "${srcdir}/systemd-${pkgver}"
+	cd "${srcdir}/build64"
 
-	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" install-rootlibLTLIBRARIES \
-		install-includeHEADERS install-pkgincludeHEADERS install-pkgconfiglibDATA \
-		DESTDIR="${pkgdir}"
+	DESTDIR="${PWD}/dest" ninja install
+
+	install -v -dm755 "${pkgdir}/usr/include"
+	install -v -dm755 "${pkgdir}/usr/lib/pkgconfig"
+
+	mv dest/usr/include/* "${pkgdir}/usr/include"
+	mv dest/usr/lib/pkgconfig/* "${pkgdir}/usr/lib/pkgconfig"
+
+	mv dest/usr/lib/lib{systemd,udev}.so* "${pkgdir}/usr/lib"
 }
 
 package_lib32-libsystemd() {
 	pkgdesc="System and service manager libraries (32 bit)"
 
-	cd "${srcdir}/systemd32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" install-rootlibLTLIBRARIES \
-		install-includeHEADERS install-pkgincludeHEADERS install-pkgconfiglibDATA \
-		DESTDIR="${PWD}/dest"
+	DESTDIR="${PWD}/dest" ninja install
 
-	install -v -dm755 "${pkgdir}/usr"
-	mv dest/usr/lib32 "${pkgdir}/usr"
+	install -v -dm755 "${pkgdir}/usr/lib32/pkgconfig"
+
+	mv dest/usr/lib32/pkgconfig/* "${pkgdir}/usr/lib32/pkgconfig"
+	mv dest/usr/lib32/lib{systemd,udev}.so* "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('a749a208df75a75afd714a07d9f61dd2c641c62f432c7a707baebdf4db0e24b5ed3e213cd0a82af6687aa14943193e0b7e9e70a3a603015a2a483eaaeee8bc41')
+sha512sums=('SKIP')

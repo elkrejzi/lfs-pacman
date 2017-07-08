@@ -21,6 +21,8 @@ tar xf ${SROOT}/pacman-${PACMAN_VER}.tar.gz
     sed -i "s#/usr/bin#/tools/bin#g" /tools/bin/makepkg
 
     cat > /tools/etc/makepkg.conf << "EOF"
+PATH=/usr/bin:/usr/sbin:/tools/bin
+
 DLAGENTS=('ftp::/tools/bin/curl -fC - --ftp-pasv --retry 3 --retry-delay 3 -o %o %u'
           'http::/tools/bin/curl -fLC - --retry 3 --retry-delay 3 -o %o %u'
           'https::/tools/bin/curl -fLC - --retry 3 --retry-delay 3 -o %o %u'

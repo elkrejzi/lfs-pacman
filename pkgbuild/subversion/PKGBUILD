@@ -1,5 +1,5 @@
 pkgname=subversion
-pkgver=1.9.5
+pkgver=1.9.6
 pkgrel=1
 pkgdesc="A Modern Concurrent Version Control System"
 arch=('x86_64')
@@ -51,7 +51,7 @@ package() {
 	install -v -Dm644 "${srcdir}/svnserve.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/svnserve.conf"
 }
 
-sha512sums=('ff7241ffae2506e97f40011242b5d5c6fa665f5463743f9acc52136b59ad84b6db00b60e70c44a9060579db49b818db06da1d1352aaee78e5bfe6ce56f32a2cf'
+sha512sums=('bdca362ff45a7f028e2123efbc9bfd41a07e6ebdfcf62627ce24f413e0304b45011bbac1f142ceb1c031a07622c06786982f86cd9109065cae5e26fd689fc11e'
             '43a6d736e64e2a0c84014829ec1dffa65cf8f0d591c2e1a4afd393bc63f4a15a8d6cb551635356c937d7354db23cf3620de788c9623835d08b3af3afb816957c'
             '005e37efeb14bc32ce8ed58312bc97acd14267584b87b055a2340225c1509f427f22085b06c414fc0a425436b4779b262378e26f628441679a36a41fdef7f970'
             'e816cb8aeae607dfa3cb4c3e0f67410d83493fccb381951ec8426b8e1fd871ebead2f295df477071d0858f00ba601304868c90afc7ea720bf4adfb6fdf468343')

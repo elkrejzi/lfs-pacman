@@ -1,13 +1,14 @@
 pkgname=('glibc' 'lib32-glibc')
 pkgbase=glibc
-pkgver=2.25
+pkgver=2.25.90
 pkgrel=1
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
 license=('GPL' 'LGPL')
 #depends=()
 options=(staticlibs debug emptydirs)
-source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
+#source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
+source=("git+https://sourceware.org/git/glibc.git#commit=218bb83"
 	"glibc.conf"
 	"locale-gen"
 	"locale.gen"
@@ -15,6 +16,9 @@ source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
 	"glibc-pure64.patch")
 
 prepare() {
+	cd "${srcdir}"
+	cp -a glibc glibc-${pkgver}
+
 	cd "glibc-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/glibc-paths.patch"
@@ -31,10 +35,9 @@ prepare() {
 build() {
 	local configure_flags=(
 		--disable-profile --enable-add-ons --enable-kernel=4.0
-		--enable-bind-now --enable-multi-arch --enable-obsolete-rpc
+		--enable-bind-now --enable-multi-arch --enable-lock-elision
 		--enable-stackguard-randomization --enable-stack-protector=strong
-		--enable-lock-elision --with-headers=/usr/include
-		--with-pkgversion="Krejzi ${pkgver}" --disable-werror
+		--with-headers=/usr/include --with-pkgversion="Krejzi ${pkgver}"
 	)
 
 	cd "${srcdir}/build64"
@@ -89,6 +92,7 @@ package_glibc() {
 	make install install_root="${pkgdir}"
 
 	rm -rf "${pkgdir}/etc/ld.so.conf" "${pkgdir}/etc/ld.so.cache" "${pkgdir}/lib64"
+	rm -rf "${pkgdir}"/usr/lib/libnsl.{a,so}
 
 	install -v -dm755 "${pkgdir}/etc/ld.so.conf.d" "${pkgdir}/usr/lib/systemd/system" \
 		"${pkgdir}/usr/lib/locale" "${pkgdir}/usr/lib/tmpfiles.d" \
@@ -124,9 +128,11 @@ package_lib32-glibc() {
 
 	ln -sfv ../lib32/ld-linux.so.2 "${pkgdir}/usr/lib/ld-linux.so.2"
 	ln -sfv ../lib/locale "${pkgdir}/usr/lib32/locale"
+
+	rm -rf "${pkgdir}"/usr/lib32/libnsl.{a,so}
 }
 
-sha512sums=('5b7a2418d5b8a1b6a907c6c7fb6477ee2a473151cb45e03d0d4cdd9a33497c90b1ee39e2e7e885e2b25743dcd3747336ef114b4a73eb001da1fd79f29e0f9a6e'
+sha512sums=('SKIP'
             '062341482c1b44d3a97a00cb0915afc2d45b0acf5c7a79c98e37927a902a5ba040db973d0ee9f24e645a245c54704139e43df67e5adb8fa93c91411deeba01ff'
             'ba1e4d42b1ccc07c0a3a11b8c788b96526a40a1d70eb5807749067b2591d27e3d00b88752f1689e918f1129d110797ece2861ba7a508fa55ae089e7cc5c8bf8b'
             '3d9facc6da5159dcd877473c8a4d77006ef5615e2619ef743255112bfa136baf65239367222e87e7ada823d5c7d747aa5204f8365a806141e5884477898ccd14'

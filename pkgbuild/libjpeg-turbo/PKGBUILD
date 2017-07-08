@@ -1,5 +1,5 @@
 pkgname=libjpeg-turbo
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="JPEG image codec with accelerated baseline compression and decompression"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a03823cf4b3d1aada24e502fea0a979b1f656c01e55ffddc06013b9c79509c2da1e3bcf0b85282289451d77d4cb5f56dd8cbf6e492744836ddda1f7136534852')
+sha512sums=('c7fe5cc77e38fad33af3f10e6db961c8edf033a86c09541121f49bfa20547179760924e6d3e397f0add7030459ff3babadd3457ab2da4a40a2147dc1574aa444')

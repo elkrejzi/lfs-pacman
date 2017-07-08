@@ -13,7 +13,8 @@ tar xf ${SROOT}/openssl-${OPENSSL_VER}.tar.gz
     ./config --prefix=/tools             \
              --openssldir=/tools/etc/ssl \
              --libdir=lib                \
-             shared
+             shared                      \
+             no-ssl3-method
     make
     make -j1 MANDIR=/tools/share/man MANSUFFIX=ssl install
   popd

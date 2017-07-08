@@ -1,5 +1,5 @@
 pkgname=bind
-_pkgver=9.11.1-P2
+_pkgver=9.11.1-P3
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="The ISC DNS Server"
@@ -30,7 +30,7 @@ build() {
 		--with-gssapi=/usr \
 		--with-libtool
 
-	make
+	make -j1
 }
 
 package() {
@@ -58,7 +58,7 @@ package() {
 	install -v -Dm644 "${srcdir}/named.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/named.conf"
 }
 
-sha512sums=('275e63d87372a7cd994a5116a750fd1fffc3d29d0104e98a85316a181d9a251a5cb3e009a55b73685a17a68e2f4516db005c667f6e75309f88e2d30096507769'
+sha512sums=('bf92ce1e07e5c84cc42b413bdbd3ad97f37712a6dc330dc10182992d948b7a393d5446efa188379b39020c34d810cebe2a7acccc9b8aa6bb564e1f3e6be42e96'
             '97f3a47efc8a27511ad579cda326f443eec630649c23a7da4ef9b3ed060e036ba358cf50bec4e6656346c01047e1ecd494f741147e26d9d8620fff4980fb6ee5'
             '5daebe2c3d0dd48f4c47670a2be063dbe70e7a4c2b6bd4146f67845a701637fc2f612386cbab31654a904dcd9eb0105227e20698c40841de47aa777152ae38b2'
             'ed2aa57cd5a07f3d69645c6e6d3132cbd2a6932457874a7d8430d575245c71da966da770e52b267b03c18acf439c4b22116f6893a66956b9f9bf4c78886e19e6'

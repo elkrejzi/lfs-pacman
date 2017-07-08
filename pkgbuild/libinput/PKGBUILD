@@ -1,5 +1,5 @@
 pkgname=libinput
-pkgver=1.7.3
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Input device management and event handling library"
 arch=('x86_64')
@@ -8,21 +8,29 @@ license=('custom:X11')
 #depends=()
 source=("https://freedesktop.org/software/libinput/libinput-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/libinput-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--disable-event-gui \
-		--disable-tests \
-		--with-udev-dir=/usr/lib/udev
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddebug-gui=false \
+		-Dtests=false \
+		-Ddocumentation=false \
+		"${srcdir}/libinput-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libinput-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('2262dc56d213a4d3ea765e870af200e2c336a166baa1bbdf5205e3ce70faefc777429ba09563c5dd79feb5442f53abc84e04a0f32a06bb622d6e120bb8ad152b')
+sha512sums=('84354859c25cf2906214fd195c396e8166db361664edc625db5aab4f1b247dfc4a80d7e9dffe2b61c6bbfaa8208d3f64ce56aac2180a699cb71a088d6196ba4d')

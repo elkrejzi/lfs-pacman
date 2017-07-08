@@ -61,7 +61,12 @@ fi
 
 PKGS=(linux-api-headers
 glibc
+rpcsvc-proto
 tzdata
+pkg-config
+libtirpc
+libnsl
+libnss_compat
 zlib
 file
 m4
@@ -83,7 +88,6 @@ libselinux
 libatomic_ops
 ed
 sed
-pkg-config
 gc
 binutils
 gcc

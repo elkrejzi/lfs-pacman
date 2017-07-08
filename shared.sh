@@ -59,8 +59,7 @@ lfs_chroot_exec_cmd() {
 
 lfs_chroot_build_temp() {
   local pkg=${1}
-  local cmd="export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin; \
-             pushd ${BUILDDIR}/${pkg}; \
+  local cmd="pushd ${BUILDDIR}/${pkg}; \
              /tools/bin/makepkg -f || exit 1; \
              popd"
 
@@ -72,10 +71,11 @@ lfs_chroot_build_temp() {
   rm -rf ${LFS}/${BUILDDIR}/${pkg}/{pkg,src} ${LFS}/${BUILDDIR}/${pkg}/*.pkg.tar*
 
   chroot "$LFS" /tools/bin/env -i \
+      LC_ALL=en_US.UTF-8          \
       HOME=${BUILDDIR}            \
       TERM="$TERM"                \
       PS1='\u:\w\$ '              \
-      PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+      PATH=/usr/bin:/usr/sbin:/tools/bin \
       /tools/bin/su -pl pkgbuild -c "${cmd}"
 
   [ $PIPESTATUS = 0 ] || exit $PIPESTATUS
@@ -93,7 +93,7 @@ lfs_pacman_install_temp() {
         *-debug-[0-9]* )
         ;;
         * )
-          PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff} || exit 1
+          PATH=/usr/bin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff} || exit 1
         ;;
       esac
     done

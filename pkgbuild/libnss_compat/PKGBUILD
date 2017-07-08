@@ -1,0 +1,60 @@
+pkgbase=libnss_compat
+pkgname=('libnss_compat' 'lib32-libnss_compat')
+pkgver=1.2
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/thkukuk/libnss_compat"
+license=('LGPL2.1')
+#depends=()
+source=("https://github.com/thkukuk/libnss_compat/archive/libnss_compat-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/libnss_compat-libnss_compat-${pkgver}"
+
+	autoreconf -fi
+
+	cp -a "${srcdir}"/libnss_compat-libnss_compat{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libnss_compat-libnss_compat-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/libnss_compat-libnss_compat32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libnss_compat-libnss_compat-${pkgver}"
+	make -C "${srcdir}/libnss_compat-libnss_compat32-${pkgver}"
+}
+
+package_libnss_compat() {
+	pkgdesc="NSS compat plugin for glibc"
+
+	cd "${srcdir}/libnss_compat-libnss_compat-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libnss_compat() {
+	pkgdesc="NSS compat plugin for glibc (32 bit)"
+
+	cd "${srcdir}/libnss_compat-libnss_compat32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+sha512sums=('e488c72d5d13f9749293a91f2bc86c06fcc184c2edb7d9335569bc77c7aea1d2874de1d83b13f394f3d0881ec368b5749cf9a5c60f362f7c4c428026c2fc0e53')

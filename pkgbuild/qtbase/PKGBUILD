@@ -11,6 +11,11 @@ source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/sub
 build() {
 	cd "${srcdir}/qtbase-opensource-src-${pkgver}"
 
+        CFLAGS+=" -isystem /usr/include/c++/v1"
+
+	sed -i "s#^\(QMAKE_CFLAGS_RELEASE.*\)#\1 ${CFLAGS}#g" mkspecs/common/gcc-base.conf
+	sed -i "s#config.atspi#libs.atspi#g" src/gui/configure.json
+
 	./configure -prefix /usr \
 		-sysconfdir /etc/xdg \
 		-headerdir /usr/include/qt5 \

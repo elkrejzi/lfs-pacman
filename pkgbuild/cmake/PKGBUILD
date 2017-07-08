@@ -11,6 +11,9 @@ source=("https://www.cmake.org/files/v${pkgver:0:3}/cmake-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/cmake-${pkgver}"
 
+	# Workaround for temp. SSL being built with SSLv3 methods
+	export LDFLAGS="-L/usr/lib"
+
  	./bootstrap --prefix=/usr \
 		--sphinx-man \
 		--system-libs \

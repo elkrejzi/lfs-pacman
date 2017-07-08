@@ -46,8 +46,8 @@ GMP_VER=6.1.2
 MPFR_VER=3.1.5
 MPC_VER=1.0.3
 GCC_VER=7.1.0
-LINUX_VER=4.11
-LINUX_PATCH_VER=4.11.8
+LINUX_VER=4.12
+LINUX_PATCH_VER=
 GLIBC_VER=2.25
 TCL_VER=8.6.6
 EXPECT_VER=5.45
@@ -62,7 +62,7 @@ FILE_VER=5.31
 FINDUTILS_VER=4.6.0
 GAWK_VER=4.1.4
 GETTEXT_VER=0.19.8.1
-GREP_VER=3.0
+GREP_VER=3.1
 GZIP_VER=1.8
 M4_VER=1.4.18
 MAKE_VER=4.2.1
@@ -93,6 +93,9 @@ LLVM_VER=4.0.1
 FAKEROOT_VER=1.20.2
 SHADOW_VER=4.5
 PACMAN_VER=5.0.2
+AUTOCONF_VER=2.69
+AUTOMAKE_VER=1.15.1
+LIBTOOL_VER=2.4.6
 
 #export LLVM_RELEASE_BRANCH=""
 export LLVM_RELEASE=releases/${LLVM_VER}
@@ -163,6 +166,9 @@ http://llvm.org/${LLVM_RELEASE}/openmp-${LLVM_VER}.src.tar.xz
 http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_${FAKEROOT_VER}.orig.tar.bz2
 https://github.com/shadow-maint/shadow/releases/download/${SHADOW_VER}/shadow-${SHADOW_VER}.tar.xz
 https://sources.archlinux.org/other/pacman/pacman-${PACMAN_VER}.tar.gz
+${GNU_MIRROR}/autoconf/autoconf-${AUTOCONF_VER}.tar.xz
+${GNU_MIRROR}/automake/automake-${AUTOMAKE_VER}.tar.xz
+${GNU_MIRROR}/libtool/libtool-${LIBTOOL_VER}.tar.xz
 EOF
 
     if [ ! -z "${LINUX_PATCH_VER}" ]

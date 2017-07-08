@@ -1,5 +1,5 @@
 pkgname=systemd
-pkgver=233
+pkgver=234
 pkgrel=1
 pkgdesc="system and service manager"
 arch=('x86_64')
@@ -18,7 +18,8 @@ backup=(etc/rc.local
 	etc/systemd/user.conf)
 options=(emptydirs)
 install=systemd.install
-source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.xz"
+#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
+source=("git+https://github.com/systemd/systemd.git#commit=65e1dee"
 	"locale.sh"
 	"rc.local"
 	"systemd-hwdb.hook"
@@ -27,47 +28,50 @@ source=("http://www.linuxfromscratch.org/~krejzi/systemd/systemd-${pkgver}.tar.x
 	"systemd-user")
 
 prepare() {
+	test -e "${srcdir}/systemd-${pkgver}" || ln -sf systemd "${srcdir}/systemd-${pkgver}"
+
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/systemd-${pkgver}"
 
-	sed -i "s#-Werror=format=2##g" configure
 	sed -i "/MemoryDenyWriteExecute=yes/d" units/systemd-timesyncd.service.in
-
-	rm -f src/resolve/dns_type-from-name.h
 }
 
 build() {
-	cd "${srcdir}/systemd-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-firstboot \
-		--disable-ima \
-		--disable-lto \
-		--disable-smack \
-		--disable-tests \
-		--disable-wheel-group \
-		--enable-gnuefi \
-		--with-pamlibdir=/usr/lib/security \
-		--with-sysvinit-path=/etc/init.d \
-		--with-sysvrcnd-path=/etc \
-		--with-rc-local-script-path-stop= \
-		--with-rc-local-script-path-start=/etc/rc.local \
-		--with-dbuspolicydir=/etc/dbus-1/system.d \
-		--with-dbussessionservicedir=/usr/share/dbus-1/services \
-		--with-dbussystemservicedir=/usr/share/dbus-1/system-services
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dfirstboot=false \
+		-Dima=false \
+		-Dsmack=false \
+		-Dwheel-group=false \
+		-Dpamlibdir=/usr/lib/security \
+		-Dgnu-efi=true \
+		-Dsysvinit-path=/etc/init.d \
+		-Dsysvrcnd-path=/etc \
+		-Dhalt-local="" \
+		-Drc-local=/etc/rc.local \
+		-Ddbuspolicydir=/etc/dbus-1/system.d \
+		-Ddbussessionservicedir=/usr/share/dbus-1/services \
+		-Ddbussystemservicedir=/usr/share/dbus-1/system-services \
+		-Dbashcompletiondir=no \
+		-Drpmmacrosdir=no \
+		-Dzshcompletiondir=no \
+		-Dnobody-group=nogroup \
+		"${srcdir}/systemd-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/systemd-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
-	make rootlib_LTLIBRARIES="libsystemd.la libudev.la" uninstall-rootlibLTLIBRARIES \
-		uninstall-includeHEADERS uninstall-pkgincludeHEADERS uninstall-pkgconfiglibDATA \
-		DESTDIR="${pkgdir}"
+	rm -rf "${pkgdir}"/usr/lib/lib{systemd,udev}.so*
 
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 	rm -rf "${pkgdir}/usr/lib/sysusers.d/basic.conf"
@@ -82,8 +86,7 @@ package() {
 
 	rm -rf "${pkgdir}/var/log/journal/remote"
 
-	rm -rf "${pkgdir}/etc/init.d" "${pkgdir}/etc/rpm" "${pkgdir}/usr/lib/rpm"
-	rm -rf "${pkgdir}/etc/systemd/system/ctrl-alt-del.target"
+	rm -rf "${pkgdir}/etc/init.d" "${pkgdir}/etc/systemd/system/ctrl-alt-del.target"
 	rm -rf "${pkgdir}"/etc/systemd/system/multi-user.target.wants/systemd-{networkd,resolved,timesyncd}.service
 	rm -rf "${pkgdir}"/etc/systemd/system/multi-user.target.wants/machines.target
 	rm -rf "${pkgdir}"/etc/systemd/system/{network-online,sockets,sysinit}.target.wants
@@ -113,7 +116,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('a749a208df75a75afd714a07d9f61dd2c641c62f432c7a707baebdf4db0e24b5ed3e213cd0a82af6687aa14943193e0b7e9e70a3a603015a2a483eaaeee8bc41'
+sha512sums=('SKIP'
             'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '08ddc283f0f554d9d334fe3c168fdfa839dda2bcb872968eb3c2a88719e0faf058f1e1eecbc2bde11d3b2f341142684bed1702aab2d26297a81d8d681a790b92'

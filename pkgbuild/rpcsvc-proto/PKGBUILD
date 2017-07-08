@@ -1,0 +1,31 @@
+pkgname=rpcsvc-proto
+pkgver=1.2
+pkgrel=1
+pkgdesc="Contains rpcsvc proto.x files from glibc"
+arch=('x86_64')
+url="https://github.com/thkukuk/rpcsvc-proto"
+license=('LGPL2.1')
+#depends=()
+source=("https://github.com/thkukuk/rpcsvc-proto/archive/rpcsvc-proto-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/rpcsvc-proto-rpcsvc-proto-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/rpcsvc-proto-rpcsvc-proto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/rpcsvc-proto-rpcsvc-proto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('59e6ac2c3e551daef584878e8ae8fc2da7cb80a04c20f96de561abc972fcfac1fbb57a5ee0dbe7bf5288a1527c9b87fc3f73a259b30393982a9a642cf4b4deb4')

@@ -1,0 +1,68 @@
+pkgbase=libtirpc
+pkgname=('libtirpc' 'lib32-libtirpc')
+pkgver=1.0.2
+pkgrel=1
+arch=('x86_64')
+url="http://libtirpc.sourceforge.net/"
+license=('BSD')
+#depends=()
+source=("https://downloads.sourceforge.net/sourceforge/libtirpc/libtirpc-${pkgver}.tar.bz2")
+
+prepare() {
+	cd "${srcdir}/libtirpc-${pkgver}"
+
+	sed -i "/stdlib.h/a #include <stdint.h>" src/xdr_sizeof.c
+	sed -i "s#key_secret_is_set#key_secretkey_is_set#g" src/libtirpc.map
+	sed -i "s#__bzero (schedule,#memset (schedule, 0,#g" src/des_impl.c
+
+	cp -a "${srcdir}"/libtirpc{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libtirpc-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-gssapi
+
+	cd "${srcdir}/libtirpc32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-gssapi  \
+		--libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libtirpc-${pkgver}"
+	make -C "${srcdir}/libtirpc32-${pkgver}"
+}
+
+package_libtirpc() {
+	pkgdesc="Transport Independent RPC library"
+
+	cd "${srcdir}/libtirpc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libtirpc() {
+	pkgdesc="Transport Independent RPC library (32 bit)"
+
+	cd "${srcdir}/libtirpc32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+
+sha512sums=('6c819019a8e81d8263d3c509b2eee59ba1ef092222c5a0a8d28f004c711afa252097eca7e6b0b919b2d780883dfd9ee7a363df4cee7fd2c9159a065257637cec')

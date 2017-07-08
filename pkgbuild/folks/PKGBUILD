@@ -1,5 +1,5 @@
 pkgname=folks
-pkgver=0.11.3
+pkgver=0.11.4
 pkgrel=1
 pkgdesc="Library to aggregates people into metacontacts"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ff7061e07545d3c66045dd6fda1045023778b5cf6a4beb15ebd494076d9133564ec06eda22fe9c61bc91545900a0f0cb0bfa17e29046ef376c12e6b6043faa85')
+sha512sums=('bd4088322c34b5d6e633d7d5d83dfb61eb3499014adf6fecad27231ec63509401b2867186d019a2f7c92cc3b3f2e6cfbc80e0d4700d84ce7a08d8153af3d2392')

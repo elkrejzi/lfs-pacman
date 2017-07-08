@@ -52,4 +52,7 @@ $(dirname $0)/049-llvm
 $(dirname $0)/050-fakeroot
 $(dirname $0)/051-shadow
 $(dirname $0)/052-pacman
-$(dirname $0)/053-clean
+$(dirname $0)/053-autoconf
+$(dirname $0)/054-automake
+$(dirname $0)/055-libtool
+$(dirname $0)/056-clean

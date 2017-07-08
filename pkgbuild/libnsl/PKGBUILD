@@ -1,0 +1,62 @@
+pkgbase=libnsl
+pkgname=('libnsl' 'lib32-libnsl')
+pkgver=1.0.5
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/thkukuk/libnsl"
+license=('LGPL2.1')
+#depends=()
+source=("https://github.com/thkukuk/libnsl/archive/libnsl-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/libnsl-libnsl-${pkgver}"
+
+	sed -i "/string.h/a #include <stdint.h>" src/nisplus/nis_call.c
+
+	autoreconf -fi
+
+	cp -a "${srcdir}"/libnsl-libnsl{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/libnsl-libnsl-${pkgver}"
+
+	./configure --prefix=/usr
+
+	cd "${srcdir}/libnsl-libnsl32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libnsl-libnsl-${pkgver}"
+	make -C "${srcdir}/libnsl-libnsl32-${pkgver}"
+}
+
+package_libnsl() {
+	pkgdesc="Public client interface for NIS(YP) and NIS+"
+
+	cd "${srcdir}/libnsl-libnsl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-libnsl() {
+	pkgdesc="Public client interface for NIS(YP) and NIS+ (32 bit)"
+
+	cd "${srcdir}/libnsl-libnsl32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+sha512sums=('ce0423042d372a9f800738480d222164e7ad2e09c9efa80d4845b9a06b78f478c395a65a4c175dd708d01f0bb9be9514526c44df48990221fd6d28c785767c49')
