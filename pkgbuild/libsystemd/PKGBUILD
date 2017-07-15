@@ -6,12 +6,9 @@ arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
 license=('GPL2' 'LGPL2.1')
 #depends=()
-source=("git+https://github.com/systemd/systemd.git#commit=65e1dee")
-#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
+source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
 
 prepare() {
-	test -e "${srcdir}/systemd-${pkgver}" || ln -sf systemd "${srcdir}/systemd-${pkgver}"
-
 	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
@@ -108,4 +105,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32/lib{systemd,udev}.so* "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('SKIP')
+sha512sums=('762336a7d96c6583cf71cad62efce95a0ed93cd0a0d7251f128d10dba8200c0c8df0e5a7d168179ababa5b221295a231e73b7e7ea2697cb3fb5c1b33538efa68')

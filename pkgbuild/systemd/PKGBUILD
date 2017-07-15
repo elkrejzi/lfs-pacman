@@ -18,8 +18,7 @@ backup=(etc/rc.local
 	etc/systemd/user.conf)
 options=(emptydirs)
 install=systemd.install
-#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
-source=("git+https://github.com/systemd/systemd.git#commit=65e1dee"
+source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz"
 	"locale.sh"
 	"rc.local"
 	"systemd-hwdb.hook"
@@ -28,8 +27,6 @@ source=("git+https://github.com/systemd/systemd.git#commit=65e1dee"
 	"systemd-user")
 
 prepare() {
-	test -e "${srcdir}/systemd-${pkgver}" || ln -sf systemd "${srcdir}/systemd-${pkgver}"
-
 	install -v -dm755 "${srcdir}/build"
 
 	cd "${srcdir}/systemd-${pkgver}"
@@ -116,7 +113,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('SKIP'
+sha512sums=('762336a7d96c6583cf71cad62efce95a0ed93cd0a0d7251f128d10dba8200c0c8df0e5a7d168179ababa5b221295a231e73b7e7ea2697cb3fb5c1b33538efa68'
             'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '08ddc283f0f554d9d334fe3c168fdfa839dda2bcb872968eb3c2a88719e0faf058f1e1eecbc2bde11d3b2f341142684bed1702aab2d26297a81d8d681a790b92'

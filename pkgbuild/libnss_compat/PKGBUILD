@@ -11,6 +11,8 @@ source=("https://github.com/thkukuk/libnss_compat/archive/libnss_compat-${pkgver
 prepare() {
 	cd "${srcdir}/libnss_compat-libnss_compat-${pkgver}"
 
+	export ACLOCAL_PATH=/usr/share/aclocal
+
 	autoreconf -fi
 
 	cp -a "${srcdir}"/libnss_compat-libnss_compat{,32}-${pkgver}

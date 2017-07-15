@@ -1,6 +1,7 @@
 pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
 pkgver=7.1.0
+_gnatver=2017
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
 arch=('x86_64')
@@ -9,20 +10,22 @@ license=('GPL' 'LGPL' 'FDL' 'custom')
 #depends=()
 options=(staticlibs debug)
 source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.bz2"
-	"gcc-pure64.patch")
+	"gcc-pure64.patch"
+	"gnat-gpl-${_gnatver}-x86_64-linux-bin.tar.gz::http://mirrors.cdn.adacore.com/art/591c6d80c7a447af2deed1d7"
+	"libsanitizer-Use-stack_t-instead-of-struct-sigaltsta.patch"
+	"replace-struct-ucontext-with-ucontext_t.patch")
+
+# GNAT available from: http://libre.adacore.com/download/configurations
 
 gnat_available=0
 test -e "/usr/bin/gnatmake" && gnat_available=1
-
-if [ "${gnat_available}" == "0" ]
-then
-	source+=("gnat-gpl-2016-x86_64-linux-bin.tar.gz")
-fi
 
 prepare() {
 	cd "gcc-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/gcc-pure64.patch"
+	patch -Np1 -i "${srcdir}/libsanitizer-Use-stack_t-instead-of-struct-sigaltsta.patch"
+	patch -Np1 -i "${srcdir}/replace-struct-ucontext-with-ucontext_t.patch"
 
 	sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
 	sed -i 's/\(install.*:\) install-.*recursive/\1/' libffi/Makefile.in
@@ -36,7 +39,7 @@ prepare() {
 
 	if [ "${gnat_available}" == "0" ]
 	then
-		cd "${srcdir}/gnat-gpl-2016-x86_64-linux-bin"
+		cd "${srcdir}/gnat-gpl-${_gnatver}-x86_64-linux-bin"
 		make ins-all prefix="${srcdir}/build/gnat-bin"
 
 		find "${srcdir}/build/gnat-bin" -name ld -exec mv -v {} {}.old \;
@@ -195,9 +198,7 @@ package_gcc-ada() {
 }
 
 sha512sums=('b5d952be9a10f0e0926bb2868877d10544039d6d2f35ba0a08f51231dd622a007650764a03e173194701467547789ad7d2d9cbc10adcdf118d619cdedbd14aec'
-            'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')
-
-if [ "${gnat_available}" == "0" ]
-then
-	sha512sums+=('5115ac3be0badc5125ee048a98230f18363d72107da3325ce602c0e618cee2e3646a0decc00a2388f14bc61bfed51dd0622f365f5f7ee8b0cec2187ebcf8e075')
-fi
+            'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316'
+            '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f'
+            '193559e2881efe8f6e6a30977fc5e77de8a6aeb8dbf3e404ebc4df6042cee5bea253a264ebe6515bbf8ff50ac3949ee5483ed5208fc2f553d60a9ae062e16bcf'
+            '4590da6445a90846eb4f3b1dd32cb905ebd6d2435d8ecafe1ea89f139b67ae5e07a2a2fff402072ef364d7ed4f4d8e5e25ff3891317a8ce96c9b37065e5edcf5')
