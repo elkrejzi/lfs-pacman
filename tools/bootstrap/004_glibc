@@ -19,9 +19,10 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           --prefix=/tools                    \
           --libdir=/tools/lib                \
           --libexecdir=/tools/lib            \
-          --host=$LFS_TGT                    \
+          --host=${LFS_TGT}                  \
           --build=$(../scripts/config.guess) \
           --enable-kernel=2.6.32             \
+          --enable-obsolete-nis              \
           --enable-obsolete-rpc              \
           --with-headers=/tools/include      \
           libc_cv_forced_unwind=yes          \
@@ -47,7 +48,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           libc_cv_c_cleanup=yes              \
           libc_cv_ssp=no
     make
-    make install install_root=$PWD/dest
+    make install install_root=${PWD}/dest
     mv dest/tools/lib32 /tools
     mv dest/tools/include/gnu/lib-names-32.h /tools/include/gnu
     mv dest/tools/include/gnu/stubs-32.h /tools/include/gnu

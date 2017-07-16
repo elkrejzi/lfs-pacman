@@ -4,7 +4,7 @@
 
 rm -rf gcc-${GCC_VER} ${LOGDIR}/gcc-pass2-${GCC_VER}.log
 
-tar xf ${SROOT}/gcc-${GCC_VER}.tar.bz2
+tar xf ${SROOT}/gcc-${GCC_VER}.tar.xz
 
 {
 
@@ -21,6 +21,7 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.bz2
     mv mpc-${MPC_VER} mpc
 
     patch -Np1 -i ${PROOT}/gcc-pure64.patch
+    patch -Np1 -i ${PROOT}/gcc-asan-fixes.patch
 
     # A hack to get /tools/lib32 recognised.
     sed -i "s|\$(if \$(wildcard \$(shell echo \$(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32)|../lib32|" gcc/config/i386/t-linux64
@@ -41,10 +42,10 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.bz2
   popd
   mkdir gcc-${GCC_VER}/build
   pushd gcc-${GCC_VER}/build
-    CC=$LFS_TGT-gcc                                    \
-    CXX=$LFS_TGT-g++                                   \
-    AR=$LFS_TGT-ar                                     \
-    RANLIB=$LFS_TGT-ranlib                             \
+    CC=${LFS_TGT}-gcc                                  \
+    CXX=${LFS_TGT}-g++                                 \
+    AR=${LFS_TGT}-ar                                   \
+    RANLIB=${LFS_TGT}-ranlib                           \
     ../configure                                       \
         --prefix=/tools                                \
         --with-local-prefix=/tools                     \
@@ -56,7 +57,7 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.bz2
         --disable-libgomp
     make
     make -j1 install
-    ln -s gcc /tools/bin/cc
+    ln -sfv gcc /tools/bin/cc
   popd
   }
 

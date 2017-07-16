@@ -10,13 +10,9 @@ tar xf ${SROOT}/gettext-${GETTEXT_VER}.tar.xz
 
   time {
   pushd gettext-${GETTEXT_VER}/gettext-tools
-    EMACS="no" ./configure --prefix=/tools --disable-shared
-    make -C gnulib-lib
-    make -C intl pluralx.c
-    make -C src msgfmt
-    make -C src msgmerge
-    make -C src xgettext
-    cp -v src/{msgfmt,msgmerge,xgettext} /tools/bin
+    EMACS="no" ./configure --prefix=/tools
+    make
+    make install
   popd
   }
 

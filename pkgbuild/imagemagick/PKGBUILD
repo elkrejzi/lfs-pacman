@@ -1,5 +1,5 @@
 pkgname=imagemagick
-_pkgver=6.9.8-10
+_pkgver=6.9.9-0
 pkgver=${_pkgver/-/.}
 pkgrel=1
 pkgdesc="An image viewing/manipulation program"
@@ -12,6 +12,8 @@ source=("http://www.imagemagick.org/download/ImageMagick-${_pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/ImageMagick-${_pkgver}"
+
+	sed -i "s#LIB_OMP#GOMP_LIBS#g" configure configure.ac
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -31,9 +33,9 @@ build() {
 package() {
 	cd "${srcdir}/ImageMagick-${_pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make -j1 install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}"/usr/lib/*.la "${pkgdir}/usr/lib/perl"
 }
 
-sha512sums=('384da7332ab65a07be77c48d183207f9c378ace43eff0f19633dd704a92c0801314313b9c1164c462f9db163dc860dcebbf174df399977dc9e37568d8c172fe5')
+sha512sums=('ddd2042e5d9fd2ee9ba91f65c7be3f0cf1a8ce340be9cefaaca2517073d2319b43b7190c5302c92e845f8e250d87681e375aec7238ca93401b42dd248776e338')

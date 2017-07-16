@@ -11,12 +11,12 @@ tar xf ${SROOT}/binutils-${BINUTILS_VER}.tar.bz2
   time {
   mkdir binutils-${BINUTILS_VER}/binutils-build
   pushd binutils-${BINUTILS_VER}/binutils-build
-    ../configure --prefix=/tools     \
-                 --with-sysroot=$LFS \
-                 --target=$LFS_TGT   \
-                 --disable-nls       \
-                 --disable-werror    \
-                 --enable-multilib   \
+    ../configure --prefix=/tools       \
+                 --with-sysroot=${LFS} \
+                 --target=${LFS_TGT}   \
+                 --disable-nls         \
+                 --disable-werror      \
+                 --enable-multilib     \
                  --with-lib-path=/tools/lib32:/tools/lib
     make
     make install

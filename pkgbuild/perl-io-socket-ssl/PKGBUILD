@@ -1,5 +1,5 @@
 pkgname=perl-io-socket-ssl
-pkgver=2.048
+pkgver=2.049
 pkgrel=1
 pkgdesc="Nearly transparent SSL encapsulation for IO::Socket::INET"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('649aa7f4ed8c7c1f4725bd48e28c40d3929f0c7c7fc40093f6e4d373ea8e306451c2fc3f645a23a33d99cd3a5a378997f7affb2b165d883648c33fc801cfce67')
+sha512sums=('b0fcae64e177e0095678ba80a451d566e81be2dc80b4fbf5e19d32b54401a8fdfe31ed0a554baa070b6c9587d01fff363365239fdc58967520e86fa28210e4bb')

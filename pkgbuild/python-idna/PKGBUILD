@@ -1,0 +1,38 @@
+pkgbase=python-idna
+pkgname=('python2-idna' 'python3-idna')
+pkgver=2.5
+pkgrel=1
+pkgdesc="Support for the Internationalised Domain Names in Applications (IDNA) protocol as specified in RFC 5891"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/idna/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/i/idna/idna-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/idna-${pkgver}" "${srcdir}/idna-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/idna-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/idna-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-idna() {
+	cd "${srcdir}/idna-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-idna() {
+	cd "${srcdir}/idna-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('29a69ede25a8855135c763da5d20ff81832c710038a38521c127d5b7b24b355c6cfa5e9f9a2a4ef1fa4437537d1d9e4b448357e07b4b5e3724d98fee0a3b7835')

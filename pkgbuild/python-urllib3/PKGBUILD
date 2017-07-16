@@ -1,0 +1,38 @@
+pkgbase=python-urllib3
+pkgname=('python2-urllib3' 'python3-urllib3')
+pkgver=1.21.1
+pkgrel=1
+pkgdesc="HTTP library with thread-safe connection pooling, file post, and more."
+arch=('x86_64')
+url="https://pypi.python.org/pypi/urllib3/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/u/urllib3/urllib3-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/urllib3-${pkgver}" "${srcdir}/urllib3-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/urllib3-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/urllib3-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-urllib3() {
+	cd "${srcdir}/urllib3-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-urllib3() {
+	cd "${srcdir}/urllib3-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('0d2e9c2a0b895e4e232cad5ecc645ea9fd9b70191df045a220ee1f32e284c613c6790bcdfd9e40a22ea9d25ec397278fa700a3c3747e7b04222719d50df07859')

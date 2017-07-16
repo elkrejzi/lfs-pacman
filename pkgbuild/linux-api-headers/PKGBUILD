@@ -1,13 +1,13 @@
 pkgname=linux-api-headers
 _basever=4.12
-pkgver=4.12
+pkgver=4.12.2
 pkgrel=1
 pkgdesc="Kernel headers sanitized for use in userspace"
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
 license=('GPL2')
-source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz")
-#	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz")
+source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz"
+	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz")
 
 prepare() {
 	cd "${srcdir}/linux-${_basever}"
@@ -31,4 +31,5 @@ package() {
 	find "${pkgdir}/usr/include" \( -name .install -o -name ..install.cmd \) -delete
 }
 
-sha512sums=('8e81b41b253e63233e92948941f44c6482acb52aa3a3fd172f03a38a86f2c35b2ad4fd407acd1bc3964673eba344fe104d3a03e3ff4bf9cd1f22bd44263bd728')
+sha512sums=('8e81b41b253e63233e92948941f44c6482acb52aa3a3fd172f03a38a86f2c35b2ad4fd407acd1bc3964673eba344fe104d3a03e3ff4bf9cd1f22bd44263bd728'
+            '3d3e7cea82b20ba841d74f6f63e635143a52ee1428017792aa210ee591fcccf7ee1475c1576257722f0f5891547b69a192d48723ab6f4c189841e17ed8013300')

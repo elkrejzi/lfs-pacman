@@ -1,0 +1,38 @@
+pkgbase=python-sphinxcontrib-websupport
+pkgname=('python2-sphinxcontrib-websupport' 'python3-sphinxcontrib-websupport')
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Sphinx API for Web Apps"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/sphinxcontrib-websupport/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/sphinxcontrib-websupport/sphinxcontrib-websupport-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/sphinxcontrib-websupport-${pkgver}" "${srcdir}/sphinxcontrib-websupport-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/sphinxcontrib-websupport-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/sphinxcontrib-websupport-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-sphinxcontrib-websupport() {
+	cd "${srcdir}/sphinxcontrib-websupport-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-sphinxcontrib-websupport() {
+	cd "${srcdir}/sphinxcontrib-websupport-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('67807b2505e063639163b020f0e62469b0c2838c303516cce9a8d90181cc7b8a10d76532adb1267556d40f95966efc20ec9f8ee1a6731056bda827a6f97f40ec')

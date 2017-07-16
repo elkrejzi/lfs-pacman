@@ -189,8 +189,11 @@ python-packaging
 python-setuptools
 python-alabaster
 python-beaker
+python-certifi
+python-chardet
 python-cssselect
 python-decorator
+python-idna
 python-imagesize
 python-ipy
 python-isodate
@@ -200,6 +203,8 @@ python-pygments
 python-pytz
 python-pyxdg
 python-snowballstemmer
+python-typing
+python-urllib3
 python-babel
 python-docutils
 python-jinja2
@@ -209,6 +214,7 @@ python-networkx
 python-rdflib
 python-requests
 python-sphinx
+python-sphinxcontrib-websupport
 python-sphinx_rtd_theme
 elfutils
 gobject-introspection
@@ -611,14 +617,15 @@ qtwebkit
 qtwebview
 samba
 djvulibre
-exiv2
 fribidi
 ijs
 ilmbase
 libexif
 libgd
 libraw
+libssh
 openjpeg
+exiv2
 ghostscript
 libgphoto2
 openexr
@@ -641,7 +648,6 @@ libcanberra
 libmtp
 libnfs
 libshout
-libssh
 luajit
 neon
 taglib
@@ -849,7 +855,6 @@ perl-net-smtp-ssl
 perl-digest-hmac
 perl-authen-sasl
 python-m2crypto
-python-typing
 bluefish
 geany
 gimp

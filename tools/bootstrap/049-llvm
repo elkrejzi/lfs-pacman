@@ -84,6 +84,16 @@ do
     mv ${project} llvm/tools/clang
   elif [ ${project} != "cfe" ] && [ ${project} != "llvm" ]
   then
+    if [ ${project} == "compiler-rt" ]
+    then
+      pushd ${project}
+        patch -Np1 -i ${PROOT}/compiler-rt-asan.patch
+      popd
+    fi
+    if [ ${project} == "libcxx" ]
+    then
+      sed -i "s#defined(__GLIBC__) || defined(__APPLE__)#defined(__APPLE__)#g" ${project}/include/__locale
+    fi
     if [ ${project} == "openmp" ]
     then
       sed -i "/LIBOMP_ALIASES/s#libgomp;##g" ${project}/runtime/src/CMakeLists.txt

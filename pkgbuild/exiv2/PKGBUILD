@@ -1,25 +1,35 @@
 pkgname=exiv2
-pkgver=0.25
+pkgver=0.26
 pkgrel=1
 pkgdesc="Exif, Iptc and XMP metadata manipulation library and tools"
 arch=('x86_64')
 url="http://www.exiv2.org"
 license=('GPL2')
 #depends=()
-source=("http://www.exiv2.org/exiv2-${pkgver}.tar.gz")
+source=("http://exiv2.org/builds/exiv2-${pkgver}-trunk.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
 
 build() {
-	cd "${srcdir}/exiv2-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr --enable-video
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DEXIV2_ENABLE_BUILD_PO=ON \
+		-DEXIV2_ENABLE_BUILD_SAMPLES=OFF \
+		-DEXIV2_ENABLE_VIDEO=ON \
+		"${srcdir}/exiv2-trunk"
 
 	make
 }
 
 package() {
-	cd "${srcdir}/exiv2-${pkgver}"
+	cd "${srcdir}/build"
 
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('08d4e655ffdde715e0214f4bef01d55aba9b8ba517456a60e254a0f8541c20479e407545db28ca90a69dee8def6941fdd88f9a557fb382ebebe49e363aca8e8e')
+sha512sums=('d1e9cab886e279b045768dd9ec781f07d2d36d573119403d0b76dc571442173aae6972f86ec55c3ea53fb3ee9ca3571eb8fd63a2a6643a970852813e88634a86')

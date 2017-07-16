@@ -13,10 +13,6 @@ prepare() {
 
 	sed -i "/string.h/a #include <stdint.h>" src/nisplus/nis_call.c
 
-	# No gettext, please
-	sed -i "/AM_GNU_GETTEXT/d" configure.ac
-	sed -i "/SUBDIRS/s#po##g" Makefile.am
-
 	export ACLOCAL_PATH=/usr/share/aclocal
 
 	autoreconf -fi

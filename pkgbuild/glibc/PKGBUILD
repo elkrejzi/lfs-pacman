@@ -8,7 +8,7 @@ license=('GPL' 'LGPL')
 #depends=()
 options=(staticlibs debug emptydirs)
 #source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
-source=("git+https://sourceware.org/git/glibc.git#commit=218bb83"
+source=("git+https://sourceware.org/git/glibc.git#commit=df3d455"
 	"glibc.conf"
 	"locale-gen"
 	"locale.gen"

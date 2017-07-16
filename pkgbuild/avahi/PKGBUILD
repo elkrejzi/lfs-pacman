@@ -1,5 +1,5 @@
 pkgname=avahi
-pkgver=0.6.32
+pkgver=0.7
 pkgrel=1
 pkgdesc="Service Discovery for Linux using mDNS/DNS-SD -- compatible with Bonjour"
 arch=('x86_64')
@@ -53,5 +53,5 @@ package() {
 	install -v -Dm644 "${srcdir}/avahi.sysusers" "${pkgdir}/usr/lib/sysusers.d/avahi.conf"
 }
 
-sha512sums=('6f8d0a64292439cbb989c531a4ba2f25a53ee9cf7ad9df04dedf73149489a92612f3b5955e10aa4b1c76496c34b90ad75590e8aa49468249508267c1c8b899ee'
+sha512sums=('bae5a1e9204aca90b90e7fd223d19e809e3514d03ba5fa2da1e55bf1d72d3d3b98567f357900c36393613dc17dc98e15ff3ebf0f226f2f6b9766e592452a6ce7'
             'ac999de61e2faa91faf015c68d9c7e8646b244899cb34b0518cf0e31a2de06dee655fd9f584bffa1850f8276242ed86571fafb1c7140810e0f70bbc957bbb2c9')

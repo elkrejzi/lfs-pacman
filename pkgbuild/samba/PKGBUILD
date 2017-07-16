@@ -1,5 +1,5 @@
 pkgname=samba
-pkgver=4.6.5
+pkgver=4.6.6
 pkgrel=1
 pkgdesc="SMB Fileserver and AD Domain server"
 arch=('x86_64')
@@ -36,7 +36,8 @@ prepare() {
 build() {
 	cd "${srcdir}/samba-${pkgver}"
 
-	CFLAGS+=" -w"
+	CFLAGS+=" -w -I/usr/include/tirpc"
+	LDFLAGS+=" -ltirpc"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -82,7 +83,7 @@ package() {
 	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/usr/lib/systemd/system/winbindd.service"
 }
 
-sha512sums=('045d7288e164a0682e84a6cb1d1811c3469c656f6f2c58f73fa350d611ade689b9a108941ebca482abd7d4a636a95571e2e613fcc7dbdc3c516d6fb370c208cb'
+sha512sums=('e06bdc83f44c449212f2e45a902e2ca547505a75e970166259b91d2093fb442cdfd456e724d0e842b674b4b8d5bdbe9072996d768c08ebd979a44b2494a59799'
             '8d4c44003c2f1910a7f859cc1a5caec23f399071cd087a96dc0ed445c722fab2543f98d417dac0169b7ac745804a0e318ec31ece6ac6d8ef2c82c3ce00397ee6'
             'd05772aedd6a55faade4a683f13782de3d463db3cfd781acfc9855bd4d30860bf1965e836feb69222cb07abc2e0b5ea75557b3a87bbc8f90ca88dc268dd74b7b'
             '3798cc28c8a25132bd72e30efcda1489da5cfb1f9838b05473669b4856be9a4e1663a71ae1f1c87a9c9fcee065e05355053aea826a8c2fa19ee1e9246c23e341'

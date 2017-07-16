@@ -50,7 +50,8 @@ source+=("crtbegin-i386.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/l
 	"crtend-x86_64.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/x86_64/crtend.S"
 	"crtfastmath.c"
 	"clang-runtime.patch"
-	"llvm-config.h")
+	"llvm-config.h"
+	"compiler-rt-asan.patch")
 
 prepare() {
 	cp "${srcdir}/crtfastmath.c" "${srcdir}/crtfastmath-i386.c"
@@ -70,6 +71,11 @@ prepare() {
 	cd "${srcdir}/libcxx-${_tarver}.src"
 
 	sed -i "s:gcc_s:compiler-rt:g" cmake/config-ix.cmake lib/CMakeLists.txt
+	sed -i "s#defined(__GLIBC__) || defined(__APPLE__)#defined(__APPLE__)#g" include/__locale
+
+	cd "${srcdir}/compiler-rt-${_tarver}.src"
+
+	patch -Np1 -i "${srcdir}/compiler-rt-asan.patch"
 
 	rm -rf "${srcdir}/cfe-${_tarver}.src/tools/extra"
 
@@ -358,4 +364,5 @@ sha512sums=('16adc39b34ddb628f81b171119a8e2a0e9138b25011e803ef0b688e2fbea116fc49
             '6619d490db49b5005d4e7a767d3cdb417f8e152557bcbf6f773a44e766943e4dbd4fc7a1be619c2350cb5f4a798c01d093f4f0d89ba9cb2705c923bcb6a8c3b4'
             'ca67607b33d6010da9b3dea1255e7d48abe489729ef36f588898c85c0220c7aba3ecc65905ff881ee51cc633411bd385392b5236e01c05cbfb689523ad8a3cf7'
             '16b0604c4aaf9b78e77f431a0cdae8384ff98d7f372108b08f0dca3a8991afbef29ebaa928dc67eccf88ed4981873e85c8ef8b56c2296b96d6d6db53a38a6bc9'
-            '75e743dea28b280943b3cc7f8bbb871b57d110a7f2b9da2e6845c1c36bf170dd883fca54e463f5f49e0c3effe07fbd0db0f8cf5a12a2469d3f792af21a73fcdd')
+            '75e743dea28b280943b3cc7f8bbb871b57d110a7f2b9da2e6845c1c36bf170dd883fca54e463f5f49e0c3effe07fbd0db0f8cf5a12a2469d3f792af21a73fcdd'
+            'c1d582c5ec2830e405dcf28e808a8ef93512d6ce9df159c9eea73cfb594754cdb3c4e93e38e47f5dd6cbf9809333ed94ec870068d01edc55838c8ce01be25ece')
