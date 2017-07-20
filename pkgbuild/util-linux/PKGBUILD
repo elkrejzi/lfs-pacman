@@ -1,5 +1,5 @@
 pkgname=util-linux
-pkgver=2.30
+pkgver=2.30.1
 pkgrel=1
 pkgdesc="Miscellaneous system utilities for Linux"
 arch=('x86_64')
@@ -44,4 +44,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man5/fstab.5"
 }
 
-sha512sums=('30e311768718508066829567200e975fd08a22360915b27c8839f368fe6d84c8eca6c2f69a60f113d934eea9934e49f05cd98c3db7fd6bc5ad8f7f770badbc97')
+sha512sums=('bcf1807198660c133c380e13d6ba5dcdb7470c47bcaeea03ccc5a78a0d834e3df3d13ae5ffc35fd7f8fff7ba062629d4b1f5cde78452b846c9315c51c9e108f5')

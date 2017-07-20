@@ -1,5 +1,5 @@
 pkgname=ki18n
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Advanced internationalization framework"
 arch=('x86_64')
@@ -7,9 +7,14 @@ url="https://community.kde.org/Frameworks"
 license=('LGPL')
 #depends=()
 options=(docs)
-source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/ki18n-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/ki18n-${pkgver}.tar.xz"
+	"ki18n-clang.patch::https://cgit.kde.org/ki18n.git/patch/?id=97ce7535124aff6a576bc748260ce6fa4ab781d8")
 
 prepare() {
+	cd "${srcdir}/ki18n-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/ki18n-clang.patch"
+
 	install -v -dm755 "${srcdir}/build"
 }
 
@@ -32,4 +37,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9bbfe5a33f3796a4a145d78916199aac0faabd383b2bfc8d5699edb221d18524d2e60ef9008a9244f7aec016692f6a1fcf1fe09c8a4c9345ee59dbeecded5729')
+sha512sums=('b2de34a5320d76a565e29a4f6649520351c14bbb19ff1baea1a5ca38c4d791735d4bdd2a0baf90692aba3d34b8b7c8e8518c300c619e0cc7d26765795a78bc0f'
+            '4f3fbfb2eb7f68356890426801dce1ffb40008a3ad2330a090b67fb99c2d58eece221e9b3ea43f39cdacf2d8f5cd2c46d8e7a2ae49ffd7ccfadfd36b6245b892')

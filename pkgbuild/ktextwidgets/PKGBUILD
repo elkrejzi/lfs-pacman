@@ -1,5 +1,5 @@
 pkgname=ktextwidgets
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Advanced text editing widgets"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('40322e1638d8f2103f779ee9c730afa1a9509edad6826aa348c15051ee9ec7bea33f5ab2dbbe5ac6ed5ddfd5f506d0fddc7643409e091c87310d1f3dd19cadb4')
+sha512sums=('33d471601b76424331d23a0bdd1afcdccc2c999acdfc8faad45d50932405b09b680939bae4274182399bd90cc0553ec576b5e4e963714e504b9cd498d331ef55')

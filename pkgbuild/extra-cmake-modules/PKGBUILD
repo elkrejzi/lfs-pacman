@@ -1,5 +1,5 @@
 pkgname=extra-cmake-modules
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc=""
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('60030180c46390f1957aab5b1a84dff9b1f54e0810cd45567e959a75590a2c34c653d9e4ed40cb53d419bd1162690866c8acabbc40db44471cb48b7dde844fb3')
+sha512sums=('27af106097a92901131b73ce31a9410f392272fe6a12436d7fb673f628e4046ca8a93854ccc3119c2237979b58e89179c973c5d1c9daf2744e2c7b2bf033eaa2')

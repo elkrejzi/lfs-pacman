@@ -1,5 +1,5 @@
 pkgname=mutter
-pkgver=3.24.3
+pkgver=3.24.4
 pkgrel=1
 pkgdesc="A window manager for GNOME"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3edf2bcaa48dc7c65c291a7c12ebdcd99a5d905f991761983e79e5ae7ef4cdeef80b830b8595b882fd91bb3d60b9806ed86a99b28f684ba6af34270262c8d00e')
+sha512sums=('7ae579ab3e9df09cae37fbc1b277e382c9f610058b914b69a7bdb89f3bec510403210c0cded16a6487111507151f4d7075d161e051c0b88585d6ab6b4575b8d3')

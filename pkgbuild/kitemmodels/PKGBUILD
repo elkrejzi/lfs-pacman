@@ -1,5 +1,5 @@
 pkgname=kitemmodels
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Models for Qt Model/View system"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4bca17dec5f05de879ff8ec14533dccc8731cf4ae23eaed7f9d71873300ae8b401e0f62d4010a9adca9abe762b2998814810421f8d86426751c0daf21a810711')
+sha512sums=('a1ded2f47c03ebd8395a7bc9fcae53d44c0654fd8b0229283e8ec78e222e2b2aace0b119055d76d54a7df5d491e6ca58011b274c7843808e185e15c5b916ee42')

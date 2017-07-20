@@ -1,6 +1,6 @@
 pkgbase=libdrm
 pkgname=('libdrm' 'lib32-libdrm')
-pkgver=2.4.81
+pkgver=2.4.82
 pkgrel=1
 arch=('x86_64')
 url="https://dri.freedesktop.org/wiki/"
@@ -58,4 +58,4 @@ package_lib32-libdrm() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('5f7a1524acad59890d3f890bed90a660a424e18a88d587ca356223bde4a7446d1c540f97ec11cb10d2e7ed1b4ae86127957634354a1be6d04199295ab24782e5')
+sha512sums=('e69fd8c2b392daabbb3a548179e3a21a555d5174c11d76a288eb2a08850849aa867c7777b67798ec00e026e998a3b128c22698f05a7b44eb24cddc5c8a3a02d0')

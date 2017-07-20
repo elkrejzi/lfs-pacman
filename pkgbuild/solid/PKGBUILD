@@ -1,5 +1,5 @@
 pkgname=solid
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Hardware integration and detection"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2784a34c5a444edc4806ff38b4074ceabbd43b4ee20e9e7a938ef703c92f2fe14080dae8832a88b4f0ecce8c22dae0899ab7f4588417d8b889c08c04f16e2e2f')
+sha512sums=('49b7889cd2cedd1e4d19966e8244db662a9084fe295dc55d5831a3af3ccb86b0ca33f2ffab8662f2ab19f711573fdf58519396dac93cf2f994275b62bf6eb5f2')

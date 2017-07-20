@@ -1,5 +1,5 @@
 pkgname=kdesignerplugin
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Integration of Frameworks widgets in Qt Designer/Creator"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('cdcc012110356ef8e323bbf3e5f5e227f247fdfb342fe1ac53f02e7da2f2e5a30adeb377a93df13cdf35bd7c053e30ff6e60c5f4588eb5206139d01e7ab30681')
+sha512sums=('d5573c6e3166ffbfdc95fce9ce7387ceada92923c07193dac10cb30573bae6c1ca8e6533030348737f776061aa998a497b1ae7cdf98412e3020e66b343451fb7')

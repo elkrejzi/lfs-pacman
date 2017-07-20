@@ -1,5 +1,5 @@
 pkgname=frameworkintegration
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Framework providing components to allow applications to integrate with a KDE Workspace"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1c421573618ee5deb78e2f67e96af94bd1950b2869b4e3972a169835cc8a461bc5061afda311e600482e3980f3412328b2fac83f86f7d12090ca9d5fb71eecec')
+sha512sums=('38b13cae84e7a5758b729c267722dc06ab3a2c6ff7c0b288a7fc8ad55b4af9d928671da91baf82b47cff3923c87572ec341cfe9499eb937f323430706ee77267')

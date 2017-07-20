@@ -1,5 +1,5 @@
 pkgname=knotifyconfig
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Configuration system for KNotify"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('25bcb8eb0a6af8e6c0e8cbce709616bc65595fe914ca69157e4f5ae1428c5a832aabf4c8bacd8c00b04eb5f6b2747d818f3159dfb9c4f90c424ac7f121d0c136')
+sha512sums=('2b8ffd39c0714568ea4fe5cf30c1ca7a45122b4926b6043a023ee86f54e3e415c75b7d3a139f202dd1e09a14bf7baa522c7bfdcf6728365d0f13bcd480b0fd24')

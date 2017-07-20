@@ -1,5 +1,5 @@
 pkgname=mpv
-pkgver=0.25.0
+pkgver=0.26.0
 _wafrelease=1.9.8
 pkgrel=1
 pkgdesc="A free, open source, and cross-platform media player"
@@ -36,5 +36,5 @@ package() {
 	./waf install --destdir="${pkgdir}"
 }
 
-sha512sums=('eefc574e2995ddf6bd15c9b62986a5ca277c30949b036d57a11bbfb796c11c1e6dd7c313abd91a909dd98ca0f2b0be29ec6b980d0287a5891b42b0ffba926cbf'
+sha512sums=('fd772b4765317eb1ea3b54f12b86e0ac6c4d5e9d16895eb5bebe2e074a01f6b790981b9b34a87d9b23e4291149d3a7154b09fba4a259cec1949a6aa88d6ddec7'
             'e7493767f65deeb38aa162adef22adf60ebbd038410e9cdf4fe6f0de8c43395dbbba14962aa2c3855e1277136085fc22ad12ebfb8ac4e76f16358296039b8ea2')

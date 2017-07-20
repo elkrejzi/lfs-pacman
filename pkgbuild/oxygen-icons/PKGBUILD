@@ -1,5 +1,5 @@
 pkgname=oxygen-icons
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="The Oxygen Icon Theme"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d52a16a6e6b6502f1ddf8f9dbd77f3473096c879eb27f2406a0c4cac28b204ccde4b1b1c15e7c36aef833dbe7adb126fa898e96e9f1507f61a81995d356a7b35')
+sha512sums=('95cf30611931b380d892a81623f3ee2a135ca5205285013dc1cf97d4158fb6a557dc4b7c4700a3348d7c72eae79600861d6a54f29cfcce3a99eccec4718e2ffc')

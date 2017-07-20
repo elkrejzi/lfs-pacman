@@ -1,5 +1,5 @@
 pkgname=meson
-pkgver=0.41.1
+pkgver=0.41.2
 pkgrel=1
 pkgdesc="High productivity build system"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('fd0226e8cceed99a48f82bf96c71742df92091cc80001fc36d216ec043ec6e67829244838a350acd7620682e0ae65abd6ddf46561cde72ba7c03b4f49f86ecf8')
+sha512sums=('0b22f08bc1fc500a416d536aec558cb1f775c90b618c1079cfcdbd1b6a6d9b8b02a57288295e1cbea4e44bab3f23ecdab89e8b7bac5d7025e699e2f71908f97e')

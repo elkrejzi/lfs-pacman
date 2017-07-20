@@ -11,7 +11,7 @@ source=("https://download.gnome.org/sources/json-glib/${pkgver:0:3}/json-glib-${
 build() {
 	cd "${srcdir}/json-glib-${pkgver}"
 
-	./configure --prefix=/usr --enable-vala
+	./configure --prefix=/usr
 
 	make
 }

@@ -14,6 +14,8 @@ export HELP2MAN=$(type -P true)
 build() {
 	cd "${srcdir}/flex-${pkgver}"
 
+	sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
+
 	./configure --prefix=/usr
 
 	make

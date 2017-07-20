@@ -1,5 +1,5 @@
 pkgname=bluez-qt
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Qt wrapper for Bluez 5 DBus API"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('76136c042a0beeab874825e96a0e8223ac15df649fd8f3c30498fc591985a0469812eb21156fdc66a34d22f8b447157a0bc1f7c35ce7fcf2dd505dac6f319f95')
+sha512sums=('413ac5ff2301e85a556b2d217dd3ead744f4d729773a26789ce92d2f92f1b74944c43d6f0d0fa4d10cb452bbe117cdb99d1de833fa853945bcffa5e53f5dd025')

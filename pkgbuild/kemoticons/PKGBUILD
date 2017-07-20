@@ -1,5 +1,5 @@
 pkgname=kemoticons
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Support for emoticons and emoticons themes"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('090f7b60682fca8db6de91b9cd66ee00cb54e9e9da02ae78835ccbd4b2ce3a675b30a98bb36bc600e76348be06d410b5aec5dec6758409b77491ebafae38fe2e')
+sha512sums=('9fbd084442bf7bc0ba7a7b719816c9895141a1870bde288bd3533b3e6c6cbb0aa28c167aae647cfc7f4fd9cc79a1b7b7cbbbc5bd7bf967a4851c29f710f17435')

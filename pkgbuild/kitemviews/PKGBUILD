@@ -1,5 +1,5 @@
 pkgname=kitemviews
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Widget addons for Qt Model/View"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c755f778ff817066af1c75285bdd74b5416ba696726fcffc816f7b9e6ad7be93837a2a00b4b6fbcf4ce5e0899319c0c4a5babf9bde2c344a41585af92ad16492')
+sha512sums=('8cc1ecb3cabee7853338500ce53e19b57268d9e992ecfd1b319704f7f46a5797d560d433c615b95e78e80b74342be16144b6ef9c4038265e3db5a2b2f57c1162')

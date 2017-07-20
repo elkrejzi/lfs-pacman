@@ -1,5 +1,5 @@
 pkgname=polari
-pkgver=3.24.1
+pkgver=3.24.2
 pkgrel=1
 pkgdesc="An IRC Client for GNOME"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('dd4f41ae6b8de001df69cea894880eae3f4dac52ceff0b8f7793b6f4bdf892cb38e2391e07ae0d747b4dc6222b241991b7067f921c34c6020e129525e8fa0dbb')
+sha512sums=('23a475d657556e7f4e93dde8e545bf7bede227635d540bd006b85b068923d87e713bd05f14d8ccde458bf6efd4920665bca02ea41c4de870680581ebfa595f0e')

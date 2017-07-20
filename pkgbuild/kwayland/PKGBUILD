@@ -1,5 +1,5 @@
 pkgname=kwayland
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Qt-style Client and Server library wrapper for the Wayland libraries"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4a10da8a4348eb4daceebb8181b50bc996a1aa3fbfd81f6d5773d6829a0946abef5387b361c51cc2f57129c3068470b15c8a50e7f22b884f418b2763ac271cef')
+sha512sums=('a9ab05d5b6558aa3b4b8b6be5445c2298fad6980823daf5412dadc48ae959a8315338aabd8d0227d21f0da88edd22e7c4c05e3cab36f5c84da12113640ffdc16')

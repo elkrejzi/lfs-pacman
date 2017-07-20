@@ -1,7 +1,7 @@
 pkgname=jdk
 _jmajor=8
-_jminor=131
-_jbuild=b11
+_jminor=141
+_jbuild=b15
 pkgver=${_jmajor}u${_jminor}
 pkgrel=1
 pkgdesc="Oracle Java Development Kit"
@@ -10,7 +10,7 @@ url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 license=('custom')
 #depends=()
 options=(!strip emptydirs)
-source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_jbuild}/d54c1d3a095b4ff2b6607d096fa80163/jdk-${pkgver}-linux-x64.tar.gz"
+source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_jbuild}/336fa29ff2bb4ef291e347e091f7f4a7/jdk-${pkgver}-linux-x64.tar.gz"
 	"http://download.oracle.com/otn-pub/java/jce/${_jmajor}/jce_policy-${_jmajor}.zip"
 	"jdk.sh")
 
@@ -72,6 +72,6 @@ package() {
 	install -Dm644 "${srcdir}/jdk.sh" "${pkgdir}/etc/profile.d/jdk.sh"
 }
 
-sha512sums=('92c90f19f0184dfd78ac2b98d8ba0cbddcac3b9fb318ca9eeb6f8c1ce62b5b286cae836edb04689ec62fc9ad6ebbfc0c48d0b107b716c24afe44a3ba41fb66f4'
+sha512sums=('1ffaf30d2d8af71e1fe694d13a7cc4b135ce9ed5d3d2f1a39045d1bd6dbfa22d2f8656371b52312bb4f65e48e01f223d463022ef860da5b4a6453a5c165ab074'
             'abbaa81a35f904ec61b4cf3c2d1ca8c8d49e53bb248e698185eea906939d68f5063412800585ec74027aab1012ef189aebe1dc99fe8ef4230a0ecb0b527f88e5'
             '46166ea480a812bdca1aa29fd1046dc055203b5b6cd99234402138c922bb32b54b1e6f3262d69bc95e8b1af5a9567ff7520a21ddc4e6437810450b8793a98dc4')

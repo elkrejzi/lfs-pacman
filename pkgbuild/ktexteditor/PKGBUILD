@@ -1,5 +1,5 @@
 pkgname=ktexteditor
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Advanced embeddable text editor"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6da586bf5d6fa73f68bcd313428409e0af0952b762909914fafb6d2f92f73ec1460a6d81f0ef581c2b42259abe06ecb567f86de14853e45d1dcd68fb6b8fa048')
+sha512sums=('3f5a7b44eda5cc97cd5f3a365d3240344203d7bf4033317e70ad4aca5e988f882b0f624d4282a9fc33028d3ffc291239f5089e604a90f36a493262722d5beb40')

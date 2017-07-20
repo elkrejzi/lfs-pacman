@@ -1,5 +1,5 @@
 pkgname=krunner
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Framework for providing different actions given a string query"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('057c61fc952a336806c3b8a840702dc35caed2e4d70994d6c7d09da25a81db6263e35122dacf037fcd43b09c06a805b3e98e2e710d7050a0897cc1bcf50c6d09')
+sha512sums=('12d5c25fa3802bfcf2212b7d0c38cd4447e26593331526b87a87771ae8b9dd27706844a89e4cf736fbf2528103608154f70e8a86a562a4604b1694147f2263fe')

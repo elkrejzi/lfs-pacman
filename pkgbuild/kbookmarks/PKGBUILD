@@ -1,5 +1,5 @@
 pkgname=kbookmarks
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Support for bookmarks and the XBEL format"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b71ef1176c4a3b4c09f61cfc45333c25807db95580ac6face906f27db25bc77df58ed29e9358b7b4c7b51bbabf360ba8bbef663b76f246f99241bae4e1e2642e')
+sha512sums=('2264ee930fd03d0399b940bf8a8abc00d556a55e91cd9a9a89a8745eb93ca01a9bdf5ca14106edc8f40da9964aafc2879f2f0c245e609e8b8cff64b217002c41')

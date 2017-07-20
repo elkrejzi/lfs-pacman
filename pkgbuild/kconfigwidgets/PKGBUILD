@@ -1,5 +1,5 @@
 pkgname=kconfigwidgets
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Widgets for KConfig"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3a6229539d12e57aa939e922e7fffa4b88741769b77ccfd7007ef321af766fba852584405be394c74f03748d5e80126bf81c7e8e5a419776fb29cecc82538a8c')
+sha512sums=('2068585904912da4bf7893d893ed552f1138a23d502f0f2fd480fc744fda9986e99a915e1499dd443de09dd3f06b097bc73ab71c5ada6bdc4164ca583e01e5ff')

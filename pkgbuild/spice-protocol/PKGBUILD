@@ -1,5 +1,5 @@
 pkgname=spice-protocol
-pkgver=0.12.12
+pkgver=0.12.13
 pkgrel=1
 pkgdesc="Headers for SPICE protocol"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('66e7a902b3c4a5a778cb91ffd9d324b12d414184146ac834dfb3bd81b4b6b1bb56258d3e1ce240b6f8747e1960fce8f0f6b0ada3617e9f9819be7118195fce6b')
+sha512sums=('55840020a7a538e72bf53d2124a6b1920dd2d567418cf02dc33783ae5c78154d5c832d69f2e6570453c4086194b417d10687884de20365c13657ad7ca7b2ae02')

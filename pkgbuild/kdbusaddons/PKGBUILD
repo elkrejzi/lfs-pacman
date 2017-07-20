@@ -1,5 +1,5 @@
 pkgname=kdbusaddons
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Addons to QtDBus"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4fb6a2f8a5f753e21e6b3bc594636c30ed0425e1db6a8b44cdc19c15a75bf3591313b21feb10dacef23eb185e209ff4dbf27abcf90e2a5e8826fcda5cb5635b7')
+sha512sums=('6582424a547754d6f993031971cbaca059b1a6c5c7dcf9ec4196ca58dfaf407ddbf799d6207b938e1efa8f9ab3d9f3d78e8f0c3bbc81784baf45a422838be4a1')

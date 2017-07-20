@@ -1,0 +1,18 @@
+pkgname=digilent.adept.utilities
+pkgver=2.2.1
+pkgrel=1
+pkgdesc="The Adept configuration tools"
+arch=('x86_64')
+url="https://reference.digilentinc.com/reference/software/adept/start"
+license=('custom')
+#depends=()
+options=(!strip)
+source=("http://files.digilent.com/Software/Adept2/digilent.adept.utilities_${pkgver}-amd64.deb")
+
+package() {
+	cd "${srcdir}"
+
+	bsdtar -xf data.tar.gz -C "${pkgdir}"
+}
+
+sha512sums=('822b0340b7169840b74c191ed41c4e9bf403cc97934029b06a4956c52cacdde78ea0eab6fee4e75f532a68c368a2c4eb1a913b29d9a1e9a2254f669b7c8fa2fb')

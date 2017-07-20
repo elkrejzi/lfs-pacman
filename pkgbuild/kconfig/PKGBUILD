@@ -1,5 +1,5 @@
 pkgname=kconfig
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Configuration system"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('46ca4815144807b66709d6a68577d9ad80cc7b276e724b34cade7b5b1e0b176ee41353ce495248ddc797af2840eb5f9e6b36c0126abcfcc524dd9f2466310142')
+sha512sums=('5da8e6b3d55c870e0cc1ee774119b8e4d01b7fcae885f37cb4d305f246dd6d22cc5385f52579b2860d52d14ab816f914048385bd896c063e07b1ca0d70735d27')

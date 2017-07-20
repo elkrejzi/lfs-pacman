@@ -1,0 +1,23 @@
+pkgname=digilent.adept.runtime
+pkgver=2.16.6
+pkgrel=1
+pkgdesc="The Adept Runtime consists of the shared libraries, firmware images, and configuration files necessary to communicate with Digilent's devices"
+arch=('x86_64')
+url="https://reference.digilentinc.com/reference/software/adept/start"
+license=('custom')
+#depends=()
+options=(!strip)
+source=("http://files.digilent.com/Software/Adept2+Runtime/${pkgver}/digilent.adept.runtime_${pkgver}-amd64.deb")
+
+package() {
+	cd "${srcdir}"
+
+	bsdtar -xf data.tar.gz -C "${pkgdir}"
+
+	mv "${pkgdir}/usr/lib64" "${pkgdir}/usr/lib"
+	mv "${pkgdir}/etc/udev" "${pkgdir}/usr/lib"
+
+	rm -rf "${pkgdir}/usr/share/lintian"
+}
+
+sha512sums=('c19d6f31642a5b9d630111806d57114753e88d8c5c07d084bec3bb3a08d04fce75bd760c20fbc84beb3f4310b87ce12b394f398d954410e1a880d145a6e888a3')

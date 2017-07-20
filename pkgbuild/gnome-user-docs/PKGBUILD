@@ -6,6 +6,7 @@ arch=('x86_64')
 url="https://git.gnome.org/browse/gnome-user-docs/"
 license=('FDL')
 #depends=()
+options=(!strip)
 source=("https://download.gnome.org/sources/gnome-user-docs/${pkgver:0:4}/gnome-user-docs-${pkgver}.tar.xz")
 
 build() {

@@ -1,0 +1,89 @@
+#!/bin/bash -e
+
+KF5VER=5.36.0
+
+PKGS=(extra-cmake-modules
+attica
+bluez-qt
+breeze-icons
+kapidox
+karchive
+kcodecs
+kconfig
+kcoreaddons
+kdbusaddons
+kdnssd
+kguiaddons
+ki18n
+kidletime
+kitemmodels
+kitemviews
+kplotting
+kwayland
+kwidgetsaddons
+kwindowsystem
+modemmanager-qt
+networkmanager-qt
+oxygen-icons
+prison
+solid
+sonnet
+syntax-highlighting
+threadweaver
+kactivities
+kauth
+kcompletion
+kcrash
+kdoctools
+kfilemetadata
+kimageformats
+kjobwidgets
+knotifications
+kpty
+kunitconversion
+kactivities-stats
+kconfigwidgets
+kglobalaccel
+kpackage
+kservice
+kdesu
+kemoticons
+kiconthemes
+kpeople
+ktextwidgets
+kwallet
+kxmlgui
+kbookmarks
+kio
+baloo
+kdeclarative
+kinit
+knewstuff
+knotifyconfig
+kparts
+kxmlrpcclient
+frameworkintegration
+kcmutils
+kded
+kdewebkit
+ktexteditor
+plasma-framework
+kdesignerplugin
+krunner
+kdelibs4support
+kjs
+kmediaplayer
+kross
+khtml
+kjsembed)
+
+for pkg in ${PKGS[@]}
+do
+  pushd ${pkg}
+    rm -f ${pkg}-*.tar.xz
+    sed -i "s#pkgver=.*#pkgver=${KF5VER}#g" PKGBUILD
+    sed -i "/sha512sums=('/,/')/d" PKGBUILD
+    makepkg --geninteg >> PKGBUILD
+    rmdir src
+  popd
+done

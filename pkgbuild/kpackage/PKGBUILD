@@ -1,5 +1,5 @@
 pkgname=kpackage
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Framework that lets applications manage user installable packages of non-binary assets"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b695ed48dd7b3e24909709d1529145b24ad705742619012394544db6e5a2555b3ea5f117547b6704d8d427e3b1136edef3deff7f90a545dd8aa13877dc793307')
+sha512sums=('550c1662c4a717b1d0b7ad0b33566d8f6c73cd2577c16cca90d19664cce733dfcea3ac913656aa5f61d423867fd7af22c27d11c88537413409cee1ec141d1e04')

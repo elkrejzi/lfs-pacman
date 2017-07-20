@@ -1,5 +1,5 @@
 pkgname=kimageformats
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Image format plugins for Qt5"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ddd8033cef144cc10c4b6db4800c85cd0d67d3745f5ac42c2e9d65d3e4318763c1c49e81e503c5d0973814cba8a0e5f02356e74e8369b2417466eae0053638a7')
+sha512sums=('77468527fa524c86306ecc6d7ede3218d5c9eb86dc2074cebc26fde014b1171a3c1834825bc0cfec23d7514b492998e4bc99e30a8f440609819756b8b67631b0')

@@ -1,5 +1,5 @@
 pkgname=kauth
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Abstraction to system policy and authentication features"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('bfd916a048b5e8a8553b3d888fa9079f8fdab1bec36b836e27b8dc1a6cb01dbb4cbaec16cef2faebe4fa39b6e538e1ce2a4ba71c57d5b75aef5cba4323b394e0')
+sha512sums=('5113c0943cdaa8f9fce60a62fbfabcf666eafc251bee4faf141aac23362e6c317ce8b3c0edad86380309bccf8cbe3f211db6c252bd3681aaf019280a51d9ea2a')

@@ -1,5 +1,5 @@
 pkgname=kactivities-stats
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="A library for accessing the usage data collected by the activities system"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2ebf538505d2c124a02e0e921ab8bf81c88112cac9d489d7fe3018ea50033e3b03879685c32027ac2b89ca0b24cc7b55b9448ec579f8a678de3e38f6d067c09a')
+sha512sums=('ff8efe6aa28ff314bee3b5e36206f1b78912f7fa8a500b006251ca06f21c497ed2a14ddf05460e2ac86583bbc238a56bf1667c97e5119556bd4a8af3c5438b78')

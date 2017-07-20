@@ -1,5 +1,5 @@
 pkgname=kiconthemes
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Support for icon themes"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fc9a92884d3e652b976bc101e744145344a0c579758de9b6aff23d8190475fe7ca1c1145e0784cbbe990341dcf447c6f3ef129baff786c3ec20f3aa12f9ff535')
+sha512sums=('5a52ceef4581c31365255ac4eb7f6cc53dac51cf52531a1aa5f96fd6e721eb09056191fab984edc436bebd29035e44c22778866d919d271e159d3ece4f0c3f14')

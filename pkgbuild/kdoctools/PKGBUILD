@@ -1,5 +1,5 @@
 pkgname=kdoctools
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Documentation generation from docbook"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d1c0821d213fd9332a4422c140797b08acc4bb7e3292475f238aaa1387e07fb3d88ed9f0be595699b5d8a55ce1d163bdae6a9ce6cbe0ee251e374d1bb711f857')
+sha512sums=('269c05a07b173ee713c958bf663ef0ab3abadf9919e988bfcb12cfba99fd7535880d069045204b6d33750f8389a54df57f5b5cc237132c6dca66acc779e36082')

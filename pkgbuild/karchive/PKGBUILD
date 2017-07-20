@@ -1,5 +1,5 @@
 pkgname=karchive
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Qt 5 addon providing access to numerous types of archives"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f7b7dea30fe5398c76d1dba094c10d8c8740245227e87afc05b3dd883abbe5f257edcf8d967b5ab623f3f8f145215a7944b31396514d36db7659044b9184c14a')
+sha512sums=('73041d36ea970793674b3da4bc7d464bde238c8697478d881a6407bbd86cf6243add6328f62cfe152552785dd1532e9d5db0fe401835c0306f1c078072c04eb1')

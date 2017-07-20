@@ -1,5 +1,5 @@
 pkgname=kapidox
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Frameworks API Documentation Tools"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('76f7b5c89d9d760d7622476faeed52736cd8c0e794904af1b42667295121a6a82c043f1fd1f9fbb176ac4576534899430e37cf32dc1de5409086fca39ba7c613')
+sha512sums=('5b1da5d64869a7a1deeb5d7880d5252bf08a42589eaf00a53b2be9cafb1f59f9541cb3128a01e39ed25086197d879eeaf0627e286c7fc6e4b1385347b44b8c1f')

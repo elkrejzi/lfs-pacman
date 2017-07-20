@@ -1,5 +1,5 @@
 pkgname=knewstuff
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Support for downloading application assets from the network"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('eb1cfafb006c1d7f709df37023922aad89ef426800b56ca07fbeac631dedb19301e3ab03a6c7bcae2bf7de4243de2dcd5a506c29fe89fe88b643ded46374630d')
+sha512sums=('b90c7cdefdc4c1f3ef92798214fedf1025a6115827426bb573b531579997d432938e73399f74ea2e4579f51daebddeb8aa2e644cfbea6875fc8bedb84a95475e')

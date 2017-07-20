@@ -1,5 +1,5 @@
 pkgname=kjobwidgets
-pkgver=5.35.0
+pkgver=5.36.0
 pkgrel=1
 pkgdesc="Widgets for tracking KJob instances"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5187b78259e03e1467828aa9541b2b2a948364c209ec6b39fb18361d06fa4ae63dc405547afa978df458e46a640232aacf18d20049de80968c330a16b0ce94f6')
+sha512sums=('b890a7b6b9b5b8fc1a536cff8854b5cc9d283474c4cfe8a8f332d58447e79c4c29ffb3d6100ee776ae889e27da3aa90a765bf968d39f5e03cd804be16983dbaa')
