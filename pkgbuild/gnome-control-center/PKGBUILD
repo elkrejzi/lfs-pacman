@@ -1,5 +1,5 @@
 pkgname=gnome-control-center
-pkgver=3.24.2
+pkgver=3.24.3
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-sha512sums=('5041d4907cba0ea188663ad574ddaac6c341ec22b69f7a3d6332b8ae0a572fe33eb19eed758f3d593fe6224d793f2ecc3677584ebf0971f3ae145363a1769cc0')
+sha512sums=('70b827f70fb95e8db0ee01e3ba80242dfdb0f90e31c391ca470c372cb6c8626f054e1e5b79e954935e9b567564129b80957091039e16e921e1c93b3d584c71cb')

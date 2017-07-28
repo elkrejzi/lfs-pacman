@@ -1,0 +1,19 @@
+pkgname=pepper-flash
+pkgver=26.0.0.137
+pkgrel=1
+pkgdesc="Adobe Flash Player"
+arch=('x86_64')
+url="https://get.adobe.com/flashplayer/"
+license=('custom')
+#depends=()
+options=(!strip)
+source=("https://fpdownload.adobe.com/get/flashplayer/pdc/${pkgver}/flash_player_ppapi_linux.x86_64.tar.gz")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -Dm644 manifest.json "${pkgdir}/usr/lib/PepperFlash/manifest.json"
+	install -v -Dm755 libpepflashplayer.so "${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so"
+}
+
+sha512sums=('637573c0f021c1968aa8aa5cc9c527c191581076bf03b395768144936f3f74228534c1ba5692eeb72f3076cd958bf2e7899e82d67281703745d4b460e5b35c99')

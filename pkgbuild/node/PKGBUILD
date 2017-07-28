@@ -1,0 +1,21 @@
+pkgname=node
+pkgver=8.2.1
+pkgrel=1
+pkgdesc="Evented I/O for V8 javascript"
+arch=('x86_64')
+url="https://nodejs.org/en/"
+license=('MIT')
+#depends=()
+source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}-linux-x64.tar.xz")
+
+package() {
+	cd "${srcdir}/node-v${pkgver}-linux-x64"
+
+	install -v -dm755 "${pkgdir}/usr"
+
+	cp -a bin include lib share "${pkgdir}/usr"
+
+	rm -rf "${pkgdir}"/usr/share/{doc,systemtap}
+}
+
+sha512sums=('ad345fd3700219ad29283502430472ef8de91cdcaca97eed7223a599c78b9264ca76eb4d769c606020c469fdfd9b50fa52efe8bb4424cfeca4962429f013656f')

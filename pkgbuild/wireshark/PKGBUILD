@@ -1,12 +1,12 @@
 pkgname=wireshark
-pkgver=2.2.8
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="A free network protocol analyzer for Unix/Linux and Windows"
 arch=('x86_64')
 url="https://www.wireshark.org/"
 license=('GPL2')
 #depends=()
-source=("https://1.eu.dl.wireshark.org/src/wireshark-${pkgver}.tar.bz2"
+source=("https://1.eu.dl.wireshark.org/src/wireshark-${pkgver}.tar.xz"
 	"wireshark.sysusers")
 
 build() {
@@ -30,5 +30,5 @@ package() {
 	chmod 6550 "${pkgdir}/usr/bin/dumpcap"
 }
 
-sha512sums=('71af39c8c212bfb78ec978bbeddb4af41aa142643e2a27e05827b3b46d34ff85772321cb63d863270bee75ef6a6eb3e29d0e6052fca6b072f9981ad1eb924c07'
+sha512sums=('1bac69c6582c05db05cf9fbe818baa62308e531ee3c304bcf0fe7a81aa84c41dc647ebd221f9b98d823557180097b6c239b05841ddc7ca7ede47ee2936715ab9'
             'bdee1ea7d453df57fbb5d862feab5b5d6b3d770952bc7f5272e7a21ef434a861ff83620fb8361460381c54d6fa4bba1d7f0dc0b3a49cb0a4e765a863cceb75d4')

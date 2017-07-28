@@ -1,5 +1,5 @@
 pkgname=libidn2
-pkgver=2.0.2
+pkgver=2.0.3
 pkgrel=1
 pkgdesc="A free software implementation of IDNA2008, Punycode and TR46"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/libidn/libidn2-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/libidn2-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr --disable-doc
 
 	make
 }
@@ -22,4 +22,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c8fd1114fc8df2030abf7c1044da4022989a1cd7ecd92309f62ad0b51b1fcf40418dccd2e397a8335c5e99998130f25339dcb576b4bc88888e3ef0df89714dad')
+
+sha512sums=('1a9f20ff1b57e69d78fe4c3e4b235bda41d6ce963f7604e3604c1164ec10d3e3069bcdf78cef820bf2e8bf481fd4ebae5571d4be66bece1b43d006e1acb7622b')

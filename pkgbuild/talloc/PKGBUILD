@@ -1,5 +1,5 @@
 pkgname=talloc
-pkgver=2.1.9
+pkgver=2.1.10
 pkgrel=1
 pkgdesc="Hierarchical pool based memory allocator with destructors"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a8f051bb15aba769ca286acad0946605d0053b0d149b4da2e6ecc333345f3e603d13a7f062452ae0f165615a4170ebdd7f41fc1b46c7a360000d5308bc304cbb')
+sha512sums=('215e70056f37ade8f67c20ab2b79dcb40f071989ec908de81144f8a0160637bbdec9a94123dea73475ba42425415df4c1eb8c1986485a00e2e03323719a03ce3')

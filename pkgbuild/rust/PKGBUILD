@@ -1,5 +1,5 @@
 pkgname=rust
-pkgver=1.18.0
+pkgver=1.19.0
 pkgrel=1
 pkgdesc="Systems programming language focused on safety, speed and concurrency"
 arch=('x86_64')
@@ -18,6 +18,14 @@ package() {
 	chrpath -d "${pkgdir}"/usr/lib/*.so
 
 	rm -rf "${pkgdir}/usr/etc" "${pkgdir}/usr/share/zsh"
+	rm -rf "${pkgdir}/usr/lib/rustlib/install.log"
+
+	sed -i "s#${pkgdir}##;s#${srcdir}##g" \
+	       "${pkgdir}/usr/lib/rustlib/manifest-cargo" \
+	       "${pkgdir}/usr/lib/rustlib/manifest-rustc" \
+	       "${pkgdir}/usr/lib/rustlib/manifest-rust-docs" \
+	       "${pkgdir}/usr/lib/rustlib/manifest-rust-analysis-x86_64-unknown-linux-gnu" \
+	       "${pkgdir}/usr/lib/rustlib/manifest-rust-std-x86_64-unknown-linux-gnu"
 }
 
-sha512sums=('3d5cb71c03f95145539d9f209733ef555520eb826411737c4f168bbcb8ff631a9035e7dc81c42ecf107c5115d1d69ea6620ed95331cefad6de1b9d49f87ce305')
+sha512sums=('fc98ad7728a72c9bc93505458f7558405cc6a608eb19aa6c609e0155e7c081123f116cf023d19af2f0cd9cb81b8e1bbe69efd88f7bb61cca2d258d5fa2ed6bba')

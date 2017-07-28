@@ -678,6 +678,7 @@ libzip
 lmdb
 lm_sensors
 mdadm
+node
 nss-mdns
 parted
 rust
@@ -690,8 +691,8 @@ libblockdev
 doxygen
 udisks
 upower
-firefox
-flashplayer
+chromium
+pepper-flash
 thunderbird
 bind
 openssh
@@ -975,7 +976,6 @@ kjsembed
 libgconf
 libjpeg-turbo6
 libpng12
-google-chrome
 jdk
 libreoffice
 steam

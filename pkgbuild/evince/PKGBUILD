@@ -1,5 +1,5 @@
 pkgname=evince
-pkgver=3.24.0
+pkgver=3.24.1
 pkgrel=1
 pkgdesc="Document viewer (PDF, Postscript, djvu, tiff, dvi, XPS, SyncTex support with gedit, comics books (cbr,cbz,cb7 and cbt))"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	ln -sfv ../../evince/mozilla/libevbrowserplugin.so "${pkgdir}/usr/lib/mozilla/plugins/libevbrowserplugin.so"
 }
 
-sha512sums=('b793c44b2976abe58461adfdb0b1874af8d6bafaf9b80a851d94b776f9d50f6a81774bcb5b35cd59a9ad3afeea9a8b88018aa85d670373c7c2fa9617407a09c4')
+sha512sums=('205c1c9b68c9215bdcebf0c36841a35898e056ef8e56208db62c1fac04c4efad8fbc0800f410e3c94c526536adba5e8ead68bebec8f81061a3831789c5173726')

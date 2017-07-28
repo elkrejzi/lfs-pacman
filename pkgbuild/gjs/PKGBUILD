@@ -1,5 +1,5 @@
 pkgname=gjs
-pkgver=1.48.5
+pkgver=1.48.6
 pkgrel=1
 pkgdesc="Javascript Bindings for GNOME"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}/usr/libexec"
 }
 
-sha512sums=('7b41dfd573fac325fbf3c429a4925ee1c3ae202a8f9a8300824ec4978b3cddcdcaec49abd1fe02098026f55e52e8759dbb44e4439bf8c590c0c565d111828371')
+sha512sums=('29d70bbee722bbb58eb95acf1409d5e34930d11ebd9525f3b7d0050a13b72eb50e357df7c2bb9bc2ba147dcfdbc2dfb1f1f7b710347473d05cd484006b6ea256')

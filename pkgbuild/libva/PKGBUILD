@@ -1,6 +1,6 @@
 pkgbase=libva
 pkgname=('libva' 'lib32-libva')
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=1
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
@@ -55,4 +55,4 @@ package_lib32-libva() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('8837368886bd9815cb30154c0f087b020737326eaa4ee03c430ba3e980600edeb2f1754d198490d64c8cf7e46c308661e61a4326f1f6742feb179cd8d0836ace')
+sha512sums=('870cfaa5c4487f4cb4b01c11379484e3884aa5e9026c3836cc7681804a5e08a0b245b2aa788984a24a3094bd64068fbd0406e66cb4c5e30fc84e31095eb4a3e1')

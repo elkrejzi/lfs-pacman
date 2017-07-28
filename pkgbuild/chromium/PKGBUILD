@@ -1,0 +1,166 @@
+pkgname=chromium
+pkgver=60.0.3112.78
+_launcher_ver=5
+pkgrel=1
+pkgdesc="A web browser built for speed, simplicity, and security"
+arch=('x86_64')
+url="https://www.chromium.org/Home"
+license=('BSD')
+#depends=()
+source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
+	"chromium-launcher-${_launcher_ver}.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v${_launcher_ver}.tar.gz"
+	"chromium.desktop"
+	"vaapi_patch_r2.patch"
+	"chromium-gn-bootstrap-r8.patch"
+	"0001-Clip-FreeType-glyph-bitmap-to-mask.patch"
+	"breakpad-ucontext.patch")
+
+_system_libs=(
+  flac
+  harfbuzz-ng
+  libdrm
+  libjpeg
+  libpng
+  libwebp
+  libxslt
+  opus
+  yasm
+  zlib
+)
+
+# ffmpeg
+# freetype
+# icu
+# libvpx
+# libxml
+
+_config=(
+	'is_debug=false'
+	'enable_nacl=false'
+	'enable_hangout_services_extension=true'
+	'enable_widevine=false'
+	'use_cups=true'
+	'use_gconf=false'
+	'use_gnome_keyring=false'
+	'use_gtk3=true'
+	'use_kerberos=true'
+	'use_pulseaudio=true'
+	'fieldtrial_testing_like_official_build=true'
+	'is_clang=true'
+	'clang_use_chrome_plugins=false'
+	'use_gold=false'
+	'use_sysroot=false'
+	'linux_use_bundled_binutils=false'
+	'proprietary_codecs=true'
+	'ffmpeg_branding="Chrome"'
+	'treat_warnings_as_errors=false'
+	'fatal_linker_warnings=false'
+)
+
+if [ "$(hostname)" == "krejzi" ]
+then
+	. /media/ntfs/chromium-api.sh
+
+	_config+=(
+		"google_api_key=\"${_google_api_key}\""
+		"google_default_client_id=\"${_google_default_client_id}\""
+		"google_default_client_secret=\"${_google_default_client_secret}\""
+	)
+fi
+
+prepare() {
+	cd "${srcdir}/chromium-${pkgver}"
+
+	for _lib in ${_system_libs[@]} libjpeg_turbo
+	do
+		find -type f -path "*third_party/${_lib}/*"        \
+			\! -path "*third_party/${_lib}/chromium/*" \
+			\! -path "*third_party/${_lib}/google/*"   \
+			\! -path "*base/third_party/icu/*"         \
+			\! -regex '.*\.\(gn\|gni\|isolate\|py\)'   \
+			-delete
+	done
+
+	python build/linux/unbundle/replace_gn_files.py --system-libraries ${_system_libs[@]}
+
+	install -v -dm755 third_party/node/linux/node-linux-x64/bin
+	ln -sfv /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
+
+	install -v -dm755 third_party/llvm-build/Release+Asserts/bin
+	ln -sfv /usr/bin/clang third_party/llvm-build/Release+Asserts/bin/clang
+	ln -sfv /usr/bin/clang++ third_party/llvm-build/Release+Asserts/bin/clang++
+	ln -sfv /usr/bin/llvm-ar third_party/llvm-build/Release+Asserts/bin/llvm-ar
+
+	sed -i "/-Wno-unused-lambda-capture/d" build/config/compiler/BUILD.gn
+
+	# VA-API patch
+	patch -Np1 -i "${srcdir}/vaapi_patch_r2.patch"
+	# Fix paths
+	sed -e 's|i386-linux-gnu/||g' \
+	    -e 's|x86_64-linux-gnu/||g' \
+	    -e 's|/usr/lib/va/drivers|/usr/lib/dri|g' \
+	    -e 's|/usr/lib64/va/drivers|/usr/lib/dri|g' \
+	    -i content/common/sandbox_linux/bpf_gpu_policy_linux.cc
+
+	patch -Np1 -i "${srcdir}/chromium-gn-bootstrap-r8.patch"
+	patch -Np1 -d third_party/skia -i "${srcdir}/0001-Clip-FreeType-glyph-bitmap-to-mask.patch"
+	patch -Np1 -d breakpad -i "${srcdir}/breakpad-ucontext.patch"
+}
+
+build() {
+	cd "${srcdir}/chromium-launcher-${_launcher_ver}"
+
+	make
+
+	cd "${srcdir}/chromium-${pkgver}"
+
+	export TMPDIR="${srcdir}/temp"
+	install -v -dm755 "${TMPDIR}"
+
+	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_config[*]}"
+	out/Release/gn gen out/Release --args="${_config[*]}"
+
+	ninja -C out/Release chrome chrome_sandbox chromedriver
+}
+
+package() {
+	cd "${srcdir}/chromium-launcher-${_launcher_ver}"
+
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
+
+	cd "${srcdir}/chromium-${pkgver}"
+
+	install -v -Dm755 out/Release/chrome "${pkgdir}/usr/lib/chromium/chromium"
+	install -v -Dm4755 out/Release/chrome_sandbox "${pkgdir}/usr/lib/chromium/chrome-sandbox"
+
+	install -v -Dm755 out/Release/chromedriver "${pkgdir}/usr/lib/chromium/chromedriver"
+	ln -sfv ../lib/chromium/chromedriver "${pkgdir}/usr/bin/chromedriver"
+
+	install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
+
+	cp -a out/Release/*.pak out/Release/*.bin out/Release/locales "${pkgdir}/usr/lib/chromium"
+
+	install -v -Dm644 "${srcdir}/chromium.desktop" "${pkgdir}/usr/share/applications/chromium.desktop"
+
+	for size in 16 32
+	do
+		install -v -Dm644 "chrome/app/theme/default_100_percent/chromium/product_logo_${size}.png" \
+			"${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+	done
+
+	for size in 22 24 48 64 128 256
+	do
+		install -v -Dm644 "chrome/app/theme/chromium/product_logo_${size}.png" \
+			"${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+	done
+
+	install -v -Dm644 out/Release/chrome.1 "${pkgdir}/usr/share/man/man1/chromium.1"
+}
+
+sha512sums=('d6cccf2537233c12d7b0254b45adbf0abdf9ca43688ceed28b3d915290478563be30d30879018fd4d6f2acc9654d9911c0c6bbebba0cdeacd16d748e18296c41'
+            '52fa910e2fff7197d670be41e925c71579f10bcdc879248b38876581dc7e4f384262a0e1d3714ed7b6382d680c56e53076b0be6fea679724360144395bf3973a'
+            '41175d53e7dba3405ff154d52f2069c7685ecb7ce2587b982bc24e30951485686586848eb94d5033a98ddde6dc1fd13cc5614a95e8758133d1a579a5f6b9221d'
+            'a198529a917559d056dffa69f41b390b9dd3da3f9c862547c1f0173cb67bd2b9ba04690445642984ff6d4b22e9422e0bf3509b1f72505e8143c53c82e7b30c1b'
+            '792b436802fda8427312ef482fb7dc78c1ec6a6c1e39f2637cc379cd5b8bb2dd1b17d495fdaea2beec35305e3e910bed67c9f1824155131def708c923a4cf1c6'
+            'a1d136962b090a5ec1736dd93d2afeb3c45442ee0ad20fc3021de3b6ec8ee48e83d9e0c6522aa313f1d2362d8c9fe126db399e48db133dab5924edaafd29e09a'
+            '1e8f06ac3f07803028f0fa8765710afd5c4e68ee776c70f46668ea3c15b6afd75cb6fd53b56c7c06b23a3e32fc9fbf7db3a3038e4388d67c8f6df52c7f7fbec0')

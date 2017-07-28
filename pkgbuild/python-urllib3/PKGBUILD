@@ -1,6 +1,6 @@
 pkgbase=python-urllib3
 pkgname=('python2-urllib3' 'python3-urllib3')
-pkgver=1.21.1
+pkgver=1.22
 pkgrel=1
 pkgdesc="HTTP library with thread-safe connection pooling, file post, and more."
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-urllib3() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('0d2e9c2a0b895e4e232cad5ecc645ea9fd9b70191df045a220ee1f32e284c613c6790bcdfd9e40a22ea9d25ec397278fa700a3c3747e7b04222719d50df07859')
+sha512sums=('132b69d7f390916bdcde66d46fbf0189d0c1f976f91778dcb0a9ef8174487b7bb4b37b9139e84f7c70234803be95284448aba0b820f3b54530c0c497ca7a1dc9')

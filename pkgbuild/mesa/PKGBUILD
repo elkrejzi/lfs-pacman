@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=17.1.5
+pkgver=17.2.0.rc1
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -85,4 +85,4 @@ package_lib32-mesa() {
 	mv dest/usr/share "${pkgdir}/usr"
 }
 
-sha512sums=('a12671afd812b304e1db690b123a9de16332608541f71cc3ee9128a3630c81416d46255e5bdbf19e14e85716b218f447987b555e3bc0081b8b6f392556fa21e2')
+sha512sums=('8e9f935660226fdbd313142e4a1592fc2e4eb3dcd08836fb4ecfd7f7ad286973688debb7a82740c1ccfe1bc694f051599b311023d37a86bac0be0910523de53f')

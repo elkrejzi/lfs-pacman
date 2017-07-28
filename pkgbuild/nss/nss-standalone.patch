@@ -1,5 +1,5 @@
 --- a/nss/config/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ b/nss/config/Makefile	2017-02-20 17:59:18.215805152 +0100
++++ b/nss/config/Makefile	2017-07-28 13:28:04.364408267 +0200
 @@ -0,0 +1,40 @@
 +CORE_DEPTH = ..
 +DEPTH      = ..
@@ -42,7 +42,7 @@
 +dummy: all export libs
 +
 --- a/nss/config/nss-config.in	1970-01-01 01:00:00.000000000 +0100
-+++ b/nss/config/nss-config.in	2017-02-20 17:59:18.215805152 +0100
++++ b/nss/config/nss-config.in	2017-07-28 13:28:04.364408267 +0200
 @@ -0,0 +1,153 @@
 +#!/bin/sh
 +
@@ -198,7 +198,7 @@
 +fi      
 +
 --- a/nss/config/nss.pc.in	1970-01-01 01:00:00.000000000 +0100
-+++ b/nss/config/nss.pc.in	2017-02-20 17:59:18.215805152 +0100
++++ b/nss/config/nss.pc.in	2017-07-28 13:28:04.364408267 +0200
 @@ -0,0 +1,12 @@
 +prefix=@prefix@
 +exec_prefix=@exec_prefix@
@@ -212,9 +212,9 @@
 +Libs: -L@libdir@ -lnss@NSS_MAJOR_VERSION@ -lnssutil@NSS_MAJOR_VERSION@ -lsmime@NSS_MAJOR_VERSION@ -lssl@NSS_MAJOR_VERSION@ -lsoftokn@NSS_MAJOR_VERSION@
 +Cflags: -I${includedir}
 +
---- a/nss/Makefile	2017-02-17 14:17:13.000000000 +0100
-+++ b/nss/Makefile	2017-02-20 18:00:15.909626880 +0100
-@@ -46,7 +46,7 @@
+--- a/nss/Makefile	2017-07-27 16:09:32.000000000 +0200
++++ b/nss/Makefile	2017-07-28 13:28:04.364408267 +0200
+@@ -47,7 +47,7 @@
  # (7) Execute "local" rules. (OPTIONAL).                              #
  #######################################################################
  
@@ -223,11 +223,11 @@
  
  nss_clean_all: clobber_nspr clobber
  
---- a/nss/manifest.mn	2017-02-17 14:17:13.000000000 +0100
-+++ b/nss/manifest.mn	2017-02-20 17:59:40.812663917 +0100
+--- a/nss/manifest.mn	2017-07-27 16:09:32.000000000 +0200
++++ b/nss/manifest.mn	2017-07-28 13:28:04.364408267 +0200
 @@ -10,4 +10,4 @@
  
  RELEASE = nss
  
--DIRS = coreconf lib cmd gtests
-+DIRS = coreconf lib cmd config gtests
+-DIRS = coreconf lib cmd cpputil gtests
++DIRS = coreconf lib cmd cpputil config gtests

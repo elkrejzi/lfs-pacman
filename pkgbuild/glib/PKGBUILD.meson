@@ -20,50 +20,54 @@ prepare() {
 
 	cd "${srcdir}/glib-${pkgver}"
 
-	NOCONFIGURE=1 ./autogen.sh
-
 	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
 
-	cp -a "${srcdir}"/glib{,32}-${pkgver}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	cd "${srcdir}/glib-${pkgver}"
+	cd "${srcdir}/build64"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--with-pcre=system \
-		--enable-gtk-doc \
-		--enable-man \
-		--with-python=/usr/bin/python3
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dwith-docs=yes \
+		-Dwith-man=yes \
+		-Dwith-pcre=system \
+		"${srcdir}/glib-${pkgver}"
 
-	cd "${srcdir}/glib32-${pkgver}"
+	cd "${srcdir}/build32"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--libdir=/usr/lib32 \
-		--with-pcre=system \
-		--with-python=/usr/bin/python3
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--libdir /usr/lib32 \
+		--buildtype=plain \
+		-Dwith-docs=yes \
+		-Dwith-man=yes \
+		-Dwith-pcre=system \
+		"${srcdir}/glib-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/glib-${pkgver}"
-	make -C "${srcdir}/glib32-${pkgver}"
+	ninja -C build64 ${MAKEFLAGS}
+	ninja -C build32 ${MAKEFLAGS}
 }
 
 package_glib() {
 	pkgdesc="Low level core library"
 
-	cd "${srcdir}/glib-${pkgver}"
+	cd "${srcdir}/build64"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	rm -rf "${pkgdir}/usr/share/gdb"
 
@@ -74,9 +78,9 @@ package_glib() {
 package_lib32-glib() {
 	pkgdesc="Low level core library (32 bit)"
 
-	cd "${srcdir}/glib32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	make install DESTDIR="${PWD}/dest"
+	DESTDIR="${PWD}/dest" ninja install
 
 	install -v -dm755 "${pkgdir}/usr/bin"
 	mv dest/usr/lib32 "${pkgdir}/usr"
