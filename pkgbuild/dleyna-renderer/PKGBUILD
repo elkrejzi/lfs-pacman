@@ -1,17 +1,17 @@
 pkgname=dleyna-renderer
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="Library to discover and manipulate Digital Media Renderers"
 arch=('x86_64')
 url="https://01.org/dleyna"
 license=('LGPL2.1')
 #depends=()
-source=("https://01.org/sites/default/files/downloads/dleyna/dleyna-renderer-${pkgver}.tar.gz")
+source=("https://github.com/01org/dleyna-renderer/archive/${pkgver}/dleyna-renderer-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/dleyna-renderer-${pkgver}"
 
-	./configure --prefix=/usr \
+	./autogen.sh --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var
 
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('28802057d6e0b7da24fd8abb11748faeb78ea6ef15ce85d83907497ff252c86cec1072a919e64bab6df0a375e0092c1281569802515fb87d9dc083098f1d4820')
+sha512sums=('f4cb6c658bfaf620962eb6b84ab6b41be1bb8455ac1ff358db7fcf3db7f5c4e2130bb7b0e5201005c738e892aabf25b3cf2a3e1cc1f4a9ef9d834789b87c0183')

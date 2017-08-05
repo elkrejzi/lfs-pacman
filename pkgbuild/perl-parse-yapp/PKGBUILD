@@ -1,5 +1,5 @@
 pkgname=perl-parse-yapp
-pkgver=1.2
+pkgver=1.21
 pkgrel=1
 pkgdesc="Perl/CPAN Module Parse::Yapp - Generates OO LALR parser modules"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('f421f7130c1e1ddc0699b83c210c266bb14f7bc47a3f14ecfd1b2fe6cc48454eb3dbd9d4a32901b92072e68d07e4acfb3ebcebd133986ac9cbfba70d05b394d6')
+sha512sums=('dbf6182d4813ff7e355ea1713c748bfdf8290040a93f123acec645c7a1733fe457ab6e0ab51c4ec83cf82bc43d7fb35cbf89875df7b5c2ffc9635e85458cfeee')

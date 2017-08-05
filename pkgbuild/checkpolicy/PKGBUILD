@@ -1,17 +1,15 @@
 pkgname=checkpolicy
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 pkgdesc="SELinux policy compiler"
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
 #depends=()
-source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/checkpolicy-${pkgver}.tar.gz")
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/checkpolicy-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/checkpolicy-${pkgver}"
-
-	sed -i "s#-lfl#/usr/lib/libfl.a#g" test/Makefile
 
 	make
 }
@@ -19,7 +17,7 @@ build() {
 package() {
 	cd "${srcdir}/checkpolicy-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install LIBSEPOLA=/usr/lib/libsepol.a DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1d8361a5735410909be7fe5a54740e0e1b6339d0fbad9965f3ae2902e7eaaec7531fec1dd73bb57b28ad933773778ab50b97db3d92aacf5fac3b63d1ed364b46')
+sha512sums=('fba8a4132f90c98f8222de563dc15aac1b739d3a6207779b6a4715d2813e7553081351c54f42371a1b704a1f5038d40821b61213c4ad53eb705823975858cf7f')

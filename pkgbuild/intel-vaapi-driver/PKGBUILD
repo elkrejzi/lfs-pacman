@@ -17,7 +17,7 @@ prepare() {
 build() {
 	cd "${srcdir}/intel-vaapi-driver-${pkgver}"
 
-	./configure --prefix=/usr --enable-hybrid-codec
+	./configure --prefix=/usr
 
 	cd "${srcdir}/intel-vaapi-driver32-${pkgver}"
 

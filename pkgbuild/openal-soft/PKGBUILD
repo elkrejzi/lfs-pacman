@@ -1,5 +1,5 @@
 pkgname=openal-soft
-pkgver=1.18.0
+pkgver=1.18.1
 pkgrel=1
 pkgdesc="Cross-platform 3D audio library, software implementation"
 arch=('x86_64')
@@ -15,7 +15,8 @@ prepare() {
 build() {
 	cd "${srcdir}/build"
 
-	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DALSOFT_EXAMPLES=OFF \
@@ -23,13 +24,13 @@ build() {
 		-DALSOFT_NO_CONFIG_UTIL=ON \
 		"${srcdir}/openal-soft-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('84af817f85ef6e6c8de20126a5163bd2660ec8d294a3ece7514898caf34ee0640a87a90f350ea9769765ce5cbdbfed7bf38be940950ba4eef19cc24900f218b2')
+sha512sums=('5ee86f21c499d79b139b78e3a8ddb6f79d293d7fb2076342396444a2a056eeb5bf39def18577280a41c9192ba5c6cfd3c67a68e97a6914a9c0ae81b4811c0c60')

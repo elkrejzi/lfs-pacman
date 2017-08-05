@@ -1,0 +1,38 @@
+pkgbase=python-slip
+pkgname=('python2-slip' 'python3-slip')
+pkgver=0.6.5
+pkgrel=1
+pkgdesc="Convenience, extension and workaround code for Python"
+arch=('x86_64')
+url="https://github.com/nphilipp/python-slip"
+license=('GPL2')
+#depends=()
+source=("https://github.com/nphilipp/python-slip/releases/download/python-slip-${pkgver}/python-slip-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/python{,2}-slip-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/python-slip-${pkgver}"
+
+	make PYTHON=python3
+
+	cd "${srcdir}/python2-slip-${pkgver}"
+
+	make PYTHON=python2
+}
+
+package_python3-slip() {
+	cd "${srcdir}/python-slip-${pkgver}"
+
+	make PYTHON=python3 install DESTDIR="${pkgdir}"
+}
+
+package_python2-slip() {
+	cd "${srcdir}/python2-slip-${pkgver}"
+
+	make PYTHON=python2 install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('84dfd4d74602e996797261aa4021fc1579a6aba554d2b3d497c0a7b8618366a9c0a6f12051b00c5653845dda923eedb58afdded37f2a1f31b5b0ce1a0532ccff')

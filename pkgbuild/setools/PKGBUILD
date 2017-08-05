@@ -6,7 +6,14 @@ arch=('x86_64')
 url="https://github.com/TresysTechnology/setools/wiki"
 license=('GPL' 'LGPL')
 #depends=()
-source=("setools-${pkgver}.tar.gz::https://github.com/TresysTechnology/setools/archive/${pkgver}.tar.gz")
+source=("setools-${pkgver}.tar.gz::https://github.com/TresysTechnology/setools/archive/${pkgver}.tar.gz"
+	"frules-hashtab.patch::https://github.com/TresysTechnology/setools/commit/e743d2a0eaaae7d99302dd3099549ca7ad868eab.patch")
+
+prepare() {
+	cd "${srcdir}/setools-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/frules-hashtab.patch"
+}
 
 build() {
 	cd "${srcdir}/setools-${pkgver}"
@@ -24,4 +31,5 @@ package() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('047f969a347c5d015885aef0c7a341ae4393c8e0d61a7112b7bd0380d7c6161765f1ac5d875777ac84430bbe4d21bcb8a748f1b8484ae3a4d3f0137e90a07f2b')
+sha512sums=('047f969a347c5d015885aef0c7a341ae4393c8e0d61a7112b7bd0380d7c6161765f1ac5d875777ac84430bbe4d21bcb8a748f1b8484ae3a4d3f0137e90a07f2b'
+            'f21f0f0b1a8a47e5dcfc4f3e0561304806be824e5bc85db2deaefe1fc613cccb91261d081c4935d88be41c3af31605de7fa1ec64a2345d1321a27b77d1539ea6')

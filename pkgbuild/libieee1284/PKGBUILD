@@ -1,0 +1,25 @@
+pkgname=libieee1284
+pkgver=0.2.11
+pkgrel=1
+pkgdesc="A library to query devices connected in parallel port"
+arch=('x86_64')
+url="http://cyberelk.net/tim/software/libieee1284/"
+license=('GPL2')
+#depends=()
+source=("https://downloads.sourceforge.net/libieee1284/libieee1284-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libieee1284-${pkgver}"
+
+	./configure --prefix=/usr --mandir=/usr/share/man
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libieee1284-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('06cc3049ce15613d34e39dc71bc572843c61ab64077c29ef9a6257edb0849c98565ff612a4cf787bc9642a39f1c89b7c47a20fb27f2318105be82aad8d472bb9')

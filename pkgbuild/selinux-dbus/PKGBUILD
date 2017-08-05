@@ -1,0 +1,17 @@
+pkgname=selinux-dbus
+pkgver=2.7
+pkgrel=1
+pkgdesc="SELinux DBus integration"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+#depends=()
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/selinux-dbus-${pkgver}.tar.gz")
+
+package() {
+	cd "${srcdir}/selinux-dbus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('73f6731af302573cf7b20b93e7bc6da677dfd57342b097888537fd6383157c72b0fb047a4f586614fd968e8ed7f0f2b517f0abdf44dd6107aa428b7a39f93f9e')

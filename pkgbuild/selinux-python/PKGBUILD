@@ -1,0 +1,26 @@
+pkgname=selinux-python
+pkgver=2.7
+pkgrel=1
+pkgdesc="SELinux Python modules"
+arch=('x86_64')
+url="http://userspace.selinuxproject.org"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/selinux-python-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/selinux-python-${pkgver}"
+
+	make PYTHON=python2
+	make PYTHON=python3
+}
+
+package() {
+	cd "${srcdir}/selinux-python-${pkgver}"
+
+	make install PYTHON=python2 LIBSEPOLA=/usr/lib/libsepol.a DESTDIR="${pkgdir}"
+	make install PYTHON=python3 LIBSEPOLA=/usr/lib/libsepol.a DESTDIR="${pkgdir}"
+}
+
+sha512sums=('df8645e7ac9ca568f0c9d81c42b93d0abadc43c22f14d38451ab262b52132cfb7abd7742e3a00ab9c153f95dd5b23b3a496d84875debcd9787f75d940eb45c28')

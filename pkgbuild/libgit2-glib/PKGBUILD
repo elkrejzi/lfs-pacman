@@ -1,5 +1,5 @@
 pkgname=libgit2-glib
-pkgver=0.25.0
+pkgver=0.26.0
 pkgrel=1
 pkgdesc="GLib wrapper for libgit2"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f265d5da4bba28de2aa7254d36fa596b9e348c6543cd559cbb9c1f9610d4b63af00c82fb4138f345e15109503e0d61101d3344c68539348cb268403387a4418e')
+sha512sums=('322f99b6273f0e56fcccdccd3b1193e1b62ca9dd495144e7c5fc59520dd693b1ceea4bab7335de1201ab09ecd7e146daa86afd9256d16649c144adb0b6de97c6')

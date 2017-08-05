@@ -1,12 +1,12 @@
 pkgname=policycoreutils
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 pkgdesc="SELinux policy core utilities"
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
 #depends=()
-source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/policycoreutils-${pkgver}.tar.gz"
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/policycoreutils-${pkgver}.tar.gz"
 	"newrole.pam"
 	"run_init.pam")
 
@@ -27,6 +27,6 @@ package() {
 	install -v -Dm644 "${srcdir}/run_init.pam" "${pkgdir}/etc/pam.d/run_init"
 }
 
-sha512sums=('ba289060bc348f9315bce84a5e5daf145600274289fdd2206edc10bb0ee03f9b02a9e40e9c118809961ddfe7844dee7d8952d8c9a239af7282f4fc1614c21e9d'
+sha512sums=('ce97d659f72058fd23d8dab8db98fc7c0003806a636c521fa15da465d7358d40ccc8e3eaa9675f00a9b0b8aaa1465d3fb650bc0ebbbf00164e121230673256fb'
             '0b55afdd595841dda9af352f065aab9c108faa558a2fce31924a456faf5a60e43971b1a4915065997e197c0ea9fe62ade7c26cc6a8a5dab00dbcb8e252acc86f'
             '8d446cfec279845f9013019b3e9579929b5ec576a42890f921f1dd6bbcd2b985dbf29126d4f2eb98ca7aa28fa9d695f95a6ecdf57e08f96ae3a11a8141970095')

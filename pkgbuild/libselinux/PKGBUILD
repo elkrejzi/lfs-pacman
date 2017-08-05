@@ -1,22 +1,29 @@
 pkgname=libselinux
 pkgname=('libselinux' 'lib32-libselinux')
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
 #depends=()
-source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libselinux-${pkgver}.tar.gz"
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/libselinux-${pkgver}.tar.gz"
 	"libselinux.tmpfiles")
 
 prepare() {
+	cd "${srcdir}/libselinux-${pkgver}"
+
+	sed -i "s#-Werror ##g" src/Makefile
+
 	cp -a "${srcdir}"/libselinux{,32}-${pkgver}
 }
 
 build() {
+	export EXTRA_CFLAGS="${CFLAGS} -Wunused-command-line-argument"
+	unset CFLAGS
+
 	cd "${srcdir}/libselinux-${pkgver}"
 
-	make
+	make USE_PCRE2=y
 
 	cd "${srcdir}/libselinux32-${pkgver}"
 
@@ -24,7 +31,9 @@ build() {
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	make -C src
+	sed -i "/SUBDIRS/s#utils ##g" Makefile
+
+	make USE_PCRE2=y
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -51,5 +60,5 @@ package_lib32-libselinux() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('906e1bf98c669862ab4f4e883d511db8d739a5763dc857c9405ad3cc6c70766a482853d07134698a1a98257a8632cc756d0549a7640c2915d051714f502ff14b'
+sha512sums=('415d10306692d4323455b61fb61d7e56e53b9144276ff206d72760e1df9b04ab07c62a4d6f04bf4e5fa708f9f14b21a9801069b16ece0a0aade886950941ab8d'
             'bd3ac177f732448898d5e90e6159d13f8959a59bbfac84afe99ac724aa29f5568966af7b47ca8b7b40ae7f87d31832c9f6865fb5951366ecc9fa944ef9298b87')

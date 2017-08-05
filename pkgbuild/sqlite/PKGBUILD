@@ -1,6 +1,6 @@
 pkgname=sqlite
-_srcver=3190300
-pkgver=3.19.3
+_srcver=3200000
+pkgver=3.20.0
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
@@ -40,4 +40,4 @@ package() {
 	make -C tea install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7896c99726da75818f1027d5675b24724bc89c738874c868868e60c09d4509ad5a6da93f54cfcecb3a1052e4f164f7cb864ede333b9ccfb4f6b811b052ca1d3d')
+sha512sums=('f5b0ffcc27adeed5b27b29962d03defa167151868f2281c5642a8ddfa10ac8971aff22081a5b46bd36bcf664bd271975e80249ec403b73656658b33af084ec94')

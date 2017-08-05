@@ -1,12 +1,16 @@
-pkgname=pcre2
+pkgbase=pcre2
+pkgname=('pcre2' 'lib32-pcre2')
 pkgver=10.23
 pkgrel=1
-pkgdesc="A library that implements Perl 5-style regular expressions, version 2"
 arch=('x86_64')
 url="http://www.pcre.org/"
 license=('BSD')
 #depends=()
 source=("ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-${pkgver}.tar.bz2")
+
+prepare() {
+	cp -a "${srcdir}"/pcre2{,32}-${pkgver}
+}
 
 build() {
 	cd "${srcdir}/pcre2-${pkgver}"
@@ -19,14 +23,45 @@ build() {
 		--enable-pcre2grep-libbz2 \
 		--enable-pcre2test-libreadline
 
-	make
+	cd "${srcdir}/pcre232-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--enable-pcre2-16 \
+		--enable-pcre2-32 \
+		--enable-jit
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/pcre2-${pkgver}"
+	make -C "${srcdir}/pcre232-${pkgver}"
+
 }
 
-package() {
+package_pcre2() {
+	pkgdesc="A library that implements Perl 5-style regular expressions, version 2"
 
 	cd "${srcdir}/pcre2-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-pcre2() {
+	pkgdesc="A library that implements Perl 5-style regular expressions, version 2 (32 bit)"
+
+	cd "${srcdir}/pcre232-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 sha512sums=('3e5910bd2405cc35934d91e4be760abe4f2e900202a20b6ba74adb7a3acb2b74b3bf9b0e97e8de10f8e8534133e0722e0bf0f5fb40d6c2c4520d1ed61749d456')

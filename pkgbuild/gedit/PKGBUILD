@@ -1,5 +1,5 @@
 pkgname=gedit
-pkgver=3.22.0
+pkgver=3.22.1
 pkgrel=1
 pkgdesc="GNOME Text Editor"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7137fe96cca072c294dea545cb7fafee7ca2da84d8b7756e03a5f5dde6cdca8a3eec6f58136cec0aeeb49c294acd000f01bf3a44447411924aff107dbab26efb')
+sha512sums=('7251732f353b1d9dab0fe447fe90b2259df34ff0694d8731ce3be531c21ac82ab6e7f4a07090aeef364640154f4ba6103539a253bc7942952dcf1e331418f0eb')

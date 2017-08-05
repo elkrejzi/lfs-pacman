@@ -1,12 +1,12 @@
 pkgbase=python-libsemanage
 pkgname=('python2-libsemanage' 'python3-libsemanage')
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 arch=('x86_64')
 url="http://userspace.selinuxproject.org"
 license=('GPL')
 #depends=()
-source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libsemanage-${pkgver}.tar.gz")
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/libsemanage-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libsemanage-${pkgver}"
@@ -31,4 +31,4 @@ package_python3-libsemanage() {
 	make PYTHON=python3 install-pywrap DESTDIR="${pkgdir}"
 }
 
-sha512sums=('38741d6e6f7a2669bfeee362e42d6bfd720cceeaf61331e329b2210fdc070444e529656ce86dd82e94aa248eafcfaea4c5d013d9cce76c1039be6fc6a6b2c790')
+sha512sums=('6b30ea87f1ab3944935188539bbf869c8e287e05c174ea61cd19722a89cf8156518f336476e23b4117a5a05aec9a99a4db679b58a6952bf0c31ad809e9ab91d9')

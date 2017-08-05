@@ -1,14 +1,13 @@
 pkgname=('glibc' 'lib32-glibc')
 pkgbase=glibc
-pkgver=2.25.90
+pkgver=2.26
 pkgrel=1
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
 license=('GPL' 'LGPL')
 #depends=()
 options=(staticlibs debug emptydirs)
-#source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
-source=("git+https://sourceware.org/git/glibc.git#commit=1086114"
+source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
 	"glibc.conf"
 	"locale-gen"
 	"locale.gen"
@@ -16,10 +15,7 @@ source=("git+https://sourceware.org/git/glibc.git#commit=1086114"
 	"glibc-pure64.patch")
 
 prepare() {
-	cd "${srcdir}"
-	cp -a glibc glibc-${pkgver}
-
-	cd "glibc-${pkgver}"
+	cd "${srcdir}/glibc-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/glibc-paths.patch"
 	patch -Np1 -i "${srcdir}/glibc-pure64.patch"
@@ -28,8 +24,7 @@ prepare() {
 
 	ln -sfv "glibc-${pkgver}" "${srcdir}/src"
 
-	install -v -dm755 "${srcdir}/build64"
-	install -v -dm755 "${srcdir}/build32"
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
@@ -132,7 +127,7 @@ package_lib32-glibc() {
 	rm -rf "${pkgdir}"/usr/lib32/libnsl.{a,so}
 }
 
-sha512sums=('SKIP'
+sha512sums=('6ed368523bc55f00976f96c5177f114e3f714b27273d7bffc252812c8b98fb81970403c1f5b5f0a61da678811532fb446530745492d2b49bfefc0d5bd71ce8c0'
             '062341482c1b44d3a97a00cb0915afc2d45b0acf5c7a79c98e37927a902a5ba040db973d0ee9f24e645a245c54704139e43df67e5adb8fa93c91411deeba01ff'
             'ba1e4d42b1ccc07c0a3a11b8c788b96526a40a1d70eb5807749067b2591d27e3d00b88752f1689e918f1129d110797ece2861ba7a508fa55ae089e7cc5c8bf8b'
             '3d9facc6da5159dcd877473c8a4d77006ef5615e2619ef743255112bfa136baf65239367222e87e7ada823d5c7d747aa5204f8365a806141e5884477898ccd14'

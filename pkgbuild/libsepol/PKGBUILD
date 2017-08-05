@@ -1,5 +1,5 @@
 pkgname=libsepol
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 pkgdesc="SELinux binary policy manipulation library"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="http://userspace.selinuxproject.org"
 license=('GPL')
 options=(staticlibs)
 #depends=()
-source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20161014/libsepol-${pkgver}.tar.gz")
+source=("https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/libsepol-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libsepol-${pkgver}"
@@ -21,4 +21,4 @@ package() {
 	make install DESTDIR="${pkgdir}" SHLIBDIR="${pkgdir}/usr/lib"
 }
 
-sha512sums=('17d007857634e3d581fcc9bafcbb75674a06e382bb258c2c6b3656c141d71493699c42b78c8e1917c628476aeb8ead73bb86e8ccf43d7ce59aa0b7884bea132a')
+sha512sums=('1d308c17bfea2659f9dc4877ab685449a5a33dff7260e62b603cde9551bed2010360b71a896c6dfcdb8b9fe86ecebc9f6b3225e6c3573a80fca8578a9d561b47')

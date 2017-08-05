@@ -1,0 +1,29 @@
+pkgname=simple-scan
+pkgver=3.24.1
+pkgrel=1
+pkgdesc="Simple scanning utility"
+arch=('x86_64')
+url="https://launchpad.net/simple-scan"
+license=('GPL3')
+#depends=()
+source=("https://download.gnome.org/sources/simple-scan/${pkgver:0:4}/simple-scan-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/simple-scan-${pkgver}"
+
+	touch src/*.vala
+
+	./configure --prefix=/usr \
+		--disable-packagekit \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/simple-scan-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('9f0ced644b13dcaad4f1e23a6520b1cbe3c36d995fca4791383f959986cd396f123638a23dbd02a9511ef7e1c9c915b3a025e9b7e4de4542a4c180c4fe29e2b9')

@@ -30,6 +30,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           libc_cv_ssp=no
     make
     make install
+    rm -rf /tools/lib/libnsl.{a,so}
   popd
   mkdir glibc-${GLIBC_VER}/build32
   pushd glibc-${GLIBC_VER}/build32
@@ -52,6 +53,8 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
     mv dest/tools/lib32 /tools
     mv dest/tools/include/gnu/lib-names-32.h /tools/include/gnu
     mv dest/tools/include/gnu/stubs-32.h /tools/include/gnu
+
+    rm -rf /tools/lib32/libnsl.{a,so}
 
     mkdir -p /tools/lib/locale
     localedef -i en_US -f UTF-8 en_US.UTF-8

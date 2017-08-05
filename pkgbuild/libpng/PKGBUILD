@@ -1,6 +1,6 @@
 pkgbase=libpng
 pkgname=('libpng' 'lib32-libpng')
-pkgver=1.6.29
+pkgver=1.6.31
 pkgrel=1
 arch=('x86_64')
 url="http://www.libpng.org/pub/png/libpng.html"
@@ -61,5 +61,5 @@ package_lib32-libpng() {
 	ln -sf libpng16-config32 "${pkgdir}/usr/bin/libpng-config32"
 }
 
-sha512sums=('070393423ec11f19e3264a0200959ae09238aa005615571586987253028b4ffb7e6b7c734a132f65180252b0259f79add03896d79fdc7dcfd8773b82c82a5ffc'
-            '348121e2b7ab1bac8d4ce3ab6e60f56f1f28bedbbdeb2f87b32662f838713460d8bced3401e9d736969f6fe2eb40d77028c9d4f569c59a091c860b6507026975')
+sha512sums=('714da63e19d32eadeeb44edf7f2afeaf6ac59f2756e0951015313a98c0f3c1216296886301c5704958b56f4c96b00725791ba2efe9f26b4a92cd743410cc36a9'
+            '58d9893adf5b5e225c06fa9bb9f8d2e1deb8f9de7eeeeb79f63ac96bb70441b375f33524c0decc693cbb4c7753ea6ad10a0c2c2fa5fef6b3d524765df479fab2')

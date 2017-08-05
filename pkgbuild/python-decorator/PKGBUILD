@@ -1,6 +1,6 @@
 pkgbase=python-decorator
 pkgname=('python2-decorator' 'python3-decorator')
-pkgver=4.1.1
+pkgver=4.1.2
 pkgrel=1
 pkgdesc="Python Decorator module"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-decorator() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('a072173cf20ff9a97df93da217e33d9671b90c32d3536e95f99d0783169ce0d41a3c7c601004b1b2717e503cf27fb8ab110156f641d6fc7a2b6adb46c9eb33f1')
+sha512sums=('4a4b9dc39de9b3f00eae9b6829136f5d836355d3d719371440f69c33fdddf73636e9faaa8fc35829c64d5c5a61d968ea427267da944c524c22ad08b69fb6f0ff')

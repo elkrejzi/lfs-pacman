@@ -1,0 +1,37 @@
+pkgname=hplip
+pkgver=3.17.7
+pkgrel=1
+pkgdesc="Drivers for HP DeskJet, OfficeJet, Photosmart, Business Inkjet and some LaserJet"
+arch=('x86_64')
+url="http://hplipopensource.com/"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://downloads.sourceforge.net/hplip/hplip-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/hplip-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-new-hpcups \
+		--disable-qt4 \
+		PYTHON=/usr/bin/python3
+
+	make
+}
+
+package() {
+	cd "${srcdir}/hplip-${pkgver}"
+
+	make -j1 install rulesdir=/usr/lib/udev/rules.d DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/etc/sane.d/dll.d"
+
+	mv "${pkgdir}/etc/sane.d/dll.conf" "${pkgdir}/etc/sane.d/dll.d/hpaio"
+
+	rm -rf "${pkgdir}/etc/xdg" "${pkgdir}/usr/share/hal"
+}
+
+sha512sums=('f88c16d5b6e1986df5b7c1081802ed4832849de8d8b01961231965b115731eb9bd5c18fa52d5bf2eb412927b9de0057bf8025a1579b053c4d8441f0ad4e7ce3f')

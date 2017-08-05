@@ -1,17 +1,17 @@
 pkgname=dleyna-core
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="Library of utility functions that are used by the higher level dLeyna"
 arch=('x86_64')
 url="https://01.org/dleyna"
 license=('LGPL2.1')
 #depends=()
-source=("https://01.org/sites/default/files/downloads/dleyna/dleyna-core-${pkgver}.tar.gz")
+source=("https://github.com/01org/dleyna-core/archive/v${pkgver}/dleyna-core-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/dleyna-core-${pkgver}"
 
-	./configure --prefix=/usr \
+	./autogen.sh --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var
 
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8611ae61482dcb0ca55513ed4ce7cae9372f88d710033e5abbaeb3c06533a7b2ac143757776bf9ced0dd3f0149ee9f2e42e90fac3ecbbeb42f38d13aeae7849f')
+sha512sums=('cda3f3ee2bea860b06447ab79d8ca62a29c8d26215774c44adb05e57316b95acd4df6ee4ecdd731574b6da5b3aef1c08977a649288004a62a88af38a83157b57')

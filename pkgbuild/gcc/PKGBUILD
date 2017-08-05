@@ -1,7 +1,7 @@
 pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
-_pkgver=7-20170713
-pkgver=7.1.1+20170713
+_pkgver=7-20170727
+pkgver=7.1.1+20170727
 _gnatver=2017
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
@@ -11,10 +11,9 @@ license=('GPL' 'LGPL' 'FDL' 'custom')
 #depends=()
 options=(staticlibs debug)
 #source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.bz2"
-source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/7-20170713/gcc-${_pkgver}.tar.xz"
+source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/${_pkgver}/gcc-${_pkgver}.tar.xz"
 	"gcc-pure64.patch"
-	"gnat-gpl-${_gnatver}-x86_64-linux-bin.tar.gz::http://mirrors.cdn.adacore.com/art/591c6d80c7a447af2deed1d7"
-	"gcc-asan-fixes.patch")
+	"gnat-gpl-${_gnatver}-x86_64-linux-bin.tar.gz::http://mirrors.cdn.adacore.com/art/591c6d80c7a447af2deed1d7")
 
 # GNAT available from: http://libre.adacore.com/download/configurations
 
@@ -26,7 +25,6 @@ prepare() {
 	cd "${srcdir}/gcc-${_pkgver}"
 
 	patch -Np1 -i "${srcdir}/gcc-pure64.patch"
-	patch -Np1 -i "${srcdir}/gcc-asan-fixes.patch"
 
 	sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
 	sed -i 's/\(install.*:\) install-.*recursive/\1/' libffi/Makefile.in
@@ -199,7 +197,6 @@ package_gcc-ada() {
 	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('91692f3a6fc89f44e14a26227609126dc51cf64128ad89693260b37b6373e3c951a8ec41b015d3b58245822775cb9bc3c42c33f876a2df4db0d002fcbdca0674'
+sha512sums=('e3c7b0141df2142f78c0012bc07b89e8ac0bdabb2a86255d5ad16252950d3d279db8f857192162126d6593550de817a62ed86865e33633cec402b127c6161383'
             'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316'
-            '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f'
-            '01571bac22316720fa097efef11a734ca74d493547023e23bea42b32fa125a7562ada5b39488e7451ebe6713f60ff977c9bf66ed23ce962851a48756ce55b87e')
+            '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f')

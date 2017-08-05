@@ -1,0 +1,34 @@
+pkgname=sane-backends
+pkgver=1.0.27
+pkgrel=1
+pkgdesc="Scanner Access Now Easy"
+arch=('x86_64')
+url="http://www.sane-project.org/"
+license=('GPL')
+#depends=()
+backup=(etc/sane.d/dll.conf)
+source=("http://fossies.org/linux/misc/sane-backends-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/sane-backends-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-avahi \
+		--enable-pthread \
+		--disable-locking \
+		--without-api-spec
+
+	make
+}
+
+package() {
+	cd "${srcdir}/sane-backends-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 tools/udev/libsane.rules "${pkgdir}/usr/lib/udev/rules.d/49-sane.rules"
+}
+
+sha512sums=('c6552768bfc10216730fc11011c82f74ca0952182019ded3916072147ec09be5c975ce1d37dc3ccea050c488dbdf983c2ca17dcd702644060ba796ae2591f9c5')

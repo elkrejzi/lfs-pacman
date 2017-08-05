@@ -1,5 +1,5 @@
 pkgname=gptfdisk
-pkgver=1.0.1
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="A text-mode partitioning tool that works on GUID Partition Table (GPT) disks"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	install -v -t "${pkgdir}/usr/share/man/man8" *.8
 }
 
-sha512sums=('6aa2ed6213183ea38ce7dd6e7f4f23b88cc56bed5a4d078f563b9e0a3c276eacf869e28a27ccb4e473753f7bced7ecb5de4535626f9ed22b7a59a39906d0419c')
+sha512sums=('80d437bfa2365abfffbd4812ea928fcebd52c5421de321cf190d395549e32c5ebdbb2d060cc4b95f77fe13cdd719f4d2bb3d0ed5d97792b100325f92d7c852d7')

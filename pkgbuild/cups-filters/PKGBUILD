@@ -1,0 +1,41 @@
+pkgname=cups-filters
+pkgver=1.16.0
+pkgrel=1
+pkgdesc="OpenPrinting CUPS Filters"
+arch=('x86_64')
+url="https://wiki.linuxfoundation.org/openprinting/cups-filters"
+license=('custom')
+#depends=()
+source=("https://www.openprinting.org/download/cups-filters/cups-filters-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/cups-filters-${pkgver}"
+
+	sed -i "s:cups.service:org.cups.cupsd.service:g" utils/cups-browsed.service
+}
+
+build() {
+	cd "${srcdir}/cups-filters-${pkgver}"
+
+	export CXX="${CXX} -std=c++11"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--without-rcdir \
+		--enable-auto-setup-driverless
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cups-filters-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 utils/cups-browsed.service "${pkgdir}/usr/lib/systemd/system/cups-browsed.service"
+
+	chgrp -R lp "${pkgdir}/etc/cups"
+}
+
+sha512sums=('f62f8c42f130f715df4a1f98a4366781791a88096213f5f54d34d7142ffc07d046b4b16b5f579b9f6ac96880b2cce24531aed3e3a47372747353da980e9f21ea')

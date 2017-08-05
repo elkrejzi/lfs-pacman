@@ -1,19 +1,17 @@
 pkgname=dleyna-server
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="Library to discover, browse and manipulate Digital Media Servers"
 arch=('x86_64')
 url="https://01.org/dleyna"
 license=('LGPL2.1')
 #depends=()
-source=("https://01.org/sites/default/files/downloads/dleyna/dleyna-server-${pkgver}.tar.gz")
+source=("https://github.com/01org/dleyna-server/archive/${pkgver}/dleyna-server-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/dleyna-server-${pkgver}"
 
-	sed -i "/connector.h/i#include <libgupnp/gupnp-context-manager.h>" libdleyna/server/upnp.h
-
-	./configure --prefix=/usr \
+	./autogen.sh --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var
 
@@ -26,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('30bafd14c9b85406efc21dd078bce80ed10927ef2728c4535990654b6c279549c5a89099d9266cd1e22a2f574006d2c9cfec8e3e79109c2e760d8ab4609cf398')
+sha512sums=('5fecc48f72afdac46da04d1785cf49384ed84b078802e4703cd86dc8e2c5db64df0232f66b73c73b3f358f7248117cd00fa4652397619d87f8f4a305e047306c')

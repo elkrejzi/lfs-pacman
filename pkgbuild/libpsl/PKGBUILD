@@ -1,5 +1,5 @@
 pkgname=libpsl
-pkgver=0.17.0
+pkgver=0.18.0
 pkgrel=1
 pkgdesc="Public Suffix List library"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	install -v -Dm644 docs/libpsl/libpsl.3 "${pkgdir}/usr/share/man/man3/libpsl.3"
 }
 
-sha512sums=('10632d462a749c24a1de67daf33e28fad8e9f63531f5b43d399db09a2dbfb7c843162290f0279d80459018ab3465d4d128689e1740cd3334b1276c3d112fdff6')
+sha512sums=('ff61a6a49411ab6968cff820bccfd25b92790cd503ef2fce8e754a92af5bc9d43d224b36c60f815354022c384635eb47d56231301b36d639e86908e9cafb8cb7')
