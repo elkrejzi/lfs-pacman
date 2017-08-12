@@ -1,25 +1,32 @@
 pkgname=libgepub
-pkgver=0.4
+pkgver=0.5.2
 pkgrel=1
 pkgdesc="Simple library to read epub files using glib"
 arch=('x86_64')
 url="https://git.gnome.org/browse/libgepub/"
 license=('LGPL')
 #depends=()
-source=("https://download.gnome.org/sources/libgepub/${pkgver}/libgepub-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/libgepub/${pkgver:0:3}/libgepub-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
 
 build() {
-	cd "${srcdir}/libgepub-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--buildtype=plain \
+		"${srcdir}/libgepub-${pkgver}"
 
-	make
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libgepub-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('dd3e9837ba2c5896319918bda19eec8ea790d54f7893ddca46774f96f8e09ac1962ae6cbfc0bcd23c15059c63683ef4a6673e05f8416b024591677fddfa3ca15')
+sha512sums=('9e8ba3acc717fe5d1957935b154776720fcdb90ab566e0888203bce4ea2281b84f9fe44d554f6b5cadb1bba3aeae8b5b9a759001f404c43fa46b0ba16b959e69')

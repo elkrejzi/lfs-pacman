@@ -1,5 +1,5 @@
 pkgname=gdk-pixbuf
-pkgver=2.36.7
+pkgver=2.36.8
 pkgrel=1
 pkgdesc="An image loading library"
 arch=('x86_64')
@@ -27,5 +27,5 @@ package() {
 	install -v -Dm644 "${srcdir}/gdk-pixbuf-query-loaders.hook" "${pkgdir}/usr/share/libalpm/hooks/gdk-pixbuf-query-loaders.hook"
 }
 
-sha512sums=('8d94b1b85dbb03a1a0eccd6f142486e671f66a63e89caf90caccedbc0011ad92ad285ade49190aa4a6baba7553288cc25f7680727d79696952223b4861d4d9c6'
+sha512sums=('db92770098eff80706aad6fcd4ad6709aa6e4643d8740fc49dc0bb0620f94ff1b3df5d9ff65e7b27b060f36119ae654a0358fd40118f75b205f751a870bae052'
             'a3d558fb92a0802307427f5c936ca4b86dd966acb96978f247f64cac54b434657cc9b952cece266b992d22655bb658129025718b29beb380a4a0429c34fdd417')

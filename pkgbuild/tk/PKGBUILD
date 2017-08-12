@@ -1,6 +1,6 @@
 pkgname=tk
 _tkmajor=8.6
-_tkminor=6
+_tkminor=7
 pkgver=${_tkmajor}.${_tkminor}
 pkgrel=1
 pkgdesc="A windowing toolkit for use with Tcl"
@@ -35,4 +35,4 @@ package() {
 	chmod 644 "${pkgdir}/usr/lib/libtkstub${_tkmajor}.a"
 }
 
-sha512sums=('223c72ab5a6f6040928c56843598b878efafab44ed4152a38e68aa2800f2c181adc50a8bf23279b7d446493eec43854920e8b649b6a34ecdf31ecc07ccc74044')
+sha512sums=('adf35991b20878d18a6940cb3d24d821586828537edf6d20f9223f2989d317adbcbb5360f3226014d96fe44e7ec06cfdf434309438c90a09878345b7106c7dd9')

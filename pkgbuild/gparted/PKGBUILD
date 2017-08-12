@@ -1,5 +1,5 @@
 pkgname=gparted
-pkgver=0.28.1
+pkgver=0.29.0
 pkgrel=1
 pkgdesc="A Partition Magic clone, frontend to GNU Parted"
 arch=('x86_64')
@@ -26,5 +26,5 @@ package() {
 		"${pkgdir}/usr/share/polkit-1/actions/org.gnome.pkexec.gparted.policy"
 }
 
-sha512sums=('533adc9c2896063532f109ee6ee5fd1e1f510f47aad4ed2b673fc74ba2406f1f8d86db8096965920608028ce255385e04a60926bbf771f7df96100c3e0546a67'
+sha512sums=('ea01a5b98f8a70d229eb81b58e46b5f0037e909cf72043e7364812ca77b32ee4bad0d215699a08f1b6fcacc31cece3a3058b6178e7bf2df6ba63b11ee64e2f8f'
             '5a6fe15aef9432317167c73f8d84a4d3f3736495698b487d27b19a564108c3fff8cd16536234e8617de068c87779c399944b6502956ea7de2db530e5cb5de60f')

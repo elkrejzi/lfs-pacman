@@ -1,5 +1,5 @@
 pkgname=gtk3
-pkgver=3.22.17
+pkgver=3.22.18
 pkgrel=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 arch=('x86_64')
@@ -38,7 +38,7 @@ package() {
 	install -v -Dm755 "${srcdir}/gtk-update-icon-cache.script" "${pkgdir}/usr/share/libalpm/scripts/gtk-update-icon-cache"
 }
 
-sha512sums=('9503baa73f6e199a1fe807bec739df2bb8bc2e586e9c316184d37e874191eb5938c962d1eb83e58841579b16cde8b85d80e058a3577c0033de12fc3fce066dfa'
+sha512sums=('f61d9117565a8e5d5902bc935aab34574910d408b28358fba78096be0c751d2c4c48a0f227086c6b15575c296b0ba8c811c5752e55711ba712a1db3d5a93471a'
             'f0ffd95544863f2e10fda81488b4727aa9a8a35a7d39fb96872db6664d03442db2b58af788b5990825c7b3a83681f7220ca481409cca5421dfb39b9a3bbac9ac'
             'abfd73de4faa6f53784182800395aa3c39bb98e15a0eb300fb4142073ff7ce565a0836a2363393b2f132060b5293dbc0c30c380a023f38d5bd39c62cb58389c2'
             '5cd50d93bb6bc203438a2a0764bd717409658e124058b18a1da26a21f10ef7564a16f32fc0633a68b45b2e303fa63a5efefeadd6b0bf1d7f474556df8cdb6c58'

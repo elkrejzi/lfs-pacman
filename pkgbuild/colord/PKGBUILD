@@ -1,5 +1,5 @@
 pkgname=colord
-pkgver=1.3.5
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="System daemon for managing color devices"
 arch=('x86_64')
@@ -10,32 +10,37 @@ options=(emptydirs)
 source=("https://www.freedesktop.org/software/colord/releases/colord-${pkgver}.tar.xz"
 	"colord.sysusers")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/colord-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--with-daemon-user=colord \
-		--disable-argyllcms-sensor \
-		--disable-bash-completion \
-		--disable-sane \
-		--enable-vala \
-		--with-udevrulesdir=/usr/lib/udev/rules.d \
-		--with-systemdsystemunitdir=/usr/lib/systemd/system
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-bash-completion=false \
+		-Denable-argyllcms-sensor=false \
+		-Denable-tests=false \
+		-Dwith-daemon-user="colord" \
+		"${srcdir}/colord-${pkgver}"
 
-	make
+#		-Denable-vala=true \
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/colord-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	install -v -Dm644 "${srcdir}/colord.sysusers" "${pkgdir}/usr/lib/sysusers.d/colord.conf"
 
 	chown -R 71:71 "${pkgdir}/var/lib/colord"
 }
 
-sha512sums=('a0084ad2c08ae88c8023b8bade68f6cf25e13c77a6a37ef127b2914e86b06e6a7a783f9ab3585243d975dbbe1120d5daae13bdb586aefe519bf675458683025f'
+sha512sums=('4733d30bc5277b60c96b035c0aaf7a16243fabfd8769ff743f0ac10279da423f5d00223270e5e5281cced7a2b39a9c477c2da5e3b0db18c642f6710641402849'
             '46d421c626bf135b5cb2c491f3090b15bde6b4a06e5400ccea1e6d455c3fd406364555e34bfdeafac40072d9e64c1a9d9feb07d3dbac8594e83182f5b38eecf8')

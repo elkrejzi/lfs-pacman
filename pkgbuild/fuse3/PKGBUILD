@@ -1,5 +1,5 @@
 pkgname=fuse3
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="A library that makes it possible to implement a filesystem in a userspace program"
 arch=('x86_64')
@@ -27,5 +27,5 @@ package() {
 	mv "${pkgdir}"/usr/share/man/man8/mount.fuse{,3}.8
 }
 
-sha512sums=('e6278aef67162439b736af28528edb0f39a4513f584e5949a269cc3bc07a14436e6f0b69dbe8002db6f60de9139c452568b5a091baa49119a7f61422b7aec84c'
+sha512sums=('38c61380f08cc9cde576d4d8fdc3b9a7c703c753ae9c477ec5210fddfe235055dc925e024ba74f3200576974f901d05b5d138cecf1baffe7b17f17ed23fdc391'
             '2d2be62dad148a71d072cff5ae01c9788e7a9a01baad79ae4d696b0192567ac46cdb92a836a2a33cafca3c07b322c970c1f91db35af426bbd105d43d5968b1a0')

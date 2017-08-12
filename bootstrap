@@ -56,6 +56,7 @@ cp -L /etc/resolv.conf ${LFS}/etc/resolv.conf
 if [ "$(hostname)" == "krejzi" ]
 then
 	install -dm755 ${LFS}/media/ntfs
+	install -m644 /media/ntfs/chromium-api.sh ${LFS}/media/ntfs
 	install -m644 /media/ntfs/*-api.key ${LFS}/media/ntfs
 fi
 

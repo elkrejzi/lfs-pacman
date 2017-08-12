@@ -1,8 +1,8 @@
 pkgname=tcl
 _tclmajor=8.6
-_tclminor=6
-_tdbcver=1.0.4
-_itclver=4.0.5
+_tclminor=7
+_tdbcver=1.0.5
+_itclver=4.1.0
 pkgver=${_tclmajor}.${_tclminor}
 pkgrel=1
 pkgdesc="The Tcl scripting language"
@@ -51,4 +51,4 @@ package() {
 		-i "${pkgdir}/usr/lib/itcl${_itclver}/itclConfig.sh"
 }
 
-sha512sums=('b8e707470655ceef2ef385b8a2e617c1c0ebced577732d1f5e818cd7295ca25da491b6024047cae2aff754d27e00d646f830c2049b96f306ac96bc69b02da7b0')
+sha512sums=('67f6a4266dbaf5858508a8533e0334f5a76ffc6372cf321922fd032fe34f74df0368f9a3059a885e29bb0f4f7f99c78d91b8fc3700d4fa7a7f1653b436c3a154')

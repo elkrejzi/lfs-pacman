@@ -1,5 +1,5 @@
 pkgname=pango
-pkgver=1.40.7
+pkgver=1.40.9
 pkgrel=1
 pkgdesc="A library for layout and rendering of text"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('225175d23053cf96657f572a44415029c00a76d8d8a82a3d146ee678984aea36492518ed327b271d30826777674d9b25a770ea9b66d7eb025883022c0ea7d58c')
+sha512sums=('fcfb6f047dbc1b265447beade2880c4618c1f8ec0111c2191cb44866407dd95fcda662e56f568fd95c47ceba90340346e57ab51413e459866518f1d35173eeba')

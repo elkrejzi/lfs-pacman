@@ -1,5 +1,5 @@
 pkgname=mpg123
-pkgver=1.25.4
+pkgver=1.25.6
 pkgrel=1
 pkgdesc="A console based real time MPEG Audio Player for Layer 1, 2 and 3"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('aea1f225f6addfea8a22cbe020f3216531b8e988d11cf5d588733e7ce22c03d4649df5ae3f596a0e15507e1d9f2c83a16a71affb479dd4156d270b0d23c2f072')
+sha512sums=('0b129c38c19462f7fbe3f56ea2b856222f8a1a3ba76ef8109ca759c9a9c668432cc0ec76059f9a7a3c37228ce615e4c628c7de3b1663073302cc7c8fc93f249c')

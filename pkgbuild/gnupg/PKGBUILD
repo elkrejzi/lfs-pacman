@@ -1,5 +1,5 @@
 pkgname=gnupg
-pkgver=2.1.22
+pkgver=2.1.23
 pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	done
 }
 
-sha512sums=('d2ccbf32716a701df9e4ad5c19b682daf1a02b0bf8a1751a32af6db0c9284a4ee7df91310bed1a2087911a9964cb7b7f2ca9dad32a880ed1e1465d8048605e16')
+sha512sums=('8b8be0784129f5aa0ccde32a413a68c36e0e4131abe70c3eb186958c60f3df1023deb2db2db84d63ad30a3408a75c7622b430aff1a524ff28a24be511c952412')
