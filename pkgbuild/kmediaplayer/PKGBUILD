@@ -1,5 +1,5 @@
 pkgname=kmediaplayer
-pkgver=5.36.0
+pkgver=5.37.0
 pkgrel=1
 pkgdesc="Plugin interface for media player features"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c7ccf8981fcb1a48ee95442b3b7add643cb5e016c23afb9405a164e495e59d0a844ca737f8f992acf642bde53d32cd89d337eaa752367f97272262be2ea9f377')
+sha512sums=('8279819334eb66c02a90b4bfbabb4c3c10374bce71edad923c30a70ee1f44dc4c271db1374241c82d1bbead18e5e1de2ce282c4a4982752b64bf140d778ccb59')

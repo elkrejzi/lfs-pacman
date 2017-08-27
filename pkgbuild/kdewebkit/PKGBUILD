@@ -1,5 +1,5 @@
 pkgname=kdewebkit
-pkgver=5.36.0
+pkgver=5.37.0
 pkgrel=1
 pkgdesc="KDE Integration for QtWebKit"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8bbdf969708cd4ba9940ba9e810324232bff619ed0b39fee63574efdbf788f32f718bcea0c37e7c20ba73a493888b7020299d23836df74b6849ee7dacf9af63d')
+sha512sums=('3685f5f4eae1699b697972a78782270bb12d9ab4671e62eb71ec6d91dd97f6932d97357e904e622c7729576974ff43a9644eaad9dad87c85022fed3ad09559cf')

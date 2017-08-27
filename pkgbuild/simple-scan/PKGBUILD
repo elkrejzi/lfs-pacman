@@ -1,5 +1,5 @@
 pkgname=simple-scan
-pkgver=3.24.1
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="Simple scanning utility"
 arch=('x86_64')
@@ -8,22 +8,26 @@ license=('GPL3')
 #depends=()
 source=("https://download.gnome.org/sources/simple-scan/${pkgver:0:4}/simple-scan-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/simple-scan-${pkgver}"
+	cd "${srcdir}/build"
 
-	touch src/*.vala
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/simple-scan-${pkgver}"
 
-	./configure --prefix=/usr \
-		--disable-packagekit \
-		--disable-schemas-compile
-
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/simple-scan-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('9f0ced644b13dcaad4f1e23a6520b1cbe3c36d995fca4791383f959986cd396f123638a23dbd02a9511ef7e1c9c915b3a025e9b7e4de4542a4c180c4fe29e2b9')
+sha512sums=('db73278330c3e125cc5ee1bccb9cd3308d19e24a83f39c122ebb39fde96b4892402b8529e421a8c7a69fd8cd4789659b052bb2fe853fe0cb886cc0e87d57fc46')

@@ -1,5 +1,5 @@
 pkgname=kded
-pkgver=5.36.0
+pkgver=5.37.0
 pkgrel=1
 pkgdesc="Extensible deamon for providing system level services"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b18da578d10a132e79591795e05bef7cdaceabacbf96f85325848048e1e076fbd4bb6bdcfc212fdba47d95c2e90b17d5738763f59d16e41eaca4ed902477938e')
+sha512sums=('2a420cf97f55858ec6cac4a74bdf97f367b32fc07529714b494576f7828261ae52650972b9f8b80e5e12cd854f66e7bc4d2d2cd339d7ce8a71ab29ebd41e76fa')

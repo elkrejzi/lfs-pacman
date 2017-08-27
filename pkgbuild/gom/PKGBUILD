@@ -1,5 +1,5 @@
 pkgname=gom
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="A GObject to SQLite object mapper"
 arch=('x86_64')
@@ -8,18 +8,27 @@ license=('LGPL2.1')
 #depends=()
 source=("https://download.gnome.org/sources/gom/${pkgver:0:3}/gom-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gom-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-gtk-doc=true \
+		"${srcdir}/gom-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gom-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('a7bfb263e5ff6f89768d8fcbdcc949d4ec9b82ecbb80952becd357a3d5781a60e52a327e865e39e46d542b2a2c5e5c861e5302d7ae3c3a2258d3c3f698263675')
+sha512sums=('152924e704c92f39c493a8becc73fac1f7fe396f4f9e7c154dccec2b4413476821e43abf3c108cc1304de471e61f56c265f124710379ad8568b68f8902064e03')

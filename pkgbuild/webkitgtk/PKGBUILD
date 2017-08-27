@@ -1,5 +1,5 @@
 pkgname=webkitgtk
-pkgver=2.16.6
+pkgver=2.17.91
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
@@ -11,8 +11,7 @@ source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
 prepare() {
 	cd "${srcdir}/webkitgtk-${pkgver}"
 
-	sed -i "/unistd.h/i#include <stdio.h>" Source/WTF/wtf/NumberOfCores.cpp
-	sed -i "/stdlib.h/i#include <stdio.h>" Source/WebKit2/UIProcess/linux/MemoryPressureMonitor.cpp
+	sed -i "/<mutex>/a #include <cstdio>" Source/bmalloc/bmalloc/Gigacage.cpp
 
 	install -v -dm755 "${srcdir}/build"
 }
@@ -39,4 +38,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('bb488d7a60e4d6f9683ac343852a75854ef73e6b5aa093361ffe2d08e71e2f11c19da4447f9937221e518cda784bdacfcfd151f9395605a1957380fbc5b1533b')
+sha512sums=('f6ce14ce5838819e348ec300d6a98bde7a6fdeef4e2b88179169378b7193cfee3460c53c2f986fbfb55ba2dbdfe40ff509f9cf2ca615105765762b800cd1c980')

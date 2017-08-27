@@ -1,5 +1,5 @@
 pkgname=nautilus
-pkgver=3.24.2.1
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 arch=('x86_64')
@@ -8,24 +8,30 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/nautilus/${pkgver:0:4}/nautilus-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/nautilus-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-packagekit \
-		--disable-schemas-compile \
-		--disable-update-mimedb \
-		--disable-tracker
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-exif=true \
+		-Denable-xmp=true \
+		-Denable-packagekit=false \
+		-Denable-gtk-doc=true \
+		"${srcdir}/nautilus-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/nautilus-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f6868600bcdc82071b3a63f4e4a0f7decf0d72e021eb3d0c26e914413c858163ee4403c4f3ef7689556a0fc91394f30cff9a3db14da030b277b50972c7b80a07')
+sha512sums=('f5a353a678c3124484806e0976318c779bb079220137ea401a5e62fe5b3deaba15122e707730a6c6c100e65e1cfbbfd8f53c0a99f196c2f4f8100664470f100b')

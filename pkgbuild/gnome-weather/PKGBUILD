@@ -1,5 +1,5 @@
 pkgname=gnome-weather
-pkgver=3.24.0
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="Access current weather conditions and forecasts"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c286c97dc1cbb4991e56ed49e8c788c6a58f0f0dcd5534812ee3e06a0570fd1bb0b45f7e35bdc11443f62dc3a2cd262db4f3d2b1f238cfc24236de88de4a4bce')
+sha512sums=('7319658e652f80b9f16c98bbc4d7a4902200393c4085e9b99ff4dcf8c7f102840596da96c28c0343f77fa3e8a25082f7a378af4430d6e833bba2ec29f5d7cb4a')

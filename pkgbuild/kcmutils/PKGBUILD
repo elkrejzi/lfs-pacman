@@ -1,5 +1,5 @@
 pkgname=kcmutils
-pkgver=5.36.0
+pkgver=5.37.0
 pkgrel=1
 pkgdesc="Utilities for interacting with KCModules"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('68a4e08b1b263b6aea754a28b46344d0604449f66e0157ef1be30aa81860a85680ce9c3c1fcdad699a887dce75018332f54043facf73c84b8325076be93e6b0d')
+sha512sums=('8f882a6863f0632ea6ee84ac0bf4197430a11f17a6dae267ebecac49f6424b405bd3fbcdcafdb84afcd04b3b9bb47b6693f8ad07e702221c3f0c720f5ef32077')

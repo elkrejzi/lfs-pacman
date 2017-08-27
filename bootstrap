@@ -178,13 +178,13 @@ docbook
 docbook-dsssl
 opensp
 openjade
-docbook-utils
 asciidoc
+docbook-utils
+python-six
 gtk-doc
 glib
 libcroco
 gettext
-python-six
 python-packaging
 python-setuptools
 python-alabaster
@@ -409,6 +409,9 @@ jasper
 lcms2
 libmng
 libwebp
+desktop-file-utils
+hicolor-icon-theme
+shared-mime-info
 atk
 gdk-pixbuf
 pango
@@ -423,7 +426,6 @@ colord
 libavahi
 cups
 gtk2
-hicolor-icon-theme
 libepoxy
 libevdev
 mtdev
@@ -437,10 +439,8 @@ adwaita-icon-theme
 avahi
 cantarell-fonts
 dconf
-desktop-file-utils
 gnome-themes-standard
 gsettings-desktop-schemas
-shared-mime-info
 xbitmaps
 xorg-font-util
 xorg-iceauth
@@ -709,6 +709,7 @@ smartmontools
 cogl
 geocode-glib
 gmime
+gmime3
 libgit2
 libsigc++
 osinfo-db-tools
@@ -761,6 +762,7 @@ telepathy-logger
 telepathy-mission-control
 telepathy-idle
 totem-pl-parser
+tracker
 uhttpmock
 vte
 vte2
@@ -798,7 +800,7 @@ gtkmm3
 gucharmap
 libchamplain
 libmypaint
-tracker
+tracker-miners
 yelp
 folks
 aisleriot

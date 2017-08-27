@@ -1,5 +1,5 @@
 pkgname=gnome-maps
-pkgver=3.24.3
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="A simple GNOME 3 maps application"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b4a4c278359803e11b1aa43fb522a84b95eecfc349a134322f45db7acfe93867a61f6bd48e55a07d5d602b8161cdf5949a6b5d4da1212659e133260063ab6198')
+sha512sums=('c715d7f911c34fb11207f9e72fb6034d95decd27e78fc72778f457ed2926f6d9d05080c86c14da232ef38d5671c79167a098850452644abc65cf8c91c48dda58')

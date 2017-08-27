@@ -1,5 +1,5 @@
 pkgname=pango
-pkgver=1.40.9
+pkgver=1.40.11
 pkgrel=1
 pkgdesc="A library for layout and rendering of text"
 arch=('x86_64')
@@ -8,18 +8,33 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/pango/${pkgver:0:4}/pango-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/pango-${pkgver}"
 
-	./configure --prefix=/usr --sysconfdir=/etc
+	sed -i 's#from "@filename@"##' pango/pango-enum-types.h.template
+}
 
-	make
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable_docs=true \
+		"${srcdir}/pango-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/pango-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
+
+	rm -rf "${pkgdir}/usr/libexec" "${pkgdir}/usr/share/installed-tests"
 }
 
-sha512sums=('fcfb6f047dbc1b265447beade2880c4618c1f8ec0111c2191cb44866407dd95fcda662e56f568fd95c47ceba90340346e57ab51413e459866518f1d35173eeba')
+sha512sums=('e4ac40f8da9c326e1e4dfaf4b1d2070601b17f88f5a12991a9a8bbc58bb08640404e2a794a5c68c5ebb2e7e80d9c186d4b26cd417bb63a23f024ef8a38bb152a')

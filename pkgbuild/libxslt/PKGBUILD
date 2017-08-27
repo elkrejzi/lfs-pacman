@@ -12,6 +12,8 @@ source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/libxslt-${pkgver}"
 
+	sed -i "/xlocale.h/d" libxslt/xsltlocale.h
+
 	./configure --prefix=/usr
 
 	make

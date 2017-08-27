@@ -1,5 +1,5 @@
 pkgname=gnome-todo
-pkgver=3.24.2
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="Task manager for GNOME"
 arch=('x86_64')
@@ -8,18 +8,28 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-todo/${pkgver:0:4}/gnome-todo-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-todo-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr --disable-debug
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-gtk-doc=true \
+		-Denable-introspection=false \
+		"${srcdir}/gnome-todo-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-todo-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('cc772e8a38d7ce85284dc5a1b562aa52880f8ce8b28e77805de837ccb17a8ad5fd79bc5ff370e797a032b5525ecd48c0ece184c791aff9f0158ee5161691347b')
+sha512sums=('bad478e1f2264c052d29c4e2937d17f78b74731fe41b417db7ae102e49de7c461ab8e427962a66a2971cd860930f68dac9d2a7f8670a2ab5f9576285e88bceef')

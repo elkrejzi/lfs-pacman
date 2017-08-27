@@ -1,5 +1,5 @@
 pkgname=curl
-pkgver=7.55.0
+pkgver=7.55.1
 pkgrel=1
 pkgdesc="An URL retrieval utility and library"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4975864621219e937585aaf5a9a54bba112b58bbf5a8acd92e1e972ea747a15a5564143548c5d8930b8c0d0e9d27d28225d0c81e52a1ba71e4c6f9e3859c978b')
+sha512sums=('bfeb39e94b8378519b2efba0a476636b80dbee3434104b98464ee81ce3871eb134e065f52abe8bedb69681b43576cb30655c8be0be6115386859d0cb426d745b')

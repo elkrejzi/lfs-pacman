@@ -1,5 +1,5 @@
 pkgname=at-spi2-core
-pkgver=2.24.1
+pkgver=2.25.91
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
 arch=('x86_64')
@@ -8,18 +8,31 @@ license=('GPL2')
 #depends=()
 source=("https://download.gnome.org/sources/at-spi2-core/${pkgver:0:4}/at-spi2-core-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/at-spi2-core-${pkgver}"
 
-	./configure --prefix=/usr --sysconfdir=/etc
+	sed -i 's#from "@filename@"##' atspi/atspi-enum-types.h.template
+}
 
-	make
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable_docs=true \
+		"${srcdir}/at-spi2-core-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/at-spi2-core-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('e7f354a90204f12d4e464a6b4e4cb27141af3715d7c5ec253bdd2ebe65bc7d191ae7b775c45470a1bd1fe2c0accdd4e84feeb5e1eb1a6c05f3e5e734371027be')
+sha512sums=('9842c28d908b4eb6982f35a2c72c36c4e77292a0b65939c53efef090b7692e5a582563cdbad7bac1f431874d32225a27394a7be8518ba5c37fb2554bc4e045e4')

@@ -1,5 +1,5 @@
 pkgname=chromium
-pkgver=60.0.3112.90
+pkgver=60.0.3112.113
 _launcher_ver=5
 pkgrel=1
 pkgdesc="A web browser built for speed, simplicity, and security"
@@ -145,7 +145,7 @@ package() {
 	install -v -Dm644 out/Release/chrome.1 "${pkgdir}/usr/share/man/man1/chromium.1"
 }
 
-sha512sums=('05577ed75819cb1b1ea593bd3d4d76e443a2e32ea3f1640d882b4833b1425e2a9b56da7df2302089532bb188e432333606c44f4defb502b0ca4edfed5aca7bae'
+sha512sums=('fc91ec5dd09394159eafe9fa91085d9f47094317bfb0541dae8add73e6de8922cbd3c9a6a3b185b0755bd7a6fa7107263a3baf9f0aa9080d5574ee949f9e6196'
             '52fa910e2fff7197d670be41e925c71579f10bcdc879248b38876581dc7e4f384262a0e1d3714ed7b6382d680c56e53076b0be6fea679724360144395bf3973a'
             '41175d53e7dba3405ff154d52f2069c7685ecb7ce2587b982bc24e30951485686586848eb94d5033a98ddde6dc1fd13cc5614a95e8758133d1a579a5f6b9221d'
             '792b436802fda8427312ef482fb7dc78c1ec6a6c1e39f2637cc379cd5b8bb2dd1b17d495fdaea2beec35305e3e910bed67c9f1824155131def708c923a4cf1c6'

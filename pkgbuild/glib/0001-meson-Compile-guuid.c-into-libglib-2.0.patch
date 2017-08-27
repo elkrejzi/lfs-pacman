@@ -1,0 +1,24 @@
+From e4f8245e5d77ec37fdd5d163a61cb82e8e2d55de Mon Sep 17 00:00:00 2001
+From: Armin K <krejzi@email.com>
+Date: Fri, 25 Aug 2017 17:05:03 +0200
+Subject: [PATCH] meson: Compile guuid.c into libglib-2.0
+
+---
+ glib/meson.build | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/glib/meson.build b/glib/meson.build
+index 67ed3f5ab..a99201a90 100644
+--- a/glib/meson.build
++++ b/glib/meson.build
+@@ -184,6 +184,7 @@ glib_sources = [
+   'gunidecomp.c',
+   'gurifuncs.c',
+   'gutils.c',
++  'guuid.c',
+   'gvariant.c',
+   'gvariant-core.c',
+   'gvariant-parser.c',
+-- 
+2.14.1
+

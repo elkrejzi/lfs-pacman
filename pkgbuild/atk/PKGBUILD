@@ -1,5 +1,5 @@
 pkgname=atk
-pkgver=2.24.0
+pkgver=2.25.90
 pkgrel=1
 pkgdesc="A library providing a set of interfaces for accessibility"
 arch=('x86_64')
@@ -8,18 +8,31 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/atk/${pkgver:0:4}/atk-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/atk-${pkgver}"
 
-	./configure --prefix=/usr
+	sed -i 's#from "@filename@"##' atk/atk-enum-types.h.template
+}
 
-	make
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable_docs=true \
+		"${srcdir}/atk-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/atk-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('3ae0a4d5f28d5619d465135c685161f690732053bcb70a47669c951fbf389b5d2ccc5c7c73d4ee8c5a3b2df14e2f5b082e812a215f10a79b27b412d077f5e962')
+sha512sums=('e21c45741c38552feae5406d9f0db4fa0d53a7683fc185e01e29662016f91b4311304c3efb18a59bd6771e9d0e6b0edde7f629acacc8ea7aec842e45f38741be')

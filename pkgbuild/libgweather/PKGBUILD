@@ -1,5 +1,5 @@
 pkgname=libgweather
-pkgver=3.24.0
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="Location and timezone database and weather-lookup library"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('90890ed640781b08b1132cd3d106c8d273fde1fc34ed4553de7a14b1be6e6900bfbf67389b67d9a17448b23e6c74cb2408ecde42c0a27527875fab36c7e40c4d')
+sha512sums=('f4689942a2b9b8c60e7acaced4ee63d8ef65652320c94fbdde6e72dd34dd0738e667cbbabf855ad5b1808154aa1ffff9153e9d890d724ead343729f9255a6c14')

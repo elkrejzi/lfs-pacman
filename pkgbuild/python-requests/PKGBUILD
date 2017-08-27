@@ -1,6 +1,6 @@
 pkgbase=python-requests
 pkgname=('python2-requests' 'python3-requests')
-pkgver=2.18.3
+pkgver=2.18.4
 pkgrel=1
 pkgdesc="Python HTTP for Humans"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-requests() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('d4d60b9a3f1bcc97d2d1fabb3ef5df2c64c2bae3e319c3f9f0b5f9e0c56677d88684b4902b31b6fa03c04b0b6912d763ffa493833c708958171d10bb15ac86a0')
+sha512sums=('5c59bed82ac1094194f04a973b299f7d783264d372abd7a5229295bccc6b2f7a9f082ee4b0dff348e9c22cf68ddbd7cb67f60fd0b7d9eda41c02e40d075e9472')

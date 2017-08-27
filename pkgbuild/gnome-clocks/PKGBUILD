@@ -1,5 +1,5 @@
 pkgname=gnome-clocks
-pkgver=3.24.0
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="Clocks applications for GNOME"
 arch=('x86_64')
@@ -8,20 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-clocks/${pkgver:0:4}/gnome-clocks-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-clocks-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/gnome-clocks-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-clocks-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f29a61ac9634008fa918f9f08c6e24c93816c0077687bd2feff3ef2c62c0db475076de5dbc1e223027627e985c4e4362f0cdf1a47821356c0a9ef9c4cd672de1')
+sha512sums=('1e563ee7f37ffc4b4c4ed2f820bddf0a141c624d8b8cf81cc0bb410d09b76dc89420747c027ffa363562dd3430e0edeceb518f736a6be93ecef137d77d3cf222')

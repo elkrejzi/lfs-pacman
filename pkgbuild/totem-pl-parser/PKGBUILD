@@ -1,5 +1,5 @@
 pkgname=totem-pl-parser
-pkgver=3.10.8
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="Simple GObject-based library to parse and save a host of playlist formats"
 arch=('x86_64')
@@ -8,20 +8,27 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/totem-pl-parser/${pkgver:0:4}/totem-pl-parser-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/totem-pl-parser-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-gtk-doc=true \
+		"${srcdir}/totem-pl-parser-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/totem-pl-parser-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('1692fe6d183838bdfb9125ae2bf9fbf74762333a7ebb6becc755bfdbfb8d2ea1ae257f42aab7b7a1ab419aee2b35902176a731f26736a62015806d1423adae70')
+sha512sums=('8b2d0f1f0b6caedd450e3830677cecc9fd1325391eeb15280fbc877a6b809052b9520db934edcb7ad910ca98b41cf8c87d6a3e5e0b62609da9dc2e5f90fafecf')

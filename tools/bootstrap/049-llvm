@@ -19,24 +19,29 @@ cmake_shared=(
   -DCLANG_DEFAULT_RTLIB=compiler-rt
   -DCLANG_ENABLE_ARCMT=OFF
   -DCLANG_ENABLE_STATIC_ANALYZER=OFF
+  -DCLANG_INCLUDE_DOCS=OFF
   -DCLANG_INCLUDE_TESTS=OFF
-  -DCOMPILER_RT_INCLUDE_TESTS=OFF
-  -DLLVM_BUILD_LLVM_DYLIB=ON
-  -DLLVM_ENABLE_EH=ON
-  -DLLVM_ENABLE_FFI=ON
-  -DLLVM_ENABLE_RTTI=ON
-  -DLLVM_INCLUDE_DOCS=OFF
-  -DLLVM_INCLUDE_EXAMPLES=OFF
-  -DLLVM_INCLUDE_TESTS=OFF
-  -DLLVM_LINK_LLVM_DYLIB=ON
-  -DLIBCXX_ENABLE_ASSERTIONS=OFF
+  -DLIBCXX_ENABLE_STATIC=OFF
   -DLIBCXX_INCLUDE_DOCS=OFF
   -DLIBCXX_INCLUDE_TESTS=OFF
   -DLIBCXXABI_ENABLE_ASSERTIONS=OFF
   -DLIBCXXABI_ENABLE_STATIC=OFF
+  -DLIBCXXABI_ENABLE_STATIC_UNWINDER=ON
+  -DLIBCXXABI_INCLUDE_TESTS=OFF
   -DLIBCXXABI_USE_LLVM_UNWINDER=ON
+  -DLIBOMP_INSTALL_ALIASES=OFF
   -DLIBUNWIND_ENABLE_ASSERTIONS=OFF
   -DLIBUNWIND_ENABLE_SHARED=OFF
+  -DLLVM_BUILD_LLVM_DYLIB=ON
+  -DLLVM_ENABLE_ASSERTIONS=OFF
+  -DLLVM_ENABLE_DOXYGEN=OFF
+  -DLLVM_ENABLE_EH=ON
+  -DLLVM_ENABLE_FFI=ON
+  -DLLVM_ENABLE_RTTI=ON
+  -DLLVM_INCLUDE_EXAMPLES=OFF
+  -DLLVM_INCLUDE_TESTS=OFF
+  -DLLVM_INSTALL_UTILS=ON
+  -DLLVM_LINK_LLVM_DYLIB=ON
   -DLLVM_TARGETS_TO_BUILD="X86"
   -DFFI_INCLUDE_DIR=/tools/lib/libffi-${LIBFFI_VER}/include
 )
@@ -86,17 +91,7 @@ do
   then
     if [ ${project} == "compiler-rt" ]
     then
-      pushd ${project}
-        patch -Np1 -i ${PROOT}/compiler-rt-asan.patch
-      popd
-    fi
-    if [ ${project} == "libcxx" ]
-    then
-      sed -i "s#defined(__GLIBC__) || defined(__APPLE__)#defined(__APPLE__)#g" ${project}/include/__locale
-    fi
-    if [ ${project} == "openmp" ]
-    then
-      sed -i "/LIBOMP_ALIASES/s#libgomp;##g" ${project}/runtime/src/CMakeLists.txt
+      sed -i "s:struct sigaltstack:stack_t:g" ${project}/lib/esan/esan_sideline_linux.cpp
     fi
 
     mv ${project} llvm/projects

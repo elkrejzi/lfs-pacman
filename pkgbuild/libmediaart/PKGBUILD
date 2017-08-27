@@ -1,5 +1,5 @@
 pkgname=libmediaart
-pkgver=1.9.1
+pkgver=1.9.4
 pkgrel=1
 pkgdesc="Library tasked with managing, extracting and handling media art caches"
 arch=('x86_64')
@@ -8,21 +8,27 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/libmediaart/${pkgver:0:3}/libmediaart-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/libmediaart-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-qt
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dimage_library="gdk-pixbuf" \
+		"${srcdir}/libmediaart-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libmediaart-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('1ba43d3501d4775984967960c24bf217bcedd075e1716a2f54266817ae2a93eed119035f385025e34ba83b58ec10e544bbde9c2ad328a3de00c5c80b35524222')
+sha512sums=('e2526c22cb656c821da626c43c09d72afded1dfc369e77baea3de17dd6d3bd3b829cf3160e386459f55b9580cbeeb1d621c85876cb62739bc8d4f42429bdce1c')

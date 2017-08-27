@@ -1,5 +1,5 @@
 pkgname=fakeroot
-pkgver=1.20.2
+pkgver=1.22
 pkgrel=1
 pkgdesc="Tool for simulating superuser privileges"
 arch=('x86_64')
@@ -18,9 +18,7 @@ prepare() {
 build() {
 	cd "${srcdir}/fakeroot-${pkgver}"
 
-	./configure --prefix=/usr \
-		--libdir=/usr/lib/libfakeroot \
-		--with-ipc=sysv
+	./configure --prefix=/usr --libdir=/usr/lib/libfakeroot
 
 	make
 }
@@ -38,5 +36,5 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/nl
 }
 
-sha512sums=('1ac231f995774aa40f43c4325cd9e6de45365963277c32a85776690c3e7fd281ac410f3d91395dc1e5e5ca3b143e89914e048632011a3985ead216e870852231'
+sha512sums=('193478d9ff88ca2ae69fe47b73b6c61aeb2ba3f2a9e7ed5d455022705857c6f34cdcbe2d3f614c4c4c9509368dc78b9a7b7aa56fb3b50bb3309448140abd796a'
             'bdc0bea42aea45d1ed1088c7d066c7e4a65aba53216790803c1a56fdf5496b438bdefddfcb2905868ae103872bfe184bb7a6fc59a4877127a2024a231677ebac')

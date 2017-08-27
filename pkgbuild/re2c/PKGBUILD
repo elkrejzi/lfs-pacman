@@ -1,12 +1,12 @@
 pkgname=re2c
-pkgver=0.16
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="A tool for generating C-based recognizers from regular expressions"
 arch=('x86_64')
 url="http://re2c.sourceforge.net/"
 license=('LGPL')
 #depends=()
-source=("https://downloads.sourceforge.net/re2c/re2c-${pkgver}.tar.gz")
+source=("https://github.com/skvadrik/re2c/releases/download/${pkgver}/re2c-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/re2c-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d4fb8078d9566a1fa177331b649cac79e2e45cc9558a22a2212503f6c77c9e6b4238aa01c85c66b86fa4831cdc669cedf8b430d395be6a0c6cfabfb7c61cf8a3')
+sha512sums=('ab3b652d8f97b0d1be4c7561ce65e28870ab8976f8a31d74a6629b43d2057bfa608c7f393d5e5d59d26f991552a60e6274f554ef58752bdfcfeba330578f1299')

@@ -1,5 +1,5 @@
 pkgname=gnome-disk-utility
-pkgver=3.24.1
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="Disk Management Utility for GNOME"
 arch=('x86_64')
@@ -8,20 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-disk-utility/${pkgver:0:4}/gnome-disk-utility-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-disk-utility-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/gnome-disk-utility-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-disk-utility-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('ae6bf83e005733ae985987411a9fe25b0059f64484fc0d613ad54af478130782974607bec53713ee36c2a28de653ceba82b0fb091aee57101773c0eeeaaed2d5')
+sha512sums=('54193ba803b74d07d3ee75d8ca8ba1c1749a29df7f74f88bbfe47798dbd332179ed977aa35f5c3a95b4f3f9efd0b265bfcdf43f5a4ed57075e619011b6e449ac')

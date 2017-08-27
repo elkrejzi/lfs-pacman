@@ -11,7 +11,7 @@ source=("https://download.gnome.org/sources/gtk-doc/${pkgver}/gtk-doc-${pkgver}.
 build() {
 	cd "${srcdir}/gtk-doc-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr PYTHON=/usr/bin/python3
 
 	make
 }

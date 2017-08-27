@@ -22,7 +22,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           --host=${LFS_TGT}                  \
           --build=$(../scripts/config.guess) \
           --enable-kernel=2.6.32             \
-          --enable-obsolete-nis              \
+          --enable-obsolete-nsl              \
           --enable-obsolete-rpc              \
           --with-headers=/tools/include      \
           libc_cv_forced_unwind=yes          \
@@ -43,6 +43,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           --host=i686-lfs-linux-gnu          \
           --build=$(../scripts/config.guess) \
           --enable-kernel=2.6.32             \
+          --enable-obsolete-nsl              \
           --enable-obsolete-rpc              \
           --with-headers=/tools/include      \
           libc_cv_forced_unwind=yes          \

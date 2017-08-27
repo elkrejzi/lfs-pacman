@@ -1,5 +1,5 @@
 pkgname=gnome-backgrounds
-pkgver=3.24.0
+pkgver=3.25.4
 pkgrel=1
 pkgdesc="Background images and data for GNOME"
 arch=('x86_64')
@@ -8,20 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-backgrounds/${pkgver:0:4}/gnome-backgrounds-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-backgrounds-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/gnome-backgrounds-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-backgrounds-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('ba044cd21d4c22dd6bf1a93a17579f2bc5f2b9198e40331486772f4fcb81a1c0179949a162e5a1e332f49cd833ca773cf27c1592966e94afbecd8b4d0728c24b')
+sha512sums=('ab7ce396bce13b28d7495785ddf332fb13cf3f8b04c710ec723493e6e594ae96fc6698db80527d5b0cd9ab1664c3919dba9e8910beadbe7e90704b39db00e950')

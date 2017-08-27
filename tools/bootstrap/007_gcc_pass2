@@ -21,7 +21,6 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.xz
     mv mpc-${MPC_VER} mpc
 
     patch -Np1 -i ${PROOT}/gcc-pure64.patch
-    patch -Np1 -i ${PROOT}/gcc-asan-fixes.patch
 
     # A hack to get /tools/lib32 recognised.
     sed -i "s|\$(if \$(wildcard \$(shell echo \$(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32)|../lib32|" gcc/config/i386/t-linux64

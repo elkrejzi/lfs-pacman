@@ -1,6 +1,6 @@
 pkgbase=harfbuzz
 pkgname=('harfbuzz' 'lib32-harfbuzz')
-pkgver=1.4.8
+pkgver=1.5.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.freedesktop.org/wiki/Software/HarfBuzz"
@@ -59,4 +59,4 @@ package_lib32-harfbuzz() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('056a2c02f803439b39086e3ea988e424f5512b3213844f9008c62f5448a8ccdba525f532e7ed54641820a4ef6dc5bc4d13d4f7bfb39ff904f5939c855d294152')
+sha512sums=('cde892cb7f1b0efecc6911d5793b21869f9ff4f4d012fe740c01815adad6faef405dbddc759a99ca1793a6f749206b0d44493a1f9547d6572de0426771a646b3')

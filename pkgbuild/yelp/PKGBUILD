@@ -1,5 +1,5 @@
 pkgname=yelp
-pkgver=3.22.0
+pkgver=3.25.3
 pkgrel=1
 pkgdesc="Get help with GNOME"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ba31c7801fc4642d9c4dcf34d4b8c02005f2ebfab4ecfe4e726685c5fb95f05311fc3a481f9b2d2e8b211395e4c932adba0e68b57d264cd1f6065402d9143d32')
+sha512sums=('fb25d0575d346a361edd4a124494c7df03fa8d808824847be735c67a962d85a01c3c72ff4bd1c4122f60e9e529b1bc952294d933edf5ac1e16db0aa15544cd84')

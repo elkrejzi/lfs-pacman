@@ -17,6 +17,8 @@ build() {
 
 	./configure --prefix=/usr --disable-gtk --disable-libpng
 
+	sed -i "/HAVE_GCC_VECTOR_EXTENSIONS/d" config.h
+
 	cd "${srcdir}/pixman32-${pkgver}"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
@@ -27,6 +29,8 @@ build() {
 		--libdir=/usr/lib32 \
 		--disable-gtk \
 		--disable-libpng
+
+	sed -i "/HAVE_GCC_VECTOR_EXTENSIONS/d" config.h
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH

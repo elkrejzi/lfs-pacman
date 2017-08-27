@@ -1,5 +1,5 @@
 pkgname=tracker
-pkgver=1.12.2
+pkgver=1.99.3
 pkgrel=1
 pkgdesc="Desktop-neutral user information store, search tool and indexer"
 arch=('x86_64')
@@ -13,13 +13,7 @@ build() {
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-miner-firefox \
-		--disable-miner-thunderbird \
-		--disable-miner-user-guides \
-		--disable-unit-tests \
-		--enable-libflac \
-		--enable-libvorbis
+		--localstatedir=/var
 
 	make
 }
@@ -30,5 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-
-sha512sums=('32765d5a186b54e691b749af0be9a052d6edf367b759cd9236efb5af84e05e62301ca0d50303ca6d97b92b59e99a3934d3e6444701c07938638d5784f4155dec')
+sha512sums=('9d369392366769dfa6462ed45c95bddf8f64a6435b9c15e552d40f28dd7a78946a5f2c901f5bd72e31fb546c23f812660d7e37020ab7a3d66a03aa73de3d36d5')

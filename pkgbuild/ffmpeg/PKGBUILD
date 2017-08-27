@@ -6,12 +6,14 @@ arch=('x86_64')
 url="http://www.ffmpeg.org/"
 license=('GPL3')
 #depends=()
-source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
+source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz"
+	"ffmpeg-openjp2.patch")
 
 prepare() {
 	cd "${srcdir}/ffmpeg-${pkgver}"
 
 	sed -i "s: -lstdc++::g" configure
+	patch -Np1 -i "${srcdir}/ffmpeg-openjp2.patch"
 }
 
 build() {
@@ -70,4 +72,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ac76093bde361294f4449eb905d56a9f6690c56d75bc37358743e7c8d5a26963b1a6c0035a7b6eafcec21b79f23c08c44f403ca580be4485b8e10a5c8cb5fcad')
+sha512sums=('ac76093bde361294f4449eb905d56a9f6690c56d75bc37358743e7c8d5a26963b1a6c0035a7b6eafcec21b79f23c08c44f403ca580be4485b8e10a5c8cb5fcad'
+            'd3f3bd2a1f7709792b0af1fcd582b54cdf9d7c87ff0a0f4f29ba8e5aeaa35b02e103010e1091c897f5ad69c5c5247875c2f061798945d8271c0665687ac919cf')

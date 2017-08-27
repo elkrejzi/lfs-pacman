@@ -1,5 +1,5 @@
 pkgname=libgtop
-pkgver=2.36.0
+pkgver=2.37.90
 pkgrel=1
 pkgdesc="A library that reads information about processes and the running system"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2768c628fa3e872a940246042b2c78ad4618612ecb2cf2b95fb70343a4f1a01bb558d0ce9e5b3468f395349f338ca33d460e1d91f2c123ad39243cd0ff20d5e5')
+sha512sums=('8a65b0af0eb48c64811dccafa80b9cf7f3dabe59826bb0d43e54bf88ee9c2dbe72931a9d7d005d11b29f07a8f561857243357c1ae3b699a3c96f52909c3b3c09')

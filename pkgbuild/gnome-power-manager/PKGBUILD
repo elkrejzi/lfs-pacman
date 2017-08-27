@@ -1,5 +1,5 @@
 pkgname=gnome-power-manager
-pkgver=3.24.0
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="System power information and statistics"
 arch=('x86_64')
@@ -8,21 +8,27 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-power-manager/${pkgver:0:4}/gnome-power-manager-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-power-manager-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-tests=false \
+		"${srcdir}/gnome-power-manager-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-power-manager-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('fbbac0f5176382ccd13497cd80792d10ca4bc39fa4cc0585543f5458ba0f256ffb66b7ebd82667e482ba33cf2b6f3ef6a64bf2f55ac224e1d9ab2e2b7491e4e0')
+sha512sums=('74e2034895709d1b94efe0fbed2b76d4c21826011ff759340cc79717c6897763ca917513ebc473aeb151aa8e7b5f8c0a29177482bb600276448cd690318c6ec8')

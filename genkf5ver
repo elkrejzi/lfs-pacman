@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-KF5VER=5.36.0
+KF5VER=5.37.0
 
 PKGS=(extra-cmake-modules
 attica
@@ -80,7 +80,7 @@ kjsembed)
 for pkg in ${PKGS[@]}
 do
   pushd ${pkg}
-    rm -f ${pkg}-*.tar.xz
+    rm -f ${pkg}*.tar.xz
     sed -i "s#pkgver=.*#pkgver=${KF5VER}#g" PKGBUILD
     sed -i "/sha512sums=('/,/')/d" PKGBUILD
     makepkg --geninteg >> PKGBUILD

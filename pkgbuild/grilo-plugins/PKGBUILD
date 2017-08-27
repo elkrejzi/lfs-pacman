@@ -1,5 +1,5 @@
 pkgname=grilo-plugins
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=1
 pkgdesc="A collection of plugins for the Grilo framework"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('690e016f4e24894bce8e8a3535898e6a5553fbe725efe539f771867d5a246a2d86e52641cc21696a7ea9da506ab72735db26d40e8aa6e738b818fda81d9d5575')
+sha512sums=('3420b18d5d938559b75ae41199a6a79dfa5a8a43d2b29631f7cb03c28df569627be610a4087514240c3413e476fa76def3ee7a1b065b5104679b788b633a5b0e')

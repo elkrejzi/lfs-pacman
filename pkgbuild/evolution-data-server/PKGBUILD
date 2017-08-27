@@ -1,5 +1,5 @@
 pkgname=evolution-data-server
-pkgver=3.24.5
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="Centralized access to appointments and contacts"
 arch=('x86_64')
@@ -38,4 +38,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ebe77bb8b1025b07378a32df5a822add11a2ef1e3daf57d8eae14ea05ba479cfe5e8ebf1d8dda585a6f3232d270f212dcfa9cd580fa1488b06a96204775a1c21')
+sha512sums=('75f80f86b8d152874d59e0c0928b6173cd544139d2f93d8fc3f97937eb9b1d478084abd4e600bbbdb85a0d7657d982fa0c6bb3ec21240c897cb045a81117e946')

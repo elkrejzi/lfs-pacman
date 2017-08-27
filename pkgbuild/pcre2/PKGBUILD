@@ -1,6 +1,6 @@
 pkgbase=pcre2
 pkgname=('pcre2' 'lib32-pcre2')
-pkgver=10.23
+pkgver=10.30
 pkgrel=1
 arch=('x86_64')
 url="http://www.pcre.org/"
@@ -64,4 +64,4 @@ package_lib32-pcre2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('3e5910bd2405cc35934d91e4be760abe4f2e900202a20b6ba74adb7a3acb2b74b3bf9b0e97e8de10f8e8534133e0722e0bf0f5fb40d6c2c4520d1ed61749d456')
+sha512sums=('f247a9f917c75920793b9919a45bb1426d126246e7a5d04e39d9407e44b5781f894a90cd3d232b385436b2f22be391335ab782664dd3a28c79058a2fcc74dc3e')

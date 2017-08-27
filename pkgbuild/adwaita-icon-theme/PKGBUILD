@@ -1,11 +1,12 @@
 pkgname=adwaita-icon-theme
-pkgver=3.24.0
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="GNOME standard icons"
 arch=('x86_64')
 url="https://git.gnome.org/browse/adwaita-icon-theme"
 license=(LGPL3 CCPL:cc-by-sa)
 #depends=()
+options=(!strip)
 source=("https://download.gnome.org/sources/adwaita-icon-theme/${pkgver:0:4}/adwaita-icon-theme-${pkgver}.tar.xz")
 
 build() {
@@ -22,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d415859bc46deb3dcf5e845af88689c507d6b110d6312af75145d6c46cc277ca2d17ae6a0f506c09ca7d543c5eca47b2506169bb0482ae68f2e3baef70889090')
+sha512sums=('3822815d91702853a334807f9e3ddd00740f20c8b8196b7db47d4b2e50ac70c1fe0e6de2b676be09c312154a53008d36a8aa21e9fd98c3bb0e83f376f747de86')

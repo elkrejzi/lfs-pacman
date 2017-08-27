@@ -1,5 +1,5 @@
 pkgname=baloo
-pkgver=5.36.0
+pkgver=5.37.0
 pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6c9125f038f845945fa5727e252757de2aa90be932766d445cb5666b7dc3c9406ac2678bf48b4f5db15d99dd038bae5c1e67e948b10bf585ea91f60c55093a52')
+sha512sums=('5380042aa5ab09460d101b46d60ea89ba735251563fb88803b877af86d1dc86267470b833992e3cf3fa807a4d4ce8d183a68ce684e2e97f5a8563e85d0584b8b')

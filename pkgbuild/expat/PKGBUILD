@@ -1,6 +1,6 @@
 pkgbase=expat
 pkgname=('expat' 'lib32-expat')
-pkgver=2.2.3
+pkgver=2.2.4
 pkgrel=1
 arch=('x86_64')
 url="http://expat.sourceforge.net/"
@@ -53,5 +53,4 @@ package_lib32-expat() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-
-sha512sums=('d42ca209da7f50eb4ac108ea0ef85dc6626d63fe48144a4e6f2d8b44b1f9276f711cbac85f6813c4725a3c4933b7054b74dde2c43a0f2febaed4afa0a6f5ac88')
+sha512sums=('788249e2c6edf8521c4a99830fd5e51a55c062b834516f6775759cd71accf6375f12d3bd38f8b069777d081a4380b9549049921386ca0cb4b9b9daa4861d6592')

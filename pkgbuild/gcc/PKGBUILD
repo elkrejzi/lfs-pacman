@@ -1,7 +1,7 @@
 pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
-_pkgver=7-20170727
-pkgver=7.1.1+20170727
+pkgver=7.2.0
+_pkgver=${pkgver}
 _gnatver=2017
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
@@ -10,10 +10,10 @@ url="http://gcc.gnu.org"
 license=('GPL' 'LGPL' 'FDL' 'custom')
 #depends=()
 options=(staticlibs debug)
-#source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.bz2"
-source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/${_pkgver}/gcc-${_pkgver}.tar.xz"
-	"gcc-pure64.patch"
-	"gnat-gpl-${_gnatver}-x86_64-linux-bin.tar.gz::http://mirrors.cdn.adacore.com/art/591c6d80c7a447af2deed1d7")
+source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.xz"
+#source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/${_pkgver}/gcc-${_pkgver}.tar.xz"
+	"gnat-gpl-${_gnatver}-x86_64-linux-bin.tar.gz::http://mirrors.cdn.adacore.com/art/591c6d80c7a447af2deed1d7"
+	"gcc-pure64.patch")
 
 # GNAT available from: http://libre.adacore.com/download/configurations
 
@@ -21,7 +21,6 @@ gnat_available=0
 test -e "/usr/bin/gnatmake" && gnat_available=1
 
 prepare() {
-	#cd "${srcdir}/gcc-${pkgver}"
 	cd "${srcdir}/gcc-${_pkgver}"
 
 	patch -Np1 -i "${srcdir}/gcc-pure64.patch"
@@ -32,7 +31,6 @@ prepare() {
 
 	rm -rf "${srcdir}/src" "${srcdir}/build"
 
-	#ln -sfv "gcc-${pkgver}" "${srcdir}/src"
 	ln -sfv "gcc-${_pkgver}" "${srcdir}/src"
 
 	install -v -dm755 "${srcdir}/build"
@@ -197,6 +195,6 @@ package_gcc-ada() {
 	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('e3c7b0141df2142f78c0012bc07b89e8ac0bdabb2a86255d5ad16252950d3d279db8f857192162126d6593550de817a62ed86865e33633cec402b127c6161383'
-            'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316'
-            '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f')
+sha512sums=('f853cd6530b4055d8d8289da74687cb4c6d5f363598d386332d31852b581bac76c3adb7d61889edec3b779f63d8646f0122840f12965ce4a4389ba535dbbb6e1'
+            '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f'
+            'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')

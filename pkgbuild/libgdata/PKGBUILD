@@ -1,5 +1,5 @@
 pkgname=libgdata
-pkgver=0.17.8
+pkgver=0.17.9
 pkgrel=1
 pkgdesc="GLib-based library for accessing online service APIs using the GData protocol"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('dfc4c825a7053a6fd7659d04c7077bed8539b4cf3ef3da1d5ece4da3ce17941900e960a300a50b284010ed890dcab87e4c4726403f04481c672832fd34b975b0')
+sha512sums=('90289309cbdc4ec6932bf385ddbfcc75c0c2f8b9ca356329298aaa37f6c3db7a16de20e5c947c16c595e43e729a664e4d6d3e2c5a60bb1e463a13d1306f374ce')

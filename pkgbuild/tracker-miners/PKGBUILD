@@ -1,0 +1,31 @@
+pkgname=tracker-miners
+pkgver=1.99.3
+pkgrel=1
+pkgdesc="Desktop-neutral user information store, search tool and indexer (extra miners)"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Tracker"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/tracker-miners/${pkgver:0:4}/tracker-miners-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/tracker-miners-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-installed-tests \
+		--disable-unit-tests \
+		--enable-libflac \
+		--enable-libvorbis
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tracker-miners-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e9753e9479659f62a2a98eabd62d115a5aad4b2d8a2ae4718b532ad0e757662bb2e1003ce1852444a23a409f4c99a0d731022823d416716da6f90444bd9bd82d')

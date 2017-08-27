@@ -1,5 +1,5 @@
 pkgname=gnome-color-manager
-pkgver=3.24.0
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="GNOME Color Profile Tools"
 arch=('x86_64')
@@ -8,21 +8,27 @@ license=('GPL2')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-color-manager/${pkgver:0:4}/gnome-color-manager-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-color-manager-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-packagekit
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-packagekit=false \
+		"${srcdir}/gnome-color-manager-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-color-manager-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('e145caf4e885ea6e9c4ee5a5b4d800d70af338e26d3bfcda81e20c6144e36d0581638d07099302d30787d6d30e9d58f2b8373f6585ae3788df825d6d24f5b003')
+sha512sums=('681a09a3a88d1f3aa42e6c713df82077d0df757fefa1f21a75137fea10dab846ae1a9c7f9a6c3756a677e6667c6cde3ccdc74f505f155058a0d34d2f2e84f434')

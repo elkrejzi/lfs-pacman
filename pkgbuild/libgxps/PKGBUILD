@@ -1,5 +1,5 @@
 pkgname=libgxps
-pkgver=0.2.5
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="XPS Documents library"
 arch=('x86_64')
@@ -8,18 +8,29 @@ license=('GPL2')
 #depends=()
 source=("https://download.gnome.org/sources/libgxps/${pkgver:0:3}/libgxps-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/libgxps-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr --disable-compile-warnings
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-test=false \
+		-Denable-gtk-doc=true \
+		-Denable-man=true \
+		"${srcdir}/libgxps-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libgxps-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f449c4cb989910797c84614ce9f141d4e9adcda0c18f309f656de397ba5deabfa9b4c558c81be7f52bc44c048c401616775989cd1ff9408eeea44f46ef56635b')
+sha512sums=('283ce3041f0238ef1dcae30ce2adbc3f843677e00ae22f20ed3459828f3edaab6d05d87c20dddb613925ab248ed0b29855a94198b982606c3dcb2e59f800b013')

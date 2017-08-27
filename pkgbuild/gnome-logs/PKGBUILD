@@ -1,5 +1,5 @@
 pkgname=gnome-logs
-pkgver=3.24.2
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="A log viewer for the systemd journal"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6f7dabb0b0093b860198344373eb1feae244ed23c3a65494499c09a83c687ba68ff023ec5ce34846be51fd74293fdb4b575cf3a748a22fae183e89086eba1db9')
+sha512sums=('5dc6c262ca727e60e21e8101efca1ea1f2cb204bc59b310f24cdf2c767212442cf1ee4775814f6db1988e13f6269cfe289b2c84c79e6fa4e8e20cdf71057680a')

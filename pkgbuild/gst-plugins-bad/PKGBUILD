@@ -13,6 +13,8 @@ build() {
 
 	export CXX="${CXX} -std=c++11"
 
+	sed -i "s#openjpeg-2.1/openjpeg.h#openjpeg-2.2/openjpeg.h#" ext/openjpeg/gstopenjpeg.h
+
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \

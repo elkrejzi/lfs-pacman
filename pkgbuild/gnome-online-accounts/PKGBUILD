@@ -1,5 +1,5 @@
 pkgname=gnome-online-accounts
-pkgver=3.24.2
+pkgver=3.25.90
 pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('02e71900ab306ff97ad397af3adbed3b3c8dc20e156f77680886e580440437290d0e6a20268e816ffc46f24798a064544914395f642a15c7ee62eb92d400cf7c')
+sha512sums=('1b3fce83b42d5757b35f33c98990e7a2ec3ee49680ac432a464521583433f83fed39d1680130c80e82ae43f530a60df0e0eddb3d035eab2ab5511012cd99f837')

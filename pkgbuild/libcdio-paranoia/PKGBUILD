@@ -1,5 +1,5 @@
 pkgname=libcdio-paranoia
-pkgver=10.2+0.94+1
+pkgver=10.2+0.94+2
 pkgrel=1
 pkgdesc="CD paranoia libraries from libcdio"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('9b2381491271090bac08594cb1d84de98e9f0a5afc6a2c98e9ffcf4b95addc3adcd0f0b9adeb928dfbf8178356ad6a7ccfeb048685c823d138b2af232f0b4c93')
+sha512sums=('0e4ed5cc52d0758e945ac7f956c1ca870068f6444df912e2ba5f597947962c471d1c526b5cdab4e092fecb924ecb317667df454497b2e515a4e985693cd86f47')
