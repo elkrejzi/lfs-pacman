@@ -1,5 +1,5 @@
 pkgname=qemu
-pkgver=2.9.0
+pkgver=2.10.0
 pkgrel=1
 pkgdesc="A generic and open source machine emulator and virtualizer"
 arch=('x86_64')
@@ -9,13 +9,10 @@ license=('GPL2' 'LGPL2.1')
 options=(!strip)
 source=("http://wiki.qemu.org/download/qemu-${pkgver}.tar.bz2"
 	"65-kvm.rules"
-	"qemu.sysusers"
-	"replace-struct-ucontext-with-ucontext_t-type.patch")
+	"qemu.sysusers")
 
 build() {
 	cd "${srcdir}/qemu-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/replace-struct-ucontext-with-ucontext_t-type.patch"
 
 	_qemu_tgt_list="i386-softmmu x86_64-softmmu i386-linux-user x86_64-linux-user"
 
@@ -55,7 +52,6 @@ package() {
 	install -v -Dm644 "${srcdir}/qemu.sysusers" "${pkgdir}/usr/lib/sysusers.d/qemu.conf"
 }
 
-sha512sums=('4b28966eec0ca44681e35fcfb64a4eaef7c280b8d65c91d03f2efa37f76278fd8c1680e5798c7a30dbfcc8f3c05f4a803f48b8a2dfec3a4181bac079b2a5e422'
+sha512sums=('ea21c014030f8a902df159641e6ccb45f0850ac5cb1cb8ab6845124c44ea5def54845e7bc66a6e80d624c78069f9baa913ee5119704076ae4ff47ab018ace9f9'
             '13a097ee0ac9f740ad3de8d24c71bdb9a655dc18e3afc1bac990643a120a3ec9de45be887a89ef840e5a88c2f4dc8e3a3a435fd3185b1884d57d6c292864e7c5'
-            'e3e0b8a6df627fa150332b070fa2e78372af2cba3925670ad351250e92f7748a9675ee0beec3b4c21b32a57c24a1482a44aef7191c3b5905a71ecedc55fc2096'
-            'a12eff2f65c9a86d15350496d756750882b7d5ba89fcd1dc1c5923f32256e7b54aa189f85a67ed9352f47c3dfa7cd8137464dd608b05bc9b1283c0a8fc8303f5')
+            'e3e0b8a6df627fa150332b070fa2e78372af2cba3925670ad351250e92f7748a9675ee0beec3b4c21b32a57c24a1482a44aef7191c3b5905a71ecedc55fc2096')

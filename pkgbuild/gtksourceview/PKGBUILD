@@ -1,5 +1,5 @@
 pkgname=gtksourceview
-pkgver=3.24.3
+pkgver=3.24.4
 pkgrel=1
 pkgdesc="A text widget adding syntax highlighting and more to GNOME"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('354a06502d55d7b237d5cbec5a35102225ae3d7e80e53d1ba42e506fc9c75470c4548b4ab8e9e6b2813d732617a2f13b978194240556b8d810066c94ec13de44')
+sha512sums=('fef2008dccae6bca859f99b7171851b84f30e7b4cdb00500972039bf111ab5901498820c91926374a7b446491330c55f7179e8522b90279d0169371981bc90fd')

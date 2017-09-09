@@ -1,5 +1,5 @@
 pkgname=gnome-photos
-pkgver=3.25.91
+pkgver=3.25.92
 pkgrel=1
 pkgdesc="Access, organize, and share your photos on GNOME"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fa545a1ed92fa8418c5e36b099d645af269bd1bfc64d265d4f3811cfa12cd0de05160a45881ea44138b955cb237bdb63e0f9980d5c11b50ff1fb3fe87802f137')
+sha512sums=('74acfa0618a4ba8061a122930d4317dc2bc672304f00b220acc7197687bad76f814cb788a05e4599b76448332b13071a0bbe21c71ce1073a3e5a9d8e86cc9f63')

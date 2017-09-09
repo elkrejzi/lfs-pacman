@@ -1,6 +1,6 @@
 pkgbase=glib
 pkgname=('glib' 'lib32-glib')
-pkgver=2.53.6
+pkgver=2.53.7
 pkgrel=1
 arch=('x86_64')
 url="http://www.gtk.org/"
@@ -8,13 +8,12 @@ license=('LGPL')
 #depends=()
 options=(emptydirs)
 #source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
-source=("git+https://github.com/GNOME/glib.git#commit=9ff6f24"
+source=("git+https://github.com/GNOME/glib.git#commit=e5eaca5"
 	"glib-compile-schemas-quiet.patch"
 	"gio-querymodules.hook"
 	"gio-querymodules32.hook"
 	"glib-compile-schemas.hook"
-	"0001-docs-Fix-building-with-meson.patch"
-	"0001-meson-Compile-guuid.c-into-libglib-2.0.patch")
+	"0001-docs-Fix-building-with-meson.patch")
 
 prepare() {
 	cd "${srcdir}"
@@ -28,7 +27,6 @@ prepare() {
 
 	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
 	patch -Np1 -i "${srcdir}/0001-docs-Fix-building-with-meson.patch"
-	patch -Np1 -i "${srcdir}/0001-meson-Compile-guuid.c-into-libglib-2.0.patch"
 
 	install -v -dm755 "${srcdir}"/build{32,64}
 }
@@ -102,5 +100,4 @@ sha512sums=('SKIP'
             '5afd6f275c8fff16df3e685818f2e7989b39ffb3b8f5fc261a5a6d54a9b28ef53af62f3bf5067cf87cb74691572f85730cbc508691956ae048a0f3ecc1a0a39c'
             '1ea3011bbf658c71fce167399775cca4ec7fd6267cbea9dc39555c10636035dd56391208a56c35e84f127ad23fd7126e025ea8e7de9ba5cd6912ac984a8b60af'
             'c04fe25afc217c295b5ce4034733cec046126482d00fb8d0299e4815ac57129dd3f1c9ac824b9386d208a4f113e9dae682ea5b72f75387ed6b6b96a9cbbee8ca'
-            '572149580d987c905c0b2c587cd369d77cd4de81ae4f951159f661c558dc2bff6feb5bcf90859db8a32e43ee2997b2076f5d57a47500cc3449b844eda33d63b0'
-            'f072e0750fc208e5710e417aec725645b9106e2dd680cf22f2a82aeed7b49a774859d4d3685c29c579b999d456a1aa293f6e0b092cb33fe3c76f7509b724ea81')
+            '572149580d987c905c0b2c587cd369d77cd4de81ae4f951159f661c558dc2bff6feb5bcf90859db8a32e43ee2997b2076f5d57a47500cc3449b844eda33d63b0')

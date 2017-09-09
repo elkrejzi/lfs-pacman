@@ -1,14 +1,14 @@
 pkgbase=linux
 pkgname=('linux' 'linux-headers')
-_basever=4.12
-pkgver=4.12.9
+_basever=4.13
+pkgver=4.13
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
 options=(!strip)
 source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz"
-	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
+#	"https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz"
 	"linux-march-native.patch"
 	"config")
 
@@ -92,7 +92,6 @@ package_linux-headers() {
 	find "${_hdrdir}/scripts" -name "*.c*" -delete
 }
 
-sha512sums=('8e81b41b253e63233e92948941f44c6482acb52aa3a3fd172f03a38a86f2c35b2ad4fd407acd1bc3964673eba344fe104d3a03e3ff4bf9cd1f22bd44263bd728'
-            '8f4f9e270e8d00008b505be53aa0132aefbde21ae797e9daede19d6c81b26f255773b8e91396b75bbc78153d641a2479afbc22a7dc0d95b9c24534327fb95e38'
-            'f0ef2b2cb3c48974706f552d357770f14183bce9633b350bfb8b08054ba6830dd811d54ab0a698be8755890ded2cc219f3ef800a81215e238ea6a8b4bf497dd8'
-            '94f67a01911a0c067635ac3c6ee160a9e7f66ec92948f6ea0614b3c849dedad37adc7e2bfd332de219179bc09fa44796338408b861cc037b5d5691f1d5e79d61')
+sha512sums=('a557c2f0303ae618910b7106ff63d9978afddf470f03cb72aa748213e099a0ecd5f3119aea6cbd7b61df30ca6ef3ec57044d524b7babbaabddf8b08b8bafa7d2'
+            '472f338a97395a3d3bd4507ce108e4fe432fc0e4c93c458601a6e5f1764e449c495a6ada5733938f4500c66a92828605971452e50e90790f1e518d5879a5357a'
+            '7cc7fbb866a3ed2cb5c83aee4a1712b8211c87c02309ec38c962bd86c6c1c24ebf245ac24224e66676863884d6a13eeb5522413f3f5eb95c36c3af8ffa98905c')

@@ -1,5 +1,5 @@
 pkgname=chromium
-pkgver=60.0.3112.113
+pkgver=61.0.3163.79
 _launcher_ver=5
 pkgrel=1
 pkgdesc="A web browser built for speed, simplicity, and security"
@@ -10,8 +10,9 @@ license=('BSD')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
 	"chromium-launcher-${_launcher_ver}.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v${_launcher_ver}.tar.gz"
 	"chromium.desktop"
-	"chromium-gn-bootstrap-r8.patch"
-	"breakpad-ucontext.patch")
+	"breakpad-use-ucontext_t.patch"
+	"chromium-atk-r1.patch"
+	"chromium-gn-bootstrap-r14.patch")
 
 _system_libs=(
   flac
@@ -20,6 +21,7 @@ _system_libs=(
   libjpeg
   libpng
   libwebp
+  libxml
   libxslt
   opus
   yasm
@@ -30,7 +32,6 @@ _system_libs=(
 # freetype
 # icu
 # libvpx
-# libxml
 
 _config=(
 	'is_debug=false'
@@ -53,6 +54,7 @@ _config=(
 	'ffmpeg_branding="Chrome"'
 	'treat_warnings_as_errors=false'
 	'fatal_linker_warnings=false'
+	'use_custom_libcxx=false'
 )
 
 if [ "$(hostname)" == "krejzi" ]
@@ -91,8 +93,9 @@ prepare() {
 
 	sed -i "/-Wno-unused-lambda-capture/d" build/config/compiler/BUILD.gn
 
-	patch -Np1 -i "${srcdir}/chromium-gn-bootstrap-r8.patch"
-	patch -Np1 -d breakpad -i "${srcdir}/breakpad-ucontext.patch"
+	patch -Np1 -i "${srcdir}/breakpad-use-ucontext_t.patch"
+	patch -Np1 -i "${srcdir}/chromium-gn-bootstrap-r14.patch"
+	patch -Np1 -i "${srcdir}/chromium-atk-r1.patch"
 }
 
 build() {
@@ -145,8 +148,9 @@ package() {
 	install -v -Dm644 out/Release/chrome.1 "${pkgdir}/usr/share/man/man1/chromium.1"
 }
 
-sha512sums=('fc91ec5dd09394159eafe9fa91085d9f47094317bfb0541dae8add73e6de8922cbd3c9a6a3b185b0755bd7a6fa7107263a3baf9f0aa9080d5574ee949f9e6196'
+sha512sums=('3729c4888737824937386b73e17ffce0c8c902582e0395da20d2ea86eb179bf0edc2be0d2ea780a6fc76accdeb8967a66392bea5069c7ebb71322c750f614d61'
             '52fa910e2fff7197d670be41e925c71579f10bcdc879248b38876581dc7e4f384262a0e1d3714ed7b6382d680c56e53076b0be6fea679724360144395bf3973a'
             '41175d53e7dba3405ff154d52f2069c7685ecb7ce2587b982bc24e30951485686586848eb94d5033a98ddde6dc1fd13cc5614a95e8758133d1a579a5f6b9221d'
-            '792b436802fda8427312ef482fb7dc78c1ec6a6c1e39f2637cc379cd5b8bb2dd1b17d495fdaea2beec35305e3e910bed67c9f1824155131def708c923a4cf1c6'
-            '1e8f06ac3f07803028f0fa8765710afd5c4e68ee776c70f46668ea3c15b6afd75cb6fd53b56c7c06b23a3e32fc9fbf7db3a3038e4388d67c8f6df52c7f7fbec0')
+            '776ed0ee0020e3e0559d219447f2cad66da1ca176abc2e204bfcaad5141e115336290fe7d210e7e1d02b163a8039b8678f4b33edcd1874ecfddaf5c8172e9e1e'
+            '5722c571ffc384e0e226342d170e29109bf45761dcd7202b2fe6572795e0a04bd0521b1120eb2247c2a84bed0e63f47a71d25802528992ee4f976b348fb5c8f6'
+            'd297728681538fd6d6d48da4477e6e42b0ac1585a243dca60c0d9896387a1bf17770aa70966344c8d3551b774cbea6d6acbeaa0dbbfc3c17367dda5daa912297')

@@ -17,6 +17,8 @@ prepare() {
 	patch -Np1 -i "${srcdir}/python2-bdb.patch"
 
 	rm -rf Modules/expat Modules/zlib Modules/_ctypes/{darwin,libffi}*
+
+	echo "nis nismodule.c -lnsl -I/usr/include/tirpc" >> Modules/Setup.dist
 }
 
 build() {

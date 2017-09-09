@@ -1,5 +1,5 @@
 pkgname=epiphany
-pkgver=3.25.91
+pkgver=3.25.92
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 arch=('x86_64')
@@ -24,7 +24,7 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Ddistributor_name="Krejzi" \
-		-Denable_unit_tests=false \
+		-Dunit_tests=false \
 		"${srcdir}/epiphany-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -36,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('fb1c287acc92900660a7bd8962bffec42e3fc643bcac674d6d9d0e01fd1be5cecbace47256bf6c821aecd2b08ce21fe4fb6daa11eb71ae5d3964d4c8b8ec5fe0')
+sha512sums=('adedae397d1b7c6d6444a439b0558f2a5455289a799f6cd11da420f7724069baf9a02a9d8f70c10e65f8cc84c6e28faf5299ebda94987c579ac0085dd00750bc')

@@ -19,6 +19,8 @@ prepare() {
 	rm -rf Modules/expat Modules/zlib Modules/_ctypes/{darwin,libffi}*
 
 	sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python3|" Lib/cgi.py
+
+	echo "nis nismodule.c -lnsl -I/usr/include/tirpc" >> Modules/Setup.dist
 }
 
 build() {

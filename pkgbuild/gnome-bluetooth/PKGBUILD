@@ -1,5 +1,5 @@
 pkgname=gnome-bluetooth
-pkgver=3.20.1
+pkgver=3.25.91
 pkgrel=1
 pkgdesc="The GNOME Bluetooth Subsystem"
 arch=('x86_64')
@@ -8,23 +8,28 @@ license=('GPL' 'LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-bluetooth/${pkgver:0:4}/gnome-bluetooth-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-bluetooth-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-desktop-update \
-		--disable-icon-update \
-		--disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-icon-update=false \
+		-Denable-gtk-doc=true \
+		"${srcdir}/gnome-bluetooth-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-bluetooth-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('945dde99c6531e369702dea22e60f5b05759d751b16b091fc67c256e949cee8153f60ac7ad616c086366a0141b263b068fad28bab4b50b84356d59b4e464d88a')
+sha512sums=('f2271b048f83c2704a5f00874e14a3995b6e12d24c4921de14910ba924b79540295a47890044aec561edc5e39cea51bb41a899d84f70fddcb55756b136248026')

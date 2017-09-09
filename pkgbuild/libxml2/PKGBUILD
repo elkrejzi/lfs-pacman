@@ -1,6 +1,6 @@
 pkgbase=libxml2
 pkgname=('libxml2' 'lib32-libxml2')
-pkgver=2.9.4
+pkgver=2.9.5
 pkgrel=1
 arch=('x86_64')
 url="http://www.xmlsoft.org/"
@@ -59,4 +59,4 @@ package_lib32-libxml2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('f5174ab1a3a0ec0037a47f47aa47def36674e02bfb42b57f609563f84c6247c585dbbb133c056953a5adb968d328f18cbc102eb0d00d48eb7c95478389e5daf9')
+sha512sums=('197dbd1722e5f90eea43837323352f48d215e198aa6b95685645ef7511e2beba8aadc0dd67e099c945120c5dbe7f8c9da5f376b22f447059e9ffa941c1bfd175')

@@ -1,5 +1,5 @@
 pkgname=polari
-pkgver=3.24.2
+pkgver=3.25.92
 pkgrel=1
 pkgdesc="An IRC Client for GNOME"
 arch=('x86_64')
@@ -8,18 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/polari/${pkgver:0:4}/polari-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/polari-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr --disable-debug
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/polari-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/polari-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('23a475d657556e7f4e93dde8e545bf7bede227635d540bd006b85b068923d87e713bd05f14d8ccde458bf6efd4920665bca02ea41c4de870680581ebfa595f0e')
+sha512sums=('f12b6c0abb035b15f795a1daec18f1713641ffc99d25ed30acbba4b9af9df08db1240a476281b9ed2add2cfc9b9bc2bc7748a27feb59f1dc9c2051207339eb4a')

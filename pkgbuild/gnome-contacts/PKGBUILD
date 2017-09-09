@@ -1,5 +1,5 @@
 pkgname=gnome-contacts
-pkgver=3.25.4
+pkgver=3.25.92.1
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('01be7af4d03e5b9bc0745cc6acb06a90936dd4dd1d8d55ff9e04ddf13c0c4ad816dab58be1f7f13debd8d09041dca10180f05aeddddd877e89030451bc79123b')
+sha512sums=('c0254a8ce54da8d7491017c7449346697a517bff7caecc4c199f813c5381d626057c7c4556f5368ad1828cf50d750879bbbbb67080aa1fca578757ab1cef460f')

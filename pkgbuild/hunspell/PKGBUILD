@@ -1,5 +1,5 @@
 pkgname=hunspell
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="Spell checker and morphological analyzer library and program"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('39b096ec1f5226f13eaf241647fc9b49a6dad04945ae0bcdc61ba845d66d67d64a72ba4287b6f376b5ad053b5d0e1d42a42415c30521c50693f0544718029458')
+sha512sums=('a23127f1271da95ac06a1fb2f57b659485e959567b61da05b2bb350684003a0fb7e882b5e524c465fd890f79f513ed03174f38611989a1c09081147c47d6da11')

@@ -1,7 +1,7 @@
 pkgbase=llvm
 pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang' 'lib32-clang' 'clang-tools-extra' 'lld' 'lldb')
-_realver=5.0.0rc2
-_pre_release=1
+_realver=5.0.0
+_pre_release=0
 pkgver=${_realver/rc/.rc}
 pkgrel=1
 arch=('x86_64')
@@ -45,10 +45,6 @@ prepare() {
 	cd "${srcdir}/cfe-${_realver}.src"
 
 	patch -Np1 -i "${srcdir}/clang-runtime.patch"
-
-	cd "${srcdir}/compiler-rt-${_realver}.src"
-
-	sed -i "s:struct sigaltstack:stack_t:g" lib/esan/esan_sideline_linux.cpp
 
 	rm -rf "${srcdir}/cfe-${_realver}.src/tools/extra"
 
@@ -224,7 +220,7 @@ package_llvm-libs() {
 	#install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
 	#ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib/bfd-plugins/LLVMgold.so"
 
-	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/x86_64/libunwind-x86_64.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/x86_64/libunwind-static.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
 }
 
 package_lib32-llvm-libs() {
@@ -235,7 +231,7 @@ package_lib32-llvm-libs() {
 	#install -v -dm755 "${pkgdir}/usr/lib32/bfd-plugins"
 	#ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib32/bfd-plugins/LLVMgold.so"
 
-	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/i386/libunwind-i386.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/i386/libunwind-static.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
 
 	rm -rf "${pkgdir}/usr/include"
 }
@@ -266,15 +262,15 @@ package_clang() {
 			"${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}"
 
 cat > "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/libclang_rt.builtins-${ll}.a" << EOF
-INPUT ( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}/libclang_rt.builtins-${ll}.a AS_NEEDED ( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}/libunwind-${ll}.a -lpthread -ldl -lm ) )
+INPUT ( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}/libclang_rt.builtins-${ll}.a AS_NEEDED ( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}/libunwind-static.a -lpthread -ldl -lm ) )
 EOF
 
 		ln -sfv ../lib/linux/libclang_rt.builtins-${ll}.a "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/libcompiler-rt.a"
 
 	done
 
-	mv -v "${pkgdir}/usr/lib/libunwind.a" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/x86_64/libunwind-x86_64.a"
-	mv -v "${pkgdir}/usr/lib32/libunwind.a" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/i386/libunwind-i386.a"
+	mv -v "${pkgdir}/usr/lib/libunwind.a" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/x86_64/libunwind-static.a"
+	mv -v "${pkgdir}/usr/lib32/libunwind.a" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/i386/libunwind-static.a"
 
 	install -v -dm755 "${pkgdir}/usr/lib/python2.7/site-packages"
 	cp -r "${srcdir}/llvm-${_realver}.src/tools/clang/bindings/python/clang" "${pkgdir}/usr/lib/python2.7/site-packages"
@@ -324,17 +320,17 @@ package_lldb() {
 	rm -rf "${pkgdir}/usr/lib/python2.7/site-packages/six.py"
 }
 
-sha512sums=('9c5618b618c5a1e0feb377bcf30007969ae3b01b95ca539da79aa7ce4226afed43681bcbd07bf2d038d9de893354b9ae29449676e7c27107a7dd48103da7aed2'
-            'df6bdb70ae1eeda83f4cbffa0528e59d6c176ff112122519e180247a30faaf02e742234a2ed7a3efb152126426ed584a73578f4337afba3f323260e791d47619'
-            '752d84ed7908f1d8bdff71222fe697fdf6d10822a9e5d875aece27c65754f042463374128d54daf39e4a3ef798f50fb8783633706d38d457de015d3a98f6f89b'
-            'f7c8c07c00290dd9c7c2a1eea611ba9c621e89126dc176b2a3fc32681a6d5577535e07763e3494a3a27c44b24bdd1c151c69b1bb41589916499dd4d8f7f6dbca'
-            '3d1d5c8a025ba83e31350f39acd6e05fd7254dd73e0b00742894b4fb192797320e9520c8aa6fd483e1323d8d8eafb45998b9d44b38aeee0fafe920e5b4af21b2'
-            '2f8ea6072c794fbea51cb5a59e038abe7c3a24bec111a77132c320f904bd0dc82769d766b049c5698fbe285ab36736ae656d15977bfdd644c89f231d9cdf4d08'
-            '74cf3fea7e8915901c68a8715fc8ac04827bf22eacc790027a7d59925a51fe503754d58ae17159fa8410280167f26a24833ddc02c075a223bff7d4513224d87a'
-            'd25463c7d6be4b610646462fa1da8747edbf875c625db067e40d9436bc8cd0ee0e1778c151e9fd76a4c5265a02e01e92eebe2157a9356ca4ef1dc263f3b0c4ed'
-            '411f46ec09c0c9e86ba724d142ccf6dc30c2d0ca9b17f2f72296a3d628b2bd5edb8ee78c04bba29b1cf3f1ec43b413116fd5fdd7d3306e8edeb991b79712f989'
-            'bdd9840ed7438710f9eed90c074bcde06d81fdb94fbb10575d936044c3f55ad509c9c07f2a9ae6395ab3c842ed4f3b5bff274430c06d390352f37a5bf9fa7e53'
-            '57785121e5bae89f4d57fd9789271d1da8f01fd3aa9af3747165214f8844c5ea1befff9eacc91bc1e5d314ea38e15781e1395560a1bfda554f04f87db017216a'
+sha512sums=('e6d8fdcb5bf27bded814d02f39f69c6171bc3a512d5957c03e5ac2e231f903b7de87634b059bd5c5da670f7c3a8f7a538f6299225799f15f921857f1452f6b3a'
+            '14acdd622310122b544c952ee5b932b7006d9d8424319f0e3974f2503d40a0cec4200fdd3d813a32ce0d877bcfbb9a5bd5c36f6142b4330e6c814f113ca2efe8'
+            '5f3fd49736fba35232b0baa19a5f03c4ab3bf85ec16f23355eb3c516fe6d861c14272c224ca2f2092a80636df4307e49a3df1b60a3791949b3f1ba4a0c8c81fb'
+            '210749f6585d8fd39fc63a32dd85d68de4aa480c91915cbf419b9e8a3b300fa4624f03200ed963cecc8ab233777c36e8c522fa0762a2aa068bc65e6f48118328'
+            '88f48a3232c220a7d22ee31121e5c2bd09b506177079a1ff567eeae213e24a9bb8bd13e59f0c6ca5ec995c60bf516e3c2507d342a149a2c4cef8aad7b4b330f8'
+            '20d54d5342d67425f5e36e9c690f1bb67bc2a3b7184b3ad546b689e510728d7c596f178d4f5186daf7480409ed4e455848b4ad1d9d896370fac1db69885fc793'
+            '984606a8c8aa753805d30602ce851a70d5427ee0ec098e3fcb2751e58d36c601f59f17f5c9ab90a430bc670f689c3b86b6ecbeccb6ff187f108f6e2000621eb7'
+            'bc70953c7f6b3f0bc797461fb53d9c60c5ab36c0b9aae815a3c37fc597a61c7220695ee3b60a9682486d2e4713c5f78ea85e853e13c587e356510a1c99a62ba9'
+            '038cc1d262414fac9a05eabdce97b21eb04fc1b3609d07f8da2c9da6b1aaa143f8b26953cb799e7dde82f708103539fe03fe939ba7323a71bd3e9e3925bd5513'
+            'c835a9c5a3ca20cd094b3b5cfb69a30ca66bb07fd06b2efac25efb4c41f4c841eed72dd3c8efa05daf804398f4387d453506b8dbdb76b7117600409dc935851c'
+            'bf51c4d851bdc25bd2162e186b3080a30ad523f68859fd3dbce6c1094465382f794917b66406088c3bb1b15bee49821bcef5ef4b1a1e18704596354f7d0639bc'
             '8bc8873bb68998a3c97cc302e69e7bc6b4ab185b51dfa7e74d804ff4643af3fd4037679990053c24cb02d8f4f631d731cacba0b2b46d265f51baf289d3b3b962'
             '9025e55af7f98018cfdfc0810f08c2dba8b813efadb8e104e0c3d54592d2c94238372a121871713dfbbd44bdd5ec6cb6b73a2325d22e133089d2951bff6255db'
             'cf4c43c0a590b4f0e63e9a6008a747524e4553034fba72a7e99626aff6c61fd2ac4073874a1b116177f77bcb0d0021c17edd5da1950c7e3421be4de0ea133b4c'

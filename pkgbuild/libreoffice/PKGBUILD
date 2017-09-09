@@ -1,6 +1,6 @@
 pkgname=libreoffice
-pkgver=5.4.0
-_lover=${pkgver}.3
+pkgver=5.4.1
+_lover=${pkgver}.2
 pkgrel=1
 pkgdesc="Free Office Suite"
 arch=('x86_64')
@@ -37,6 +37,6 @@ package() {
 	rm -rf  "${pkgdir}/usr/lib" "${pkgdir}/usr/share/icons/gnome" "${pkgdir}/usr/share/icons/locolor"
 }
 
-sha512sums=('df7ed6b68a48f33b17741066d130ce72c17c6d676a926b1d7463e20c2cbce28bfc46f0d775b3143c25fa509728446b6894c9830a139ca19d5371220f5d65c48c'
-            'edfec209abd99426b763e268aa09c465f95e866efa1d8f4ef80d51713de32f204e056106ba915122cf275c9cd77570e71d3882c279f1e6f38357f89f3a504843'
-            'aa774a47111dc1cda700a934ee050d3e83a6f5980cac60b217bd5176599750bb200b77a10c26def470fbe066055ad11dfee839de4eeaec22b2a6829999e59092')
+sha512sums=('a253705ff5d6a09b28f463f9ce97159d07e67db5e37f976d312a694d5d2882d92036b8f18819057ccdec1ddd86b32b3e505e7adcf7ff68a3adce9363ce4e330f'
+            'ba425f2727bb4d8de32f1fd9df43938f9a1b6856ad20f13a083470ec5d4aa2acac12630f079c8b64f0fca8fa6c82e0fb46beee837bb5e03a4402525051dee793'
+            'da86f83100c26e047a73fcd74463033402c540bf0e2e9e489188a7b4f8619dd9882368523ed198e1237ec13a96528eaee80b2185cd40a721b249183e687f51ed')

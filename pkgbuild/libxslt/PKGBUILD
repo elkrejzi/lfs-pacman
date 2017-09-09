@@ -1,5 +1,5 @@
 pkgname=libxslt
-pkgver=1.1.29
+pkgver=1.1.30
 pkgrel=1
 pkgdesc="XML stylesheet transformation library"
 arch=('x86_64')
@@ -12,8 +12,6 @@ source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/libxslt-${pkgver}"
 
-	sed -i "/xlocale.h/d" libxslt/xsltlocale.h
-
 	./configure --prefix=/usr
 
 	make
@@ -25,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a1ce555a74a9dabe65e8f64bb66e27e77760fd76940d88f2d59f58dd63ca73c8ae59f3fcbd8e76c8f92ff992fb0c09328528c20ea38ccac83e63252106bf5f31')
+sha512sums=('d24e37398503b6bc29245a993738df51bf3948c4a8f052eedd7eac0a9fcff2d5b54220f37070c46f763e073c34bdb3153c9f129aa0df60c3d7cf7eadbbf15986')

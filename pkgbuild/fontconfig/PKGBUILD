@@ -1,6 +1,6 @@
 pkgbase=fontconfig
 pkgname=('fontconfig' 'lib32-fontconfig')
-pkgver=2.12.4
+pkgver=2.12.5
 pkgrel=1
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/fontconfig/"
@@ -74,5 +74,5 @@ package_lib32-fontconfig() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('f336e9220afe738e0bf7186d87a5eb09842342ad99ca2102c69820a1f0b232e15c61ef72ae3f5d56503f5be32557d09180a80e05690e85b4eb13ed88f5cece81'
+sha512sums=('be0c2bfe0a00e713be5882cf948df5f5bdefe17c224d4a7ae7d24dee6e4172d11f1d0b6ac981ef8739a579c8451c51a1e47f3a718d7b511314fcf710ca9b37a2'
             '5ec6d8c52273a0edd90e588a3c5079f7bcce63ec8f7032b8f716d698c95d7ac604d9dbee706f7ce1148a8821dda7b44ea787a4f8f5b6c858b583884ee6e024f4')

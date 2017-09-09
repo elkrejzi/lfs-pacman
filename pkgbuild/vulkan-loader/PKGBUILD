@@ -1,16 +1,16 @@
 pkgbase=vulkan-loader
 pkgname=('vulkan-loader' 'lib32-vulkan-loader')
-pkgver=1.0.51.0
+pkgver=1.0.57.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.khronos.org/vulkan/"
 license=('custom')
 #depends=()
 options=(emptydirs)
-source=("git+https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers.git#commit=8d021e4" # sdk-1.0.51.0
-	"git+https://github.com/KhronosGroup/glslang.git#commit=91c46c6" # Vulkan-LoaderAndValidationLayers/external_revisions/glslang_revision
-	"git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=7c8da66" # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-tools_revision
-	"git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=63e1062") # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-headers_revision
+source=("git+https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers.git#commit=db786c9" # sdk-1.0.57.0
+	"git+https://github.com/KhronosGroup/glslang.git#commit=d5aedc1" # Vulkan-LoaderAndValidationLayers/external_revisions/glslang_revision
+	"git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=f0fe601" # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-tools_revision
+	"git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=4a7a9fd") # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-headers_revision
 
 prepare() {
 	cd "${srcdir}"
@@ -33,27 +33,31 @@ build_shared() {
 
 	cd "${builddir}/external/glslang"
 
-	cmake -DCMAKE_INSTALL_PREFIX=install \
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=install \
 		-DCMAKE_BUILD_TYPE=Release \
 		"${srcdir}/Vulkan-LoaderAndValidationLayers/external/glslang"
 
-	make
-	make install
+	ninja
+	ninja install
 
 	install -v -dm755 "${builddir}/external/spirv-tools"
 
 	cd "${builddir}/external/spirv-tools"
 
-	cmake -DCMAKE_INSTALL_PREFIX=install \
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=install \
 		-DCMAKE_BUILD_TYPE=Release \
+		-DSPIRV_WERROR=OFF \
 		"${srcdir}/Vulkan-LoaderAndValidationLayers/external/spirv-tools"
 
-	make
-	make install
+	ninja
+	ninja install
 
 	cd "${builddir}"
 
-	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_SYSCONFDIR=/etc \
 		-DCMAKE_INSTALL_DATADIR=/share \
@@ -69,7 +73,7 @@ build_shared() {
 		-DSPIRV_TOOLS_BINARY_ROOT="${PWD}/external/spirv-tools" \
 		"${srcdir}/Vulkan-LoaderAndValidationLayers"
 
-	make
+	ninja
 }
 
 build() {
@@ -78,11 +82,12 @@ build() {
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+	export ASFLAGS="--32"
 
 	build_shared "${srcdir}/build32"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
-	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH ASFLAGS
 }
 
 install_common() {

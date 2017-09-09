@@ -1,6 +1,27 @@
---- breakpad.orig/src/client/linux/dump_writer_common/ucontext_reader.cc	2017-07-25 21:06:22.000000000 +0200
-+++ breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc	2017-07-28 00:29:35.667471938 +0200
-@@ -40,11 +40,11 @@
+From b6a312ed8e144a37da840ae50dbd39df5ffb7e9f Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Sun, 2 Jul 2017 16:34:54 -0700
+Subject: [PATCH 2/2] replace struct ucontext with ucontext_t
+
+glibc 2.26 does not expose struct ucontext any longer
+
+Upstream-Status: Pending
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ .../linux/dump_writer_common/ucontext_reader.cc    | 30 +++++++++++-----------
+ .../linux/dump_writer_common/ucontext_reader.h     | 10 ++++----
+ .../src/client/linux/handler/exception_handler.cc  |  8 +++---
+ .../src/client/linux/handler/exception_handler.h   |  2 +-
+ .../linux/microdump_writer/microdump_writer.cc     |  2 +-
+ .../linux/minidump_writer/minidump_writer.cc       |  2 +-
+ 6 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc b/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
+index c80724dd8..93b4d9f85 100644
+--- a/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
++++ b/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
+@@ -40,15 +40,15 @@ namespace google_breakpad {
  
  #if defined(__i386__)
  
@@ -14,7 +35,12 @@
    return uc->uc_mcontext.gregs[REG_EIP];
  }
  
-@@ -88,15 +88,15 @@
+-void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext *uc,
++void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext_t *uc,
+                                     const struct _libc_fpstate* fp) {
+   const greg_t* regs = uc->uc_mcontext.gregs;
+ 
+@@ -88,15 +88,15 @@ void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext *uc,
  
  #elif defined(__x86_64)
  
@@ -33,7 +59,7 @@
                                      const struct _libc_fpstate* fpregs) {
    const greg_t* regs = uc->uc_mcontext.gregs;
  
-@@ -145,15 +145,15 @@
+@@ -145,15 +145,15 @@ void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext *uc,
  
  #elif defined(__ARM_EABI__)
  
@@ -52,7 +78,7 @@
    out->context_flags = MD_CONTEXT_ARM_FULL;
  
    out->iregs[0] = uc->uc_mcontext.arm_r0;
-@@ -184,15 +184,15 @@
+@@ -184,15 +184,15 @@ void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext *uc) {
  
  #elif defined(__aarch64__)
  
@@ -71,7 +97,7 @@
                                      const struct fpsimd_context* fpregs) {
    out->context_flags = MD_CONTEXT_ARM64_FULL;
  
-@@ -210,15 +210,15 @@
+@@ -210,15 +210,15 @@ void UContextReader::FillCPUContext(RawContextCPU *out, const ucontext *uc,
  
  #elif defined(__mips__)
  
@@ -90,9 +116,11 @@
  #if _MIPS_SIM == _ABI64
    out->context_flags = MD_CONTEXT_MIPS64_FULL;
  #elif _MIPS_SIM == _ABIO32
---- breakpad.orig/src/client/linux/dump_writer_common/ucontext_reader.h	2017-07-25 21:06:22.000000000 +0200
-+++ breakpad/src/client/linux/dump_writer_common/ucontext_reader.h	2017-07-28 00:28:40.514949253 +0200
-@@ -41,21 +41,21 @@
+diff --git a/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h b/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
+index b6e77b4b5..2369a9ad3 100644
+--- a/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
++++ b/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
+@@ -41,21 +41,21 @@ namespace google_breakpad {
  
  // Wraps platform-dependent implementations of accessors to ucontext structs.
  struct UContextReader {
@@ -119,9 +147,11 @@
  #endif
  };
  
---- breakpad.orig/src/client/linux/handler/exception_handler.cc	2017-07-25 21:06:22.000000000 +0200
-+++ breakpad/src/client/linux/handler/exception_handler.cc	2017-07-28 00:26:34.093741432 +0200
-@@ -444,9 +444,9 @@
+diff --git a/breakpad/src/client/linux/handler/exception_handler.cc b/breakpad/src/client/linux/handler/exception_handler.cc
+index b63f973b8..f2688acaf 100644
+--- a/breakpad/src/client/linux/handler/exception_handler.cc
++++ b/breakpad/src/client/linux/handler/exception_handler.cc
+@@ -439,9 +439,9 @@ bool ExceptionHandler::HandleSignal(int sig, siginfo_t* info, void* uc) {
    // Fill in all the holes in the struct to make Valgrind happy.
    memset(&g_crash_context_, 0, sizeof(g_crash_context_));
    memcpy(&g_crash_context_.siginfo, info, sizeof(siginfo_t));
@@ -133,19 +163,16 @@
    struct fpsimd_context* fp_ptr =
        (struct fpsimd_context*)&uc_ptr->uc_mcontext.__reserved;
    if (fp_ptr->head.magic == FPSIMD_MAGIC) {
-@@ -455,9 +455,9 @@
-   }
- #elif !defined(__ARM_EABI__) && !defined(__mips__)
+@@ -452,7 +452,7 @@ bool ExceptionHandler::HandleSignal(int sig, siginfo_t* info, void* uc) {
    // FP state is not part of user ABI on ARM Linux.
--  // In case of MIPS Linux FP state is already part of struct ucontext
-+  // In case of MIPS Linux FP state is already part of ucontext_t
+   // In case of MIPS Linux FP state is already part of struct ucontext
    // and 'float_state' is not a member of CrashContext.
 -  struct ucontext* uc_ptr = (struct ucontext*)uc;
 +  ucontext_t* uc_ptr = (ucontext_t*)uc;
    if (uc_ptr->uc_mcontext.fpregs) {
      memcpy(&g_crash_context_.float_state, uc_ptr->uc_mcontext.fpregs,
             sizeof(g_crash_context_.float_state));
-@@ -481,7 +481,7 @@
+@@ -476,7 +476,7 @@ bool ExceptionHandler::SimulateSignalDelivery(int sig) {
    // ExceptionHandler::HandleSignal().
    siginfo.si_code = SI_USER;
    siginfo.si_pid = getpid();
@@ -154,9 +181,11 @@
    getcontext(&context);
    return HandleSignal(sig, &siginfo, &context);
  }
---- breakpad.orig/src/client/linux/handler/exception_handler.h	2017-07-25 21:06:22.000000000 +0200
-+++ breakpad/src/client/linux/handler/exception_handler.h	2017-07-28 00:26:34.428744653 +0200
-@@ -191,7 +191,7 @@
+diff --git a/breakpad/src/client/linux/handler/exception_handler.h b/breakpad/src/client/linux/handler/exception_handler.h
+index 591c31085..846df772f 100644
+--- a/breakpad/src/client/linux/handler/exception_handler.h
++++ b/breakpad/src/client/linux/handler/exception_handler.h
+@@ -191,7 +191,7 @@ class ExceptionHandler {
    struct CrashContext {
      siginfo_t siginfo;
      pid_t tid;  // the crashing thread.
@@ -165,9 +194,11 @@
  #if !defined(__ARM_EABI__) && !defined(__mips__)
      // #ifdef this out because FP state is not part of user ABI for Linux ARM.
      // In case of MIPS Linux FP state is already part of struct
---- breakpad.orig/src/client/linux/microdump_writer/microdump_writer.cc	2017-07-25 21:06:22.000000000 +0200
-+++ breakpad/src/client/linux/microdump_writer/microdump_writer.cc	2017-07-28 00:26:34.431744682 +0200
-@@ -593,7 +593,7 @@
+diff --git a/breakpad/src/client/linux/microdump_writer/microdump_writer.cc b/breakpad/src/client/linux/microdump_writer/microdump_writer.cc
+index 6f5b43559..a508667a0 100644
+--- a/breakpad/src/client/linux/microdump_writer/microdump_writer.cc
++++ b/breakpad/src/client/linux/microdump_writer/microdump_writer.cc
+@@ -571,7 +571,7 @@ class MicrodumpWriter {
  
    void* Alloc(unsigned bytes) { return dumper_->allocator()->Alloc(bytes); }
  
@@ -176,9 +207,11 @@
  #if !defined(__ARM_EABI__) && !defined(__mips__)
    const google_breakpad::fpstate_t* const float_state_;
  #endif
---- breakpad.orig/src/client/linux/minidump_writer/minidump_writer.cc	2017-07-25 21:06:22.000000000 +0200
-+++ breakpad/src/client/linux/minidump_writer/minidump_writer.cc	2017-07-28 00:26:34.430744672 +0200
-@@ -1323,7 +1323,7 @@
+diff --git a/breakpad/src/client/linux/minidump_writer/minidump_writer.cc b/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
+index 86009b9f6..f2aec73d7 100644
+--- a/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
++++ b/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
+@@ -1248,7 +1248,7 @@ class MinidumpWriter {
    const int fd_;  // File descriptor where the minidum should be written.
    const char* path_;  // Path to the file where the minidum should be written.
  
@@ -187,3 +220,6 @@
  #if !defined(__ARM_EABI__) && !defined(__mips__)
    const google_breakpad::fpstate_t* const float_state_;  // ditto
  #endif
+-- 
+2.13.2
+

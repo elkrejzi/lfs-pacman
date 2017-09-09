@@ -1,22 +1,19 @@
 pkgbase=pulseaudio
 pkgname=('pulseaudio' 'lib32-pulseaudio')
-pkgver=10.0
+pkgver=11.0
 _pulsever=${pkgver}
 pkgrel=1
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
 license=('GPL')
 #depends=()
-source=("https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-${pkgver}.tar.xz"
-	"pulseaudio-fixes.patch")
+source=("https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-${pkgver}.tar.xz")
 
 _libs="libpulse.la libpulse-simple.la libpulse-mainloop-glib.la"
 _pkglibs="libpulsecommon-${_pulsever}.la libpulsedsp.la"
 
 prepare() {
 	cd "${srcdir}/pulseaudio-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/pulseaudio-fixes.patch"
 
 	sed -i "/flat-volumes/iflat-volumes = no" src/daemon/daemon.conf.in
 	sed -i "/exit-idle-time/iexit-idle-time = 0" src/daemon/daemon.conf.in
@@ -86,5 +83,4 @@ package_lib32-pulseaudio() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('11d98b4b2000a41bdea92df253409452bc9b77d8bb309b6d14c439e3b902e3f90c69da00daff409e3859a54ad01c63a75be5723616bdcb492801d622a6406481'
-            'dcb013b333b0569407a1ef960f1d9ac7e84d3027b905d9c0f5939d9e2a39d4be8068e862ce5918b08be079ea60e57c32b3bbb216829a8d766a6dfeeef79c54a0')
+sha512sums=('37d0afe343c136cef1906342f17c3473f791fe17b7e6dd463ce120d45285bc12e3680b8b4b6779d79b8ce2e755fe2a0cc4d4c960209b1dae9f924731484ecded')

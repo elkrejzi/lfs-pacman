@@ -1,5 +1,5 @@
 pkgname=wireshark
-pkgver=2.4.0
+pkgver=2.4.1
 pkgrel=1
 pkgdesc="A free network protocol analyzer for Unix/Linux and Windows"
 arch=('x86_64')
@@ -30,5 +30,5 @@ package() {
 	chmod 6550 "${pkgdir}/usr/bin/dumpcap"
 }
 
-sha512sums=('1bac69c6582c05db05cf9fbe818baa62308e531ee3c304bcf0fe7a81aa84c41dc647ebd221f9b98d823557180097b6c239b05841ddc7ca7ede47ee2936715ab9'
+sha512sums=('66f3f9abecc00c4c153c61f42739522b091ba06cc68b6bd79fe45a1064192fbb88e38e96d4df6722255b06a3520f23d2db6c5fa5e4faf5e8641cf2f5dce10056'
             'bdee1ea7d453df57fbb5d862feab5b5d6b3d770952bc7f5272e7a21ef434a861ff83620fb8361460381c54d6fa4bba1d7f0dc0b3a49cb0a4e765a863cceb75d4')

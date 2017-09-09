@@ -42,9 +42,10 @@ build() {
 		-Dlibperl=libperl.so.${pkgver} \
 		-des -Uafs -Ud_csh -Ud_ualarm  \
 		-Uusesfio -Uusenm -Ui_libutil  \
-		-Dcccdlflags='-fPIC'   \
+		-Dcccdlflags="-fPIC" \
 		-Dcc="${CC}" \
-		-Doptimize="${CFLAGS}"
+		-Doptimize="${CFLAGS}" \
+		-A ccflags="-O2"
 
 	make libperl.so.${pkgver} SHRPLDFLAGS='$(LDDLFLAGS) -Wl,-soname,libperl.so.${_perlmajor}'
 

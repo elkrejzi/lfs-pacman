@@ -1,5 +1,5 @@
 pkgname=libgudev
-pkgver=231
+pkgver=232
 pkgrel=1
 pkgdesc="GObject bindings for libudev"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3989025168c9e7e5e3f7813ee903a63f697ad390d3060121d0f45ee31031014c23a26f4287f3e6ad97d582131d0d568be31baa0b68f6f64ae337e926b3fe2625')
+sha512sums=('f648a41e2a6af7e26634c7cc259fdc47bb6e6ffb329324d157f340e42928e28c2059a0e923b9b0aaecd1ee3ecafbc7b55e5652f1f77bc1b88367b97057a1bedc')

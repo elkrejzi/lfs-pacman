@@ -1,14 +1,14 @@
 pkgname=mpfr
-_basever=3.1.5
-pkgver=3.1.5p2
+_basever=3.1.6
+pkgver=3.1.6
 pkgrel=1
 pkgdesc="Multiple-precision floating-point library"
 arch=('x86_64')
 url="http://www.mpfr.org/"
 license=('LGPL')
 #depends=()
-source=("http://www.mpfr.org/mpfr-current/mpfr-${_basever}.tar.xz" #)
-	"mpfr-cumulative.patch::http://www.mpfr.org/mpfr-current/allpatches")
+source=("http://www.mpfr.org/mpfr-current/mpfr-${_basever}.tar.xz")
+#	"mpfr-cumulative.patch::http://www.mpfr.org/mpfr-current/allpatches")
 
 prepare() {
 	cd "${srcdir}/mpfr-${_basever}"
@@ -30,5 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3643469b9099b31e41d6ec9158196cd1c30894030c8864ee5b1b1e91b488bccbf7c263c951b03fe9f4ae6f9d29279e157a7dfed0885467d875f107a3d964f032'
-            'ff1adbec14603c78f12cc6428df607228bbc82e66c0fea08602765546bc28cb549dea456267c6a50a3ebfaa68ac697e5339f222215424ce452ec5e7b0f96eeb4')
+sha512sums=('746ee74d5026f267f74ab352d850ed30ff627d530aa840c71b24793e44875f8503946bd7399905dea2b2dd5744326254d7889337fe94cfe58d03c4066e9d8054')

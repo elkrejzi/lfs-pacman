@@ -1,5 +1,5 @@
 pkgname=hicolor-icon-theme
-pkgver=0.16
+pkgver=0.17
 pkgrel=1
 pkgdesc="Freedesktop.org Hicolor icon theme"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('db883032c3c0375575e20127f100cda3fbd4ab7c90952bd555ce99318a5c233695bf8799ac08ef2617efeac3fcdee227e2ecdd3d8361db8240d68f088446877f')
+sha512sums=('eca8655930aa7e234f42630041c0053fde067b970fad1f81c55fcd4c5046c03edfdf2ede72a3e78fba2908e7da53e9463d3c5ae12ab9f5ef261e29a49f9c7a8d')

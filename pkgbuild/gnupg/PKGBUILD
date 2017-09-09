@@ -1,5 +1,5 @@
 pkgname=gnupg
-pkgver=2.1.23
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 arch=('x86_64')
@@ -23,12 +23,6 @@ package() {
 	cd "${srcdir}/gnupg-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	for f in gpg gpgv
-	do
-		ln -sfv ${f}2   "${pkgdir}/usr/bin/${f}"
-		ln -sfv ${f}2.1 "${pkgdir}/usr/share/man/man1/${f}.1"
-	done
 }
 
-sha512sums=('8b8be0784129f5aa0ccde32a413a68c36e0e4131abe70c3eb186958c60f3df1023deb2db2db84d63ad30a3408a75c7622b430aff1a524ff28a24be511c952412')
+sha512sums=('8ab7c4183d2ec2e6b62066e3cbcba95babaa0ae22da47feab716698792d26495f072d50e8ec612b8d26147636bb316320c78940184373b3f4cb6ec411933361b')

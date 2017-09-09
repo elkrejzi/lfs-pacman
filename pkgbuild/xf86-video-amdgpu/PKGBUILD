@@ -1,5 +1,5 @@
 pkgname=xf86-video-amdgpu
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="X.org amdgpu video driver"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d5b3099679b6ab35f086f18b4b6e95c299b8b94e0e5eb4cd34f49c9117808c4bb1a4e2c9a8939ab903c077a128f57e31bf89986784dabdafb398d301dccbf93e')
+sha512sums=('cae6417a45f6b981e007e080486083f1c38eaca58c6e331b04bbf46c86f23394742a722ae0d798d8dcad66879e99d90e57f04ae9ccb198f3ed26ec745878ccc2')

@@ -1,5 +1,5 @@
 pkgname=ninja
-pkgver=1.7.2
+pkgver=1.8.1
 pkgrel=1
 pkgdesc="Small build system with a focus on speed"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	install -Dm755 ninja "${pkgdir}/usr/bin/ninja"
 }
 
-sha512sums=('29900d07364d87ad8b9614b82bc1b0afda5ca6522563ab73fb228f206ed6b29b70cf034a3caf5a9b2c0b105d1e076c6b425d93b5d14aa3ca3730d75611212a64')
+sha512sums=('d4bdd0c354bb1d597fc035fbd2c8ed985c9d219f4e30e205d32498f6fe646c127285f4a0c933b0b177db35971672ffb98a497fbe2a89dbd0787351d7367a0c80')

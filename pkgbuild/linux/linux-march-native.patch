@@ -1,5 +1,5 @@
---- a/arch/x86/include/asm/module.h	2016-01-11 00:01:32.000000000 +0100
-+++ b/arch/x86/include/asm/module.h	2016-02-19 19:28:16.301932059 +0100
+--- a/arch/x86/include/asm/module.h	2017-09-03 22:56:17.000000000 +0200
++++ b/arch/x86/include/asm/module.h	2017-09-08 00:17:15.775722903 +0200
 @@ -15,6 +15,24 @@
  #define MODULE_PROC_FAMILY "586MMX "
  #elif defined CONFIG_MCORE2
@@ -25,7 +25,7 @@
  #elif defined CONFIG_MATOM
  #define MODULE_PROC_FAMILY "ATOM "
  #elif defined CONFIG_M686
-@@ -33,6 +51,22 @@
+@@ -33,6 +51,26 @@
  #define MODULE_PROC_FAMILY "K7 "
  #elif defined CONFIG_MK8
  #define MODULE_PROC_FAMILY "K8 "
@@ -40,17 +40,29 @@
 +#elif defined CONFIG_MBULLDOZER
 +#define MODULE_PROC_FAMILY "BULLDOZER "
 +#elif defined CONFIG_MPILEDRIVER
-+#define MODULE_PROC_FAMILY "STEAMROLLER "
-+#elif defined CONFIG_MSTEAMROLLER
 +#define MODULE_PROC_FAMILY "PILEDRIVER "
++#elif defined CONFIG_MSTEAMROLLER
++#define MODULE_PROC_FAMILY "STEAMROLLER "
 +#elif defined CONFIG_MJAGUAR
 +#define MODULE_PROC_FAMILY "JAGUAR "
++#elif defined CONFIG_MEXCAVATOR
++#define MODULE_PROC_FAMILY "EXCAVATOR "
++#elif defined CONFIG_MZEN
++#define MODULE_PROC_FAMILY "ZEN "
  #elif defined CONFIG_MELAN
  #define MODULE_PROC_FAMILY "ELAN "
  #elif defined CONFIG_MCRUSOE
---- a/arch/x86/Kconfig.cpu	2016-01-11 00:01:32.000000000 +0100
-+++ b/arch/x86/Kconfig.cpu	2016-02-19 19:28:16.301932059 +0100
-@@ -147,9 +147,8 @@
+--- a/arch/x86/Kconfig.cpu	2017-09-03 22:56:17.000000000 +0200
++++ b/arch/x86/Kconfig.cpu	2017-09-08 00:17:15.775722903 +0200
+@@ -115,6 +115,7 @@
+ config MPENTIUM4
+ 	bool "Pentium-4/Celeron(P4-based)/Pentium-4 M/older Xeon"
+ 	depends on X86_32
++	select X86_P6_NOP
+ 	---help---
+ 	  Select this for Intel Pentium 4 chips.  This includes the
+ 	  Pentium 4, Pentium D, P4-based Celeron and Xeon, and
+@@ -147,9 +148,8 @@
  		-Paxville
  		-Dempsey
  
@@ -61,7 +73,7 @@
  	depends on X86_32
  	---help---
  	  Select this for an AMD K6-family processor.  Enables use of
-@@ -157,7 +156,7 @@
+@@ -157,7 +157,7 @@
  	  flags to GCC.
  
  config MK7
@@ -70,7 +82,7 @@
  	depends on X86_32
  	---help---
  	  Select this for an AMD Athlon K7-family processor.  Enables use of
-@@ -165,12 +164,69 @@
+@@ -165,12 +165,83 @@
  	  flags to GCC.
  
  config MK8
@@ -99,54 +111,77 @@
 +config MBARCELONA
 +	bool "AMD Barcelona"
 +	---help---
-+	  Select this for AMD Barcelona and newer processors.
++	  Select this for AMD Family 10h Barcelona processors.
 +
 +	  Enables -march=barcelona
 +
 +config MBOBCAT
 +	bool "AMD Bobcat"
 +	---help---
-+	  Select this for AMD Bobcat processors.
++	  Select this for AMD Family 14h Bobcat processors.
 +
 +	  Enables -march=btver1
++
++config MJAGUAR
++	bool "AMD Jaguar"
++	---help---
++	  Select this for AMD Family 16h Jaguar processors.
++
++	  Enables -march=btver2
 +
 +config MBULLDOZER
 +	bool "AMD Bulldozer"
 +	---help---
-+	  Select this for AMD Bulldozer processors.
++	  Select this for AMD Family 15h Bulldozer processors.
 +
 +	  Enables -march=bdver1
 +
 +config MPILEDRIVER
 +	bool "AMD Piledriver"
 +	---help---
-+	  Select this for AMD Piledriver processors.
++	  Select this for AMD Family 15h Piledriver processors.
 +
 +	  Enables -march=bdver2
 +
 +config MSTEAMROLLER
 +	bool "AMD Steamroller"
 +	---help---
-+	  Select this for AMD Steamroller processors.
++	  Select this for AMD Family 15h Steamroller processors.
 +
 +	  Enables -march=bdver3
 +
-+config MJAGUAR
-+	bool "AMD Jaguar"
++config MEXCAVATOR
++	bool "AMD Excavator"
 +	---help---
-+	  Select this for AMD Jaguar processors.
++	  Select this for AMD Family 15h Excavator processors.
 +
-+	  Enables -march=btver2
++	  Enables -march=bdver4
++
++config MZEN
++	bool "AMD Zen"
++	---help---
++	  Select this for AMD Family 17h Zen processors.
++
++	  Enables -march=znver1
 +
  config MCRUSOE
  	bool "Crusoe"
  	depends on X86_32
-@@ -261,8 +317,17 @@
+@@ -252,6 +323,7 @@
+ 
+ config MPSC
+ 	bool "Intel P4 / older Netburst based Xeon"
++	select X86_P6_NOP
+ 	depends on X86_64
+ 	---help---
+ 	  Optimize for Intel Pentium 4, Pentium D and older Nocona/Dempsey
+@@ -261,8 +333,19 @@
  	  using the cpu family field
  	  in /proc/cpuinfo. Family 15 is an older Xeon, Family 6 a newer one.
  
 +config MATOM
 +	bool "Intel Atom"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for the Intel Atom platform. Intel Atom CPUs have an
@@ -157,10 +192,11 @@
  config MCORE2
 -	bool "Core 2/newer Xeon"
 +	bool "Intel Core 2"
++	select X86_P6_NOP
  	---help---
  
  	  Select this for Intel Core 2 and newer Core 2 Xeons (Xeon 51xx and
-@@ -270,14 +335,71 @@
+@@ -270,14 +353,79 @@
  	  family in /proc/cpuinfo. Newer ones have 6 and older ones 15
  	  (not a typo)
  
@@ -170,6 +206,7 @@
 +
 +config MNEHALEM
 +	bool "Intel Nehalem"
++	select X86_P6_NOP
  	---help---
  
 -	  Select this for the Intel Atom platform. Intel Atom CPUs have an
@@ -182,6 +219,7 @@
 +
 +config MWESTMERE
 +	bool "Intel Westmere"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for the Intel Westmere formerly Nehalem-C family.
@@ -190,6 +228,7 @@
 +
 +config MSILVERMONT
 +	bool "Intel Silvermont"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for the Intel Silvermont platform.
@@ -198,6 +237,7 @@
 +
 +config MSANDYBRIDGE
 +	bool "Intel Sandy Bridge"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for 2nd Gen Core processors in the Sandy Bridge family.
@@ -206,6 +246,7 @@
 +
 +config MIVYBRIDGE
 +	bool "Intel Ivy Bridge"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for 3rd Gen Core processors in the Ivy Bridge family.
@@ -214,6 +255,7 @@
 +
 +config MHASWELL
 +	bool "Intel Haswell"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for 4th Gen Core processors in the Haswell family.
@@ -222,6 +264,7 @@
 +
 +config MBROADWELL
 +	bool "Intel Broadwell"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for 5th Gen Core processors in the Broadwell family.
@@ -230,6 +273,7 @@
 +
 +config MSKYLAKE
 +	bool "Intel Skylake"
++	select X86_P6_NOP
 +	---help---
 +
 +	  Select this for 6th Gen Core processors in the Skylake family.
@@ -238,7 +282,7 @@
  
  config GENERIC_CPU
  	bool "Generic-x86-64"
-@@ -286,6 +408,19 @@
+@@ -286,6 +434,19 @@
  	  Generic x86-64 CPU.
  	  Run equally well on all x86-64 CPUs.
  
@@ -247,7 +291,7 @@
 + ---help---
 +
 +   GCC 4.2 and above support -march=native, which automatically detects
-+   the optimum settings to use based on your processor. -march=native 
++   the optimum settings to use based on your processor. -march=native
 +   also detects and applies additional settings beyond -march specific
 +   to your CPU, (eg. -msse4). Unless you have a specific reason not to
 +   (e.g. distcc cross-compiling), you should probably be using
@@ -258,16 +302,16 @@
  endchoice
  
  config X86_GENERIC
-@@ -310,7 +445,7 @@
+@@ -310,7 +471,7 @@
  config X86_L1_CACHE_SHIFT
  	int
  	default "7" if MPENTIUM4 || MPSC
 -	default "6" if MK7 || MK8 || MPENTIUMM || MCORE2 || MATOM || MVIAC7 || X86_GENERIC || GENERIC_CPU
-+	default "6" if MK7 || MK8 || MK8SSE3 || MK10 || MBARCELONA || MBOBCAT || MBULLDOZER || MPILEDRIVER || MSTEAMROLLER || MJAGUAR || MPENTIUMM || MCORE2 || MNEHALEM || MWESTMERE || MSILVERMONT || MSANDYBRIDGE || MIVYBRIDGE || MHASWELL || MBROADWELL || MSKYLAKE || MNATIVE || MATOM || MVIAC7 || X86_GENERIC || GENERIC_CPU
++	default "6" if MK7 || MK8 || MK8SSE3 || MK10 || MBARCELONA || MBOBCAT || MBULLDOZER || MPILEDRIVER || MSTEAMROLLER || MEXCAVATOR || MZEN || MJAGUAR || MPENTIUMM || MCORE2 || MNEHALEM || MWESTMERE || MSILVERMONT || MSANDYBRIDGE || MIVYBRIDGE || MHASWELL || MBROADWELL || MSKYLAKE || MNATIVE || MATOM || MVIAC7 || X86_GENERIC || GENERIC_CPU
  	default "4" if MELAN || M486 || MGEODEGX1
  	default "5" if MWINCHIP3D || MWINCHIPC6 || MCRUSOE || MEFFICEON || MCYRIXIII || MK6 || MPENTIUMIII || MPENTIUMII || M686 || M586MMX || M586TSC || M586 || MVIAC3_2 || MGEODE_LX
  
-@@ -341,11 +476,11 @@
+@@ -341,45 +502,46 @@
  
  config X86_INTEL_USERCOPY
  	def_bool y
@@ -281,7 +325,38 @@
  
  config X86_USE_3DNOW
  	def_bool y
-@@ -369,17 +504,17 @@
+ 	depends on (MCYRIXIII || MK7 || MGEODE_LX) && !UML
+ 
+-#
+-# P6_NOPs are a relatively minor optimization that require a family >=
+-# 6 processor, except that it is broken on certain VIA chips.
+-# Furthermore, AMD chips prefer a totally different sequence of NOPs
+-# (which work on all CPUs).  In addition, it looks like Virtual PC
+-# does not understand them.
+-#
+-# As a result, disallow these if we're not compiling for X86_64 (these
+-# NOPs do work on all x86-64 capable chips); the list of processors in
+-# the right-hand clause are the cores that benefit from this optimization.
+-#
+ config X86_P6_NOP
+-	def_bool y
+-	depends on X86_64
+-	depends on (MCORE2 || MPENTIUM4 || MPSC)
++	default n
++	bool "Support for P6_NOPs on Intel chips"
++	depends on (MCORE2 || MPENTIUM4 || MPSC || MATOM || MNEHALEM || MWESTMERE || MSILVERMONT  || MSANDYBRIDGE || MIVYBRIDGE || MHASWELL || MBROADWELL || MSKYLAKE || MNATIVE)
++	---help---
++	P6_NOPs are a relatively minor optimization that require a family >=
++	6 processor, except that it is broken on certain VIA chips.
++	Furthermore, AMD chips prefer a totally different sequence of NOPs
++	(which work on all CPUs).  In addition, it looks like Virtual PC
++	does not understand them.
++
++	As a result, disallow these if we're not compiling for X86_64 (these
++	NOPs do work on all x86-64 capable chips); the list of processors in
++	the right-hand clause are the cores that benefit from this optimization.
++
++	Say Y if you have Intel CPU newer than Pentium Pro, N otherwise.
  
  config X86_TSC
  	def_bool y
@@ -298,13 +373,13 @@
  config X86_CMOV
  	def_bool y
 -	depends on (MK8 || MK7 || MCORE2 || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MCRUSOE || MEFFICEON || X86_64 || MATOM || MGEODE_LX)
-+	depends on (MK8 || MK8SSE3 || MK10 || MBARCELONA || MBOBCAT || MBULLDOZER || MPILEDRIVER || MSTEAMROLLER || MJAGUAR || MK7 || MCORE2 || MNEHALEM || MWESTMERE || MSILVERMONT || MSANDYBRIDGE || MIVYBRIDGE || MHASWELL || MBROADWELL || MSKYLAKE || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MCRUSOE || MEFFICEON || X86_64 || MNATIVE || MATOM || MGEODE_LX)
++	depends on (MK8 || MK8SSE3 || MK10 || MBARCELONA || MBOBCAT || MBULLDOZER || MPILEDRIVER || MSTEAMROLLER || MEXCAVATOR || MZEN || MJAGUAR || MK7 || MCORE2 || MNEHALEM || MWESTMERE || MSILVERMONT || MSANDYBRIDGE || MIVYBRIDGE || MHASWELL || MBROADWELL || MSKYLAKE || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MCRUSOE || MEFFICEON || X86_64 || MNATIVE || MATOM || MGEODE_LX)
  
  config X86_MINIMUM_CPU_FAMILY
  	int
---- a/arch/x86/Makefile	2016-01-11 00:01:32.000000000 +0100
-+++ b/arch/x86/Makefile	2016-02-19 19:28:16.302932063 +0100
-@@ -104,13 +104,38 @@
+--- a/arch/x86/Makefile	2017-09-03 22:56:17.000000000 +0200
++++ b/arch/x86/Makefile	2017-09-08 00:17:15.775722903 +0200
+@@ -121,13 +121,40 @@
  	KBUILD_CFLAGS += $(call cc-option,-mskip-rax-setup)
  
          # FIXME - should be integrated in Makefile.cpu (Makefile_32.cpu)
@@ -314,10 +389,12 @@
 +        cflags-$(CONFIG_MK10) += $(call cc-option,-march=amdfam10)
 +        cflags-$(CONFIG_MBARCELONA) += $(call cc-option,-march=barcelona)
 +        cflags-$(CONFIG_MBOBCAT) += $(call cc-option,-march=btver1)
++        cflags-$(CONFIG_MJAGUAR) += $(call cc-option,-march=btver2)
 +        cflags-$(CONFIG_MBULLDOZER) += $(call cc-option,-march=bdver1)
 +        cflags-$(CONFIG_MPILEDRIVER) += $(call cc-option,-march=bdver2)
 +        cflags-$(CONFIG_MSTEAMROLLER) += $(call cc-option,-march=bdver3)
-+        cflags-$(CONFIG_MJAGUAR) += $(call cc-option,-march=btver2)
++        cflags-$(CONFIG_MEXCAVATOR) += $(call cc-option,-march=bdver4)
++        cflags-$(CONFIG_MZEN) += $(call cc-option,-march=znver1)
          cflags-$(CONFIG_MPSC) += $(call cc-option,-march=nocona)
  
          cflags-$(CONFIG_MCORE2) += \
@@ -346,9 +423,9 @@
          cflags-$(CONFIG_GENERIC_CPU) += $(call cc-option,-mtune=generic)
          KBUILD_CFLAGS += $(cflags-y)
  
---- a/arch/x86/Makefile_32.cpu	2016-01-11 00:01:32.000000000 +0100
-+++ b/arch/x86/Makefile_32.cpu	2016-02-19 19:28:16.302932063 +0100
-@@ -23,7 +23,16 @@
+--- a/arch/x86/Makefile_32.cpu	2017-09-03 22:56:17.000000000 +0200
++++ b/arch/x86/Makefile_32.cpu	2017-09-08 00:17:15.775722903 +0200
+@@ -22,7 +22,18 @@
  # Please note, that patches that add -march=athlon-xp and friends are pointless.
  # They make zero difference whatsosever to performance at this time.
  cflags-$(CONFIG_MK7)		+= -march=athlon
@@ -358,14 +435,16 @@
 +cflags-$(CONFIG_MK10)	+= $(call cc-option,-march=amdfam10,-march=athlon)
 +cflags-$(CONFIG_MBARCELONA)	+= $(call cc-option,-march=barcelona,-march=athlon)
 +cflags-$(CONFIG_MBOBCAT)	+= $(call cc-option,-march=btver1,-march=athlon)
++cflags-$(CONFIG_MJAGUAR)	+= $(call cc-option,-march=btver2,-march=athlon)
 +cflags-$(CONFIG_MBULLDOZER)	+= $(call cc-option,-march=bdver1,-march=athlon)
 +cflags-$(CONFIG_MPILEDRIVER)	+= $(call cc-option,-march=bdver2,-march=athlon)
 +cflags-$(CONFIG_MSTEAMROLLER)	+= $(call cc-option,-march=bdver3,-march=athlon)
-+cflags-$(CONFIG_MJAGUAR)	+= $(call cc-option,-march=btver2,-march=athlon)
- cflags-$(CONFIG_MCRUSOE)	+= -march=i686 $(align)-functions=0 $(align)-jumps=0 $(align)-loops=0
- cflags-$(CONFIG_MEFFICEON)	+= -march=i686 $(call tune,pentium3) $(align)-functions=0 $(align)-jumps=0 $(align)-loops=0
++cflags-$(CONFIG_MEXCAVATOR)	+= $(call cc-option,-march=bdver4,-march=athlon)
++cflags-$(CONFIG_MZEN)	+= $(call cc-option,-march=znver1,-march=athlon)
+ cflags-$(CONFIG_MCRUSOE)	+= -march=i686 -falign-functions=0 -falign-jumps=0 -falign-loops=0
+ cflags-$(CONFIG_MEFFICEON)	+= -march=i686 $(call tune,pentium3) -falign-functions=0 -falign-jumps=0 -falign-loops=0
  cflags-$(CONFIG_MWINCHIPC6)	+= $(call cc-option,-march=winchip-c6,-march=i586)
-@@ -32,8 +41,16 @@
+@@ -31,8 +42,16 @@
  cflags-$(CONFIG_MVIAC3_2)	+= $(call cc-option,-march=c3-2,-march=i686)
  cflags-$(CONFIG_MVIAC7)		+= -march=i686
  cflags-$(CONFIG_MCORE2)		+= -march=i686 $(call tune,core2)

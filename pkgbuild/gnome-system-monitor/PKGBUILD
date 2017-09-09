@@ -1,5 +1,5 @@
 pkgname=gnome-system-monitor
-pkgver=3.25.91
+pkgver=3.25.92
 pkgrel=1
 pkgdesc="View current processes and monitor system state"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('efe7304e68a508b57354d0b2954d3334187e31191ba1cca58d4fce3be4ac3ba1c3523502b564e6155d9a65d839f991b0bf35b7ad40e0c9b08e299ca1a5df2071')
+sha512sums=('a5c6fa7acc2d48aa71ded851738340b24d08e4f6cc7940c8f64fa5935c4dd75e9bd9a2671d6ef77c5f31c376a8497aefb7306e2caf23c72a9796af667a593513')

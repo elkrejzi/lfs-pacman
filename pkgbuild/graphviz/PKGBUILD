@@ -18,7 +18,6 @@ prepare() {
 	autoreconf -fi
 
 	sed -i "s:ruby-1.9:ruby-2.4:g" configure
-	sed -i "s/ e_/ gs_error_/" plugin/gs/gvloadimage_gs.c
 }
 
 build() {
