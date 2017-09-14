@@ -677,9 +677,12 @@ mobile-broadband-provider-info
 cups-filters
 dmraid
 gptfdisk
+gsl
+gtkspell3
 libatasmart
-libdmtx
 libbytesize
+libdmtx
+libpst
 libzip
 lmdb
 lm_sensors
@@ -693,6 +696,8 @@ tidy-html5
 volume-key
 xapian-core
 xfsprogs
+ytnef
+bogofilter
 ebook-tools
 hplip
 libblockdev
@@ -709,7 +714,6 @@ smartmontools
 cogl
 geocode-glib
 gmime
-gmime3
 libgit2
 libsigc++
 osinfo-db-tools
@@ -735,6 +739,7 @@ gspell
 gtk-vnc
 gtksourceview
 libcacard
+libcryptui
 libcue
 libgee
 libgepub
@@ -781,7 +786,6 @@ gnome-bluetooth
 gnome-settings-daemon
 gom
 grilo
-gtef
 libdmapsharing
 libgdata
 libzapojit
@@ -790,6 +794,7 @@ nautilus
 pangomm
 spice
 spice-gtk
+tepl
 caribou
 cheese
 evince
@@ -808,6 +813,7 @@ cups-pk-helper
 dconf-editor
 eog
 epiphany
+evolution
 file-roller
 gdm
 gedit

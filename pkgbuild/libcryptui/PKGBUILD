@@ -1,0 +1,31 @@
+pkgname=libcryptui
+pkgver=3.12.2
+pkgrel=1
+pkgdesc="Library for OpenPGP prompts"
+arch=('x86_64')
+url="https://git.gnome.org/browse/libcryptui"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/libcryptui/${pkgver:0:4}/libcryptui-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/libcryptui-${pkgver}"
+
+	sed -i "/accepted_versions/s#1.4 2.0#& 2.1 2.2#g" configure
+}
+
+build() {
+	cd "${srcdir}/libcryptui-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libcryptui-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('50ef407f0a9fe2ac8f4ab075e125fe8eabc55160b9b96a852d34e52c46be04e04b2a7c8288d2669e24865a89dc179af6bb0da8f6799e8b07fff7bc667c8eb1f0')

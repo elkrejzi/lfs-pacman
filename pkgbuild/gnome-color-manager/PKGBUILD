@@ -1,5 +1,5 @@
 pkgname=gnome-color-manager
-pkgver=3.25.90
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="GNOME Color Profile Tools"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('681a09a3a88d1f3aa42e6c713df82077d0df757fefa1f21a75137fea10dab846ae1a9c7f9a6c3756a677e6667c6cde3ccdc74f505f155058a0d34d2f2e84f434')
+sha512sums=('2c1a399c99ddd97a354cc8dc66ff23d36615f7ad17996bfd0c43d7ab3ae250c02563dfb1c5ec6a2f2f67fe0eba2f441494843cba8fe6541aec05b4adb215f70a')

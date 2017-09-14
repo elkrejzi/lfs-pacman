@@ -1,5 +1,5 @@
 pkgname=gnome-clocks
-pkgver=3.25.90
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Clocks applications for GNOME"
 arch=('x86_64')
@@ -31,3 +31,4 @@ package() {
 }
 
 sha512sums=('1e563ee7f37ffc4b4c4ed2f820bddf0a141c624d8b8cf81cc0bb410d09b76dc89420747c027ffa363562dd3430e0edeceb518f736a6be93ecef137d77d3cf222')
+sha512sums=('42ec160bc6685c53d68caace4c49a7dbd4c226227a5a95f1b6035e429eb645cd572555d4dda160ff59bcac8a63cc396f82bc16423e10ad3777138b7d26537d72')

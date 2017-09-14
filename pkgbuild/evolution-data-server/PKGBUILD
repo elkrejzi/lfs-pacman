@@ -1,5 +1,5 @@
 pkgname=evolution-data-server
-pkgver=3.25.92
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Centralized access to appointments and contacts"
 arch=('x86_64')
@@ -17,7 +17,8 @@ build() {
 
 	export CXX="${CXX} -std=c++11"
 
-	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DSYSCONF_INSTALL_DIR=/etc \
 		-DENABLE_INTROSPECTION=ON \
@@ -29,13 +30,13 @@ build() {
 		-DENABLE_EXAMPLES=OFF \
 		"${srcdir}/evolution-data-server-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('3a2384bbd85c511a800786fdaea5275d94d476d26226bb831d315fedb42d643654121ebce91020814dec0022183b2045fa8f31217c1e3d20f960556bb33a1cb9')
+sha512sums=('9cebde70e41d770c2641f78c49e8ebe6a00225ac3c298949f9e025979d4254f5fd45fffbd3cdc86a281756eeb090ba433e7f758813b8799ee1f5e118cec3bd17')

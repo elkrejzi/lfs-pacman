@@ -6,7 +6,7 @@ rm -rf /media/ntfs /tools
 
 userdel pkgbuild
 
-systemctl enable accounts-daemon auditd avahi-daemon bluetooth ModemManager named NetworkManager NetworkManager-dispatcher rtkit-daemon systemd-timesyncd upower wpa_supplicant
+systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager named NetworkManager NetworkManager-dispatcher rtkit-daemon systemd-timesyncd upower wpa_supplicant
 systemctl enable sshd.socket
 
 install -dm755 /media/ntfs /media/other /media/win

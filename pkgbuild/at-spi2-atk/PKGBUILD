@@ -1,5 +1,5 @@
 pkgname=at-spi2-atk
-pkgver=2.25.3
+pkgver=2.26.0
 pkgrel=1
 pkgdesc="A GTK+ module that bridges ATK to D-Bus at-spi"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5f1cea65fa3fab2018e4e741d9c0d636da22033914397cd07c11a87227efbae4051d5af669eea7c3f955c5cafe711ea5170190ec17ef23ab65aa276bce62732a')
+sha512sums=('f6645638f811c9e54e1db8ab43b85955804c0a5d79157b8d9ef7684a1843f6a697a924e93caea05d6903cc7cf97ad3363c94790967e2626a36ea44c62cd38b0a')

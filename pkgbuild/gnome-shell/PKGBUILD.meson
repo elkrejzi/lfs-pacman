@@ -1,5 +1,5 @@
 pkgname=gnome-shell
-pkgver=3.25.91
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="The next generation GNOME Shell"
 arch=('x86_64')
@@ -15,6 +15,9 @@ prepare() {
 
 build() {
 	cd "${srcdir}/build"
+
+	export CC="gcc"
+	export CXX="g++"
 
 	meson --prefix /usr \
 		--sysconfdir /etc \
@@ -33,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('665157ada76dbef6a87c00da57d4710f952bc30eb3c8eaa1e17314dea4aca61c0e3e558df0ebef430068a30b0c81865467cb1d6c17855d37b43a94f342a1f4f2')
+sha512sums=('3da595226f6c95dbdb934eedf99c83515de516a2a86fa4cb2964520e3b411a0ac450a93743443db94e553681628ece0633dd5196c17e950292bcbd3050c736a7')

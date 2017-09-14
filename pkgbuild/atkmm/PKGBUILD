@@ -12,6 +12,8 @@ source=("https://download.gnome.org/sources/atkmm/${pkgver:0:4}/atkmm-${pkgver}.
 build() {
 	cd "${srcdir}/atkmm-${pkgver}"
 
+	export CXX="${CXX} -std=c++14"
+
 	./configure --prefix=/usr
 
 	make

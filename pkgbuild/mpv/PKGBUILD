@@ -1,5 +1,5 @@
 pkgname=mpv
-pkgver=0.26.0
+pkgver=0.27.0
 _wafrelease=1.9.8
 pkgrel=1
 pkgdesc="A free, open source, and cross-platform media player"
@@ -7,7 +7,7 @@ arch=('x86_64')
 url="https://mpv.io/"
 license=('GPL')
 #depends=()
-source=("mpv-${pkgver}.tar.gz::https://github.com/mpv-player/mpv/archive/v${pkgver}.tar.gz"
+source=("https://github.com/mpv-player/mpv/archive/v${pkgver}/mpv-${pkgver}.tar.gz"
 	"waf::https://waf.io/waf-${_wafrelease}")
 
 prepare() {
@@ -23,8 +23,13 @@ build() {
 		--confdir=/etc/mpv \
 		--lua=luajit \
 		--enable-cdda \
+		--enable-dvbin \
+		--enable-dvdnav \
+		--enable-dvdread \
+		--enable-libarchive \
 		--enable-openal \
 		--enable-sdl2 \
+		--enable-tv \
 		--enable-libmpv-shared
 
 	./waf build
@@ -36,5 +41,5 @@ package() {
 	./waf install --destdir="${pkgdir}"
 }
 
-sha512sums=('fd772b4765317eb1ea3b54f12b86e0ac6c4d5e9d16895eb5bebe2e074a01f6b790981b9b34a87d9b23e4291149d3a7154b09fba4a259cec1949a6aa88d6ddec7'
+sha512sums=('22738f907d84d362095773972f685e3b03ab4c8172a22ddede290fc221a83ab9135b96f8b18191dabe842b2963f68983929cf065097287fc1a054a7d5f1d0ae4'
             'e7493767f65deeb38aa162adef22adf60ebbd038410e9cdf4fe6f0de8c43395dbbba14962aa2c3855e1277136085fc22ad12ebfb8ac4e76f16358296039b8ea2')

@@ -1,5 +1,5 @@
 pkgname=gnome-online-miners
-pkgver=3.25.90
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Crawls through your online content"
 arch=('x86_64')
@@ -12,6 +12,7 @@ build() {
 	cd "${srcdir}/gnome-online-miners-${pkgver}"
 
 	./configure --prefix=/usr
+
 	make
 }
 
@@ -21,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ae6bcb2fecb8285dc5c18b42a986147da9f89b8ece49fb0e1feede3d8636cf60b86a1863d600e07d1be777c26356d7ed376ef46b123c5f10d5523eda0bb786d1')
+sha512sums=('a116a16c1f8a56bddd3cbb238cfb007d776695446c516dd12811145853553c293a9c8880465238571f6081fc7b05e3e69c14c406cd8e6fa6ee570b4aa4b22435')

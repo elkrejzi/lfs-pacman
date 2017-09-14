@@ -1,5 +1,5 @@
 pkgname=libpeas
-pkgver=1.21.0
+pkgver=1.22.0
 pkgrel=1
 pkgdesc="A GObject-based plugins engine"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin" "${pkgdir}/usr/lib/peas-demo"
 }
 
-sha512sums=('e6ed6a4d7d5fdf43e36ee93e45ab2cf534cabd48429ff6193dbb0e9420b9a7e318f30a927b46c86a61f704ce8e7b3eed5d976fbc6b95bfb33d2811283aee9043')
+sha512sums=('9c1da1d4b5688c0f4d0647f3519dbfbed94c8921091057aaef0e41bf5ed3f8faf04a49ce9e4eea3fd7bf4ac4dfa1727d76a5f6dae2a4f52228d4c8c74b420c91')

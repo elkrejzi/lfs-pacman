@@ -1,5 +1,5 @@
 pkgname=json-glib
-pkgver=1.2.8
+pkgver=1.4.2
 pkgrel=1
 pkgdesc="JSON library built on GLib"
 arch=('x86_64')
@@ -8,18 +8,33 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/json-glib/${pkgver:0:3}/json-glib-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/json-glib-${pkgver}"
 
-	./configure --prefix=/usr
+	sed -i 's#from "@filename@"##' json-glib/json-enum-types.h.in
+}
 
-	make
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddocs=true \
+		"${srcdir}/json-glib-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/json-glib-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
+
+	rm -rf "${pkgdir}/usr/libexec" "${pkgdir}/usr/share/installed-tests"
 }
 
-sha512sums=('85d8ad431363b8698d71684927b8aa38749d99ea7236334ec09fd81482489f1ab9cb12dabcbe13f6b6ffd7e5d70ade47a36b511e275915d4aa858af647db90ba')
+sha512sums=('e1495c4d0167db4cc31c7d9a6059de1f9126ab48fb45666a1bd10c69e10df9db195160cfba35cfac9c438a868559068e39402adf98a3e416d425c095c0946a51')

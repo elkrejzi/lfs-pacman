@@ -1,31 +1,46 @@
 pkgname=fuse3
-pkgver=3.1.1
+pkgver=3.2.0
 pkgrel=1
 pkgdesc="A library that makes it possible to implement a filesystem in a userspace program"
 arch=('x86_64')
 url='https://github.com/libfuse/libfuse'
 license=('GPL2')
 #depends=()
-source=("https://github.com/libfuse/libfuse/releases/download/fuse-${pkgver}/fuse-${pkgver}.tar.gz"
+options=(!zipman)
+source=("https://github.com/libfuse/libfuse/releases/download/fuse-${pkgver}/fuse-${pkgver}.tar.xz"
 	"fuse.conf")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/fuse-${pkgver}"
 
-	./configure --prefix=/usr --sysconfdir=/etc
-	make
+	mv doc/mount.fuse{,3}.8
+
+	sed -i "s#mount.fuse#&3#" doc/meson.build
+	sed -i "17,21d;24,35d" util/install_helper.sh
+
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/fuse-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/fuse-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	install -v -Dm644 "${srcdir}/fuse.conf" "${pkgdir}/etc/fuse.conf"
-
-	rm -rf "${pkgdir}/dev" "${pkgdir}/etc/init.d"
-	mv "${pkgdir}"/usr/share/man/man8/mount.fuse{,3}.8
 }
 
-sha512sums=('38c61380f08cc9cde576d4d8fdc3b9a7c703c753ae9c477ec5210fddfe235055dc925e024ba74f3200576974f901d05b5d138cecf1baffe7b17f17ed23fdc391'
+sha512sums=('43f6bb6e40b797c82e156608f5b8d6fea7b71d63b17d3eb525c85c6437642991a352a76be6193b3f652a29b41d346949e946e6d3d5534ef4dbf4aa2caad21342'
             '2d2be62dad148a71d072cff5ae01c9788e7a9a01baad79ae4d696b0192567ac46cdb92a836a2a33cafca3c07b322c970c1f91db35af426bbd105d43d5968b1a0')

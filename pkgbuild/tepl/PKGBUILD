@@ -1,0 +1,25 @@
+pkgname=tepl
+pkgver=3.0.0
+pkgrel=1
+pkgdesc="A library that eases the development of GtkSourceView-based text editors and IDEs"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Tepl"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/tepl/${pkgver:0:3}/tepl-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/tepl-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tepl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('5d4c2def682e2bc834fc081ea22e98b038b99890324988500b3c643b1d0a1a20125e7e28e7af2504e3ba4c4212ca011504f14656b4a7d781eb6e39263160cb4a')

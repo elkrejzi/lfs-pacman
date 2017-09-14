@@ -1,5 +1,5 @@
 pkgname=simple-scan
-pkgver=3.25.92
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Simple scanning utility"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('461a23f0a950df777b5f020ab9269daba32a3631814c828953822c26f491fb70729998a15e50fc4a69aaa03768c5386681c131973ca205d7964595a376221ff9')
+sha512sums=('98de590d7398090224e3914773e9c504eae7fa3459804a53200db65e24a06428c569992ea157550f79a108bdb87f3f2928b9ec03676a44be346cdf7a33094328')

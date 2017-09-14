@@ -12,6 +12,8 @@ source=("https://download.gnome.org/sources/gtkmm/${pkgver:0:4}/gtkmm-${pkgver}.
 build() {
 	cd "${srcdir}/gtkmm-${pkgver}"
 
+	export CXX="${CXX} -std=c++14"
+
 	./configure --prefix=/usr
 
 	make

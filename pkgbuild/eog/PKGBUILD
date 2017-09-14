@@ -1,5 +1,5 @@
 pkgname=eog
-pkgver=3.25.92
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ab0dd5c22a39840ab9da93ae14525718eed4454bff1675d2b52030e53e89c5ef887166187f6f513cc1a21d03750910fca6f7a483be7cac6ee60cceb965351e23')
+sha512sums=('c838ba0ba403af139cf2b135777d66298f615522add563bdf7b0316b543804f81649a191d2d337ebf2f4ba4a9a6572f735e2d400f87e05302e4c73f5a919608d')

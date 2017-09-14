@@ -1,79 +1,62 @@
 pkgbase=glib
 pkgname=('glib' 'lib32-glib')
-pkgver=2.53.7
+pkgver=2.54.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.gtk.org/"
 license=('LGPL')
 #depends=()
 options=(emptydirs)
-#source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
-source=("git+https://github.com/GNOME/glib.git#commit=e5eaca5"
+source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
 	"glib-compile-schemas-quiet.patch"
 	"gio-querymodules.hook"
 	"gio-querymodules32.hook"
-	"glib-compile-schemas.hook"
-	"0001-docs-Fix-building-with-meson.patch")
+	"glib-compile-schemas.hook")
 
 prepare() {
-	cd "${srcdir}"
-
-	rm -rf glib-${pkgver} glib32-${pkgver}
-	cp -a glib glib-${pkgver}
-
 	cd "${srcdir}/glib-${pkgver}"
 
-	chmod +x glib-gettextize.in gio/gdbus-2.0/codegen/gdbus-codegen.in
-
 	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
-	patch -Np1 -i "${srcdir}/0001-docs-Fix-building-with-meson.patch"
 
-	install -v -dm755 "${srcdir}"/build{32,64}
+	cp -a "${srcdir}"/glib{,32}-${pkgver}
 }
 
 build() {
-	cd "${srcdir}/build64"
+	cd "${srcdir}/glib-${pkgver}"
 
-	meson --prefix /usr \
-		--sysconfdir /etc \
-		--localstatedir /var \
-		--buildtype=plain \
-		-Dwith-docs=yes \
-		-Dwith-man=yes \
-		-Dwith-pcre=system \
-		"${srcdir}/glib-${pkgver}"
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-pcre=system \
+		--enable-man \
+		--with-python=/usr/bin/python3
 
-	cd "${srcdir}/build32"
+	cd "${srcdir}/glib32-${pkgver}"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	meson --prefix /usr \
-		--sysconfdir /etc \
-		--localstatedir /var \
-		--libdir /usr/lib32 \
-		--buildtype=plain \
-		-Dwith-docs=no \
-		-Dwith-man=no \
-		-Dwith-pcre=system \
-		"${srcdir}/glib-${pkgver}"
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--libdir=/usr/lib32 \
+		--with-pcre=system \
+		--with-python=/usr/bin/python3
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	ninja -C build64 ${MAKEFLAGS}
-	ninja -C build32 ${MAKEFLAGS}
+	make -C "${srcdir}/glib-${pkgver}"
+	make -C "${srcdir}/glib32-${pkgver}"
 }
 
 package_glib() {
 	pkgdesc="Low level core library"
 
-	cd "${srcdir}/build64"
+	cd "${srcdir}/glib-${pkgver}"
 
-	DESTDIR="${pkgdir}" ninja install
+	make install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/usr/share/gdb"
 
@@ -84,9 +67,9 @@ package_glib() {
 package_lib32-glib() {
 	pkgdesc="Low level core library (32 bit)"
 
-	cd "${srcdir}/build32"
+	cd "${srcdir}/glib32-${pkgver}"
 
-	DESTDIR="${PWD}/dest" ninja install
+	make install DESTDIR="${PWD}/dest"
 
 	install -v -dm755 "${pkgdir}/usr/bin"
 	mv dest/usr/lib32 "${pkgdir}/usr"
@@ -95,9 +78,8 @@ package_lib32-glib() {
 	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
 }
 
-sha512sums=('SKIP'
+sha512sums=('c2da947beb23ff93df0313613743e5941b0b734d0e9405ccc1e1d88d8f7cfb16e6467d8a540cdff8e497fb854c84743f257e2537a7b765d6593457f98531596f'
             'e9a7dc8f9d78630c32a99181b556b5a4ef70c08ab059a23cf148d7084d81a82d48994ecd91f6f7bed9cbe34a1bd84fff3d9218984474b54e3da5cdec9923c705'
             '5afd6f275c8fff16df3e685818f2e7989b39ffb3b8f5fc261a5a6d54a9b28ef53af62f3bf5067cf87cb74691572f85730cbc508691956ae048a0f3ecc1a0a39c'
             '1ea3011bbf658c71fce167399775cca4ec7fd6267cbea9dc39555c10636035dd56391208a56c35e84f127ad23fd7126e025ea8e7de9ba5cd6912ac984a8b60af'
-            'c04fe25afc217c295b5ce4034733cec046126482d00fb8d0299e4815ac57129dd3f1c9ac824b9386d208a4f113e9dae682ea5b72f75387ed6b6b96a9cbbee8ca'
-            '572149580d987c905c0b2c587cd369d77cd4de81ae4f951159f661c558dc2bff6feb5bcf90859db8a32e43ee2997b2076f5d57a47500cc3449b844eda33d63b0')
+            'c04fe25afc217c295b5ce4034733cec046126482d00fb8d0299e4815ac57129dd3f1c9ac824b9386d208a4f113e9dae682ea5b72f75387ed6b6b96a9cbbee8ca')

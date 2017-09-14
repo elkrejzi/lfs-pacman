@@ -1,0 +1,31 @@
+pkgname=ytnef
+pkgver=1.9.2
+pkgrel=1
+pkgdesc="Yerase's TNEF Stream Reader library"
+arch=('x86_64')
+url="https://github.com/Yeraze/ytnef"
+license=('GPL')
+#depends=()
+source=("https://github.com/Yeraze/ytnef/archive/v${pkgver}/ytnef-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/ytnef-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/ytnef-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/ytnef-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('125727a8afac959ac9c60fa977913da743b1ace05ea6af6cd75fff3a786ecf7cb54b49006c8c5249eb48d9aefe0ffcdc24af2944a8611f54a03eb4c24a78506e')

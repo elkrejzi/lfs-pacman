@@ -1,5 +1,5 @@
 pkgname=glib-networking
-pkgver=2.53.90
+pkgver=2.54.0
 pkgrel=1
 pkgdesc="Network-related giomodules for glib"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('cd4f8aaf6309697dfcbee2673e26719fc26cc8a2efae8d1b2035dd9754ca66c6fbc8c97ce97a12fbb2a60f940ca396393b4fe145c04d0e3f098a0405e24b5412')
+sha512sums=('283638551fd5687936898e321f7bbb144b7d782c9b60b5626d5416d27407dcee427f6af5df29663038c74b9cc0d42d25b37290d186f0abaed7ef0a53e46612e3')

@@ -1,5 +1,5 @@
 pkgname=gnome-calendar
-pkgver=3.25.90
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 arch=('x86_64')
@@ -19,8 +19,9 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Denable-gtk-doc=true \
 		"${srcdir}/gnome-calendar-${pkgver}"
+
+#		-Denable-gtk-doc=true \
 
 	ninja ${MAKEFLAGS}
 }
@@ -31,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('4484ef7a57e16cc5d312a72d2225f4ed60183c8ae745276fc8c690c4c9aead10a576072674df0c52839327d8a15fe6ca2d89841d2d5d6ebd9a8ad805243e5223')
+sha512sums=('69ee7b25e5b3ee14a0dcd60c5e879b56f61139414358c32c188c3be219454f884d2592629a6b6ab8e284f536bf35022593ca29f96f8edc183b5e55a6ded1ef1f')

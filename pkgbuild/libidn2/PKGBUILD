@@ -1,5 +1,5 @@
 pkgname=libidn2
-pkgver=2.0.3
+pkgver=2.0.4
 pkgrel=1
 pkgdesc="A free software implementation of IDNA2008, Punycode and TR46"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1a9f20ff1b57e69d78fe4c3e4b235bda41d6ce963f7604e3604c1164ec10d3e3069bcdf78cef820bf2e8bf481fd4ebae5571d4be66bece1b43d006e1acb7622b')
+sha512sums=('1e51bd4b8f8907531576291f1c2a8865d17429b4105418b4c98754eb982cd1cbb3adbeab4ec0c1c561d2dba11d876c7c09e5dc5b315c55a2c24986d7a2a3b4d2')

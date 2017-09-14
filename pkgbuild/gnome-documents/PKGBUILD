@@ -1,5 +1,5 @@
 pkgname=gnome-documents
-pkgver=3.25.91
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="A document manager application for GNOME"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('784a15a28e5637089f61cad1c1f700f8f59acf7d745c6fd8c0b12f5e6ecdc3baa6cff485684efb66928ddb1ae959b53384f4d1c5940dc1c4696b55df44fda3ca')
+sha512sums=('026769a1aedcd7810f156ecfe4bd442ee900d24e95c6853f859e4364293577125b1581912de4b71c2c3141c6193c2814725f551d134b6dfc5225a77edfa80062')

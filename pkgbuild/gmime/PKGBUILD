@@ -1,19 +1,17 @@
 pkgname=gmime
-pkgver=2.6.23
+pkgver=3.0.2
 pkgrel=1
-pkgdesc="Glorious MIME Utility Library"
+pkgdesc="A C/C++ MIME creation and parser library with support for S/MIME, PGP, and Unix mbox spools"
 arch=('x86_64')
-url="http://spruce.sourceforge.net/gmime/"
-license=('GPL')
+url="https://github.com/jstedfast/gmime"
+license=('LGPL2.1')
 #depends=()
 source=("https://download.gnome.org/sources/gmime/${pkgver:0:3}/gmime-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gmime-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--enable-smime
+	./configure --prefix=/usr
 
 	make
 }
@@ -24,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2ff6718b7a555cd5b34848399f29c7d0aa5a15e1f3cb46e9258c499e874191ee00f41b737386805d3000bad34367d174a25c45d38ba90cba7902400e733afa14')
+sha512sums=('246f489c168ce7e04fab664b7e9ae7772ae52f0063fb0eac9153460d84fa5d9712457d81fbd1bdcdadb7e03007cf71ed3bad5287f1639214f54167427c9209ca')

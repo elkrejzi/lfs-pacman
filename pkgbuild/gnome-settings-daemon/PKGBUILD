@@ -1,5 +1,5 @@
 pkgname=gnome-settings-daemon
-pkgver=3.25.92
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}" udevrulesdir=/usr/lib/udev/rules.d
 }
 
-sha512sums=('cdfee851c7581345e9cdfd404faa2b32ed3d415ad23668e9e3bd98adf3992d3207b47562b7aebda5d7461886ef700d1d041f7eca247e705370af6f3df5466fb6')
+sha512sums=('4338c097fa6bd148ae6ce4b6b04609ccaa6b896dd65cbecbc3a16fdae186e926860cbebddc1aab21c3c9c7af1b68000f0a69cbc7887c4533aade2a0cfd9780bb')

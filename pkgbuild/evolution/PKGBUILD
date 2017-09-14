@@ -1,0 +1,41 @@
+pkgname=evolution
+pkgver=3.26.0
+pkgrel=1
+pkgdesc="Manage your email, contacts and schedule"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Evolution"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/evolution/${pkgver:0:4}/evolution-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/evolution-${pkgver}"
+
+	sed -i "s#enchant_dict_add_to_personal#enchant_dict_add#g" src/e-util/e-spell-dictionary.c
+	sed -i "s#enchant_dict_free_suggestions#enchant_dict_free_string_list#g" src/e-util/e-spell-dictionary.c
+
+        install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	export CXX="${CXX} -std=c++11"
+
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DSYSCONF_INSTALL_DIR=/etc \
+		-DENABLE_GTK_DOC=ON \
+		"${srcdir}/evolution-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('297554495afcbfa681bf3108ec0f3c208c68d1fab181d283e9131ca0a3ed8301f631e69f1bcec0592296a023dadec991babf7b0194f6e47a9455a1e1642a5740')

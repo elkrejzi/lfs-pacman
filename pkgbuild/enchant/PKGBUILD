@@ -1,19 +1,12 @@
 pkgname=enchant
-pkgver=1.6.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="A wrapper library for generic spell checking"
 arch=('x86_64')
 url="https://abiword.github.io/enchant/"
 license=('LGPL')
 #depends=()
-source=("https://www.abisource.com/downloads/enchant/${pkgver}/enchant-${pkgver}.tar.gz"
-	"enchant-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/enchant-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/enchant-fixes.patch"
-}
+source=("https://github.com/AbiWord/enchant/releases/download/v${pkgver}/enchant-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/enchant-${pkgver}"
@@ -29,5 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0ca1634bb783df51512df4abecc89abdadee6baf7330d6e5f90cc15d10779896a3521a1c079ecc07e4df4f7a018ce398cca9d0125a7845a314a059840ebc9137'
-            '57142103aeacd21a442d5f9b5f9e93b79a88cc8c8d76125c7b97f866f8ca45cef5bb501fc68e9b49ea8423fe9c2c5260e1368060779543e42f502a20b1e95cb6')
+sha512sums=('5cb57198ea826da6d9ed9042edca87fcca9b811e8e75b382ed1568c5b1d8d4f8d6ba732a167c8d52261cfce540f23f84bd4d2889a4beafd2db1d8509c0b6bc15')

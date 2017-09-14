@@ -1,5 +1,5 @@
 pkgname=polari
-pkgver=3.25.92
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="An IRC Client for GNOME"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f12b6c0abb035b15f795a1daec18f1713641ffc99d25ed30acbba4b9af9df08db1240a476281b9ed2add2cfc9b9bc2bc7748a27feb59f1dc9c2051207339eb4a')
+sha512sums=('3d40099e044ef3a05b79d7be1f964103f395775283851fa215559dd13406d3744aa08740a4825320ac4112eb3858f4914b22ebcd3b7cbe488ed5f071cb770f2d')

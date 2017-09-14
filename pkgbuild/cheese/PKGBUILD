@@ -1,5 +1,5 @@
 pkgname=cheese
-pkgver=3.25.90
+pkgver=3.26.0
 pkgrel=1
 pkgdesc="Take photos and videos with your webcam, with fun graphical effects"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d3ed482a5395d996943cc18aa8cc50f2ae0cd99446b70123af3f5fd0d6f18f3ff8b7acc3e787c52625bee9fe3dd75cab2c16c046bb9fadd9808c2bbd7cf9c642')
+sha512sums=('6fd58623ca257dff0a53b3577005a8b818b706f5c3da4eab51de9a7f6368847b4fe62885f3a7ba6350ac782cbee51c7b35a0c055bf11bb270934041b15388297')

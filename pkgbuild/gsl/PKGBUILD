@@ -1,0 +1,25 @@
+pkgname=gsl
+pkgver=2.4
+pkgrel=1
+pkgdesc="A modern numerical library for C and C++ programmers"
+arch=('x86_64')
+url="https://www.gnu.org/software/gsl/"
+license=('GPL')
+#depends=()
+source=("https://ftp.gnu.org/gnu/gsl/gsl-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/gsl-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gsl-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('12442b023dd959e8b22a9c486646b5cedec7fdba0daf2604cda365cf96d10d99aefdec2b42e59c536cc071da1525373454e5ed6f4b15293b305ca9b1dc6db130')

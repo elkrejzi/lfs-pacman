@@ -1,0 +1,669 @@
+--- a/layout/gnome-applications.menu	2013-10-15 19:07:33.000000000 +0200
++++ b/layout/gnome-applications.menu	2017-09-14 12:23:40.322472243 +0200
+@@ -6,11 +6,6 @@
+   <Name>Applications</Name>
+   <Directory>X-GNOME-Menu-Applications.directory</Directory>
+ 
+-  <!-- Scan legacy dirs first, as later items take priority -->
+-  <KDELegacyDirs/>
+-  <LegacyDir>/etc/X11/applnk</LegacyDir>
+-  <LegacyDir>/usr/share/gnome/apps</LegacyDir>
+-
+   <!-- Read standard .directory and .desktop file locations -->
+   <DefaultAppDirs/>
+   <DefaultDirectoryDirs/>
+--- a/libmenu/desktop-entries.c	2014-08-06 14:36:14.000000000 +0200
++++ b/libmenu/desktop-entries.c	2017-09-14 12:23:40.322472243 +0200
+@@ -85,32 +85,27 @@
+     return path;
+ }
+ 
+-static const char *
+-get_current_desktop (void)
++static const gchar * const *
++get_current_desktops (void)
+ {
+-  static char *current_desktop = NULL;
++  static gchar **result;
+ 
+-  /* Support XDG_CURRENT_DESKTOP environment variable; this can be used
+-   * to abuse gnome-menus in non-GNOME desktops. */
+-  if (!current_desktop)
++  if (g_once_init_enter (&result))
+     {
+-      const char *desktop;
++      const gchar *desktops;
++      gchar **tmp;
+ 
+-      desktop = g_getenv ("XDG_CURRENT_DESKTOP");
++      desktops = g_getenv ("XDG_CURRENT_DESKTOP");
+ 
+-      /* Note: if XDG_CURRENT_DESKTOP is set but empty, do as if it
+-       * was not set */
+-      if (!desktop || desktop[0] == '\0')
+-        current_desktop = g_strdup ("GNOME");
+-      else
+-        current_desktop = g_strdup (desktop);
+-    }
++      if (!desktops)
++        desktops = "";
+ 
+-  /* Using "*" means skipping desktop-related checks */
+-  if (g_strcmp0 (current_desktop, "*") == 0)
+-    return NULL;
++      tmp = g_strsplit (desktops, ":", 0);
++
++      g_once_init_leave (&result, tmp);
++    }
+ 
+-  return current_desktop;
++  return  (const gchar **) result;
+ }
+ 
+ static GIcon *
+@@ -151,52 +146,58 @@
+ static gboolean
+ key_file_get_show_in (GKeyFile *key_file)
+ {
+-  const gchar *current_desktop;
+-  gchar **strv;
++  const gchar * const *current_desktops;
++  gchar **only_show_in;
++  gchar **not_show_in;
+   gboolean show_in = TRUE;
+-  int i;
++  gint i;
+ 
+-  current_desktop = get_current_desktop ();
+-  if (!current_desktop)
+-    return TRUE;
+-
+-  strv = g_key_file_get_string_list (key_file,
+-                                     DESKTOP_ENTRY_GROUP,
+-                                     "OnlyShowIn",
+-                                     NULL,
+-                                     NULL);
+-  if (strv)
++  current_desktops = get_current_desktops ();
++  only_show_in = g_key_file_get_string_list (key_file,
++                                             DESKTOP_ENTRY_GROUP,
++                                             "OnlyShowIn",
++                                             NULL,
++                                             NULL);
++  not_show_in = g_key_file_get_string_list (key_file,
++                                            DESKTOP_ENTRY_GROUP,
++                                            "NotShowIn",
++                                            NULL,
++                                            NULL);
++
++  for (i = 0; current_desktops[i]; i++)
+     {
+-      show_in = FALSE;
+-      for (i = 0; strv[i]; i++)
++      gint j;
++
++      if (only_show_in)
+         {
+-          if (!strcmp (strv[i], current_desktop))
++          show_in = FALSE;
++          for (j = 0; only_show_in[j]; j++)
+             {
+-              show_in = TRUE;
+-              break;
++              if (g_str_equal (only_show_in[j], current_desktops[i]))
++                {
++                  show_in = TRUE;
++                  goto out;
++                }
+             }
+         }
+-    }
+-  else
+-    {
+-      strv = g_key_file_get_string_list (key_file,
+-                                         DESKTOP_ENTRY_GROUP,
+-                                         "NotShowIn",
+-                                         NULL,
+-                                         NULL);
+-      if (strv)
++
++      if (not_show_in)
+         {
+           show_in = TRUE;
+-          for (i = 0; strv[i]; i++)
++          for (j = 0; not_show_in[j]; j++)
+             {
+-              if (!strcmp (strv[i], current_desktop))
++              if (g_str_equal (not_show_in[j], current_desktops[i]))
+                 {
+                   show_in = FALSE;
++                  goto out;
+                 }
+             }
+         }
+     }
+-  g_strfreev (strv);
++
++out:
++  g_strfreev (only_show_in);
++  g_strfreev (not_show_in);
+ 
+   return show_in;
+ }
+@@ -579,14 +580,7 @@
+ desktop_entry_get_show_in (DesktopEntry *entry)
+ {
+   if (entry->type == DESKTOP_ENTRY_DESKTOP)
+-    {
+-      const char *current_desktop = get_current_desktop ();
+-
+-      if (current_desktop == NULL)
+-        return TRUE;
+-      else
+-        return g_desktop_app_info_get_show_in (((DesktopEntryDesktop*)entry)->appinfo, current_desktop);
+-    }
++    return g_desktop_app_info_get_show_in (((DesktopEntryDesktop*)entry)->appinfo, NULL);
+   return ((DesktopEntryDirectory*)entry)->showin;
+ }
+ 
+@@ -637,43 +631,6 @@
+   return FALSE;
+ }
+ 
+-void
+-desktop_entry_add_legacy_category (DesktopEntry *entry)
+-{
+-  GQuark *categories;
+-  int     i;
+-  DesktopEntryDesktop *desktop_entry;
+-
+-  g_return_if_fail (entry->type == DESKTOP_ENTRY_DESKTOP);
+-
+-  desktop_entry = (DesktopEntryDesktop*) entry;
+-
+-  menu_verbose ("Adding Legacy category to \"%s\"\n",
+-                entry->basename);
+-
+-  if (desktop_entry->categories != NULL)
+-    {
+-      i = 0;
+-      for (; desktop_entry->categories[i]; i++);
+-
+-      categories = g_new0 (GQuark, i + 2);
+-
+-      i = 0;
+-      for (; desktop_entry->categories[i]; i++)
+-        categories[i] = desktop_entry->categories[i];
+-    }
+-  else
+-    {
+-      categories = g_new0 (GQuark, 2);
+-      i = 0;
+-    }
+-
+-  categories[i] = g_quark_from_string ("Legacy");
+-
+-  g_free (desktop_entry->categories);
+-  desktop_entry->categories = categories;
+-}
+-
+ /*
+  * Entry sets
+  */
+--- a/libmenu/desktop-entries.h	2014-08-06 14:36:14.000000000 +0200
++++ b/libmenu/desktop-entries.h	2017-09-14 12:23:40.322472243 +0200
+@@ -55,8 +55,6 @@
+ gboolean desktop_entry_has_category   (DesktopEntry *entry,
+                                        const char   *category);
+ 
+-void desktop_entry_add_legacy_category (DesktopEntry *src);
+-
+ 
+ typedef struct DesktopEntrySet DesktopEntrySet;
+ 
+--- a/libmenu/entry-directories.c	2014-08-06 14:36:14.000000000 +0200
++++ b/libmenu/entry-directories.c	2017-09-14 12:23:40.322472243 +0200
+@@ -34,10 +34,8 @@
+ struct EntryDirectory
+ {
+   CachedDir *dir;
+-  char      *legacy_prefix;
+ 
+   guint entry_type : 2;
+-  guint is_legacy : 1;
+   guint refcount : 24;
+ };
+ 
+@@ -759,18 +757,14 @@
+  * Entry directories
+  */
+ 
+-static EntryDirectory *
+-entry_directory_new_full (DesktopEntryType  entry_type,
+-                          const char       *path,
+-                          gboolean          is_legacy,
+-                          const char       *legacy_prefix)
++EntryDirectory *
++entry_directory_new (DesktopEntryType  entry_type,
++                     const char       *path)
+ {
+   EntryDirectory *ed;
+   char           *canonical;
+ 
+-  menu_verbose ("Loading entry directory \"%s\" (legacy %s)\n",
+-                path,
+-                is_legacy ? "<yes>" : "<no>");
++  menu_verbose ("Loading entry directory \"%s\"\n", path);
+ 
+   canonical = menu_canonicalize_file_name (path, FALSE);
+   if (canonical == NULL)
+@@ -788,9 +782,7 @@
+   cached_dir_add_reference (ed->dir);
+   cached_dir_load_entries_recursive (ed->dir, canonical);
+ 
+-  ed->legacy_prefix = g_strdup (legacy_prefix);
+   ed->entry_type    = entry_type;
+-  ed->is_legacy     = is_legacy != FALSE;
+   ed->refcount      = 1;
+ 
+   g_free (canonical);
+@@ -799,21 +791,6 @@
+ }
+ 
+ EntryDirectory *
+-entry_directory_new (DesktopEntryType  entry_type,
+-                     const char       *path)
+-{
+-  return entry_directory_new_full (entry_type, path, FALSE, NULL);
+-}
+-
+-EntryDirectory *
+-entry_directory_new_legacy (DesktopEntryType  entry_type,
+-                            const char       *path,
+-                            const char       *legacy_prefix)
+-{
+-  return entry_directory_new_full (entry_type, path, TRUE, legacy_prefix);
+-}
+-
+-EntryDirectory *
+ entry_directory_ref (EntryDirectory *ed)
+ {
+   g_return_val_if_fail (ed != NULL, NULL);
+@@ -836,10 +813,6 @@
+ 
+       ed->dir        = NULL;
+       ed->entry_type = DESKTOP_ENTRY_INVALID;
+-      ed->is_legacy  = FALSE;
+-
+-      g_free (ed->legacy_prefix);
+-      ed->legacy_prefix = NULL;
+ 
+       g_free (ed);
+     }
+@@ -888,26 +861,7 @@
+ 
+   if (entry_type == DESKTOP_ENTRY_DESKTOP)
+     {
+-      if (!ed->is_legacy)
+-	{
+-	  retval = g_strdelimit (g_strdup (relative_path), "/", '-');
+-	}
+-      else
+-	{
+-	  char *basename;
+-
+-	  basename = g_path_get_basename (relative_path);
+-
+-	  if (ed->legacy_prefix)
+-	    {
+-	      retval = g_strjoin ("-", ed->legacy_prefix, basename, NULL);
+-	      g_free (basename);
+-	    }
+-	  else
+-	    {
+-	      retval = basename;
+-	    }
+-	}
++      retval = g_strdelimit (g_strdup (relative_path), "/", '-');
+     }
+   else
+     {
+@@ -1215,15 +1169,7 @@
+               DesktopEntrySet  *set,
+               gpointer          user_data)
+ {
+-  if (ed->is_legacy && !desktop_entry_has_categories (entry))
+-    {
+-      entry = desktop_entry_copy (entry);
+-      desktop_entry_add_legacy_category (entry);
+-    }
+-  else
+-    {
+-      entry = desktop_entry_ref (entry);
+-    }
++  entry = desktop_entry_ref (entry);
+ 
+   desktop_entry_set_add_entry (set, entry, file_id);
+   desktop_entry_unref (entry);
+--- a/libmenu/entry-directories.h	2014-08-06 14:36:14.000000000 +0200
++++ b/libmenu/entry-directories.h	2017-09-14 12:23:40.322472243 +0200
+@@ -30,9 +30,6 @@
+ 
+ EntryDirectory *entry_directory_new        (DesktopEntryType  entry_type,
+                                             const char       *path);
+-EntryDirectory *entry_directory_new_legacy (DesktopEntryType  entry_type,
+-                                            const char       *path,
+-                                            const char       *legacy_prefix);
+ 
+ EntryDirectory *entry_directory_ref   (EntryDirectory *ed);
+ void            entry_directory_unref (EntryDirectory *ed);
+--- a/libmenu/gmenu-tree.c	2014-08-06 14:36:14.000000000 +0200
++++ b/libmenu/gmenu-tree.c	2017-09-14 12:23:40.323472247 +0200
+@@ -2344,250 +2344,6 @@
+ }
+ 
+ static void
+-add_filename_include (const char     *desktop_file_id,
+-                      DesktopEntry   *entry,
+-                      MenuLayoutNode *include)
+-{
+-  if (!desktop_entry_has_categories (entry))
+-    {
+-      MenuLayoutNode *node;
+-
+-      node = menu_layout_node_new (MENU_LAYOUT_NODE_FILENAME);
+-      menu_layout_node_set_content (node, desktop_file_id);
+-
+-      menu_layout_node_append_child (include, node);
+-      menu_layout_node_unref (node);
+-    }
+-}
+-
+-static void
+-is_dot_directory (const char   *basename,
+-		  DesktopEntry *entry,
+-		  gboolean     *has_dot_directory)
+-{
+-  if (!strcmp (basename, ".directory"))
+-    *has_dot_directory = TRUE;
+-}
+-
+-static gboolean
+-add_menu_for_legacy_dir (MenuLayoutNode *parent,
+-                         const char     *legacy_dir,
+-                	 const char     *relative_path,
+-                         const char     *legacy_prefix,
+-                         const char     *menu_name)
+-{
+-  EntryDirectory  *ed;
+-  DesktopEntrySet *desktop_entries;
+-  DesktopEntrySet *directory_entries;
+-  GSList          *subdirs;
+-  gboolean         menu_added;
+-  gboolean         has_dot_directory;
+-
+-  ed = entry_directory_new_legacy (DESKTOP_ENTRY_INVALID, legacy_dir, legacy_prefix);
+-  if (!ed)
+-    return FALSE;
+-
+-  subdirs = NULL;
+-  desktop_entries   = desktop_entry_set_new ();
+-  directory_entries = desktop_entry_set_new ();
+-
+-  entry_directory_get_flat_contents (ed,
+-                                     desktop_entries,
+-                                     directory_entries,
+-                                     &subdirs);
+-  entry_directory_unref (ed);
+-
+-  has_dot_directory = FALSE;
+-  desktop_entry_set_foreach (directory_entries,
+-			     (DesktopEntrySetForeachFunc) is_dot_directory,
+-			     &has_dot_directory);
+-  desktop_entry_set_unref (directory_entries);
+-
+-  menu_added = FALSE;
+-  if (desktop_entry_set_get_count (desktop_entries) > 0 || subdirs)
+-    {
+-      MenuLayoutNode *menu;
+-      MenuLayoutNode *node;
+-      GString        *subdir_path;
+-      GString        *subdir_relative;
+-      GSList         *tmp;
+-      int             legacy_dir_len;
+-      int             relative_path_len;
+-
+-      menu = menu_layout_node_new (MENU_LAYOUT_NODE_MENU);
+-      menu_layout_node_append_child (parent, menu);
+-
+-      menu_added = TRUE;
+-
+-      g_assert (menu_name != NULL);
+-
+-      node = menu_layout_node_new (MENU_LAYOUT_NODE_NAME);
+-      menu_layout_node_set_content (node, menu_name);
+-      menu_layout_node_append_child (menu, node);
+-      menu_layout_node_unref (node);
+-
+-      if (has_dot_directory)
+-	{
+-	  node = menu_layout_node_new (MENU_LAYOUT_NODE_DIRECTORY);
+-	  if (relative_path != NULL)
+-	    {
+-	      char *directory_entry_path;
+-
+-	      directory_entry_path = g_strdup_printf ("%s/.directory", relative_path);
+-	      menu_layout_node_set_content (node, directory_entry_path);
+-	      g_free (directory_entry_path);
+-	    }
+-	  else
+-	    {
+-	      menu_layout_node_set_content (node, ".directory");
+-	    }
+-	  menu_layout_node_append_child (menu, node);
+-	  menu_layout_node_unref (node);
+-	}
+-
+-      if (desktop_entry_set_get_count (desktop_entries) > 0)
+-	{
+-	  MenuLayoutNode *include;
+-
+-	  include = menu_layout_node_new (MENU_LAYOUT_NODE_INCLUDE);
+-	  menu_layout_node_append_child (menu, include);
+-
+-	  desktop_entry_set_foreach (desktop_entries,
+-				     (DesktopEntrySetForeachFunc) add_filename_include,
+-				     include);
+-
+-	  menu_layout_node_unref (include);
+-	}
+-
+-      subdir_path = g_string_new (legacy_dir);
+-      legacy_dir_len = strlen (legacy_dir);
+-
+-      subdir_relative = g_string_new (relative_path);
+-      relative_path_len = relative_path ? strlen (relative_path) : 0;
+-
+-      tmp = subdirs;
+-      while (tmp != NULL)
+-        {
+-          const char *subdir = tmp->data;
+-
+-          g_string_append_c (subdir_path, G_DIR_SEPARATOR);
+-          g_string_append (subdir_path, subdir);
+-
+-	  if (relative_path_len)
+-	    {
+-	      g_string_append_c (subdir_relative, G_DIR_SEPARATOR);
+-	    }
+-          g_string_append (subdir_relative, subdir);
+-
+-          add_menu_for_legacy_dir (menu,
+-                                   subdir_path->str,
+-				   subdir_relative->str,
+-                                   legacy_prefix,
+-                                   subdir);
+-
+-          g_string_truncate (subdir_relative, relative_path_len);
+-          g_string_truncate (subdir_path, legacy_dir_len);
+-
+-          tmp = tmp->next;
+-        }
+-
+-      g_string_free (subdir_path, TRUE);
+-      g_string_free (subdir_relative, TRUE);
+-
+-      menu_layout_node_unref (menu);
+-    }
+-
+-  desktop_entry_set_unref (desktop_entries);
+-
+-  g_slist_foreach (subdirs, (GFunc) g_free, NULL);
+-  g_slist_free (subdirs);
+-
+-  return menu_added;
+-}
+-
+-static void
+-resolve_legacy_dir (GMenuTree      *tree,
+-		    GHashTable     *loaded_menu_files,
+-                    MenuLayoutNode *legacy)
+-{
+-  MenuLayoutNode *to_merge;
+-  MenuLayoutNode *menu;
+-
+-  to_merge = menu_layout_node_new (MENU_LAYOUT_NODE_ROOT);
+-
+-  menu = menu_layout_node_get_parent (legacy);
+-  g_assert (menu_layout_node_get_type (menu) == MENU_LAYOUT_NODE_MENU);
+-
+-  if (add_menu_for_legacy_dir (to_merge,
+-                               menu_layout_node_get_content (legacy),
+-			       NULL,
+-                               menu_layout_node_legacy_dir_get_prefix (legacy),
+-                               menu_layout_node_menu_get_name (menu)))
+-    {
+-      merge_resolved_children (tree, loaded_menu_files, legacy, to_merge);
+-    }
+-
+-  menu_layout_node_unref (to_merge);
+-}
+-
+-static MenuLayoutNode *
+-add_legacy_dir (GMenuTree      *tree,
+-		GHashTable     *loaded_menu_files,
+-                MenuLayoutNode *before,
+-                const char     *data_dir)
+-{
+-  MenuLayoutNode *legacy;
+-  char           *dirname;
+-
+-  dirname = g_build_filename (data_dir, "applnk", NULL);
+-
+-  legacy = menu_layout_node_new (MENU_LAYOUT_NODE_LEGACY_DIR);
+-  menu_layout_node_set_content (legacy, dirname);
+-  menu_layout_node_legacy_dir_set_prefix (legacy, "kde");
+-  menu_layout_node_insert_before (before, legacy);
+-  menu_layout_node_unref (before);
+-
+-  menu_verbose ("Adding <LegacyDir>%s</LegacyDir> in <KDELegacyDirs/>\n",
+-                dirname);
+-
+-  resolve_legacy_dir (tree, loaded_menu_files, legacy);
+-
+-  g_free (dirname);
+-
+-  return legacy;
+-}
+-
+-static void
+-resolve_kde_legacy_dirs (GMenuTree      *tree,
+-			 GHashTable     *loaded_menu_files,
+-                         MenuLayoutNode *layout)
+-{
+-  MenuLayoutNode     *before;
+-  const char * const *system_data_dirs;
+-  int                 i;
+-
+-  system_data_dirs = g_get_system_data_dirs ();
+-
+-  before = add_legacy_dir (tree,
+-			   loaded_menu_files,
+-			   menu_layout_node_ref (layout),
+-			   g_get_user_data_dir ());
+-
+-  i = 0;
+-  while (system_data_dirs[i] != NULL)
+-    {
+-      before = add_legacy_dir (tree, loaded_menu_files, before, system_data_dirs[i]);
+-
+-      ++i;
+-    }
+-
+-  menu_layout_node_unref (before);
+-
+-  /* remove the now-replaced node */
+-  menu_layout_node_unlink (layout);
+-}
+-
+-static void
+ gmenu_tree_resolve_files (GMenuTree      *tree,
+ 			  GHashTable     *loaded_menu_files,
+ 			  MenuLayoutNode *layout)
+@@ -2620,11 +2376,11 @@
+       break;
+ 
+     case MENU_LAYOUT_NODE_LEGACY_DIR:
+-      resolve_legacy_dir (tree, loaded_menu_files, layout);
++      menu_verbose ("Ignoring obsolete legacy dir");
+       break;
+ 
+     case MENU_LAYOUT_NODE_KDE_LEGACY_DIRS:
+-      resolve_kde_legacy_dirs (tree, loaded_menu_files, layout);
++      menu_verbose ("Ignoring obsolete KDE legacy dirs");
+       break;
+ 
+     case MENU_LAYOUT_NODE_PASSTHROUGH:
+--- a/libmenu/menu-layout.c	2014-08-06 14:36:14.000000000 +0200
++++ b/libmenu/menu-layout.c	2017-09-14 12:23:40.323472247 +0200
+@@ -730,40 +730,6 @@
+           g_free (path);
+         }
+ 
+-      if (iter->type == MENU_LAYOUT_NODE_LEGACY_DIR)
+-        {
+-          MenuLayoutNodeLegacyDir *legacy = (MenuLayoutNodeLegacyDir *) iter;
+-          char                    *path;
+-
+-          path = menu_layout_node_get_content_as_path (iter);
+-
+-          if (app_dirs != NULL) /* we're loading app dirs */
+-            {
+-              ed = entry_directory_new_legacy (DESKTOP_ENTRY_DESKTOP,
+-                                               path,
+-                                               legacy->prefix);
+-              if (ed != NULL)
+-                {
+-                  entry_directory_list_prepend (app_dirs, ed);
+-                  entry_directory_unref (ed);
+-                }
+-            }
+-
+-          if (dir_dirs != NULL) /* we're loading dir dirs */
+-            {
+-              ed = entry_directory_new_legacy (DESKTOP_ENTRY_DIRECTORY,
+-                                               path,
+-                                               legacy->prefix);
+-              if (ed != NULL)
+-                {
+-                  entry_directory_list_prepend (dir_dirs, ed);
+-                  entry_directory_unref (ed);
+-                }
+-            }
+-
+-          g_free (path);
+-        }
+-
+       iter = node_next (iter);
+     }
+ 
