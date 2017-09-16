@@ -25,7 +25,6 @@ build() {
 		--disable-su \
 		--disable-login \
 		--disable-kill \
-		--with-selinux \
 		--without-python \
 		--without-systemd \
 		--enable-fs-paths-default=/usr/sbin
@@ -46,7 +45,6 @@ build() {
 		--disable-su \
 		--disable-login \
 		--disable-kill \
-		--with-selinux \
 		--without-python \
 		--without-systemd \
 		--enable-fs-paths-default=/usr/sbin

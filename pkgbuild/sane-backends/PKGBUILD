@@ -7,7 +7,8 @@ url="http://www.sane-project.org/"
 license=('GPL')
 #depends=()
 backup=(etc/sane.d/dll.conf)
-source=("http://fossies.org/linux/misc/sane-backends-${pkgver}.tar.gz")
+source=("http://fossies.org/linux/misc/sane-backends-${pkgver}.tar.gz"
+	"sane-backends.sysusers")
 
 build() {
 	cd "${srcdir}/sane-backends-${pkgver}"
@@ -29,6 +30,8 @@ package() {
 	make install DESTDIR="${pkgdir}"
 
 	install -v -Dm644 tools/udev/libsane.rules "${pkgdir}/usr/lib/udev/rules.d/49-sane.rules"
+	install -v -Dm644 "${srcdir}/sane-backends.sysusers" "${pkgdir}/usr/lib/sysusers.d/sane-backends.conf"
 }
 
-sha512sums=('c6552768bfc10216730fc11011c82f74ca0952182019ded3916072147ec09be5c975ce1d37dc3ccea050c488dbdf983c2ca17dcd702644060ba796ae2591f9c5')
+sha512sums=('c6552768bfc10216730fc11011c82f74ca0952182019ded3916072147ec09be5c975ce1d37dc3ccea050c488dbdf983c2ca17dcd702644060ba796ae2591f9c5'
+            '0ea7d0937be75e086a93e64dceb8cd0d60f0150eda488a716c38cb0c78918ab0ab0b64385c2ad9155694a15f596d746242b048494218765d7bbf4a73603c63f9')

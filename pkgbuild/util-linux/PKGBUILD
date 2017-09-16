@@ -21,8 +21,6 @@ build() {
 		--disable-su \
 		--disable-login \
 		--disable-kill \
-		--with-audit \
-		--with-selinux \
 		--with-systemd \
 		--enable-fs-paths-default=/usr/sbin \
 		--with-systemdsystemunitdir=/usr/lib/systemd/system \

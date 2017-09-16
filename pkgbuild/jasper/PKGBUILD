@@ -1,5 +1,5 @@
 pkgname=jasper
-pkgver=2.0.12
+pkgver=2.0.14
 pkgrel=1
 pkgdesc="Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3b0f5a5640838b328d989a80461a23ca8ac98af054a7f15c13a543e769c98bb632b74114923c02c3b2de76747187747aec6e18a2cf14035a8d79eb3482fd553b')
+sha512sums=('9e5cffd2e899e37ba08890e2377ddfc3c2fb13d9fe00dea6b4612e4d241a6f4327de6835809b415c41ae4bf44208cf7871c1982ff5fc04ae6bc09fd376b0afc8')

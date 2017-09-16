@@ -84,8 +84,6 @@ bzip2
 xz
 pcre
 pcre2
-libsepol
-libselinux
 libatomic_ops
 ed
 sed
@@ -101,11 +99,9 @@ cracklib
 libcap-ng
 openssl
 tcl
-audit
 db
 pam
 libcap
-libsemanage
 bash
 coreutils
 grep
@@ -185,18 +181,14 @@ gtk-doc
 glib
 libcroco
 gettext
-python-packaging
 python-setuptools
 python-alabaster
 python-beaker
 python-certifi
 python-chardet
 python-cssselect
-python-decorator
 python-idna
 python-imagesize
-python-ipy
-python-isodate
 python-markupsafe
 python-pyparsing
 python-pygments
@@ -210,8 +202,6 @@ python-docutils
 python-jinja2
 python-lxml
 python-mako
-python-networkx
-python-rdflib
 python-requests
 python-sphinx
 python-sphinxcontrib-websupport
@@ -352,15 +342,6 @@ pacman
 dbus
 dbus-glib
 dbus-python
-checkpolicy
-libselinux-python
-libsemanage-python
-python-slip
-setools
-policycoreutils
-semodule-utils
-selinux-dbus
-selinux-python
 htop
 intel-ucode
 lsb-release
@@ -690,7 +671,6 @@ mdadm
 node
 nss-mdns
 parted
-rust
 sane-backends
 tidy-html5
 volume-key
@@ -706,7 +686,6 @@ udisks
 upower
 chromium
 pepper-flash
-thunderbird
 bind
 openssh
 rtkit
@@ -717,7 +696,6 @@ gmime
 libgit2
 libsigc++
 osinfo-db-tools
-raptor2
 rest
 telepathy-glib
 babl
@@ -772,7 +750,6 @@ uhttpmock
 vte
 vte2
 yelp-xsl
-zeitgeist
 zenity
 zziplib
 accountsservice
@@ -805,7 +782,6 @@ gtkmm3
 gucharmap
 libchamplain
 libmypaint
-tracker-miners
 yelp
 folks
 aisleriot

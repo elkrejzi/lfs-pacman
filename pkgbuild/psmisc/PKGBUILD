@@ -11,7 +11,7 @@ source=("https://downloads.sourceforge.net/psmisc/psmisc-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/psmisc-${pkgver}"
 
-	./configure --prefix=/usr --enable-selinux
+	./configure --prefix=/usr
 
 	make
 }

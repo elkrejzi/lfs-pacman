@@ -35,6 +35,7 @@ build() {
 		--enable-bind-now --enable-multi-arch --enable-lock-elision
 		--enable-stackguard-randomization --enable-stack-protector=strong
 		--with-headers=/usr/include --with-pkgversion="Krejzi ${pkgver}"
+		--without-selinux
 	)
 
 	cd "${srcdir}/build64"

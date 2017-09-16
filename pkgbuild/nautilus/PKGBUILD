@@ -21,6 +21,7 @@ build() {
 		--buildtype=plain \
 		-Denable-exif=true \
 		-Denable-xmp=true \
+		-Denable-selinux=false \
 		-Denable-packagekit=false \
 		-Denable-gtk-doc=true \
 		"${srcdir}/nautilus-${pkgver}"

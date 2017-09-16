@@ -12,6 +12,8 @@ source=("https://download.gnome.org/sources/gnome-shell/${pkgver:0:4}/gnome-shel
 build() {
 	cd "${srcdir}/gnome-shell-${pkgver}"
 
+	sed -i "/MUTTER_API_VERSION/s:0:1:" configure
+
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \

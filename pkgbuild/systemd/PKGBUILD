@@ -42,6 +42,8 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Dfirstboot=false \
+		-Dseccomp=false \
+		-Dselinux=false \
 		-Dima=false \
 		-Dsmack=false \
 		-Dwheel-group=false \
