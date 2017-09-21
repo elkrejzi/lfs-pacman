@@ -1,5 +1,5 @@
 pkgname=libnghttp2
-pkgver=1.25.0
+pkgver=1.26.0
 pkgrel=1
 pkgdesc="Framing layer of HTTP/2 is implemented as a reusable C library"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('bfc390aaf21153b9265ec9f6437e98ccca7fb50c12cdf085e1c12dfe222cb3e0048d1bb2d7a74db49943ba6f08f2452439b346b6b0f4cbfeac10bde3ca186c06')
+sha512sums=('d469f2a50192edbb2528896c1eee85c23a32bbd39b1769e1b78b9d4b05f14f51eb46162d305c81fe50de85251ff38f2a5bb83cde3d5f8c7e1a534ff855b5444d')

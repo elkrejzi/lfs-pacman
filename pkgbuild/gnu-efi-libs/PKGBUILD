@@ -1,5 +1,5 @@
 pkgname=gnu-efi-libs
-pkgver=3.0.5
+pkgver=3.0.6
 pkgrel=1
 pkgdesc="Library for building UEFI Applications using GNU toolchain"
 arch=('x86_64')
@@ -11,8 +11,6 @@ source=("https://downloads.sourceforge.net/gnu-efi/gnu-efi-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/gnu-efi-${pkgver}"
-
-	sed -i "s#-Werror##g" Make.defaults
 
 	make lib gnuefi inc apps CC="gcc"
 }
@@ -27,4 +25,4 @@ package() {
 		"${pkgdir}/usr/share/gnu-efi/apps/x86_64/"
 }
 
-sha512sums=('848ea9b0a9b900a237d04c2fe95fbaaa08d786c8abe4cbfdca9b666a5cd955ad1097668561aa90899b654a606ff822509fb23b6aeafce69bc4407e5b4547fdcf')
+sha512sums=('f1b17766d8ae000c0177ea2126d87883f254ab01ac020e4bfaa9ad2d3d60a66d07b6237d9842e5989c4da3fd23152b5c592ef863fdc9806901f43c43582a2258')

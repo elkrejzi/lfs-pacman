@@ -1,5 +1,5 @@
 pkgname=syntax-highlighting
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Syntax highlighting engine for structured text and code"
 arch=('x86_64')
@@ -11,10 +11,6 @@ source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/syntax-highlig
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
-
-	cd "${srcdir}/syntax-highlighting-${pkgver}"
-
-	sed -i.orig 's|w-|w\\-|' data/syntax/rest.xml
 }
 
 build() {
@@ -36,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d49f62934283c07c1b6e8fad11b9fa469b21bb55f35ddbc6c28ab29bd79b7cba67a93d0b46abb8b3d86ee7ba7a90ea50a98553aac7bdfe396bc2b010611c24c2')
+sha512sums=('1ca56399cd78e593644b3d474b4eff979762300d6d27f19a57e1e66954342ec0c6de28b4309f284d7c3c3d1f71d1ea6ca108cee0c5bb8ca1803aed5f0c69076c')

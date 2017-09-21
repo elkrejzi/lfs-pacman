@@ -1,5 +1,5 @@
 pkgname=kdelibs4support
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Porting aid from KDELibs4"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c56d821d8f6cea31df7a1138ff050818fd38764fc7bd63de1c125921b86f00144eac7d569c40b2fe0dcd8fc4f006a0ba8af93fba2feab2d4a3fca1a8a1fa3ca7')
+sha512sums=('5a5136d530e7b937fa6b50b184651a44eaed8ab61d762c826dbbc24c53bb89580fa948755c28a26cb1dae5a96fdf54b71dd917735682c7832951a75fabbe5d20')

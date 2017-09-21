@@ -1,5 +1,5 @@
 pkgname=kdesu
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Integration with su for elevated privileges"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6b3b6c51637220a5f80115e81f82a551a596465916fefe707b7dad23b423d1198a760c5da8392f8da482ae59e05fb9d2bca360859bde7c20d4928c49eccb896d')
+sha512sums=('6cba51f47172e28a1466b4efbcbd98fec06fad894c789fe21a28b0382162df414350c43a71151177576a1eb76298a9f0fdddb3042fccdcbdaa08ea63a655000f')

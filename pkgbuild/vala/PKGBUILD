@@ -6,7 +6,16 @@ arch=('x86_64')
 url="https://wiki.gnome.org/Projects/Vala"
 license=('LGPL')
 #depends=()
-source=("https://download.gnome.org/sources/vala/${pkgver:0:4}/vala-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/vala/${pkgver:0:4}/vala-${pkgver}.tar.xz"
+	"vala-remove-valadoc.patch")
+
+prepare() {
+	cd "${srcdir}/vala-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/vala-remove-valadoc.patch"
+
+	autoreconf -fi
+}
 
 build() {
 	cd "${srcdir}/vala-${pkgver}"
@@ -22,4 +31,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('00ed915c0ca0a095626e4189fd6331e59e53c95619f76bff51413f822e73eedac8fb0937f0fb8bc32821154d68c9d7207e120be3c71596e2e0daa855b20f1f8a')
+sha512sums=('00ed915c0ca0a095626e4189fd6331e59e53c95619f76bff51413f822e73eedac8fb0937f0fb8bc32821154d68c9d7207e120be3c71596e2e0daa855b20f1f8a'
+            '04299aaccc56348d461366e94f7e39404ca688bb61ebfd34cac526eae32595d667c6c3d147f347b6a6d5e0016e02633b8d0107a88d6b17665c4773786c5e8bee')

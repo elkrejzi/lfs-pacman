@@ -1,5 +1,5 @@
 pkgname=xf86-video-intel
-_commit=6babcf1
+_commit=c899057
 pkgver=2.99.917+${_commit}
 pkgrel=1
 pkgdesc="X.org Intel i810/i830/i915/945G/G965+ video drivers"

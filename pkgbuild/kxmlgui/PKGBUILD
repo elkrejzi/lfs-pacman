@@ -1,5 +1,5 @@
 pkgname=kxmlgui
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="User configurable main windows"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('71eff51eb697674e7e9554a8912fda0fe2068cd6beea05ab5bd6f44b2b5ff87f07b8443daad6732cb8d268128cb3fdb8614939ae469d1d7cec7948d62c414f53')
+sha512sums=('b49a217df51d7b9c56e2d034b2329c0506cc9487474ba05070a8988753a647adb6fc692a14239d0e2e3e0c4160bd66406ec1198bb78aee6ba4bdf72910eaf6c2')

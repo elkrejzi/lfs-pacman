@@ -1,5 +1,5 @@
 pkgname=clinfo
-pkgver=2.1.17.02.09
+pkgver=2.2.17.08.25
 pkgrel=1
 pkgdesc="Print all known information about all available OpenCL platforms and devices in the system"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	install -v -Dm644 man/clinfo.1 "${pkgdir}/usr/share/man/man1/clinfo.1"
 }
 
-sha512sums=('02a57a14766b71fa0fdf8368d012096e77b46e9df0b908f042f1bc99b101330401dbc3eca92442cc4ec6d7a1cc5a82be89cbffc0e95f11ce605762c4f085eb3b')
+sha512sums=('02e2519a831b0a039610500c1cdbdb613212ebbb7d28572054fc7c04a64879c3a2d60f83afc7ed38ac6a0e187fdcf9a1c00e4fe52d495da5d5f63a56183e6347')

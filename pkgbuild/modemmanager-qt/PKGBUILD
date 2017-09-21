@@ -1,5 +1,5 @@
 pkgname=modemmanager-qt
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Qt wrapper for ModemManager DBus API"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('110d186478cd656f00abcd71b48b4e09aad6f2c31bdcd5ea24dd96c1e8c39f68d0591025dabfe5b834a49fedfe7d349c47cea09e7314a6c8468caa8df1811227')
+sha512sums=('5717f8da780c1ea5aca8afd2ed7ed91a2e4564edc414e05ac2446071692fe255e8676486de24ac9f5b37ed7dd098c42868cd236a08eeb127d3479a75e610472c')

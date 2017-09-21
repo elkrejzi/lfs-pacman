@@ -11,8 +11,6 @@ source=("https://download.gnome.org/sources/gnome-system-monitor/${pkgver:0:4}/g
 build() {
 	cd "${srcdir}/gnome-system-monitor-${pkgver}"
 
-	export CXX="${CXX} -std=c++14"
-
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \

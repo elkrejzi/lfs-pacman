@@ -1,6 +1,6 @@
 pkgbase=cairo
 pkgname=('cairo' 'lib32-cairo')
-pkgver=1.15.6
+pkgver=1.15.8
 pkgrel=1
 arch=('x86_64')
 url="https://cairographics.org/"
@@ -59,4 +59,4 @@ package_lib32-cairo() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('e4eccba745a03545001ebd6f1a7b87bee4b932f80a2d877a764500ad5c18011a5bac585f31eec6d0b65ccaa818de0df2b3b99f0792111363bd3554cfa7f688b6')
+sha512sums=('5af1eebf432201dae0efaa5b6766b151d8273ea00dae48e104d56477005b4d423d64b5d11c512736a4cb076632fb2a572ec35becd922825a68d933bb5ff96ca1')

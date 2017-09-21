@@ -1,5 +1,5 @@
 pkgname=kross
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Multi-language application scripting"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1a8ef9512375ff4a3345d7dfb52146c47ecf35e58a4e0aacf45a69d3da431617fe3bfa10e2585562c8df42f01aaa63884f7a4601531f837642a3946fccc8c762')
+sha512sums=('bcef33be50db6ce31433139d631031e190d7409e941f378904fe647379770cdf781218798e032c0445562725915584110f5b7cfd62bf60a9d20df70cad735152')

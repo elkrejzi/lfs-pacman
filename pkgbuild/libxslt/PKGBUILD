@@ -7,7 +7,16 @@ url="http://xmlsoft.org/XSLT/"
 license=('custom')
 #depends=()
 options=(emptydirs)
-source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz")
+source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz"
+	"libxslt-xslt-config-fix.patch")
+
+prepare() {
+	cd "${srcdir}/libxslt-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/libxslt-xslt-config-fix.patch"
+
+	autoreconf -fi
+}
 
 build() {
 	cd "${srcdir}/libxslt-${pkgver}"
@@ -23,4 +32,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d24e37398503b6bc29245a993738df51bf3948c4a8f052eedd7eac0a9fcff2d5b54220f37070c46f763e073c34bdb3153c9f129aa0df60c3d7cf7eadbbf15986')
+sha512sums=('d24e37398503b6bc29245a993738df51bf3948c4a8f052eedd7eac0a9fcff2d5b54220f37070c46f763e073c34bdb3153c9f129aa0df60c3d7cf7eadbbf15986'
+            '58f73d19113050fde27d84f04454deabc2cf6f6399866769cec9ddcd9b994b22145d225ca13ffe27b10f645ce4a0efecce8e413a8eb53f6a3951192302616052')

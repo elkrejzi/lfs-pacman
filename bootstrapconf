@@ -6,7 +6,7 @@ rm -rf /media/ntfs /tools
 
 userdel pkgbuild
 
-systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager named NetworkManager NetworkManager-dispatcher rtkit-daemon systemd-timesyncd upower wpa_supplicant
+systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager NetworkManager NetworkManager-dispatcher org.cups.cupsd rtkit-daemon systemd-timesyncd upower wpa_supplicant
 systemctl enable sshd.socket
 
 install -dm755 /media/ntfs /media/other /media/win
@@ -26,7 +26,7 @@ cat > /etc/fstab << "EOF"
 
 none /var/tmp tmpfs defaults 0 0
 
-UUID=5228A9FE28A9E169 /media/win   ntfs defaults 0 0
+UUID=EECCF173CCF13685 /media/win   ntfs defaults 0 0
 UUID=C228EA6328EA5647 /media/ntfs  ntfs defaults 0 0
 UUID=3CB8F34AB8F30166 /media/other ntfs defaults 0 0
 EOF

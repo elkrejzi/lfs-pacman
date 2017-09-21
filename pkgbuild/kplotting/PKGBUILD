@@ -1,5 +1,5 @@
 pkgname=kplotting
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Lightweight plotting framework"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7556d20333834568298ce66b9ce9b6aa0f2a09650552cba1482e8c534e1fd8a591faba7d6cbe7159173bf986934a8f9d4f35d81e29e15477cec01bc2995bed99')
+sha512sums=('a7c09c49686c571d97c14c6017634575aba61e7e93ccd9c44442ea1953c64cf64e7d68d2606d823dae5d05832f38c7d54c8786d5906a8f8cda8d35fb58b55fcc')

@@ -1,5 +1,5 @@
 pkgname=kpartx
-pkgver=0.7.1
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="Multipath tools for Linux (kpartx only)"
 arch=('x86_64')

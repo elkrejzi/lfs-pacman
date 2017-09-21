@@ -1,5 +1,5 @@
 pkgname=kdnssd
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Abstraction to system DNSSD features"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('92a4401c21a9dffd1662b79b92c4cac33bc4f6ed9664573f3704bf28361420b8104cd99facf0d36b97161d9d669943337b132fe0dda94c008fe323644db4d0af')
+sha512sums=('342426377f8d108a9aa340a1bc32183b71689cd841dd0665f03014862da9c6e749183f003ca759c89295269efce269953b8d808d2a58a68bdf4a09112c92dd35')

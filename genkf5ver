@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-KF5VER=5.37.0
+KF5VER=5.38.0
 
 PKGS=(extra-cmake-modules
 attica

@@ -1,6 +1,6 @@
 pkgbase=libpng12
 pkgname=('libpng12' 'lib32-libpng12')
-pkgver=1.2.57
+pkgver=1.2.58
 pkgrel=1
 arch=('x86_64')
 url="http://www.libpng.org/pub/png/libpng.html"
@@ -54,4 +54,4 @@ package_lib32-libpng12() {
 	rm -rf "${pkgdir}"/usr/lib32/*.{a,so}
 }
 
-sha512sums=('51338d900690fc2d28ea1b5b364d311d73ce7ad498d000985e0c3926b5df0df97fcd7bb079fc954c6caa532fc6e6cbbc266e671d62fc67eca30e79a5f0e26f31')
+sha512sums=('5dc48cacc56fd34514b7ff9c1dbe88d9534b91bc70b3765beda1b8ea5bee6b9be7b7ce8321b1e135b3266e5780590f5f010c2cce86aceedce881485f2c7fc3c4')

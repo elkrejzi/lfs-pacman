@@ -1,5 +1,5 @@
 pkgname=libzip
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="A C library for reading, creating, and modifying zip archives"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	ln -sfv ../lib/libzip/include/zipconf.h "${pkgdir}/usr/include/zipconf.h"
 }
 
-sha512sums=('1ba8626d72e6b47f735568afaf007d1e18beb3ebedf6b69a6b575f9e04d3b84550371191a89be153f8fcedb4a8eac2f996e141da95cdbb52380b6283cc99cf8b')
+sha512sums=('8e12a23fe62b993ff4592e1b9da152533a363b0603fc1f65e6cbb6121d4260c45f98171effbccb76dec4030b0fcdcd273919755a2496ab462431646ac83bb900')

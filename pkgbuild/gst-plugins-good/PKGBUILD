@@ -1,5 +1,5 @@
 pkgname=gst-plugins-good
-pkgver=1.12.2
+pkgver=1.12.3
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Good Plugins"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b83d63cf169521975e1358ca7ebe406392c887956a2f422813b7324c385bae058dc6797e1f2200294f9846ad831ce16650090f2acf946100b9a1d36963b4f163')
+sha512sums=('8ed96d2b2c8724659cf8163be5246ec30c8a92d70fc6632e207ad258cff5624d6fc03576e6e674011bb88a4825c8ce225545bc7e60cdf66a173d9e1d4bfbbaa4')

@@ -1,5 +1,5 @@
 pkgname=prison
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="A barcode API to produce QRCode barcodes and DataMatrix barcodes"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b4c1a159b04337f6012998c3cc5ec16b1ae2bee64ad675a57d739e20675af9103c140b7c00e5afdacfa7ec077d34a315f183407ab40fc2cd4781d37babaf2ec9')
+sha512sums=('26ed107c2971ca1932a7b75994f1b313989aee4ff7d84037afb7b5d45a1a52858bb72b1ede947bf01d87eb7a292f7a17f0475d53ad47d59af09e7c9fefe7099c')

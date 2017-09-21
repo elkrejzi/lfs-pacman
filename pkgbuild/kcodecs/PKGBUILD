@@ -1,5 +1,5 @@
 pkgname=kcodecs
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Provide a collection of methods to manipulate strings using various encodings"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('eacf5414e903f8241b4dca7330defe041d4897ce55403b85e2792984bc314efa7f17ffbbdbabb9264ea17c8d7d69cde0037f9fdc72545c3cc40cd151684ddd40')
+sha512sums=('545272128930ef9428732c164d68ed539cecb13f2c6b166d426f387686b25b46ca8b28d1f821413fa1cba43252a3ec260c92001154eae731344f8340935a4c3a')

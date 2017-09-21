@@ -1,5 +1,5 @@
 pkgname=kidletime
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Monitoring user activity"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('444cfc25d162c4390ec0aa49b035bda1e5628972a634eb08c0cc9c48d513676669729470fc91cdf25ed98b9b6dd76b71159659bfecb4cbd61e029ad42398be27')
+sha512sums=('7318e2fd372cba52c3d386d66da330fa801add715e06ef895eba1bd61c101ba9bdc8494f4ad085a569fe411ce4f7678f0fc7cb0863a3eea1b5c376b8f16771e9')

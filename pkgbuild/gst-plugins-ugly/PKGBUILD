@@ -1,5 +1,5 @@
 pkgname=gst-plugins-ugly
-pkgver=1.12.2
+pkgver=1.12.3
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Ugly Plugins"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('bd8100a369096ac184d2b43a48faf62a02011595d028bea1cbb39b119013bc2534d61da869a28d8955ca50fb9027ea32e599d8efd134ebc377df5789c639c194')
+sha512sums=('9ca5769c325df3d2d97ba83d785fab08da5119f6d26c4ac4db72853af143477ea8fb7087464a8614b6e59f384463ac01087ee76cec2af8acd80a4dc15e392e34')

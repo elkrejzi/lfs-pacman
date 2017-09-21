@@ -1,5 +1,5 @@
 pkgname=kwindowsystem
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Access to the windowing system"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('136b772820e8f8b7cd4e0e5e04b4f61495fe6adb56fc5e025efd60dc0293c88632ece19fcdcda4cffcb8c04e3515aca5fbcc80309e6f01d727e56a45c81dc744')
+sha512sums=('9d04b618491cb6675016038168d01a43b1023a65439132b5290080f30997034823c5af536e7f86ccc0be1bbc1e7a73c309bfa3a8eb6f1a4ef7c2ce392c8d5624')

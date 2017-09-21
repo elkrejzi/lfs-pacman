@@ -1,5 +1,5 @@
 pkgname=gst-plugins-base
-pkgver=1.12.2
+pkgver=1.12.3
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Base Plugins"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('628b98ec6a81c6726c74b9936b2df1bd23d55a8f64dffb683fbe62b917fa3fb8c69bfb264aa0099e6e3549ca91e92ce0f8dd8dfc4ca1de4764aef9a978c862c8')
+sha512sums=('d32f71836e25081b00040709a2184da85489e5af90902a0b27b820a478f5805bde93a04cefaeabf36dde53c16ad12f2816777cc195f1e027f19d1883e088e2b2')

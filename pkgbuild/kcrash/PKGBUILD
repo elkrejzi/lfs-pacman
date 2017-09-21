@@ -1,5 +1,5 @@
 pkgname=kcrash
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Support for application crash analysis and bug report from apps"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d7a312c820c3d4353bbf30313623d9931c8151206446bc3d59856bdf5824c5a82655a649ddaa94ff3a868151cd792fd03a274c8d87fbf052efff547c49963cbf')
+sha512sums=('60c13b2e883d3e55b9f431eb1dd7c7332c7e196fe903d0c7fe7f70029ba77600802cc8911be65fb84e1526fb5d9f548d85f6c881e209dee1922aee961279d1b9')

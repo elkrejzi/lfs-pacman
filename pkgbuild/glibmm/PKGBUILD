@@ -1,5 +1,5 @@
 pkgname=glibmm
-pkgver=2.54.0
+pkgver=2.54.1
 pkgrel=1
 pkgdesc="C++ bindings for GLib"
 arch=('x86_64')
@@ -12,8 +12,6 @@ source=("https://download.gnome.org/sources/glibmm/${pkgver:0:4}/glibmm-${pkgver
 build() {
 	cd "${srcdir}/glibmm-${pkgver}"
 
-	export CXX="${CXX} -std=c++14"
-
 	./configure --prefix=/usr
 
 	make
@@ -25,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e19d9109cc1c558042b17e9a75789f74de9f9cf84e41b4bf8f6484d18be2b4b1c297c44025a36192408e55819b071722db24831298c6a1f96e430df700059e2c')
+sha512sums=('94f2a4d6972684e25e38ff2e6bcfc1e9c5e4d096856d3419320c14166e27e26b1ad69be434337e9b70c23842989988113521aae7a800ef2f29e81f1ae6c25a13')

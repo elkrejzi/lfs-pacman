@@ -12,8 +12,6 @@ source=("https://download.gnome.org/sources/pangomm/${pkgver:0:4}/pangomm-${pkgv
 build() {
 	cd "${srcdir}/pangomm-${pkgver}"
 
-	export CXX="${CXX} -std=c++14"
-
 	./configure --prefix=/usr
 
 	make

@@ -43,11 +43,11 @@ set +h
 
 BINUTILS_VER=2.29
 GMP_VER=6.1.2
-MPFR_VER=3.1.5
+MPFR_VER=3.1.6
 MPC_VER=1.0.3
 GCC_VER=7.2.0
-LINUX_VER=4.12
-LINUX_PATCH_VER=4.12.8
+LINUX_VER=4.13
+LINUX_PATCH_VER=4.13.3
 GLIBC_VER=2.26
 TCL_VER=8.6.7
 EXPECT_VER=5.45
@@ -56,9 +56,9 @@ CHECK_VER=0.11.0
 NCURSES_VER=6.0
 BASH_VER=4.4
 BZIP2_VER=1.0.6
-COREUTILS_VER=8.27
+COREUTILS_VER=8.28
 DIFFUTILS_VER=3.6
-FILE_VER=5.31
+FILE_VER=5.32
 FINDUTILS_VER=4.6.0
 GAWK_VER=4.1.4
 GETTEXT_VER=0.19.8.1
@@ -70,12 +70,12 @@ PATCH_VER=2.7.5
 PERL_VER=5.26.0
 SED_VER=4.4
 TAR_VER=1.29
-TEXINFO_VER=6.4
-UTIL_LINUX_VER=2.30.1
+TEXINFO_VER=6.5
+UTIL_LINUX_VER=2.30.2
 XZ_VER=5.2.3
 ATTR_VER=2.4.47
 ACL_VER=2.2.52
-EXPAT_VER=2.2.3
+EXPAT_VER=2.2.4
 LIBCAP_VER=2.25
 LIBFFI_VER=3.2.1
 OPENSSL_VER=1.0.2l
@@ -83,13 +83,13 @@ ZLIB_VER=1.2.11
 CURL_VER=7.55.1
 GIT_VER=2.14.1
 LIBARCHIVE_VER=3.3.2
-NANO_VER=2.8.6
+NANO_VER=2.8.7
 PYTHON3_VER=3.6.2
 WGET_VER=1.19.1
-CMAKE_VER=3.9.1
-MESON_VER=0.42.0
-NINJA_VER=1.7.2
-LLVM_VER=5.0.0rc2
+CMAKE_VER=3.9.3
+MESON_VER=0.42.1
+NINJA_VER=1.8.2
+LLVM_VER=5.0.0
 FAKEROOT_VER=1.22
 SHADOW_VER=4.5
 PACMAN_VER=5.0.2
@@ -98,10 +98,10 @@ AUTOMAKE_VER=1.15.1
 LIBTOOL_VER=2.4.6
 
 #export LLVM_RELEASE_BRANCH=""
-#export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
-export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
-#export LLVM_FINAL_VERSION=${LLVM_VER}
-export LLVM_FINAL_VERSION=5.0.0
+export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
+#export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
+export LLVM_FINAL_VERSION=${LLVM_VER}
+#export LLVM_FINAL_VERSION=5.0.0
 
 if [ ! -z $1 ]
 then
@@ -144,10 +144,10 @@ http://download.savannah.gnu.org/releases/attr/attr-${ATTR_VER}.src.tar.gz
 http://download.savannah.gnu.org/releases/acl/acl-${ACL_VER}.src.tar.gz
 http://downloads.sourceforge.net/expat/expat-${EXPAT_VER}.tar.bz2
 https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${LIBCAP_VER}.tar.xz
-ftp://sourceware.org/pub/libffi/libffi-${LIBFFI_VER}.tar.gz
+http://sourceware.org/ftp/libffi/libffi-${LIBFFI_VER}.tar.gz
 https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz
 http://zlib.net/zlib-${ZLIB_VER}.tar.xz
-http://curl.haxx.se/download/curl-${CURL_VER}.tar.bz2
+https://curl.haxx.se/download/curl-${CURL_VER}.tar.bz2
 https://www.kernel.org/pub/software/scm/git/git-${GIT_VER}.tar.xz
 http://libarchive.org/downloads/libarchive-${LIBARCHIVE_VER}.tar.gz
 https://nano-editor.org/dist/v${NANO_VER:0:3}/nano-${NANO_VER}.tar.xz

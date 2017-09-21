@@ -1,5 +1,5 @@
 pkgname=kfilemetadata
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('78143c82b858f53e63e35e11e144ccb474574885bd772ff27131c0568d5033618f8ff75844b02e3e3acbffd5d8901300f26f5b4e9d5556f2400f3666183b2899')
+sha512sums=('d008e39f58b9c4d4209372722bb5463c6140c49deee280a28841060676f5785294ee7b2bbe1c657dd283bbd1f3edf94a2fa08f46fcd7a91a98f2e8733b1349df')

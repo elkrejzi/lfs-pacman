@@ -1,5 +1,5 @@
 pkgname=attica
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Qt5 library that implements the Open Collaboration Services API"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4b37a553ea224cd4f37bd12492bf05646527849dcb3a6b66430ea0f4978dd18c2481a0d8793a05c768e6849b11b00f0deea888591ecc8d3f51323d266257f80f')
+sha512sums=('acd69c9e9955062ebd362ab6d2e247e3b37a12f9d470197426f90798b422c64f198a93754d408be72b0e442b97b161218349a71761f6156c87c1feae6f62b2f6')

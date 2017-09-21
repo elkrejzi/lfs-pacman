@@ -1,5 +1,5 @@
 pkgname=kxmlrpcclient
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="XML-RPC client library for KDE"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5bf9569a1bad444898c8616171ef2b0c72cebbd43ec758ff8f705b0b16cafbd0993c76f79baa772c57338139ddc89193b250d9f83a4914a69507bbbfae800bd5')
+sha512sums=('c8ee2bbe1547ee153197742b1069ca1113c591bd9d9560618e7083fba8af60d1877e8c822923158dc14789ed95a903486e5d5b291862948acc796b29a4764b49')

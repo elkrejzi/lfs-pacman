@@ -1,5 +1,5 @@
 pkgname=gnome-todo
-pkgver=3.25.90
+pkgver=3.26.1
 pkgrel=1
 pkgdesc="Task manager for GNOME"
 arch=('x86_64')
@@ -19,9 +19,9 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Denable-gtk-doc=true \
-		-Denable-introspection=false \
 		"${srcdir}/gnome-todo-${pkgver}"
+
+#		-Denable-gtk-doc=true \
 
 	ninja ${MAKEFLAGS}
 }
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('bad478e1f2264c052d29c4e2937d17f78b74731fe41b417db7ae102e49de7c461ab8e427962a66a2971cd860930f68dac9d2a7f8670a2ab5f9576285e88bceef')
+sha512sums=('052047c6ecce8e4e3bd7459df152634afcb0664e90f0e3c80f39db61725c0b085821093b00ccbd44f826a588c02533c3cb9267c27fabc162c6000e1bc329d540')

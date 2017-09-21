@@ -1,5 +1,5 @@
 pkgname=networkmanager-qt
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Qt wrapper for NetworkManager API"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6a6cd1382cb6483928bb9eac7590c2984751f47fe0f71d7c05723509dc1bb4bda4bf6854f3b662c9ddcaa7d6c1f6d7001e459a0bd335a24f2c14d00d3878bc75')
+sha512sums=('3ae13d6beea266684195267be7992b6743158828f112b4ddf37605f8e01a12d0dee493bb3da6119d7da3d603fba897403031842b44116b447fc7f0577a3274b0')

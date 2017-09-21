@@ -1,12 +1,12 @@
 pkgbase=lz4
 pkgname=('lz4' 'lib32-lz4')
-pkgver=1.7.5
+pkgver=1.8.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.lz4.org/"
 license=('GPL2')
 #depends=()
-source=("lz4-${pkgver}.tar.gz::https://github.com/lz4/lz4/archive/v${pkgver}.tar.gz")
+source=("https://github.com/lz4/lz4/archive/v${pkgver}/lz4-${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/lz4-${pkgver}"
@@ -54,4 +54,4 @@ package_lib32-lz4() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('b4e5b17fe06805e676608e636a45f0b480b79a02c6b7ffce84dc4d607861cb2652b2852493ab9d9249e7caeae6f00b6834801fdc39f58d901cbc1c7347915295')
+sha512sums=('aea46d4a900a3ede7dd7b498ee938ecd98397d3277c5b3a85b4236a44777cba85cd68a2f32c993b872afda96c5dafe0cb3dd391101fe8181e17c9f48884c1535')

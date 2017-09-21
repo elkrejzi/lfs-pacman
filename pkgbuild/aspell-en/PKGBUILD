@@ -1,5 +1,5 @@
 pkgname=aspell-en
-pkgver=2017.01.22
+pkgver=2017.08.24
 pkgrel=1
 pkgdesc="English dictionary for aspell"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2721ffdc7f2823b9104a0d7cfa10d1ba9581432dcbb2584b9519e56a621520177eef55ea5bf9803503c429201141ce0ed4001e75c6b9385bca2fbf8986617a66')
+sha512sums=('2530f6bff61456ccf4e0e8383ab8583a1421b6001f156b4419385a272a54217b01e93d7aed8acff15f1e49afbb13bb81fd66002662ce7233c465ec0737fdfedc')

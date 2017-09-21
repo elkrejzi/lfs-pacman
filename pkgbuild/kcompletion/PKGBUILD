@@ -1,5 +1,5 @@
 pkgname=kcompletion
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Text completion helpers and widgets"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('99cf1346f4048134d5219d451250122ca848d49c6ec26ab9e36562d2e654c18f3415ddd1b11e7a2459ce6b473c22cddb01135de9c773e8f0ae2f1c8d2f4d5ea4')
+sha512sums=('5c697626684837bbe155291b3270810d11ba40140929adefde18b1254ea736efeae2072b543bc9fa39948b153c3dbad8a70d6c8f18c3ffdbe333f4924af18da0')

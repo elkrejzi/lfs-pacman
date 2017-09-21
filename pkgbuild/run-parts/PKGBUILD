@@ -1,5 +1,5 @@
 pkgname=run-parts
-pkgver=4.8.1.1
+pkgver=4.8.2
 pkgrel=1
 pkgdesc="run scripts or programs in a directory"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	install -Dm644 run-parts.8 "${pkgdir}/usr/share/man/man8/run-parts.8"
 }
 
-sha512sums=('22f27692a7d3847fad1be223d73e5575581db8621771e92e68fe91bd31e67084fd655fef857905be46ab3a45340503b0af9399b8fe28f221ea5cee4b49970821')
+sha512sums=('40bad124e99c5a315b7ddf181afc2db216c85ddfe5603a16fbd21bd01091d3631b18826ddf799ba232ecaa1c2b3ff389a26a533f392918eb0733efdd75749759')

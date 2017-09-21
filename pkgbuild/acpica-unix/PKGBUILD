@@ -1,5 +1,5 @@
 pkgname=acpica-unix
-pkgver=20170303
+pkgver=20170831
 pkgrel=1
 pkgdesc="Group of software components that together create an implementation of the ACPI specification"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/acpidump"
 }
 
-sha512sums=('efe4e59b10e297f65828f2f397082920d4f171c8847057514b2c3982e4fac111a55a932de41f01d4b54bc7ea1022d3feb682b8fc2c51878410898ea1b5f7602b')
+sha512sums=('abc0c98d02698a8a182d2f5ccdaaef3fabf4d833b1ac77a06158238d29b3d4103ea3bcf06e04c34d74aa21f862df65420eca126587ffb85bc0d9632852e4b9c6')

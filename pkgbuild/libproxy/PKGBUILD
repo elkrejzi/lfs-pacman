@@ -22,8 +22,6 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DBUILD_TESTING=OFF \
 		-DPERL_VENDORINSTALL=yes \
-		-DWITH_MOZJS=ON \
-		-DWITH_WEBKIT3=ON \
 		-DWITH_VALA=ON \
 		"${srcdir}/libproxy-${pkgver}"
 

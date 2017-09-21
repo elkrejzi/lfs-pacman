@@ -1,5 +1,5 @@
 pkgname=spice-gtk
-pkgver=0.33
+pkgver=0.34
 pkgrel=1
 pkgdesc="Gtk client and libraries for SPICE remote desktop servers"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ee5750194057a7f568641f6382d6969b67dc7271b4d13037570b79cdecd70a7eeb457ad349d3ed8e576f1fbd9701fac7d24607d5cbde8af0e030433b347abc80')
+sha512sums=('17ea737511855b47f5eaf5143756483542cf8ee83f8d276cbfb2c0407355f68ed329fcbed8a67737179f3e53587710634d6faa856590234ee68be7b4b13f2689')

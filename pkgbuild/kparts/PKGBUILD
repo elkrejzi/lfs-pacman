@@ -1,5 +1,5 @@
 pkgname=kparts
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Document centric plugin system"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4c1bf3f0a44e7149ee02331de527965a9b241d4e15631ee99d4d0c93beb399ab6a454991a2dfae4124e94db0f1ef06068bb68fc3bab7fdbcf9295aa41eb59b59')
+sha512sums=('7425ae2e272a78c75c384a4770221712d202dbab05b6f22bdf880b96ff25374989c6c7aab28cc9021079c92380a7683c19b3f858d5fc0fff97236fb4b9224427')

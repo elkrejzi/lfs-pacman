@@ -1,5 +1,5 @@
 pkgname=kservice
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Advanced plugin and service introspection"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6833e7d08a63a9c6d8e81f65625751b4febcdeb8d1095426f8a639fd1a9ac31b2a86922b740430e40e3bf9a8c9e305db1b85e84d0ab994ef80bf53452f706001')
+sha512sums=('0e76294ff870e8e41c562d062c715a9a9d08fcd2a1c1eea650dd3c81e36e153fc6e9e9e38a552159cab3ddd5e30ab1f653c4065c07173e51c487060583756a0b')

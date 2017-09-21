@@ -1,5 +1,5 @@
 pkgname=kio
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Resource and network access abstraction"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('42b2cbf6cbc414a0b69fdb36984d13574b1aee033170761dc55835cace44abead82f387f8afb35d8a82ee93a1909854ef43cff29d45c5881c4b13ca8862d2a64')
+sha512sums=('7a35c20d220308f329ba496cabc71f4be44debab09591c3301533ddc348a88bb928f5220ede8500f70fd6f8b50a77ae99877f4ca9544be149e3eb1b7ed785611')

@@ -12,8 +12,6 @@ source=("https://downloads.sourceforge.net/gparted/gparted-${pkgver}.tar.gz"
 build() {
 	cd "${srcdir}/gparted-${pkgver}"
 
-	export CXX="${CXX} -std=c++14"
-
 	./configure --prefix=/usr --disable-doc
 
 	make GKSUPROG=pkexec

@@ -1,5 +1,5 @@
 pkgname=sonnet
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Spelling framework for Qt5"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('bd22671f2c9edff553df80db050393dfb88b14dd6bc869957bfbe70dd30c9ee17e90ac9d88d45e700ffc014708b7703ef8cfacbff6bcdc51ecffa7e45e83aa3d')
+sha512sums=('c2cd812815c0fe7ed9e4dbf046d4b0da2aec08703d93631df0eec8c05caaaf6e69d763bfabd88c5efc78661045816125ae3979bef959794552f11637932c9fc5')

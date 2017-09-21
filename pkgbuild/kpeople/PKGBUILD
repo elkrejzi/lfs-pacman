@@ -1,5 +1,5 @@
 pkgname=kpeople
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="A library that provides access to all contacts and the people who hold them"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9b39cb0b08a079a9d142875c73cbcb2ce990df69756d8d39648e1beea81e3c74b21db9ca579682e7e469feb51d0b1697a302286f79eba3a12127955511b68857')
+sha512sums=('5c7c2fb9c13922b2dec51e95d79086ec8d720400325ae369e23aa21714c2e01448b5985a6ae83208468fe4ae3d7e30925e5467481222a7a7a2d483992dbb907d')

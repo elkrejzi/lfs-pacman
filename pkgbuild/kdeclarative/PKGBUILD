@@ -1,5 +1,5 @@
 pkgname=kdeclarative
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Provides integration of QML and KDE Frameworks"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('903df965d34ae3bcd0e4c84d1821843bb20ba7e90c276b4b10b47f3455fbace1b5dba31597124757fd93990baf95a5cf8fd7453eae9711545475ad1997dda06e')
+sha512sums=('72ea8b2f17792e3075800de93882c0a0b03732121eef43ab38285c0d1988e148e079f40dd6d4fc8afef75bda47f2e02a3ac84b9546c6a6991b10aade1dbcb978')

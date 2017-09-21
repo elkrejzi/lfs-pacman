@@ -1,5 +1,5 @@
 pkgname=kpty
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Pty abstraction"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8bf1d12aafb319f952c7001fd59921d15cf248f0d09daa5b00990441a1959d873e1ce6aadb0cb175637290777381f6a4b8326637fbaae46db4030210072a1ec8')
+sha512sums=('e5619a77630d82cd8cac52e536dd982b996bba3b0ba6d8a2e25068b2d0ba735c367073e2319c2cd95930db0cba510d92763fb93b06fbd26149419899c4aecb7e')

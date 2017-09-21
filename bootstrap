@@ -526,7 +526,6 @@ hunspell
 hyphen
 enchant
 geoclue
-webkitgtk
 sdl2
 portaudio
 openal-soft
@@ -651,6 +650,7 @@ gst-plugins-bad
 gst-plugins-ugly
 gst-libav
 gstreamer-vaapi
+webkitgtk
 gcr
 pinentry
 media-player-info
@@ -663,7 +663,7 @@ gtkspell3
 libatasmart
 libbytesize
 libdmtx
-libpst
+libgsf
 libzip
 lmdb
 lm_sensors
@@ -681,6 +681,7 @@ bogofilter
 ebook-tools
 hplip
 libblockdev
+libpst
 doxygen
 udisks
 upower
@@ -723,7 +724,6 @@ libgee
 libgepub
 libgit2-glib
 libgrss
-libgsf
 libgtop
 libgweather
 libgxps

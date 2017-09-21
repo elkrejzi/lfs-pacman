@@ -1,5 +1,5 @@
 pkgname=kwallet
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Secure and unified container for user passwords"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2b15caca7459e367f07d2aad98859db08f9e6bd337348ab63abd671dc45a434bf305e18e044b469a981c12661ce4dac2407af8b2dac7c3d0588a7b6f907548af')
+sha512sums=('e66266015c674a7ba731fc5c37fe2bed1edf18645393793b6dfa552dcc1fb93227db73913503961f46d72c5c71b11c807d61a1bb0980f5ac1d62bab59efa72db')

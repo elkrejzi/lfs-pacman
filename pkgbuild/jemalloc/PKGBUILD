@@ -1,5 +1,5 @@
 pkgname=jemalloc
-pkgver=4.5.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="General-purpose scalable concurrent malloc implementation"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	chmod 644 "${pkgdir}/usr/lib/libjemalloc_pic.a"
 }
 
-sha512sums=('76953363fe1007952232220afa1a91da4c1c33c02369b5ad239d8dd1d0792141197c15e8489a8f4cd301b08494e65cadd8ecd34d025cb0285700dd78d7248821')
+sha512sums=('8cb5957a5724eb2bbad120cf0028ea8b2b14b4a416c1751b7c967351a7fd51135058ea0d3c4dc1d127c86f3aa7e9fd5ef101857110aabfdb7789427791c432c3')

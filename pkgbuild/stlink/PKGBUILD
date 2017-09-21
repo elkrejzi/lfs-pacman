@@ -1,12 +1,12 @@
 pkgname=stlink
-pkgver=1.3.1
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="Firmware programmer for STM32 STLINK v1/v2 protocol"
 arch=('x86_64')
 url="https://github.com/texane/stlink"
 license=('BSD')
 #depends=()
-source=("stlink-${pkgver}.tar.gz::https://github.com/texane/stlink/archive/${pkgver}.tar.gz")
+source=("https://github.com/texane/stlink/archive/${pkgver}/stlink-${pkgver}.tar.gz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -32,4 +32,4 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/libstlink.a"
 }
 
-sha512sums=('ce77d0cf76e4c4b973389599af5d736a0f22ffc2ef7231b2b157dae6dfe5018c2d2ed1b28c14bbbaaa7819847382fe93e437ae682b7eb30d4e44552f4e948043')
+sha512sums=('cb7617068a6dcaf7e8d0ccfb8b918f0373f6120398dab40a8b8d6567705871226684fd19aad92e4bab623310a5da13ea9fd70153b619f58d3534f0a4ff3a9886')

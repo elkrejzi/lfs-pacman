@@ -1,6 +1,6 @@
 pkgname=linux-api-headers
-_basever=4.12
-pkgver=4.12.8
+_basever=4.13
+pkgver=4.13.3
 pkgrel=1
 pkgdesc="Kernel headers sanitized for use in userspace"
 arch=('x86_64')
@@ -31,5 +31,5 @@ package() {
 	find "${pkgdir}/usr/include" \( -name .install -o -name ..install.cmd \) -delete
 }
 
-sha512sums=('8e81b41b253e63233e92948941f44c6482acb52aa3a3fd172f03a38a86f2c35b2ad4fd407acd1bc3964673eba344fe104d3a03e3ff4bf9cd1f22bd44263bd728'
-            '44e2417fe1379977b4891f74b227c2c6d6588f3726b598ad8c8a52ecaea32f56cf222b877230fc87c043583a6f230f3044fe3c9b293c67699e1743c0161004cf')
+sha512sums=('a557c2f0303ae618910b7106ff63d9978afddf470f03cb72aa748213e099a0ecd5f3119aea6cbd7b61df30ca6ef3ec57044d524b7babbaabddf8b08b8bafa7d2'
+            '7c0675386c0906178661313d2dbaf644df9b43af31c4b8c8cc840c59b952c04c5768089782d79d84fd363e26b1824e05d1516a80b8cae663225fcb9b252d848a')

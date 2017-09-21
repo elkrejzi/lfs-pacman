@@ -1,5 +1,5 @@
 pkgname=osinfo-db
-pkgver=20170423
+pkgver=20170813
 pkgrel=1
 pkgdesc="Osinfo database of information about operating systems for virtualization provisioning tools"
 arch=('x86_64')
@@ -13,4 +13,4 @@ package() {
 	osinfo-db-import --root "${pkgdir}" --system "${srcdir}/osinfo-db-${pkgver}.tar.xz"
 }
 
-sha512sums=('5ca13ced160f19dced65f3552e17a0379a47a05f1aa3bdd533550022f0023050b6cc1b43b2da6cff3fa10451f81560fbb0db241a11ed072b9f101db1bd301833')
+sha512sums=('0ae4906b5c3eb400ca397f0c3baf5146b8197ee2dc712b1b89dd2f443f9505aee208327f008118628407b54ce52390a8b6138425f3f6f974b94f4a8d79955653')

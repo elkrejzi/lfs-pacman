@@ -1,5 +1,5 @@
 pkgname=media-player-info
-pkgver=22
+pkgver=23
 pkgrel=1
 pkgdesc="Data files describing media player capabilities, for post-HAL systems"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7686aadb559b5a2cd2b969b9aadcf4c2b35037702e6fef4db66c6b8c0860d400c9f46a3b46150b9ce573d4f1fca53a5302fa7c1cdf888942a6489613c4d3c071')
+sha512sums=('4555456945f6f8c2fb23c86f80dc61e8e5448f3c402ac685e7eccd2df9f7861cdd41da842b0917349f7d83200ef10c810eb8b75fa6d62829834fdbdb81560f04')

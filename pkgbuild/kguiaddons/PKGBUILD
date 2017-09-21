@@ -1,5 +1,5 @@
 pkgname=kguiaddons
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Addons to QtGui"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fd727372130de4fc14bff946586da2f71e6f475a10edce438f5bb6fc9d9e2d93b4440920234a33365617bd85e61a74429038bf0d7e79150c3cbe419c4c1b9320')
+sha512sums=('7e3d56a6dbadf4ebfed5ea43dd474a77dc8c402e84936372064e03d63fe3579f289309bc12ea0d6efe3e9e5d54e9a5adbe28a4d521eb1ee1f8d0bcab2aa952e6')

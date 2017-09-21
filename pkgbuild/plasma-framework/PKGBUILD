@@ -1,5 +1,5 @@
 pkgname=plasma-framework
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Plasma library and runtime components based upon KF5 and Qt5"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('35210f11a06b12ae45ec80d11b251883c1fd993c5a7bd8604f115a3d8ca8d13c269a88c37d0336b79baab402d070017286efa1e918c6768dcc7c9e7831a366cc')
+sha512sums=('5daec7431e70b6a94001608992b8930445d3b936830980fb9a6bbe501cb0f660cb9d192089c2401d1699c92448d4d9043ec12a42f0dd517fcd505127cb58e37b')

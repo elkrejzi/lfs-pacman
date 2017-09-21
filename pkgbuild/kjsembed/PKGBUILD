@@ -1,5 +1,5 @@
 pkgname=kjsembed
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Embedded JS"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b2a46546a2a06e912634159c6c37a0a7fb617efbef592c94afa7d6c30b116cfdd8d419d42012bc7890a5f846ff3c4dee113687cb7877fbbb0aa599d3cfedba8b')
+sha512sums=('f48ee40da614ad456d1d3f50614fb59cd88dc4cef3f74378b6a73a7b04a2cc8028aea2f60c2de98aee141b727a4f0ad2986131213dee2d9cf99bb1f853728eee')

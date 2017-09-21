@@ -1,5 +1,5 @@
 pkgname=shared-mime-info
-pkgver=1.8
+pkgver=1.9
 pkgrel=1
 pkgdesc="Freedesktop.org Shared MIME Info"
 arch=('x86_64')
@@ -26,5 +26,5 @@ package() {
 	install -v -Dm644 "${srcdir}/update-mime-database.hook" "${pkgdir}/usr/share/libalpm/hooks/update-mime-database.hook"
 }
 
-sha512sums=('e3fd57898ca85033a29f17d075b9a18a6ebee14db5f996183fd1183a6c6382c3d10c74cd1863563cd031359937ab95c886909ba6f9d7ecc8f2056464673b5fff'
+sha512sums=('b4ab7bfec4cbc827fe0d459040967afb714c073ad27ec9ad46e51ebc49c56b2a85501a3c8c5c199b4cb5359fc46580d6f2dfdb49da1670216d5d2b56758de491'
             '365e2bca04e108a6a65c1e8a2b82efcee3916630ca522808e51074db7fb499d7f7c67bb84b304f5f398c17379ff26ec7fd1e44d56991a47581111c1c360ffdb8')

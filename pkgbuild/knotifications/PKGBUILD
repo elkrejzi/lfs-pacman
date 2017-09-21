@@ -1,5 +1,5 @@
 pkgname=knotifications
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Abstraction for system notifications"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3b08faf67d705233e98ff5e6cacdb6983134942f1ea5bb8cac43ecfe7b15aac987702cf635dd8dc3e45047e5069bb3fcd39c9745ac4bf414bb33f69336013644')
+sha512sums=('47d3268edd3162f48973e3ca0586df73ec3115b100c866e014e8dbf4b36f5102d85d97d722e849641415e2f91e7e1f2e5976b42e7a34ae95ba8ecf88e8ec0672')

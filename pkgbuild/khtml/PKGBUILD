@@ -1,5 +1,5 @@
 pkgname=khtml
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="KHTML APIs"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('275b014d7e1ec3c5f2727c32c237ee9d2f0be313fd5e8676b81be1a1791478e04c786129340f331ea35e4f363e0e696b7d7e67c2699dfeb48bfa8cbb6ed6522d')
+sha512sums=('0b0c6e4737212ec7fef14a063fe13d6a715c27f56ea3e432b258ac2cce9c5de83f1ce82949a385eb4e904a4ee61d5d6222f476e053addac52cb5a9800cfd162b')

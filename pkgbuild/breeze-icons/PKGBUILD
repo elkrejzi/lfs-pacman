@@ -1,5 +1,5 @@
 pkgname=breeze-icons
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Breeze icon themes"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f026bb2ae5626faf082d6f1220023551ca8b1e2665a29707cf26176d33449fd9be0954ee1b01248bc1618211541ea62e91b5423450dbc87eced847a7d8839861')
+sha512sums=('7cc7639defe51b1595e870c615acc0adedc57c6f68d656124b0bdbf32d37724f7090df043d8b42fe4369ef3572d53ee5996c60ce8052b7dfedca482dd102bb0e')

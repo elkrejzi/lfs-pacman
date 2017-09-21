@@ -1,5 +1,5 @@
 pkgname=kunitconversion
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Support for unit conversion"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('50a4c6efca7d8f218756b9b15f2655bc56fa320178d11291bd3bc4be84ba625a6e8dfa9f2e6320c0c6e8b9f80e80b1125b2e0d1d8e0c86b3e0a1fb9521a4ca5e')
+sha512sums=('421dbf9e84904d14065c8f72ddbd61892ec060627c4eb3e03a98a03ff998ca1f137a133a34a8bde823538d3a7554b0fea8a72dbfe9154d79d6dcc8dcddf413c2')

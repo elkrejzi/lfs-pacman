@@ -1,5 +1,5 @@
 pkgname=kinit
-pkgver=5.37.0
+pkgver=5.38.0
 pkgrel=1
 pkgdesc="Process launcher to speed up launching KDE applications"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c12157a88eb708b5838ba381f31460f21adf190a9f1ca58f2f32824c10901f5c716a251af7a24493e0715605c6c0fc480a361bf2fd656a6f38763f0de99dc576')
+sha512sums=('e5a6b166c4d20b15c558f1d80a0154ffa40fed4dbf452a7e8af334c013d094da34064c06478e86125e8187d410e02c74115b4e89521562730157576b43c48667')

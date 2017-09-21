@@ -7,7 +7,14 @@ url="https://wiki.gnome.org/Projects/GnomeKeyring"
 license=('GPL' 'LGPL')
 #depends=()
 install=gnome-keyring.install
-source=("https://download.gnome.org/sources/gnome-keyring/${pkgver:0:4}/gnome-keyring-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/gnome-keyring/${pkgver:0:4}/gnome-keyring-${pkgver}.tar.xz"
+	"gnome-keyring-fixes.patch")
+
+prepare() {
+	cd "${srcdir}/gnome-keyring-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/gnome-keyring-fixes.patch"
+}
 
 build() {
 	cd "${srcdir}/gnome-keyring-${pkgver}"
@@ -27,4 +34,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a60d8a4b17a9c6d8c581578881abaf7d79de43045a314b401e3bfd3974edb4ab94117dd430203b721058f432b24bf6296e0b7c4fba1e66cccd2c2e9441787177')
+sha512sums=('a60d8a4b17a9c6d8c581578881abaf7d79de43045a314b401e3bfd3974edb4ab94117dd430203b721058f432b24bf6296e0b7c4fba1e66cccd2c2e9441787177'
+            'df543aa6d63b43af307bf9b0cd2a8125743865fcbf6c53848b9725fb008aeb213b9d3cf042bde21b64ff02f03fe8c29d3c6392c16fc429cb5e3106682fbb795e')
