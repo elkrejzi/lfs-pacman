@@ -1,0 +1,26 @@
+pkgname=qtnetworkauth
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Network authentication module"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtnetworkauth-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtnetworkauth-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtnetworkauth-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('2e83eefd5db62aa1cdbe451b432ba1937541e435dcc35205d3bb9b947f2ac7e31663dc069a6cfad5bbf34e1fa799d519820f7ed61b9c247016611a533385bebf')

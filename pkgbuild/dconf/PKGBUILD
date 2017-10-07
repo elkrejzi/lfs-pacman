@@ -1,5 +1,5 @@
 pkgname=dconf
-pkgver=0.26.0
+pkgver=0.26.1
 pkgrel=1
 pkgdesc="Configuration database system"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ea225397a486815c90a113c064d943f113490dfc754e4acba049b033115aa3a6a3849a5cdc133663de09811cde41c963041bc244cfd9ed32d65399889e415d1e')
+sha512sums=('4d2b4afce189e448e3bd4e9c2f9d3d5eec6c694748aec87a9a8de047296c858772a5234dbcace8e84d99c5378d2d1ba35cafb5e5ea7efca25c10a53a55b8b6da')

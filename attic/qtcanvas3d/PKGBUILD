@@ -1,0 +1,24 @@
+pkgname=qtcanvas3d
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="A JavaScript 3D rendering API for Qt Quick"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtcanvas3d-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtcanvas3d-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtcanvas3d-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+}
+
+sha512sums=('df613f529a22f59957423f1a0a3da5ac132116a07a49a45e743d3b401008e114f541b767fc169a6ad14b511d8e5e147cc46fe6220d61daef72dfe14fd9b95f8a')

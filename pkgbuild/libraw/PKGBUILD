@@ -1,5 +1,5 @@
 pkgname=libraw
-pkgver=0.18.4
+pkgver=0.18.5
 pkgrel=1
 pkgdesc="A library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e71db23a70f0cda745ae862f4cb6a0c51c968e4c7399f28e86de8beb894526fa76cd337c1406e2eaee3f287f15e8912d1a0f7217493c6444a491ca3329f63776')
+sha512sums=('751a1c54507b7408d0d36c3f1fb0e31928f5ae540fae42eb2b57d8fcebcd44134dc452a4f3838dd31dbc8fb3978a6cac6129429a3350f8be5dc44146309aff81')

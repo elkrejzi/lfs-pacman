@@ -1,5 +1,5 @@
 pkgname=gnome-tweak-tool
-pkgver=3.24.1
+pkgver=3.26.2.1
 pkgrel=1
 pkgdesc="Customize advanced GNOME 3 options"
 arch=('x86_64')
@@ -8,18 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-tweak-tool/${pkgver:0:4}/gnome-tweak-tool-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-tweak-tool-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/gnome-tweak-tool-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-tweak-tool-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('b76e9a46de07d12b586fb7326fcd51fff1565b831fe8f4d1ab4bbefe36450b5d2cb7c7a168922960894ba57ac9bd412afa61973c034bd1b5f2b45c52eb34adcd')
+sha512sums=('0a0683db119fbd8f465650f04bc70c785c63b2e0130ae8e7c450b6f6664a3ced1fa6ad6793da8c4d53c75dc274cd95c9725467e4d8d59028d75b3b2f041cd62d')

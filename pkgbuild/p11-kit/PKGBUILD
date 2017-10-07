@@ -1,5 +1,5 @@
 pkgname=p11-kit
-pkgver=0.23.8
+pkgver=0.23.9
 pkgrel=1
 pkgdesc="Library to work with PKCS#11 modules"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('cf3b28e4bed8cc18ef49fa7af1e4ad04f1b97dbd08f1e0bab07c280f0aa35306c01e35896bc990c9ed7bdecd6c5ce697ccb95288ef04dd3740db384343ea2f24')
+sha512sums=('6a8a569483763d3ffacadf669b8ba9b9be38a77dd8dc366ca0cb91c44753517fa1879d4422e4e8dfbcac594565727839a619566a170c0f94f8e112f18b0086ed')

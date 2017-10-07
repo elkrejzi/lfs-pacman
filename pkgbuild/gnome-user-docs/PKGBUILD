@@ -1,5 +1,5 @@
 pkgname=gnome-user-docs
-pkgver=3.26.0
+pkgver=3.26.1
 pkgrel=1
 pkgdesc="User documentation for GNOME"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2b389a899eba86da815c6f295b2620f9f28a1fe1ff3a2fcf0cb4d37b7a9d94041ffc31f5d56e516dfa37d51cd2bf640c2433183a080282d53994ef1614e5b15f')
+sha512sums=('383986c375adf54ffe84dd1924ace6966d5d6879b3496fc2f65e7f0c76971eab5725962a778de454e550cde4c19a011b0f11c7132a9f771d3ea2882428be04c8')

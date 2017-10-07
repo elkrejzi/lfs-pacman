@@ -1,0 +1,30 @@
+pkgname=gucharmap
+pkgver=10.0.2
+pkgrel=1
+pkgdesc="Gnome Unicode Charmap"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Gucharmap"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gucharmap/${pkgver:0:4}/gucharmap-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gucharmap-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile \
+		--enable-vala \
+		--with-unicode-data=download
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gucharmap-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('75b71c9349ca39ee4cdfa913196bab69aa5079a2ddfdf74d71477d5d96652135a4e08c03adca35b036f66551b1ec42788743b0bc03b5b00f7cebe40de3deb07a')

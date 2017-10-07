@@ -1,0 +1,26 @@
+pkgname=qtcharts
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Provides a set of easy to use chart components"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtcharts-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtcharts-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtcharts-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('297547b565dd71b05237bb05ecc1abf1a774a4909668417e78bd65e805c1e47a456a5a06898fe06d4c4614118e4129e19893d4c77598667a9354ab969307a293')

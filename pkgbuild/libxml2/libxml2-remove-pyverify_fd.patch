@@ -1,0 +1,11 @@
+--- a/python/types.c	2016-06-07 12:04:14.000000000 +0200
++++ b/python/types.c	2017-10-06 22:43:25.498602470 +0200
+@@ -31,8 +31,6 @@
+     const char *mode;
+ 
+     fd = PyObject_AsFileDescriptor(f);
+-    if (!_PyVerify_fd(fd))
+-        return(NULL);
+     /*
+      * Get the flags on the fd to understand how it was opened
+      */

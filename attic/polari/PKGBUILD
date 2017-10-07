@@ -1,0 +1,33 @@
+pkgname=polari
+pkgver=3.26.1
+pkgrel=1
+pkgdesc="An IRC Client for GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Polari"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/polari/${pkgver:0:4}/polari-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/polari-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('b3ef9139ecaf7f8002ed8a5b00ae888a0841287f137379bfaa5c26c28e4f1d111518d8675a1b86095e6994011fd167df57ee1ec9f3aa6e0c41d3189a858a27a9')

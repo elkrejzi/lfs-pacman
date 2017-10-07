@@ -1,5 +1,5 @@
 pkgname=ldb
-pkgver=1.1.29
+pkgver=1.2.2
 pkgrel=1
 pkgdesc="A schema-less, ldap like, API and database"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d37bbe84358e05d17483e2e963b8477da5ea351b855b454142c94af35f7987bede0f19faeaff17779efe04e3bb37c510437fcc59be99a17c826620fc25fd659c')
+sha512sums=('7d9bd88c6a654967f092758146a8115ab6c66db69a8be269a1f536f0aa3b27fb0d2ea3848cd952ef0f1885c9c4d8b76940f9902b835fe3f79f86b22a4350129b')

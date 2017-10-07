@@ -1,0 +1,26 @@
+pkgname=qtquickcontrols2
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Next generation user interface controls based on Qt Quick"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtquickcontrols2-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtquickcontrols2-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtquickcontrols2-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('e283320aabbaa153067c909804cb34bbcbf6fcb7246bb214957b6092ceb0f01c4fae2efd9d7a6cb011274deafff4aaf0a45dbda06a3fdce1154622e48740048c')

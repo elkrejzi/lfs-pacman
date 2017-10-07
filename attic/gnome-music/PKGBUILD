@@ -1,0 +1,28 @@
+pkgname=gnome-music
+pkgver=3.26.1
+pkgrel=1
+pkgdesc="Music player and management application"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Music"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-music/${pkgver:0:4}/gnome-music-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-music-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-music-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('583342416b0ef088044e2f6fb3222de53975e3b87bd9f1973d18e69cb805274354972780f39366e7ce1e256a79c8d7b2ac8d145dc2c1d956b3b6001ecaf7957e')

@@ -1,0 +1,26 @@
+pkgname=gnome-photos
+pkgver=3.26.1
+pkgrel=1
+pkgdesc="Access, organize, and share your photos on GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Photos"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-photos/${pkgver:0:4}/gnome-photos-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-photos-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-photos-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('496594236b2bd5a3411744e8ef118d2f159628dd3b57c4cbe5b24da3863a42beb80bdaaa91bab1edfee52b28244b71423bb850d5ac6881ec4d7a1cb7293a86f1')

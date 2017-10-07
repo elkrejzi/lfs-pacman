@@ -1,5 +1,5 @@
 pkgname=gvfs
-pkgver=1.34.0
+pkgver=1.34.1
 pkgrel=1
 pkgdesc="Virtual filesystem implementation for GIO"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-sha512sums=('1b8ffdd027eb9033dbaaa34b0f2a5d4a9e1b472dc59a544502e914711a8e76f719a83cde51a5ca3b6d89eb3b7ff789f3ad9f36e946331bc16cc67dcaa2968913')
+sha512sums=('383f20c3dad1ff833f1d14466f215c7183459c0ed18d842fd09a68061e09814f2a4e33d574a0bf62bc9b6f5023721d03461eaaed86e840513f7e115662af91b6')

@@ -1,18 +1,12 @@
 pkgname=libbytesize
-pkgver=1.0
+pkgver=1.2
 pkgrel=1
 pkgdesc="A tiny library providing a C class for working with arbitrary big sizes in bytes"
 arch=('x86_64')
-url="https://github.com/rhinstaller/libbytesize"
+url="https://github.com/storaged-project/libbytesize"
 license=('LGPL')
 #depends=()
-source=("https://github.com/rhinstaller/libbytesize/archive/${pkgver}/libbytesize-${pkgver}.tar.gz")
-
-prepare() {
-	cd "${srcdir}/libbytesize-${pkgver}"
-
-	./autogen.sh
-}
+source=("https://github.com/storaged-project/libbytesize/releases/download/${pkgver}/libbytesize-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libbytesize-${pkgver}"
@@ -28,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0feca102923aa05638f57f1b35593636ccc0b6cf5198eb9e8b5d805b44d270a9b3b37953ad24d445e607b09f01d64ac69e4a42e08c5f57fd46a3dea03f69c2e5')
+sha512sums=('d61ff297d1f533aee120bfcfdc3969c6a87428da322a6410707c301ff9b005da5d4f813ea15282eab5eb8435b009646d2cff29ac5247e2664af3ecaef54867a6')

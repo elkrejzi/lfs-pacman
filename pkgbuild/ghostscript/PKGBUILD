@@ -1,5 +1,5 @@
 pkgname=ghostscript
-pkgver=9.21
+pkgver=9.22
 pkgrel=1
 pkgdesc="An interpreter for the PostScript language"
 arch=('x86_64')
@@ -39,4 +39,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('c5ff632dc9b418ebeecaae796cecbaf9ffcb84d7a1b62c1af2e6c9082f7b9f24fe9dd9f6a57bde3640f54c3036f0b99b32aac9f8ca1f489c012369ab2b72ae92')
+sha512sums=('599ba003e168d302e327ea7c2b83a4247059a1b7222452cbea4966dac448a79e8d7f07a1f287fa0c14cfa5269bb623382ed02fb3ea3a0e526dae08aaa1cd8b89')

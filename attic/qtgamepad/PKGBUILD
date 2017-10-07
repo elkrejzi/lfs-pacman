@@ -1,0 +1,26 @@
+pkgname=qtgamepad
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Adds support for getting events from gamepad devices"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtgamepad-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtgamepad-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtgamepad-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('398d6ff0268460358584a4ea8ba0588881970dcc1dff6c5aa91d1630065ba112c86d7a1fe96dceb8ff301b350aef7f74ad1ee6212048a4cdfb26ff5d944d6222')

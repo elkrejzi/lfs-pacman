@@ -1,0 +1,26 @@
+pkgname=qtscript
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Classes for making Qt applications scriptable. Provided for Qt 4.x compatibility"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtscript-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtscript-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtscript-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('3ce2e57a0a6b2382614f689edca0deed87afe944c1c41decb3b9f420449fa59f2b79e6330e78e01a950761a95903113eaa7fbf261886361114acf5015d93254c')

@@ -1,5 +1,5 @@
 pkgname=gnome-online-accounts
-pkgver=3.26.0
+pkgver=3.26.1
 pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
 arch=('x86_64')
@@ -15,6 +15,9 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--enable-kerberos \
+		--enable-lastfm \
+		--enable-media-server \
+		--enable-todoist \
 		--disable-compile-warnings
 
 	make
@@ -26,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ce11fe02e77c8000be869cefdc95d1a053fe1ae00150b15916492ad2a93f2f8884e50d0e8f7ca5331ab61e6757a7728cd88408d0239295e4338a415aabc4bca2')
+sha512sums=('ca8ccf669509d00735cebcfd404e74e77e7998f67993d3bd8cb1409a53cb377cdadcae26fef40c608390cba3f2a976075a2073c103f3cc414b9ef1c0f0838044')

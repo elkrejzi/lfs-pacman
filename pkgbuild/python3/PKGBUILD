@@ -1,6 +1,6 @@
 pkgname=python3
 _py3majorver=3.6
-_py3minorver=2
+_py3minorver=3
 pkgver=${_py3majorver}.${_py3minorver}
 pkgrel=1
 pkgdesc="A high-level scripting language"
@@ -51,5 +51,5 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{ctypes/test,tkinter/test,test,sqlite3/test}
 }
 
-sha512sums=('a8270a09a9e9b39f69ece6cdade2fa964665d2107b5acbad4453f1b921107b329c697c137185928fb4a576fc0f2ae2a98dbf26a8b7ea17219e990ddbc216db8b'
+sha512sums=('32f24a3adcb7880003c7ecdc5e53e838e774adda76b308961d8215e28db630b2fa2828097817924c76afa4212b2df3362eb64d4e10f37c0147f512ec5aa8662b'
             '18338db251551c4f6606862a4abf6f7ef05ab90d98dd3a011eefcf6a3c140d56beb7a08c05484bf62b5c51de208cc73567f566011563cfc420e2b87977bf1504')

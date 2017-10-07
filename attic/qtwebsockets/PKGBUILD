@@ -1,0 +1,26 @@
+pkgname=qtwebsockets
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Provides WebSocket communication compliant with RFC 6455"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtwebsockets-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtwebsockets-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtwebsockets-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('9330d6806251bc77d4c2a497a31b1b0e42a1e6bfe3ea7c00cee123052e9e1f9080e33cf4dfcd6ee6e4732c62f41257a77ec25ad607528f4e8ebe61ccaee3e159')

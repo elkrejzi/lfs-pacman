@@ -1,0 +1,26 @@
+pkgname=qtserialbus
+pkgver=5.9.2
+pkgrel=1
+pkgdesc="Qt module for general purpose serial bus access"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtserialbus-opensource-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtserialbus-opensource-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtserialbus-opensource-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('978f93c485509d70e2e2590f98d38ad76f03b31fac1508594a0802acf1a022e4f531fc9294826bacdc7292b3c8f9f740e4cd3e2996bb9b3deb401350aae8136d')

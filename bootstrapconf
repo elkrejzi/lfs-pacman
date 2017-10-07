@@ -33,9 +33,7 @@ EOF
 
 useradd -u 1000 -c "Armin K" -s /bin/bash -MU armin
 
-gpasswd -a armin kvm
 gpasswd -a armin systemd-journal
-gpasswd -a armin wireshark
 
 cat > /etc/hosts << "EOF"
 # Begin /etc/hosts

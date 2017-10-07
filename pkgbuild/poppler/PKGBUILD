@@ -1,5 +1,5 @@
 pkgname=poppler
-pkgver=0.59.0
+pkgver=0.60.1
 pkgrel=1
 pkgdesc="PDF rendering library based on xpdf 3.0"
 arch=('x86_64')
@@ -8,22 +8,31 @@ license=('GPL')
 #depends=()
 source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz")
 
+prepare() {
+        install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/poppler-${pkgver}"
+	cd "${srcdir}/build"
 
 	export CXX="${CXX} -std=c++11"
 
-	./configure --prefix=/usr --enable-xpdf-headers
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DENABLE_GTK_DOC=ON \
+		-DENABLE_XPDF_HEADERS=ON \
+		"${srcdir}/poppler-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/poppler-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-sha512sums=('23777922dc95feee2a4459281081b37e124a39fc25cd00c2c3fc206f5484c13eb9ac5317f674fbbcb51e384f9a53e38b4cacbf1426c68d2bae21a7cefbc48a0e')
+sha512sums=('db73524b7413dddee38d5a049f3926338ee123b8fc4893d80ee9cf5aaae47c8c7b75b112293b156cd375894e548ec68e5fbf4af305e77b43bc3868ad1c966cdc')

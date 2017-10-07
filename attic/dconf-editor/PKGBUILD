@@ -1,0 +1,27 @@
+pkgname=dconf-editor
+pkgver=3.26.1
+pkgrel=1
+pkgdesc="dconf Editor"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/dconf"
+license=('GPL3')
+#depends=()
+source=("https://download.gnome.org/sources/dconf-editor/${pkgver:0:4}/dconf-editor-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/dconf-editor-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/dconf-editor-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('c8d301e8d76794d9f69b6491211d7398fcffea49ec5d23c336a94b1fe222b9e7c3dd5c0329fb23f00d086b5650e3273b7cd207651b7a28efb544453c2b8d2dce')

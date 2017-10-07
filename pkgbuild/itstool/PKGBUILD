@@ -8,10 +8,16 @@ license=(GPL3)
 #depends=()
 source=("http://files.itstool.org/itstool/itstool-${pkgver}.tar.bz2")
 
+prepare() {
+	cd "${srcdir}/itstool-${pkgver}"
+
+	sed -i 's#| python -#| $PYTHON -#g' configure
+}
+
 build() {
 	cd "${srcdir}/itstool-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr PYTHON=/usr/bin/python2
 
 	make
 }

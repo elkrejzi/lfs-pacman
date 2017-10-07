@@ -1,23 +1,21 @@
 pkgname=libblockdev
-pkgver=2.12
+pkgver=2.13
 pkgrel=1
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
-url="https://github.com/rhinstaller/libblockdev"
+url="https://github.com/storaged-project/libblockdev"
 license=('LGPL')
 #depends=()
-source=("libblockdev-${pkgver}-1.tar.gz::https://github.com/rhinstaller/libblockdev/archive/${pkgver}-1.tar.gz")
+source=("https://github.com/storaged-project/libblockdev/releases/download/${pkgver}-1/libblockdev-${pkgver}.tar.gz")
 
-prepare() {
-	cd "${srcdir}/libblockdev-${pkgver}-1"
+prepare(){
+	cd "${srcdir}/libblockdev-${pkgver}"
 
-	sed -i "s# -Werror##" $(grep -rl Werror)
-
-	./autogen.sh
+	sed -i "s# -Werror##" src/utils/Makefile.in src/plugins/Makefile.in
 }
 
 build() {
-	cd "${srcdir}/libblockdev-${pkgver}-1"
+	cd "${srcdir}/libblockdev-${pkgver}"
 
 	./configure --prefix=/usr --sysconfdir=/etc
 
@@ -25,9 +23,9 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/libblockdev-${pkgver}-1"
+	cd "${srcdir}/libblockdev-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d40ce3ae45edbe2c79fe0c86df8a22982bd94718cf82161ccd5d7759272eba9948d29e6ab26490f7ba8cb3630b0350ee3a659fba7da73056dc123db9c2535b2e')
+sha512sums=('784bbb1274fd09114d42c06a9dc6e63d65b7d6c286c47b6e69231ac270991d2b558312d8c583a1143cdb3e18be075b282be761da571e5f0e48a7a92a3a1b9075')

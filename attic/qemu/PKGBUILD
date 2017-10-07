@@ -1,0 +1,57 @@
+pkgname=qemu
+pkgver=2.10.1
+pkgrel=1
+pkgdesc="A generic and open source machine emulator and virtualizer"
+arch=('x86_64')
+url="http://wiki.qemu.org/"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+options=(!strip)
+source=("http://wiki.qemu.org/download/qemu-${pkgver}.tar.bz2"
+	"65-kvm.rules"
+	"qemu.sysusers")
+
+build() {
+	cd "${srcdir}/qemu-${pkgver}"
+
+	_qemu_tgt_list="i386-softmmu x86_64-softmmu i386-linux-user x86_64-linux-user"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-jemalloc \
+		--enable-linux-aio \
+		--enable-spice \
+		--enable-tpm \
+		--enable-virglrenderer \
+		--with-gtkabi=3.0 \
+		--with-sdlabi=2.0 \
+		--audio-drv-list="pa alsa sdl" \
+		--target-list="${_qemu_tgt_list}" \
+		--host-cc="clang"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/qemu-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	chmod 4755 "${pkgdir}/usr/libexec/qemu-bridge-helper"
+
+	_clean_bios=(bios-256k.bin bios.bin vgabios-cirrus.bin vgabios-qxl.bin
+		vgabios-stdvga.bin vgabios-vmware.bin)
+
+	for f in ${_clean_bios[@]}
+	do
+		rm -f "${pkgdir}/usr/share/qemu/${f}"
+	done
+
+	install -v -Dm644 "${srcdir}/65-kvm.rules" "${pkgdir}/usr/lib/udev/rules.d/65-kvm.rules"
+	install -v -Dm644 "${srcdir}/qemu.sysusers" "${pkgdir}/usr/lib/sysusers.d/qemu.conf"
+}
+
+sha512sums=('1a4a6ebf700ec6851c83cc2a71eaea8d95f14c685d094eaaa86c740eb9401e49a79074b72385f58681ca7646771a99bb6bbd9bebb39162f7220626d37ed0654f'
+            '13a097ee0ac9f740ad3de8d24c71bdb9a655dc18e3afc1bac990643a120a3ec9de45be887a89ef840e5a88c2f4dc8e3a3a435fd3185b1884d57d6c292864e7c5'
+            'e3e0b8a6df627fa150332b070fa2e78372af2cba3925670ad351250e92f7748a9675ee0beec3b4c21b32a57c24a1482a44aef7191c3b5905a71ecedc55fc2096')

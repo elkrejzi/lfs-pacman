@@ -1,0 +1,28 @@
+pkgname=gnome-maps
+pkgver=3.26.1
+pkgrel=1
+pkgdesc="A simple GNOME 3 maps application"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Maps"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-maps/${pkgver:0:4}/gnome-maps-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-maps-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-maps-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e60c38539375539414f4d49f41fb1510d55f2e94bc362efb420b75ca5e70ac3ada8e9f9ac7cec493b66d704caebfbc648b885c62ec57cb875cfaf867f353d456')

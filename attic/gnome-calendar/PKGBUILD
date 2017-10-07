@@ -1,0 +1,34 @@
+pkgname=gnome-calendar
+pkgver=3.26.2
+pkgrel=1
+pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Calendar"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-calendar/${pkgver:0:4}/gnome-calendar-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-gtk-doc=true \
+		"${srcdir}/gnome-calendar-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('edf28878dcfbdec7dc6b81a82130de1bacffdd74ad7d9357e17c7bbe5ce4d45811852e8099c188c9b2f0cf54ab0a3f85d9376968d01c5697548cc2a175e55f46')

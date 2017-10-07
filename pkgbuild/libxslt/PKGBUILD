@@ -1,5 +1,5 @@
 pkgname=libxslt
-pkgver=1.1.30
+pkgver=1.1.31
 pkgrel=1
 pkgdesc="XML stylesheet transformation library"
 arch=('x86_64')
@@ -7,16 +7,7 @@ url="http://xmlsoft.org/XSLT/"
 license=('custom')
 #depends=()
 options=(emptydirs)
-source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz"
-	"libxslt-xslt-config-fix.patch")
-
-prepare() {
-	cd "${srcdir}/libxslt-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/libxslt-xslt-config-fix.patch"
-
-	autoreconf -fi
-}
+source=("http://xmlsoft.org/sources/libxslt-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libxslt-${pkgver}"
@@ -32,5 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d24e37398503b6bc29245a993738df51bf3948c4a8f052eedd7eac0a9fcff2d5b54220f37070c46f763e073c34bdb3153c9f129aa0df60c3d7cf7eadbbf15986'
-            '58f73d19113050fde27d84f04454deabc2cf6f6399866769cec9ddcd9b994b22145d225ca13ffe27b10f645ce4a0efecce8e413a8eb53f6a3951192302616052')
+sha512sums=('9012d643625d827b131c825a103f2e2a5f3cbd45d3cdf3318378e8f046da8d084db51c6b0078b5850a26adc81ba3bf357101d65ef510eff54c8b416a71efed92')

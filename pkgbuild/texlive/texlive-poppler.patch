@@ -1,5 +1,5 @@
 --- a/texk/web2c/luatexdir/image/pdftoepdf.w	2016-11-25 19:09:14.000000000 +0100
-+++ b/texk/web2c/luatexdir/image/pdftoepdf.w	2017-09-21 19:45:43.584642520 +0200
++++ b/texk/web2c/luatexdir/image/pdftoepdf.w	2017-10-04 15:45:02.376558944 +0200
 @@ -224,7 +224,7 @@
          free(checksum);
      }
@@ -182,7 +182,7 @@
          unrefPdfDocument() must come after contents.free() and pageobj.free()!
          TH: The next line makes repeated pdf inclusion unacceptably slow
 --- a/texk/web2c/luatexdir/lua/lepdflib.cc	2017-03-11 02:04:06.000000000 +0100
-+++ b/texk/web2c/luatexdir/lua/lepdflib.cc	2017-09-21 19:45:43.584642520 +0200
++++ b/texk/web2c/luatexdir/lua/lepdflib.cc	2017-10-04 15:45:02.377558958 +0200
 @@ -538,7 +538,7 @@
          pdfdoc_changed_error(L);                               \
      uout = new_Object_userdata(L);                             \
@@ -617,7 +617,7 @@
      uout->pc = uin->pc;
      uout->pd = uin->pd;
 --- a/texk/web2c/luatexdir/lua/lpdfscannerlib.cc	2016-11-25 19:09:15.000000000 +0100
-+++ b/texk/web2c/luatexdir/lua/lpdfscannerlib.cc	2017-09-21 19:45:43.585642528 +0200
++++ b/texk/web2c/luatexdir/lua/lpdfscannerlib.cc	2017-10-04 15:45:02.377558958 +0200
 @@ -634,7 +634,7 @@
        int i;
        for (i=0;i<count;i++) {
@@ -628,7 +628,7 @@
  	  ObjectList *rover = self->_streams;
  	  ObjectList *item = (ObjectList *)priv_xmalloc (sizeof(ObjectList));
 --- a/texk/web2c/pdftexdir/pdftoepdf.cc	2016-11-25 19:09:21.000000000 +0100
-+++ b/texk/web2c/pdftexdir/pdftoepdf.cc	2017-09-21 19:45:43.585642528 +0200
++++ b/texk/web2c/pdftexdir/pdftoepdf.cc	2017-10-04 15:45:02.378558971 +0200
 @@ -84,31 +84,6 @@
  #define MASK_SUPPRESS_PTEX_PAGENUMBER 0x04
  #define MASK_SUPPRESS_PTEX_INFODICT   0x08
@@ -716,16 +716,39 @@
          pdf_puts(" ");
      }
      pdf_puts("]\n");
-@@ -396,7 +359,7 @@
+@@ -394,10 +357,29 @@
  
+ #define REPLACE_TYPE1C true
+ 
++static bool embeddableFont(Object * fontdesc)
++{
++    Object fontfile, ffsubtype;
++
++    if (!fontdesc->isDict())
++        return false;
++    fontfile = fontdesc->dictLookup("FontFile");
++    if (fontfile.isStream())
++        return true;
++    if (REPLACE_TYPE1C) {
++        fontfile = fontdesc->dictLookup("FontFile3");
++        if (!fontfile.isStream())
++            return false;
++        ffsubtype = fontfile.streamGetDict()->lookup("Subtype");
++        return ffsubtype.isName() && !strcmp(ffsubtype.getName(), "Type1C");
++    }
++    return false;
++}
++
  static void copyFont(char *tag, Object * fontRef)
  {
 -    PdfObject fontdict, subtype, basefont, fontdescRef, fontdesc, charset,
+-        fontfile, ffsubtype, stemV;
 +    Object fontdict, subtype, basefont, fontdescRef, fontdesc, charset,
-         fontfile, ffsubtype, stemV;
++        stemV;
      GfxFont *gfont;
      fd_entry *fd;
-@@ -413,33 +376,49 @@
+     fm_entry *fontmap;
+@@ -413,33 +395,39 @@
      }
      // Only handle included Type1 (and Type1C) fonts; anything else will be copied.
      // Type1C fonts are replaced by Type1 fonts, if REPLACE_TYPE1C is true.
@@ -743,23 +766,13 @@
 -                && !strcmp(ffsubtype->getName(), "Type1C")))
 -        && (fontmap = lookup_fontmap(basefont->getName())) != NULL) {
 +    fontdict = fontRef->fetch(xref);
++    fontdesc = Object(objNull);
 +    if (fontdict.isDict()) {
 +        subtype = fontdict.dictLookup("Subtype");
 +        basefont = fontdict.dictLookup("BaseFont");
 +        fontdescRef = fontdict.dictLookupNF("FontDescriptor");
 +        if (fontdescRef.isRef()) {
 +            fontdesc = fontdescRef.fetch(xref);
-+            if (fontdesc.isDict()) {
-+                fontfile = fontdesc.dictLookup("FontFile");
-+                if (!fontfile.isStream() && REPLACE_TYPE1C) {
-+                    fontfile = fontdesc.dictLookup("FontFile3");
-+                    ffsubtype = fontfile.streamGetDict()->lookup("Subtype");
-+                    if (!(ffsubtype.isName() && !strcmp(ffsubtype.getName(), "Type1C"))) {
-+                        // not a Type1-C font.
-+                        fontfile = Object(objNull);
-+                    }
-+                }
-+            }
 +        }
 +    }
 +    if (!fixedinclusioncopyfont && fontdict.isDict()
@@ -768,7 +781,7 @@
 +        && basefont.isName()
 +        && fontdescRef.isRef()
 +        && fontdesc.isDict()
-+        && fontfile.isStream()
++        && embeddableFont(&fontdesc)
 +        && (fontmap = lookup_fontmap(basefont.getName())) != NULL) {
          // round /StemV value, since the PDF input is a float
          // (see Font Descriptors in PDF reference), but we only store an
@@ -795,7 +808,7 @@
          pdf_printf(" %d 0 R ", addFont(fontRef->getRef(), fd,
                                         addEncoding(gfont)));
      } else {
-@@ -451,24 +430,24 @@
+@@ -451,24 +439,24 @@
  
  static void copyFontResources(Object * obj)
  {
@@ -825,7 +838,7 @@
      }
      pdf_puts(">>\n");
  }
-@@ -557,7 +536,7 @@
+@@ -557,7 +545,7 @@
  
  static void copyObject(Object * obj)
  {
@@ -834,7 +847,7 @@
      int i, l, c;
      Ref ref;
      char *p;
-@@ -601,8 +580,8 @@
+@@ -601,8 +589,8 @@
      } else if (obj->isArray()) {
          pdf_puts("[");
          for (i = 0, l = obj->arrayGetLength(); i < l; ++i) {
@@ -845,16 +858,18 @@
                  pdf_puts(" ");
              copyObject(&obj1);
          }
-@@ -612,7 +591,7 @@
+@@ -612,9 +600,8 @@
          copyDict(obj);
          pdf_puts(">>");
      } else if (obj->isStream()) {
 -        initDictFromDict(obj1, obj->streamGetDict());
-+        obj1 = Object(obj->streamGetDict());
          pdf_puts("<<\n");
-         copyDict(&obj1);
+-        copyDict(&obj1);
++        copyDict(obj->getStream()->getDictObject());
          pdf_puts(">>\n");
-@@ -638,9 +617,8 @@
+         pdf_puts("stream\n");
+         copyStream(obj->getStream()->getUndecodedStream());
+@@ -638,9 +625,8 @@
      InObj *r;
      for (r = inObjList; r != 0; r = r->next) {
          if (!r->written) {
@@ -865,7 +880,7 @@
              if (r->type == objFont) {
                  assert(!obj1.isStream());
                  pdfbeginobj(r->num, 2);         // \pdfobjcompresslevel = 2 is for this
-@@ -656,7 +634,6 @@
+@@ -656,7 +642,6 @@
                  pdf_puts("\n");
                  pdfendobj();
              }
@@ -873,7 +888,7 @@
          }
      }
  }
-@@ -839,8 +816,8 @@
+@@ -839,8 +824,8 @@
      Page *page;
      Ref *pageRef;
      Dict *pageDict;
@@ -884,7 +899,7 @@
      bool writeSepGroup = false;
      Object info;
      char *key;
-@@ -867,8 +844,8 @@
+@@ -867,8 +852,8 @@
      encodingList = 0;
      page = pdf_doc->doc->getCatalog()->getPage(epdf_selected_page);
      pageRef = pdf_doc->doc->getCatalog()->getPageRef(epdf_selected_page);
@@ -895,7 +910,7 @@
      rotate = page->getRotate();
      PDFRectangle *pagebox;
      // write the Page header
-@@ -886,7 +863,7 @@
+@@ -886,7 +871,7 @@
          pdf_printf("/%s.PageNumber %i\n", pdfkeyprefix, (int) epdf_selected_page);
      }
      if ((suppress_ptex_info & MASK_SUPPRESS_PTEX_INFODICT) == 0) {
@@ -904,7 +919,7 @@
          if (info.isRef()) {
              // the info dict must be indirect (PDF Ref p. 61)
              pdf_printf("/%s.InfoDict ", pdfkeyprefix);
-@@ -942,14 +919,14 @@
+@@ -942,14 +927,14 @@
      pdf_puts(stripzeros(s));
  
      // Metadata validity check (as a stream it must be indirect)
@@ -923,7 +938,7 @@
              pdf_newline();
              pdf_printf("/%s ", pageDictKeys[i]);
              copyObject(&dictObj); // preserves indirection
-@@ -957,8 +934,8 @@
+@@ -957,8 +942,8 @@
      } 
  
      // handle page group
@@ -934,7 +949,7 @@
          if (pdfpagegroupval == 0) { 
              // another pdf with page group was included earlier on the
              // same page; copy the Group entry as is.  See manual for
-@@ -972,11 +949,11 @@
+@@ -972,11 +957,11 @@
              copyObject(&dictObj);
          } else {
              // write Group dict as a separate object, since the Page dict also refers to it
@@ -949,29 +964,24 @@
              pdf_printf("/Group %ld 0 R\n", (long)pdfpagegroupval);
          }
      }
-@@ -989,15 +966,15 @@
+@@ -989,14 +974,14 @@
          pdftex_warn
              ("PDF inclusion: /Resources missing. 'This practice is not recommended' (PDF Ref)");
      } else {
 -        initDictFromDict(obj1, page->getResourceDict());
--        if (!obj1->isDict())
-+        obj1 = Object(page->getResourceDict());
-+        if (!obj1.isDict())
++        Object *obj1 = page->getResourceDictObject();
+         if (!obj1->isDict())
              pdftex_fail("PDF inclusion: invalid resources dict type <%s>",
--                        obj1->getTypeName());
-+                        obj1.getTypeName());
+                         obj1->getTypeName());
          pdf_newline();
          pdf_puts("/Resources <<\n");
--        for (i = 0, l = obj1->dictGetLength(); i < l; ++i) {
+         for (i = 0, l = obj1->dictGetLength(); i < l; ++i) {
 -            obj1->dictGetVal(i, &obj2);
--            key = obj1->dictGetKey(i);
-+        for (i = 0, l = obj1.dictGetLength(); i < l; ++i) {
-+            obj2 = obj1.dictGetVal(i);
-+            key = obj1.dictGetKey(i);
++            obj2 = obj1->dictGetVal(i);
+             key = obj1->dictGetKey(i);
              if (strcmp("Font", key) == 0)
                  copyFontResources(&obj2);
-             else if (strcmp("ProcSet", key) == 0)
-@@ -1009,8 +986,8 @@
+@@ -1009,8 +994,8 @@
      }
  
      // write the page contents
@@ -982,7 +992,7 @@
  
          // Variant A: get stream and recompress under control
          // of \pdfcompresslevel
-@@ -1021,36 +998,35 @@
+@@ -1021,36 +1006,35 @@
  
          // Variant B: copy stream without recompressing
          //
@@ -1033,7 +1043,7 @@
                  pdf_newline();  // add a newline after each stream except the last
          }
 --- a/texk/web2c/pdftexdir/pdftosrc.cc	2016-11-25 19:09:21.000000000 +0100
-+++ b/texk/web2c/pdftexdir/pdftosrc.cc	2017-09-21 19:45:43.585642528 +0200
++++ b/texk/web2c/pdftexdir/pdftosrc.cc	2017-10-04 15:45:02.378558971 +0200
 @@ -86,22 +86,20 @@
              objgen = atoi(argv[3]);
      }
