@@ -1,0 +1,77 @@
+pkgname=jdk
+_jmajor=8
+_jminor=152
+_jbuild=b16
+pkgver=${_jmajor}u${_jminor}
+pkgrel=1
+pkgdesc="Oracle Java Development Kit"
+arch=('x86_64')
+url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+license=('custom')
+#depends=()
+options=(!strip emptydirs)
+source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_jbuild}/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-${pkgver}-linux-x64.tar.gz"
+	"http://download.oracle.com/otn-pub/java/jce/${_jmajor}/jce_policy-${_jmajor}.zip"
+	"jdk.sh")
+
+DLAGENTS=('http::/usr/bin/curl -fLC - --retry 3 --retry-delay 3 -b oraclelicense=a -o %o %u')
+
+prepare() {
+	cd "${srcdir}/jdk1.${_jmajor}.0_${_jminor}"
+
+	rm -rf jre/lib/fontconfig.*
+	rm -rf jre/plugin man/ja man/ja_JP.UTF-8
+	rm -rf jre/Welcome.html README.html
+	rm -rf db javafx-src.zip src.zip
+
+	rm -rf {,jre/}{COPYRIGHT,LICENSE}
+	rm -rf {,jre/}{README,release}
+	rm -rf {,jre/}THIRDPARTYLICENSEREADME{,-JAVAFX}.txt
+
+	find lib -name "*.so" -exec chmod 755 {} \;
+}
+
+package() {
+	cd "${srcdir}/jdk1.${_jmajor}.0_${_jminor}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts"
+
+	mv jre/lib/desktop/* "${pkgdir}/usr/share"
+	mv jre/lib/fonts "${pkgdir}/usr/share/fonts/lucida"
+	mv man "${pkgdir}/usr/share"
+
+	rmdir jre/lib/desktop
+
+	install -v -dm755 "${pkgdir}/usr/lib/java"
+
+	mv * "${pkgdir}/usr/lib/java"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+
+	for file in "${pkgdir}"/usr/lib/java/bin/*
+	do
+		ln -sfv ../lib/java/bin/$(basename $file) "${pkgdir}"/usr/bin/$(basename $file)
+	done
+
+	for file in "${pkgdir}"/usr/lib/java/jre/bin/*
+	do
+		ln -sfv ../lib/java/jre/bin/$(basename $file) "${pkgdir}"/usr/bin/$(basename $file)
+	done
+
+	ln -sfv ../../../../share/fonts/lucida "${pkgdir}/usr/lib/java/jre/lib/fonts"
+
+	install -v -dm755 "${pkgdir}/usr/lib/mozilla/plugins"
+	ln -sfv ../../java/jre/lib/amd64/libnpjp2.so "${pkgdir}/usr/lib/mozilla/plugins/libnpjp2.so"
+
+	sed s:.png:: -i "${pkgdir}"/usr/share/applications/*.desktop
+
+	cd "${srcdir}/UnlimitedJCEPolicyJDK8"
+
+	install -v -m644 *.jar "${pkgdir}/usr/lib/java/jre/lib/security"
+
+	install -Dm644 "${srcdir}/jdk.sh" "${pkgdir}/etc/profile.d/jdk.sh"
+}
+
+sha512sums=('b0851d46bf0385b7595f8d60da0f06ccdcd59aac75efa9b48635ba77a3e4eb557cbda5585fa5886787a0e549d9e5cfa4a992741349cfc224b36f180907838321'
+            'abbaa81a35f904ec61b4cf3c2d1ca8c8d49e53bb248e698185eea906939d68f5063412800585ec74027aab1012ef189aebe1dc99fe8ef4230a0ecb0b527f88e5'
+            '46166ea480a812bdca1aa29fd1046dc055203b5b6cd99234402138c922bb32b54b1e6f3262d69bc95e8b1af5a9567ff7520a21ddc4e6437810450b8793a98dc4')

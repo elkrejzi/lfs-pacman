@@ -1,0 +1,35 @@
+pkgname=kcmutils
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Utilities for interacting with KCModules"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kcmutils-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kcmutils-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('9889ebcbdc043d5a5e00857cbf52736d88da8be5a8126254b5a65b280e3bc97476404a99e053114140fe0ea5afa8c13ecc909c0a46a2add20407d28a2e1af5fd')

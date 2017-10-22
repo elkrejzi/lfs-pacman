@@ -1,0 +1,32 @@
+pkgname=libgit2
+pkgver=0.26.0
+pkgrel=1
+pkgdesc="A linkable library for Git"
+arch=('x86_64')
+url="https://libgit2.github.com/"
+license=('GPL2')
+#depends=()
+source=("https://github.com/libgit2/libgit2/archive/v${pkgver}/libgit2-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		"${srcdir}/libgit2-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('b6e51f2216c7c23f352572b780ea1325a25a517396709f036bb573295c2bd02aa505ba616846ac7e07863e99e640e7d47fefc5727478a257b283da99060ee47c')

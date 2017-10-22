@@ -1,0 +1,35 @@
+pkgname=kpeople
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="A library that provides access to all contacts and the people who hold them"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kpeople-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kpeople-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('756b9d798da7f1d8583ef3ecd76d82a4cbb7ef5cee5331a371066401455953b95888974d48e86a6d132b998d48b480a80ae500240ac00e186bd5ae80d2e92955')

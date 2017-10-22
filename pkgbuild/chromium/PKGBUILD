@@ -1,5 +1,5 @@
 pkgname=chromium
-pkgver=61.0.3163.100
+pkgver=62.0.3202.62
 _launcher_ver=5
 pkgrel=1
 pkgdesc="A web browser built for speed, simplicity, and security"
@@ -11,12 +11,14 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
 	"chromium-launcher-${_launcher_ver}.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v${_launcher_ver}.tar.gz"
 	"chromium.desktop"
 	"breakpad-use-ucontext_t.patch"
-	"chromium-atk-r1.patch"
-	"chromium-gn-bootstrap-r14.patch")
+	"crc32c-string-view-check.patch"
+	"chromium-gn-bootstrap-r17.patch"
+	"chromium-vaapi-r14.patch")
 
 _system_libs=(
   flac
   harfbuzz-ng
+  icu
   libdrm
   libjpeg
   libpng
@@ -30,12 +32,12 @@ _system_libs=(
 
 # ffmpeg
 # freetype
-# icu
 # libvpx
 
 _config=(
 	'is_debug=false'
 	'enable_nacl=false'
+	'exclude_unwind_tables=true'
 	'enable_hangout_services_extension=true'
 	'enable_widevine=false'
 	'use_cups=true'
@@ -50,11 +52,12 @@ _config=(
 	'use_gold=false'
 	'use_sysroot=false'
 	'linux_use_bundled_binutils=false'
+	'use_custom_libcxx=false'
 	'proprietary_codecs=true'
 	'ffmpeg_branding="Chrome"'
 	'treat_warnings_as_errors=false'
 	'fatal_linker_warnings=false'
-	'use_custom_libcxx=false'
+	'use_vaapi=true'
 )
 
 if [ "$(hostname)" == "krejzi" ]
@@ -92,10 +95,23 @@ prepare() {
 	ln -sfv /usr/bin/llvm-ar third_party/llvm-build/Release+Asserts/bin/llvm-ar
 
 	sed -i "/-Wno-unused-lambda-capture/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-enum-compare-switch/d" build/config/compiler/BUILD.gn
 
 	patch -Np1 -i "${srcdir}/breakpad-use-ucontext_t.patch"
-	patch -Np1 -i "${srcdir}/chromium-gn-bootstrap-r14.patch"
-	patch -Np1 -i "${srcdir}/chromium-atk-r1.patch"
+	patch -Np1 -i "${srcdir}/chromium-gn-bootstrap-r17.patch"
+
+	patch -Np1 -d third_party/crc32c/src -i "${srcdir}/crc32c-string-view-check.patch"
+
+	# VA-API patch
+	patch -Np1 -i "${srcdir}/chromium-vaapi-r14.patch"
+
+	# Fix paths.
+	sed -e 's|i386-linux-gnu/||g' \
+		-e 's|x86_64-linux-gnu/||g' \
+		-e 's|/usr/lib/va/drivers|/usr/lib/dri|g' \
+		-e 's|/usr/lib64/va/drivers|/usr/lib/dri|g' \
+		-i content/common/sandbox_linux/bpf_gpu_policy_linux.cc
+
 }
 
 build() {
@@ -127,7 +143,7 @@ package() {
 	install -v -Dm755 out/Release/chromedriver "${pkgdir}/usr/lib/chromium/chromedriver"
 	ln -sfv ../lib/chromium/chromedriver "${pkgdir}/usr/bin/chromedriver"
 
-	install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
+	#install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
 
 	cp -a out/Release/*.pak out/Release/*.bin out/Release/locales "${pkgdir}/usr/lib/chromium"
 
@@ -148,9 +164,10 @@ package() {
 	install -v -Dm644 out/Release/chrome.1 "${pkgdir}/usr/share/man/man1/chromium.1"
 }
 
-sha512sums=('4dfd3a493ceb7c605eeab6f387541273d529e8b935a6104927e34836469aedcfcbb4a1154591585621d5c2e842e68701d32328acba842f840a20498822165f78'
+sha512sums=('26296ac1cddfe087e8984b12b4916b9a87b08fc75875900441c9e4abd8b562bb622ac1a34bc9fb2aecf22d5a424ef1247dc694b9e6bdd0ea8b32397f53794723'
             '52fa910e2fff7197d670be41e925c71579f10bcdc879248b38876581dc7e4f384262a0e1d3714ed7b6382d680c56e53076b0be6fea679724360144395bf3973a'
             '41175d53e7dba3405ff154d52f2069c7685ecb7ce2587b982bc24e30951485686586848eb94d5033a98ddde6dc1fd13cc5614a95e8758133d1a579a5f6b9221d'
             '776ed0ee0020e3e0559d219447f2cad66da1ca176abc2e204bfcaad5141e115336290fe7d210e7e1d02b163a8039b8678f4b33edcd1874ecfddaf5c8172e9e1e'
-            '5722c571ffc384e0e226342d170e29109bf45761dcd7202b2fe6572795e0a04bd0521b1120eb2247c2a84bed0e63f47a71d25802528992ee4f976b348fb5c8f6'
-            'd297728681538fd6d6d48da4477e6e42b0ac1585a243dca60c0d9896387a1bf17770aa70966344c8d3551b774cbea6d6acbeaa0dbbfc3c17367dda5daa912297')
+            '61dab6f7d2e71a06c8c073fef061c93ff2e8d72aa4036db5c9f475f4a0e8e0167bce552b56c778a12b4aeadc43d404b2c67052c7ae9ca4f3009010276c6874cb'
+            '28812a8bd6d591831a3bbd749f1d7c6dd434eb0237970d4e8ea8cfd48fa8efb4d98906eca3d175218fe62c50bcb0b6472b2d7dfdde73d5641cd3fde1d9dc5f3b'
+            '673b341965ad0403adbdc376dc3025e1e7aba6d47201514691e01f1e36a52337ba9f1f5c188d9b6e8584cb9556d8609c75b592c75fc79727aa441c09958676ac')

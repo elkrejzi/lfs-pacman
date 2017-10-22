@@ -1,7 +1,6 @@
 *.exe
-*.tar.*
+*.tar*
 *.tgz
-*.pkg.tar
 *.deb
 *.xz
 *.zip
@@ -16,6 +15,7 @@
 *.aff
 *.dic
 *.ttc
+*.txt
 waf
 bash*-0*
 readline*-0*

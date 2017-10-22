@@ -1,0 +1,35 @@
+pkgname=baloo
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="A framework for searching and managing metadata"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/baloo-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/baloo-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('ef9890ca10ea46f8e03b7ced8777502f23a7a02ac7ce05aa65745ecb06b529f9c6c7e463a507c17597341be6d7554e0203d4ff7e4fd5b92a622195dbd5bf5f04')

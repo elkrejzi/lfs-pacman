@@ -1,0 +1,36 @@
+pkgname=libfprint
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="Library for fingerprint readers"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/fprint/libfprint/"
+license=('LGPL')
+#depends=()
+source=("https://people.freedesktop.org/~anarsoul/libfprint-${pkgver}.tar.xz"
+	"vfs495.patch")
+
+prepare() {
+	cd "${srcdir}/libfprint-${pkgver}"
+
+	# https://bugs.freedesktop.org/show_bug.cgi?id=97346
+	patch -Np1 -i "${srcdir}/vfs495.patch"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/libfprint-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libfprint-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('7a5280a34408ebe129256195a1219ed6a8258a2f5a46d92de4e1e18e931b0c15bd3df3898a7ee1aa5ed9b569e77953d12d007f1b7ced8b708d4bf0946e993e16'
+            'b0e10ce35dc8b7ba3a72bc5c55de7c28cd05d2d53ba4cbb9f8ca6d025f48792e2f6cd6fe35d415dd852f0bc22916ebf3a5f2742c4cbb4b493a26a4d34228ccac')

@@ -1,5 +1,5 @@
 pkgname=webkitgtk
-pkgver=2.18.0
+pkgver=2.18.1
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
@@ -9,9 +9,7 @@ license=('custom')
 source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
 
 prepare() {
-	cd "${srcdir}/webkitgtk-${pkgver}"
-
-	sed -i "s#enchant_dict_free_suggestions#enchant_dict_free_string_list#g" Source/WebCore/platform/text/enchant/TextCheckerEnchant.cpp
+#	cd "${srcdir}/webkitgtk-${pkgver}"
 
 	install -v -dm755 "${srcdir}/build"
 }
@@ -38,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('4a248e0f8128a61c123107baebb37efa9944fe490922b474f42400d68f3007e7d28a20886f9e60bfd86e357ea1aa9ede0c8bba3c34e2e3899720805b9145fc48')
+sha512sums=('671392f46a34def51df34e5ce384acdcf7526b286e64f1220921f6c654a28148553e815f6f0fd02252b642dcabef9c646f5386b9ec3d2cb01520782833bb650b')

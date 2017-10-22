@@ -1,5 +1,5 @@
 pkgname=check
-pkgver=0.11.0
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="A unit testing framework for C"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('69209487b6cae8ad143532d3a965f9d17762a0e09df781792f9307ad8a279ee8fc39be7cb7b8e08f4d88606c449e9a2e33bea2216e31d9eb82e8b778df69cd13')
+sha512sums=('403454d166ddd4e25f96d6c52028f4173f4a5ad4a249dd782e3a8d5db1ad0178956d74577cf0d4c963a5a7d09077a59042a74f74d6b528b7212e18ab5def1dd9')

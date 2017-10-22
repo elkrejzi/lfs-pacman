@@ -1,0 +1,35 @@
+pkgname=kdeclarative
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Provides integration of QML and KDE Frameworks"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kdeclarative-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kdeclarative-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('442f18403788d7cf137438b8991037369d65b0a1cfe14a6067fabb39dcaaebef91cd0cb59992b7d381fe7f54f00a72d7b3de6d84d02a157e5b3e7f0392bd583a')

@@ -1,0 +1,25 @@
+pkgname=libqalculate
+pkgver=2.1.0
+pkgrel=1
+pkgdesc="Multi-purpose desktop calculator"
+arch=('x86_64')
+url="http://qalculate.github.io/"
+license=('GPL')
+#depends=()
+source=("https://github.com/Qalculate/libqalculate/releases/download/v${pkgver}/libqalculate-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/libqalculate-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libqalculate-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('7cf5b039d91a31d4d0b2623bc262f16077f436d35b6f800c2a5b838f7a1af563c52e66aedf6a1b32be215e495ce220642b1db9a68bcd3e135c0a932a1f5aca79')

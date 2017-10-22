@@ -1,5 +1,5 @@
 pkgname=openjpeg
-pkgver=2.2.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="An open source JPEG 2000 codec, version 2"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('20651c380bee582ab1950994c424cc00061ad852e9c5438fb32a9809e3f275571a4cc7e92589add0d91debf2394262e58f441c2dd918809fc1c602ed68396a3a')
+sha512sums=('0a9d427be4a820b1d759fca4b50e293721b45fe4885aa61ca1ae09e099f75ed93520448090c780d62f51076d575cc03618cd6d5181bdb6b34e4fc07b4cfdd568')

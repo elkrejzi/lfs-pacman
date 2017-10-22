@@ -1,0 +1,35 @@
+pkgname=kiconthemes
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Support for icon themes"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kiconthemes-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kiconthemes-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('1e30b24c1689ef4e7f59cc67fd4dc09e3dfcbfef0cf2b475ac09b43aa6d25ebb4edd8780398eee906f84ee1f5e53b2c0dc839014e185fb47e994c57fff74d7ca')

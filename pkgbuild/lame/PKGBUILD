@@ -1,5 +1,5 @@
 pkgname=lame
-pkgver=3.99.5
+pkgver=3.100
 pkgrel=1
 pkgdesc="A high quality MPEG Audio Layer III (MP3) encoder"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ce62d7eb9fc8c53c343374ded30f11153a296910f0be7e649197bca7412c6660aad1aa6143d56b750f866229eb492cf7bb4f682535c383fb4aa57d7077d8b4d8')
+sha512sums=('0844b9eadb4aacf8000444621451277de365041cc1d97b7f7a589da0b7a23899310afd4e4d81114b9912aa97832621d20588034715573d417b2923948c08634b')

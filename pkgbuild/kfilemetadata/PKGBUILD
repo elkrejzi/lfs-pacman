@@ -1,0 +1,35 @@
+pkgname=kfilemetadata
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="A library for extracting file metadata"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kfilemetadata-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kfilemetadata-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('df3e17fd19e64af2e413ff0e0405654e52e245185762a1d7bed8dec63b2a567e23c1f4340d946de8a076264d62fddae8184d70dfb001147e52e003bb4a416391')

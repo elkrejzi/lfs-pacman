@@ -1,5 +1,5 @@
 pkgname=linux-firmware
-pkgver=2
+pkgver=3
 pkgrel=1
 pkgdesc="Firmware files for Linux"
 arch=('x86_64')
@@ -24,7 +24,7 @@ i915/skl_guc_ver6_1.bin
 intel/dsp_fw_release_v969.bin
 intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq
 intel/ibt-hw-37.8.bseq
-iwlwifi-7265D-27.ucode
+iwlwifi-7265D-29.ucode
 rtl_nic/rtl8168h-2.fw)
 
 for ff in ${firmwares[@]}
@@ -58,5 +58,5 @@ sha512sums=('252f62c4a263e9697d3ed4dc67af15a88da4e25b2641fa592e15c9f4529a3ae4e60
             'eb9c5c401510425c63603c3e952be3584fec8df877eabdbf9ec2f2c87d9ab20c429ef557bedbd6e151ddfd69fe3702330e7100977a16b292b4aa638cde490dee'
             '09d1297619346255be632d68c860b01990be7736c0c56da10485b344a847560fcba186a3013341c8e93fd419f5f771cae83089ebe57f7ac45ad99a04060ede39'
             'd211a1a406a6a031222af242f55e99e2af7407b0c12d0ed0ff68e3782a29f61573a5c9f054a449ea3c90a496aaebd780dd23cb6e556d91ad487a3b328c6dca7c'
-            'f101d1c66696ea48746fba4fb51aae76e1bd7f9aa38b123e44b3ad4948bd3a53b0b56c42a3494774a692c52c025d8edc937374334ea07cd2ebc0ff15c55669e0'
+            '63c1e99c02e7f8ac239dfb9b5d5ae932611af16c3af6e3710ad20231a485ecab04a067019ef59ef4aa847fceb4d9131d7393078ee739af37dbc1affea9597d27'
             'fd1eb2c1ddbbdcc16f3f1217764d04b3346992a34f274e8dc34658a1fd9c83d14476afcfa83e5fc216b27f195a670114f526d2e26c00442267aa814a858feff1')

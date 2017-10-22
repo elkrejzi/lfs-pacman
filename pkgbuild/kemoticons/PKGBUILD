@@ -1,0 +1,35 @@
+pkgname=kemoticons
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Support for emoticons and emoticons themes"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kemoticons-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kemoticons-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('8a390baf3a4924254a3ea0e80c3c3b12a19fa18b19384fd5a197dcf1837335a727de4328d6a74c4ea0444d0cfb8e0cf30f44f0b166e3f9a11b849da7553fe636')

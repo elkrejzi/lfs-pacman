@@ -1,6 +1,6 @@
 pkgbase=libxfont2
 pkgname=('libxfont2' 'lib32-libxfont2')
-pkgver=2.0.1
+pkgver=2.0.2
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxfont2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('5e4dcb587b4d25dd41124bb50d71c30b5e29663ce675b0830def82fb6e00b64ba34e1b1ed7fad947fd0da95007aa55d14f587383e4cff08c3e0a0241c8879d16')
+sha512sums=('d62b0c3d663a2c668796cca8c6c2a90f83feeae1253b7d946668d33502cd8099c963285b88db4f745efb0d4ff783c118eb3d84cb8e6e1724586e1ef2be23e593')

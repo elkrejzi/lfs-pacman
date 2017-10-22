@@ -1,0 +1,35 @@
+pkgname=kcoreaddons
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Addons to QtCore"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kcoreaddons-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kcoreaddons-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('6579087b2d34ae6bc8d8254c420ae2f6f68d55cec587b5a58429bb82b9a2de111221351d58e2514705fda52c9b433bf98add574e4aba6ee0408340dc442707dd')

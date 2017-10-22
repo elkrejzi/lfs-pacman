@@ -1,0 +1,35 @@
+pkgname=vfs495-driver
+pkgver=4.5.118.00
+pkgrel=1
+pkgdesc="Validity Fingerprint Reader Driver"
+arch=('x86_64')
+url="ftp://ftp.hp.com/pub/softpaq/sp62001-62500/sp62413.html"
+license=('unknown')
+#depends=()
+options=(emptydirs)
+source=("ftp://ftp.hp.com/pub/softpaq/sp62001-62500/sp62413.tar"
+	"vcsFPService.service"
+	"vcsFPService.tmpfiles"
+	"65-vcsFPService-SuspendResume.sh")
+
+package() {
+	cd "${srcdir}"
+
+	bsdtar xf SP62413/Validity-Sensor-Setup-4.5-118.00.x86_64.rpm -C "${pkgdir}"
+
+	chmod 644 "${pkgdir}"/usr/sbin/*.img
+
+	rm -rf "${pkgdir}/etc" "${pkgdir}/usr/lib64" "${pkgdir}/usr/lib/pm-utils"
+
+	install -v -dm755 "${pkgdir}/var/lib/ValidityPersistentData"
+
+	install -v -Dm755 "${srcdir}/65-vcsFPService-SuspendResume.sh" "${pkgdir}/usr/lib/systemd/system-sleep/65-vcsFPService-SuspendResume.sh"
+
+	install -v -Dm644 "${srcdir}/vcsFPService.service" "${pkgdir}/usr/lib/systemd/system/vcsFPService.service"
+	install -v -Dm644 "${srcdir}/vcsFPService.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/vcsFPService.conf"
+}
+
+sha512sums=('c8d398bd9f5ab8b538b91ada39f1f62cb0e4b3a23c7b92f9ff6c74cda4d2b9125e7bc6ee2a6cce44b69bb113633d57c12f33b2840bf97be556cccd6b0077514d'
+            '4773265c2439777aa487118eefb01491c8ab2690422e1341c158a8e33ab843a323af4698205fa258aaa8c7342fbac69a34e25037aae8140f450af62c2b7b581b'
+            'a88e6746011438cc1eb012c1415b2c486fc93611282d5c5512953efc7c5fd133e392640390831adc6ff254b09157e61ad05862e41b51756971b41c537b55ffeb'
+            'cf16f0b034904c532cf3db83cdef6b9fc81ce95f70271d51ea0f4d1b516a0d6c1fc9e1254f48c93fdd39b5041071eb00038221a9c8c3be0de4da7467b5fea918')

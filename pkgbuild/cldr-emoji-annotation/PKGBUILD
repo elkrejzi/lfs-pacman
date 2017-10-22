@@ -1,0 +1,25 @@
+pkgname=cldr-emoji-annotation
+pkgver=31.90.0
+pkgrel=1
+pkgdesc="Emoji annotation files in CLDR"
+arch=('x86_64')
+url="https://github.com/fujiwarat/cldr-emoji-annotation"
+license=('custom')
+#depends=()
+source=("https://github.com/fujiwarat/cldr-emoji-annotation/releases/download/${pkgver}_1/cldr-emoji-annotation-${pkgver}_1.tar.gz")
+
+build() {
+	cd "${srcdir}/cldr-emoji-annotation-${pkgver}_1"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/cldr-emoji-annotation-${pkgver}_1"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('774a3952a8525ce7124e5c9a9e3129e8df6ef41df8949365e5fb4cba33b8b790cbed5b3533c2eff0df177208650ed983b8ce5924428d935bc3dc8872815c4235')

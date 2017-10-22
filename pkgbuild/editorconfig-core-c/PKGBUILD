@@ -1,0 +1,33 @@
+pkgname=editorconfig-core-c
+pkgver=0.12.1
+pkgrel=1
+pkgdesc="EditorConfig core code written in C (for use by plugins supporting EditorConfig parsing)"
+arch=('x86_64')
+url="https://github.com/editorconfig/editorconfig-core-c"
+license=('BSD')
+#depends=()
+source=("https://github.com/editorconfig/editorconfig-core-c/archive/v${pkgver}/editorconfig-core-c-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		"${srcdir}/editorconfig-core-c-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('3517f7db84d632615ba651eeafab6730739b7bf01f4ea34fbca65f58463fbbcbabc101587b289a7922b55708453262c65569077c51087424d47d0676dc1db686')

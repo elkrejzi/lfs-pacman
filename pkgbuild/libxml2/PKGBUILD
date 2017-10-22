@@ -23,7 +23,7 @@ build() {
 	./configure --prefix=/usr \
 		--with-history \
 		--with-icu \
-		--with-python=/usr/bin/python2
+		--with-python=/usr/bin/python3
 
 	cd "${srcdir}/libxml232-${pkgver}"
 

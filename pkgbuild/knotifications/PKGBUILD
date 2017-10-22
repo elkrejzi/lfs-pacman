@@ -1,0 +1,35 @@
+pkgname=knotifications
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Abstraction for system notifications"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/knotifications-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/knotifications-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('510ed096fcb241b9e52af39d1b1fd1d5d22309e06c3979eac7c05bbb9174c484c2f88a66a4b6f645b11b398d6dfa4be77399982bed53c903537259bf4ac1b66f')

@@ -1,0 +1,35 @@
+pkgname=kwayland
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Qt-style Client and Server library wrapper for the Wayland libraries"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kwayland-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kwayland-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('ca71d9a07d38f813f34e05c034acc626d1e5c878d05eb5174764dd695ac18b99d29a3ec8df49f0fd9807dcfb1ce85b8e884c7389eb86cc0e7310ca2b8ec4f4b4')

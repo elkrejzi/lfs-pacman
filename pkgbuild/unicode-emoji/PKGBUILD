@@ -1,0 +1,26 @@
+pkgname=unicode-emoji
+pkgver=5.0
+pkgrel=1
+pkgdesc="Unicode Emoji Data Files"
+arch=('x86_64')
+url="http://www.unicode.org/emoji/"
+license=('BSD')
+#depends=()
+source=("emoji-data-${pkgver}.txt::http://www.unicode.org/Public/emoji/${pkgver}/emoji-data.txt"
+	"emoji-sequences-${pkgver}.txt::http://www.unicode.org/Public/emoji/${pkgver}/emoji-sequences.txt"
+	"emoji-test-${pkgver}.txt::http://www.unicode.org/Public/emoji/${pkgver}/emoji-test.txt"
+	"emoji-variation-sequences-${pkgver}.txt::http://www.unicode.org/Public/emoji/${pkgver}/emoji-variation-sequences.txt"
+	"emoji-zwj-sequences-${pkgver}.txt::http://www.unicode.org/Public/emoji/${pkgver}/emoji-zwj-sequences.txt")
+
+package() {
+	for _f in data sequences test variation-sequences zwj-sequences
+	do
+		install -v -Dm644 emoji-${_f}-${pkgver}.txt "${pkgdir}/usr/share/unicode/emoji/emoji-${_f}.txt"
+	done
+}
+
+sha512sums=('3b68cb709700cf871f545f357a54864c6cf1dee2ee7046f42d895c0811a75129206edf2c0617a5f1183417066f0fdf2e74086e880a65826590aac9d1d31f568f'
+            '729bbf862b8d7ff6225b7416a0a464592f89040e4c27674c0d9afb6e0d997162c0a336c2a1e9de41313dcd45b504b3b27915ee8c67e45186c942c2996076d554'
+            '368483fadaa2c87e1197d0b0351c1e68b4244e73ab93542d73df7169d1dfcdf98b0fc1da8a969645f6a2d45db1f2db5f75ba919dd05f1012fbc2f3fb524f5c5d'
+            '484509ed56c5ea5e73160e211643a938d3fa08474281d316e5ed2d2346f38f5140a147454a9cb81c9f463d6c62befd98a8b70b695ee50effdbcfc6085dcaa520'
+            '26398ac77035d2f5df7a61f4c2a8a098af8e551576c9c9f157379c05aa8f75de5a0827c9bc476eb20f32c38b0c3605f6a1d9e07fe27f0e75df359ed2a7e6d25b')

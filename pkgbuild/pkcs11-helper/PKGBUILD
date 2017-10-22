@@ -1,0 +1,25 @@
+pkgname=pkcs11-helper
+pkgver=1.22
+pkgrel=1
+pkgdesc="A library that simplifies the interaction with PKCS11 providers for end-user applications using a simple API and optional OpenSSL engine"
+arch=('x86_64')
+url="https://github.com/OpenSC/pkcs11-helper"
+license=('GPL' 'BSD')
+#depends=()
+source=("https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-${pkgver}/pkcs11-helper-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/pkcs11-helper-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/pkcs11-helper-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('f17b3e1079cd226437b5b7eb6176c5b49db00e91419b405b097badaf166c79c7e06f5792f81bcd0d44c4c695549c3c1d61c25ca57caf3758dd4c3a6b5a94c928')

@@ -1,0 +1,35 @@
+pkgname=kwindowsystem
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Access to the windowing system"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kwindowsystem-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kwindowsystem-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('723157c663ed4d9025fe0966c66031f5b2083ddc0cdc5cdbdcc6a4cb3b100ebc72d03356d118683bda666f1cd162004d3782604a29ac0f7a4a7f6ce2b0b74994')

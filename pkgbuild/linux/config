@@ -1394,7 +1394,7 @@ CONFIG_STANDALONE=y
 CONFIG_PREVENT_FIRMWARE_BUILD=y
 CONFIG_FW_LOADER=y
 CONFIG_FIRMWARE_IN_KERNEL=y
-CONFIG_EXTRA_FIRMWARE="amdgpu/topaz_ce.bin amdgpu/topaz_k_smc.bin amdgpu/topaz_mc.bin amdgpu/topaz_me.bin amdgpu/topaz_mec2.bin amdgpu/topaz_mec.bin amdgpu/topaz_pfp.bin amdgpu/topaz_rlc.bin amdgpu/topaz_sdma1.bin amdgpu/topaz_sdma.bin amdgpu/topaz_smc.bin i915/skl_dmc_ver1_26.bin i915/skl_guc_ver6_1.bin intel/dsp_fw_release.bin intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq intel/ibt-hw-37.8.bseq iwlwifi-7265D-27.ucode rtl_nic/rtl8168h-2.fw"
+CONFIG_EXTRA_FIRMWARE="amdgpu/topaz_ce.bin amdgpu/topaz_k_smc.bin amdgpu/topaz_mc.bin amdgpu/topaz_me.bin amdgpu/topaz_mec2.bin amdgpu/topaz_mec.bin amdgpu/topaz_pfp.bin amdgpu/topaz_rlc.bin amdgpu/topaz_sdma1.bin amdgpu/topaz_sdma.bin amdgpu/topaz_smc.bin i915/skl_dmc_ver1_26.bin i915/skl_guc_ver6_1.bin intel/dsp_fw_release.bin intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq intel/ibt-hw-37.8.bseq iwlwifi-7265D-29.ucode rtl_nic/rtl8168h-2.fw"
 CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"
 # CONFIG_FW_LOADER_USER_HELPER_FALLBACK is not set
 CONFIG_WANT_DEV_COREDUMP=y

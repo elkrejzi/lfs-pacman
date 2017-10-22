@@ -1,0 +1,35 @@
+pkgname=kcompletion
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Text completion helpers and widgets"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kcompletion-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kcompletion-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('f7add324fdee5d3679b71a5b36a3a6d6cd56580935eb74ca2d5bf7281334865bad19d3fa0058af0599d8009dacc55893928e9a09e63aabe143be2c79b15ec2ce')

@@ -1,0 +1,35 @@
+pkgname=oxygen-icons
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="The Oxygen Icon Theme"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/oxygen-icons5-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/oxygen-icons5-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('c0be62b29a838b5a86e2a8830c67a57234fd83907661472574fb194e0e0619cecac334cc8c94d25611bb7e297394dfc68da4713c660f4ecb08667e4866bcf9ce')

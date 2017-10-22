@@ -1,0 +1,35 @@
+pkgname=kpackage
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Framework that lets applications manage user installable packages of non-binary assets"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kpackage-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kpackage-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('64d26f23911cb6f6d1912e92d9681885e4155b5bd06c284ba30f71ada37c7910e3acc0bcf63e9dd202005e523d1c7e184e46d3660595b174371319ff1c6a7583')

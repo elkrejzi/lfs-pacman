@@ -1,0 +1,30 @@
+pkgname=fprintd
+pkgver=0.8.0
+pkgrel=1
+pkgdesc="D-Bus service to access fingerprint readers"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/fprint/fprintd/"
+license=('GPL')
+#depends=()
+options=(emptydirs)
+source=("https://people.freedesktop.org/~hadess/fprintd-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/fprintd-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/fprintd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm700 "${pkgdir}/var/lib/fprint"
+}
+
+sha512sums=('49cdfd4ef3cbc34bc2dc6384239e7a175e89769d1d3eeedfdd9e7e46235ba048b59a2c37eb667ad31c7f0298be142f2685cae68343e7db5ceac51be5848ba988')

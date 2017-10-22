@@ -1,0 +1,35 @@
+pkgname=kjobwidgets
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Widgets for tracking KJob instances"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kjobwidgets-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kjobwidgets-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('569204f80febbbde4d32c0cd105fda5de0bad86258688bcbca6687884a37d2e91bf4aff833a8bca38f4a30e812f9a122d253b1888c626ef5437c767d35746a2f')

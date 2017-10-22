@@ -1,0 +1,35 @@
+pkgname=ktexteditor
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Advanced embeddable text editor"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/ktexteditor-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/ktexteditor-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a76828be990bd32275f7de2448e337750aa1766eed669aa7a8c199d3d7db002c9d2193d09cac789c73d7cee783b9b85a21f50563e5beff30fac484f414145f6f')

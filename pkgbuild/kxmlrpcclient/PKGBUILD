@@ -1,0 +1,35 @@
+pkgname=kxmlrpcclient
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="XML-RPC client library for KDE"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kxmlrpcclient-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kxmlrpcclient-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d0ee59a250b1c3599c90689ea43169a2c032d104e50519ccfedbf19e8ba323dc1b3d293dbebbe25ed8c9ec3d2b51b72dbfcb359d9e2ca7de0b23368d749a37cc')

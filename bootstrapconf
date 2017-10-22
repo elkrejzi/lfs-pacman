@@ -99,14 +99,14 @@ passwd
 echo "Entering password for user armin:"
 passwd armin
 
-systemd-machine-id-setup
-
 rm -rf  /etc/group- /etc/gshadow- /etc/passwd- /etc/shadow-
 
 cat << "EOF"
 Now run the following from outside the chroot
 
 export LFS=/mnt/lfs
+
+install -m444 /etc/machine-id ${LFS}/etc
 
 install -m600 /media/ntfs/Other/Linux/conf/nm/* ${LFS}/etc/NetworkManager/system-connections
 install -m644 /media/ntfs/Other/Linux/conf/network/* ${LFS}/etc/systemd/network

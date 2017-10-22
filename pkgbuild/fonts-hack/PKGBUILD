@@ -1,0 +1,19 @@
+pkgname=fonts-hack
+pkgver=3.000
+pkgrel=1
+pkgdesc="A hand groomed and optically balanced typeface based on Bitstream Vera Mono"
+arch=('x86_64')
+url="http://sourcefoundry.org/hack/"
+license=('SIL Open Font License 1.1 and Bitstream Vera License')
+#depends=()
+source=("https://github.com/source-foundry/Hack/releases/download/v${pkgver}/Hack-v${pkgver}-ttf.tar.xz")
+
+package() {
+	cd "${srcdir}"
+
+	install -v -dm755 "${pkgdir}/usr/share/fonts/hack"
+
+	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/hack"
+}
+
+sha512sums=('1116bc0d30c32664957a964ec173193fca53188fb9e1297808d736ea7a2958506ad94541837c1f3cd1deb715503fdfc62887b293132d75f706a20957f6246d7a')

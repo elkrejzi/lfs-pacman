@@ -1,0 +1,35 @@
+pkgname=kitemmodels
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Models for Qt Model/View system"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kitemmodels-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kitemmodels-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('cf00e36915a9a6f6078baadc7783e5e0648c7197aa212a095ef1e2d1ce21e03877261a05a4cf521cbf6d96249a49df13fef760352cca5c9c74b3605534cdb24e')

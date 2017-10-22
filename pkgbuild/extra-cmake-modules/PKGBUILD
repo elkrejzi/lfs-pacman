@@ -1,0 +1,32 @@
+pkgname=extra-cmake-modules
+pkgver=5.39.0
+pkgrel=1
+pkgdesc=""
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/extra-cmake-modules-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/extra-cmake-modules-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('c41df32aa6641824b7e69b001997fa61ab4d4df9aa0b850d8eecb0e434836e35f7c928952771cb2c5258117ac318e199659991619f37ad3ff82744ab66071ece')

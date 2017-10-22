@@ -1,0 +1,35 @@
+pkgname=kdewebkit
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="KDE Integration for QtWebKit"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/kdewebkit-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kdewebkit-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('4df9c41ce3e40d4a046fb03a317b0a546a18613a8adb6012309c4e18aab387183e65ea84d895b8e65a4488be9ce23ba153da445ea0e98241cdfaa1483603df78')

@@ -1,5 +1,5 @@
 pkgname=ibus
-pkgver=1.5.16
+pkgver=1.5.17
 pkgrel=1
 pkgdesc="Next Generation Input Bus for Linux"
 arch=('x86_64')
@@ -15,12 +15,9 @@ build() {
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--disable-emoji-dict \
 		--enable-wayland \
 		--enable-python-library \
 		--with-python=python3
-
-	rm -f tools/main.c
 
 	make
 }
@@ -31,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('494ead69cf9c0111fd25fd1de27e796d89db4f08443afa1ec469f638469b25d8b19a59ea7ab0db0f3a130b9a89b3f2819667099ba38fc973d6efc61b367ce237')
+sha512sums=('8a7e4fabbcb2096e647b1fb7487c92882bd320a4d777f2765817378abec2e60cafd63364c881fefc2805ff2baa6b28b15ee0710587662a3e65eeb60ead19496c')

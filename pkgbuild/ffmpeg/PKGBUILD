@@ -1,19 +1,17 @@
 pkgname=ffmpeg
-pkgver=3.3.4
+pkgver=3.4
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
 url="http://www.ffmpeg.org/"
 license=('GPL3')
 #depends=()
-source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz"
-	"ffmpeg-openjp2.patch")
+source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/ffmpeg-${pkgver}"
 
-	sed -i "s: -lstdc++::g" configure
-	patch -Np1 -i "${srcdir}/ffmpeg-openjp2.patch"
+#	patch -Np1 -i "${srcdir}/ffmpeg-openjp2.patch"
 }
 
 build() {
@@ -72,5 +70,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ddeab4ab3d149a1b560c8ad2242f8ea5fb37a57a06a5af1adf6d5afde9975aa4b2d72f7c5106f20d2194b546164f55f93f6b3d1bb784501b842b0eae89a6a691'
-            'd3f3bd2a1f7709792b0af1fcd582b54cdf9d7c87ff0a0f4f29ba8e5aeaa35b02e103010e1091c897f5ad69c5c5247875c2f061798945d8271c0665687ac919cf')
+sha512sums=('357445f0152848d43f8a22f1078825bc44adacff9194e12cc78e8b5edac8e826bbdf73dc8b37e0f2a3036125b76b6b9190153760c761e63ebd2452a39e39536f')

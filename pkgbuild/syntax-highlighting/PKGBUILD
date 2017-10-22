@@ -1,0 +1,35 @@
+pkgname=syntax-highlighting
+pkgver=5.39.0
+pkgrel=1
+pkgdesc="Syntax highlighting engine for structured text and code"
+arch=('x86_64')
+url="https://community.kde.org/Frameworks"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/frameworks/${pkgver:0:4}/syntax-highlighting-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/syntax-highlighting-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d7b011950541754b840fe87b82139f3c36b2f582db53ff0b7e2b44c31f6111b5063c77e822dbd4f216761e4e9d556257f7d8954d507541475073bad1fdb3e976')
