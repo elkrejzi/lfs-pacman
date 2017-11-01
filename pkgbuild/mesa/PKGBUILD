@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=17.2.3
+pkgver=17.3.0.rc2
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -24,7 +24,6 @@ build() {
 		--enable-gles2
 		--enable-gbm
 		--enable-vdpau
-		--enable-omx
 		--enable-va
 		--enable-glx-tls
 		--with-dri-drivers=i965
@@ -85,4 +84,4 @@ package_lib32-mesa() {
 	mv dest/usr/share "${pkgdir}/usr"
 }
 
-sha512sums=('749a0a46b772974633e405804ace7f509afb79f47811dbbdd390333721d744f2ac64f985ff1fd6c5aa3019b700be70bc1f75f60745ed9f4c5b08a9a8f77dfc76')
+sha512sums=('749cca3e0875dbff7b6fab4d646974ecbcc7659ec82ad025bc386372d6e0e050d84d5e05fb68c5099e685557d85daf55c6a5db7bd89a7323778ae7e87e01215e')

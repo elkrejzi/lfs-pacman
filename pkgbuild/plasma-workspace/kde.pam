@@ -1,0 +1,11 @@
+# Begin /etc/pam.d/kde
+
+auth     include        system-auth
+-auth    optional       pam_kwallet5.so
+-auth    optional       pam_gnome_keyring.so
+
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/kde

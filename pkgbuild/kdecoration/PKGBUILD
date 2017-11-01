@@ -1,0 +1,35 @@
+pkgname=kdecoration
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="Plugin based library to create window decorations"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/kdecoration-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kdecoration-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('ed98f4848068b9c012b5483bca37c8c5662f6589f62dbe5cbb58487148466bc8650038f0c836e1d8939b84a2330a13081dac4fa13d2b03f9fb69513227caeacd')

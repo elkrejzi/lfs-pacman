@@ -1,0 +1,35 @@
+pkgname=drkonqi
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="The KDE crash handler"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/drkonqi-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/drkonqi-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('3ffb42955182cae070478a90242602d1d9a76f77c3ba5d4661da7b326636e2bbba2e36b1eb16cb0fde8b247bfe8b604395d1c26970a9162e04bce84f4c17a132')

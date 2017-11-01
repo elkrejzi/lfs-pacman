@@ -1,5 +1,5 @@
 pkgname=vte
-pkgver=0.50.1
+pkgver=0.50.2
 pkgrel=1
 pkgdesc="Virtual Terminal Emulator widget for use with GTK3"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d5e9c7990ddb6ee789d4f4f8df05c23d794791e8381266551cf6574658ee8fd6adc4c7b9ac6aadcf957887b0ba13f7f89002fd820c8d35c789bba918414bd330')
+sha512sums=('a1b12c74bedb167bf2a470294c566198c224c90be9b5c50366ef18d9542921f6cb2dc2329afd82f7342279c3eebd4ef5dfd753b4feb9d4e3e194cb878b48a7a2')

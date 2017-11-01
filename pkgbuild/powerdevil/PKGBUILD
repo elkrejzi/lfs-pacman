@@ -1,0 +1,35 @@
+pkgname=powerdevil
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="Manages the power consumption settings of a Plasma Shell"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/powerdevil-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/powerdevil-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('b1af8398012c4f42651874f37401ab40bd9a4656ca0f3a84067a565f54c1a9040cde17aebdc778483bbc541a58dfe9b03b16d7271a2f893a76c2532b47b44868')

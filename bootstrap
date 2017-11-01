@@ -791,6 +791,7 @@ perl-net-smtp-ssl
 perl-digest-hmac
 perl-authen-sasl
 geany
+gthumb
 hexchat
 transmission
 dosfstools
@@ -893,7 +894,37 @@ kjs
 kmediaplayer
 kross
 khtml
-kjsembed)
+kjsembed
+kholidays
+kactivitymanagerd
+kde-cli-tools
+kdecoration
+kscreenlocker
+libkscreen
+libksysguard
+milou
+breeze
+oxygen
+kwayland-integration
+kwin
+plasma-integration
+bluedevil
+breeze-gtk
+drkonqi
+kde-gtk-config
+kinfocenter
+kscreen
+ksysguard
+systemsettings
+plasma-workspace
+khotkeys
+kmenuedit
+plasma-nm
+plasma-workspace-wallpapers
+polkit-kde-agent-1
+powerdevil
+plasma-desktop
+kdeplasma-addons)
 
 for pkg in "${PKGS[@]}"
 do

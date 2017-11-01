@@ -1,6 +1,6 @@
 pkgbase=libpciaccess
 pkgname=('libpciaccess' 'lib32-libpciaccess')
-pkgver=0.13.5
+pkgver=0.14
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libpciaccess() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('4b77aa66b3429fd5f9bff0408b0624305e766bf209f3fa2a0a9024df55bf87ca68f9a5aa34f97ffe131997e0669c65cf542210cf308c0de09842424968c5a159')
+sha512sums=('bf40214dfd22f2a223f7c948566e6eaa4bfed60116e71b3eb19f6fe7ab2c4546649eb0416c06d5983e476ea5e27de036936646eb5f800ea97763b6d1f1976f4b')

@@ -1,5 +1,5 @@
 pkgname=at-spi2-core
-pkgver=2.26.0
+pkgver=2.26.2
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6f8c66430b94cd7d07502d81a5ee79c3aff3e095f78a24ff29d607d11587869c2e467597a0cb892f31bd8d859196f7c9ee653383671837a97b3a28426c7aada3')
+sha512sums=('6a8e158e30c37ce475467b6634aff046a318875271966d7bfa3e56052d0cd26cd37435d0b9ae14f079542b8b3e76088da5bd50ed39eb39f3f40394c55ed3f255')

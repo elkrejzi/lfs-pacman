@@ -1,5 +1,5 @@
 pkgname=apr
-pkgver=1.6.2
+pkgver=1.6.3
 pkgrel=1
 pkgdesc="The Apache Portable Runtime"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	sed -i "s#${srcdir}#/usr/src#g" "${pkgdir}/usr/bin/apr-1-config"
 }
 
-sha512sums=('20f449fde522f186b919b64ce6f90073b267557e17438607d31af917eca7941222dd7a7379d66f1430ff68f7e28fbccd140d24f3ca7aae8a876a550b19de284a')
+sha512sums=('f6b8679ae7fafff793c825c78775c84a646267c441710a50664589850e13148719b4eab48ab6e7c95b7aed085cff831115687434a7b160dcc2faa0eae63ac996')

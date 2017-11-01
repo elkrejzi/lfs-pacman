@@ -1,0 +1,35 @@
+pkgname=kmenuedit
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="KDE menu editor"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/kmenuedit-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kmenuedit-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a8545703be04d21640bc98a53594d16c8e2e1d2e9387df1290bfec96377b72172ea17f00e3c2e3d193e6bf329832803608be16b10e90a9c57990b1e7f907dfdc')

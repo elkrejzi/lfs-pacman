@@ -1,0 +1,39 @@
+pkgname=plasma-workspace
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="KDE Plasma Workspace"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/plasma-workspace-${pkgver}.tar.xz"
+	"kde.pam")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/plasma-workspace-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/kde.pam" "${pkgdir}/etc/pam.d/kde"
+}
+
+sha512sums=('e3315a750d03db717277ab7b3d313cd275284cbc07a79488a4c5d2068c52f7a3c364b7963296973ad9f00e391a58495cf0ce152692857ef909a934fc97f14f14'
+            'e25479200ac0c2874280a7ed96ac5f075955c3c3112a0a5c7dbc76045bdadd071a029164fd44fde65260a6280341b7d0eeccc6083678b8650ae2341af44bb347')

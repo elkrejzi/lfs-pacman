@@ -1,5 +1,5 @@
 pkgname=file-roller
-pkgver=3.26.1
+pkgver=3.26.2
 pkgrel=1
 pkgdesc="Create and modify archives"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e4951e4f83c8529f987949a64b1247dc8248f638ce31936c42fd22f382cdf4f0330bbef55972b57cdc39d3dab3761cb58f8e0356f33394822412244f9ea285bf')
+sha512sums=('3572446081f931ce7cfd7eccdc9450d798164426a68bc332f9340b7c06b79ce4f1589b817c27322a0c1681d7f2cb8cf93462cde1e3df13ad40789faec1decc9f')

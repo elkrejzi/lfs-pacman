@@ -1,13 +1,12 @@
 pkgname=fftw
-pkgver=3.3.6
-_pkgver=${pkgver}-pl2
+pkgver=3.3.7
 pkgrel=1
 pkgdesc="A library for computing the discrete Fourier transform (DFT)"
 arch=('x86_64')
 url="http://www.fftw.org/"
 license=('GPL2')
 #depends=()
-source=("http://www.fftw.org/fftw-${_pkgver}.tar.gz")
+source=("http://www.fftw.org/fftw-${pkgver}.tar.gz")
 
 build() {
 	configure_flags=(--prefix=/usr --enable-openmp
@@ -18,17 +17,17 @@ build() {
 
 	cd "${srcdir}/build1"
 
-	"${srcdir}/fftw-${_pkgver}/configure" "${configure_flags[@]}" \
+	"${srcdir}/fftw-${pkgver}/configure" "${configure_flags[@]}" \
 		--enable-sse2 --enable-avx
 
 	cd "${srcdir}/build2"
 
-	"${srcdir}/fftw-${_pkgver}/configure" "${configure_flags[@]}" \
+	"${srcdir}/fftw-${pkgver}/configure" "${configure_flags[@]}" \
 		--enable-long-double
 
 	cd "${srcdir}/build3"
 
-	"${srcdir}/fftw-${_pkgver}/configure" "${configure_flags[@]}" \
+	"${srcdir}/fftw-${pkgver}/configure" "${configure_flags[@]}" \
 		--enable-float --enable-sse --enable-avx
 
 	make -C "${srcdir}/build1"
@@ -42,4 +41,4 @@ package() {
 	make -C "${srcdir}/build3" install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e130309856752a1555b6d151c4d0ce9eb4b2c208fff7e3e89282ca8ef6104718f865cbb5e9c4af4367b3615b69b0d50fd001a26d74fd5324ff2faabe14fe3472')
+sha512sums=('a5db54293a6d711408bed5894766437eee920be015ad27023c7a91d4581e2ff5b96e3db0201e6eaccf7b064c4d32db1a2a8fab3e6813e524b4743ddd6216ba77')

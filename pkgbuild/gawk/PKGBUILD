@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/gawk/gawk-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/gawk-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr --sysconfdir=/etc
 
 	make
 }
@@ -20,6 +20,8 @@ package() {
 	cd "${srcdir}/gawk-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/etc"
 }
 
 sha512sums=('3076b2f42e43fff0ce63dcaa3fb749ce421473d0abc3e1e2d9dd375207d3e35c98d5bf91c3179f49156e8a4977424c16bb2d3d662846ad487153729dd4cfeb4c')

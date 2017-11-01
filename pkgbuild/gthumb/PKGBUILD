@@ -1,0 +1,28 @@
+pkgname=gthumb
+pkgver=3.5.3
+pkgrel=1
+pkgdesc="Image browser and viewer for the GNOME Desktop"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/gthumb"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gthumb/${pkgver:0:3}/gthumb-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gthumb-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gthumb-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d861fdd5f5168c1eb1e8f0224181fd645e9c9b04d3e35f4f6d87a3bd97c46ed7608f6fd63e9ca14488eda8c3d27713b6e7f18c466483f7ff2111d61f2eabe583')

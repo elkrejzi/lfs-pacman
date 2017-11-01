@@ -1,0 +1,35 @@
+pkgname=breeze-gtk
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="Integrate the Bluetooth technology within KDE workspace and applications"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('GPL2')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/breeze-gtk-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/breeze-gtk-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a4d430df1e0296963dd7c9e0824175867bcd061d399a1b01c6b952fcaaa576793718255d41be8203a90fae565486086446b2f41e86c30db5165dcf1ac726a638')

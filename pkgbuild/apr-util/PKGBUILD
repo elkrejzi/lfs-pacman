@@ -1,5 +1,5 @@
 pkgname=apr-util
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="The Apache Portable Runtime"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	sed -i "s#${srcdir}#/usr/src#g" "${pkgdir}/usr/bin/apu-1-config"
 }
 
-sha512sums=('dc88c13ef6116ed1c67584436cb8ca94ef77d358cb60c7cafab953d36d00564776414faed43397755e79bcf1b14dfca81cad2e280a2dd4c31f6e4559583effd0')
+sha512sums=('40eff8a37c0634f7fdddd6ca5e596b38de15fd10767a34c30bbe49c632816e8f3e1e230678034f578dd5816a94f246fb5dfdf48d644829af13bf28de3225205d')

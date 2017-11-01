@@ -1,0 +1,35 @@
+pkgname=plasma-nm
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="Plasma applet written in QML for managing network connections"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('GPL2')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/plasma-nm-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/plasma-nm-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a257262c9a0c30a1cef6ece2f3e0022c968dbb074b7ab5f5bba4c62f688e6a51f33a26aca69d8b56403aa3574c0495ff75b23490f6ae8f0b8354f9c7f4a84e34')

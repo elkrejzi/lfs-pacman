@@ -1,0 +1,35 @@
+pkgname=kholidays
+pkgver=17.08.2
+pkgrel=1
+pkgdesc="KDE library for regional holiday information"
+arch=('x86_64')
+url="https://community.kde.org/KDE_PIM"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/applications/${pkgver}/src/kholidays-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kholidays-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e46e9ee8886ca6deac3cfd2a8c4cf700484a4f8430edc7b55b98b2ba138bc8fb612135600de62bd1660e52581f755331023305079760462399c427437e520f30')

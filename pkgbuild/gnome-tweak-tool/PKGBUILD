@@ -1,5 +1,5 @@
 pkgname=gnome-tweak-tool
-pkgver=3.26.2.1
+pkgver=3.26.3
 pkgrel=1
 pkgdesc="Customize advanced GNOME 3 options"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('0a0683db119fbd8f465650f04bc70c785c63b2e0130ae8e7c450b6f6664a3ced1fa6ad6793da8c4d53c75dc274cd95c9725467e4d8d59028d75b3b2f041cd62d')
+sha512sums=('debdaaa2e7cad26b011354faba9ac1e6e4a40736af82c44b86934eb69970d50af423696bf800545d11d06e293d6b39c1b8f1332a85f9a810150a9ae332bd0320')

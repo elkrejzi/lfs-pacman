@@ -1,5 +1,5 @@
 pkgname=latexila
-pkgver=3.26.0
+pkgver=3.26.1
 pkgrel=1
 pkgdesc="A LaTeX editor designed for the GNOME desktop"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fe0c19b8c78d6b2f3bf90400dac697465d1b960ca40583b541285dcc2e8ad42df8e4c567027d69421413a080c726cdcac58976937bad518f87bafe48402bdbd3')
+sha512sums=('d32d0e00fc6148174f19105f33dae4a03c43dc87b5436125056ef3afc1f68f4a39f391612e78a1cc97175b4260d2f76dc0a84b13fe72aacb7871688538ad40b0')

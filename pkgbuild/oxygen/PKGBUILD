@@ -1,0 +1,35 @@
+pkgname=oxygen
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="KDE Oxygen style"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/oxygen-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/oxygen-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('9d3881e6b818a0a80d156a4db9b8b89a40f99bf97ca3b177498d8adbf5f34cb8a8683097dfbb8001c9378f8b2493c05001655c27fc3b41bde1f1b3f310c82322')

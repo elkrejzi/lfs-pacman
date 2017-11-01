@@ -1,0 +1,35 @@
+pkgname=kdeplasma-addons
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="All kind of addons to improve your Plasma experience"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/kdeplasma-addons-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/kdeplasma-addons-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('bb2a8384407c68c12921f9ec26ec53b36e21493dd3f3752fc50408cfca825ffafa518df2a77756fd21353fab8426b2f7a314145f8be9c6355363a8d107f24328')

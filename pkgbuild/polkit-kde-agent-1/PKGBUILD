@@ -1,0 +1,35 @@
+pkgname=polkit-kde-agent-1
+pkgver=5.11.1
+pkgrel=1
+pkgdesc="Daemon providing a polkit authentication UI for KDE"
+arch=('x86_64')
+url="https://www.kde.org/plasma-desktop"
+license=('LGPL')
+#depends=()
+options=(docs)
+source=("https://download.kde.org/stable/plasma/${pkgver}/polkit-kde-agent-1-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DKDE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DKDE_INSTALL_LIBDIR=lib \
+		-DBUILD_TESTING=OFF \
+		"${srcdir}/polkit-kde-agent-1-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e6aacb0c39ef4b53fbac9a3a19aedeaff178ac899a9231d4b739b7e3e29c7c7416a78ebf96fd5a1e7ed10076f14a2085187556eb969221bd827f2670b0f9b66b')
