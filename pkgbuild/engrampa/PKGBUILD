@@ -1,0 +1,28 @@
+pkgname=engrampa
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="Archive manipulator for MATE"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/engrampa-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/engrampa-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-packagekit
+
+	make
+}
+
+package() {
+	cd "${srcdir}/engrampa-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('98769a4388cb6cf524e6d34c4ac13596231cdb7a9795b59c9722ceeead3b090c5b69040318718eacd9debbe3a19d70da04221623aaec04faf1a0f56c4bb059d5')

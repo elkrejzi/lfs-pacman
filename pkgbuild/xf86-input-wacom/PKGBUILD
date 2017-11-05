@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="X.Org Wacom tablet driver"
 arch=('x86_64')
 url="http://linuxwacom.sourceforge.net/"
-license=(GPL)
+license=('GPL')
 #depends=()
 source=("https://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-${pkgver}.tar.bz2")
 

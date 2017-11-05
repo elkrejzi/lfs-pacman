@@ -1,0 +1,27 @@
+pkgname=perl-xml-simple
+pkgver=2.24
+pkgrel=1
+pkgdesc="Simple XML parser for perl"
+arch=('x86_64')
+url="http://search.cpan.org/dist/XML-Simple/"
+license=('PerlArtistic')
+#depends=()
+source=("http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-Simple-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/XML-Simple-${pkgver}"
+
+	perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/XML-Simple-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+sha512sums=('fd57d1be7fdd884d55d22e478a3f94a111b5fc23167851a2ff15894807877c71a1620d3208693e8a1dfb00b385ac4f011d2b56f239c63d2c9d435701df7b3942')

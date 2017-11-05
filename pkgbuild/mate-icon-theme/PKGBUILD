@@ -1,0 +1,27 @@
+pkgname=mate-icon-theme
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="MATE icon theme"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('LGPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-icon-theme-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-icon-theme-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-icon-theme-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('6e6d60b7eeba474d4d9d4d069f9fa4f8098cf54aa8367c02b05c5ec556ccd5310d791183ec961e9227867b37ec7e27b8ac8aadfee1f1446b34cee1985b4ef1fb')

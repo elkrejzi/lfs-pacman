@@ -1,0 +1,28 @@
+pkgname=mate-polkit
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="PolicyKit integration for the MATE desktop"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('LGPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-polkit-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-polkit-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-introspection
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-polkit-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('086723b0b0c14a6b1ea77e1f0a294546ef3e44d42a460e424b22c92e8f962bf55c9c379600fb6642be60167ef07f07835c2eb939232941051aa397af805e79fa')

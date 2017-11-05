@@ -1,0 +1,10 @@
+# Begin /etc/pam.d/mate-screensaver
+
+auth     include        system-auth
+-auth    optional       pam_gnome_keyring.so
+
+account  include        system-account
+password include        system-password
+session  include        system-session
+
+# End /etc/pam.d/mate-screensaver

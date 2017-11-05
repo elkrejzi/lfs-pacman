@@ -1,5 +1,5 @@
 pkgname=libblockdev
-pkgver=2.13
+pkgver=2.14
 pkgrel=1
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('784bbb1274fd09114d42c06a9dc6e63d65b7d6c286c47b6e69231ac270991d2b558312d8c583a1143cdb3e18be075b282be761da571e5f0e48a7a92a3a1b9075')
+sha512sums=('7c111d62e4bf993a5332c3e294a5bf0b7944b85924b53d0bb361671fdf2d528bd0febccec50b16eeb5aba81de4f6a4cc1ce4ca1a86e1ecdb167f96ef480de01f')

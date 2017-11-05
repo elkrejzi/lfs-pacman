@@ -1,0 +1,28 @@
+pkgname=mate-session-manager
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="The MATE Session Handler"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-session-manager-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-session-manager-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-upower
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-session-manager-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e3d3e2524cd0d00930b5c6b81134b969555f00550d23a357d426a6f0d475884ce6ab16be365fd5e95801dd53c250069ad091dec6c93f2ab70818460fbef4765e')

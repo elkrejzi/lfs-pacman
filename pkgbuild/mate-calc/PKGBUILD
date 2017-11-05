@@ -1,0 +1,27 @@
+pkgname=mate-calc
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="Calculator for the MATE desktop environment"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-calc-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-calc-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-calc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d9c95386427ebcb8c1525804f2b7f0f6b91c52a15bc90ff9c688d13bce07f97ed0db032a5e252a9a11ccbd6c04b66d3d74baf1c6bb27b6807506243b27ad25e5')

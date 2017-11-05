@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Standard Themes for GNOME Applications"
 arch=('x86_64')
 url="https://git.gnome.org/browse/gnome-themes-standard"
-license=(GPL2)
+license=('GPL2')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-themes-standard/${pkgver:0:4}/gnome-themes-standard-${pkgver}.tar.xz")
 

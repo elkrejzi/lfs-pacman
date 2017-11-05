@@ -1,0 +1,31 @@
+pkgname=caja
+pkgver=1.18.4
+pkgrel=1
+pkgdesc="File manager for the MATE desktop"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/caja-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/caja-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-introspection \
+		--disable-update-mimedb
+
+	make
+}
+
+package() {
+	cd "${srcdir}/caja-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/share/dbus-1"
+}
+
+sha512sums=('8e4d918853b3ce2871cbbcd087b9f8d90d664a67b81f855cdbbd9160343b5cf263bd9b4204f7376a84eebd791e9c6d1367dc5eab4415009c0522c49bb2ed2751')

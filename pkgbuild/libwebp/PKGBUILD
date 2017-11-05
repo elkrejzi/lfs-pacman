@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="WebP library and conversion tools"
 arch=('x86_64')
 url="https://developers.google.com/speed/webp/"
-license=(BSD)
+license=('BSD')
 #depends=()
 source=("http://downloads.webmproject.org/releases/webp/libwebp-${pkgver}.tar.gz")
 

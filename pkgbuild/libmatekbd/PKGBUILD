@@ -1,0 +1,27 @@
+pkgname=libmatekbd
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="MATE keyboard library"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('LGPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/libmatekbd-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libmatekbd-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmatekbd-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('97971fc406fac09e0a652ccb5f811194eeff695a4a8b093b24225230cb64ceebd221d91aab071b0ca7ffd20b1b38e13d428d68fc8249101a3b3f8342fbb1f71e')

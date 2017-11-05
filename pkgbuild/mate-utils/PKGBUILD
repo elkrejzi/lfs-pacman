@@ -1,0 +1,28 @@
+pkgname=mate-utils
+pkgver=1.18.3
+pkgrel=1
+pkgdesc="Common MATE utilities for viewing disk usage, logs and fonts, taking screenshots, managing dictionaries and searching files"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-utils-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-utils-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-maintainer-flags
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-utils-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('c9d80e037d32784b3d376aebe23abc6709e14d1df6f293f43c1fc7978f7903ac8b0fc159cebebb3d8dc471df210469b5dcc5dfebdc906ade30a2c7e8f7ca764a')

@@ -1,0 +1,29 @@
+pkgname=mate-applets
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="Applets for MATE panel"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-applets-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-applets-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-polkit \
+		--enable-ipv6
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-applets-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('6644a7dfde1dbf65c38cd3a0f52f862e096030f0b9f324f1fbfc34b6167c04b51071f01c322c3c8382e74843332c877b1340fe2129417d6cf9207c32ef2f70be')

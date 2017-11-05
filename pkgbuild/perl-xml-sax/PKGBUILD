@@ -1,0 +1,36 @@
+pkgname=perl-xml-sax
+pkgver=0.99
+pkgrel=1
+pkgdesc="Simple API for XML"
+arch=('x86_64')
+url="http://search.cpan.org/dist/XML-SAX/"
+license=('GPL' 'PerlArtistic')
+#depends=()
+install=perl-xml-sax.install
+source=("http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-SAX-${pkgver}.tar.gz"
+	"perl-xml-sax.patch")
+
+prepare() {
+	cd "${srcdir}/XML-SAX-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/perl-xml-sax.patch"
+}
+
+build() {
+	cd "${srcdir}/XML-SAX-${pkgver}"
+
+	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+
+	make
+}
+
+package() {
+	cd "${srcdir}/XML-SAX-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
+}
+
+sha512sums=('f0c55efee4e3010deb474377394f9635bd8adc50108b562aeef54a2eef312cf87fb240d0495b5a5bd0c4cd5251db1bc74ba6cb549614708b1627f330959735e1'
+            'aca374f7a523ca8db57651789d83950bf77fce5e230fe5f2ba84880fe0602943d381ef08f9519d6fcf584d1b5ae8e33478ae536bbfbdb26202f31a0676f417a1')

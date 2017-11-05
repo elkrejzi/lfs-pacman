@@ -18,7 +18,6 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
 _system_libs=(
   flac
   harfbuzz-ng
-  icu
   libdrm
   libjpeg
   libpng
@@ -30,6 +29,7 @@ _system_libs=(
   zlib
 )
 
+# icu
 # ffmpeg
 # freetype
 # libvpx
@@ -57,9 +57,8 @@ _config=(
 	'ffmpeg_branding="Chrome"'
 	'treat_warnings_as_errors=false'
 	'fatal_linker_warnings=false'
+	'use_vaapi=true'
 )
-
-# 'use_vaapi=true'
 
 if [ "$(hostname)" == "krejzi" ]
 then
@@ -104,7 +103,7 @@ prepare() {
 	patch -Np1 -d third_party/crc32c/src -i "${srcdir}/crc32c-string-view-check.patch"
 
 	# VA-API patch
-	#patch -Np1 -i "${srcdir}/chromium-vaapi-r14.patch"
+	patch -Np1 -i "${srcdir}/chromium-vaapi-r14.patch"
 
 	# Fix paths.
 	sed -e 's|i386-linux-gnu/||g' \
@@ -144,7 +143,7 @@ package() {
 	install -v -Dm755 out/Release/chromedriver "${pkgdir}/usr/lib/chromium/chromedriver"
 	ln -sfv ../lib/chromium/chromedriver "${pkgdir}/usr/bin/chromedriver"
 
-	#install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
+	install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
 
 	cp -a out/Release/*.pak out/Release/*.bin out/Release/locales "${pkgdir}/usr/lib/chromium"
 

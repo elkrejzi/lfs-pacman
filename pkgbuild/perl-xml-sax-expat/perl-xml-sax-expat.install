@@ -1,0 +1,6 @@
+pre_remove() {
+	if [ -f /usr/share/perl5/XML/SAX/ParserDetails.ini ]
+	then
+		perl -MXML::SAX -e "XML::SAX->remove_parser(q(XML::SAX::Expat))->save_parsers()"
+	fi
+}

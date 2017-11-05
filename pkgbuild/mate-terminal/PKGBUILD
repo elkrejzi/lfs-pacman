@@ -1,0 +1,27 @@
+pkgname=mate-terminal
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="The MATE Terminal Emulator"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-terminal-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-terminal-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-terminal-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('3b102c683137951d425c5c4f177e1498be037cabb9483bd89fea61c1c03e9a5d481a5aa9418e92f3007ac64f7ed3bf298109ba9564f741634c4b5dad94ddddf3')

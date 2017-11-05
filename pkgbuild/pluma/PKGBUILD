@@ -1,0 +1,28 @@
+pkgname=pluma
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="A powerful text editor for MATE"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/pluma-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/pluma-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-python
+
+	make
+}
+
+package() {
+	cd "${srcdir}/pluma-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('285170531c92ad13fdd35286c06de62b75f0426a830c51f4f54799b4b5377d65b3e1fd1e1af3827462a356947e853e4203a4ed394a8b6137bbd87e289f490b6d')

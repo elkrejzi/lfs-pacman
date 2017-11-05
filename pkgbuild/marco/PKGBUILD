@@ -1,0 +1,28 @@
+pkgname=marco
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="A window manager for MATE"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/marco-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/marco-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-startup-notification
+
+	make
+}
+
+package() {
+	cd "${srcdir}/marco-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d6851c8c1c5bc25993dc72de7e5090736d236942ad37124ef52d0c23cc66faa1e4288273160bb9c1d1c303c99e3e096dcf031b2ea70bde93858627f31034708c')

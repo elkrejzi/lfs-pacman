@@ -1,0 +1,28 @@
+pkgname=atril
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="MATE document viewer"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/atril-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/atril-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-introspection
+
+	make
+}
+
+package() {
+	cd "${srcdir}/atril-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('335ee3535f704e18c3727da3dbd0d526a705d05c8fa20e50339f8d3991073c41013b75adc0c228692a0986fdee75e2abe355aeff6ed7c7226efafd2327ce4c14')

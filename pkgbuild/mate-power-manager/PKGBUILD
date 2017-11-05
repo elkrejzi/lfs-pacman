@@ -1,0 +1,29 @@
+pkgname=mate-power-manager
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="Power management tool for the MATE desktop"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-power-manager-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-power-manager-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-applets \
+		--disable-strict
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-power-manager-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('f4b42f66607e54020901f1f686cb018962c419294e50e0b37724bfddb462cf98a2e74e7ed980c3fe968873ca3848ff401839b39f53f1b40876773bfbf91b51c1')

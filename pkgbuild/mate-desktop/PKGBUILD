@@ -1,0 +1,28 @@
+pkgname=mate-desktop
+pkgver=1.18.0
+pkgrel=1
+pkgdesc="Library with common API for various MATE modules"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL' 'LGPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-desktop-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-desktop-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-desktop-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('0490e9810009923fa315e7f191103bc797c37f4417cf41bf317c55d26f7b52a848a65c28dde6903a861694c131ca52f3ed0be05cbbf6b2dd1cb216539f513220')

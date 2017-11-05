@@ -1,0 +1,27 @@
+pkgname=mate-notification-daemon
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="Notification daemon for MATE"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-notification-daemon-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-notification-daemon-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-notification-daemon-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('92edb738e38b879a94985d97c961fd900853e330cc49024cf33a1b564734e86c076b47a05c64ec7ea34a170425b97f80aedb60ad14db98718c4609c464e091e4')

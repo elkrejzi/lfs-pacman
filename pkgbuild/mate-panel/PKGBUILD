@@ -1,0 +1,28 @@
+pkgname=mate-panel
+pkgver=1.18.4
+pkgrel=1
+pkgdesc="The MATE Panel"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-panel-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-panel-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-introspection
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-panel-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('fc4f175f79042cf5d125b74c4645591a28f7c468f86b9bc7342f8ae94c606ff1846ec81d9e23ab41cf0623e8a2cd7bb806cc828552928b9d235621408ca3763a')

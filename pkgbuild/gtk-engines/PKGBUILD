@@ -1,0 +1,25 @@
+pkgname=gtk-engines
+pkgver=2.20.2
+pkgrel=1
+pkgdesc="Theme engines for GTK+ 2"
+arch=('x86_64')
+url="https://wiki.gnome.org/action/show/Design"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/gtk-engines/${pkgver:0:4}/gtk-engines-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gtk-engines-${pkgver}"
+
+	./configure --prefix=/usr --enable-animation
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtk-engines-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('049ae20d47a28b60fe5b0484e3c11bc6cd62d6167478f1d83df3066d618827ca9204767ab1b7a9ca02f542c3fc7929efc1bb85f65d66aaf5d5b15718b6de19e9')

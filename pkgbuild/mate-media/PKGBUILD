@@ -1,0 +1,27 @@
+pkgname=mate-media
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="MATE Media Tools"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-media-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-media-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-media-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('992db2d02e6975921058518d6a748119ac179577a9887d66f4b955656b999a46fff15dd64861186e8d6a162370ee10809ee7a7fec16ce14ac55745999e91a0a2')

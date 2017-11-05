@@ -4,7 +4,7 @@ pkgrel=1
 pkgdesc="Configuration database system"
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/dconf"
-license=(LGPL2.1)
+license=('LGPL2.1')
 #depends=()
 source=("https://download.gnome.org/sources/dconf/${pkgver:0:4}/dconf-${pkgver}.tar.xz")
 

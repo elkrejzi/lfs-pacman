@@ -1,0 +1,27 @@
+pkgname=mate-user-guide
+pkgver=1.18.0
+pkgrel=1
+pkgdesc="MATE User Guide"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('FDL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-user-guide-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-user-guide-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-user-guide-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('023b6ee04764e8a6004ac1cba69427af33be22228d475666cfacd4aa2ef4b61df4c9e269e003345a7073ef5eb7b783850e4efd5b41356052e3b69860d6df054a')

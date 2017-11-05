@@ -1,0 +1,27 @@
+pkgname=eom
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="An image viewing and cataloging program for MATE"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/eom-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/eom-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/eom-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d0d8aaa7837564fafd949da26e477e675a6cbecf6efd799ea0f29ba23800d4df36147f83bf059dcf38f9c4a9601e8501ec78065e02125fb18261011e1c3ac12c')

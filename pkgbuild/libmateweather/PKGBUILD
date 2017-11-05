@@ -1,0 +1,29 @@
+pkgname=libmateweather
+pkgver=1.18.1
+pkgrel=1
+pkgdesc=""
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('LGPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/libmateweather-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libmateweather-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-python \
+		--enable-locations-compression
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmateweather-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('0a48647bd7f0484ddb9956626eeeeafe9cdd6bdb107c8365cba67824a06a42976c1a48188fa11a81d9f8fa366cf809bb646f61f805efacfe328b468c0a5c35b7')

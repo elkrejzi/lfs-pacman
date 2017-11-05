@@ -1,0 +1,27 @@
+pkgname=mate-themes
+pkgver=3.22.14
+pkgrel=1
+pkgdesc="Default themes for the MATE desktop"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/themes/${pkgver:0:4}/mate-themes-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-themes-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-themes-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('53c9e1331422316354d43a2de2ef41d888ed9bea2b0d2ee6fcf255887e30fcecdd84514db131376d5bf1cc97a51ab2c9da3261f654c5fd79d8ccb9a589f45308')

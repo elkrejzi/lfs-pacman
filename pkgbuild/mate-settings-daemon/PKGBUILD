@@ -1,0 +1,29 @@
+pkgname=mate-settings-daemon
+pkgver=1.18.2
+pkgrel=1
+pkgdesc="The MATE Settings daemon"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-settings-daemon-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-settings-daemon-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-polkit \
+		--enable-pulse
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-settings-daemon-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('2e07f7873d8f1e75391ae6ab7a132ce1f90a3afe661ca263fff9db1b68c0a02dc53255d6382c2d69861f997f22711d062e43468041a0b3476cdd3a051dec7039')

@@ -1,0 +1,84 @@
+pkgname=lightdm
+pkgver=1.24.0
+pkgrel=1
+pkgdesc="A lightweight display manager"
+arch=('x86_64')
+url="https://launchpad.net/lightdm"
+license=('GPL3' 'LGPL3')
+#depends=()
+options=(emptydirs)
+source=("https://launchpad.net/lightdm/${pkgver:0:4}/${pkgver}/+download/lightdm-${pkgver}.tar.xz"
+	"lightdm.pam"
+	"lightdm-autologin.pam"
+	"lightdm-greeter.pam"
+	"lightdm.rules"
+	"lightdm.service"
+	"lightdm.sysusers"
+	"lightdm.tmpfiles"
+	"Xsession")
+
+prepare() {
+	cd "${srcdir}/lightdm-${pkgver}"
+
+	sed -i "s:^#run-directory=.*:run-directory=/run/lightdm:" data/lightdm.conf
+	sed -i "s:^#session-wrapper=.*:session-wrapper=/etc/lightdm/Xsession:" data/lightdm.conf
+	sed -i "s:minimum-uid=500:minimum-uid=1000:" data/users.conf
+}
+
+build() {
+	cd "${srcdir}/lightdm-${pkgver}"
+
+	export CXX="${CXX} -std=c++11"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-tests \
+		--with-greeter-user=lightdm \
+		--with-greeter-session=lightdm-gtk-greeter
+
+	make
+}
+
+package() {
+	cd "${srcdir}/lightdm-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/etc/apparmor.d" "${pkgdir}/etc/init"
+
+	install -v -m755 "${srcdir}/Xsession" "${pkgdir}/etc/lightdm/Xsession"
+
+	install -v -dm755 "${pkgdir}/var/cache/lightdm"
+	install -v -dm770 "${pkgdir}/var/lib/lightdm" "${pkgdir}/var/lib/lightdm-data"
+	install -v -dm711 "${pkgdir}/var/log/lightdm"
+
+	chmod +t "${pkgdir}/var/cache/lightdm" "${pkgdir}/var/lib/lightdm" "${pkgdir}/var/lib/lightdm-data"
+
+	chown -R 63:63 "${pkgdir}/var/lib/lightdm" "${pkgdir}/var/lib/lightdm-data"
+	chown root:63 "${pkgdir}/var/log/lightdm"
+
+	install -v -Dm644 "${srcdir}/lightdm.rules" "${pkgdir}/usr/share/polkit-1/rules.d/lightdm.rules"
+
+	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
+	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
+
+	install -v -Dm644 "${srcdir}/lightdm.pam" "${pkgdir}/etc/pam.d/lightdm"
+	install -v -Dm644 "${srcdir}/lightdm-autologin.pam" "${pkgdir}/etc/pam.d/lightdm-autologin"
+	install -v -Dm644 "${srcdir}/lightdm-greeter.pam" "${pkgdir}/etc/pam.d/lightdm-greeter"
+
+	install -v -Dm644 "${srcdir}/lightdm.sysusers" "${pkgdir}/usr/lib/sysusers.d/lightdm.conf"
+	install -v -Dm644 "${srcdir}/lightdm.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/lightdm.conf"
+
+	install -v -Dm644 "${srcdir}/lightdm.service" "${pkgdir}/usr/lib/systemd/system/lightdm.service"
+}
+
+sha512sums=('30bad8887928f22bf2cc7ce8d7a323637dec669d47d69fb326cfcf1bb5ee9e52c1232cf680af94a25cf90a9de13d9b5ff73307c1dc8829422600d350401555b8'
+            '1833d779c83db84918f9f181de8d6c242a75186db05885831dcc7b322c57fd7fd2d3da199ce15ef897a2a063aa72a0c44f80e827e249ac29f43767d3bcc7b62d'
+            '3c66ad8c93db5344014478d79a7ada4249b9ba135cce977718b906ec485fe5b585a0b653ec173d04b7fc48125edb27b698fdb0afbeab69ab1b0b165a28bd1d05'
+            '9a19c504b4cdc6a1be231f9970ab1665d7cb5470aa1b1d501960c05f9fd79de7e1ebb259c0c489d54223b759de36524054513a5ccd5d83e1d91d4cf10be4b77e'
+            '8d6aa12c4d129c25e56ecf2904db4e294d46631d11bd8bec2f20a76c871ba758094abb24616d3d2038a684fbb736ee61d1f80697d525d62c4dc68113e101194f'
+            '2271964000968acec85fc5a167e79733f771d44df61e75005067a3aa479491c0f42b46251ca858081d1c475e1b9d876ecee3b7d22e74a46109b4d66786f34362'
+            '95b101ba9b128690f5707c7ea8a6866cb8f076326af1012f7e609bfd9cd21aed7d20b3c5d7aeb8932d903fc0c40a6760bcb0dfb64c208b9db36088ce2772a186'
+            'c359dbea59d9a38faa244fc52fa7fbe2a099984bdaa015e38046abfef71ed4941230b86a238c1691f04bda6f7608f403e99b04018a7cd5b7217fa89fc703af9f'
+            '5e0f47e6d338e35548235dcfdb8b22622b749ffd69d5d6a4463021f51df0c679d1d78e0be17bbc072239d9916a027669aac9c6456afabe0ca3fde881b611b576')

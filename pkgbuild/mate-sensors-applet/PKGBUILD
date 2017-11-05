@@ -1,0 +1,27 @@
+pkgname=mate-sensors-applet
+pkgver=1.18.3
+pkgrel=1
+pkgdesc="A MATE Panel applet to display readings from hardware sensors, including CPU temperature, fan speeds and voltage readings"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-sensors-applet-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-sensors-applet-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-sensors-applet-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('39e23839eebe460a99d002d6f897d3053a6940cb33a24c923790e976b72be7a260cd06be326abbb3917b85b6b6fa779cc5f1c06dbf9c19c45ec3f1bf6a93a96e')

@@ -1,0 +1,40 @@
+pkgname=lightdm-gtk-greeter
+pkgver=2.0.3
+pkgrel=1
+pkgdesc="GTK+ greeter for LightDM"
+arch=('x86_64')
+url="https://launchpad.net/lightdm-gtk-greeter"
+license=('GPL3' 'LGPL3')
+#depends=()
+options=(emptydirs)
+source=("https://launchpad.net/lightdm-gtk-greeter/${pkgver:0:3}/${pkgver}/+download/lightdm-gtk-greeter-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/lightdm-gtk-greeter-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-compile-warnings \
+		--disable-libido \
+		--disable-libindicator \
+		--enable-kill-on-sigterm \
+		--with-libxklavier \
+		HAVE_EXO_CSOURCE=yes
+
+	make
+}
+
+package() {
+	cd "${srcdir}/lightdm-gtk-greeter-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	cat >> "${pkgdir}/etc/lightdm/lightdm-gtk-greeter.conf" << "EOF"
+background=/usr/share/backgrounds/mate/nature/Aqua.jpg
+theme-name=Adwaita
+icon-theme-name=Adwaita
+EOF
+}
+
+sha512sums=('bd5b18890cf0190faab0e6a2bffab67be359e99f45fda0be7eecded146d2518a4efc0fd4fd29970076246bb989f626dd750cb14b22ddf6188b2be5f113bff3b0')

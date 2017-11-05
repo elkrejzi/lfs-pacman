@@ -1,0 +1,28 @@
+pkgname=mate-menus
+pkgver=1.18.0
+pkgrel=1
+pkgdesc="MATE menu specifications"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL' 'LGPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-menus-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/mate-menus-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-python
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-menus-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('0c9d8162f67208cecead4e2dcaf4eddf63b10484396e1b28381d98607de007c5aaf1126f36400183d8545ea21c6273f5df48b4f47847fba2470d92d9943a123b')

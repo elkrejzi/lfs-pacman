@@ -1,0 +1,34 @@
+pkgname=mate-screensaver
+pkgver=1.18.1
+pkgrel=1
+pkgdesc="Screensaver for MATE"
+arch=('x86_64')
+url="http://mate-desktop.org"
+license=('GPL')
+#depends=()
+source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-screensaver-${pkgver}.tar.xz"
+	"mate-screensaver.pam")
+
+build() {
+	cd "${srcdir}/mate-screensaver-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--without-console-kit \
+		--with-xscreensaverdir=/usr/share/xscreensaver/config \
+		--with-xscreensaverhackdir=/usr/lib/xscreensaver
+
+	make
+}
+
+package() {
+	cd "${srcdir}/mate-screensaver-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/mate-screensaver.pam" "${pkgdir}/etc/pam.d/mate-screensaver"
+}
+
+sha512sums=('6e41a44e0d12af6080e69461a86b66b8ac4696dcf2b140d8e31b07945f4ac8848c872e9b1c07a6cf706042d3254567848c177a726038a862514471104242e807'
+            'df72dd8e6e4bc74f0d56ebe59d2df149fb91d684494fc738c08c1b9a34e6f510e29609998aa7379098d77920bca35afe3364c4abb57f898cb31645f062691c91')
