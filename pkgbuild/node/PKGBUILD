@@ -1,5 +1,5 @@
 pkgname=node
-pkgver=8.7.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc="Evented I/O for V8 javascript"
 arch=('x86_64')
@@ -18,4 +18,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/{doc,systemtap}
 }
 
-sha512sums=('73ed52aa8077775936593afdd0b5d675e2b369ca468721917a96668827ed8989d96a626f30b4224b34c4da89f5a12f6ca16d289619ff2fd8fe267457c04b2368')
+sha512sums=('f4da3cfbecba82fd83c58adfe7765ec894388919a7a6e949936279ac2cbbcc4238cd60c4c16f16bbd74c2f9c1f4a8cfd3d791d047cf34f98a858ae0c4e262c9c')

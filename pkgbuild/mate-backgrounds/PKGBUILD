@@ -3,10 +3,10 @@ pkgver=1.18.0
 pkgrel=1
 pkgdesc="Background images and data for MATE"
 arch=('x86_64')
-url="http://mate-desktop.org"
+url="https://mate-desktop.org"
 license=('GPL')
 #depends=()
-source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-backgrounds-${pkgver}.tar.xz")
+source=("https://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-backgrounds-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/mate-backgrounds-${pkgver}"

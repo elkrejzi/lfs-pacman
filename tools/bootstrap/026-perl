@@ -10,7 +10,6 @@ tar xf ${SROOT}/perl-${PERL_VER}.tar.xz
 
   time {
   pushd perl-${PERL_VER}
-    patch -Np1 -i ${PROOT}/perl-static.patch
     sh Configure -des -Dprefix=/tools -Dlibs=-lm
     make
     cp -v perl cpan/podlators/scripts/pod2man /tools/bin

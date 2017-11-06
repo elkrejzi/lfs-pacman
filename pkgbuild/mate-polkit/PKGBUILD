@@ -3,10 +3,10 @@ pkgver=1.18.1
 pkgrel=1
 pkgdesc="PolicyKit integration for the MATE desktop"
 arch=('x86_64')
-url="http://mate-desktop.org"
+url="https://mate-desktop.org"
 license=('LGPL')
 #depends=()
-source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-polkit-${pkgver}.tar.xz")
+source=("https://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-polkit-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/mate-polkit-${pkgver}"

@@ -24,9 +24,7 @@ Final system is built using clang instead of gcc wherever
 possible (there are some packages that won't build with
 clang). clang is configured to use its own runtime
 libraries (compiler-rt instead of libgcc, libc++ instead
-of libstdc++ and libomp instead of libgomp). It also
-incorporates SELinux support into packages that support
-it.
+of libstdc++ and libomp instead of libgomp).
 
 In order to bootstrap this system, make sure you adjust
 the following variables in shared.sh file:

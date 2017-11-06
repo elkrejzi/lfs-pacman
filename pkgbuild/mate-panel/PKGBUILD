@@ -3,10 +3,10 @@ pkgver=1.18.4
 pkgrel=1
 pkgdesc="The MATE Panel"
 arch=('x86_64')
-url="http://mate-desktop.org"
+url="https://mate-desktop.org"
 license=('GPL')
 #depends=()
-source=("http://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-panel-${pkgver}.tar.xz")
+source=("https://pub.mate-desktop.org/releases/${pkgver:0:4}/mate-panel-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/mate-panel-${pkgver}"

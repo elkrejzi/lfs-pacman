@@ -4,7 +4,7 @@
 
 rm -rf wget-${WGET_VER} ${LOGDIR}/wget-${WGET_VER}.log
 
-tar xf ${SROOT}/wget-${WGET_VER}.tar.xz
+tar xf ${SROOT}/wget-${WGET_VER}.tar.gz
 
 {
 

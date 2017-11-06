@@ -1,6 +1,6 @@
 pkgname=linux-api-headers
 _basever=4.13
-pkgver=4.13.5
+pkgver=4.13.11
 pkgrel=1
 pkgdesc="Kernel headers sanitized for use in userspace"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 }
 
 sha512sums=('a557c2f0303ae618910b7106ff63d9978afddf470f03cb72aa748213e099a0ecd5f3119aea6cbd7b61df30ca6ef3ec57044d524b7babbaabddf8b08b8bafa7d2'
-            'de55b07e52e88e3bc5af54c619933a81f535393f20712f38000bffa77ded22c7a16e70e43c28daf576bcc6cd3ad39387b8e1f430e3d22222f572113d2345df48')
+            'ad38845a4c05fcaace68563ffa005cf537d3564448b28750b2c872788cbc0c2495dbc9fdf98817d21aef41863614d8b707acdfb05d8f07845d921c909b5f1d22')
