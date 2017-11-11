@@ -6,7 +6,7 @@ rm -rf /media/ntfs /tools
 
 userdel pkgbuild
 
-systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager NetworkManager NetworkManager-dispatcher org.cups.cupsd rtkit-daemon systemd-timesyncd upower wpa_supplicant
+systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager NetworkManager NetworkManager-dispatcher org.cups.cupsd rtkit-daemon systemd-timesyncd upower vcsFPService wpa_supplicant
 systemctl enable sshd.socket
 
 install -dm755 /media/ntfs /media/other /media/win
@@ -92,7 +92,7 @@ chmod 440 /etc/sudoers.d/99-local
 sed -i "s:#HandleLidSwitch=suspend:HandleLidSwitch=ignore:g" /etc/systemd/logind.conf
 sed -i "s:#DefaultTimeoutStopSec=90s:DefaultTimeoutStopSec=30s:g" /etc/systemd/system.conf
 
-systemctl enable gdm
+systemctl enable lightdm
 
 echo "Entering password for user root:"
 passwd

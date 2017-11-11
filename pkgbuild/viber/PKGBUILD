@@ -1,5 +1,5 @@
 pkgname=viber
-pkgver=6.5.5.1481
+pkgver=7.0.0.1035
 pkgrel=1
 pkgdesc="Proprietary cross-platform IM and VoIP software"
 arch=('x86_64')

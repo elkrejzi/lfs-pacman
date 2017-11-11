@@ -1,5 +1,5 @@
 pkgname=network-manager-applet
-pkgver=1.8.4
+pkgver=1.8.6
 pkgrel=1
 pkgdesc="Applet for managing network connections"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1ea149b8f0ea0fb44c71506a6fd637d3d9cc05e5f9acd7732f5e6e43de598f0d6f78f6e00d54ed9bd1d2a2f039b0e28c4b0aed6b77f4eae46e30bee15f944cc9')
+sha512sums=('9080fe1ef252837f16c698fe2083ebe66949e2a30f626619ef7eb82f44e988a0b8488f4f8cd0946a78a240f9bf7a5d054afc988b25c1bedeba7f79a7c84d46fa')

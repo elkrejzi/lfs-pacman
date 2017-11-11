@@ -1,5 +1,5 @@
 pkgname=re2c
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="A tool for generating C-based recognizers from regular expressions"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9d85933ae874cb9240175ce7210d3808173bafe246c67b9c333578846239b7bcef074287f26040b5a048bcd98db8d0393035c417918b80db1f74098695a77176')
+sha512sums=('7b2a43828da872a957af88fb0a226e1936a45c8a1020ba1f6544b588aaa61dff8df40e84f9053c30ac8e17c41164e70627d57f5d3721a34b2aba7b1dbf25b6ae')
