@@ -6,8 +6,7 @@ arch=('x86_64')
 url="https://www.xiph.org/ogg/"
 license=('BSD')
 #depends=()
-source=("http://downloads.xiph.org/releases/ogg/libogg-${pkgver}.tar.xz"
-	"config_types.h")
+source=("http://downloads.xiph.org/releases/ogg/libogg-${pkgver}.tar.xz")
 
 prepare() {
 	cp -a "${srcdir}"/libogg{,32}-${pkgver}
@@ -41,12 +40,6 @@ package_libogg() {
 	cd "${srcdir}/libogg-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	mv "${pkgdir}/usr/include/ogg/config_types.h" \
-		"${pkgdir}/usr/include/ogg/config_types-64.h"
-
-	install -v -Dm644 "${srcdir}/config_types.h" \
-		"${pkgdir}/usr/include/ogg/config_types.h"
 }
 
 package_lib32-libogg() {
@@ -58,10 +51,6 @@ package_lib32-libogg() {
 
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
-
-	install -v -Dm644 dest/usr/include/ogg/config_types.h \
-		"${pkgdir}/usr/include/ogg/config_types-32.h"
 }
 
-sha512sums=('37d8e4329bf7a997a95d84a55c325a5a893ec84bb4d5b7ea638e5cb13201a0619e71ecd9710a8371def69f092c62dcc59ec0a607db246028ee8a62678386260b'
-            'eaab24ad104942c8366cf133d0413240eb7d8a50d1e0affa9fc99493327f4b06d239273e380a0e5a5751148bab03c166bdfe23dc12899789c1ae453b4e0f0904')
+sha512sums=('37d8e4329bf7a997a95d84a55c325a5a893ec84bb4d5b7ea638e5cb13201a0619e71ecd9710a8371def69f092c62dcc59ec0a607db246028ee8a62678386260b')

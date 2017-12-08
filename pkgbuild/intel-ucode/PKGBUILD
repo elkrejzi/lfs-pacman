@@ -1,6 +1,6 @@
 pkgname=intel-ucode
-_dlid=26925
-pkgver=20170707
+_dlid=27337
+pkgver=20171117
 pkgrel=1
 pkgdesc="Microcode update files for Intel CPUs"
 arch=('x86_64')
@@ -28,5 +28,5 @@ package() {
 	echo kernel/x86/microcode/GenuineIntel.bin | bsdcpio -o -H newc -R 0:0 > "${pkgdir}/boot/intel-ucode.img"
 }
 
-sha512sums=('2f0643c332318e9c818b9a23a996b59086e86e80e649589e43dbab19f13083d6d9505b8557f67b45ce56de0da043c753a14bb146e597b6669f24fe543656c65f'
+sha512sums=('b1f09dd7bb04c00e456e34bf42bf786c780aba6d2ef3231a45769216a093876e9bb15123c82ddb7d8ef5426fe10b946509f363770af3b4eba16ba76043a064b4'
             'ee60f968acab4067f5660449eabae533b5d3996cd59fd4b69d0e23e0b264da216ab6e6ccd554222cf355fc14dbd348562a2d36a87a60f1f54433603e04998cd1')

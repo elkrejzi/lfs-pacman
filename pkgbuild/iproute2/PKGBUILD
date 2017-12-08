@@ -1,9 +1,9 @@
 pkgname=iproute2
-pkgver=4.13.0
+pkgver=4.14.1
 pkgrel=1
 pkgdesc="IP Routing Utilities"
 arch=('x86_64')
-url="http://www.linuxfoundation.org/collaborate/workgroups/networking/iproute2"
+url="https://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git/"
 license=('GPL2')
 #depends=()
 source=("https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-${pkgver}.tar.xz")
@@ -24,4 +24,4 @@ package() {
 	mv "${pkgdir}/usr/bin/arpd" "${pkgdir}/usr/sbin"
 }
 
-sha512sums=('f96d2839aec1f439bfac504c8e3881c063dacbf4c67b15f0e3da9882d2fa013cba33c23602de3eab624e0eecbb911a13967d60bddcdf097f47a580a5a77b5e3a')
+sha512sums=('e593b68c46ef5f98bd6911ee7beb38388a14935a29fefabdeccc96aa012593b6f3a49b3bb1baed7d77e54f1f4a857172e058b73407f4070f158b8713f44f5d2c')

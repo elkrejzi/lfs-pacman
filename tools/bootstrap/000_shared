@@ -86,7 +86,7 @@ LIBARCHIVE_VER=3.3.2
 NANO_VER=2.8.7
 PYTHON3_VER=3.6.3
 WGET_VER=1.19.2
-CMAKE_VER=3.9.5
+CMAKE_VER=3.10.0
 MESON_VER=0.43.0
 NINJA_VER=1.8.2
 LLVM_VER=5.0.0
@@ -153,7 +153,7 @@ http://libarchive.org/downloads/libarchive-${LIBARCHIVE_VER}.tar.gz
 https://nano-editor.org/dist/v${NANO_VER:0:3}/nano-${NANO_VER}.tar.xz
 https://www.python.org/ftp/python/${PYTHON3_VER}/Python-${PYTHON3_VER}.tar.xz
 ${GNU_MIRROR}/wget/wget-${WGET_VER}.tar.gz
-https://cmake.org/files/v${CMAKE_VER:0:3}/cmake-${CMAKE_VER}.tar.gz
+https://cmake.org/files/v${CMAKE_VER:0:4}/cmake-${CMAKE_VER}.tar.gz
 https://github.com/mesonbuild/meson/releases/download/${MESON_VER}/meson-${MESON_VER}.tar.gz
 https://github.com/ninja-build/ninja/archive/v${NINJA_VER}/ninja-${NINJA_VER}.tar.gz
 ${LLVM_URL}/llvm-${LLVM_VER}.src.tar.xz

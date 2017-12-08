@@ -1,5 +1,5 @@
 pkgname=libblockdev
-pkgver=2.14
+pkgver=2.15
 pkgrel=1
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("https://github.com/storaged-project/libblockdev/releases/download/${pkg
 prepare(){
 	cd "${srcdir}/libblockdev-${pkgver}"
 
-	sed -i "s# -Werror##" src/utils/Makefile.in src/plugins/Makefile.in
+	sed -i "s# -Werror##" src/utils/Makefile.in src/plugins/Makefile.in src/plugins/fs/Makefile.in
 }
 
 build() {
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7c111d62e4bf993a5332c3e294a5bf0b7944b85924b53d0bb361671fdf2d528bd0febccec50b16eeb5aba81de4f6a4cc1ce4ca1a86e1ecdb167f96ef480de01f')
+sha512sums=('a5adc82c9979273b4ca272850ebdc71ac97d5c6f8896d5ae07f554e83817bb434ad07d548214c00116e0c1ba368564f2c8b49fbf8897d91347736f5f2583892f')

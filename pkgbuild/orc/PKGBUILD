@@ -1,5 +1,5 @@
 pkgname=orc
-pkgver=0.4.27
+pkgver=0.4.28
 pkgrel=1
 pkgdesc="Optimized Inner Loop Runtime Compiler"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5ca0b4553e370ea7c95acfc8248d9d568dafc9577041d47f52c7d0945456c534e18e0e80d28df9301d6deac1ea4f8ea6a51ca373b32927c8724846d8ec1f73e8')
+sha512sums=('2ae3100e7d0c03eba9a8a10a8924da4d729e1967b63e5dfdf88c4aee907d7ece82c782d74f4cb7e28a366dd74ce5e1ddc6e2b971e5a2f879b0501cc313b93410')

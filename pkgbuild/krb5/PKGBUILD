@@ -1,5 +1,5 @@
 pkgname=krb5
-pkgver=1.15.2
+pkgver=1.16
 pkgrel=1
 pkgdesc="The Kerberos network authentication system"
 arch=('x86_64')
@@ -66,7 +66,7 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('e5814bb66384b13637c37918df694c6b9933c29c2d952da0ed0dcd2e623b269060b4c16b6c02162039dadebdab99ff1085e37e7621ae4748dafb036424e612c2'
+sha512sums=('7e162467b95dad2b6aaa11686d08a00f1cc4eb08247fca8f0e5a8bcaa5f9f7b42cdf00db69c5c6111bdf9eb8063d53cef3bb207ce5d6a287615ca10b710153f9'
             'ad39299de04db90b280d0573b870588bbf8cd87b661636ff111cd1013440ca534f75d288c0c424512f70291e4930bd58af0e9731b70d4138337a2bf5f223898e'
             '0b4d41f658769b0134764dafeab9008fa0a5916adc9bd9362dfda6f92681d8a8cc4c6b78058b2c2ec6e6e3d991e2de3d883dac1813530ce791cd8df2b73c9658'
             'a75fb86c71476db9c60bbbc4372bf469244d5b5c99b82fab4bfc4edeb1db2e15aada177cea9c711723b5b3e7fbb75ad38f46f4f3bb24e64304bc89602b9192fd')

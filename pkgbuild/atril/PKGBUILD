@@ -1,5 +1,5 @@
 pkgname=atril
-pkgver=1.18.1
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="MATE document viewer"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('335ee3535f704e18c3727da3dbd0d526a705d05c8fa20e50339f8d3991073c41013b75adc0c228692a0986fdee75e2abe355aeff6ed7c7226efafd2327ce4c14')
+sha512sums=('20dba0b2301c026352870c1ae37295c182761877393f95ebbb3118bde4bc0336ac5d2f1dcc76358b539d9a120a95b7f0aef5aa0b611c0e8ea4a95983c9e2fef7')

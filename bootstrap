@@ -68,6 +68,7 @@ pkg-config
 libtirpc
 libnsl
 libnss_compat
+libnss_nis
 zlib
 file
 m4

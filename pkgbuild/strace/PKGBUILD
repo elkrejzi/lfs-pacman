@@ -1,5 +1,5 @@
 pkgname=strace
-pkgver=4.19
+pkgver=4.20
 pkgrel=1
 pkgdesc="A useful diagnositic, instructional, and debugging tool"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('91d57f58ac0e70ff4dcd69fda3cb835de7f40a9152817427e9c264773f99015badbad7bab047ce7f69001b689b1ce54af9522a9738060823de8873bee1e0c629')
+sha512sums=('869b3b9c48401619073a021e20e80cce37d8884f615bdb52dac9e6a2903df11507d7a0cb0ccad75bcc03d8dfafead0e68d14267e663503e94849079c9a2ebd4c')

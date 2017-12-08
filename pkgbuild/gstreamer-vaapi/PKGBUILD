@@ -1,5 +1,5 @@
 pkgname=gstreamer-vaapi
-pkgver=1.12.3
+pkgver=1.12.4
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework VAAPI Plugins"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c70da985b1c0c5048be8d83ba62622b9064d78193433b897d54824125de3eeabe4f9765ec0a5199a2d9eaa91d0625dfa2b7ef3d8245b23cf57361691d72b1dc4')
+sha512sums=('2251395f77be8d17837f4b0d38a2271155a5fbd57560fac9334660abb34a4f609dda8d9714bfa8f64395a85d3fa336f7ad1b8e8e7490b5288843fbe3d1dbd7f5')

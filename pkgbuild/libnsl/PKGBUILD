@@ -1,12 +1,12 @@
 pkgbase=libnsl
 pkgname=('libnsl' 'lib32-libnsl')
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/thkukuk/libnsl"
 license=('LGPL2.1')
 #depends=()
-source=("https://github.com/thkukuk/libnsl/archive/${pkgver}/libnsl-${pkgver}.tar.gz")
+source=("https://github.com/thkukuk/libnsl/archive/v${pkgver}/libnsl-${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/libnsl-${pkgver}"
@@ -65,4 +65,4 @@ package_lib32-libnsl() {
 	echo "INPUT (libnsl.so.2 -ltirpc)" > "${pkgdir}/usr/lib32/libnsl.so"
 }
 
-sha512sums=('7afdd3bc46206503a78174f094a335060e56bb461834e33a267e19b2e7618978c72fb6d04cea360c5ef61c8d6594e2e14e6d98fca4961eedf1061abecc5e6bc0')
+sha512sums=('30115aa679a04ad01f55cff9dd1890b4c41c730a9bac2adab5add9ae03a0b4687c5f4b6e3b8652ecbb074eefac8faee3f1f13ea60d42cf4432db8a575ca72cd8')

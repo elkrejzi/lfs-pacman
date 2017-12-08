@@ -1,5 +1,5 @@
 pkgname=upower
-pkgver=0.99.6
+pkgver=0.99.7
 pkgrel=1
 pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7e7256491ecb5d3f04abf41f05a761b79761c8868a1aedadfc5085c3b9cf15f6099c1494596e6a24b0951511bc7cac074e93ebb2b84abb9fb7a4374483052d3f')
+sha512sums=('a1ad200e715284eae815580bba3faad480f7f13401f6ff1a2e7446172796a2413990ce2b553de713ddc530849b2dff1f0ddc12fbd2fd9b55510bbb644d2340a4')

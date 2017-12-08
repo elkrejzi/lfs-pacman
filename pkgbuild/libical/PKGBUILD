@@ -1,5 +1,5 @@
 pkgname=libical
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e9c58cf5d5f93299499a8a642fc2e2af070be100b305cf05cad6dbae24883b90e5587e3f33198e91a619bbd259bbc3597fd56568c24b4ae60ec2650e570851a7')
+sha512sums=('559f2b3c8a64e1734a2bacb41baa12be3580c83ddf781502a47ad7d01ded2bae54c2cf3a165ebf2257f26902fc68cfe48dc582127d52716ec58f89ae2e5ceff4')

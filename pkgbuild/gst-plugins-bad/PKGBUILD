@@ -1,5 +1,5 @@
 pkgname=gst-plugins-bad
-pkgver=1.12.3
+pkgver=1.12.4
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Bad Plugins"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6df47381de3a2f4286d047c1e7de2c76dd4312c9806636e2012717282cde0f3e5b2d0ffa910c564c8e122b19363e842b663cce1eda7ae95a05d63d1dbbd52661')
+sha512sums=('a8e281aee1f1d0bb3f171fbe4242e997c661cbfd0be78da3913c0f55d68d6b7c3d34cabfcdd8c25728217ff885b86a7bedc0be34a7b14e2eb2a6c6236753231b')

@@ -1,5 +1,5 @@
 pkgname=scons
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="Extensible Python-based build utility"
 arch=('x86_64')
@@ -18,4 +18,4 @@ package() {
 		--root="${pkgdir}"
 }
 
-sha512sums=('e52c31a21f8aab4bbb684a8770cbcb9eeef042d5c8c86ea2f4beb64ec0c50bc1ca4aa738a2bf92330bd26f8fa9589cb10314dc53defccc2825a5a13b01641b2d')
+sha512sums=('b7be40ba507366cc678f31b910553cadaf59781c3a91833a34acbd29d9cad0cda38f6753034bf92c3af55d1e0c2f72aba5d81f1ec67205d0345b005d286f7084')

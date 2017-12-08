@@ -1,5 +1,5 @@
 pkgname=gthumb
-pkgver=3.5.4
+pkgver=3.6.0
 pkgrel=1
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('bdcaa9b46277e14bce96416511bde7b2de0c8837eb7d939081dedd3244f8e5cdf059bf4fcd196bee888c23d37aa8c6c9bd7ec4d7c6ba062d3dc15e6122d2407e')
+sha512sums=('1d32057530c82c0903f393ba97598e4752633ee46eb9b818eca8f5e03e7e81a755c36d080f2ba36453255821f5263efaea84c3c87dcb2f95c749033656dd8862')

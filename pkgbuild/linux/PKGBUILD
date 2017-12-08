@@ -1,7 +1,7 @@
 pkgbase=linux
 pkgname=('linux' 'linux-headers')
-_basever=4.13
-pkgver=4.13.12
+_basever=4.14
+pkgver=4.14.4
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
@@ -20,9 +20,6 @@ prepare() {
 	[ ${_basever} != ${pkgver} ] && patch -Np1 -i "${srcdir}/patch-${pkgver}" || true
 
 	patch -Np1 -i "${srcdir}/linux-march-native.patch"
-
-	# https://bugzilla.kernel.org/show_bug.cgi?id=196941
-	sed -i "633 s:-EIO:-ENODATA:" drivers/net/wireless/intel/iwlwifi/mvm/tt.c
 
 	install -v -m644 "${srcdir}/config" .config
 }
@@ -95,7 +92,7 @@ package_linux-headers() {
 	find "${_hdrdir}/scripts" -name "*.c*" -delete
 }
 
-sha512sums=('a557c2f0303ae618910b7106ff63d9978afddf470f03cb72aa748213e099a0ecd5f3119aea6cbd7b61df30ca6ef3ec57044d524b7babbaabddf8b08b8bafa7d2'
-            '6ae0b61bcd62b2e90b8ef3e1030fa874aba95317ec559d6e72cbd83a21b3894c05210d2da137f7b4db063d7de52193260b2364ceb43538ab8cd1db78070efb34'
+sha512sums=('77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b8908ebad12b10ef982c6efbe286364b1544586e715cf38390e483927904d8'
+            '9232c7816a92f1499cd2a58417250af18cb519fe1abf7b250f82470b1a931f99cb473951fcba9e9a8ffd7246b63db2054ddaa127b7aaa9632d440be5f6c00111'
             '472f338a97395a3d3bd4507ce108e4fe432fc0e4c93c458601a6e5f1764e449c495a6ada5733938f4500c66a92828605971452e50e90790f1e518d5879a5357a'
-            '1d57cff39af7a7e9cac2d16cedf6431459750d6ffccc704ea207ae4bfc7815d313b18854658c028b04efc22029ec8005645a54825b2a18501cfa45e0a5d454eb')
+            'f891106cf3ec57d44c9c5fb709a14eb552e3b84bb96fc92e2a9d03d603e177e659c54663b45c0cfe940cebb80734d19cce11576f647280340ed7b862a4f8677d')

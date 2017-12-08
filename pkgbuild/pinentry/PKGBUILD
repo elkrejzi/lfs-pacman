@@ -1,5 +1,5 @@
 pkgname=pinentry
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f109236707c51871b5020ef807a551366461fafcfbe09bf8cda19d4b163a42cf622562b905ceb41429f1d648b3f3d27807538709da6a135b67f9888709eccd62')
+sha512sums=('5012672925bcb5f683358c259e55e4b87c67cf063ad52c759308933733025c33f7ce08e5b8019ffc101cbf7ef30499040ef2fd34a7611698e65e1593f80948cd')

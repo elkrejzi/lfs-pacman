@@ -1,5 +1,5 @@
 pkgname=poppler
-pkgver=0.61.0
+pkgver=0.62.0
 pkgrel=1
 pkgdesc="PDF rendering library based on xpdf 3.0"
 arch=('x86_64')
@@ -20,8 +20,7 @@ build() {
 	cmake -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_INSTALL_INCLUDEDIR=/usr/include \
-		-DCMAKE_INSTALL_LIBDIR=/usr/lib \
+		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DENABLE_GTK_DOC=ON \
 		-DENABLE_XPDF_HEADERS=ON \
 		"${srcdir}/poppler-${pkgver}"
@@ -37,4 +36,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-sha512sums=('d65a7ed87c8b87ee9a6b15ace90114c1538af29669a0bd6688895876f1fb726d38ddc4f686efdf5a33fc2a950cab10ca032dcd8f42ef5941b3b089239c6b11f5')
+sha512sums=('91f7eae7b05965ae97a34e658bed2a676be8a6e4d34f82148ece6eb58932632dcf9a34d50c66412f93f560ce575abf5c608ed6b1e5184604b96024801886c706')

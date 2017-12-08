@@ -1,6 +1,6 @@
 pkgbase=openssl
 pkgname=('openssl' 'lib32-openssl')
-_basever=1.0.2m
+_basever=1.0.2n
 pkgver=${_basever/[a-z]/.${_basever//[0-9.]/}}
 pkgrel=1
 arch=('x86_64')
@@ -10,15 +10,13 @@ license=('custom:BSD')
 options=(emptydirs)
 source=("https://www.openssl.org/source/openssl-${_basever}.tar.gz"
 	"openssl.patch"
-	"openssl-fixes.patch"
-	"no-sslv3-method.patch::https://github.com/openssl/openssl/commit/98fe34c30fe1fb7be3023e4c1458da73f8e55da9.patch")
+	"openssl-fixes.patch")
 
 prepare() {
 	cd "${srcdir}/openssl-${_basever}"
 
 	patch -Np1 -i "${srcdir}/openssl.patch"
 	patch -Np1 -i "${srcdir}/openssl-fixes.patch"
-	patch -Np1 -i "${srcdir}/no-sslv3-method.patch"
 
 	cp -a "${srcdir}"/openssl{,32}-${_basever}
 }
@@ -78,7 +76,6 @@ package_lib32-openssl() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('7619aa223ee50d0f5e270ac9090e95b2b1ba5dfc656c98f625a9a277dda472fb960a4e89a7ba300044cb401b2072b2ca6a6fcce8206d927bf373d1c981806a93'
+sha512sums=('144bf0d6aa27b4af01df0b7b734c39962649e1711554247d42e05e14d8945742b18745aefdba162e2dfc762b941fd7d3b2d5dc6a781ae4ba10a6f5a3cadb0687'
             'be7e6b1b449c2b88e83f7c69b176b7ef250bb1a982c856ba9b7c16fcf05f0503e16351f6413affab536dcdb82c80c94120750be2b073429910f5fbf5375341c1'
-            '46353d4c617e5844cea202730d98200a1950d12d0537cd3e4b04b1d8ea4480e52af17b1ef8ade1fa5e263066b910db608a08022df137736c6a940c9734823f06'
-            'f2a7e4edf63641c9dd6f7d463b47bba9f0260207a5d230aae1d77f93edc0446ce20c8fd168a3b9db2854a96e902324d6f19d0740c3b3aa626efbb37578b6a1ee')
+            '46353d4c617e5844cea202730d98200a1950d12d0537cd3e4b04b1d8ea4480e52af17b1ef8ade1fa5e263066b910db608a08022df137736c6a940c9734823f06')

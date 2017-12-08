@@ -1,5 +1,5 @@
 pkgname=iso-codes
-pkgver=3.76
+pkgver=3.77
 pkgrel=1
 pkgdesc="Lists of the country, language, and currency names"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a0f6714a79a52b5dab82a268e85cb2d019ff5255744b88d088dcd7d5a15eb9710876a338a0a5d0f5659b4146bc6cc53d6d3474d621b3dcca7c47afabfc7e0dfa')
+sha512sums=('ec75ef123800ee84c593246a7bb08d06d9598de67253cc641c0503ec6f6125b669e347a791f616b40259a5f0ae3267323e21893293082bf7fc3871e308095af3')

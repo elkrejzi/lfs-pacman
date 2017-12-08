@@ -3,10 +3,21 @@ pkgver=0.19.7
 pkgrel=1
 pkgdesc="A Free Implementation of the Unicode Bidirectional Algorithm"
 arch=('x86_64')
-url="https://www.fribidi.org/"
+url="https://github.com/fribidi/fribidi/"
 license=('LGPL')
 #depends=()
-source=("https://www.fribidi.org/download/fribidi-${pkgver}.tar.bz2")
+source=("https://github.com/fribidi/fribidi/archive/${pkgver}/fribidi-${pkgver}.tar.gz"
+	"fribidi-no-bootstrap.patch::https://github.com/fribidi/fribidi/commit/0efbaa9.patch")
+
+prepare() {
+	cd "${srcdir}/fribidi-${pkgver}"
+
+	sed -i "/SUBDIRS/s#bin doc test#bin#g" Makefile.am
+
+	patch -Np1 -i "${srcdir}/fribidi-no-bootstrap.patch"
+
+	./bootstrap
+}
 
 build() {
 	cd "${srcdir}/fribidi-${pkgver}"
@@ -22,4 +33,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4bfdda43d961030a8a2ae2c98d2ca5d43c1b59633fa0987920c5537ec69f3f624204ceacc4c474d878cbb417ee2d9e708dfe169cfce6ad584d2f2d5122678b63')
+sha512sums=('c947b3154fa39543dda4d6b450de5ffc2f49a0404f38e48ee6fd31e0823b46c3c83d1538fdcbaefa729101598c877c9b3d9041b42a8665037753cb22c12049c4'
+            '811b322bd9feb9d698d550c5b57e31a90e3a60ec7ae1a8eeb31c14e05eaec15fd04991bc43bd080a222e5f1543f1f7b1b98a43c468fb9cb1af8af794bc664b96')

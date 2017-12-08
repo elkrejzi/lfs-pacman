@@ -1,5 +1,5 @@
 pkgname=libunistring
-pkgver=0.9.7
+pkgver=0.9.8
 pkgrel=1
 pkgdesc="Library for manipulating Unicode strings and C strings"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('52d5240dbf9b483976e980027187484dae6bbc103d44be8f9797832e772cde2ea03fcd27b062c81d42ea9b9f5a21216993695f2435bf8c06e48af916be0475f9')
+sha512sums=('d4b673d7da3fc122fbc1694a64f9c685f1cfe83592ff427420cb8bbd87169b860740e339c4a8c4b7f72769572eef804fedaa6b607308f243d857209972deb235')
