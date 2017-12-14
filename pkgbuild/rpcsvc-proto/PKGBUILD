@@ -1,21 +1,21 @@
 pkgname=rpcsvc-proto
-pkgver=1.2
+pkgver=1.3
 pkgrel=1
 pkgdesc="Contains rpcsvc proto.x files from glibc"
 arch=('x86_64')
 url="https://github.com/thkukuk/rpcsvc-proto"
 license=('LGPL2.1')
 #depends=()
-source=("https://github.com/thkukuk/rpcsvc-proto/archive/rpcsvc-proto-${pkgver}.tar.gz")
+source=("https://github.com/thkukuk/rpcsvc-proto/archive/v${pkgver}/rpcsvc-proto-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/rpcsvc-proto-rpcsvc-proto-${pkgver}"
+	cd "${srcdir}/rpcsvc-proto-${pkgver}"
 
 	autoreconf -fi
 }
 
 build() {
-	cd "${srcdir}/rpcsvc-proto-rpcsvc-proto-${pkgver}"
+	cd "${srcdir}/rpcsvc-proto-${pkgver}"
 
 	./configure --prefix=/usr
 
@@ -23,9 +23,9 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/rpcsvc-proto-rpcsvc-proto-${pkgver}"
+	cd "${srcdir}/rpcsvc-proto-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('59e6ac2c3e551daef584878e8ae8fc2da7cb80a04c20f96de561abc972fcfac1fbb57a5ee0dbe7bf5288a1527c9b87fc3f73a259b30393982a9a642cf4b4deb4')
+sha512sums=('5880ea39a750ee1f69dcedfe32afd617e695ee5328d6386977bbd11babb7bd18d8cb50c2d5f8daf35650aa8a94a4f6dda1171c1159917bb596108b1057c5a158')

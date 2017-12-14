@@ -651,7 +651,7 @@ parted
 sane-backends
 t1lib
 tidy-html5
-volume-key
+volume_key
 xapian-core
 xfsprogs
 ytnef
@@ -704,6 +704,7 @@ yelp
 aisleriot
 epiphany
 evolution
+evolution-ews
 gnome-disk-utility
 gnome-user-docs
 latexila

@@ -23,8 +23,6 @@ build() {
 		-Dselinux=false
 		-Dima=false
 		-Dsmack=false
-		-Dwheel-group=false
-		-Dpamlibdir=/usr/lib/security
 		-Dsysvinit-path=/etc/init.d
 		-Dsysvrcnd-path=/etc
 		-Dhalt-local=""
@@ -35,6 +33,8 @@ build() {
 		-Dbashcompletiondir=no
 		-Drpmmacrosdir=no
 		-Dzshcompletiondir=no
+		-Ddefault-hierarchy=unified
+		-Dwheel-group=false
 		-Dnobody-group=nogroup
 		-Dacl=false
 		-Daudit=false

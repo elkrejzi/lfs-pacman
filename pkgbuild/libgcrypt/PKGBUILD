@@ -1,12 +1,12 @@
 pkgbase=libgcrypt
 pkgname=('libgcrypt' 'lib32-libgcrypt')
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 arch=('x86_64')
 url="http://www.gnupg.org"
 license=('LGPL')
 #depends=()
-source=("ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${pkgver}.tar.bz2")
+source=("https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/libgcrypt{,32}-${pkgver}
@@ -55,4 +55,4 @@ package_lib32-libgcrypt() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('27c9d2fd9cba5afca71d421c9299d6942463975fae0bd10d4ff42cda2d7ea213e6b73c071a40fcf23ff52a93394cc7505ab332f8a4a3321826460e471eda5b4e')
+sha512sums=('1e8c414f95bf6b50e778102ca7c1b3b1f30d8320826d9fff747a0a098ef85499cdc3e6de736853b9cd4e5dadda35c7c0a291e13643dcac5eaef44f2ddc7a6c09')

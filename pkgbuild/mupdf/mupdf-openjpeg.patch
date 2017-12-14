@@ -1,15 +1,6 @@
-Submitted By: Bruce Dubbs <bdubbs at linuxfromscratch dot org>
-Date: 2016-11-27
-Initial Package Version: 1.11
-Upstream Status: Not submitted
-Origin: Arch Linux
-Description: Fixes for openjpeg-2.1
-
-diff --git a/source/fitz/load-jpx.c b/source/fitz/load-jpx.c
-index d01de58..6ca3838 100644
---- a/source/fitz/load-jpx.c
-+++ b/source/fitz/load-jpx.c
-@@ -444,14 +444,18 @@ fz_load_jpx_info(fz_context *ctx, unsigned char *data, size_t size, int *wp, int
+--- a/source/fitz/load-jpx.c	2017-12-13 15:00:30.000000000 +0100
++++ b/source/fitz/load-jpx.c	2017-12-14 21:06:32.142461570 +0100
+@@ -445,14 +445,18 @@
  
  #else /* HAVE_LURATECH */
  
@@ -18,7 +9,7 @@ index d01de58..6ca3838 100644
 +{
  #define OPJ_STATIC
  #define OPJ_HAVE_INTTYPES_H
- #if !defined(_WIN32) && !defined(_WIN64)
+ #if !defined(_MSC_VER) || _MSC_VER >= 1600
  #define OPJ_HAVE_STDINT_H
  #endif
 +#endif
@@ -29,7 +20,7 @@ index d01de58..6ca3838 100644
  
  struct fz_jpxd_s
  {
-@@ -919,6 +923,10 @@ fz_load_jpx_info(fz_context *ctx, unsigned char *data, size_t size, int *wp, int
+@@ -930,6 +934,10 @@
  	*yresp = state.yres;
  }
  

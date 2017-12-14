@@ -1,5 +1,5 @@
 pkgname=ffmpeg
-pkgver=3.4
+pkgver=3.4.1
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
@@ -70,4 +70,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('357445f0152848d43f8a22f1078825bc44adacff9194e12cc78e8b5edac8e826bbdf73dc8b37e0f2a3036125b76b6b9190153760c761e63ebd2452a39e39536f')
+sha512sums=('0ead14801f5863c995a522df941fba7e90c58d1887cde8db41787a135b0ad1bee3ff72df2f8ead7fd3351d05c3189ee6a6c4154796e963609522346aea1ce6d5')

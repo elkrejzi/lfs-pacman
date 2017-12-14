@@ -20,7 +20,7 @@ prepare() {
 build() {
 	cd "${srcdir}/lz4-${pkgver}"
 
-	make -C lib PREFIX=/usr
+	make -C lib PREFIX=/usr MANDIR=/usr/share/man/man1
 	make -C programs PREFIX=/usr lz4 lz4c
 
 	cd "${srcdir}/lz432-${pkgver}"
@@ -40,7 +40,7 @@ package_lz4() {
 
 	cd "${srcdir}/lz4-${pkgver}"
 
-	make install PREFIX=/usr DESTDIR="${pkgdir}"
+	make install PREFIX=/usr MANDIR=/usr/share/man/man1 DESTDIR="${pkgdir}"
 }
 
 package_lib32-lz4() {

@@ -1,5 +1,5 @@
 pkgname=whois
-pkgver=5.2.18
+pkgver=5.2.19
 pkgrel=1
 pkgdesc="The whois client by Marco d'Itri"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	install -v -Dm644 whois.conf "${pkgdir}/etc/whois.conf"
 }
 
-sha512sums=('dcbfbab0da3b9b5876c7c51bc411ac371a5c33012bf1286a3e6ccfb59fb4fba89eab1c4b812766d2f101a93ca3424ef636214c05add59549b9809621dfb03d73')
+sha512sums=('93e6df6bda18fe1dd9b8ca017271a46c6e2b721820260b11c5427258f6c0010cb573cc619def5af44a56b5740423b46ad7b383da7743cc35517f4526a720389f')

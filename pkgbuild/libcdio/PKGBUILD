@@ -1,5 +1,5 @@
 pkgname=libcdio
-pkgver=0.94
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="GNU Compact Disc Input and Control Library"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 		"${pkgdir}/usr/include/cdio/cdio_config.h"
 }
 
-sha512sums=('e1d3c96c4acc7be923c97109c3f76223adc00b293278daef7d5008b1e5d67f33402f9f224f05120e9e1e8b3a8d1fa1b0bd5069dc6dd309741e3590e2c19e0e66')
+sha512sums=('fe5a0d726974c8678b59de74ce043a5ed464f6ab595bf938e90bc5a348e9e882755e75aa3eecce50ce910b28e2498b5a892402fc0ea8728d382d1af36db71985')

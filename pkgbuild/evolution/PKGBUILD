@@ -1,5 +1,5 @@
 pkgname=evolution
-pkgver=3.26.2
+pkgver=3.26.3
 pkgrel=1
 pkgdesc="Manage your email, contacts and schedule"
 arch=('x86_64')
@@ -33,5 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-
-sha512sums=('f8a96437cab445bb74e6f3758a3a9c4ee8270ecc8aefb582ffcbb952d0a7a771e5c10de5606d93c47561e56f9ad3567a112c185fdc453d49fe60e9922c46ed54')
+sha512sums=('edfb0c32fc7c55f39bf0dcd9e11f4093ead5ac030feb78314e7a5e6a09af399591fd0ce2c34fc9ccce993adf7eebb1bec263b1b5dd004e42dd40495ecb46014c')

@@ -1,5 +1,5 @@
 pkgname=cryptsetup
-pkgver=1.7.5
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Userspace setup tool for transparent encryption of block devices using dm-crypt"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("https://www.kernel.org/pub/linux/utils/cryptsetup/v${pkgver:0:3}/crypts
 build() {
 	cd "${srcdir}/cryptsetup-${pkgver}"
 
-	./configure --prefix=/usr --enable-cryptsetup-reencrypt
+	./configure --prefix=/usr
 
 	make
 }
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d473f7b06d705a3868a70f3767fafc664436b5897ba59025ea1268f815cb80a9076841ff9ff96cc130fb83ba18b03c1eee38cfaf1b471fdd883a3e126b771439')
+sha512sums=('195e9c0b6429d21ec0cc7c5faddfde85cb71eee09d348fa50df6779693a2dc05fce04bada4c835150964e08b2e8af30e4194155e0f6366b24c7812f48477a249')

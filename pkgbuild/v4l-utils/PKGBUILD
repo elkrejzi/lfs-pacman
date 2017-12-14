@@ -1,5 +1,5 @@
 pkgname=v4l-utils
-pkgver=1.12.5
+pkgver=1.12.6
 pkgrel=1
 pkgdesc="Userspace tools and conversion library for Video 4 Linux"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/ivtv-ctl"
 }
 
-sha512sums=('ed2e7545a728360b9684db68330885b498a3a5611f49b80e54da72109d9ba2aa75e85f89f085ff0a6f077b17c880101fa5b78c9dff8a0df2eac1866bd80a04ea')
+sha512sums=('1f6e7ba9513ea836d6536eaf2f148588e9a2beaab62c49fb295e60aae41382781f76d536e854bbe6fc601f00034e3239b551874dc99a1f6afa788ee94976b332')

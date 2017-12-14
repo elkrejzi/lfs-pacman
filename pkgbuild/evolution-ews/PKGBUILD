@@ -1,0 +1,38 @@
+pkgname=evolution-ews
+pkgver=3.26.3
+pkgrel=1
+pkgdesc="MS Exchange integration through Exchange Web Services"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Evolution/EWS"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/evolution-ews/${pkgver:0:4}/evolution-ews-${pkgver}.tar.xz")
+
+prepare() {
+        install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	export CXX="${CXX} -std=c++11"
+
+	cmake -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DSYSCONF_INSTALL_DIR=/etc \
+		-DBUILD_TESTING=OFF \
+		-DENABLE_SCHEMAS_COMPILE=OFF \
+		-DWITH_MSPACK=OFF \
+		"${srcdir}/evolution-ews-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('f6c8efc6c25f64af40ddd99c7b5683efebb35afba6078eb99ba6dfe74f8e48b038750a519cb7b96ef5f92fa91083dd09ede2f3ce2e2b3fb2da5b658f7ab25c11')

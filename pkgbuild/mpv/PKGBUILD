@@ -8,12 +8,15 @@ url="https://mpv.io/"
 license=('GPL')
 #depends=()
 source=("https://github.com/mpv-player/mpv/archive/v${pkgver}/mpv-${pkgver}.tar.gz"
-	"waf::https://waf.io/waf-${_wafrelease}")
+	"waf::https://waf.io/waf-${_wafrelease}"
+	"mpv-fixes.patch")
 
 prepare() {
 	cd "${srcdir}/mpv-${pkgver}"
 
 	install -v -m755 "${srcdir}/waf" waf
+
+	patch -Np1 -i "${srcdir}/mpv-fixes.patch"
 }
 
 build() {
@@ -42,4 +45,5 @@ package() {
 }
 
 sha512sums=('22738f907d84d362095773972f685e3b03ab4c8172a22ddede290fc221a83ab9135b96f8b18191dabe842b2963f68983929cf065097287fc1a054a7d5f1d0ae4'
-            'e7493767f65deeb38aa162adef22adf60ebbd038410e9cdf4fe6f0de8c43395dbbba14962aa2c3855e1277136085fc22ad12ebfb8ac4e76f16358296039b8ea2')
+            'e7493767f65deeb38aa162adef22adf60ebbd038410e9cdf4fe6f0de8c43395dbbba14962aa2c3855e1277136085fc22ad12ebfb8ac4e76f16358296039b8ea2'
+            'c86316ea9e65f4441016e11e96f101995bcab81e83fa350bad9e04826e15609418e1046a2387e9288d63734e4523f26932f9d5ae0289bec13bc28b29e0849e11')

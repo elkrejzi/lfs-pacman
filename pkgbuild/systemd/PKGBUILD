@@ -42,8 +42,6 @@ build() {
 		-Dselinux=false \
 		-Dima=false \
 		-Dsmack=false \
-		-Dwheel-group=false \
-		-Dpamlibdir=/usr/lib/security \
 		-Dgnu-efi=true \
 		-Dsysvinit-path=/etc/init.d \
 		-Dsysvrcnd-path=/etc \
@@ -55,6 +53,8 @@ build() {
 		-Dbashcompletiondir=no \
 		-Drpmmacrosdir=no \
 		-Dzshcompletiondir=no \
+		-Ddefault-hierarchy=unified \
+		-Dwheel-group=false \
 		-Dnobody-group=nogroup \
 		"${srcdir}/systemd-${pkgver}"
 
