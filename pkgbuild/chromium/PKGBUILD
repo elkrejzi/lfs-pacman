@@ -1,5 +1,5 @@
 pkgname=chromium
-pkgver=62.0.3202.89
+pkgver=63.0.3239.108
 _launcher_ver=5
 pkgrel=1
 pkgdesc="A web browser built for speed, simplicity, and security"
@@ -8,16 +8,17 @@ url="https://www.chromium.org/Home"
 license=('BSD')
 #depends=()
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
-	"chromium-launcher-${_launcher_ver}.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v${_launcher_ver}.tar.gz"
+	"https://github.com/foutrelis/chromium-launcher/archive/v${_launcher_ver}/chromium-launcher-${_launcher_ver}.tar.gz"
+	"chromium-${pkgver}.txt::https://chromium.googlesource.com/chromium/src.git/+/${pkgver}?format=TEXT"
 	"chromium.desktop"
-	"breakpad-use-ucontext_t.patch"
-	"crc32c-string-view-check.patch"
-	"chromium-gn-bootstrap-r17.patch"
-	"chromium-vaapi-r14.patch")
+	"chromium-exclude_unwind_tables.patch"
+	"chromium-clang-r1.patch"
+	"chromium-webrtc-r0.patch"
+	"chromium-vaapi-r15.patch"
+	"chromium-libva-r2.patch")
 
 _system_libs=(
   flac
-  harfbuzz-ng
   libdrm
   libjpeg
   libpng
@@ -29,12 +30,15 @@ _system_libs=(
   zlib
 )
 
+# harfbuzz-ng
 # icu
 # ffmpeg
 # freetype
 # libvpx
 
 _config=(
+	'custom_toolchain="//build/toolchain/linux/unbundle:default"'
+	'host_toolchain="//build/toolchain/linux/unbundle:default"'
 	'is_debug=false'
 	'enable_nacl=false'
 	'exclude_unwind_tables=true'
@@ -74,6 +78,45 @@ fi
 prepare() {
 	cd "${srcdir}/chromium-${pkgver}"
 
+	# https://crbug.com/710701
+	local _chrome_build_hash=$(base64 -d "${srcdir}/chromium-${pkgver}.txt" | grep -Po '^parent \K[0-9a-f]{40}$')
+	if [ -z $_chrome_build_hash ]
+	then
+		error "Unable to fetch Chrome build hash"
+		return 1
+	fi
+	echo "LASTCHANGE=$_chrome_build_hash-" > build/util/LASTCHANGE
+
+	# https://chromium-review.googlesource.com/c/chromium/src/+/712575
+	patch -Np1 -i "${srcdir}/chromium-exclude_unwind_tables.patch"
+
+	# Fixes from Gentoo
+	patch -Np1 -i "${srcdir}/chromium-clang-r1.patch"
+	patch -Np1 -i "${srcdir}/chromium-webrtc-r0.patch"
+
+	sed -i "/-Wno-enum-compare-switch/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-null-pointer-arithmetic/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-tautological-unsigned-zero-compare/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-tautological-unsigned-enum-zero-compare/d" build/config/compiler/BUILD.gn
+
+	# No lld, please
+	sed -i "s#-fuse-ld=lld#-fuse-ld=bfd#g" build/config/compiler/BUILD.gn
+	sed -i "/:disable_icf/d" tools/v8_context_snapshot/BUILD.gn
+
+	# VA-API patch
+	patch -Np1 -i "${srcdir}/chromium-vaapi-r15.patch"
+	patch -Np1 -i "${srcdir}/chromium-libva-r2.patch"
+
+	# Fix paths.
+	sed -e 's|i386-linux-gnu/||g' \
+		-e 's|x86_64-linux-gnu/||g' \
+		-e 's|/usr/lib/va/drivers|/usr/lib/dri|g' \
+		-e 's|/usr/lib64/va/drivers|/usr/lib/dri|g' \
+		-i content/common/sandbox_linux/bpf_gpu_policy_linux.cc
+
+	install -v -dm755 third_party/node/linux/node-linux-x64/bin
+	ln -sfv /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
+
 	for _lib in ${_system_libs[@]} libjpeg_turbo
 	do
 		find -type f -path "*third_party/${_lib}/*"        \
@@ -85,33 +128,6 @@ prepare() {
 	done
 
 	python build/linux/unbundle/replace_gn_files.py --system-libraries ${_system_libs[@]}
-
-	install -v -dm755 third_party/node/linux/node-linux-x64/bin
-	ln -sfv /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
-
-	install -v -dm755 third_party/llvm-build/Release+Asserts/bin
-	ln -sfv /usr/bin/clang third_party/llvm-build/Release+Asserts/bin/clang
-	ln -sfv /usr/bin/clang++ third_party/llvm-build/Release+Asserts/bin/clang++
-	ln -sfv /usr/bin/llvm-ar third_party/llvm-build/Release+Asserts/bin/llvm-ar
-
-	sed -i "/-Wno-unused-lambda-capture/d" build/config/compiler/BUILD.gn
-	sed -i "/-Wno-enum-compare-switch/d" build/config/compiler/BUILD.gn
-
-	patch -Np1 -i "${srcdir}/breakpad-use-ucontext_t.patch"
-	patch -Np1 -i "${srcdir}/chromium-gn-bootstrap-r17.patch"
-
-	patch -Np1 -d third_party/crc32c/src -i "${srcdir}/crc32c-string-view-check.patch"
-
-	# VA-API patch
-	patch -Np1 -i "${srcdir}/chromium-vaapi-r14.patch"
-
-	# Fix paths.
-	sed -e 's|i386-linux-gnu/||g' \
-		-e 's|x86_64-linux-gnu/||g' \
-		-e 's|/usr/lib/va/drivers|/usr/lib/dri|g' \
-		-e 's|/usr/lib64/va/drivers|/usr/lib/dri|g' \
-		-i content/common/sandbox_linux/bpf_gpu_policy_linux.cc
-
 }
 
 build() {
@@ -123,6 +139,9 @@ build() {
 
 	export TMPDIR="${srcdir}/temp"
 	install -v -dm755 "${TMPDIR}"
+
+	export AR=ar
+	export NM=nm
 
 	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_config[*]}"
 	out/Release/gn gen out/Release --args="${_config[*]}"
@@ -145,9 +164,21 @@ package() {
 
 	install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
 
-	cp -a out/Release/*.pak out/Release/*.bin out/Release/locales "${pkgdir}/usr/lib/chromium"
+	cp -a out/Release/*.pak out/Release/*.bin "${pkgdir}/usr/lib/chromium"
 
-	install -v -Dm644 "${srcdir}/chromium.desktop" "${pkgdir}/usr/share/applications/chromium.desktop"
+	install -v -dm755 "${pkgdir}/usr/lib/chromium/locales"
+	cp -a out/Release/locales/*.pak "${pkgdir}/usr/lib/chromium/locales"
+
+	install -v -Dm644 chrome/installer/linux/common/desktop.template \
+		"${pkgdir}/usr/share/applications/chromium.desktop"
+	install -v -Dm644 chrome/app/resources/manpage.1.in \
+		"${pkgdir}/usr/share/man/man1/chromium.1"
+
+	sed -i  -e "s#@@MENUNAME@@#Chromium#g" \
+		-e "s#@@PACKAGE@@#chromium#g" \
+		-e "s#@@USR_BIN_SYMLINK_NAME@@#chromium#g" \
+		"${pkgdir}/usr/share/applications/chromium.desktop" \
+		"${pkgdir}/usr/share/man/man1/chromium.1"
 
 	for size in 16 32
 	do
@@ -160,14 +191,14 @@ package() {
 		install -v -Dm644 "chrome/app/theme/chromium/product_logo_${size}.png" \
 			"${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png"
 	done
-
-	install -v -Dm644 out/Release/chrome.1 "${pkgdir}/usr/share/man/man1/chromium.1"
 }
 
-sha512sums=('11ed71d2c9ebf82c9b704111d85d01c5600fc1caeb66e0dfaca172b20bb357817d717b3bcc13f704072b77550fa7fa74f990725b1d7d85d4d2b82cc1baec9578'
+sha512sums=('3cb7c8569d2d061f5abf4ad68d9ea1716a1b07bdf8dfa7b600d558d308374ff5dbda9f947e67e21186e3e716fe9524fc63e8eabd9eac1fa805f0eb7d994c32c8'
             '52fa910e2fff7197d670be41e925c71579f10bcdc879248b38876581dc7e4f384262a0e1d3714ed7b6382d680c56e53076b0be6fea679724360144395bf3973a'
+            '893e07e3c913ce6b2b65d44ebdd921a86d22dbc4de0748df11a994b34d9d845d8265230d098c65781562dbbc4827bd7499b2c3c1ae60aab2e5b8f15cf55b2394'
             '41175d53e7dba3405ff154d52f2069c7685ecb7ce2587b982bc24e30951485686586848eb94d5033a98ddde6dc1fd13cc5614a95e8758133d1a579a5f6b9221d'
-            '776ed0ee0020e3e0559d219447f2cad66da1ca176abc2e204bfcaad5141e115336290fe7d210e7e1d02b163a8039b8678f4b33edcd1874ecfddaf5c8172e9e1e'
-            '61dab6f7d2e71a06c8c073fef061c93ff2e8d72aa4036db5c9f475f4a0e8e0167bce552b56c778a12b4aeadc43d404b2c67052c7ae9ca4f3009010276c6874cb'
-            '28812a8bd6d591831a3bbd749f1d7c6dd434eb0237970d4e8ea8cfd48fa8efb4d98906eca3d175218fe62c50bcb0b6472b2d7dfdde73d5641cd3fde1d9dc5f3b'
-            '673b341965ad0403adbdc376dc3025e1e7aba6d47201514691e01f1e36a52337ba9f1f5c188d9b6e8584cb9556d8609c75b592c75fc79727aa441c09958676ac')
+            'e572ec6f804ec764decffe5e62ab9fb48382202c13ce0e38626a2008939ae04ba08eaab8f4c593baabf1631f3efdc9415da211a53027dc4b18263e39d6df949f'
+            'dfb81895fb78983e5adba54351d94e9174aa6a523c5a78738aad8223330cde6739dea6d82328d603f693a2d5810df890eccc4bed202d73875c9c97be506936e5'
+            '325e269e6c24e9d3103ae360653e0bda764356655534be08cfe308d8c63ed8c93c80c09f58d023afbc6e141f7cbe5b86f7983c57b8f6c794b7675d332439b051'
+            '67a8656e5924b3817595e99de5403a091fd56e3b4737d6bd1ade553d36884efeb5cbdfe650295af02948699096a82c064c9129041c77aefaa1b2a4a7048acdac'
+            '7b799a0f1151caf84d3faa16af65fc8ac6e03de8e3ca038f775c4bd0a06df59e373ae1b38a2748dbf1cfb8054f7eb6692e9cc0e3e285d807ce9310584441c4f1')

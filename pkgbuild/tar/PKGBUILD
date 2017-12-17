@@ -1,5 +1,5 @@
 pkgname=tar
-pkgver=1.29
+pkgver=1.30
 pkgrel=1
 pkgdesc="Utility used to store, backup, and transport files"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7249689176bd9e4e842e1e363c3f5867d9d4db9ec082ba59805047091e89de22a67153a366c23bdc1e53a3fb154df1c19a5bc1fa88267333724c5bc11bd27329')
+sha512sums=('9c8b2cacf8f6ca1b19f788d4ec0410127c4d71e54b9c9cac99ee5af6c002189ccc521302955510bb22a54a069ffd00fc2de12ac776985cbbeb3f1ecf38a4f8d9')

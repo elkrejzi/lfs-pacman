@@ -22,9 +22,8 @@ package() {
 	make install DESTDIR="${pkgdir}"
 
 	# Transitional
-	ln -sfv libenchant-2.so.2 "${pkgdir}/usr/lib/libenchant.so.2"
-
 	ln -sfv enchant-2 "${pkgdir}/usr/include/enchant"
+	ln -sfv libenchant-2.so "${pkgdir}/usr/lib/libenchant.so"
 	ln -sfv enchant-2.pc "${pkgdir}/usr/lib/pkgconfig/enchant.pc"
 }
 

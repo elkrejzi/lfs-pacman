@@ -1,5 +1,5 @@
 pkgname=libxkbcommon
-pkgver=0.7.2
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Keymap handling library for toolkits and window systems"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4a06f9d719393a34689fdd74b0cce80af20e26cc5bd6e1b34fff4093a4f8f103704bdc54f0245b62903cdd7529cd8d59864924b9f4ddab314d152804da4da649')
+sha512sums=('ad64baa03685b72e1047f9fdfc95661acf5bace59280a95d3defaca73c91fb77c31ecde00b430726e3521ff90cf8dd93ecbc816c18be0971cb616e00b81cf163')

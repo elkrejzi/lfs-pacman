@@ -567,6 +567,8 @@ re2c
 ninja
 meson
 qtbase
+qtsvg
+qtx11extras
 samba
 djvulibre
 fribidi

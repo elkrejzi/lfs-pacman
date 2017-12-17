@@ -11,6 +11,8 @@ source=("https://www.kernel.org/pub/linux/bluetooth/bluez-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/bluez-${pkgver}"
 
+	sed -i "s:^#AutoEnable=false:AutoEnable=true:g" src/main.conf
+
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
