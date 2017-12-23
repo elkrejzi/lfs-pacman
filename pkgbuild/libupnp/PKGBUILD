@@ -1,0 +1,25 @@
+pkgname=libupnp
+pkgver=1.6.24
+pkgrel=1
+pkgdesc="Portable Open Source UPnP Development Kit"
+arch=('x86_64')
+url="http://pupnp.sourceforge.net/"
+license=('BSD')
+#depends=()
+source=("https://downloads.sourceforge.net/pupnp/libupnp-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libupnp-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libupnp-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('91ebe5cf1f9d5d1015f82250d82297afd2d67475cba442e435821a87a41774c56f326469e84d8c10a2fcd00c38be1c3c08af85a397db2b592fb0aad1b38f8084')

@@ -1,5 +1,5 @@
 pkgname=lvm2
-pkgver=2.02.176
+pkgver=2.02.177
 pkgrel=1
 pkgdesc="Logical Volume Manager 2"
 arch=('x86_64')
@@ -22,6 +22,8 @@ build() {
 		--enable-applib \
 		--enable-cmdlib \
 		--enable-dmeventd \
+		--enable-lvmetad \
+		--enable-lvmpolld \
 		--enable-pkgconfig \
 		--enable-udev_rules \
 		--enable-udev_sync \
@@ -41,4 +43,4 @@ package() {
 	make install_systemd_generators DESTDIR="${pkgdir}"
 }
 
-sha512sums=('eee0b1cc356f0c5ff5dba8efe81af5f0ad446649dc237458bb63419483899becc4fe6912592555f84cf9cb8f9cbdec341d2047db5943ca9a3da5f0af60b70759')
+sha512sums=('e287aeae3ce5ce0efcdebce90f24c2f659cd8691839e3f3cb902848535259ae510ec48f5355481b99f7285d9cff01883e6ef2b101072bdf9c99fba8e9cb54ded')

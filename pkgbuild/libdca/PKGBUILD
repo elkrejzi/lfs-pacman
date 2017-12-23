@@ -1,0 +1,27 @@
+pkgname=libdca
+pkgver=0.0.5
+pkgrel=1
+pkgdesc="Free library for decoding DTS Coherent Acoustics streams"
+arch=('x86_64')
+url="https://www.videolan.org/developers/libdca.html"
+license=('GPL2')
+#depends=()
+source=("http://download.videolan.org/pub/videolan/libdca/${pkgver}/libdca-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libdca-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libdca-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rfv "${pkgdir}/usr/lib/libdts.a"
+}
+
+sha512sums=('d9f0ed34efeb3f27af8424fcb3e6df56744c6735854a65b5709c02b42b4513b9c4618dcc19eb44293afa051bd95616651bda5fc3b49dfabe975d0babfb1bc287')

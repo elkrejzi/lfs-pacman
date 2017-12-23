@@ -1,0 +1,30 @@
+pkgname=live-media
+pkgver=2017.10.28
+pkgrel=1
+pkgdesc="A set of C++ libraries for multimedia streaming"
+arch=('x86_64')
+url="http://live555.com/liveMedia"
+license=('LGPL')
+#depends=()
+source=("http://live555.com/liveMedia/public/live.${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/live"
+
+	CXXFLAGS+=" -DXLOCALE_NOT_USED"
+
+	./genMakefiles linux-with-shared-libraries
+
+	make
+}
+
+package() {
+	cd "${srcdir}/live"
+
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
+
+	chmod -v 755 "${pkgdir}"/usr/lib/*.so
+	rm -rfv "${pkgdir}"/usr/bin/test*
+}
+
+sha512sums=('eea5bdb8d89e76c8b6aeb6ec04b77af3048cb41f228d230ba4da6045e9bc691a456023d44d8650fe690b08143567ed5af5b633f5b6522debff79344a813dc7d0')

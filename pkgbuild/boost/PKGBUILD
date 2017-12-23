@@ -1,5 +1,5 @@
 pkgname=boost
-pkgver=1.65.1
+pkgver=1.66.0
 _boostver=${pkgver//./_}
 pkgrel=1
 pkgdesc="Free peer-reviewed portable C++ source libraries"
@@ -25,4 +25,4 @@ package() {
 		cflags="${CFLAGS}" cxxflags="${CXXFLAGS}" --prefix="${pkgdir}/usr" ${MAKEFLAGS}
 }
 
-sha512sums=('a9e6866d3bb3e7c198f442ff09f5322f58064dca79bc420f2f0168eb63964226dfbc4f034a5a5e5958281fdf7518a1b057c894fbda0b61fced59c1661bf30f1a')
+sha512sums=('0f34075d35391d66876e5189a01a11880a79428e1b267456348ee148dba9dc3abdc74d568f1853be631d20b584b1c804b42443c266f7622164acfc10be3dab8b')

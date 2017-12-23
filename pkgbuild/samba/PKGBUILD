@@ -1,5 +1,5 @@
 pkgname=samba
-pkgver=4.7.3
+pkgver=4.7.4
 pkgrel=1
 pkgdesc="SMB Fileserver and AD Domain server"
 arch=('x86_64')
@@ -83,7 +83,7 @@ package() {
 	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/usr/lib/systemd/system/winbindd.service"
 }
 
-sha512sums=('3fd9d5f208201e3137c5966e10878ba2fc00fa80b3468e8b402e08f941b5508edd7181720033aaa25fcff0ee0ae5438619423d41a9b9b3d14dc3743fbe3f902f'
+sha512sums=('50af2ed0586116171b2fabb96a05118c447cd5a165a5328b02be832fda9eb1465052a6670415831484639921164ddbf03b6ec47857244cc164ea5a9e4e39cf65'
             '8d4c44003c2f1910a7f859cc1a5caec23f399071cd087a96dc0ed445c722fab2543f98d417dac0169b7ac745804a0e318ec31ece6ac6d8ef2c82c3ce00397ee6'
             'd05772aedd6a55faade4a683f13782de3d463db3cfd781acfc9855bd4d30860bf1965e836feb69222cb07abc2e0b5ea75557b3a87bbc8f90ca88dc268dd74b7b'
             '3798cc28c8a25132bd72e30efcda1489da5cfb1f9838b05473669b4856be9a4e1663a71ae1f1c87a9c9fcee065e05355053aea826a8c2fa19ee1e9246c23e341'

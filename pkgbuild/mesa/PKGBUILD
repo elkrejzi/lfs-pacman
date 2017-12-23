@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=17.3.0
+pkgver=17.3.1
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -16,10 +16,10 @@ prepare() {
 }
 
 build() {
-	configure_flags=(--disable-llvm-shared-libs
-		--disable-valgrind
+	configure_flags=(--disable-valgrind
 		--disable-xvmc
 		--enable-texture-float
+		--enable-llvm-shared-libs
 		--enable-gles1
 		--enable-gles2
 		--enable-gbm
@@ -84,4 +84,4 @@ package_lib32-mesa() {
 	mv dest/usr/share "${pkgdir}/usr"
 }
 
-sha512sums=('b0a616ce9a534a19c42eb0a626a178c6a7171aae1989351ea7c2a9e775a7478758b805dbfb754056720b1ef0454c3d3beb64aa59543be27f249ce97efae8e47e')
+sha512sums=('a2bd0123bf2df0db03197001a9e001b25f2609f3c6bf1bae66f3bc50c51d2558b5b77e232e81c1658c3a4dec88eda32a8b5a85c1fedc937a7441476228ef8238')

@@ -1,16 +1,16 @@
 pkgbase=vulkan-loader
 pkgname=('vulkan-loader' 'lib32-vulkan-loader')
-pkgver=1.0.61.1
+pkgver=1.0.65.1
 pkgrel=1
 arch=('x86_64')
 url="https://www.khronos.org/vulkan/"
 license=('custom')
 #depends=()
 options=(emptydirs)
-source=("git+https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers.git#commit=7e48885" # sdk-1.0.61.1
-	"git+https://github.com/KhronosGroup/glslang.git#commit=3a21c88" # Vulkan-LoaderAndValidationLayers/external_revisions/glslang_revision
-	"git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=7e2d26c" # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-tools_revision
-	"git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=2bb92e6") # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-headers_revision
+source=("git+https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers.git#commit=9dd6760" # sdk-1.0.65.1
+	"git+https://github.com/KhronosGroup/glslang.git#commit=715c353" # Vulkan-LoaderAndValidationLayers/external_revisions/glslang_revision
+	"git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=5834719" # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-tools_revision
+	"git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=0610978") # Vulkan-LoaderAndValidationLayers/external_revisions/spirv-headers_revision
 
 prepare() {
 	cd "${srcdir}"
@@ -24,6 +24,8 @@ prepare() {
 	mv SPIRV-Headers SPIRV-Tools/external/spirv-headers
 	mv SPIRV-Tools Vulkan-LoaderAndValidationLayers/external/spirv-tools
 	mv glslang Vulkan-LoaderAndValidationLayers/external/glslang
+
+	sed -i "s#cstring#string#g" Vulkan-LoaderAndValidationLayers/scripts/mock_icd_generator.py
 }
 
 build_shared() {
@@ -71,6 +73,7 @@ build_shared() {
 		-DGLSLANG_BINARY_ROOT="${PWD}/external/glslang" \
 		-DCUSTOM_SPIRV_TOOLS_BIN_ROOT=ON \
 		-DSPIRV_TOOLS_BINARY_ROOT="${PWD}/external/spirv-tools" \
+		-DSPIRV_TOOLS_OPT_BINARY_ROOT="${PWD}/external/spirv-tools" \
 		"${srcdir}/Vulkan-LoaderAndValidationLayers"
 
 	ninja

@@ -1,0 +1,25 @@
+pkgname=c-ares
+pkgver=1.13.0
+pkgrel=1
+pkgdesc="C library that performs DNS requests and name resolves asynchronously"
+arch=('x86_64')
+url="https://c-ares.haxx.se"
+license=('custom')
+#depends=()
+source=("http://c-ares.haxx.se/download/c-ares-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/c-ares-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/c-ares-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('4a7942e754673f5b8d55a7471e31b0f390e8324b14c12077580c956147fad4d165c7fe8a3190199b1add95c710ceeb1a7957706d4f0d6299d39c5dddc719bd9d')

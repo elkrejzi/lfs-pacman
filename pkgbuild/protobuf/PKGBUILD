@@ -1,0 +1,31 @@
+pkgname=protobuf
+pkgver=3.5.0.1
+pkgrel=1
+pkgdesc="Protocol Buffers - Google's data interchange format"
+arch=('x86_64')
+url="https://developers.google.com/protocol-buffers/"
+license=('BSD')
+#depends=()
+source=("https://github.com/google/protobuf/archive/v${pkgver}/protobuf-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/protobuf-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/protobuf-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/protobuf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('6173114f88eb4d89f79b21f867df61a9cf09b85a693614f09cbbe295856b5d67c64d2364796e52a0ec5f4aeb16791752802f4c12a161a08b072133f355833280')

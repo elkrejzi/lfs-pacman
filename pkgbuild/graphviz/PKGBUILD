@@ -7,7 +7,7 @@ url="http://www.graphviz.org/"
 license=('CPL')
 #depends=()
 install=graphviz.install
-source=("http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-${pkgver}.tar.gz"
+source=("https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz"
 	"graphviz-qt5.patch")
 
 prepare() {

@@ -1,0 +1,36 @@
+pkgname=vlc
+pkgver=3.0.0.rc2
+_fullver=3.0.0-20171215-0223-rc2
+pkgrel=1
+pkgdesc="Multi-platform MPEG, VCD/DVD, and DivX player"
+arch=('x86_64')
+url="https://www.videolan.org/vlc/"
+license=('LGPL2.1' 'GPL2')
+#depends=()
+#source=("https://download.videolan.org/pub/videolan/vlc/${pkgver}/vlc-${pkgver}.tar.xz")
+source=("https://nightlies.videolan.org/build/source/vlc-${_fullver}.tar.xz"
+	"update-vlc-plugin-cache.hook")
+
+build() {
+	cd "${srcdir}/vlc-${pkgver/.rc/-rc}"
+
+	sed -i "/LUA_COMPAT_MODULE/i #define LUA_COMPAT_APIINTCASTS" modules/lua/vlc.h
+
+	./configure --prefix=/usr \
+		--enable-fdkaac \
+		--enable-gles2 \
+		BUILDCC="${CC}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/vlc-${pkgver/.rc/-rc}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -Dm644 "${srcdir}/update-vlc-plugin-cache.hook" "${pkgdir}/usr/share/libalpm/hooks/update-vlc-plugin-cache.hook"
+}
+
+sha512sums=('d8c2d06b98de895596c86509dfc00268c812e42ba8fb364dadd49ffa8d2bbd7d57fec58224ea1e6f92ed6cb5b389fa39b2f42bd934d237928ce023f844aed629'
+            '1635f590bb8c2a9774a4eb5f8a56d83995449d9935c51e024422daa1ef204f940235dfda9fe087b58b724d6c018920c1b2f0ff446bb2e1d5d81f2ba06e97ef1c')

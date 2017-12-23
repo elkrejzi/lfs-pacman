@@ -1,0 +1,32 @@
+pkgname=nodejs
+pkgver=9.3.0
+pkgrel=1
+pkgdesc="Evented I/O for V8 javascript"
+arch=('x86_64')
+url="https://nodejs.org/en/"
+license=('MIT')
+#depends=()
+source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/node-v${pkgver}"
+
+	./configure --prefix=/usr \
+		--shared-http-parser \
+		--shared-libuv \
+		--shared-nghttp2 \
+		--shared-openssl \
+		--shared-zlib \
+		--shared-cares \
+		--with-intl=system-icu
+
+	make
+}
+
+package() {
+	cd "${srcdir}/node-v${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('bafc3bbd01ce0cc00f13e6f34b8ed361cff337c71b90836132c8188b1103ba2d6aab145258b6afafafc2455fa8a5de54be265435a553793946fd6d308095ae3e')

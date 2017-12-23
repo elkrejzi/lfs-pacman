@@ -1,0 +1,25 @@
+pkgname=libmatroska
+pkgver=1.4.8
+pkgrel=1
+pkgdesc="Matroska library"
+arch=('x86_64')
+url="https://matroska.org/"
+license=('LGPL')
+#depends=()
+source=("https://dl.matroska.org/downloads/libmatroska/libmatroska-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libmatroska-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libmatroska-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('af3b8bfae891be77896b6afa2da3325ebba73a957cd43a4e6086b68e1237bb37b2e6d5eb57322c05ede0ad0c03464087b77fbdf06101314f09411648e1073cee')

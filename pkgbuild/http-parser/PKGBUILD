@@ -1,0 +1,27 @@
+pkgname=http-parser
+pkgver=2.7.1
+pkgrel=1
+pkgdesc="Parser for HTTP Request/Response written in C"
+arch=('x86_64')
+url="https://github.com/nodejs/http-parser"
+license=('MIT')
+#depends=()
+source=("https://github.com/nodejs/http-parser/archive/v${pkgver}/http-parser-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/http-parser-${pkgver}"
+
+	make library
+}
+
+package() {
+	cd "${srcdir}/http-parser-${pkgver}"
+
+	make install PREFIX="${pkgdir}/usr"
+
+	ln -sfv libhttp_parser.so.${pkgver} "${pkgdir}/usr/lib/libhttp_parser.so"
+
+	chmod 644 "${pkgdir}/usr/include/http_parser.h"
+}
+
+sha512sums=('c0fe86455db1a563a5c668f118dfa9a27b9a637ee1c0e2f2f18a5b816352436ed90435ea978e3f3d85b037d3c630234e47d609dc3b7086b898286c4e54d9f031')

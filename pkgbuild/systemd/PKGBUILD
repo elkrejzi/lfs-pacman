@@ -28,6 +28,9 @@ source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
+
+	cd "${srcdir}/systemd-${pkgver}"
+	sed -i 's/GROUP="render", //' rules/50-udev-default.rules.in
 }
 
 build() {
