@@ -1,0 +1,27 @@
+pkgname=networkmanager-strongswan
+pkgver=1.4.2
+pkgrel=1
+pkgdesc="Strongswan NetworkManager plugin"
+arch=('x86_64')
+url="https://wiki.strongswan.org/projects/strongswan/wiki/NetworkManager"
+license=('GPL')
+#depends=()
+source=("https://download.strongswan.org/NetworkManager/NetworkManager-strongswan-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/NetworkManager-strongswan-${pkgver}"
+
+	./configure --prefix=/usr \
+			--sysconfdir=/etc \
+			--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/NetworkManager-strongswan-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('b62790d9cee12bed24c50762c2624654268244c8a1d5d42f184f78316e651dd8d450096bd9652699686c307d0ffbe8a328a151e3430755cf40a1d1de7a1525e8')

@@ -1,26 +1,26 @@
 pkgname=qtmultimedia
-pkgver=5.9.2
+pkgver=5.10.0
 pkgrel=1
 pkgdesc="Classes for audio, video, radio and camera functionality"
 arch=('x86_64')
 url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
-source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtmultimedia-opensource-src-${pkgver}.tar.xz")
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:4}/${pkgver}/submodules/qtmultimedia-everywhere-src-${pkgver}.tar.xz")
 
 build() {
-	cd "${srcdir}/qtmultimedia-opensource-src-${pkgver}"
+	cd "${srcdir}/qtmultimedia-everywhere-src-${pkgver}"
 
 	qmake
 	make
 }
 
 package() {
-	cd "${srcdir}/qtmultimedia-opensource-src-${pkgver}"
+	cd "${srcdir}/qtmultimedia-everywhere-src-${pkgver}"
 
 	make install INSTALL_ROOT="${pkgdir}"
 
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('b9fab874706440e97185475bfd0ad769c23d5ddbff5086cc0da9783777e81ed8140fb06fa0e7536ebfb67f2c9db39e1b9f3c2241834e74a9e1fb6ffd5cb7af11')
+sha512sums=('43838d5d09728388d8a4e62aeaea242479b76a1fbe31afbf9260538135e37b15114ef29e13bcd1c7698b0798161e740f79606abf9a475f39f77da379e7b0e98f')

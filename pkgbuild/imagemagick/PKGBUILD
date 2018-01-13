@@ -1,5 +1,5 @@
 pkgname=imagemagick
-_pkgver=6.9.9-27
+_pkgver=6.9.9-33
 pkgver=${_pkgver/-/.}
 pkgrel=1
 pkgdesc="An image viewing/manipulation program"
@@ -38,4 +38,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/*.la "${pkgdir}/usr/lib/perl"
 }
 
-sha512sums=('3d3e48d30a22043365a25c954dcf4db14416211c37b69f28e9e20d88e04c3d941d5372dd2d5a1926c4554c5f4f4e902cb7401bf60d28754fb87c9e5e23ace8a1')
+sha512sums=('5edbb508d18f9f80be2630bc4f7682b325a189cffa3b8ced337ce932f5f39f4517307afb190df8ebf588e7338d4779fc23a660eb0294e2411aaa90b59327dd80')

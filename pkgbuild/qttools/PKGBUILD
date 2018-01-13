@@ -1,26 +1,26 @@
 pkgname=qttools
-pkgver=5.9.2
+pkgver=5.10.0
 pkgrel=1
 pkgdesc="A cross-platform application and UI framework (Development Tools, QtHelp)"
 arch=('x86_64')
 url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
-source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qttools-opensource-src-${pkgver}.tar.xz"
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:4}/${pkgver}/submodules/qttools-everywhere-src-${pkgver}.tar.xz"
 	"assistant.desktop"
 	"designer.desktop"
 	"linguist.desktop"
 	"qdbusviewer.desktop")
 
 build() {
-	cd "${srcdir}/qttools-opensource-src-${pkgver}"
+	cd "${srcdir}/qttools-everywhere-src-${pkgver}"
 
 	qmake
 	make
 }
 
 package() {
-	cd "${srcdir}/qttools-opensource-src-${pkgver}"
+	cd "${srcdir}/qttools-everywhere-src-${pkgver}"
 
 	make install INSTALL_ROOT="${pkgdir}"
 
@@ -48,7 +48,7 @@ package() {
 
 }
 
-sha512sums=('afce063e167de96dfa264cfd27dc8d80c23ef091a30f4f8119575cae83f39716c3b332427630b340f518b82d6396cca1893f28e00f3c667ba201d7e4fc2aefe1'
+sha512sums=('3a4a540d5e070bf46bcb922912bf9ec556761526104970bc76b84898de26de20dd836f02e9c5c58e73f6d12156555c6984716d54fe19361c1b6f247ee162ca06'
             '110020047861c1d39453330e7893f0f6f2c1237232cfcb2e1e6cdbffe234fb97111bfd63116c952e5aa26c0ed88e231fe460a3e8e8b272e0a25cf2f6ace6b13b'
             'a040a196d6875aea3157814651c3793298cfbb8f5668faad0a7487c487226b0e6f2456ff32518b77423e1e16330428a4dd0febe6bc566610bdd86256d70c74ce'
             '61b95adb7d04a9571cca6b794bd13c2a42c5b144de2e6a419e8c9f4601da5084df608ece6968187d60b454f076ac0c5f1869445705a29139250659fa7d0c2aa6'

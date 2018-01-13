@@ -379,7 +379,7 @@ libva-utils
 libvdpau
 opencl-headers
 ocl-icd
-vulkan-loader
+vulkan
 mesa
 libva
 glu
@@ -567,8 +567,12 @@ re2c
 ninja
 meson
 qtbase
+qtscript
 qtsvg
 qtx11extras
+qtxmlpatterns
+qtdeclarative
+qttools
 samba
 djvulibre
 fribidi
@@ -627,6 +631,9 @@ x265
 xvidcore
 ffmpeg
 mpv
+smplayer
+smplayer-skins
+smplayer-themes
 vlc
 gst-plugins-good
 gst-plugins-bad
@@ -663,6 +670,7 @@ mdadm
 nss-mdns
 parted
 sane-backends
+strongswan
 t1lib
 tidy-html5
 volume_key
@@ -715,6 +723,7 @@ cheese
 evolution-data-server
 gnome-keyring
 gvfs
+networkmanager-strongswan
 yelp
 aisleriot
 epiphany

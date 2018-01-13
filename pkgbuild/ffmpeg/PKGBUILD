@@ -6,9 +6,13 @@ arch=('x86_64')
 url="http://www.ffmpeg.org/"
 license=('GPL3')
 #depends=()
-source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
+#source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
+source=("git+https://git.videolan.org/git/ffmpeg.git#commit=2906363")
 
 prepare() {
+	rm -rf "${srcdir}/ffmpeg-${pkgver}"
+	cp -a "${srcdir}/ffmpeg" "${srcdir}/ffmpeg-${pkgver}"
+
 	cd "${srcdir}/ffmpeg-${pkgver}"
 
 #	patch -Np1 -i "${srcdir}/ffmpeg-openjp2.patch"
@@ -70,4 +74,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0ead14801f5863c995a522df941fba7e90c58d1887cde8db41787a135b0ad1bee3ff72df2f8ead7fd3351d05c3189ee6a6c4154796e963609522346aea1ce6d5')
+sha512sums=('SKIP')

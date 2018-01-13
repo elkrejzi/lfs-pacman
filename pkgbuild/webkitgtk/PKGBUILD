@@ -1,5 +1,5 @@
 pkgname=webkitgtk
-pkgver=2.18.4
+pkgver=2.18.5
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('c7440668cc097232b7eb9ea15e1047f7110cd06249cb61501b0414175693e0b11b22335abf17c62582dcf16c41ae49d0a713cd069f7df32955e440b9d23194d1')
+sha512sums=('f11a45150af4ba36192380ad0757da53d50b660f0a4f127a71123a6d80e9757d16a1deb1d69b235852c62bb1225352823932c60df7d6aa9372442ed7a165068c')

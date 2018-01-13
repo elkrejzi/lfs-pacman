@@ -15,7 +15,7 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--libexecdir=/usr/lib \
-		--with-system-libav \
+		--without-system-libav \
 		--with-package-name="GStreamer ffmpeg Plugins ${pkgver} Krejzi" \
 		--with-package-origin="https://github.com/elkrejzi/"
 

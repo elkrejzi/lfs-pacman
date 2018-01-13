@@ -1,6 +1,6 @@
 pkgbase=python-cssselect
 pkgname=('python2-cssselect' 'python3-cssselect')
-pkgver=1.0.1
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="cssselect parses CSS3 Selectors and translates them to XPath 1.0"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-cssselect() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('060c4b8d427a935b851b4b20d10ef89b9d6f685692b7144afc8f848e318abaa182ed60538355ea3f25050e358f24904fa0d9c01fe77e3d2428e2ef2a825e2928')
+sha512sums=('dec659e17d378b2afc23aecd59ccb80538c92978dd9622b9d909d398817a6dadcd28957c5983e7930135ca73ed0aad402617e41bc65088aa4a5b15c4324cadb0')

@@ -1,0 +1,26 @@
+pkgname=qtscript
+pkgver=5.10.0
+pkgrel=1
+pkgdesc="Classes for making Qt applications scriptable. Provided for Qt 4.x compatibility"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:4}/${pkgver}/submodules/qtscript-everywhere-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtscript-everywhere-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtscript-everywhere-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+
+	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
+}
+
+sha512sums=('4991ad27e6c3580682475f36684176783ba7564a9dfd65d5ff5087460998fbba5f1a7162b967b5945c91bea63c33e808b7f1fce51a5df36849252b1ded59e5bd')

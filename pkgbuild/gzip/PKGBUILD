@@ -1,5 +1,5 @@
 pkgname=gzip
-pkgver=1.8
+pkgver=1.9
 pkgrel=1
 pkgdesc="GNU compression utility"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('efd3e2439476054badeb127d9156e24e9252129111219f13fd939596c057b2a96291630b2717181984b391abf249ac8699488bbd01ceeb8a70b121c500b10c55')
+sha512sums=('c0852e7f7662141e79d14bc36e50f1940dba3e804feff3b0b8fa084ffec720ac245352282d2f1db117fadc95758424dd418d192b94621dac4367834ccf101fad')

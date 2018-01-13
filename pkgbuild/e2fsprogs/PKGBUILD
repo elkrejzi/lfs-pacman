@@ -1,5 +1,5 @@
 pkgname=e2fsprogs
-pkgver=1.43.7
+pkgver=1.43.8
 pkgrel=1
 pkgdesc="Ext2/3/4 filesystem utilities"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	sed -i 's#^ET_DIR=.*#ET_DIR="/usr/share/et"#' "${pkgdir}/usr/bin/compile_et"
 }
 
-sha512sums=('2ef270364d3cea620db3c3b9932849d0ff5b49d4a9a9b24f0d1ac36888199bd67432edc5f939d9f697ee0342b71a063e1ad4ce8119528a7adab7a777c1de57ba')
+sha512sums=('539f310909aafcd40062da067c94d3b355bdecee122ecb5ea53e137f57e8699bd4d549a7f161c796d9a3d7a7b5822e8c01b47e4babdeb7243eb64a022dda2f74')

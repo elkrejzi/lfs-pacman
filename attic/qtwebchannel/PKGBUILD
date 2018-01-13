@@ -1,26 +1,26 @@
 pkgname=qtwebchannel
-pkgver=5.9.2
+pkgver=5.10.0
 pkgrel=1
 pkgdesc="Provides access to QObject or QML objects from HTML clients for seamless integration of Qt applications with HTML/JavaScript clients"
 arch=('x86_64')
 url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
-source=("https://download.qt.io/official_releases/qt/${pkgver:0:3}/${pkgver}/submodules/qtwebchannel-opensource-src-${pkgver}.tar.xz")
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:4}/${pkgver}/submodules/qtwebchannel-everywhere-src-${pkgver}.tar.xz")
 
 build() {
-	cd "${srcdir}/qtwebchannel-opensource-src-${pkgver}"
+	cd "${srcdir}/qtwebchannel-everywhere-src-${pkgver}"
 
 	qmake
 	make
 }
 
 package() {
-	cd "${srcdir}/qtwebchannel-opensource-src-${pkgver}"
+	cd "${srcdir}/qtwebchannel-everywhere-src-${pkgver}"
 
 	make install INSTALL_ROOT="${pkgdir}"
 
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('cab160532483928d18278be9430147090fcc12ffc2b7f9c4529a9e33bcafe939b0b6bfd8e46a6467709043cd54aabc697166f74927b24f1e654b522edb6231db')
+sha512sums=('2641d70afd797b8860177301805ec255b026605059d4dc95ced5041c56ec3875fb6369e7e4d1a84e6ee50557a0b41c21dfb5020636c16aac61a3f0ea62208acb')

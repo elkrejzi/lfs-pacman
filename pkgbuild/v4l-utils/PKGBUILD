@@ -1,5 +1,5 @@
 pkgname=v4l-utils
-pkgver=1.12.6
+pkgver=1.14.1
 pkgrel=1
 pkgdesc="Userspace tools and conversion library for Video 4 Linux"
 arch=('x86_64')
@@ -8,23 +8,10 @@ license=('LGPL')
 #depends=()
 source=("https://linuxtv.org/downloads/v4l-utils/v4l-utils-${pkgver}.tar.bz2")
 
-prepare() {
-	cd "${srcdir}/v4l-utils-${pkgver}"
-
-	sed -i "/SUBDIRS/s# ir-ctl##g" utils/Makefile.in
-
-	sed -i "/unistd.h/i#include <time.h>" utils/cec-compliance/cec-test-power.cpp \
-		utils/cec-compliance/cec-test-audio.cpp \
-		utils/cec-follower/cec-processing.cpp \
-		utils/rds-ctl/rds-ctl.cpp
-}
-
 build() {
 	cd "${srcdir}/v4l-utils-${pkgver}"
 
-	export CXX="${CXX} -std=c++11"
-
-	./configure --prefix=/usr --sysconfdir=/etc
+	./configure --prefix=/usr --sysconfdir=/etc --disable-v4l-utils
 
 	make
 }
@@ -37,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/ivtv-ctl"
 }
 
-sha512sums=('1f6e7ba9513ea836d6536eaf2f148588e9a2beaab62c49fb295e60aae41382781f76d536e854bbe6fc601f00034e3239b551874dc99a1f6afa788ee94976b332')
+sha512sums=('78b863f2cba409138efd6744895e6b1e730ec7cd5dfd0bd6088dd1336572a5f6d0b422fb4ec6577c6038192d0a3b28ae91d7402d5733904913749eff263c2eb1')

@@ -1,0 +1,83 @@
+pkgname=strongswan
+pkgver=5.6.1
+pkgrel=1
+pkgdesc="OpenSource IPsec-based VPN Solution"
+arch=('x86_64')
+url="https://www.strongswan.org/"
+license=('GPL2')
+#depends=()
+backup=(etc/ipsec.conf
+	etc/ipsec.secrets
+	etc/strongswan.conf
+	etc/swanctl/swanctl.conf)
+source=("https://download.strongswan.org/strongswan-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/strongswan-${pkgver}"
+
+	./configure --prefix=/usr \
+			--sysconfdir=/etc \
+			--localstatedir=/var \
+			--enable-mgf1 \
+			--enable-newhope \
+			--enable-ntru \
+			--enable-openssl \
+			--enable-sha3 \
+			--enable-curl \
+			--enable-files \
+			--enable-ldap \
+			--enable-soup \
+			--enable-sqlite \
+			--enable-addrblock \
+			--enable-acert \
+			--enable-agent \
+			--enable-coupling \
+			--enable-dnscert \
+			--enable-eap-sim \
+			--enable-eap-sim-file \
+			--enable-eap-aka \
+			--enable-eap-aka-3gpp \
+			--enable-eap-aka-3gpp2 \
+			--enable-eap-simaka-pseudonym \
+			--enable-eap-simaka-reauth \
+			--enable-eap-identity \
+			--enable-eap-md5 \
+			--enable-eap-gtc \
+			--enable-eap-mschapv2 \
+			--enable-eap-tls \
+			--enable-eap-ttls \
+			--enable-eap-peap \
+			--enable-eap-tnc \
+			--enable-eap-dynamic \
+			--enable-eap-radius \
+			--enable-ipseckey \
+			--enable-pkcs11 \
+			--enable-tpm \
+			--enable-xauth-eap \
+			--enable-xauth-pam \
+			--enable-xauth-noauth \
+			--enable-smp \
+			--enable-sql \
+			--enable-dhcp \
+			--enable-unity \
+			--enable-bypass-lan \
+			--enable-connmark \
+			--enable-counters \
+			--enable-forecast \
+			--enable-farp \
+			--enable-ha \
+			--enable-radattr \
+			--enable-cmd \
+			--enable-nm \
+			--enable-systemd
+
+	make
+}
+
+package() {
+	cd "${srcdir}/strongswan-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e4bdcf434739cf18544e18635c0b2e34c8b39e9c6c7a7cab31972bae6b1922da324f47c333fc478fa6177f58a2e59c438c48420c74086da1c0555e9a9361834e')

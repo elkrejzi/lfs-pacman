@@ -1,0 +1,24 @@
+pkgname=smplayer
+pkgver=18.1.0
+pkgrel=1
+pkgdesc="Media player with built-in codecs that can play virtually all video and audio formats"
+arch=('x86_64')
+url="http://www.smplayer.info/"
+license=('GPL')
+#depends=()
+options=(docs)
+source=("https://downloads.sourceforge.net/smplayer/smplayer-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/smplayer-${pkgver}"
+
+	make PREFIX=/usr DOC_PATH="\\\"/usr/share/doc/smplayer\\\""
+}
+
+package() {
+	cd "${srcdir}/smplayer-${pkgver}"
+
+	make install PREFIX=/usr DOC_PATH=/usr/share/doc/smplayer DESTDIR="${pkgdir}"
+}
+
+sha512sums=('f0fb844634fbb22c975744cc4d557503aba7131cb52c5e1165a3ff9eec259bf45ebde5b7dfefa48d5f17e2946c1cfa0cce34429b373918f488e3f51c3398884e')

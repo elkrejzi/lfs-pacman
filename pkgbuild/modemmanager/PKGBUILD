@@ -1,5 +1,5 @@
 pkgname=modemmanager
-pkgver=1.6.10
+pkgver=1.6.12
 pkgrel=1
 pkgdesc="Mobile broadband modem management service"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('06cb5a364f39e1128c296f4d1d210e7cb9c557670189e5a7237dccbf6fc8c57dd8e2f424e4907871ffe547a3d30dfda6b51ef79c5754f96afbf1ef6298dcdbf7')
+sha512sums=('2ac72fb2d36530204528cc0cd4815d0b93a1a8c8539ac345101e5e15bbfffd3eda888bbdc54298d3547b9aeacb94c75be5c600e993099671da2f9f27e8ee93cd')

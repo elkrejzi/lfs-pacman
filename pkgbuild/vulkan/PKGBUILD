@@ -1,0 +1,85 @@
+pkgbase=vulkan
+pkgname=('vulkan' 'lib32-vulkan')
+pkgver=1.0.65.1
+pkgrel=1
+arch=('x86_64')
+url="https://www.khronos.org/vulkan/"
+license=('custom')
+#depends=()
+options=(emptydirs)
+source=("git+https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers.git#commit=3f7ce77") # master
+
+prepare() {
+	cd "${srcdir}/Vulkan-LoaderAndValidationLayers"
+
+	sed -i "s#cstring#string#g" scripts/mock_icd_generator.py
+
+	cp -a "${srcdir}"/Vulkan-LoaderAndValidationLayers{,32}
+
+	install -v -dm755 "${srcdir}"/build{32,64}
+}
+
+build() {
+	local _flags=(-DCMAKE_INSTALL_PREFIX=/usr
+		-DCMAKE_BUILD_TYPE=Release
+		-DCMAKE_INSTALL_SYSCONFDIR=/etc
+		-DCMAKE_INSTALL_DATADIR=share
+		-DCMAKE_SKIP_RPATH=ON
+		-DBUILD_TESTS=OFF
+		-DBUILD_WSI_XCB_SUPPORT=ON
+		-DBUILD_WSI_XLIB_SUPPORT=ON
+		-DBUILD_WSI_WAYLAND_SUPPORT=ON
+		-DBUILD_WSI_MIR_SUPPORT=OFF)
+
+	cd "${srcdir}/build64"
+
+	bash -e "${srcdir}/Vulkan-LoaderAndValidationLayers/update_external_sources.sh"
+
+	cmake "${srcdir}/Vulkan-LoaderAndValidationLayers" \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		${_flags[@]}
+
+	cd "${srcdir}/build32"
+
+	export ASFLAGS="--32"
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	bash -e "${srcdir}/Vulkan-LoaderAndValidationLayers32/update_external_sources.sh"
+
+	cmake "${srcdir}/Vulkan-LoaderAndValidationLayers32" \
+		-DCMAKE_INSTALL_LIBDIR=lib32 \
+		${_flags[@]}
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset ASFLAGS CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	make -C "${srcdir}/build64"
+	make -C "${srcdir}/build32"
+}
+
+package_vulkan() {
+	pkgdesc="Vulkan Installable Client Driver (ICD) Loader and Validation Layers"
+
+	cd "${srcdir}/build64"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/etc/vulkan/icd.d"
+	mv "${pkgdir}/etc" "${pkgdir}/usr/share"
+}
+
+package_lib32-vulkan() {
+	pkgdesc="Vulkan Installable Client Driver (ICD) Loader and Validation Layers (32 bit)"
+
+	cd "${srcdir}/build32"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr/bin"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+	mv dest/usr/bin/vulkaninfo "${pkgdir}/usr/bin/vulkaninfo32"
+}
+
+sha512sums=('SKIP')
