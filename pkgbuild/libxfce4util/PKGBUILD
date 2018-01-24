@@ -1,0 +1,25 @@
+pkgname=libxfce4util
+pkgver=4.13.1
+pkgrel=1
+pkgdesc="Basic utility non-GUI functions for Xfce"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/libxfce4util/${pkgver:0:4}/libxfce4util-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/libxfce4util-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/libxfce4util-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('1667cc22ff72920d3280725cb40c41f5fba9dcfcba8e357ba85548c7f254a67a3ef942c1b71f0ac5c3a7fe46c8c4cb559a06a8111aa71ce1f6824d1a1c2b5063')

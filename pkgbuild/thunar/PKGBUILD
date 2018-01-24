@@ -1,0 +1,25 @@
+pkgname=thunar
+pkgver=1.6.13
+pkgrel=1
+pkgdesc="Modern file manager for Xfce"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2' 'LGPL2.1')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/thunar/${pkgver:0:3}/Thunar-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/Thunar-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/Thunar-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d1ae8efd0652c21b14ff45be9eef2ccf6b4400c744b08b2096a47b1af4eade2df1a237d03ede3e5dccea018b626dd67ffda2ed946b31fc2d3ff214c79e30168f')

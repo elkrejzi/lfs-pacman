@@ -1,12 +1,12 @@
 pkgname=gnutls
-pkgver=3.5.16
+pkgver=3.5.17
 pkgrel=1
 pkgdesc="A library which provides a secure layer over a reliable transport layer"
 arch=('x86_64')
 url="http://www.gnutls.org/"
 license=('GPL3' 'LGPL2.1')
 #depends=()
-source=("ftp://ftp.gnutls.org/gcrypt/gnutls/v${pkgver:0:3}/gnutls-${pkgver}.tar.xz")
+source=("https://www.gnupg.org/ftp/gcrypt/gnutls/v${pkgver:0:3}/gnutls-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gnutls-${pkgver}"
@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/info/*.png "${pkgdir}"/usr/share/info/*guile*
 }
 
-sha512sums=('451d3167be599ed8e0333dd7c9f8501fcb47b7aa871aeb461c368381c0b7ecd7e2026ec35dbbb2aa685cb2c3a22e9296e0a0699409e3744b731c1bb7e7e69f07')
+sha512sums=('0cb3405dee64737e314bfa9eed6afa57a8951190fe576122aecaf587c07ec1a5df1ac4819078bff0d292271639019c76d9a708027b502e3f55e2cf6576555ea6')

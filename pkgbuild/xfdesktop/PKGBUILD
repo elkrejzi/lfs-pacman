@@ -1,0 +1,25 @@
+pkgname=xfdesktop
+pkgver=4.13.1
+pkgrel=1
+pkgdesc="A desktop manager for Xfce"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/xfdesktop/${pkgver:0:4}/xfdesktop-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfdesktop-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfdesktop-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('efe5ffe450f498ee0188a1ca5efd0ef340d73b5650060f18db4fe94ae9130dd27e41c6b30af2f90839e6c8272f3e270d16b86df64d595fe82169c26d624f806a')

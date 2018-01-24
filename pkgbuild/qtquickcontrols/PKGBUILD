@@ -1,0 +1,24 @@
+pkgname=qtquickcontrols
+pkgver=5.10.0
+pkgrel=1
+pkgdesc="Reusable Qt Quick based UI controls to create classic desktop-style user interfaces"
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3' 'LGPL3' 'FDL' 'custom')
+#depends=()
+source=("https://download.qt.io/official_releases/qt/${pkgver:0:4}/${pkgver}/submodules/qtquickcontrols-everywhere-src-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/qtquickcontrols-everywhere-src-${pkgver}"
+
+	qmake
+	make
+}
+
+package() {
+	cd "${srcdir}/qtquickcontrols-everywhere-src-${pkgver}"
+
+	make install INSTALL_ROOT="${pkgdir}"
+}
+
+sha512sums=('87824d4802581710d6dc23f09c661aaff470a4050ada42be5b75ae88279a50782564a0f7feef059fdce5d50992438ec59417ff42e9258d890d7624855f0d7b70')

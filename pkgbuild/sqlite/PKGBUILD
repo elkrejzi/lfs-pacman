@@ -1,13 +1,13 @@
 pkgname=sqlite
-_srcver=3210000
-pkgver=3.20.0
+_srcver=3220000
+pkgver=3.22.0
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
 url="http://www.sqlite.org/"
 license=('custom:Public Domain')
 #depends=()
-source=("https://sqlite.org/2017/sqlite-autoconf-${_srcver}.tar.gz")
+source=("https://sqlite.org/2018/sqlite-autoconf-${_srcver}.tar.gz")
 
 build() {
 	export CFLAGS="${CFLAGS} -DSQLITE_ENABLE_FTS3=1 \
@@ -40,4 +40,4 @@ package() {
 	make -C tea install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8f00708965eacef171620c49538f75768d350ec3f2bfef412a5c70af865ab03b6a64ce1e65d9fdb3d66f4d00262a30fc162b01fd69f63c05c14d5243374b6298')
+sha512sums=('13e791bb1d7ba7edb5d84f4945f36ce2e03898a5bb1612d28799ef35a100f32e85cbb38f4ef65a7b43d020e5d48bf09b2e79cbb2003cc8aca2b09458b8c5d5bc')

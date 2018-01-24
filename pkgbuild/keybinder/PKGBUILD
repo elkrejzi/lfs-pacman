@@ -1,0 +1,27 @@
+pkgname=keybinder
+pkgver=0.3.1
+pkgrel=1
+pkgdesc="Library for registering global keyboard shortcuts"
+arch=('x86_64')
+url="https://github.com/kupferlauncher/keybinder"
+license=('GPL')
+#depends=()
+source=("https://github.com/kupferlauncher/keybinder/releases/download/v${pkgver}/keybinder-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/keybinder-${pkgver}"
+
+	./configure --prefix=/usr \
+		--disable-lua \
+		--disable-python
+
+	make
+}
+
+package() {
+	cd "${srcdir}/keybinder-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('aec4070b3d3b6c00900c3cb814e4b6a98beea09817eba3c3f7e6d5ce1ff68c091d183583f09b475e3e56bac67c94c1d912ebbe079dcece8195ac0ed9379d5f82')

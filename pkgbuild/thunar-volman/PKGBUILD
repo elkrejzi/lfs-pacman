@@ -1,0 +1,27 @@
+pkgname=thunar-volman
+pkgver=0.8.1
+pkgrel=1
+pkgdesc="Automatic management of removeable devices in Thunar"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/thunar-plugins/thunar-volman"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/thunar-volman/${pkgver:0:3}/thunar-volman-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/thunar-volman-${pkgver}"
+
+	CFLAGS+=" -Wno-return-type"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/thunar-volman-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a82c019b028277d97e7903dcbeaf4704cb7fc1e95b0ea18c6290a7a8581355691990cbdb5fa0c234ed5dd51c1ba7f1bca9a495e60f9f8597a993845481113bb6')

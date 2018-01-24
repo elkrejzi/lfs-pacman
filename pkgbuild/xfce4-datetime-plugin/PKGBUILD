@@ -1,0 +1,25 @@
+pkgname=xfce4-datetime-plugin
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="A date and time display plugin for the Xfce panel"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/panel-plugins/xfce4-datetime-plugin"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/panel-plugins/xfce4-datetime-plugin/${pkgver:0:3}/xfce4-datetime-plugin-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-datetime-plugin-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-datetime-plugin-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a6d12a5f30fd6f5d0cfa85e50ed261c09378ff9f74897c5b30aef491c0f81a1985c033a416c9e080c1b07551666e1c6d1b1a1d75b5fac72dd71417ec23a640f7')

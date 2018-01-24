@@ -1,5 +1,5 @@
 pkgname=cmake
-pkgver=3.10.1
+pkgver=3.10.2
 pkgrel=1
 pkgdesc="A cross-platform open-source make system"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('14e9a7f01747b369cad3c4e4e83bc777c0c98ce69209456f60d086d2471302f66dc1c1d22fd04e11dcb64de4bfc7dacd9aca70ee0e5f006abd1df79ef642eeed')
+sha512sums=('f58fdd025285c9ff5396c0bd0d9573fc8a498fcbe5c11b336cb8ad6154ca6bc875c1a5e22d6654ba98596791ecf89ae8adffb83450839fa1275756b0af5bf82b')

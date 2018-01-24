@@ -1,0 +1,25 @@
+pkgname=xfce4-dev-tools
+pkgver=4.12.0
+pkgrel=1
+pkgdesc="Xfce developer tools"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/xfce4-dev-tools/${pkgver:0:4}/xfce4-dev-tools-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-dev-tools-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-dev-tools-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('60f90daaaac3eea355779ee1bb6a0cf24fb9e0ba70971c9c26ea681755de41560cfbca59a28241c2fd818031dc46e95c550424577451ceb7a42b1de0b0ff4a31')

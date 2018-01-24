@@ -1,0 +1,38 @@
+pkgname=xfce4-settings
+pkgver=4.13.1
+pkgrel=1
+pkgdesc="Settings manager for Xfce"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+#source=("http://archive.xfce.org/src/xfce/xfce4-settings/${pkgver:0:4}/xfce4-settings-${pkgver}.tar.bz2")
+source=("git://git.xfce.org/xfce/xfce4-settings#commit=571cb6d")
+
+prepare() {
+	cd "${srcdir}/xfce4-settings" #-${pkgver}"
+
+	NOCONFIGURE=1 ./autogen.sh
+
+	sed -i "s#-Werror##g" configure
+}
+
+build() {
+	cd "${srcdir}/xfce4-settings" #-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-pluggable-dialogs \
+		--enable-sound-settings \
+		--enable-maintainer-mode
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-settings" #-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('SKIP')

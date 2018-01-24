@@ -1,0 +1,25 @@
+pkgname=xfce4-weather-plugin
+pkgver=0.8.10
+pkgrel=1
+pkgdesc="A weather plugin for the Xfce4 panel"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/panel-plugins/xfce4-weather-plugin"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/panel-plugins/xfce4-weather-plugin/${pkgver:0:3}/xfce4-weather-plugin-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-weather-plugin-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-weather-plugin-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('e40f794e824cc48038ece0c1336eed21b2e28091b86a4b76099c092c2e45abc5041d010d286f64fc483e8ad7c496127152df86330187afbd0872506d89f37c35')

@@ -7,17 +7,17 @@ url="http://www.docbook.org/"
 license=('custom')
 #depends=()
 install=docbook-xsl.install
-source=("https://github.com/docbook/xslt10-stylesheets/releases/download/release%2F${pkgver}/docbook-xsl-${pkgver}.tar.bz2"
+source=("https://github.com/docbook/xslt10-stylesheets/releases/download/release%2F${pkgver}/docbook-xsl-nons-${pkgver}.tar.bz2"
 	"docbook-xsl-fixes.patch")
 
 prepare() {
-	cd "${srcdir}/docbook-xsl-${pkgver}"
+	cd "${srcdir}/docbook-xsl-nons-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/docbook-xsl-fixes.patch"
 }
 
 package() {
-	cd "${srcdir}/docbook-xsl-${pkgver}"
+	cd "${srcdir}/docbook-xsl-nons-${pkgver}"
 
 	install -v -dm755 "${pkgdir}"/usr/share/xml/docbook/xsl-stylesheets-${pkgver}/{common,params}
 	install -m644 common/*.{xml,xsl,dtd,ent} "${pkgdir}/usr/share/xml/docbook/xsl-stylesheets-${pkgver}/common"
@@ -41,5 +41,5 @@ package() {
 	ln -sfv xsl-stylesheets-${pkgver} "${pkgdir}/usr/share/xml/docbook/xsl-stylesheets-current"
 }
 
-sha512sums=('dc5a2f08a804d0b2badb167b11fe22d53d7861e6238690e09507d09a696e7dce6b0da6e0dbfe84275db23d71006a4b89e3348eb271052341091a26395ec5862c'
+sha512sums=('d19aad5ae91c7f9a9690836bd472ec6e01a29eaeac6b1838b5c9ea54e2ef4cc90f515d7b6640fe94e909a5a51eee80cd32e2ccbee457de6f0c6652ea43325d7d'
             'f6b79c008e5df47364df7affe12c958a3b41ba102700db5331e1e5fc129ca3077d825e5959aeae39f9a61a511276dfe77865db45a390e57ad46182858d62281c')

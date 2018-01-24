@@ -1,5 +1,5 @@
 pkgname=highlight
-pkgver=3.41
+pkgver=3.42
 pkgrel=1
 pkgdesc="Fast and flexible source code highlighter (CLI version)"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fb2d4436451d76000c379885c4a7e674c2fd61c660655843ca46f8cb1719db4ff28459023b1011b13be4fd9a3eb57c9398b6d213a521169c5c9e7ba0b068de83')
+sha512sums=('362150ee396d2b203f11ecc3d011e23b6f8c7d93ff9f8cb0e9e980be6da21e7b3b1ea1e347e3f09129ab0fb1a0aab19ff19f021e643b93a163a99d3882f9bf80')

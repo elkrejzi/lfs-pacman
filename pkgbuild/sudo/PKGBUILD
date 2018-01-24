@@ -1,5 +1,5 @@
 pkgname=sudo
-_pkgver=1.8.21p2
+_pkgver=1.8.22
 pkgver=${_pkgver/p/.p}
 pkgrel=1
 pkgdesc="Give certain users the ability to run some commands as root"
@@ -38,5 +38,5 @@ package() {
 	install -v -Dm644 "${srcdir}/sudo.pam" "${pkgdir}/etc/pam.d/sudo"
 }
 
-sha512sums=('f04bbff54ad74ba73c078e15c75d2f41332d4912078ed66157ba7346b7fff914bd0747460cb4cd0c472af2d3b344fa72f5c62c95169df68a9cac74d7245c720c'
+sha512sums=('5ce10a9302d25bb726e347499d26a0b3697446cfcdf0fd9094ee35198db7b023d5250a53fdcb4184d1a09f5fd2a78fc645bc8e80f265666b05a91f62f49b0695'
             'a8c8ae1d8c500bcbefd48109af1b28932d17cec83ffcca9b04e2cd827c011c68106fddd7a1066b6f89927f9195286d60ab771d4006dd08e446d99c709741b8a9')

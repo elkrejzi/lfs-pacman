@@ -1,0 +1,25 @@
+pkgname=xfce4-power-manager
+pkgver=1.6.1
+pkgrel=1
+pkgdesc="Power manager for Xfce desktop"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/xfce4-power-manager/${pkgver:0:3}/xfce4-power-manager-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-power-manager-${pkgver}"
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-power-manager-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('b81ce1b35892a6cd0b1d4fb590ccc25b906cde6f782de2fffbe78ea89e00df15e51ea1f47576c173b7512cd617f5142868fca8cf81519b6fe165a5ecc67a5478')

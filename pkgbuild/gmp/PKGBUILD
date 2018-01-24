@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://gmplib.org/"
 license=('LGPL3' 'GPL')
 #depends=()
-source=("ftp://ftp.gmplib.org/pub/gmp-${pkgver}/gmp-${pkgver}.tar.xz")
+source=("https://ftp.gnu.org/gnu/gmp/gmp-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gmp-${pkgver}"

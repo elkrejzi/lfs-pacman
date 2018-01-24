@@ -1,5 +1,5 @@
 pkgname=libtasn1
-pkgver=4.12
+pkgver=4.13
 pkgrel=1
 pkgdesc="The ASN.1 library used in GNUTLS"
 arch=('x86_64')
@@ -24,4 +24,5 @@ package() {
 	make -C doc/reference install-data-local DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6c551670949881193e39122f72948e4999ff1ba377f9ee5963d0a4ad1b84256e4fe42e9f6d6a2aa9f7d4ef7acc0e5174fb5cc3df5298524cdeda92f4b8c104f7')
+
+sha512sums=('bf5b60a296795e0a8a4a658c0106492393aa7ce698e785256b3427c17215c2a5b6178a61a2043c93ea4334f754eabece20221ac8fef0fd5644086a3891d98a9f')

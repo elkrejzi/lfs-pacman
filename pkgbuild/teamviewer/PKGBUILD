@@ -1,0 +1,41 @@
+pkgname=teamviewer
+pkgver=13.0.6634
+pkgrel=1
+pkgdesc="All-In-One Software for Remote Support and Online Meetings"
+arch=('x86_64')
+url="https://www.teamviewer.com/"
+license=('custom')
+#depends=()
+options=(emptydirs !strip)
+source=("https://dl.tvcdn.de/download/linux/version_${pkgver:0:2}x/teamviewer_${pkgver}_amd64.tar.xz")
+
+package() {
+	install -v -dm755 "${pkgdir}/etc/teamviewer"
+	install -v -dm755 "${pkgdir}/opt"
+	install -v -dm755 "${pkgdir}/var/log/teamviewer${pkgver:0:2}"
+
+	cd "${srcdir}"
+
+	sed -i "/TV_PKGTYPE/s|TAR_NI|TAR_IN|g" teamviewer/tv_bin/script/tvw_config
+
+	cp -a teamviewer "${pkgdir}/opt"
+
+	cd "${srcdir}/teamviewer/tv_bin/script"
+
+	install -v -Dm644 teamviewerd.service "${pkgdir}/usr/lib/systemd/system/teamviewerd.service"
+
+	install -v -Dm644 com.teamviewer.TeamViewer.Desktop.service "${pkgdir}/usr/share/dbus-1/services/com.teamviewer.TeamViewer.Desktop.service"
+	install -v -Dm644 com.teamviewer.TeamViewer.service "${pkgdir}/usr/share/dbus-1/services/com.teamviewer.TeamViewer.service"
+	install -v -Dm644 com.teamviewer.TeamViewer.policy "${pkgdir}/usr/share/polkit-1/actions/com.teamviewer.TeamViewer.policy"
+
+	cd "${srcdir}/teamviewer/tv_bin/desktop"
+
+	install -v -Dm644 com.teamviewer.TeamViewer.desktop "${pkgdir}/usr/share/applications/com.teamviewer.TeamViewer.desktop"
+
+	for sz in 16 20 24 32 48 256
+	do
+		install -v -Dm644 teamviewer_${sz}.png "${pkgdir}/usr/share/icons/hicolor/${sz}x${sz}/apps/TeamViewer.png"
+	done
+}
+
+sha512sums=('5f4f662ffc0499d3cbd8b6310999b34e14a324152dd9e75352879d8cf0e53058c035c9bad987af046aa6715d3b579ab3887f339e68db8ca71e11348b1703d78c')

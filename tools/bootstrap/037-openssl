@@ -10,7 +10,6 @@ tar xf ${SROOT}/openssl-${OPENSSL_VER}.tar.gz
 
   time {
   pushd openssl-${OPENSSL_VER}
-    patch -Np1 -i ${PROOT}/no-sslv3-method.patch
     ./config --prefix=/tools             \
              --openssldir=/tools/etc/ssl \
              --libdir=lib                \

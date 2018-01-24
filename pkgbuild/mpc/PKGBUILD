@@ -1,5 +1,5 @@
 pkgname=mpc
-pkgver=1.0.3
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Library for the arithmetic of complex numbers with arbitrarily high precision"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0028b76df130720c1fad7de937a0d041224806ce5ef76589f19c7b49d956071a683e2f20d154c192a231e69756b19e48208f2889b0c13950ceb7b3cfaf059a43')
+sha512sums=('72d657958b07c7812dc9c7cbae093118ce0e454c68a585bfb0e2fa559f1bf7c5f49b93906f580ab3f1073e5b595d23c6494d4d76b765d16dde857a18dd239628')

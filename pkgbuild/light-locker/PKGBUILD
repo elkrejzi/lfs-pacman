@@ -1,0 +1,28 @@
+pkgname=light-locker
+pkgver=1.8.0
+pkgrel=1
+pkgdesc="A simple session locker for LightDM"
+arch=('x86_64')
+url="https://github.com/the-cavalry/light-locker"
+license=('GPL2')
+#depends=()
+source=("https://github.com/the-cavalry/light-locker/releases/download/v${pkgver}/light-locker-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/light-locker-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--without-console-kit \
+		--without-upower
+
+	make
+}
+
+package() {
+	cd "${srcdir}/light-locker-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('bbad73c0b82a50ddca240d5e1bd325a99d0c60364d136fe6d9d52f196319953373c9d03cf38ebd75d4498d080e96702e09fc97c35b4b69cbe963f065719549d5')

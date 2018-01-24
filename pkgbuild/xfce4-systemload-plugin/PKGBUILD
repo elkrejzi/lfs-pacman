@@ -1,0 +1,25 @@
+pkgname=xfce4-systemload-plugin
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="A system load plugin for the Xfce4 panel"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/panel-plugins/xfce4-systemload-plugin"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/panel-plugins/xfce4-systemload-plugin/${pkgver:0:3}/xfce4-systemload-plugin-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-systemload-plugin-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-systemload-plugin-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('01e57d799731a5860f043339ff0e90e0967ac1bda91d9f500d657ea14f3a52f31d9dd68ef5293f7941ef93e26e48af72de22aef976d0ccd497c62096e1aaf0b9')

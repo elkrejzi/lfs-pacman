@@ -1,0 +1,25 @@
+pkgname=xfce4-netload-plugin
+pkgver=1.3.1
+pkgrel=1
+pkgdesc="A netload plugin for the Xfce panel"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/panel-plugins/xfce4-netload-plugin"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/panel-plugins/xfce4-netload-plugin/${pkgver:0:3}/xfce4-netload-plugin-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-netload-plugin-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-netload-plugin-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('34144bf2d95f71276f8b5f4cf417d97d380233805c6fec1b7c559fee5b11468a421d3691230e01d89b40289d5ab22a472dcbef2a7ee0854abd7213e0ef0a3ef9')

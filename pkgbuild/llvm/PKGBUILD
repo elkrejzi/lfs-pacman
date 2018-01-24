@@ -1,7 +1,8 @@
 pkgbase=llvm
 pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang' 'lib32-clang' 'clang-tools-extra' 'lld' 'lldb')
-_realver=5.0.1
-_pre_release=0
+_realver=6.0.0rc1
+_fullver=${_realver/rc*/}
+_pre_release=1
 pkgver=${_realver/rc/.rc}
 pkgrel=1
 arch=('x86_64')
@@ -68,14 +69,12 @@ prepare() {
 	rm -rf "${srcdir}/llvm32-${_realver}.src"
 	cp -a "${srcdir}"/llvm{,32}-${_realver}.src
 
+	rm -rf "${srcdir}/llvm32-${_realver}.src/projects/compiler-rt"
 	rm -rf "${srcdir}/llvm32-${_realver}.src/tools/clang/tools/extra"
 	rm -rf "${srcdir}"/llvm32-${_realver}.src/tools/{lld,lldb}
 
-	sed -i "s#{CMAKE_CXX_COMPILER}#& -m32#g" "${srcdir}"/llvm32-${_realver}.src/projects/{libcxx,libcxxabi,libunwind}/cmake/Modules/HandleCompilerRT.cmake
-
 	rm -rf "${srcdir}"/llvm-build{,32}
 	install -v -dm755 "${srcdir}"/llvm-build{,32}
-
 }
 
 build() {
@@ -86,6 +85,7 @@ build() {
 		-DCLANG_DEFAULT_RTLIB=compiler-rt
 		-DCLANG_INCLUDE_DOCS=OFF
 		-DCLANG_INCLUDE_TESTS=OFF
+		-DCLANG_TOOLS_EXTRA_INCLUDE_DOCS=OFF
 		-DLIBCXX_ENABLE_STATIC=OFF
 		-DLIBCXX_INCLUDE_DOCS=OFF
 		-DLIBCXX_INCLUDE_TESTS=OFF
@@ -99,6 +99,9 @@ build() {
 		-DLIBOMP_INSTALL_ALIASES=OFF
 		-DLIBUNWIND_ENABLE_ASSERTIONS=OFF
 		-DLIBUNWIND_ENABLE_SHARED=OFF
+		-DLIBUNWIND_USE_COMPILER_RT=ON
+		-DLLDB_USE_SYSTEM_SIX=ON
+		-DSANITIZER_CXX_ABI="libc++"
 		-DLLVM_BUILD_LLVM_DYLIB=ON
 		-DLLVM_ENABLE_ASSERTIONS=OFF
 		-DLLVM_ENABLE_DOXYGEN=OFF
@@ -126,23 +129,17 @@ build() {
 
 	cd "${srcdir}/llvm-build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	cmake "${cmake_flags_common[@]}" \
-		-DLLVM_TARGET_ARCH=i686 \
-		-DLLVM_DEFAULT_TARGET_TRIPLE=i686-pc-linux-gnu \
+		-DLLVM_BUILD_32_BITS=ON \
 		-DLLVM_LIBDIR_SUFFIX=32 \
-		-DCLANG_INCLUDE_DOCS=OFF \
 		-DLLVM_BUILD_DOCS=OFF \
 		-DLLVM_ENABLE_SPHINX=OFF \
 		-DLLVM_INCLUDE_DOCS=OFF \
 		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
+		-DFFI_LIBRARY_PATH="/usr/lib32/libffi.so" \
 		"${srcdir}/llvm32-${_realver}.src"
-
-	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
-	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
@@ -220,7 +217,7 @@ package_llvm-libs() {
 	#install -v -dm755 "${pkgdir}/usr/lib/bfd-plugins"
 	#ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib/bfd-plugins/LLVMgold.so"
 
-	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/x86_64/libunwind-static.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_fullver}/x86_64/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
 }
 
 package_lib32-llvm-libs() {
@@ -231,7 +228,7 @@ package_lib32-llvm-libs() {
 	#install -v -dm755 "${pkgdir}/usr/lib32/bfd-plugins"
 	#ln -sfv ../LLVMgold.so "${pkgdir}/usr/lib32/bfd-plugins/LLVMgold.so"
 
-	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/i386/libunwind-static.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_fullver}/i386/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
 
 	rm -rf "${pkgdir}/usr/include"
 }
@@ -247,30 +244,28 @@ package_clang() {
 
 	for ll in i386 x86_64
 	do
-		install -v -dm755 "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}"
-		install -v -dm755 "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}"
+		install -v -dm755 "${pkgdir}/usr/lib/clang/${_fullver}/${ll}"
 
-		cp -v "${srcdir}/crtbegin-${ll}.o" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/crtbegin.o"
-		cp -v "${srcdir}/crtbeginS-${ll}.o" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/crtbeginS.o"
-		cp -v "${srcdir}/crtend-${ll}.o" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/crtend.o"
-		cp -v "${srcdir}/crtfastmath-${ll}.o" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/crtfastmath.o"
+		cp -v "${srcdir}/crtbegin-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtbegin.o"
+		cp -v "${srcdir}/crtbeginS-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtbeginS.o"
+		cp -v "${srcdir}/crtend-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtend.o"
+		cp -v "${srcdir}/crtfastmath-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtfastmath.o"
 
-		ln -sfv crtbegin.o "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/crtbeginT.o"
-		ln -sfv crtend.o "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/crtendS.o"
+		ln -sfv crtbegin.o "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtbeginT.o"
+		ln -sfv crtend.o "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtendS.o"
 
-		mv -v "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/libclang_rt.builtins-${ll}.a" \
-			"${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}"
+		mv -v "${pkgdir}/usr/lib/clang/${_fullver}/lib/linux/libclang_rt.builtins-${ll}.a" \
+			"${pkgdir}/usr/lib/clang/${_fullver}/${ll}"
 
-cat > "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/libclang_rt.builtins-${ll}.a" << EOF
-INPUT ( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}/libclang_rt.builtins-${ll}.a AS_NEEDED ( /usr/lib/clang/${pkgver/.rc*/}/lib/linux/${ll}/libunwind-static.a -lpthread -ldl -lm ) )
+cat > "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/libcompiler-rt.a" << EOF
+INPUT ( /usr/lib/clang/${_fullver}/${ll}/libclang_rt.builtins-${ll}.a AS_NEEDED ( /usr/lib/clang/${_fullver}/${ll}/libunwind-clang.a -lpthread -ldl -lm ) )
 EOF
 
-		ln -sfv ../lib/linux/libclang_rt.builtins-${ll}.a "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/${ll}/libcompiler-rt.a"
-
+		ln -sfv ../../${ll}/libcompiler-rt.a "${pkgdir}/usr/lib/clang/${_fullver}/lib/linux/libclang_rt.builtins-${ll}.a"
 	done
 
-	mv -v "${pkgdir}/usr/lib/libunwind.a" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/x86_64/libunwind-static.a"
-	mv -v "${pkgdir}/usr/lib32/libunwind.a" "${pkgdir}/usr/lib/clang/${pkgver/.rc*/}/lib/linux/i386/libunwind-static.a"
+	mv -v "${pkgdir}/usr/lib/libunwind.a" "${pkgdir}/usr/lib/clang/${_fullver}/x86_64/libunwind-clang.a"
+	mv -v "${pkgdir}/usr/lib32/libunwind.a" "${pkgdir}/usr/lib/clang/${_fullver}/i386/libunwind-clang.a"
 
 	install -v -dm755 "${pkgdir}/usr/lib/python2.7/site-packages"
 	cp -r "${srcdir}/llvm-${_realver}.src/tools/clang/bindings/python/clang" "${pkgdir}/usr/lib/python2.7/site-packages"
@@ -287,7 +282,6 @@ package_lib32-clang() {
 	url="http://clang.llvm.org/"
 
 	make -C "${srcdir}/llvm-build32/tools/clang" install DESTDIR="${pkgdir}"
-	make -C "${srcdir}/llvm-build32/projects/compiler-rt" install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}"/usr/{bin,include,libexec,share}
 }
@@ -316,21 +310,19 @@ package_lldb() {
 
 	python -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/lldb"
 	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/lldb"
-
-	rm -rf "${pkgdir}/usr/lib/python2.7/site-packages/six.py"
 }
 
-sha512sums=('bee1d45fca15ce725b1f2b1339b13eb6f750a3a321cfd099075477ec25835a8ca55b5366172c4aad46592dfd8afe372349ecf264f581463d017f9cee2d63c1cb'
-            '6619177a2ff9934fe8b15d6aa229abb8e34d0b1a75228d9efba9393daf71d6419a7256de57b31e2f9f829f71f842118556f996e86ee076f1e0a7cd394dfd31a2'
-            '61e23775db78bdeed3003a509b45ae609287db31302fed186f3210d481ecf062d1828571e63482215ab00ff732df8f3fa6c77334dfb677e4b76eb555d476b8c4'
-            '994681d3c79047fc2d618c5584b08e9b5c925dab48f8812fc0adc81a575b49a637e9481bb9a0f7ae6f7f352b2b33f40056c347c27123cd6c96c6c226febd002c'
-            'a8d448653772690a19f68c1270f9cf18f27d7225847825f29c6ea21846c1074aa61c31b81bc2ae4007067985d389071c32e69b2560282ddb85864a99e9bdd884'
-            '6c0f7a286c1ffa46769685ee36604cd90ed40470e1c3d3ef03c46bcc9e5f9e36e68a0a1f67b9b300823170b48c9b8d2db4625afd885f1d024905db1dffd9fc49'
-            '62c9682ae4e18a64af2c9e13d45925fbe022ca332d03b1c4232c6b730dab327418555c8da2b2bf8c6126032dfd378a0b9dedba83351d928784bf2b1f30dfaaca'
-            'ebb3c3251098cfce28ccb6a5bbc50491a16b88d1adf3c71fd38efc95482d702e1bd9e7fb11c29597304d97cc0fd88241c70ec11276426aad901e5d23f05ca53a'
-            '4493b918fd83ef26e2b3f3429d1b00d722328e4c9697ac7625a390834f6e88ada8e5b02ce0ecb4771129207b1b81a9d171f4599ab9388762a3c6db0afc499ff4'
-            'ea2444cf28e07a87b202c368daeaf100477aa0189d5dda9b1e0e45784fad976bf8a45e2c87301cb3c6bc83c0c8d313c525de9b4163f1d43f00054b160d238490'
-            '2e6a811cccd22281f7567f5626ff0484ed1fefee4a9244a717e3ccb9516dce9e7ff315044fb10e505e91c3f1c6d2774558debb9559915d053886599bcb153d7b'
+sha512sums=('aad7372508b661854e16e8a14bc9a40a2d8c8802c2b7ef7a89d8e58cedb30cf50b165f1807f011d4f4f7b1f6eaffc000e6bc05aa5a13d0b748b4dce8f1f026ab'
+            '1fb4678b931ca03762a33a9b0746f14dab54b70b9a5fd1fa71c248b19e1a7f08c72b7146b068233abf75c732465555437e302e82540065e5162e50510776db5a'
+            '2b223487154035bb4b83775f871e9017fcffb6078e704b6a33abc93ad5f0641742f41776c42526423a72805ed3226c2a48d71bbb9ce4f7d3de29d13f0dcd00d0'
+            '5d8481e9a1a6570a7bc90dfd77b7787ba4e6480c52aca949811254003c00f6b83496d29260af9fa3fd3f0ba29d647b3c961d91bead66082f9e7bc09d4e68a7a1'
+            '3474ca917d9b071ef110f65c9276f12e3ed9692c6a597009965918c139991eda0dd9cdccbd72091bb9cd7871025e890fbe9f2de34153838be1f0d63686ef5e8a'
+            '7c5cfc14b68bead1dd82a316e28d40b8622a2c68caed5fd8f23423e0c47bfa06bef4e9f1498310994ce8d68d2aae6151cfcb54cae598ec20c16718c722889a5c'
+            'ca2ecb86bd5fa90082bc3c40a773699a49dcdda9532e6c79c2bef4f47e589756e527fb02965ad7173feec32dc21a32f2781e6cb87a23b8f728b140e9c9088db0'
+            '3dc736b94dceb3f11aa641b302b605e28dc0a41650447e7f45303f1589d377a44cc4de0bc6d9fa3d937f783827090f9ad09d6e2b25465031a2b669ad3e3437d9'
+            'b1978bf8c89336e71e22fae3302858fd399a1f73632512e7f20cc14dae2dc1d42f2e1963c2d81d44b57ed0ae523c6453fd9af794686b4c361f002ba6297ea6a4'
+            'b7f9273d3d596946cb5eabd3203fdf462298803e4110a9949a50dd1cbf5f15cfd36346ae06abd585047b5b6360d8602d1ad3389fd0b111135faef1f6848b51b1'
+            '647188cb0fa4936a042c1989cf23bd8805402f37fa65e92f95fa5ac826d9ecc482ae57855288321aabb2d57bbe53f1627aa4d98868893b3ba8382d4a6fee65a2'
             '8bc8873bb68998a3c97cc302e69e7bc6b4ab185b51dfa7e74d804ff4643af3fd4037679990053c24cb02d8f4f631d731cacba0b2b46d265f51baf289d3b3b962'
             '9025e55af7f98018cfdfc0810f08c2dba8b813efadb8e104e0c3d54592d2c94238372a121871713dfbbd44bdd5ec6cb6b73a2325d22e133089d2951bff6255db'
             'cf4c43c0a590b4f0e63e9a6008a747524e4553034fba72a7e99626aff6c61fd2ac4073874a1b116177f77bcb0d0021c17edd5da1950c7e3421be4de0ea133b4c'

@@ -1,0 +1,25 @@
+pkgname=xfce4-battery-plugin
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="A battery monitor plugin for the Xfce panel"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/panel-plugins/xfce4-battery-plugin"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/panel-plugins/xfce4-battery-plugin/${pkgver:0:3}/xfce4-battery-plugin-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-battery-plugin-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-battery-plugin-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('d3f5b6d3657abfba2c4c5cb3ab8ddc87f4862f24eb614cb91af48332b3082c3dce7f32eb2e3cb8a9d501ddb01c6259c4fbfbab8ed9c221633e47eb17c623cf09')

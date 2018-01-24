@@ -1,0 +1,38 @@
+pkgname=blueman
+pkgver=2.0.5
+pkgrel=1
+pkgdesc="GTK+ Bluetooth Manager"
+arch=('x86_64')
+url="https://github.com/blueman-project/blueman"
+license=('GPL')
+#depends=()
+source=("https://github.com/blueman-project/blueman/releases/download/${pkgver}/blueman-${pkgver}.tar.xz")
+
+prepare() {
+	cd "${srcdir}/blueman-${pkgver}"
+
+	# Fix path for bluetoothd
+	sed -i "s#/usr/sbin/bluetoothd#/usr/libexec/bluetooth/bluetoothd#" apps/blueman-report
+
+	# Fix non-standard icon names
+	sed -i "s#gtk-find#edit-find#" data/ui/device-list-widget.ui
+	sed -i "s#mouse#input-mouse#" blueman/services/Input.py
+}
+
+build() {
+	cd "${srcdir}/blueman-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/blueman-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('7d687b49e5da673e721570222b4d1e6c90672aaa3ea199ab86a26282a84f7845e06cc1091ac738dd7aff3378ce99f49c2accff6c720cb00a5b369e958606d850')

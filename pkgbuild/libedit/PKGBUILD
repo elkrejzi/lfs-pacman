@@ -1,28 +1,61 @@
-pkgname=libedit
+pkgbase=libedit
+pkgname=('libedit' 'lib32-libedit')
 _realver=20170329-3.1
 pkgver=${_realver/-/+}
 pkgrel=1
-pkgdesc="Command line editor library providing generic line editing, history, and tokenization functions"
 arch=('x86_64')
 url="http://www.thrysoee.dk/editline/"
 license=('BSD')
 #depends=()
 source=("http://thrysoee.dk/editline/libedit-${_realver}.tar.gz")
 
+prepare() {
+	cp -a "${srcdir}"/libedit{,32}-${_realver}
+}
+
 build() {
 	cd "${srcdir}/libedit-${_realver}"
 
 	./configure --prefix=/usr --enable-widec
 
-	make
+	cd "${srcdir}/libedit32-${_realver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr \
+		--libdir=/usr/lib32 \
+		--enable-widec
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/libedit-${_realver}"
+	make -C "${srcdir}/libedit32-${_realver}"
 }
 
-package() {
+package_libedit() {
+	pkgdesc="Command line editor library providing generic line editing, history, and tokenization functions"
+
 	cd "${srcdir}/libedit-${_realver}"
 
 	make install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/usr/share/man/man3/history.3"
+}
+
+package_lib32-libedit() {
+	pkgdesc="Command line editor library providing generic line editing, history, and tokenization functions (32 bit)"
+
+	cd "${srcdir}/libedit32-${_realver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 sha512sums=('597ed2282240be6dc3c4a7bb8b4ade31fe16ebfeb2229e3aec58643a65882653cc91deb300343d1b1cc588959dbf95698122c4005e47dfb947efa3e6b134bb82')

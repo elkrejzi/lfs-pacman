@@ -1,0 +1,25 @@
+pkgname=xfce4-terminal
+pkgver=0.8.6
+pkgrel=1
+pkgdesc="A modern terminal emulator primarily for the Xfce desktop environment"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/applications/terminal"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/apps/xfce4-terminal/${pkgver:0:3}/xfce4-terminal-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-terminal-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-terminal-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('96d9c3fab56ad9cd267bd7b33f4d8fb3831200b9507653a69e6872b673ca5e30adffc73ef2f73de6eb858a2817a98b781188a39a4c0d79298699711c49f8be97')

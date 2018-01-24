@@ -1,0 +1,25 @@
+pkgname=xfce4-sensors-plugin
+pkgver=1.2.98
+pkgrel=1
+pkgdesc="A lm_sensors plugin for the Xfce panel"
+arch=('x86_64')
+url="http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/panel-plugins/xfce4-sensors-plugin/${pkgver:0:3}/xfce4-sensors-plugin-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfce4-sensors-plugin-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-sensors-plugin-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('6437acc17d2719e3deef011c206c8c5593f4b14a8263e82bb3b0e8b1cb7e17e842adf2cb3a479e1a8e2729db744df2778ee04bc9af5e4c918f417e1c8ac4d17e')

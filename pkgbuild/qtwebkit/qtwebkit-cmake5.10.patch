@@ -1,0 +1,18 @@
+--- a/Source/WebKit/PlatformQt.cmake	2017-06-09 16:11:36.000000000 +0200
++++ b/Source/WebKit/PlatformQt.cmake	2018-01-14 19:10:06.775796026 +0100
+@@ -786,6 +786,7 @@
+     set_source_files_properties(
+         qt/Api/qwebdatabase.cpp
+         qt/Api/qwebelement.cpp
++        qt/Api/qwebfullscreenrequest.cpp
+         qt/Api/qwebhistory.cpp
+         qt/Api/qwebhistoryinterface.cpp
+         qt/Api/qwebpluginfactory.cpp
+@@ -795,7 +796,6 @@
+ 
+         qt/WidgetApi/qgraphicswebview.cpp
+         qt/WidgetApi/qwebframe.cpp
+-        qt/WidgetApi/qwebfullscreenrequest.cpp
+         qt/WidgetApi/qwebinspector.cpp
+         qt/WidgetApi/qwebpage.cpp
+         qt/WidgetApi/qwebview.cpp

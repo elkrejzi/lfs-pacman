@@ -1,0 +1,25 @@
+pkgname=xfconf
+pkgver=4.13.4
+pkgrel=1
+pkgdesc="A simple client-server configuration storage and query system"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/xfconf/${pkgver:0:4}/xfconf-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xfconf-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfconf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('17c4c2ff4b02eef2d3040c21120e34863e4b38794d7670e42a31e4062a0ba0d4064d4239e8166a2c05d5d316773fdc96ae6098e78ab9b058b9c5a31f94c7f3dc')

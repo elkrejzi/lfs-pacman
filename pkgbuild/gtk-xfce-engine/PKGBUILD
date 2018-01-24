@@ -1,0 +1,25 @@
+pkgname=gtk-xfce-engine
+pkgver=2.10.1
+pkgrel=1
+pkgdesc="Xfce Gtk+-2.0 engine and themes"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/gtk-xfce-engine/${pkgver:0:4}/gtk-xfce-engine-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/gtk-xfce-engine-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtk-xfce-engine-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('1ddf7d7d4d53665a2a4a6e1cb0a8c012047304b2dd18d4303712e6fa6128effbbe582cbdea55e3f013012c0414256fa72a9b27b194b1f313394856b0da162d22')

@@ -1,6 +1,6 @@
 pkgname=mpfr
-_basever=3.1.6
-pkgver=3.1.6
+_basever=4.0.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="Multiple-precision floating-point library"
 arch=('x86_64')
@@ -19,6 +19,9 @@ prepare() {
 build() {
 	cd "${srcdir}/mpfr-${_basever}"
 
+	export CC=gcc
+	export CXX=g++
+
 	./configure --prefix=/usr --enable-thread-safe
 
 	make
@@ -30,4 +33,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('746ee74d5026f267f74ab352d850ed30ff627d530aa840c71b24793e44875f8503946bd7399905dea2b2dd5744326254d7889337fe94cfe58d03c4066e9d8054')
+sha512sums=('9c9c4535f33fffd2126d1c290e5eeda7cd2804219244643f09c9a2d2acfa3d410d2cb1e4a7bb77cd86cffc2fac59c7f5d32c9910317cac37dbca474ab6d63808')

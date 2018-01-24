@@ -1,0 +1,27 @@
+pkgname=tumbler
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="D-Bus service for applications to request thumbnails"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2' 'LGPL')
+#depends=()
+source=("http://archive.xfce.org/src/xfce/tumbler/${pkgver:0:3}/tumbler-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/tumbler-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--disable-gstreamer-thumbnailer
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tumbler-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('54f83f904b32fcde5960f3343f8f4477bd30cd96a784aec5a3cb70aa2c9f924e833b2c0b429d608a36c75104d2689975d688358893127aed501f3cd8f24c280b')

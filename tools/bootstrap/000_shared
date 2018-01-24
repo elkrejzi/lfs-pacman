@@ -43,8 +43,8 @@ set +h
 
 BINUTILS_VER=2.29.1
 GMP_VER=6.1.2
-MPFR_VER=3.1.6
-MPC_VER=1.0.3
+MPFR_VER=4.0.0
+MPC_VER=1.1.0
 GCC_VER=7.2.0
 LINUX_VER=4.14
 LINUX_PATCH_VER=4.14.13
@@ -110,7 +110,7 @@ then
 
 cat << EOF | wget -c -i - | true
 ${GNU_MIRROR}/binutils/binutils-${BINUTILS_VER}.tar.bz2
-ftp://ftp.gmplib.org/pub/gmp-${GMP_VER%a}/gmp-${GMP_VER}.tar.xz
+${GNU_MIRROR}/gmp/gmp-${GMP_VER}.tar.xz
 ${GNU_MIRROR}/mpfr/mpfr-${MPFR_VER}.tar.xz
 ${GNU_MIRROR}/mpc/mpc-${MPC_VER}.tar.gz
 ${GNU_MIRROR}/gcc/gcc-${GCC_VER}/gcc-${GCC_VER}.tar.xz

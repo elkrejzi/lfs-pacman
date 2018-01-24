@@ -1,0 +1,34 @@
+pkgname=xfce4-panel
+pkgver=4.13.2	
+pkgrel=1
+pkgdesc="Panel for the Xfce desktop environment"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+#source=("http://archive.xfce.org/src/xfce/xfce4-panel/${pkgver:0:4}/xfce4-panel-${pkgver}.tar.bz2")
+source=("git://git.xfce.org/xfce/xfce4-panel#commit=f08b586")
+
+prepare() {
+	cd "${srcdir}/xfce4-panel" #-${pkgver}"
+
+	NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+	cd "${srcdir}/xfce4-panel" #-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--enable-maintainer-mode
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-panel" #-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('SKIP')
