@@ -1,5 +1,5 @@
 pkgname=binutils
-pkgver=2.29.1
+pkgver=2.30
 pkgrel=1
 pkgdesc="A set of programs to assemble and manipulate binary and object files"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="https://www.gnu.org/software/binutils/"
 license=('GPL')
 #depends=()
 options=(staticlibs)
-source=("https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.bz2")
+source=("https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.xz")
 
 prepare() {
 	rm -rf "${srcdir}/src" "${srcdir}/build"
@@ -44,4 +44,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/man1/{dlltool,nlmconv,windres,windmc}.1
 }
 
-sha512sums=('4063d34555526922376ccceb3f14b43e287442e82a8038cf50f4f51ad97d438c672c0e310ca4b856c9aff5aa9911073e256e8298a7a3f1844eeb60b90d955592')
+sha512sums=('e747ea20d8d79fcd21b9d9f6695059caa7189d60f19256da398e34b789fea9a133c32b192e9693b5828d27683739b0198431bf8b3e39fb3b04884cf89d9aa839')

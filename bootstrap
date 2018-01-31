@@ -771,10 +771,12 @@ xfce4-power-manager
 xfce4-settings
 xfdesktop
 xfwm4
+xfce4-artwork
 xfce4-session
 xfce4-notifyd
 xfce4-screenshooter
 xfce4-terminal
+xfwm4-themes
 xfce4-battery-plugin
 xfce4-datetime-plugin
 xfce4-netload-plugin
@@ -824,11 +826,13 @@ whois
 texlive
 dblatex
 libfprint
+libgconf
 fprintd
 openssl098
 teamviewer
 viber
 vfs495-driver
+visual-studio-code
 youtube-dl)
 
 for pkg in "${PKGS[@]}"

@@ -1,6 +1,6 @@
 pkgbase=dbus-python
 pkgname=('dbus-python-common' 'python2-dbus' 'python3-dbus')
-pkgver=1.2.4
+pkgver=1.2.6
 pkgrel=1
 arch=('x86_64')
 url="http://www.freedesktop.org/wiki/Software/DBusBindings"
@@ -49,4 +49,4 @@ package_python3-dbus() {
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 }
 
-sha512sums=('efdd9d96a8b56e813c93208d34777f1ca2db96c076d31f13afbcaec3c7770a16a623d5531fe23443130c555240949802503f171f2064d45eee97546d6251304b')
+sha512sums=('6f2aec81defd2528d9876ec9a83843f8767275a5d6cf1b2b7b7a094f892f552f9a7b3d7b5006465254d410e503108e10138d7dd4cb3f1a4035d7f8d58c4d0684')

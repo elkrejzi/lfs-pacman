@@ -1,5 +1,5 @@
 pkgname=systemd
-pkgver=236
+pkgver=237
 pkgrel=1
 pkgdesc="system and service manager"
 arch=('x86_64')
@@ -114,7 +114,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('1a9672960e03e05c09e41fb8cfe9b0f25e867fd43f37f8371515ddddfdbd4270afd746a6da733f6d1d3b2cc43db1ecc7a9f2245f2dac2ec233db74e9e70e4f6d'
+sha512sums=('15ef4b92815a6dd9a6c51672dbc00fd7cd0f08068ef0cbeaca574f68d330b28bc67ba1946f24f75ef3d9e7b63843a73eea700db54688061dbf5c9f8470394c3b'
             'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '3db62a75c89a8fc1a9ecfa950af24dcc5ab12861b7b8c742b2f68b9d875dc754b6aecbc5d09a411bad1eb35bbd791f8b624ebb618b9e0c0b90a3323c7e795c49'

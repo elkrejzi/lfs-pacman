@@ -1,5 +1,5 @@
 pkgname=gdb
-pkgver=8.0.1
+pkgver=8.1
 pkgrel=1
 pkgdesc="The GNU Debugger"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install -C gdb DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5eb328910033f0918058be2f92caebf1e8dfc6caa3c730d99d621627e53de3c1b43761c2f683d53555893253c2f06768cbf56cdea051a3d291ffb6cfae87b5e1')
+sha512sums=('ffd82f415d7652d62dad1716c307836f594217a363429609beb7d70239e8bf06b73b393345b0e000796228e56681ed7656ac3c8be05e91d6d652ab0d5b1dc357')

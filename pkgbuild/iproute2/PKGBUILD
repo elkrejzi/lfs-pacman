@@ -1,5 +1,5 @@
 pkgname=iproute2
-pkgver=4.14.1
+pkgver=4.15.0
 pkgrel=1
 pkgdesc="IP Routing Utilities"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	mv "${pkgdir}/usr/bin/arpd" "${pkgdir}/usr/sbin"
 }
 
-sha512sums=('e593b68c46ef5f98bd6911ee7beb38388a14935a29fefabdeccc96aa012593b6f3a49b3bb1baed7d77e54f1f4a857172e058b73407f4070f158b8713f44f5d2c')
+sha512sums=('bcc54b8dc83d7b0e759a2de77eb38fed483d7f7f82698f482e0259000f2f55ba79c556b721730eb999e85c865ad136fd7549304ebe936545e02e848ba7f698bc')

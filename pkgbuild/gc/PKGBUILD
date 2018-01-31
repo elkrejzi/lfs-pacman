@@ -1,6 +1,6 @@
 pkgbase=gc
 pkgname=('gc' 'lib32-gc')
-pkgver=7.6.2
+pkgver=7.6.4
 pkgrel=1
 arch=('x86_64')
 url="http://www.hboehm.info/gc/"
@@ -60,4 +60,4 @@ package_lib32-gc() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('7b54812903929b0d5d1d696beac54629a7667997b41ef45299373bc18b2153d5755286b25e11cc90ffc572239e52a02900927bc60b0ad3593162b8c8e259fd50')
+sha512sums=('2c85be3e24b85732b3dc6f08fe98cf1a82b6fb2a22ec73090f80920721c737ef92cee8f0cd7ea7228d686005d164e7da54ce3907c3a1ba5eefa43355a472085e')

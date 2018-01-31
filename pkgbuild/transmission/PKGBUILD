@@ -1,5 +1,5 @@
 pkgname=transmission
-pkgver=2.92
+pkgver=2.93
 pkgrel=1
 pkgdesc="Fast, easy, and free BitTorrent client"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	install -Dm644 daemon/transmission-daemon.service "${pkgdir}/usr/lib/systemd/system/transmission-daemon.service"
 }
 
-sha512sums=('4d99476bee88cedcc4238a0eee64a4089016933cbfc1cfb1cca023ad4ebcfe46375c9e7651a17af4aeaaf1feb19cbd8166aa56ef7992d9e745a7bbcbe8efca11')
+sha512sums=('7565893f67fc10f1b683814fa4d365d841ec833bc8dfdab731432fe68f1a38daeb4c9100653763f16bfb4336fba11c9b0b9730a9817e17a140704a7c4aa5c087')

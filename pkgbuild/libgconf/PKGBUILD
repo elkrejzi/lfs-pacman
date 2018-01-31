@@ -1,4 +1,4 @@
-pkgname=GConf
+pkgname=libgconf
 pkgver=3.2.6
 pkgrel=1
 pkgdesc="A configuration database system (shared library)"

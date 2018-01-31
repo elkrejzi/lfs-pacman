@@ -31,7 +31,7 @@ package() {
 	make install DESTDIR="${pkgdir}"
 
 	cat >> "${pkgdir}/etc/lightdm/lightdm-gtk-greeter.conf" << "EOF"
-background=/usr/share/backgrounds/mate/nature/Aqua.jpg
+background=/usr/share/backgrounds/xfce/firework.jpg
 theme-name=Adwaita
 icon-theme-name=Adwaita
 EOF

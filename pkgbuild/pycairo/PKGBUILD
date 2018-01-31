@@ -1,6 +1,6 @@
 pkgbase=python-pycairo
 pkgname=('python2-cairo' 'python3-cairo')
-pkgver=1.15.4
+pkgver=1.15.6
 pkgrel=1
 pkgdesc="Python bindings for the Cairo graphics library"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-cairo() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('7e785d23393a8d0c5aca9a4440eb64b0eca9a60c1a18b0dc8452edd6de9422c743d082530387bcbedd34d52377d0892ad395998e9467ba08e22c318684cbee34')
+sha512sums=('f1d9268e75f7ac0d72a134462866055c05e14e897a3ff779dca7c9bd99cc4cc448fa2e530da875ce6a1a11ba5c527a42214b9bd7c30cbb035e450fb39412a73c')

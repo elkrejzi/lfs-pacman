@@ -1,5 +1,5 @@
 pkgname=xkeyboard-config
-pkgver=2.22
+pkgver=2.23
 pkgrel=1
 pkgdesc="X keyboard configuration files"
 arch=('x86_64')
@@ -10,6 +10,8 @@ source=("https://www.x.org/releases/individual/data/xkeyboard-config/xkeyboard-c
 
 build() {
 	cd "${srcdir}/xkeyboard-config-${pkgver}"
+
+	NOCONFIGURE=1 ./autogen.sh
 
 	./configure --prefix=/usr --with-xkb-rules-symlink=xorg
 
@@ -22,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1697cc1a49625eb608d8ab1f54f9f37e37facc482fc8bae5ebff9e3336efdd2f57e0ed95db0a9745d49f1bc21e2cfa792d0849f4057745d8be8f7abac4893f97')
+sha512sums=('5a455d7bce3c10869c340dc406c4775c62b078f5090d13e2d9df3eb1a860b5877334d3987af4bc8d468932a6cbc200a3e2ec889a12ee004d88f45fd61afffb6e')

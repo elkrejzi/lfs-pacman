@@ -1,0 +1,26 @@
+pkgname=xfce4-artwork
+pkgver=0.1.1a
+pkgrel=1
+pkgdesc="Backdrops for the Xfce4 desktop"
+arch=('x86_64')
+url="https://xfce.org/"
+license=('GPL2')
+#depends=()
+options=(!strip)
+source=("http://http.debian.net/debian/pool/main/x/xfce4-artwork/xfce4-artwork_${pkgver}~git+20110420.orig.tar.gz")
+
+build() {
+	cd "${srcdir}/xfce4-artwork-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xfce4-artwork-${pkgver}"
+
+	make install backdropsdir="${pkgdir}/usr/share/backgrounds/xfce"
+}
+
+sha512sums=('cb3b268b08b034c571fae02634177f02f004b76370b112ba76e585adaded0c4ec58b8c36105dc10362f990c4ab407262ac21e304b67ffd5d015b87ead66eba43')

@@ -1,0 +1,27 @@
+pkgname=visual-studio-code
+pkgver=1.19.3
+pkgrel=1
+pkgdesc="Editor for building and debugging modern web and cloud applications"
+arch=('x86_64')
+url="https://code.visualstudio.com/"
+license=('custom: commercial')
+#depends=()
+options=(!strip)
+source=("code_x64_${pkgver}.tar.gz::https://vscode-update.azurewebsites.net/${pkgver}/linux-x64/stable"
+	"visual-studio-code.desktop")
+
+package() {
+	cd "${srcdir}/VSCode-linux-x64"
+
+	install -v -dm755 "${pkgdir}/opt/visual-studio-code" "${pkgdir}/usr/bin"
+
+	cp -a * "${pkgdir}/opt/visual-studio-code"
+
+	install -v -Dm644 resources/app/resources/linux/code.png "${pkgdir}/usr/share/pixmaps/visual-studio-code.png"
+	install -v -Dm644 "${srcdir}/visual-studio-code.desktop" "${pkgdir}/usr/share/applications/visual-studio-code.desktop"
+
+	ln -sfv /opt/visual-studio-code/code "${pkgdir}/usr/bin/code"
+}
+
+sha512sums=('d7d866dd4b6a19da2d863a9363caf114a01a3a5ae003a9a8040afb4048db27448b78762670a561deffa47b6165ea92a369e0e4dd3026c4d832fc802abcd8aa62'
+            'c69806fe7f00ef065b47a591382b61f27de6e510bcf83bbbc26fbb8ba930048d8edbc7c2af37b07f337c0dbd8444c550b5ac1272d23ebc0dd17bfc35a14fc3d2')

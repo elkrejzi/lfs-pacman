@@ -1,5 +1,5 @@
 pkgname=dbus-glib
-pkgver=0.108
+pkgver=0.110
 pkgrel=1
 pkgdesc="GLib bindings for DBUS"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9fa7cd1c22bf6ee1e345dd6fe48aa725abc01b3b180ba430efea9996403ad99636b2c40f682956978ae5049c110c3298fa199470a4cc05907e11773d034ea5b1')
+sha512sums=('c40ccf7118d4951f0e09082216ccd26f21ee906bdf96d912611d3cd29badd7ef446bea74e19f26c28ebceb9e19bb659d11c643c3e712dac499df12907be88a54')

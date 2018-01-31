@@ -1,7 +1,7 @@
 pkgname=bash
-_basever=4.4.12
-#_patchlevel=012
-pkgver=${_basever}.${_patchlevel}
+_basever=4.4.18
+#_patchlevel=018
+pkgver=${_basever} #.${_patchlevel}
 pkgrel=1
 pkgdesc="The GNU Bourne Again shell"
 arch=('x86_64')
@@ -65,7 +65,7 @@ package() {
 	sed -i "s#BUILD_DIR = .*#BUILD_DIR = /usr#g" "${pkgdir}/usr/lib/bash/Makefile.inc"
 }
 
-sha512sums=('dee9d83319b0b8c0201c71d6b5f60c1eebfcec76d856a167a84a374d2296de7dcf4c4960515f888251bbf8feb0f8e1602f0061005346a0f48efb4297a2a87834'
+sha512sums=('bd3048338aded9dee31651011aaa46bc8fba83a27fa063e3d47bcbe85ebbd86816d9080d1a658cfbd1736a2c80e98fdb659019c192d332472b00aa305e0285b0'
             'e244b388f1ecb9bc86ed6a53a4aca0aadfea4a19f9b40e4848b8d04e41b9c4c808ad5496d01c93a8b63f4d5345ee1093c7064f1b5107d426b2b27aecc403e0d3'
             '22a0383de775db663bf06445c0613b4ccb36af3149a3b3b1c8a2ed8727dfe35d84a2aaefc5c68807f084d00f238f7d3df88554e909657e321c16151a47c9e366'
             '849d2370570cac4446ebd94594d0de98f69781156a0a4f6d0f480fe6d5ab61b1e9459ade247de7ca76d9d9f668dec2abd81a2c1ac75ccadbe639d45706883b67'
