@@ -20,6 +20,8 @@ package() {
 	cd "${srcdir}/xfce4-terminal-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 sha512sums=('96d9c3fab56ad9cd267bd7b33f4d8fb3831200b9507653a69e6872b673ca5e30adffc73ef2f73de6eb858a2817a98b781188a39a4c0d79298699711c49f8be97')

@@ -1,5 +1,5 @@
 pkgname=pepper-flash
-pkgver=28.0.0.137
+pkgver=28.0.0.161
 pkgrel=1
 pkgdesc="Adobe Flash Player"
 arch=('x86_64')
@@ -16,4 +16,4 @@ package() {
 	install -v -Dm755 libpepflashplayer.so "${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so"
 }
 
-sha512sums=('9087b9197e0eeb8d71401246c7dd30bff9a571ce1bb07e30d99bda493b2da765a6929d13ec66a7e7ffb8614c58fcc2ed6556ed555c93adbeaa6e388e8d54e427')
+sha512sums=('96b0b3db0b8c13e420b7a056777c8cbf00b98ea1e1d0e45dc718ca15925f04ccc62206494f1123fb5725bc76f569b3eee83888820868d1f18bcb7cdd7f621776')

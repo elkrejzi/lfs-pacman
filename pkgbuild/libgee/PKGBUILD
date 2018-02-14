@@ -1,5 +1,5 @@
 pkgname=libgee
-pkgver=0.20.0
+pkgver=0.20.1
 pkgrel=1
 pkgdesc="A collection library providing GObject-based interfaces and classes for commonly used data structures"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c01611ed34862888fa038111010ec9899465f43423c9c90a18050dc0b0c2a53cf0fe3c7affcbdee91e225622ccbfa08bfd0c08f0eb7935611b3d461b5b919e66')
+sha512sums=('b991acfea965e0afa007adac0df1763c3b97b31bf2832c0408128d02f4bb237a03c583b4dd107de1ed877ef042614352c845b6ba5f8b6fb535f43e2400746d7f')

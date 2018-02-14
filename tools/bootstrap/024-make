@@ -10,6 +10,8 @@ tar xf ${SROOT}/make-${MAKE_VER}.tar.bz2
 
   time {
   pushd make-${MAKE_VER}
+    sed -i "/GLOB_INTERFACE_VERSION/s# 1# 2#" configure
+    patch -Np1 -i ${PROOT}/make-fixes.patch
     ./configure --prefix=/tools --without-guile
     make
     make install

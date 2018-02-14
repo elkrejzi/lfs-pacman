@@ -4,7 +4,7 @@
 
 rm -rf binutils-${BINUTILS_VER} ${LOGDIR}/binutils-pass1-${BINUTILS_VER}.log
 
-tar xf ${SROOT}/binutils-${BINUTILS_VER}.tar.bz2
+tar xf ${SROOT}/binutils-${BINUTILS_VER}.tar.xz
 
 {
 

@@ -67,7 +67,6 @@ tzdata
 pkg-config
 libtirpc
 libnsl
-libnss_compat
 libnss_nis
 zlib
 file
@@ -762,7 +761,7 @@ libxfce4ui
 exo
 garcon
 gtk-xfce-engine
-xfce4-panel li
+xfce4-panel
 thunar
 thunar-volman
 tumbler

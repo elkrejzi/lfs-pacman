@@ -20,6 +20,8 @@ prepare() {
 
 	find . -name "Makefile.in" | xargs sed -i "s|(libdir)/@PACKAGE@|(libdir)/pulse|"
 
+	sed -i '/int memfd_create/,+2 d' src/pulsecore/memfd-wrappers.h
+
 	cp -a "${srcdir}"/pulseaudio{,32}-${pkgver}
 }
 

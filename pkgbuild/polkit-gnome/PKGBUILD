@@ -23,7 +23,7 @@ package() {
 	make install DESTDIR="${pkgdir}"
 
 	install -Dm644 "${srcdir}/polkit-gnome-authentication-agent-1.desktop" \
-		"${pkgdir}/usr/share/applications/polkit-gnome-authentication-agent-1.desktop"
+		"${pkgdir}/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop"
 
 }
 

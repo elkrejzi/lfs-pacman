@@ -1,6 +1,6 @@
 pkgbase=dbus
 pkgname=('dbus' 'lib32-dbus')
-pkgver=1.12.2
+pkgver=1.12.4
 pkgrel=1
 arch=('x86_64')
 url="https://wiki.freedesktop.org/www/Software/dbus/"
@@ -71,4 +71,4 @@ package_lib32-dbus() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('523698ae543a4f1d9142898351ed38827882a3ca583ca7934676af48d09219ea562ae77d734cd142e5ca0d5e74f9e8d0fdeb1019592ca3524e2b690c6283f7cd')
+sha512sums=('ca9f7c76f705aca0f71366627fadf8b5c68992d5bcb6fae1746a8c14e9dc93c4492e80c63b6fd522b8753ec264df046e33482a5ce20be82adf181a6dd69b36a5')

@@ -12,6 +12,7 @@ prepare() {
 	cd "${srcdir}/LibRaw-${pkgver}"
 
 	sed -i "s:-lstdc++::g" configure
+	sed -i "s#powf64#dc_&#g" internal/dcraw_common.cpp
 }
 
 build() {

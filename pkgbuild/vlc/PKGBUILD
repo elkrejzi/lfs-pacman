@@ -1,14 +1,12 @@
 pkgname=vlc
-pkgver=3.0.0.rc5
-_fullver=3.0.0-20180101-0227-rc5
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Multi-platform MPEG, VCD/DVD, and DivX player"
 arch=('x86_64')
 url="https://www.videolan.org/vlc/"
 license=('LGPL2.1' 'GPL2')
 #depends=()
-#source=("https://download.videolan.org/pub/videolan/vlc/${pkgver}/vlc-${pkgver}.tar.xz")
-source=("https://nightlies.videolan.org/build/source/vlc-${_fullver}.tar.xz"
+source=("https://download.videolan.org/pub/videolan/vlc/${pkgver}/vlc-${pkgver}.tar.xz"
 	"update-vlc-plugin-cache.hook")
 
 build() {
@@ -32,5 +30,5 @@ package() {
 	install -v -Dm644 "${srcdir}/update-vlc-plugin-cache.hook" "${pkgdir}/usr/share/libalpm/hooks/update-vlc-plugin-cache.hook"
 }
 
-sha512sums=('c0af5399783b80b7da937892ac460349fc8bd284b7d7e741dd977681f4c9f840ea08d6eaeaa35fd2818e000de16f022bda77924ea215cd3a727ac526aaa57129'
+sha512sums=('9bdc64e16ddd2e8d2693179f2fcac8462d7defff186262a049ba325ef00882fbd75a9d323b506ba06876a8168fd5e90319837c8dcd136b206161e67748c2a9f7'
             '1635f590bb8c2a9774a4eb5f8a56d83995449d9935c51e024422daa1ef204f940235dfda9fe087b58b724d6c018920c1b2f0ff446bb2e1d5d81f2ba06e97ef1c')

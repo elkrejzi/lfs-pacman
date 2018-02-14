@@ -18,6 +18,8 @@ prepare() {
 build() {
 	cd "${srcdir}/aspell-${pkgver}"
 
+	export CXX="${CXX} -std=c++03"
+
 	./configure --prefix=/usr --sysconfdir=/etc
 
 	make

@@ -89,11 +89,6 @@ do
     mv ${project} llvm/tools/clang
   elif [ ${project} != "cfe" ] && [ ${project} != "llvm" ]
   then
-    if [ ${project} == "compiler-rt" ]
-    then
-      sed -i "s:struct sigaltstack:stack_t:g" ${project}/lib/esan/esan_sideline_linux.cpp
-    fi
-
     mv ${project} llvm/projects
   fi
 done
@@ -104,7 +99,8 @@ pushd llvm
     export LLVM_VER=$(grep LLVM_VERSION CMakeLists.txt | grep -o [0-9] | tr "\n" ".")"svn"$(svnversion)
   fi
 
-  sed -i "s:CLANG_HAVE_LIBXML 1:CLANG_HAVE_LIBXML 0:g" tools/clang/CMakeLists.txt
+  sed -i "s#LIBOMPTARGET_DEP_LIBELF_FOUND#FALSE#" projects/openmp/libomptarget/plugins/CMakeLists.txt
+  sed -i "s#LIBXML2_FOUND#FALSE#g" cmake/config-ix.cmake tools/clang/CMakeLists.txt
 popd
 
 rm -rf llvm-build llvm-build32 ${LOGDIR}/llvm-${LLVM_VER}.log
@@ -120,11 +116,8 @@ install -dm755 llvm-build llvm-build32
     make install
   popd
 
-  export CC="gcc -m32"
-  export CXX="g++ -m32"
-
   pushd llvm-build32
-    cmake ${cmake_shared[@]} -DLLVM_LIBDIR_SUFFIX=32 -DLLVM_TARGET_ARCH=i686 -DLLVM_DEFAULT_TARGET_TRIPLE=i686-pc-linux-gnu ../llvm
+    cmake ${cmake_shared[@]} -DLLVM_BUILD_32_BITS=ON -DLLVM_LIBDIR_SUFFIX=32 ../llvm
     make -C projects/libcxx
 
     for dir in libcxx libcxxabi libunwind openmp
@@ -149,7 +142,7 @@ install -dm755 llvm-build llvm-build32
       /usr/bin/wget -O - http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/${arch}/crtend.S | sed "/asm.h/d;/RCSID/d" > crtend-${arch}.S
       /usr/bin/wget "https://gcc.gnu.org/viewcvs/gcc/trunk/libgcc/config/i386/crtfastmath.c?view=co" -O crtfastmath-${arch}.c
 
-      install -dm755 /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch} /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/${arch}
+      install -dm755 /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}
 
       clang ${CCARGS} -g -O2 -fno-stack-protector -fpic -c crtbegin-${arch}.S -o /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/crtbegin.o
       clang ${CCARGS} -g -O2 -fno-stack-protector -fpic -DSHARED -c crtbegin-${arch}.S -o /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/crtbeginS.o
@@ -160,17 +153,16 @@ install -dm755 llvm-build llvm-build32
       ln -sf crtbegin.o /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/crtbeginT.o
       ln -sf crtend.o /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/crtendS.o
 
-      mv /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/libclang_rt.builtins-${arch}.a /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/${arch}/
-      mv /tools/${LIB}/libunwind.a /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/${arch}/
+      mv /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/libclang_rt.builtins-${arch}.a /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}
+      mv /tools/${LIB}/libunwind.a /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libunwind-clang.a
 
-      sed -i "s#-lunwind#/tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/${arch}/libunwind.a#g;s#INPUT#GROUP#g" /tools/${LIB}/libc++.so
+      sed -i "s#-lunwind#/tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libcompiler-rt.a#g;s#INPUT#GROUP#g" /tools/${LIB}/libc++.so
 
-cat > /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/libclang_rt.builtins-${arch}.a << EOF
-INPUT ( /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/${arch}/libclang_rt.builtins-${arch}.a AS_NEEDED ( /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/${arch}/libunwind.a -lpthread -ldl -lm ) )
+cat > /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libcompiler-rt.a << EOF
+INPUT ( /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libclang_rt.builtins-${arch}.a AS_NEEDED ( /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libunwind-clang.a -lpthread -ldl -lm ) )
 EOF
 
-      ln -sf ../lib/linux/libclang_rt.builtins-${arch}.a /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libcompiler-rt.a 
-
+      ln -sf ../../${arch}/libcompiler-rt.a /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/libclang_rt.builtins-${arch}.a
     done
 
   popd

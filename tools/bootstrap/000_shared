@@ -41,20 +41,20 @@ export LOGDIR=$(dirname $0)
 
 set +h
 
-BINUTILS_VER=2.29.1
+BINUTILS_VER=2.30
 GMP_VER=6.1.2
 MPFR_VER=4.0.0
 MPC_VER=1.1.0
-GCC_VER=7.2.0
-LINUX_VER=4.14
-LINUX_PATCH_VER=4.14.13
-GLIBC_VER=2.26
+GCC_VER=7.3.0
+LINUX_VER=4.15
+#LINUX_PATCH_VER=
+GLIBC_VER=2.27
 TCL_VER=8.6.8
-EXPECT_VER=5.45.3
+EXPECT_VER=5.45.4
 DEJAGNU_VER=1.6.1
 CHECK_VER=0.12.0
-NCURSES_VER=6.0
-BASH_VER=4.4.12
+NCURSES_VER=6.1
+BASH_VER=4.4.18
 BZIP2_VER=1.0.6
 COREUTILS_VER=8.29
 DIFFUTILS_VER=3.6
@@ -80,28 +80,29 @@ LIBCAP_VER=2.25
 LIBFFI_VER=3.2.1
 OPENSSL_VER=1.0.2n
 ZLIB_VER=1.2.11
-CURL_VER=7.57.0
-GIT_VER=2.15.1
+CURL_VER=7.58.0
+GIT_VER=2.16.1
 LIBARCHIVE_VER=3.3.2
-NANO_VER=2.9.2
+NANO_VER=2.9.3
 PYTHON3_VER=3.6.4
-WGET_VER=1.19.2
-CMAKE_VER=3.10.1
+WGET_VER=1.19.4
+CMAKE_VER=3.10.2
 MESON_VER=0.44.0
 NINJA_VER=1.8.2
-LLVM_VER=5.0.1
+LLVM_VER=6.0.0rc1
 FAKEROOT_VER=1.22
 SHADOW_VER=4.5
 PACMAN_VER=5.0.2
 AUTOCONF_VER=2.69
 AUTOMAKE_VER=1.15.1
 LIBTOOL_VER=2.4.6
+BISON_VER=3.0.4
 
 #export LLVM_RELEASE_BRANCH=""
-export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
-#export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
-export LLVM_FINAL_VERSION=${LLVM_VER}
-#export LLVM_FINAL_VERSION=5.0.0
+#export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
+export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
+#export LLVM_FINAL_VERSION=${LLVM_VER}
+export LLVM_FINAL_VERSION=6.0.0
 
 if [ ! -z $1 ]
 then
@@ -109,7 +110,7 @@ then
   then
 
 cat << EOF | wget -c -i - | true
-${GNU_MIRROR}/binutils/binutils-${BINUTILS_VER}.tar.bz2
+${GNU_MIRROR}/binutils/binutils-${BINUTILS_VER}.tar.xz
 ${GNU_MIRROR}/gmp/gmp-${GMP_VER}.tar.xz
 ${GNU_MIRROR}/mpfr/mpfr-${MPFR_VER}.tar.xz
 ${GNU_MIRROR}/mpc/mpc-${MPC_VER}.tar.gz
@@ -169,6 +170,7 @@ https://sources.archlinux.org/other/pacman/pacman-${PACMAN_VER}.tar.gz
 ${GNU_MIRROR}/autoconf/autoconf-${AUTOCONF_VER}.tar.xz
 ${GNU_MIRROR}/automake/automake-${AUTOMAKE_VER}.tar.xz
 ${GNU_MIRROR}/libtool/libtool-${LIBTOOL_VER}.tar.xz
+${GNU_MIRROR}/bison/bison-${BISON_VER}.tar.xz
 EOF
 
     if [ ! -z "${LINUX_PATCH_VER}" ]

@@ -1,5 +1,5 @@
 pkgname=nodejs
-pkgver=9.4.0
+pkgver=9.5.0
 pkgrel=1
 pkgdesc="Evented I/O for V8 javascript"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2c5423f150b69caa0afc9e171cc91a3e7dc2860d1d7aec163bf085f1a087001e1766af34159b505fd9f0f0dad25bc247358939c5b3bca562eb5c8de3edf29a41')
+sha512sums=('f2f4d78e7c70ab32357bd35af7afeb59feca8839fb7e652421c4ac4d0c55c1c1c78cf9a2e433f3ed714be45e658c9e04cf465e751eb5a40a67d2b1afdebae4a9')

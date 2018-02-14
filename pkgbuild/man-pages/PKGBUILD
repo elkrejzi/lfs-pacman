@@ -1,5 +1,5 @@
 pkgname=man-pages
-pkgver=4.14
+pkgver=4.15
 pkgrel=1
 pkgdesc="Linux man pages"
 arch=('x86_64')
@@ -19,4 +19,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man5/passwd.5"
 }
 
-sha512sums=('d7163aacc6c3da914182d685d459d24ad60182e2cc528d72b08b565a9e2901ec319c8b44aef9b7e20838e146e159834482c62ba1b65823d5a06794283ebef41f')
+sha512sums=('cde896add266e672347841a9116e5d182084044c4543a847945825f98962192f0e8278a4f562fc47a580eb2ddc3d669ffc75a21922219b4d3c36cbe8a792e205')

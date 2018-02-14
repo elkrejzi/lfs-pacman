@@ -1,5 +1,5 @@
 pkgname=caja
-pkgver=1.18.4
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="File manager for the MATE desktop"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/dbus-1"
 }
 
-sha512sums=('8e4d918853b3ce2871cbbcd087b9f8d90d664a67b81f855cdbbd9160343b5cf263bd9b4204f7376a84eebd791e9c6d1367dc5eab4415009c0522c49bb2ed2751')
+sha512sums=('acf21037e274f7c2aeb28160e211f63b1d25dfd3c20c99eab19e8de0e5c388ad28fdef1baaf30374656f6e53c51a9328f50fb5ac7c68a2d41f03442b307de0a4')

@@ -1,5 +1,5 @@
 pkgname=mate-desktop
-pkgver=1.18.0
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Library with common API for various MATE modules"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0490e9810009923fa315e7f191103bc797c37f4417cf41bf317c55d26f7b52a848a65c28dde6903a861694c131ca52f3ed0be05cbbf6b2dd1cb216539f513220')
+sha512sums=('7b8f7f6f900d4d8b16892a145b7570e0be607a8a062f039feaf8d97d1ff1c82e18691c774bd050ec7f56e3745fa3870e7975a8e9cf6bf5f87ea45edc60077266')

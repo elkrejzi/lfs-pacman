@@ -1,6 +1,6 @@
 pkgname=('glibc' 'lib32-glibc')
 pkgbase=glibc
-pkgver=2.26
+pkgver=2.27
 pkgrel=1
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
@@ -12,15 +12,13 @@ source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
 	"locale-gen"
 	"locale.gen"
 	"glibc-paths.patch"
-	"glibc-pure64.patch"
-	"glibc-fixes.patch")
+	"glibc-pure64.patch")
 
 prepare() {
 	cd "${srcdir}/glibc-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/glibc-paths.patch"
 	patch -Np1 -i "${srcdir}/glibc-pure64.patch"
-	patch -Np1 -i "${srcdir}/glibc-fixes.patch"
 
 	rm -rf "${srcdir}/src" "${srcdir}/build64" "${srcdir}/build32"
 
@@ -130,10 +128,9 @@ package_lib32-glibc() {
 	rm -rf "${pkgdir}"/usr/lib32/libnsl.{a,so}
 }
 
-sha512sums=('6ed368523bc55f00976f96c5177f114e3f714b27273d7bffc252812c8b98fb81970403c1f5b5f0a61da678811532fb446530745492d2b49bfefc0d5bd71ce8c0'
+sha512sums=('7c5581154487d38d173ce1feb944e60207139cca148bccf066eaae322c0c2d219423bdcfa15c7f9be1b5e45dfc43c641cc5d80d3c3c65837d08a83cdb4e2a147'
             '062341482c1b44d3a97a00cb0915afc2d45b0acf5c7a79c98e37927a902a5ba040db973d0ee9f24e645a245c54704139e43df67e5adb8fa93c91411deeba01ff'
             'ba1e4d42b1ccc07c0a3a11b8c788b96526a40a1d70eb5807749067b2591d27e3d00b88752f1689e918f1129d110797ece2861ba7a508fa55ae089e7cc5c8bf8b'
             '3d9facc6da5159dcd877473c8a4d77006ef5615e2619ef743255112bfa136baf65239367222e87e7ada823d5c7d747aa5204f8365a806141e5884477898ccd14'
             '4f8a34bfb260889baf1ab448d2cfc4aa607015ca14546326b5e54a27bb608f3d73366d3f2856b0fd9717ca0f0dcaabe3c7e6b63ba90857dd74288aa6546d901e'
-            '6e5135be9d3761c32720e51a0addd5760e58988024ab3cb059e95cd4792c1d746d4ae3e9393ea9b383d7c871d52e04cc436dcfb115d9b37d63f5db7adc42a421'
-            'a093e13144d3045c0b42d77f72aa3d84be9cdecb02e3de64dbc254b1e601655b29ec10ef6678f916a4137a5a69f28ae3c383145a39cb1a6ce4245da58367ab96')
+            '6e5135be9d3761c32720e51a0addd5760e58988024ab3cb059e95cd4792c1d746d4ae3e9393ea9b383d7c871d52e04cc436dcfb115d9b37d63f5db7adc42a421')

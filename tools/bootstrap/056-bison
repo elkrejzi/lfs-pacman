@@ -1,0 +1,23 @@
+#!/bin/bash -e
+
+. $(dirname $0)/000_shared
+
+rm -rf bison-${BISON_VER} ${LOGDIR}/bison-${BISON_VER}.log
+
+tar xf ${SROOT}/bison-${BISON_VER}.tar.xz
+
+{
+
+  time {
+  pushd bison-${BISON_VER}
+    ./configure --prefix=/tools
+    make
+    make install
+  popd
+  }
+
+} 2>&1 | tee ${LOGDIR}/bison-${BISON_VER}.log
+
+[ $PIPESTATUS = 0 ] || exit $PIPESTATUS
+
+rm -rf bison-${BISON_VER}

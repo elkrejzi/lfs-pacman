@@ -1,5 +1,5 @@
 pkgname=engrampa
-pkgver=1.18.3
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Archive manipulator for MATE"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6a3872ed9ec1e9d2779842d30c352c5068608913f9261a875b707951a45ff3122df2f4a4ed4da10c4f8a4617cc1d7aae4635b3f1234052793c4a6baa765d80f8')
+sha512sums=('2c610b3c65f625be34d677cc4461a959b131d6786af972d72d26b1cd25b2a7045458d6e742eafb69975419bfd9f44c78a76d5d660c417c3804bc6a407587557c')

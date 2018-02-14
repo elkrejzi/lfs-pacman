@@ -1,5 +1,5 @@
 pkgname=qtsensors
-pkgver=5.10.0
+pkgver=5.10.1
 pkgrel=1
 pkgdesc="Provides access to sensor hardware and motion gesture recognition"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('4cffe6ee7a30dd3ba992648d28a2558e4084326828511a7afd18085a86aad42c6228da2fe19398d04db5943a812d5233d2ff705ab5a3fe3ab9d1170f8a53ee6d')
+sha512sums=('28491cc63fdf0036168882263faf7d3309920c4cd2749a96514f5bcaf8d26a225b2beb1006fa3aaa052b7a426d98a37b7dd59897b30e82b1ceb111eb4fc8124c')

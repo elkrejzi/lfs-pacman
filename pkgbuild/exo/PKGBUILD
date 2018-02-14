@@ -1,5 +1,5 @@
 pkgname=exo
-pkgver=0.11.5
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="Extensions to Xfce by os-cillation"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c1aeb6dbdb60ab3c19797adcd3e832871960b8a91469d5f96f5fb23bc44794a9b0cf91c910b27f001196d75439baf23565b8860d0bad72799134b2018d3b8463')
+sha512sums=('8ec52aba3faa9728bb60e09cf696f772160bfd8357c06015a6d72a2302572e74389f78a20addcf3ac632a3ac84b3ee2f40750483a16e2f7e1cff7de6f7aa2692')

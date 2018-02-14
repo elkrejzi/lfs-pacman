@@ -22,6 +22,8 @@ package() {
 	install -v -dm755 "${pkgdir}/usr/sbin"
 
 	mv "${pkgdir}/usr/bin/arpd" "${pkgdir}/usr/sbin"
+
+	ln -sf ../bin/ip "${pkgdir}/usr/sbin/ip"
 }
 
 sha512sums=('bcc54b8dc83d7b0e759a2de77eb38fed483d7f7f82698f482e0259000f2f55ba79c556b721730eb999e85c865ad136fd7549304ebe936545e02e848ba7f698bc')

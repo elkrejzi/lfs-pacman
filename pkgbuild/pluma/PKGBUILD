@@ -1,5 +1,5 @@
 pkgname=pluma
-pkgver=1.18.2
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="A powerful text editor for MATE"
 arch=('x86_64')
@@ -25,4 +25,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('285170531c92ad13fdd35286c06de62b75f0426a830c51f4f54799b4b5377d65b3e1fd1e1af3827462a356947e853e4203a4ed394a8b6137bbd87e289f490b6d')
+
+sha512sums=('31ecf70cacedf9598518aa761449dad5fd25728a68feb06526849c304c5e08db635e072a1196b865c40a81e71eefdacdb62a16e7cdca609f63d48aa7cd14c7db')

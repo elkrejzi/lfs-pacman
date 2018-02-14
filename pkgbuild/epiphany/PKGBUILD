@@ -1,5 +1,5 @@
 pkgname=epiphany
-pkgver=3.26.5.1
+pkgver=3.26.6
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('18c70b99ad0a543fe59360867e57a5557e4e2fd4c2dae86e2cd79f9ffb5f19beed03ab652946e3c35cc789198dcafd721cacdb4eacb8174d2d9965b77efc1671')
+sha512sums=('4ebdb56af11dbba11fed1d4536ae6034a8fb83ee93443ffb00e2be81d2e81b2051e113715f3e748868d21193e75f30c49cdd6a225d7f0a9d259a741957eb40b6')

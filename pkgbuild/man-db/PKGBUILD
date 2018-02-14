@@ -1,5 +1,5 @@
 pkgname=man-db
-pkgver=2.7.6.1
+pkgver=2.8.1
 pkgrel=1
 pkgdesc="A utility for reading man pages"
 arch=('x86_64')
@@ -7,14 +7,12 @@ url="http://www.nongnu.org/man-db/"
 license=('GPL' 'LGPL')
 #depends=()
 install=man-db.install
-source=("http://download.savannah.gnu.org/releases/man-db/man-db-${pkgver}.tar.xz"
+source=("https://savannah.nongnu.org/download/man-db/man-db-${pkgver}.tar.xz"
 	"man-db.service"
 	"man-db.timer")
 
 build() {
 	cd "${srcdir}/man-db-${pkgver}"
-
-	sed -i "s:man man:root root:g" init/systemd/man-db.conf
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -41,6 +39,6 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('623c5e7f8b7c289908b2c926f8777293b8d39aeceef0d2509d701a8b0bfa81408650f655c8608318221786c751a79ee91124b07993de5298cd7fa6d8bb737301'
+sha512sums=('82e75df32eb8575f47c3f36b5f2bbc827776747abfa39af589802e6566636c0771df0ee3197cb2bec3318c3055ff4e9d04c7da13b3bc6ea8a1ea1b1340554ef0'
             '36587635b2b4d496a353a53c0bb2f863d321b5b329a5549643f09076d3d176efc13ebe3715aa5c14e217ef581f0a335eae2b4fcf20dea7873858eab232355e87'
             '2ed529500fbe18ba00ac7a6fc4c9da59e396464afb256db33f462b1127e497916602370e65e485c8d788c839f5b1b1130028502f61e1cc9ec8571ad6dd993738')

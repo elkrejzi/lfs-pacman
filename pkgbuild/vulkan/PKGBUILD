@@ -1,20 +1,17 @@
 pkgbase=vulkan
 pkgname=('vulkan' 'lib32-vulkan')
-pkgver=1.0.65.1
+pkgver=1.0.68.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.khronos.org/vulkan/"
 license=('custom')
 #depends=()
 options=(emptydirs)
-source=("git+https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers.git#commit=3f7ce77") # master
+source=("https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/archive/sdk-${pkgver}/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/Vulkan-LoaderAndValidationLayers"
 
-	sed -i "s#cstring#string#g" scripts/mock_icd_generator.py
-
-	cp -a "${srcdir}"/Vulkan-LoaderAndValidationLayers{,32}
+	cp -a "${srcdir}"/Vulkan-LoaderAndValidationLayers{,32}-sdk-${pkgver}
 
 	install -v -dm755 "${srcdir}"/build{32,64}
 }
@@ -33,9 +30,9 @@ build() {
 
 	cd "${srcdir}/build64"
 
-	bash -e "${srcdir}/Vulkan-LoaderAndValidationLayers/update_external_sources.sh"
+	bash -e "${srcdir}/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}/update_external_sources.sh"
 
-	cmake "${srcdir}/Vulkan-LoaderAndValidationLayers" \
+	cmake "${srcdir}/Vulkan-LoaderAndValidationLayers-sdk-${pkgver}" \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		${_flags[@]}
 
@@ -46,9 +43,9 @@ build() {
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	bash -e "${srcdir}/Vulkan-LoaderAndValidationLayers32/update_external_sources.sh"
+	bash -e "${srcdir}/Vulkan-LoaderAndValidationLayers32-sdk-${pkgver}/update_external_sources.sh"
 
-	cmake "${srcdir}/Vulkan-LoaderAndValidationLayers32" \
+	cmake "${srcdir}/Vulkan-LoaderAndValidationLayers32-sdk-${pkgver}" \
 		-DCMAKE_INSTALL_LIBDIR=lib32 \
 		${_flags[@]}
 
@@ -82,4 +79,4 @@ package_lib32-vulkan() {
 	mv dest/usr/bin/vulkaninfo "${pkgdir}/usr/bin/vulkaninfo32"
 }
 
-sha512sums=('SKIP')
+sha512sums=('a814152a5bcb9d11d1ec9dab32b0a0681fc839c642502d3b499194a134abafb5c3ee66ba3a536c26bbd45c26a48fcf00b343da657f5ffffd7536c99ba04117f3')

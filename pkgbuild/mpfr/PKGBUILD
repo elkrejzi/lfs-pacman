@@ -1,6 +1,6 @@
 pkgname=mpfr
-_basever=4.0.0
-pkgver=4.0.0
+_basever=4.0.1
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Multiple-precision floating-point library"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9c9c4535f33fffd2126d1c290e5eeda7cd2804219244643f09c9a2d2acfa3d410d2cb1e4a7bb77cd86cffc2fac59c7f5d32c9910317cac37dbca474ab6d63808')
+sha512sums=('137ad68bc1e33a155edc1247fcdba27f999cf48ed526773136584090ddf2cfdfc9ea79fbf74ea1943b835b4b1ff29b05087114738c6ad3b485848540f30cac4f')

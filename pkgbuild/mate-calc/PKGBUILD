@@ -1,5 +1,5 @@
 pkgname=mate-calc
-pkgver=1.18.1
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Calculator for the MATE desktop environment"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d9c95386427ebcb8c1525804f2b7f0f6b91c52a15bc90ff9c688d13bce07f97ed0db032a5e252a9a11ccbd6c04b66d3d74baf1c6bb27b6807506243b27ad25e5')
+sha512sums=('f0419da3be981c80212b4f5cab4da7b7d12dd435dae17b9d1ab3e78404f02d7869d2cc452b5e0bee3f723ef8829b0482a29f14941d5d40fb850c32cc3b43a7ec')

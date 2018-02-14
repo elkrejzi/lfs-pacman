@@ -1,6 +1,6 @@
 pkgbase=llvm
-pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang' 'lib32-clang' 'clang-tools-extra' 'lld' 'lldb')
-_realver=6.0.0rc1
+pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang' 'clang-tools-extra' 'lld' 'lldb')
+_realver=6.0.0rc2
 _fullver=${_realver/rc*/}
 _pre_release=1
 pkgver=${_realver/rc/.rc}
@@ -51,6 +51,12 @@ prepare() {
 
 	mv -v "${srcdir}/clang-tools-extra-${_realver}.src" "${srcdir}/cfe-${_realver}.src/tools/extra"
 
+	cd "${srcdir}/openmp-${_realver}.src"
+
+	sed -i "/OpenMPTesting/d;/construct_check_openmp_target/d" CMakeLists.txt
+	sed -i "/add_openmp_testsuite/d" runtime/test/CMakeLists.txt
+	sed -i "/add_subdirectory(test)/d" libomptarget/CMakeLists.txt
+
 	rm -rf "${srcdir}"/llvm-${_realver}.src/projects/{compiler-rt,libcxx,libcxxabi,libunwind,openmp}
 
 	mv -v "${srcdir}/compiler-rt-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/compiler-rt"
@@ -70,7 +76,7 @@ prepare() {
 	cp -a "${srcdir}"/llvm{,32}-${_realver}.src
 
 	rm -rf "${srcdir}/llvm32-${_realver}.src/projects/compiler-rt"
-	rm -rf "${srcdir}/llvm32-${_realver}.src/tools/clang/tools/extra"
+	rm -rf "${srcdir}/llvm32-${_realver}.src/tools/clang"
 	rm -rf "${srcdir}"/llvm32-${_realver}.src/tools/{lld,lldb}
 
 	rm -rf "${srcdir}"/llvm-build{,32}
@@ -158,8 +164,9 @@ build() {
 	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtfastmath-x86_64.c" -o "${srcdir}/crtfastmath-x86_64.o"
 	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtfastmath-i386.c" -o "${srcdir}/crtfastmath-i386.o"
 
-	sed -i '/extra\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/tools/clang/tools/cmake_install.cmake
-	sed -i '/\(clang\|lld\|lldb\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/tools/cmake_install.cmake
+	sed -i '/extra\/cmake_install.cmake/d' "${srcdir}"/llvm-build/tools/clang/tools/cmake_install.cmake
+	sed -i '/\(clang\|lld\|lldb\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build/tools/cmake_install.cmake
+
 	sed -i '/\(compiler-rt\|libcxxabi\|libcxx\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/projects/cmake_install.cmake
 	sed -i '/\(libunwind\|openmp\)\/cmake_install.cmake/d' "${srcdir}"/llvm-build{,32}/projects/cmake_install.cmake
 
@@ -191,6 +198,8 @@ package_llvm() {
 	mv -v "${pkgdir}"/usr/include/llvm/Config/llvm-config{,-64}.h
 
 	install -v -m644 "${srcdir}/llvm-config.h" "${pkgdir}/usr/include/llvm/Config/llvm-config.h"
+
+	sed -i "s#${srcdir}/llvm-build##" "${pkgdir}/usr/lib/cmake/polly/PollyConfig.cmake"
 }
 
 package_lib32-llvm() {
@@ -207,6 +216,9 @@ package_lib32-llvm() {
 
 	mv -v "${pkgdir}/usr/llvm-config" "${pkgdir}/usr/bin/llvm-config32"
 	mv -v "${pkgdir}/usr/llvm-config.h" "${pkgdir}/usr/include/llvm/Config/llvm-config-32.h"
+
+
+	sed -i "s#${srcdir}/llvm-build32##" "${pkgdir}/usr/lib32/cmake/polly/PollyConfig.cmake"
 }
 
 package_llvm-libs() {
@@ -277,15 +289,6 @@ EOF
 	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/clang"
 }
 
-package_lib32-clang() {
-	pkgdesc="C language family frontend for LLVM (32 bit)"
-	url="http://clang.llvm.org/"
-
-	make -C "${srcdir}/llvm-build32/tools/clang" install DESTDIR="${pkgdir}"
-
-	rm -rf "${pkgdir}"/usr/{bin,include,libexec,share}
-}
-
 package_clang-tools-extra() {
 	pkgdesc="Extra tools built using clang's tooling APIs"
 	url="http://clang.llvm.org/"
@@ -312,17 +315,17 @@ package_lldb() {
 	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/lldb"
 }
 
-sha512sums=('aad7372508b661854e16e8a14bc9a40a2d8c8802c2b7ef7a89d8e58cedb30cf50b165f1807f011d4f4f7b1f6eaffc000e6bc05aa5a13d0b748b4dce8f1f026ab'
-            '1fb4678b931ca03762a33a9b0746f14dab54b70b9a5fd1fa71c248b19e1a7f08c72b7146b068233abf75c732465555437e302e82540065e5162e50510776db5a'
-            '2b223487154035bb4b83775f871e9017fcffb6078e704b6a33abc93ad5f0641742f41776c42526423a72805ed3226c2a48d71bbb9ce4f7d3de29d13f0dcd00d0'
-            '5d8481e9a1a6570a7bc90dfd77b7787ba4e6480c52aca949811254003c00f6b83496d29260af9fa3fd3f0ba29d647b3c961d91bead66082f9e7bc09d4e68a7a1'
-            '3474ca917d9b071ef110f65c9276f12e3ed9692c6a597009965918c139991eda0dd9cdccbd72091bb9cd7871025e890fbe9f2de34153838be1f0d63686ef5e8a'
-            '7c5cfc14b68bead1dd82a316e28d40b8622a2c68caed5fd8f23423e0c47bfa06bef4e9f1498310994ce8d68d2aae6151cfcb54cae598ec20c16718c722889a5c'
-            'ca2ecb86bd5fa90082bc3c40a773699a49dcdda9532e6c79c2bef4f47e589756e527fb02965ad7173feec32dc21a32f2781e6cb87a23b8f728b140e9c9088db0'
-            '3dc736b94dceb3f11aa641b302b605e28dc0a41650447e7f45303f1589d377a44cc4de0bc6d9fa3d937f783827090f9ad09d6e2b25465031a2b669ad3e3437d9'
-            'b1978bf8c89336e71e22fae3302858fd399a1f73632512e7f20cc14dae2dc1d42f2e1963c2d81d44b57ed0ae523c6453fd9af794686b4c361f002ba6297ea6a4'
-            'b7f9273d3d596946cb5eabd3203fdf462298803e4110a9949a50dd1cbf5f15cfd36346ae06abd585047b5b6360d8602d1ad3389fd0b111135faef1f6848b51b1'
-            '647188cb0fa4936a042c1989cf23bd8805402f37fa65e92f95fa5ac826d9ecc482ae57855288321aabb2d57bbe53f1627aa4d98868893b3ba8382d4a6fee65a2'
+sha512sums=('3cb3521ba8d90bf2a90c49d753ab5e92f1e0ccfc86946f3767c06d0f276e2c4cf8ff2f984680835efbaa4dae1cd2d3a074468e547785e05a67ea55311b94a0e9'
+            '991c45ee8500bee1e7004172e2ab8fa78e3d412b1474cfb48ee6f49232afe8d2f512e2ebf148afc4f8b38cff0110e3af26bdbec2138d80592c876452a18c63fe'
+            '3c279f2c5fdad6ed3a2c49809eb2879cb6615d27920046f4d9bb1cc4d66da949b3b90f26dc8208dbea5602cb5f85e1a4d1e72daca7b7dfa4d405aed4743c7604'
+            '3f0a032c4670076ead80bb03b3b7a565dfaf6526c9309f4453a455463038d3e7960bf93f2393f6dd2bd8b7f1ea145555b9599edae54dba7ede97cf0d8240cc4f'
+            '14cbb20702cf9498d9b62a9e6a17f24556b93b9cb221742c64979d3fb159a867abb0f16c72f98319af4d41e3642ad7d7c50bd779828fe3dfecb7906d3f5e68a7'
+            'bfb04cea41c741351bada27e1c7510d00fa39332c781a6833979d64ddf754b1b2f63f4c2aa75111cb287d7eb6d0fd4bc2bc7407343038e86644743651da112a6'
+            '391938bd4b51a5275e4573d4500c342d1db3b80a07aac560b5d324c370563693b4ed09d62754aa91c033a3ded16466dabaa7efd859d9227123c394274503a11a'
+            '4a027344848e9f5bed0089ca2bf657a3df5dc9fcc5b1d2fd3d8ff3a7dba71986331fc53cb39092049f705bb18fa85b57cf15a81e02fe2399759fc5e197ebaa5c'
+            '58a7adb66dd54e32ce232e70085b0fb96ec5dbd7b518b63634569b10c43ebf0881958ace3499975e1224dd4c094dd9c5697481a7a3a949c731418a6b1f96ebbc'
+            '4559f120d8bda2bb78b4e7ea6a499a0bf511f4e0c91d458e63fc31c53c688bbc898ccbbe11742c6f87f9680de917d34a17d3a6b8baa8efa8fe45cd4e483da12b'
+            '0a09582e602603c975ec0eb95c67333fdf7985038a36053b7a63db68709a7a5a5ef4b9b2579f7c53e1c3fc39e28ee3c69e3d484f9ab2841f25abe26a84971917'
             '8bc8873bb68998a3c97cc302e69e7bc6b4ab185b51dfa7e74d804ff4643af3fd4037679990053c24cb02d8f4f631d731cacba0b2b46d265f51baf289d3b3b962'
             '9025e55af7f98018cfdfc0810f08c2dba8b813efadb8e104e0c3d54592d2c94238372a121871713dfbbd44bdd5ec6cb6b73a2325d22e133089d2951bff6255db'
             'cf4c43c0a590b4f0e63e9a6008a747524e4553034fba72a7e99626aff6c61fd2ac4073874a1b116177f77bcb0d0021c17edd5da1950c7e3421be4de0ea133b4c'
