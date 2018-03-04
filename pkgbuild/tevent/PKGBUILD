@@ -1,5 +1,5 @@
 pkgname=tevent
-pkgver=0.9.35
+pkgver=0.9.36
 pkgrel=1
 pkgdesc="An event system based on the talloc memory management library"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('935719382469a0f39764a7ebdbc0ee977ccca2fc55ff1e896ddd95ba2d065d989f0c366cb98be95ce87475e628b0de38b7138261717a5c2cee870e98339ed5fd')
+sha512sums=('bca9db9bcf142ba68b207180d19414dddb89a069a4f040383069c8af0df5bb184ca219293c4a1e7b0bc241b9a1ea3d414f8284278ad3a5f0383b9e432450167b')

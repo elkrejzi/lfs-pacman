@@ -1,12 +1,12 @@
 pkgname=mesa-demos
-pkgver=8.3.0
+pkgver=8.4.0
 pkgrel=1
 pkgdesc="Mesa demos and tools"
 arch=('x86_64')
 url="http://mesa3d.sourceforge.net"
 license=('custom')
 #depends=()
-source=("ftp://ftp.freedesktop.org/pub/mesa/demos/${pkgver}/mesa-demos-${pkgver}.tar.bz2")
+source=("https://mesa.freedesktop.org/archive/demos/mesa-demos-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/mesa-demos-${pkgver}"
@@ -25,4 +25,4 @@ package() {
 	make -C src/xdemos install DESTDIR="${pkgdir}" bin_PROGRAMS="glxgears glxinfo"
 }
 
-sha512sums=('9ba96980306953f7b72745063e75809fb8399bbd5fc58fca96290a8b4e61741bb82fb6171311eddf249ea12face83d7c7b087e6dade6833699a8d220fc752e3f')
+sha512sums=('b72d03cad36e0535ff18dcfb222ec4200064b9264f6da51a6e5f03b0dd912abe188bc1d600b6698de3ce6f63b28d2ce01565886ca8e7079edc4967fbf2fb0957')

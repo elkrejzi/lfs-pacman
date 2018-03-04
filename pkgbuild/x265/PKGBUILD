@@ -1,5 +1,5 @@
 pkgname=x265
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 pkgdesc="Open Source H265/HEVC video encoder"
 arch=('x86_64')
@@ -17,7 +17,7 @@ build() {
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
-		"${srcdir}/x265_v${pkgver}/source"
+		"${srcdir}/x265_${pkgver}/source"
 
 	make
 }
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('35c3716313e3dfd1555dd725b60f2b3b00a615d8b8d8267439722b52021d47e34eebf94b837b92a92d40c7ffab7b3198d6391365d62672b257c0a87d1db8a736')
+sha512sums=('58582ff5c282a8ca6213a98495b95fa941f323fa454924e4751dde6d2a0e87a08d6e8d98012164a3d83523f2b004e7a1420b60b64719fe30f460dd10ec075094')

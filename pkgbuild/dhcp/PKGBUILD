@@ -1,6 +1,6 @@
 pkgbase=dhcp
 pkgname=('dhclient' 'dhcpd')
-pkgver=4.4.0
+pkgver=4.4.1
 pkgrel=1
 arch=('x86_64')
 url="https://www.isc.org/software/dhcp"
@@ -70,7 +70,7 @@ package_dhcpd() {
 	install -v -dm755 "${pkgdir}/var/lib/dhcpd"
 }
 
-sha512sums=('0dcddfe803db0cea49204f71c9fbc3b1a55496acc83e344d9147893410bbb5f96874ff6457037ee9f759d701cea4bab98dc51ad5d7b23926254e25e5e421eabd'
+sha512sums=('684ae349f224918c9f8cec7bd6c55cd0b83ad2b5827375b2876ca088eb05b7ff1364e50f6dc24f2485c610d9be94d4ba3020f60a0fa0ef63962349d191b887e7'
             '8e951a0b1c8e25b07b880b48ccbe5ffe127b2929eed1e2ccbc6c4b3dcd321a6f577612d6305a738d4e96d86dd8ad49450c01d656b361e2705589d1db1ff6df2b'
             '2c7e318fa8b55a6d5ecbd55f96704a82ba296bb2f0828eb3006c0eedb301d6265574169f444f83a899209f7b284ef3997422af9ed05f12bda62b822dd44c083d'
             'd018aadf1180a1e4c47266c162c5d635e3fdf0bb0d6f305c1b0fc2873fab25637d22170538672d6039d30a344f577fe6c6f20e370203cd000e683e082ce7e719'

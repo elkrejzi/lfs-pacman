@@ -35,5 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-
 sha512sums=('9a802f1856f0f608c3b4ef6de27dc8174e103dbb32431a4dcffcac48c685cc48efb087ab73f661d7327341e8074b73bb7877c596f93228283ca5907910d64a6b')

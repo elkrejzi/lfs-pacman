@@ -1,6 +1,6 @@
 pkgbase=glib
 pkgname=('glib' 'lib32-glib')
-pkgver=2.54.3
+pkgver=2.55.2
 pkgrel=1
 arch=('x86_64')
 url="http://www.gtk.org/"
@@ -9,57 +9,71 @@ license=('LGPL')
 options=(emptydirs)
 source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
 	"glib-compile-schemas-quiet.patch"
+	"meson-fixes.patch"
 	"gio-querymodules.hook"
 	"gio-querymodules32.hook"
 	"glib-compile-schemas.hook")
 
 prepare() {
+	cd "${srcdir}"
+
 	cd "${srcdir}/glib-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
+	patch -Np1 -i "${srcdir}/meson-fixes.patch"
 
-	cp -a "${srcdir}"/glib{,32}-${pkgver}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	cd "${srcdir}/glib-${pkgver}"
+	cd "${srcdir}/build64"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--with-pcre=system \
-		--enable-man \
-		--with-python=/usr/bin/python3
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		-Dman=true \
+		-Dselinux=false \
+		"${srcdir}/glib-${pkgver}"
 
-	cd "${srcdir}/glib32-${pkgver}"
+	cd "${srcdir}/build32"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--libdir=/usr/lib32 \
-		--with-pcre=system \
-		--with-python=/usr/bin/python3
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--libdir /usr/lib32 \
+		--buildtype=plain \
+		-Dgtk_doc=false \
+		-Dman=false \
+		-Dselinux=false \
+		"${srcdir}/glib-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/glib-${pkgver}"
-	make -C "${srcdir}/glib32-${pkgver}"
+	ninja -C build64 ${MAKEFLAGS}
+	ninja -C build32 ${MAKEFLAGS}
 }
 
 package_glib() {
 	pkgdesc="Low level core library"
 
-	cd "${srcdir}/glib-${pkgver}"
+	cd "${srcdir}/build64"
 
-	make install DESTDIR="${pkgdir}" PKG_CONFIG_PATH="${PWD}"
+	DESTDIR="${pkgdir}" ninja install
 
 	rm -rf "${pkgdir}/usr/share/gdb"
 
+	python3 -m compileall "${pkgdir}/usr/share/glib-2.0/codegen"
+
+	install -v -dm755 "${pkgdir}/usr/lib/gio"
 	install -v -Dm644 "${srcdir}/gio-querymodules.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules.hook"
 	install -v -Dm644 "${srcdir}/glib-compile-schemas.hook" "${pkgdir}/usr/share/libalpm/hooks/glib-compile-schemas.hook"
 }
@@ -67,19 +81,21 @@ package_glib() {
 package_lib32-glib() {
 	pkgdesc="Low level core library (32 bit)"
 
-	cd "${srcdir}/glib32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	make install DESTDIR="${PWD}/dest" PKG_CONFIG_PATH="${PWD}"
+	DESTDIR="${PWD}/dest" ninja install
 
 	install -v -dm755 "${pkgdir}/usr/bin"
 	mv dest/usr/lib32 "${pkgdir}/usr"
 	mv dest/usr/bin/gio-querymodules "${pkgdir}/usr/bin/gio-querymodules32"
 
+	install -v -dm755 "${pkgdir}/usr/lib32/gio"
 	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
 }
 
-sha512sums=('23eb4458684624f80c17aa784eab42a38eec87bb5979fcfe56f0bc63b5c7bcf8251a0d4ea916fe2c8109ff5b14a4b60c6260755d079ff984c0d8e6a2871d307d'
+sha512sums=('07fbb6b948200c7c73ef5e1e4ed76709f263acad1bfa572e9e88ad93098dbaa8159271dc6eaabc8f843200b68f8a1423c92b4c9d848412560ff6711e49408aab'
             'e9a7dc8f9d78630c32a99181b556b5a4ef70c08ab059a23cf148d7084d81a82d48994ecd91f6f7bed9cbe34a1bd84fff3d9218984474b54e3da5cdec9923c705'
+            '1fda1df842eda45e2c3c989c0253fb1484d95476befe884099f08a3395d227d130fb94a2b02f098e0290a1c9c4662f3dabd9208ee0351da1918a5dcd767b282f'
             '5afd6f275c8fff16df3e685818f2e7989b39ffb3b8f5fc261a5a6d54a9b28ef53af62f3bf5067cf87cb74691572f85730cbc508691956ae048a0f3ecc1a0a39c'
             '1ea3011bbf658c71fce167399775cca4ec7fd6267cbea9dc39555c10636035dd56391208a56c35e84f127ad23fd7126e025ea8e7de9ba5cd6912ac984a8b60af'
             'c04fe25afc217c295b5ce4034733cec046126482d00fb8d0299e4815ac57129dd3f1c9ac824b9386d208a4f113e9dae682ea5b72f75387ed6b6b96a9cbbee8ca')

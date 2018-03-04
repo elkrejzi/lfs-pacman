@@ -1,5 +1,5 @@
 pkgname=thunar
-pkgver=1.6.13
+pkgver=1.6.14
 pkgrel=1
 pkgdesc="Modern file manager for Xfce"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d1ae8efd0652c21b14ff45be9eef2ccf6b4400c744b08b2096a47b1af4eade2df1a237d03ede3e5dccea018b626dd67ffda2ed946b31fc2d3ff214c79e30168f')
+sha512sums=('63287e35e71a6d1cb75a4d4db4d05f0fdf34d43b0ce7a2094e6aa9042d16f3eb60f7c5d755810bb0807112177e37954ba566b4f0ef701766205ed9e5561bd6e1')

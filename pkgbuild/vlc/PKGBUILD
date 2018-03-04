@@ -1,5 +1,5 @@
 pkgname=vlc
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="Multi-platform MPEG, VCD/DVD, and DivX player"
 arch=('x86_64')
@@ -13,10 +13,12 @@ build() {
 	cd "${srcdir}/vlc-${pkgver/.rc/-rc}"
 
 	sed -i "/LUA_COMPAT_MODULE/i #define LUA_COMPAT_APIINTCASTS" modules/lua/vlc.h
+	sed -i "/FRIBIDI_NO_DEPRECATED/d" modules/text_renderer/freetype/text_layout.c
 
 	./configure --prefix=/usr \
 		--enable-fdkaac \
 		--enable-gles2 \
+		--disable-x264 \
 		BUILDCC="${CC}"
 
 	make
@@ -30,5 +32,5 @@ package() {
 	install -v -Dm644 "${srcdir}/update-vlc-plugin-cache.hook" "${pkgdir}/usr/share/libalpm/hooks/update-vlc-plugin-cache.hook"
 }
 
-sha512sums=('9bdc64e16ddd2e8d2693179f2fcac8462d7defff186262a049ba325ef00882fbd75a9d323b506ba06876a8168fd5e90319837c8dcd136b206161e67748c2a9f7'
+sha512sums=('f2ba7586e8fb8c04484e62809265ec998e875b1eff03262bbf463370277a318816cbb8d260901c774e59443393b16b040cb714019c80e051578008abbf91b13c'
             '1635f590bb8c2a9774a4eb5f8a56d83995449d9935c51e024422daa1ef204f940235dfda9fe087b58b724d6c018920c1b2f0ff446bb2e1d5d81f2ba06e97ef1c')

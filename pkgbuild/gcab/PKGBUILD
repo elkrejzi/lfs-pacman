@@ -1,0 +1,35 @@
+pkgname=gcab
+pkgver=1.0
+pkgrel=1
+pkgdesc="A GObject library to create cabinet files"
+arch=('x86_64')
+url="https://wiki.gnome.org/msitools"
+license=('LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/gcab/${pkgver:0:3}/gcab-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddocs=true \
+		-Dtests=false \
+		"${srcdir}/gcab-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('688238590b5ef68f6245b304948d0107c84af7764f355e01b2239c5411cb7e2dbfb560d6887d6940ca4f8197355e65616a71a8a4acfa48d85d9110952c31f107')

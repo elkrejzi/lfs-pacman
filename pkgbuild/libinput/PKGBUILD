@@ -1,5 +1,5 @@
 pkgname=libinput
-pkgver=1.10.0
+pkgver=1.10.1
 pkgrel=1
 pkgdesc="Input device management and event handling library"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('173f72f454c534dee755b6121c4577900ae9b8a129ac41de69410c3195950a6d149d6148892c4976f013eeabca66117d53fa67e352cc005960863a5576696928')
+sha512sums=('69e7cd12f3d686d1b09afd93fe072ddd6f8c9a1f04c0a651c7dd02c5a20b3f8163c5b787b41bf3ae91db0da7d3e2958d315d6c9a2875259c62b0d290ac89d1fb')

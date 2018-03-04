@@ -1,5 +1,5 @@
 pkgname=ffmpeg
-pkgver=3.4.1
+pkgver=3.4.2
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="http://www.ffmpeg.org/"
 license=('GPL3')
 #depends=()
 #source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
-source=("git+https://git.videolan.org/git/ffmpeg.git#commit=2906363")
+source=("git+https://git.videolan.org/git/ffmpeg.git#commit=c0919c4")
 
 prepare() {
 	rm -rf "${srcdir}/ffmpeg-${pkgver}"

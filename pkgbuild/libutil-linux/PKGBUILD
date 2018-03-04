@@ -1,19 +1,19 @@
 pkgbase=libutil-linux
 pkgname=('libutil-linux' 'lib32-libutil-linux' 'mount')
-pkgver=2.31.1
+pkgver=2.32.rc2
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/pub/linux/utils/util-linux/"
 license=('GPL2')
 #depends=()
-source=("https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver:0:4}/util-linux-${pkgver}.tar.xz")
+source=("https://www.kernel.org/pub/linux/utils/util-linux/v${pkgver:0:4}/util-linux-${pkgver/.rc/-rc}.tar.xz")
 
 prepare() {
-	cp -a "${srcdir}"/util-linux{,32}-${pkgver}
+	cp -a "${srcdir}"/util-linux{,32}-${pkgver/.rc/-rc}
 }
 
 build() {
-	cd "${srcdir}/util-linux-${pkgver}"
+	cd "${srcdir}/util-linux-${pkgver/.rc/-rc}"
 
 	./configure --prefix=/usr \
 		--bindir=/usr/bin \
@@ -29,7 +29,7 @@ build() {
 		--without-systemd \
 		--enable-fs-paths-default=/usr/sbin
 
-	cd "${srcdir}/util-linux32-${pkgver}"
+	cd "${srcdir}/util-linux32-${pkgver/.rc/-rc}"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
@@ -54,16 +54,16 @@ build() {
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/util-linux-${pkgver}" libfdisk.la libmount.la libsmartcols.la
-	make -C "${srcdir}/util-linux-${pkgver}" mount umount
+	make -C "${srcdir}/util-linux-${pkgver/.rc/-rc}" libfdisk.la libmount.la libsmartcols.la
+	make -C "${srcdir}/util-linux-${pkgver/.rc/-rc}" mount umount
 
-	make -C "${srcdir}/util-linux32-${pkgver}" libfdisk.la libmount.la libsmartcols.la
+	make -C "${srcdir}/util-linux32-${pkgver/.rc/-rc}" libfdisk.la libmount.la libsmartcols.la
 }
 
 package_libutil-linux() {
 	pkgdesc="Miscellaneous system utilities for Linux (shared libraries)"
 
-	cd "${srcdir}/util-linux-${pkgver}"
+	cd "${srcdir}/util-linux-${pkgver/.rc/-rc}"
 
 	make install-usrlib_execLTLIBRARIES install-data-am DESTDIR="${pkgdir}"
 
@@ -80,7 +80,7 @@ package_libutil-linux() {
 package_lib32-libutil-linux() {
 	pkgdesc="Miscellaneous system utilities for Linux (shared libraries) (32 bit)"
 
-	cd "${srcdir}/util-linux32-${pkgver}"
+	cd "${srcdir}/util-linux32-${pkgver/.rc/-rc}"
 
 	make install-usrlib_execLTLIBRARIES install-data-am DESTDIR="${PWD}/dest"
 
@@ -100,7 +100,7 @@ package_lib32-libutil-linux() {
 package_mount() {
 	pkgdesc="Miscellaneous system utilities for Linux (mount utility)"
 
-	cd "${srcdir}/util-linux-${pkgver}"
+	cd "${srcdir}/util-linux-${pkgver/.rc/-rc}"
 
 	install -v -dm755 "${pkgdir}/usr/bin" "${pkgdir}"/usr/share/man/man{5,8}
 
@@ -111,4 +111,4 @@ package_mount() {
 	make install-exec-hook-mount DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d45c1e62e39f5d5c7a642071e7ccce44fe4ecaafec54d8c9a4e9d526280a6e25723bfa0eb068401e291579c0d067661775bbe085190d13ff16493f47360b7760')
+sha512sums=('a7c3b5b84fa78aded1fc7b4e3111c140512f5e2e5851162659423a3905eadd746d65beedd3faf813b77e823d63f3c9b33db1f44f7b85e9006ff64f82fb3cadb7')

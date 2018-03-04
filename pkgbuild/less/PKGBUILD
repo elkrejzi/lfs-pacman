@@ -1,5 +1,5 @@
 pkgname=less
-pkgver=487
+pkgver=530
 pkgrel=1
 pkgdesc="A terminal based program for viewing text files"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	ln -sfv less "${pkgdir}/usr/bin/pager"
 }
 
-sha512sums=('d31274fdada570fbc6706d7c52637d1accbd18ce947ec062e10b1624c251a8533c6638bc3a1d89d3c70a0c7b9c6d45740598bec9003f281d64c587b1f829125a')
+sha512sums=('8d83a18b5648c4fe85921a563aa2c40bcf495aeb611098c83cd167b1e2f706649846cdf457c8506ae2683ab362ad970a0b261747349673020894bccdb9acbc10')

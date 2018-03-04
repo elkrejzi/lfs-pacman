@@ -1,5 +1,5 @@
 pkgname=lightdm-gtk-greeter
-pkgver=2.0.3
+pkgver=2.0.4
 pkgrel=1
 pkgdesc="GTK+ greeter for LightDM"
 arch=('x86_64')
@@ -37,4 +37,4 @@ icon-theme-name=Adwaita
 EOF
 }
 
-sha512sums=('bd5b18890cf0190faab0e6a2bffab67be359e99f45fda0be7eecded146d2518a4efc0fd4fd29970076246bb989f626dd750cb14b22ddf6188b2be5f113bff3b0')
+sha512sums=('d4dbcb7117ffd288b8a3a516423362ead837dfe83ea48cdf24056926d440900fefd22522868c39da2831dca861731b1a53f33a9db0d86c5e334e673a5dac3254')

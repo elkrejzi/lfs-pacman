@@ -1,0 +1,25 @@
+pkgname=xorgproto
+pkgver=2018.4
+pkgrel=1
+pkgdesc="Combined X.Org X11 Protocol headers"
+arch=('x86_64')
+url="https://www.x.org/wiki/"
+license=('custom')
+#depends=()
+source=("https://www.x.org/releases/individual/proto/xorgproto-${pkgver}.tar.bz2")
+
+build() {
+	cd "${srcdir}/xorgproto-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xorgproto-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('2db682d10280ca58cdc04d8eb9fef30c111d4cd379de9fec86cff317865b859a576de5426447be9231d24be9762cc1d684c57383a99ad499398e8b7d62b1c03c')

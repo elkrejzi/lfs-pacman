@@ -1,25 +1,33 @@
 pkgname=cantarell-fonts
-pkgver=0.0.25
+pkgver=0.100
 pkgrel=1
 pkgdesc="Cantarell font family"
 arch=('x86_64')
 url="https://git.gnome.org/browse/cantarell-fonts"
 license=('custom:SIL')
 #depends=()
-source=("https://download.gnome.org/sources/cantarell-fonts/${pkgver:0:3}/cantarell-fonts-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/cantarell-fonts/${pkgver:0:5}/cantarell-fonts-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
 
 build() {
-	cd "${srcdir}/cantarell-fonts-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
-
-	make
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/cantarell-fonts-${pkgver}"
+		
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/cantarell-fonts-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('c09c3ecb3d4c50f613234398fabd327ca92b8abbc27082e8e98f2944f3dd9f0c2ff4c022ff5e5503a86e724bb8e2fbf6cd081f8a29e91b4209f5bf0e32168c3e')
+sha512sums=('1cb4c3ca13e1bf2952ab2e19085f7c3fb655728ecefd18836c2aa4f1234572572f2aca2470eb1c7568d840ff0b59bb097216baea37c59af50bf48b395c74bcc3')

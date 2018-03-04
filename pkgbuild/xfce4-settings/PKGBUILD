@@ -7,7 +7,7 @@ url="https://xfce.org/"
 license=('GPL2')
 #depends=()
 #source=("http://archive.xfce.org/src/xfce/xfce4-settings/${pkgver:0:4}/xfce4-settings-${pkgver}.tar.bz2")
-source=("git://git.xfce.org/xfce/xfce4-settings#commit=571cb6d")
+source=("git://git.xfce.org/xfce/xfce4-settings#commit=8433ef5")
 
 prepare() {
 	cd "${srcdir}/xfce4-settings" #-${pkgver}"
