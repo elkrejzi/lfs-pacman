@@ -1,5 +1,5 @@
 pkgname=xorg-xkill
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="Kill a client by its X resource"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('14d1fc0eff96a62d66307f09efc599639ee70be4bf580e2857569326881bfdcae7a8a21640509875218dd2b88575b4801ab0c43c4295550dc71141a579483545')
+sha512sums=('4603a1794f114f5cea2c885020c9d073c8421d1e785c99ff6b936ae97139c8dac8020a187b5bbd0fa6d56ed6fab879441b42ba900cc5f2f5a534dafdc86b9249')

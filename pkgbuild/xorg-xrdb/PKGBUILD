@@ -1,5 +1,5 @@
 pkgname=xorg-xrdb
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="X server resource database utility"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8e2a177653d5aa895c71ed3640e0f1dd9fe8bf5cd6f0c6ff7e372394a2a41c3aa2286905fd9c69e3d140024d235b81a1f32b5d4012b1ac5ac1ed945599dee407')
+sha512sums=('20c342004ef911fc4d3ef4ac3ac15d1c30bb946b8156f3a6916c242e470be0cb63261563462fd1e2e07b1a7cc527b8cacf5f913e31b02196629a95043cf8d13f')

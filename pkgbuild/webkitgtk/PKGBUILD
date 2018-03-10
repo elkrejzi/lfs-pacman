@@ -1,5 +1,5 @@
 pkgname=webkitgtk
-pkgver=2.18.6
+pkgver=2.19.92
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
@@ -24,6 +24,7 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DPORT=GTK \
 		-DLIB_INSTALL_DIR=/usr/lib \
+		-DUSE_WOFF2=OFF \
 		"${srcdir}/webkitgtk-${pkgver}"
 
 	make
@@ -35,4 +36,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('375907d4c84e27aaa4b5df9a71424488c1b2ba0cf1d63e107d678c0f55f677996a80e9d9a9d4a412b40d1d0dde77b88464c54246cbafe70751042ec8a7bbe029')
+sha512sums=('148ef6e099dfc41834aee4b5f900095e9f37d4fd9c28ae7be330460ce695b3816e4a4ab3da4fc66781b0b7c9977952b8085f33d0377e6b611696c7724be87d19')

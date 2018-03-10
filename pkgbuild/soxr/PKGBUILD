@@ -1,5 +1,5 @@
 pkgname=soxr
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=1
 pkgdesc="The SoX Resampler library that aims to give fast and high quality results for any constant resampling ratio"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ee902c1bc713e05b748f917d78222b68b5fe01d43f405e0954c21ce4d1ee494d01000caa79f696cb8d202c662a4c4d958b332dae034d6f929e0480abf27cd07c')
+sha512sums=('f4883ed298d5650399283238aac3dbe78d605b988246bea51fa343d4a8ce5ce97c6e143f6c3f50a3ff81795d9c19e7a07217c586d4020f6ced102aceac46aaa8')

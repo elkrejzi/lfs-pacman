@@ -1,5 +1,5 @@
 pkgname=xorg-xwud
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="X Window System image undumping utility"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f3ef5fb0dc9c9e3dc3acfa597c1332263f62be5e524c7512600106e9d8eb5733231729853f6b123205367db52cb0a567320dff65d29743bf892e237795ebee57')
+sha512sums=('27a0ce7481978ae6cd94b0d94374af72185e270d68f2496620e148bb00945427c4827138d9efc48745e6382e3da3390ed0cdff7dbd02dcf9706e8ecccae97184')

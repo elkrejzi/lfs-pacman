@@ -1,0 +1,27 @@
+pkgname=gjs
+pkgver=1.51.92
+pkgrel=1
+pkgdesc="Javascript Bindings for GNOME"
+arch=('x86_64')
+url="http://live.gnome.org/Gjs"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gjs/${pkgver:0:4}/gjs-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gjs-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gjs-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/libexec"
+}
+
+sha512sums=('50fb503d566b29a16d74daf03b9b83d3d2f1ddf62928e3ab1d941d4e0aa5b543f36e42b78de880f675535b2e7395bd3047c55c0a7e2d4667732b2ccd500c766d')

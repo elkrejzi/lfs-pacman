@@ -1,5 +1,5 @@
 pkgname=xbitmaps
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="X.org Bitmap files"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('172a74014e699e5f295ae726a77f1669baf4ac00d64a138b77e5502102b2a02c10127f35ccea5b6af5479d17f60a6bb63ac0f943fd071ab8b396d43ef314ae61')
+sha512sums=('eed5e2fce9fc6c532984e6ed1262e440591e311ca6c61a7fe7a5c877df84bfc2d7aff388fb9c894fc098785b8e5352f0bd7c918252247a040cf123874847450d')

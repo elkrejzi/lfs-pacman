@@ -1,5 +1,5 @@
 pkgname=xorg-xpr
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="Print an X window dump from xwd"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4b88b71a6da835b8f27b185510cff6bc6b260e009b31b9118f12d77d37e660606654ff7ebd50014ff13f15ca74011cd3ffc12a417cea5e38d6d29ccc820a2957')
+sha512sums=('d5dfb936ec4ad0067d02654dec8e862fe337ff6a2c2f974b2b3a612a829c2e728a0d51e7aba00ed2a94dc96dc50cc69f2c59f522e0635013f5f4f5bb3f4ab967')

@@ -1,0 +1,36 @@
+pkgname=gnome-shell
+pkgver=3.27.92
+pkgrel=1
+pkgdesc="The next generation GNOME Shell"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeShell"
+license=('GPL2')
+#depends=()
+options=(emptydirs)
+source=("https://download.gnome.org/sources/gnome-shell/${pkgver:0:4}/gnome-shell-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dbrowser_plugin=false \
+		-Dgtk_doc=true \
+		"${srcdir}/gnome-shell-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('a48ffa0624d7b88a91f10b7f0e96564e92839f201396bd8733df7c4553091c3cf169b5c92b48b68ce0b42e0dc56535458e169f567ef44674ef66898f08617a31')

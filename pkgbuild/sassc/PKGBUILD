@@ -1,0 +1,31 @@
+pkgname=sassc
+pkgver=3.5.0
+pkgrel=1
+pkgdesc="Sass compiler written in C++"
+arch=('x86_64')
+url="http://sass-lang.com/libsass"
+license=('MIT')
+#depends=()
+source=("https://github.com/sass/sassc/archive/${pkgver}/sassc-${pkgver}.tar.gz")
+
+prepare() {
+	cd "${srcdir}/sassc-${pkgver}"
+
+	autoreconf -fi
+}
+
+build() {
+	cd "${srcdir}/sassc-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/sassc-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('9c94056f66688016dd8eaae9cc791be4b397406b89f1289946c4481b5e1904486878d22fd65e695ed89f9b41a9f902932eb4074e7b0923ce3d4823ea3140334f')

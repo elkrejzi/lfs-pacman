@@ -1,5 +1,5 @@
 pkgname=yelp
-pkgver=3.26.0
+pkgver=3.27.1
 pkgrel=1
 pkgdesc="Get help with GNOME"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 }
 
 
-sha512sums=('8c2423d39933d82036a2197e170c88ea4ed1ad5e421f5a1cc4b2f2f314393a82d42be1c763d353de1ae2adacb7ca879da79beeeb3c20fc66172867145762d5d0')
+sha512sums=('4710cb33eb26631650023c452299bfbc7936730e7ea7b2adecf8a40b35eec2157f00d0e8099e14ab097f9f99c66bf39afead337d55bd542c3ba0c00b4a5f0ac6')

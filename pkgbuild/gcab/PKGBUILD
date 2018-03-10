@@ -1,5 +1,5 @@
 pkgname=gcab
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="A GObject library to create cabinet files"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('688238590b5ef68f6245b304948d0107c84af7764f355e01b2239c5411cb7e2dbfb560d6887d6940ca4f8197355e65616a71a8a4acfa48d85d9110952c31f107')
+sha512sums=('c11bbf55cef89aebb04ba9abe7321b1a93f6332b0b3257078d6053942f183efc67f2ea8b67b50b8f82d668c12c940409a0d6da770f81b39c05aef11e49c580f9')

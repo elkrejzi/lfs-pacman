@@ -1,5 +1,5 @@
 pkgname=json-c
-pkgver=0.13
+pkgver=0.13.1
 pkgrel=1
 pkgdesc="A JSON implementation in C"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7375e1678e40f79298226d070db4ac3dab8a94c9d2438db1bbbcf668284ab30236fc77d841207c25f71cc2cebc596e1b8116d480434d829c8d96007a32ddf636')
+sha512sums=('e984db2a42b9c95b52c798b2e8dd1b79951a8dcba27370af30c43b9549fbb00008dbcf052a535c528209aaee38e6d1f760168b706905ae72f3e704ed20f8a1a1')

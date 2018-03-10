@@ -1,6 +1,6 @@
 pkgbase=libxcb
 pkgname=('libxcb' 'lib32-libxcb')
-pkgver=1.12
+pkgver=1.13
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -20,9 +20,7 @@ prepare() {
 build() {
 	cd "${srcdir}/libxcb-${pkgver}"
 
-	./configure --prefix=/usr \
-		--enable-xinput \
-		--disable-devel-docs
+	./configure --prefix=/usr --disable-devel-docs
 
 	cd "${srcdir}/libxcb32-${pkgver}"
 
@@ -31,7 +29,6 @@ build() {
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \
-		--enable-xinput \
 		--disable-devel-docs \
 		--libdir=/usr/lib32
 
@@ -63,4 +60,4 @@ package_lib32-libxcb() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('4ce3e3f62b7e1c3a9e61c149c720ef2a4a760539ea615d7d52ae39e7f5a08456dc87d7a1ac5d85ca15dcc468a9a02d56fb8f8f6361c959af9b8780f011995896')
+sha512sums=('d99bbe386a65f60fcc0cc2935e4a365bc0577b5e90433e18778a665a5aee8ebc8e9e8cb0aedac0ac4a276147c0507e759a716874ea4f80792b2fc18eefbc128c')

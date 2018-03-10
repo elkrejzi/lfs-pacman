@@ -1,5 +1,5 @@
 pkgname=xcursor-themes
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="X.org Cursor themes"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('14f83e1aa08b89469338d59b067aeca14d8edb3af4b077cb9358521340ac3fc75bdf512a7fe40fb5485ab613a8b885f91b6993035b4bb0525e64e1682ba17bd7')
+sha512sums=('f41e1de0d5deafba33106dcad81576d1888fca052a962c202f2221104aa2d8236b066d8d8fc3dcfbdc166db63f84e60980dfc54059b20a26c7415de71ed07a5b')

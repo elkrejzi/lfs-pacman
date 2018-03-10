@@ -1,0 +1,26 @@
+pkgname=rust
+pkgver=1.24.1
+pkgrel=1
+pkgdesc="Systems programming language focused on safety, speed and concurrency"
+arch=('x86_64')
+url="https://www.rust-lang.org/"
+license=('MIT' 'APACHE')
+#depends=()
+options=(!strip)
+source=("https://static.rust-lang.org/dist/rust-${pkgver}-x86_64-unknown-linux-gnu.tar.gz")
+
+package() {
+	cd "${srcdir}/rust-${pkgver}-x86_64-unknown-linux-gnu"
+
+	./install.sh --prefix=/usr --destdir="${pkgdir}" --disable-ldconfig
+
+	chmod 755 "${pkgdir}"/usr/lib/*.so
+	chrpath -d "${pkgdir}"/usr/lib/*.so
+
+	rm -rf "${pkgdir}/usr/etc" "${pkgdir}/usr/share/zsh"
+	rm -rf "${pkgdir}/usr/lib/rustlib/install.log"
+
+	sed -i "s#${pkgdir}##;s#${srcdir}##g" "${pkgdir}"/usr/lib/rustlib/manifest-*
+}
+
+sha512sums=('9011839b89937d899f55dc1a391cbdfdb67d3eb2e279684f0c01e08e351d02f91c8449e5f5bea96955f312b15772c1f7724e4384980ef9bfc93a85ebb4346ebb')

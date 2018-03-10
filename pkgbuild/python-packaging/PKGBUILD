@@ -1,0 +1,38 @@
+pkgbase=python-packaging
+pkgname=('python2-packaging' 'python3-packaging')
+pkgver=17.1
+pkgrel=1
+pkgdesc="Core utilities for Python packages"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/packaging/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/p/packaging/packaging-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/packaging-${pkgver}" "${srcdir}/packaging-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/packaging-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/packaging-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-packaging() {
+	cd "${srcdir}/packaging-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-packaging() {
+	cd "${srcdir}/packaging-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('52d2f482ae5cd0f8e7b3ac35c4b270ca736bc4f7ebaa569631d1dcb8ea024ee6f75127ca2aa3c95e686ebbd427de2ef4bc01bcd839591f7b4c1e26f9b8d9acb0')

@@ -1,0 +1,34 @@
+pkgname=evince
+pkgver=3.27.92
+pkgrel=1
+pkgdesc="Document viewer (PDF, Postscript, djvu, tiff, dvi, XPS, SyncTex support with gedit, comics books (cbr,cbz,cb7 and cbt))"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Evince"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/evince/${pkgver:0:4}/evince-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/evince-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-introspection \
+		--disable-compile-warnings \
+		--disable-schemas-compile
+
+	make
+}
+
+package() {
+	cd "${srcdir}/evince-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	install -v -dm755 "${pkgdir}/usr/lib/evince/mozilla"
+	mv -v "${pkgdir}/usr/lib/mozilla/plugins/libevbrowserplugin.so" "${pkgdir}/usr/lib/evince/mozilla"
+	ln -sfv ../../evince/mozilla/libevbrowserplugin.so "${pkgdir}/usr/lib/mozilla/plugins/libevbrowserplugin.so"
+}
+
+sha512sums=('ac36de8c130d385e53bb5c453ba56c6805970bf7f4ab2a41bcc9e1f13e7f29b9e02fb517a971bb88a647dfe9d22ea2336efc94fec2175d862fd6af19cf08899f')

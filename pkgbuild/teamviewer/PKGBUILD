@@ -1,5 +1,5 @@
 pkgname=teamviewer
-pkgver=13.0.6634
+pkgver=13.0.9865
 pkgrel=1
 pkgdesc="All-In-One Software for Remote Support and Online Meetings"
 arch=('x86_64')
@@ -38,4 +38,4 @@ package() {
 	done
 }
 
-sha512sums=('5f4f662ffc0499d3cbd8b6310999b34e14a324152dd9e75352879d8cf0e53058c035c9bad987af046aa6715d3b579ab3887f339e68db8ca71e11348b1703d78c')
+sha512sums=('08983ed34a6fe227bd7be5b03fb74c2b64c16a973034db2645d71e641c1855a9186fbddf6bbdae2db5e1258df0de8e252d49b4f1b0bb6aad8d357aced7a01984')

@@ -1,5 +1,5 @@
 pkgname=fdk-aac
-pkgver=0.1.5
+pkgver=0.1.6
 pkgrel=1
 pkgdesc="Fraunhofer FDK AAC codec library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('579e96dae5638cfe2d3d5e84ab24a72ed50ed3b5a9d3c6eb2f434d3a5f4c575877a2ecf6cd7cf7a528eb2811b2014a861eaaac9ea5fc617c6423587525766f00')
+sha512sums=('d4d14debeb6e424f4e2a1458ed7bebaa2c45ce54170c6e679286fd965f52286b6a6c1e944edbb4ea2302c3bb789c0f3cdab9c0d89618014ba4250b2f04d71d12')

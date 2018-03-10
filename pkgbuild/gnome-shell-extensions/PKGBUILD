@@ -1,0 +1,35 @@
+pkgname=gnome-shell-extensions
+pkgver=3.27.92
+pkgrel=1
+pkgdesc="Extensions for GNOME shell, including classic mode"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-shell-extensions/${pkgver:0:4}/gnome-shell-extensions-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dextension_set=all \
+		-Dclassic_mode=true \
+		"${srcdir}/gnome-shell-extensions-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('bbb5bc00df24338b0d932d8d2fb2ee3009bcabfd30d767ba4b4c09b80f0422659d28e676502348fc5bb337de4d3d5f52a736a87419b92315f3a4936bbe503428')

@@ -1,0 +1,25 @@
+pkgname=gnome-themes-extra
+pkgver=3.27.92
+pkgrel=1
+pkgdesc="Standard Themes for GNOME Applications"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-themes-extra"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-themes-extra/${pkgver:0:4}/gnome-themes-extra-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-themes-extra-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-themes-extra-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('5a03daee26aaa3237f0b9b6f152f6fa405ba3d0904559c8592931829422ab8f0e06b2bd42c5ec82de09fcf81ecebfc1995348ee5f0cdb6953dbf4514d1d46d53')

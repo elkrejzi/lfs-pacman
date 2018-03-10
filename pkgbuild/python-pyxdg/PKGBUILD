@@ -1,6 +1,6 @@
 pkgbase=python-pyxdg
 pkgname=('python2-pyxdg' 'python3-pyxdg')
-pkgver=0.25
+pkgver=0.26
 pkgrel=1
 pkgdesc="Implementations of freedesktop.org standards in Python"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-pyxdg() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('86cbf3a54fb8e79043db60dcdbb3fb10013ae25a900fa3592edc8a24bf3f440c19bc04626c7906293c785fcb56eab9d87d209b723b5baa872376ba1eb86758b6')
+sha512sums=('f5306e6e15af07df2599017500fc8ad83e722e5d5c6e4fda014aab1d77df92a3c3199a5be7a889faaecab72861e9910be9d80142d29856eb7a11f6ab9a923bd2')

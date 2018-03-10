@@ -1,5 +1,5 @@
 pkgname=xorg-xbacklight
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 pkgdesc="RandR-based backlight control application"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9a0afebea2fe155ab7d1ad00ef27566daeb7dc4fd47523511f1b8e8ac30977f938a08783bc0c7443fe92ebff1c17c68c78d44db08b32768d7831128130e0637d')
+sha512sums=('4dca70ef8e3494b19ea126c46395807cddc007b2b09a133810daeb77ae27fa36ac4eec7813828248fc195abe27f59700cfa58ee65ef3a020a51f73e5107678ec')

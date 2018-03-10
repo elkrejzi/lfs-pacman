@@ -1,0 +1,37 @@
+pkgname=gnome-control-center
+pkgver=3.27.92
+pkgrel=1
+pkgdesc="GNOME's main interface to configure various aspects of the desktop"
+arch=('x86_64')
+url="https://git.gnome.org/browse/gnome-control-center/"
+license=('GPL2')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-control-center/${pkgver:0:4}/gnome-control-center-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddocumentation=true \
+		"${srcdir}/gnome-control-center-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+
+	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
+	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
+}
+
+sha512sums=('7216052e02edbfce83d393f4a0548625f9e1c472cf8ea910a9e2db214e04a8934a9d2d655b089e475d01f0d67da6d62c0adc34a1544f9f1deb637d574d9d2f11')

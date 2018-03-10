@@ -1,0 +1,28 @@
+pkgname=gnome-terminal
+pkgver=3.27.92
+pkgrel=1
+pkgdesc="The GNOME Terminal Emulator"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/Terminal"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-terminal/${pkgver:0:4}/gnome-terminal-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-terminal-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--disable-migration
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-terminal-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('b7c4fd5122b397ea60feca141a2f790a2c98cab369f4f894c7e59437c02361a28ee06174446b34e1a57b955754278819d9c8d38495eef4bed3298b7ebf6687d6')

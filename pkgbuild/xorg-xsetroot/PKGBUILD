@@ -1,5 +1,5 @@
 pkgname=xorg-xsetroot
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Classic X utility to set your root window background to a given pattern or color"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('04834a8ca658a4aabe03e62588353102e8019d424e25fab450d48e6fc4ac358df5bb98a850c82c61e2495faabfe54f3d92d9563e77c83ace7fd69c278edbbd64')
+sha512sums=('0b9df1b72305e5c24f1e1664578aa4411a5ffcdc5d318458117594e641f01c34700205b0d16c08abf4a8106d36128ccdbe1ea1f1035fce9018d6b52801a8b72b')

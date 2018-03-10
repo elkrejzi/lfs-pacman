@@ -1,5 +1,5 @@
 pkgname=libwacom
-pkgver=0.28
+pkgver=0.29
 pkgrel=1
 pkgdesc="Library to identify Wacom tablets and their features"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	tools/generate-udev-rules > "${pkgdir}/usr/lib/udev/rules.d/65-libwacom.rules"
 }
 
-sha512sums=('8bc09da6671e5766591ad6b37afe76ae1b48c75b9bc69d67d9a285a83030da26a9a13950b7811103db6d0e328a20afb743ded9efd23d2f338552e4b7d7be2075')
+sha512sums=('22fb7610a21a577d7ebc567e14ed1135b883723bc6c37adda540915261ebaea2365e4ab19339beefe6c412ba3c45e85b958129ddb24bff8ec73338b7a63a70ff')

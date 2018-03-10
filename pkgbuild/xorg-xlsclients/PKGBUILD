@@ -1,5 +1,5 @@
 pkgname=xorg-xlsclients
-pkgver=1.1.3
+pkgver=1.1.4
 pkgrel=1
 pkgdesc="List client applications running on a display"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4266068b96bb0bf565021fbda726511a387800fcc81b6b53f3fb847ca6a4de50811f66ca1423a56414619ad6f3b4d2dfb235106a1eacf9e5def8cf49c2b2ba85')
+sha512sums=('42fd848d88d3cf31168a37fed63f9f5b60ddc4f36be2956b354e574c93129d75f29e005d6631784380bcef27860b54c64f419ca18ad77f092f4520dec47b10f4')

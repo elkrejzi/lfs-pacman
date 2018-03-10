@@ -1,6 +1,6 @@
 pkgbase=python-imagesize
 pkgname=('python2-imagesize' 'python3-imagesize')
-pkgver=0.7.1
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Getting image size from png/jpeg/jpeg2000/gif file"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-imagesize() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('61ff92167cc90bb1dcc78bb358419a526f09dc567709548bbe399694aa15dab63744f56c67bf33a940f5f443fd3a5ddc08ef9e17799b6fede1b11c0ad6a17f75')
+sha512sums=('1111d284cfdb8b14bc09dd0dd569434c62225f0b8da5ca5c00a740fce095c382efafcba73a4000e38b91418775518707693675c2d3c2dafb1036fc4aadb91e64')

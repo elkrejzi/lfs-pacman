@@ -1,0 +1,41 @@
+pkgname=google-chrome
+pkgver=65.0.3325.146
+pkgrel=1
+pkgdesc="An attempt at creating a safer, faster, and more stable browser "
+arch=('x86_64')
+url="https://www.google.com/chrome"
+license=('custom:chrome')
+#depends=()
+options=(!strip)
+source=("https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb")
+
+pkgver() {
+	cd "${srcdir}"
+
+	bsdtar xf control.tar.gz
+	grep Version control | awk '{print $2}' | cut -d \- -f 1
+}
+
+package() {
+	cd "${srcdir}"
+
+	bsdtar xf data.tar.xz
+
+	rm -rf opt/google/chrome/cron
+	rm -rf opt/google/chrome/product_logo_32.xpm
+	rm -rf opt/google/chrome/xdg-*
+
+	for s in 16 22 24 32 48 64 128 256
+	do
+		install -v -Dm644 opt/google/chrome/product_logo_${s}.png "${pkgdir}/usr/share/icons/hicolor/${s}x${s}/apps/google-chrome.png"
+		rm -rf opt/google/chrome/product_logo_${s}.png
+	done
+
+	mv -v usr/bin "${pkgdir}/usr"
+	mv -v usr/share/{applications,gnome-control-center,man} "${pkgdir}/usr/share"
+	mv -v opt "${pkgdir}"
+
+	ln -sfv google-chrome-stable "${pkgdir}/usr/bin/google-chrome"
+}
+
+sha512sums=('SKIP')

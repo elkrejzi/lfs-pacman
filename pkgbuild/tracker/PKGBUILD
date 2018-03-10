@@ -1,0 +1,27 @@
+pkgname=tracker
+pkgver=2.0.3
+pkgrel=1
+pkgdesc="Desktop-neutral user information store, search tool and indexer"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Tracker"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/tracker/${pkgver:0:3}/tracker-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/tracker-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/tracker-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('7e7dadea0ad8cd7ada47bc7b64b031fa32f57570d17b9325e23aa60c589d2f6b5e20eb0bf86087defdf1bb55fa2f83ddc45822671c0452ccf51227f899ce7805')

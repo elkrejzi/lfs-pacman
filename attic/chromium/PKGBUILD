@@ -1,0 +1,211 @@
+pkgname=chromium
+pkgver=65.0.3325.148
+_launcher_ver=5
+pkgrel=1
+pkgdesc="A web browser built for speed, simplicity, and security"
+arch=('x86_64')
+url="https://www.chromium.org/Home"
+license=('BSD')
+#depends=()
+source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
+	"https://github.com/foutrelis/chromium-launcher/archive/v${_launcher_ver}/chromium-launcher-${_launcher_ver}.tar.gz"
+	"chromium-${pkgver}.txt::https://chromium.googlesource.com/chromium/src.git/+/${pkgver}?format=TEXT"
+	"chromium.desktop"
+	"chromium-clang-r2.patch"
+	"chromium-clang-r3.patch"
+	"chromium-ffmpeg-clang.patch"
+	"chromium-math.h-r0.patch"
+	"chromium-skia-harmony.patch"
+	"chromium-stdint.patch"
+	"chromium-webrtc-r0.patch"
+	"chromium-vaapi-init-r16.patch"
+	"chromium-vaapi-r16.patch")
+
+_system_libs=(
+  flac
+  fontconfig
+  freetype
+  harfbuzz-ng
+  icu
+  libdrm
+  libjpeg
+  libvpx
+  libwebp
+  libxslt
+  opus
+  yasm
+  zlib
+)
+
+# ffmpeg
+# libpng
+# libxml
+
+_config=(
+	'custom_toolchain="//build/toolchain/linux/unbundle:default"'
+	'host_toolchain="//build/toolchain/linux/unbundle:default"'
+	'is_debug=false'
+	'enable_nacl=false'
+	'enable_hangout_services_extension=true'
+	'enable_widevine=true'
+	'use_cups=true'
+	'use_gnome_keyring=false'
+	'use_gtk3=true'
+	'use_kerberos=true'
+	'use_pulseaudio=true'
+	'fieldtrial_testing_like_official_build=true'
+	'is_clang=true'
+	'clang_use_chrome_plugins=false'
+	'use_gold=false'
+	'use_lld=false'
+	'use_sysroot=false'
+	'linux_use_bundled_binutils=false'
+	'use_custom_libcxx=false'
+	'proprietary_codecs=true'
+	'ffmpeg_branding="Chrome"'
+	'treat_warnings_as_errors=false'
+	'fatal_linker_warnings=false'
+	'use_vaapi=true'
+)
+
+if [ "$(hostname)" == "krejzi" ]
+then
+	. /media/ntfs/chromium-api.sh
+
+	_config+=(
+		"google_api_key=\"${_google_api_key}\""
+		"google_default_client_id=\"${_google_default_client_id}\""
+		"google_default_client_secret=\"${_google_default_client_secret}\""
+	)
+fi
+
+prepare() {
+	cd "${srcdir}/chromium-${pkgver}"
+
+	# https://crbug.com/710701
+	local _chrome_build_hash=$(base64 -d "${srcdir}/chromium-${pkgver}.txt" | grep -Po '^parent \K[0-9a-f]{40}$')
+	if [ -z $_chrome_build_hash ]
+	then
+		error "Unable to fetch Chrome build hash"
+		return 1
+	fi
+	echo "LASTCHANGE=$_chrome_build_hash-" > build/util/LASTCHANGE
+
+	# https://crbug.com/skia/6663#c10
+	patch -Np4 -i "${srcdir}/chromium-skia-harmony.patch"
+
+	# Fixes from Gentoo
+	patch -Np1 -i "${srcdir}/chromium-clang-r2.patch"
+	patch -Np1 -i "${srcdir}/chromium-clang-r3.patch"
+	patch -Np1 -i "${srcdir}/chromium-ffmpeg-clang.patch"
+	patch -Np1 -i "${srcdir}/chromium-math.h-r0.patch"
+	patch -Np1 -i "${srcdir}/chromium-stdint.patch"
+	patch -Np1 -i "${srcdir}/chromium-webrtc-r0.patch"
+
+	sed -i "/-Wno-enum-compare-switch/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-null-pointer-arithmetic/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-tautological-unsigned-zero-compare/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wno-tautological-constant-compare/d" build/config/compiler/BUILD.gn
+
+	# Just annoying
+	sed -i "/-Wtautological-unsigned-enum-zero-compare/d" build/config/compiler/BUILD.gn
+	sed -i "/-Wtautological-type-limit-compare/d" build/config/compiler/BUILD.gn
+
+	# WineVine CDM
+	sed -i '/WIDEVINE_CDM_AVAILABLE/a#define WIDEVINE_CDM_VERSION_STRING "Pinkie Pie"' \
+		third_party/widevine/cdm/stub/widevine_cdm_version.h
+
+	# VA-API patch
+	patch -Np1 -i "${srcdir}/chromium-vaapi-init-r16.patch"
+	patch -Np1 -i "${srcdir}/chromium-vaapi-r16.patch"
+
+	install -v -dm755 third_party/node/linux/node-linux-x64/bin
+	ln -sfv /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
+
+	for _lib in ${_system_libs[@]} libjpeg_turbo
+	do
+		find -type f -path "*third_party/${_lib}/*"        \
+			\! -path "*third_party/${_lib}/chromium/*" \
+			\! -path "*third_party/${_lib}/google/*"   \
+			\! -path './base/third_party/icu/*' \
+			\! -path './third_party/pdfium/third_party/freetype/include/pstables.h' \
+			\! -path './third_party/yasm/run_yasm.py' \
+			\! -regex '.*\.\(gn\|gni\|isolate\)' \
+			-delete
+	done
+
+	python build/linux/unbundle/replace_gn_files.py --system-libraries ${_system_libs[@]}
+}
+
+build() {
+	cd "${srcdir}/chromium-launcher-${_launcher_ver}"
+
+	make
+
+	cd "${srcdir}/chromium-${pkgver}"
+
+	export TMPDIR="${srcdir}/temp"
+	install -v -dm755 "${TMPDIR}"
+
+	export AR=ar
+	export NM=nm
+
+	CFLAGS+="   -fno-unwind-tables -fno-asynchronous-unwind-tables"
+	CXXFLAGS+=" -fno-unwind-tables -fno-asynchronous-unwind-tables"
+	CPPFLAGS+=" -DNO_UNWIND_TABLES"
+
+	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_config[*]}"
+	out/Release/gn gen out/Release --args="${_config[*]}"
+
+	ninja -C out/Release chrome chrome_sandbox chromedriver widevinecdmadapter
+}
+
+package() {
+	cd "${srcdir}/chromium-launcher-${_launcher_ver}"
+
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
+
+	cd "${srcdir}/chromium-${pkgver}"
+
+	install -v -Dm755 out/Release/chrome "${pkgdir}/usr/lib/chromium/chromium"
+	install -v -Dm4755 out/Release/chrome_sandbox "${pkgdir}/usr/lib/chromium/chrome-sandbox"
+
+	install -v -Dm755 out/Release/chromedriver "${pkgdir}/usr/lib/chromium/chromedriver"
+	install -v -Dm755 out/Release/libwidevinecdmadapter.so "${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so"
+
+	ln -sfv ../lib/chromium/chromedriver "${pkgdir}/usr/bin/chromedriver"
+
+	if [ -e "out/Release/icudtl.dat" ]
+	then
+		install -v -Dm644 out/Release/icudtl.dat "${pkgdir}/usr/lib/chromium/icudtl.dat"
+	fi
+
+	cp -a out/Release/*.pak out/Release/*.bin "${pkgdir}/usr/lib/chromium"
+
+	install -v -dm755 "${pkgdir}/usr/lib/chromium/locales"
+	cp -a out/Release/locales/*.pak "${pkgdir}/usr/lib/chromium/locales"
+
+	install -v -Dm644 chrome/installer/linux/common/desktop.template \
+		"${pkgdir}/usr/share/applications/chromium.desktop"
+	install -v -Dm644 chrome/app/resources/manpage.1.in \
+		"${pkgdir}/usr/share/man/man1/chromium.1"
+
+	sed -i  -e "s#@@MENUNAME@@#Chromium#g" \
+		-e "s#@@PACKAGE@@#chromium#g" \
+		-e "s#@@USR_BIN_SYMLINK_NAME@@#chromium#g" \
+		"${pkgdir}/usr/share/applications/chromium.desktop" \
+		"${pkgdir}/usr/share/man/man1/chromium.1"
+
+	for size in 16 32
+	do
+		install -v -Dm644 "chrome/app/theme/default_100_percent/chromium/product_logo_${size}.png" \
+			"${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+	done
+
+	for size in 22 24 48 64 128 256
+	do
+		install -v -Dm644 "chrome/app/theme/chromium/product_logo_${size}.png" \
+			"${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+	done
+}
+

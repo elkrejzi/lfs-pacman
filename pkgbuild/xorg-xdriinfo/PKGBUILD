@@ -1,5 +1,5 @@
 pkgname=xorg-xdriinfo
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 pkgdesc="Query configuration information of DRI drivers"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6b7a3641f488d305f950c494464fd4b674ab3aaed5c7159d6d8ddad4587c18d680e5854bd80666444f1dee52eb4f46b45709a6d9c333593fe045c73e738524de')
+sha512sums=('7ddd9e19abaef93e4d85004293528ec3814ef84c470d496dbb8dc8313d804bb7520406de8d33d2bc2b3af942bd0a5d5032a109b2726438a966af63ea680a102f')

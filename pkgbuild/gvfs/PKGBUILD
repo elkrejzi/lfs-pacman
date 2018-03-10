@@ -1,5 +1,5 @@
 pkgname=gvfs
-pkgver=1.34.2
+pkgver=1.35.92
 pkgrel=1
 pkgdesc="Virtual filesystem implementation for GIO"
 arch=('x86_64')
@@ -8,23 +8,31 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/gvfs/${pkgver:0:4}/gvfs-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gvfs-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dafc=false \
+		-Dman=true \
+		"${srcdir}/gvfs-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gvfs-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	chown 27:root "${pkgdir}/usr/share/polkit-1/rules.d"
 	chmod 700 "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-sha512sums=('c5a5e3a75e0eb5ebade4f2374381e2488b54c99a0c6bdea1625173b138b55c09d823f12040a3b1abf5ffa331118b26993ae1cbc6d38802ac5028ce441a365c00')
+sha512sums=('c2a6ce7ac7edc4b8d9be68ccfd7b04fe290dc898d5f0c009c2e76975ffadba927be955918515eb15536fbeb169ad50c065149ff7dd6f4e5105ba6b1871933c79')

@@ -1,5 +1,5 @@
 pkgname=xcb-proto
-pkgver=1.12
+pkgver=1.13
 pkgrel=1
 pkgdesc="XML-XCB protocol descriptions"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1f427eaf223971b25b56c9f641350e03f5ebeb17a1fc212ce2a0c892de7aba7e53d5e3958b073a122bb344c387c0ff394cf96f542ff046f33de4e1cd27fb9e5c')
+sha512sums=('002aa2aa0ad503977e03419c6f136f1e3aa8c787916830ce6d6be8f81ca99edc1d8fc5f71ce8c592b490cc767bf6567695f0bafe55fe3f743076bcddbaac07f7')

@@ -6,7 +6,7 @@ rm -rf /media/ntfs /tools
 
 userdel pkgbuild
 
-systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager NetworkManager NetworkManager-dispatcher org.cups.cupsd rtkit-daemon systemd-timesyncd teamviewerd upower vcsFPService wpa_supplicant
+systemctl enable accounts-daemon avahi-daemon bluetooth ModemManager NetworkManager NetworkManager-dispatcher org.cups.cupsd rtkit-daemon systemd-timesyncd teamviewerd upower wpa_supplicant
 systemctl enable sshd.socket
 
 install -dm755 /media/ntfs /media/other /media/win

@@ -1,5 +1,5 @@
 pkgname=libgweather
-pkgver=3.26.1
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Location and timezone database and weather-lookup library"
 arch=('x86_64')
@@ -8,20 +8,31 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/libgweather/${pkgver:0:4}/libgweather-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/libgweather-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	sed -i 's#from "@filename@"##' libgweather/gweather-enum-types.h.tmpl
+}
 
-	make
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		"${srcdir}/libgweather-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libgweather-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('7d8566d5f62c7086826381ce825cd86a58cf362116d0e8fbb8b64b9781118c71663394416f7f08882f0c9d53a6aecef86b6d0c00be12983e754d81e57ad03079')
+sha512sums=('2ae53c22c3ded7df58ec6429d9f77187c3d3195108704df40a9b1027fe8a59c6d75ebb77e81398a1e308580ae9da856e453f98c2901c4fd913fda6b26604da4a')

@@ -1,5 +1,5 @@
 pkgname=gnome-autoar
-pkgver=0.2.2
+pkgver=0.2.3
 pkgrel=1
 pkgdesc="Automatic archives creating and extracting library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('78faf8f82eeab4cb5f1f364d6e9caa4d24f21f9b81a79ebde4404253f3e7ae120f44600f236612859810afc6fc6f1a8c6f2e065db98be79103255642139c10a2')
+sha512sums=('f87299817c52e7862a6c1cc950b1c362db8e7465e008d988e70245a203c728a9179400aac8601c399abe361e5a1ac4558b1190641ad3afa7224f883546fae7bc')

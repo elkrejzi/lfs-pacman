@@ -1,5 +1,5 @@
 pkgname=xorg-xwd
-pkgver=1.0.6
+pkgver=1.0.7
 pkgrel=1
 pkgdesc="X Window System image dumping utility"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8fb86cbe163631fdb3f49ad6bb648ea599d7c5f9b11aba7e88afb86daed34cab88dcba057e0c5ca3e4e5904598b279f5a68ad43a64dd1053d647aa78523a806f')
+sha512sums=('6fdb0a115ae505169bbc7fcc45580daf26bced2e26e0bf9a877636016038931a8386e8edcbe015f4024be508d0461906adef4834cf22a445e3c282f0b8fad17e')

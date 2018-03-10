@@ -1,19 +1,14 @@
 pkgbase=libxml2
 pkgname=('libxml2' 'lib32-libxml2')
-pkgver=2.9.7
+pkgver=2.9.8
 pkgrel=1
 arch=('x86_64')
 url="http://www.xmlsoft.org/"
 license=('MIT')
 #depends=()
-source=("http://xmlsoft.org/sources/libxml2-${pkgver}.tar.gz"
-	"libxml2-remove-pyverify_fd.patch")
+source=("http://xmlsoft.org/sources/libxml2-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/libxml2-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/libxml2-remove-pyverify_fd.patch"
-
 	cp -a "${srcdir}"/libxml2{,32}-${pkgver}
 }
 
@@ -65,5 +60,4 @@ package_lib32-libxml2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('da06cb7c5032ef4b7c8e902fabb9d2c74634c42c161be07a7c66a00d53a68029f89b0d4de32a6b9d4ff338c2d1d9c4e53aefb9cf50cb1c2d6c6b06b442ef42d5'
-            '05c909c890ccc8db6cfc8890250085e2ff01c2e6c80995af1bd0a642f5665731188ffe9eeac4f2e28bce281cbd8fe28ef6a9bf106ea982a785da9dca548a65c9')
+sha512sums=('28903282c7672206effa1362fd564cbe4cf5be44264b083a7d14e383f73bccd1b81bcafb5f4f2f56f5e7e05914c660e27668c9ce91b1b9f256ef5358d55ba917')
