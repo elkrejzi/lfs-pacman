@@ -1,5 +1,5 @@
 pkgname=dconf
-pkgver=0.26.1
+pkgver=0.28.0
 pkgrel=1
 pkgdesc="Configuration database system"
 arch=('x86_64')
@@ -11,15 +11,20 @@ source=("https://download.gnome.org/sources/dconf/${pkgver:0:4}/dconf-${pkgver}.
 build() {
 	cd "${srcdir}/dconf-${pkgver}"
 
-	./configure --prefix=/usr --sysconfdir=/etc
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-gtk-doc=true \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/dconf-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('4d2b4afce189e448e3bd4e9c2f9d3d5eec6c694748aec87a9a8de047296c858772a5234dbcace8e84d99c5378d2d1ba35cafb5e5ea7efca25c10a53a55b8b6da')
+sha512sums=('bce43c997bd09ef575ffc4ec7a4216543a65996ecb4c7df910b561865a6ed0e0401596a0ba9e72036e26cd526f98e0de99f9c6787b1127594bc13e484983ba74')

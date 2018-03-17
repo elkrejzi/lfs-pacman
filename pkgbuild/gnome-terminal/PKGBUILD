@@ -1,5 +1,5 @@
 pkgname=gnome-terminal
-pkgver=3.27.92
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b7c4fd5122b397ea60feca141a2f790a2c98cab369f4f894c7e59437c02361a28ee06174446b34e1a57b955754278819d9c8d38495eef4bed3298b7ebf6687d6')
+sha512sums=('4928f847a27f4e88f1030775eafd0e48e174f5665e45f2ce3db4c3d3a4b55ce8b0a9e2df1c4f4e6452983d6058856d1dcbc3b3bbb4173db51e2619495760b8ff')

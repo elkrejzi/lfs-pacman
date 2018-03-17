@@ -1,5 +1,5 @@
 pkgname=gnome-settings-daemon
-pkgver=3.27.92
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('ac4a80ec65a96eb64e809d451d695b8001f5f1c93f0c89415d605297d8fb4614caad04e2ae6c2c01b90e7f16bc481495a9221027f2b447e1568d69167af053ed')
+sha512sums=('4d1c69c382aa1452ccb3a1fe54e540ddd8f8f9782c5e4274f9dc01b9d4c0b4bd7a84340d6b5463347a93643e2e53aac6ea816f998f1d7b861966ef47429725b9')

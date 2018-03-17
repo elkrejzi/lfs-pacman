@@ -1,5 +1,5 @@
 pkgname=evolution-data-server
-pkgver=3.27.92
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Centralized access to appointments and contacts"
 arch=('x86_64')
@@ -39,4 +39,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('bd48a3c62a7ab90ce04743a9312ae28ec08796d0a71ebb4e3ea55e3d5f42e30828aa128c0453aa4284b796982f898d16d77aab390ddb44665e355da8c30f9a34')
+sha512sums=('4fa9b7d81ba9e3b730a4a9175f450fe34f44e10c06ae460166d79c12b812bc07de21aeff4749387a93a86530cf119dac583291bc1dff3e3a8ef36741ad8a139e')

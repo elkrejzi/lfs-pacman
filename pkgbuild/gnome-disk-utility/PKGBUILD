@@ -1,5 +1,5 @@
 pkgname=gnome-disk-utility
-pkgver=3.27.92
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Disk Management Utility for GNOME"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('418d6675b1e0ad80d212cc3a4c4e85c594b51c379407e6ddacfd070ad975abc149f2849830c737f1f1828f5bf91f94a973916e9f5fec356a12d0f85f60a6164e')
+sha512sums=('53686c043c2605b26921442712e8541a30f2571f9cfceca18ae0d24dc8511f8dff8a70d23cd71f51a5ef43bd277a0bd71b053c7763baa1adc5bd3f1efb9ffb88')

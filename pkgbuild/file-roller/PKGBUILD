@@ -1,5 +1,5 @@
 pkgname=file-roller
-pkgver=3.27.91
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Create and modify archives"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('b30356c209c11ccd6b13fae9e94ca1116f008a6487ad587ed35f8e41bb6936c77f0095a6ff6c61ddf9dd7d992e1ecfb221969a1fc77258764e35475604216565')
+sha512sums=('dca10eecb3e987b72688ef4ba1af2c1ba71ef305ee54596f32ff6ee09932e353bdc8bd969f96c2543e71e150ab98ff88cb9d9c86e086bbc19af3e720679bd7b1')

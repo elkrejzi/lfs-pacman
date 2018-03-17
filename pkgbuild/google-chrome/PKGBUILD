@@ -1,5 +1,5 @@
 pkgname=google-chrome
-pkgver=65.0.3325.146
+pkgver=65.0.3325.162
 pkgrel=1
 pkgdesc="An attempt at creating a safer, faster, and more stable browser "
 arch=('x86_64')

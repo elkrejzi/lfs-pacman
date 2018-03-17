@@ -1,5 +1,5 @@
 pkgname=gsettings-desktop-schemas
-pkgver=3.27.92
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Shared GSettings schemas for the desktop"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('02b2f89bfe2f9528e0d4f4826a1e08e3b300ccbbf881bdc80ca0a46f2aa766289a811a4e079e065f01fd384288d6bec31301b7df97a84a1f9268e0f4f4b1d0eb')
+sha512sums=('83728c1645303a92a44429fe26eca85e156d7cdf61687f758e3189df875d022d945686de52e5d3df1e69e8372b0432ed8916bdaa40bb3ba80cd8691a6e02232b')

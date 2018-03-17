@@ -1,6 +1,6 @@
 pkgbase=libtirpc
 pkgname=('libtirpc' 'lib32-libtirpc')
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 arch=('x86_64')
 url="http://libtirpc.sourceforge.net/"
@@ -9,12 +9,6 @@ license=('BSD')
 source=("https://downloads.sourceforge.net/sourceforge/libtirpc/libtirpc-${pkgver}.tar.bz2")
 
 prepare() {
-	cd "${srcdir}/libtirpc-${pkgver}"
-
-	sed -i "/stdlib.h/a #include <stdint.h>" src/xdr_sizeof.c
-	sed -i "s#key_secret_is_set#key_secretkey_is_set#g" src/libtirpc.map
-	sed -i "s#__bzero (schedule,#memset (schedule, 0,#g" src/des_impl.c
-
 	cp -a "${srcdir}"/libtirpc{,32}-${pkgver}
 }
 
@@ -64,5 +58,4 @@ package_lib32-libtirpc() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-
-sha512sums=('6c819019a8e81d8263d3c509b2eee59ba1ef092222c5a0a8d28f004c711afa252097eca7e6b0b919b2d780883dfd9ee7a363df4cee7fd2c9159a065257637cec')
+sha512sums=('1f1cf7dd6f30ddddc919e4caf6db926f1d532f78d5a93e8aaa2acde6b046be0650c4c46549da0ffd5fa7fb9e550af1a871ed6e02ededf504c6667d2e82eba2cc')

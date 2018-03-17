@@ -1,5 +1,5 @@
 pkgname=nautilus
-pkgver=3.27.92.1
+pkgver=3.28.0.1
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('4601a74395fcbf411a0bde4c450474dfee210be0ed3e012e37fe67c3b10cbdd43f98bc85f9807436ed42eff5f9bfc0cc4d47e6ed1b69bce67ca415bacf25fa31')
+sha512sums=('1a1db1f0c657f880575c9327b48a517263cfce8461da5bc1d8f3deeff6d5039256e18b12d040052423c2fcbc3fb5a568f5478eaeeb36f72bc4339858308584ab')

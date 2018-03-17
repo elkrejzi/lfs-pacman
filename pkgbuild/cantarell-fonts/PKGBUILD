@@ -1,5 +1,5 @@
 pkgname=cantarell-fonts
-pkgver=0.100
+pkgver=0.101
 pkgrel=1
 pkgdesc="Cantarell font family"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('1cb4c3ca13e1bf2952ab2e19085f7c3fb655728ecefd18836c2aa4f1234572572f2aca2470eb1c7568d840ff0b59bb097216baea37c59af50bf48b395c74bcc3')
+sha512sums=('52dbd8358de7e20146e627ab0b1298efb97ee335e45d8e63bab7c3a7d05314d0bb94ac448e34af4c6f7212623185a9e03a30eb24acee4915142e40af0086bbfb')

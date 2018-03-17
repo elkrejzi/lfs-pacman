@@ -1,5 +1,5 @@
 pkgname=zenity
-pkgver=3.27.90
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Display graphical dialog boxes from shell scripts"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('08c4bab9232d2c4a9b94eec5bdb630a7875140e8231bc58370379c11510861aaa8d119b0b36cf6673bb4e0ab2f341e426c3438c99356fc43e48e003e30bc47a9')
+sha512sums=('a94e1d0506d379cf60c6afe09ba73b04f9e3e8f616eea6183bf3dbd69b74695ed6d875ec63ad5c99578c80529cd62edf3f6132ade6f1ee2eaf2d9b2e582b6ba0')

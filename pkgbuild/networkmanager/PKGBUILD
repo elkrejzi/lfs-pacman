@@ -1,5 +1,5 @@
 pkgname=networkmanager
-pkgver=1.10.4
+pkgver=1.10.6
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=('x86_64')
@@ -43,6 +43,6 @@ package() {
 	install -v -Dm644 "${srcdir}/NetworkManager.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/NetworkManager.conf"
 }
 
-sha512sums=('d093a028eeb0e4d28de0e030a2f37d2a600651918ecae667cd5bb585377932fc9b905c9cca4aaffbad72ea95362750aa8851c56afe9b9a58723ec335f4984009'
+sha512sums=('8406ed561efff13b63dc218babdd2ad9e2816bcc829ba3ef2ce942bb5fa027640de28660381203016fa9cddb61412d3cd5102b7cbd29d0e284b5cb8d13dd8610'
             '6fb1f8ecc6a84e93be257bf0361416cfcfac080549de4c8f106e51017a511fdbc154234cae2a14cc4a37101db8bb05f4fcbb77ec1f3ce86d65719fb14e4ddfb6'
             '61ce398a21f1cadb0e1d29dc4a1254d23153a637ae500e884e1fb8a043c06d5f9f765b8d941a8bbf12bfa3fbada8ace6d0420c4ded82833bff9eaa7978eddc01')

@@ -1,6 +1,6 @@
 pkgbase=glib
 pkgname=('glib' 'lib32-glib')
-pkgver=2.55.2
+pkgver=2.56.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.gtk.org/"
@@ -9,7 +9,6 @@ license=('LGPL')
 options=(emptydirs)
 source=("https://download.gnome.org/sources/glib/${pkgver:0:4}/glib-${pkgver}.tar.xz"
 	"glib-compile-schemas-quiet.patch"
-	"meson-fixes.patch"
 	"gio-querymodules.hook"
 	"gio-querymodules32.hook"
 	"glib-compile-schemas.hook")
@@ -20,7 +19,6 @@ prepare() {
 	cd "${srcdir}/glib-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/glib-compile-schemas-quiet.patch"
-	patch -Np1 -i "${srcdir}/meson-fixes.patch"
 
 	install -v -dm755 "${srcdir}"/build{32,64}
 }
@@ -93,9 +91,8 @@ package_lib32-glib() {
 	install -v -Dm644 "${srcdir}/gio-querymodules32.hook" "${pkgdir}/usr/share/libalpm/hooks/gio-querymodules32.hook"
 }
 
-sha512sums=('07fbb6b948200c7c73ef5e1e4ed76709f263acad1bfa572e9e88ad93098dbaa8159271dc6eaabc8f843200b68f8a1423c92b4c9d848412560ff6711e49408aab'
+sha512sums=('c7d7531c55dc81dbf60607e19550a3a841575f6b881dbadad1c251535b34b4444c47c4e3ccabdf468b12a8a6f41cd3fd2d4d827e764f41e7c0e1e73276740d48'
             'e9a7dc8f9d78630c32a99181b556b5a4ef70c08ab059a23cf148d7084d81a82d48994ecd91f6f7bed9cbe34a1bd84fff3d9218984474b54e3da5cdec9923c705'
-            '1fda1df842eda45e2c3c989c0253fb1484d95476befe884099f08a3395d227d130fb94a2b02f098e0290a1c9c4662f3dabd9208ee0351da1918a5dcd767b282f'
             '5afd6f275c8fff16df3e685818f2e7989b39ffb3b8f5fc261a5a6d54a9b28ef53af62f3bf5067cf87cb74691572f85730cbc508691956ae048a0f3ecc1a0a39c'
             '1ea3011bbf658c71fce167399775cca4ec7fd6267cbea9dc39555c10636035dd56391208a56c35e84f127ad23fd7126e025ea8e7de9ba5cd6912ac984a8b60af'
             'c04fe25afc217c295b5ce4034733cec046126482d00fb8d0299e4815ac57129dd3f1c9ac824b9386d208a4f113e9dae682ea5b72f75387ed6b6b96a9cbbee8ca')

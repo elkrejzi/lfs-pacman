@@ -1,5 +1,5 @@
 pkgname=gnome-shell-extensions
-pkgver=3.27.92
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Extensions for GNOME shell, including classic mode"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('bbb5bc00df24338b0d932d8d2fb2ee3009bcabfd30d767ba4b4c09b80f0422659d28e676502348fc5bb337de4d3d5f52a736a87419b92315f3a4936bbe503428')
+sha512sums=('9f5f331b16cb13dd6856a677a940cb876f73371fa3d46758979790432e19fb0d809cc0d76dcf3fd5ad6091de61fcb5d45e211dc51665c195bf354b62998bee54')

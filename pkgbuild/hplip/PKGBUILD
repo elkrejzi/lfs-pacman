@@ -1,5 +1,5 @@
 pkgname=hplip
-pkgver=3.17.11
+pkgver=3.18.3
 pkgrel=1
 pkgdesc="Drivers for HP DeskJet, OfficeJet, Photosmart, Business Inkjet and some LaserJet"
 arch=('x86_64')
@@ -34,4 +34,4 @@ package() {
 	rm -rf "${pkgdir}/etc/xdg" "${pkgdir}/usr/share/hal"
 }
 
-sha512sums=('29899d58959d49a0b5e730520ef598f245570b084db33d322859b4773a934167387893888a5829c5cfd5a2e4b66848b173fc7c60973fccdb6d3f854105ad7665')
+sha512sums=('cb51e357cc9def3c087231b01752941b469e5fc4508ec83c6f5875352694249ef72339f2f20c4a6831c49ace7c1f6b902cc11a961c0e1f43ce098b2bf800728f')

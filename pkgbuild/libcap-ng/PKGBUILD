@@ -1,5 +1,5 @@
 pkgname=libcap-ng
-pkgver=0.7.8
+pkgver=0.7.9
 pkgrel=1
 pkgdesc="A library making programming with POSIX capabilities easier than traditional libcap"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c32a4c5780c183b13611615abe9061221fd8987188b08828d1617cdaee338ad8de67b3430aa83bde60128efc76449a688546bfbf697f0847b6a835cb1a868756')
+sha512sums=('095edabaf76a943aab0645b843b14e20b1733ba1d47a8e34d82f6586ca9a1512ba2677d232b13dd3900b913837401bb58bf74481970e967ba19041959dc43259')

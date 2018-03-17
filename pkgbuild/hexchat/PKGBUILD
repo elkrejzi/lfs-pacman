@@ -1,5 +1,5 @@
 pkgname=hexchat
-pkgver=2.14.0
+pkgver=2.14.1
 pkgrel=1
 pkgdesc="A popular and easy to use graphical IRC (chat) client"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('b23f227065b7911123e335d19cb76bd5f0bfa9c891eb3f68030677a7346a3bf410ab1679b9c349cf4a2819244fc00766552b1e677f33a45db95d7b928daf49ec')
+sha512sums=('2728d6f084530c1a65ddb7960db6574fef2bca77e726a2155c8b5724256f37b47421e990b1bf7c9fad7987027b2f6de4534a8df28a98cb3d28da726e16ac32dd')

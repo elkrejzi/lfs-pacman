@@ -1,6 +1,6 @@
 pkgname=fonts-noto
-pkgver=20170504
-_notorev=1293ec3
+pkgver=20180316
+_notorev=4191d2e
 pkgrel=1
 pkgdesc="Google Noto TTF fonts"
 arch=('x86_64')
@@ -25,5 +25,4 @@ package() {
 	install -v -m644 unhinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
 }
 
-
-sha512sums=('e6859eceec4322dcb9b73a637c1a336b4cae52d74d8c0266e50df2c04f8482af0a577a3b2e7195554ec35babdfce523cb7f9bca013511e105faefa9186f4660c')
+sha512sums=('337f5b66cd9d0d9652a56b145ecfc83150f80dd6a972bfde678bed2f2b9c2995b7c4e17e96ce4284a8112d2f79484b7a004492b314383ddbd3936113c24b53a3')

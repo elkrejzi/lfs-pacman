@@ -6,10 +6,15 @@ arch=('x86_64')
 url="https://poppler.freedesktop.org/"
 license=('GPL')
 #depends=()
-source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz")
+source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz"
+	"gtk-doc.patch")
 
 prepare() {
         install -v -dm755 "${srcdir}/build"
+
+	cd "${srcdir}/poppler-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/gtk-doc.patch"
 }
 
 build() {
@@ -36,4 +41,5 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-sha512sums=('91f7eae7b05965ae97a34e658bed2a676be8a6e4d34f82148ece6eb58932632dcf9a34d50c66412f93f560ce575abf5c608ed6b1e5184604b96024801886c706')
+sha512sums=('91f7eae7b05965ae97a34e658bed2a676be8a6e4d34f82148ece6eb58932632dcf9a34d50c66412f93f560ce575abf5c608ed6b1e5184604b96024801886c706'
+            '4c5ffef083f39102d6dfe57f068905d6de931a2ecbdd183e26af58faa59884f5d863ac53355a231416a43b139357ee0658adc1538c12d583da87aee75efa7645')
