@@ -1,5 +1,5 @@
 pkgname=xf86-input-libinput
-pkgver=0.26.0
+pkgver=0.27.0
 pkgrel=1
 pkgdesc="Generic input driver for the X.Org server based on libinput"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	mv "${pkgdir}/usr/share/X11/xorg.conf.d/40-libinput.conf" "${pkgdir}/usr/share/X11/xorg.conf.d/60-libinput.conf"
 }
 
-sha512sums=('b52a27e916f7e86576500ef2bc3ce640676f5a710543755865a723628c0e01a575989460853bac184ed696961e3f8fca72ecba8ad4625be8cd9e31f9a55f5e97')
+sha512sums=('716a9b43438acd6b7c6a834a08ecec244fecdc31e77241998414bf1748781026cd6c6e85947155c44400e0192769a714dfbfa0ed42ba3677347cd89ac1081743')

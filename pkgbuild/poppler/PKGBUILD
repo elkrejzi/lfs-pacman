@@ -1,20 +1,15 @@
 pkgname=poppler
-pkgver=0.62.0
+pkgver=0.63.0
 pkgrel=1
 pkgdesc="PDF rendering library based on xpdf 3.0"
 arch=('x86_64')
 url="https://poppler.freedesktop.org/"
 license=('GPL')
 #depends=()
-source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz"
-	"gtk-doc.patch")
+source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz")
 
 prepare() {
         install -v -dm755 "${srcdir}/build"
-
-	cd "${srcdir}/poppler-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/gtk-doc.patch"
 }
 
 build() {
@@ -41,5 +36,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-sha512sums=('91f7eae7b05965ae97a34e658bed2a676be8a6e4d34f82148ece6eb58932632dcf9a34d50c66412f93f560ce575abf5c608ed6b1e5184604b96024801886c706'
-            '4c5ffef083f39102d6dfe57f068905d6de931a2ecbdd183e26af58faa59884f5d863ac53355a231416a43b139357ee0658adc1538c12d583da87aee75efa7645')
+sha512sums=('a151d08480e9940a02191355ef5e7499d6494cff05f22f49de2bb8223512f5e5c9bb9b33651943ded30b4cd7096a2423fb7a01fa62228fbcd1d3a221b885cfe9')

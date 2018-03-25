@@ -1,5 +1,5 @@
 pkgname=gnome-themes-extra
-pkgver=3.27.92
+pkgver=3.28
 pkgrel=1
 pkgdesc="Standard Themes for GNOME Applications"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5a03daee26aaa3237f0b9b6f152f6fa405ba3d0904559c8592931829422ab8f0e06b2bd42c5ec82de09fcf81ecebfc1995348ee5f0cdb6953dbf4514d1d46d53')
+sha512sums=('bccc446e86b12476b86a0fe2e3354500c8fb3eef62a85c3823d69aaa259e032e1f94e7993bf633397b669c425ef42635b0cf17b376f0b7cf1869bb1d7160ede0')

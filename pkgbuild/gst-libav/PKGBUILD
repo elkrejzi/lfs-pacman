@@ -1,5 +1,5 @@
 pkgname=gst-libav
-pkgver=1.13.90
+pkgver=1.14.0
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework ffmpeg Plugins"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7c20529a36e23d89542c55b92d8f24938cd9f3649781dc13752f7d7f917dc9532a3f5d314c21ec2f763390d8f214adc508802b09a1cbb42b78ad355fffb23ef8')
+sha512sums=('7c00475d1866e680a1528842d02152059d67ef6838b6837884cc211b742e20b9d16b28d7f671cb8e56ddff42f73a1e039270888ed0c4431649d2d907067042c9')

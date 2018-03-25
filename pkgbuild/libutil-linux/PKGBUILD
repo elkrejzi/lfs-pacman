@@ -1,6 +1,6 @@
 pkgbase=libutil-linux
 pkgname=('libutil-linux' 'lib32-libutil-linux' 'mount')
-pkgver=2.32.rc2
+pkgver=2.32
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/pub/linux/utils/util-linux/"
@@ -111,4 +111,4 @@ package_mount() {
 	make install-exec-hook-mount DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a7c3b5b84fa78aded1fc7b4e3111c140512f5e2e5851162659423a3905eadd746d65beedd3faf813b77e823d63f3c9b33db1f44f7b85e9006ff64f82fb3cadb7')
+sha512sums=('320c8d364f014aba16483dd26564d7cb47804337567c3e9c2dc495f3865f524e7480d3fec7ef5a05b6e99763b0278da70fffe6d2b88f3f1a832ada5932556482')

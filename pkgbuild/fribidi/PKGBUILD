@@ -1,5 +1,5 @@
 pkgname=fribidi
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="A Free Implementation of the Unicode Bidirectional Algorithm"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("https://github.com/fribidi/fribidi/releases/download/v${pkgver}/fribidi
 build() {
 	cd "${srcdir}/fribidi-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr --disable-docs
 
 	make
 }
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('333dddba3dc54f3bbf8d739f670455c3c930c4a207c2642053f7f6b4d782cd6199fef41a007630e3ed20b5040e686ee30e9e63f5c0722fff6f73493058e0e5ac')
+sha512sums=('a474d01368b85c166e08a236425b6f13b88f2cf83308bf0df21c9fe034b1909edea30b778122719fcb8af72bdcf34f2f82f696031bcce077cf8ac764f019acaa')

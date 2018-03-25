@@ -1,5 +1,5 @@
 pkgname=git
-pkgver=2.16.2
+pkgver=2.16.3
 pkgrel=1
 pkgdesc="The fast distributed version control system"
 arch=('x86_64')
@@ -36,7 +36,7 @@ package() {
 
 	install -v -dm755 "${pkgdir}/usr/share/man"
 
-	bsdtar xf "${srcdir}/git-manpages-${pkgver}.tar.xz" -C "${pkgdir}/usr/share/man"
+	bsdtar --no-same-owner --no-same-permissions -xf "${srcdir}/git-manpages-${pkgver}.tar.xz" -C "${pkgdir}/usr/share/man"
 
 	find "${pkgdir}/usr/share/man" -type d -exec chmod 755 {} \;
 
@@ -54,8 +54,8 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/perl"
 }
 
-sha512sums=('ff1bf4b94c09de26acf85b97003582002c232e5861a896d8c2d8dc011cb3d4966b1eb0e74ef94f80426d50bb465bf6c9b6edda13b1e4143f0eb38ee01f4890e4'
-            '38d560955a025761f256e598f87c6b1122b474cc7bfeeee8fffb48b353ab3d8d969f6cd55da326daa61a4079dfd68f931b2e0eae11d6e8d5549e69de17c7f537'
+sha512sums=('73520cf3500b2d13b77eb1e5ec0d60263aad07732d25631732f0d986abd023f97b8a6db4abff64d342cb053018289b5f7a3e32f10b86bd9092a37ee0585adc8a'
+            'b34a3658412a144fed6f818acc05c0b4be2453ae63f9430dcd53cda750f737bd3da50390bd3f4266e69befa521eddd222985fd531acca1ebd4ca62c6c5b2a85c'
             '75d189f4f7165631004789efe4de2df2fc8a76ceb2fa90b29cd20561b660f1c4f888f0a801d0adeb2bf2adeddd101af231253c96c0cf00ef83a2500fe93a7ce1'
             'bd4aff421e547044a2a91b8a77c86ce14f05321008aa2e28aab35154b297803ca716ccba3e0fca3805033d4adb455adb41086ceeca98200b8006582c13f2c7d3'
             'fda8e919c1e998685364815e06bc549a2357d6519c8653e59f017648fe3a5b573823bef049fd48fa113728c010e613776a6ac78b4259d958649f6facc87d4ceb')

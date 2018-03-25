@@ -1,5 +1,5 @@
 pkgname=libgweather
-pkgver=3.28.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="Location and timezone database and weather-lookup library"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('2ae53c22c3ded7df58ec6429d9f77187c3d3195108704df40a9b1027fe8a59c6d75ebb77e81398a1e308580ae9da856e453f98c2901c4fd913fda6b26604da4a')
+sha512sums=('62a56eca21d9f2c6c3bb7346325ae401405b898804c2835ff81d0650b1cfe7bd5081d34fb243a544e24db3e04255e5511864a631385d6a1d4e212f5bae96708f')

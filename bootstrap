@@ -174,14 +174,10 @@ docbook
 docbook-dsssl
 opensp
 openjade
-python-six
 asciidoc
 docbook-utils
-gtk-doc
-glib
-libcroco
-gettext
 python-setuptools
+python-six
 python-alabaster
 python-beaker
 python-certifi
@@ -208,6 +204,10 @@ python-sphinx
 python-sphinxcontrib-websupport
 python-sphinx_rtd_theme
 elfutils
+gtk-doc
+glib
+libcroco
+gettext
 gobject-introspection
 json-c
 libaio
