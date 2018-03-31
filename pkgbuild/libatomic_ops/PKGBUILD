@@ -1,6 +1,6 @@
 pkgbase=libatomic_ops
 pkgname=('libatomic_ops' 'lib32-libatomic_ops')
-pkgver=7.6.2
+pkgver=7.6.4
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/ivmai/libatomic_ops"
@@ -58,4 +58,4 @@ package_lib32-libatomic_ops() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('9149c9328ec22ab80469892b40c135f20b6cf6edff63b8de6f16ab0b209f40d1420ad012a40c80009dfb4cdc826feb72fa826d6abf61211516aabcf463c17fe4')
+sha512sums=('2e6ef0bfd4b77e9260383feb2865c96388fb1ebed9d37605eeb83ac87e3b6a565495d588808129ac7b3ee5f6a58a37440da7784b680cc6590842b09c2625983b')

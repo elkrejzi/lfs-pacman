@@ -1,5 +1,5 @@
 pkgname=lsof
-pkgver=4.89
+pkgver=4.91
 pkgrel=1
 pkgdesc="Lists open files for running Unix processes"
 arch=('x86_64')
@@ -34,4 +34,4 @@ package() {
 	install -Dm644 lsof.8 "${pkgdir}/usr/share/man/man8/lsof.8"
 }
 
-sha512sums=('cafb0209143c7863e5cebe7efc33a2520d36f9e26222350e4edfa18debbcfb5c81f42f71469e5913fb21f49a7562bbe761b72dfc8f297dadf75ac619cdcb318c')
+sha512sums=('49f811941dd6303f7cb0655fddb8b1177af5d1b18f2bd1edfab09d2c128aea73daecf09c7a5375979c66ba764c88a6e70c9086b55c3634e3be01ab1aa12e9f92')

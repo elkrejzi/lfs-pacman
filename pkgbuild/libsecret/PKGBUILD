@@ -1,19 +1,12 @@
 pkgname=libsecret
-pkgver=0.18.5
+pkgver=0.18.6
 pkgrel=1
 pkgdesc="Library for storing and retrieving passwords and other secrets"
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/Libsecret"
 license=('LGPL')
 #depends=()
-source=("https://download.gnome.org/sources/libsecret/${pkgver:0:4}/libsecret-${pkgver}.tar.xz"
-	"libsecret-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/libsecret-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/libsecret-fixes.patch"
-}
+source=("https://download.gnome.org/sources/libsecret/${pkgver:0:4}/libsecret-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/libsecret-${pkgver}"
@@ -29,5 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4ee297b556d3b555b6ca9f5eb5cc87425b782491d0550a75873aac0f7019b123f437f0731c85bb058fc65b50a589d54d0697657a50bef4ac2952e9e40a916b5c'
-            'e9942ec0b62c550ad54952dbdc56c5ca4023123328b9b3fece33fc127f63c647a1ede68e9e3640be0662cc3e0db4f620d514dcd0d017a64605b50676f7bdc1c7')
+sha512sums=('4997519762f1470cfc0a4b3a791362d030af3c9b6ce6f58f8f8073b3a8adeea9b8caacedc884163997081dc39f395f9172330dbb41fed45d6c43ac5809de48e3')

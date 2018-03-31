@@ -15,8 +15,6 @@ prepare() {
 build() {
 	cd "${srcdir}/build"
 
-	export CXX="${CXX} -std=c++11"
-
 	cmake -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \

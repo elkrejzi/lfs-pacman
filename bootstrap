@@ -764,7 +764,8 @@ traceroute
 unrar
 valgrind
 whois
-texlive
+texlive-texmf
+texlive-bin
 dblatex
 libgconf
 teamviewer

@@ -1,6 +1,6 @@
 pkgbase=pygobject
 pkgname=('pygobject-common' 'python2-gobject' 'python3-gobject')
-pkgver=3.28.1
+pkgver=3.28.2
 pkgrel=1
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/PyGObject"
@@ -49,4 +49,4 @@ package_python3-gobject() {
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 }
 
-sha512sums=('48a21ecf92a8a2302413df048771dd659dd858507dcc0157d4664fa3afcbea13dc6a645369fa76fe0df69ec0897e5a80bf29c3fa1d4425303653879b7ea021ff')
+sha512sums=('2ba858856ef7f0c2fcac84a0f0a71ec1212991d8c57613cd948b55d413e69bd0961358935f5fd8753b905753cf563037cb351c428f4afcbbaac8ee0cebf4970c')

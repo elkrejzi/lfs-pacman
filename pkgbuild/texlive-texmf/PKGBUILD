@@ -1,0 +1,30 @@
+pkgname=texlive-texmf
+pkgver=20170524
+pkgrel=1
+pkgdesc="TeX Live distribution - TeXmf Data"
+arch=('x86_64')
+url="http://tug.org/texlive/"
+license=('GPL')
+#depends=()
+options=(!strip)
+source=("ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-texmf.tar.xz")
+noextract=("texlive-${pkgver}-texmf.tar.xz")
+
+package() {
+	cd "${srcdir}"
+
+	install -dm755 "${pkgdir}/usr/share"
+
+	bsdtar  --exclude=*/texmf-dist/doc --exclude=*/texmf-dist/source \
+		--no-same-permissions --strip-components=1 \
+		-xf texlive-${pkgver}-texmf.tar.xz -C "${pkgdir}/usr/share"
+
+	# libkpathsea
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktex.opt
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexdir{,.opt}
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexnam{,.opt}
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexupd
+	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/texmf.cnf
+}
+
+sha512sums=('b421267ca03034aa0c9104707096a0c4ace71c2efa700e0f9d709ecb02907f7d0480d59cca56511d3089ecd57394ee796a893a24021cf4b2d1884314390a9acb')

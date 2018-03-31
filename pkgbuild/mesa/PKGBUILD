@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=18.0.0.rc5
+pkgver=18.0.0
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -27,7 +27,7 @@ build() {
 		--enable-va
 		--enable-glx-tls
 		--with-dri-drivers=i965
-		--with-platforms=drm,x11,wayland
+		--with-platforms=drm,surfaceless,wayland,x11
 		--with-gallium-drivers=radeonsi,swrast
 		--with-vulkan-drivers=intel,radeon)
 
@@ -69,6 +69,9 @@ package_mesa() {
 	cd "${srcdir}/mesa-${pkgver/.rc/-rc}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/lib/libwayland-egl.so*
+	rm -rf "${pkgdir}"/usr/lib/pkgconfig/wayland-egl.pc
 }
 
 package_lib32-mesa() {
@@ -82,6 +85,9 @@ package_lib32-mesa() {
 
 	mv dest/usr/lib32 "${pkgdir}/usr"
 	mv dest/usr/share "${pkgdir}/usr"
+
+	rm -rf "${pkgdir}"/usr/lib32/libwayland-egl.so*
+	rm -rf "${pkgdir}"/usr/lib32/pkgconfig/wayland-egl.pc
 }
 
-sha512sums=('90c68c0bf9e689992626b593ad53d4f7fb402e556ac70672b618abd3a224e637fc6a26fb197bb3b692a8363117de09e01fd524f9de181359eba0879226e3e5a6')
+sha512sums=('1494bb09357896a2505b3dcfec772268e28c765804f21e144948a314f1d79d99ff9f21062ef5860eb5a5a568b305a9c954585924a7ac8890fe1ebd8df3bcc396')
