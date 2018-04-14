@@ -1,5 +1,5 @@
 pkgname=pango
-pkgver=1.42.0
+pkgver=1.42.1
 pkgrel=1
 pkgdesc="A library for layout and rendering of text"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}/usr/libexec" "${pkgdir}/usr/share/installed-tests"
 }
 
-sha512sums=('32f621f7af65102ddf7f5ad949c1a9da9a559259255de42a6c0e7992b8692088f6701a4e11558c4243edc881cb8907defd6712f4c2bfca4bcadfe1cb5009b59f')
+sha512sums=('70f0519fdcb896880a9552ed1f3ef85e3e7b99a161818e7c3a5ac851b64366544393546336bfdc1d66ecfc1aa4791b65ff4182ca9f6e93455ca154fbc9cbef80')

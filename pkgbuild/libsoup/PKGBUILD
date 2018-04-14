@@ -1,5 +1,5 @@
 pkgname=libsoup
-pkgver=2.62.0
+pkgver=2.62.1
 pkgrel=1
 pkgdesc="GNOME HTTP Library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a2bbe360eb29fd325cdb19eac9f53e554bc9a7a682d0e3c88395d5243fe1990e637631cd9f3b0084607e4c6bab61f368423b2b08707224406b6f078c6dc57675')
+sha512sums=('0617abdf41ab339496e81da83ff67e507913ed42ab6ce149afc5dedea74d0118dbaac2913d8ff2875b8842546504b6c0a373e2746e5007a5f4e24197f94b30f5')

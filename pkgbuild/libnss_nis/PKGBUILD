@@ -1,6 +1,6 @@
 pkgbase=libnss_nis
 pkgname=('libnss_nis' 'lib32-libnss_nis')
-pkgver=1.4
+pkgver=3.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/thkukuk/libnss_nis"
@@ -59,4 +59,4 @@ package_lib32-libnss_nis() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('56338a1dd60b756fb40e7e08c0d7d49ce98b47f684e7278aaf1a521a74f02b23cc73908adbd6ff88057f2f0e42301f827f888fc7af82aa57ff9449a05de73b75')
+sha512sums=('3dde989a278f97a8cb9d831d5c10c1e5dce5b75c2e2b755177a054df0fb86795311e1750d721c52066d59a026035df4fdd7dc5d90ef743315e5b962ffef9f737')

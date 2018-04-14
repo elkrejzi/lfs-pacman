@@ -1,5 +1,5 @@
 pkgname=cups-filters
-pkgver=1.20.1
+pkgver=1.20.3
 pkgrel=1
 pkgdesc="OpenPrinting CUPS Filters"
 arch=('x86_64')
@@ -38,4 +38,4 @@ package() {
 	chgrp -R lp "${pkgdir}/etc/cups"
 }
 
-sha512sums=('9c0fc3c821a24db99a55b0d5e1750946b294e3b265edae4d4701b4bb3ff9d0f19cb282ff44ec8880a0f643a2703ea3419b03d3d32a5e045d86a2d37031cef108')
+sha512sums=('402a53bf1ea12b14e6f8aa46f8f5e91b2caf9da3a8f14759568b5a45b9309f379fec542c843da5560cbcec2c4860babfee7e9c2f0c62f5fa6254025e9d867b31')

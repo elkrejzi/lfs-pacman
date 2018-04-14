@@ -1,34 +1,33 @@
 pkgname=mozjs
-pkgver=38.2.1
+pkgver=52.6.0
 pkgrel=1
-pkgdesc="JavaScript interpreter and libraries - Version 38"
+pkgdesc="JavaScript interpreter and libraries - Version 52"
 arch=('x86_64')
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/38"
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
 license=('MPL')
 #depends=()
-source=("https://people.mozilla.org/~sstangl/mozjs-${pkgver}.rc0.tar.bz2"
-	"mozjs-fixes.patch")
+source=("https://download.gnome.org/teams/releng/tarballs-needing-help/mozjs/mozjs-${pkgver}gnome1.tar.xz")
+noextract=("mozjs-${pkgver}gnome1.tar.xz")
 
 prepare() {
-	cd "${srcdir}/mozjs-38.0.0"
+	install -dm755 "${srcdir}/mozjs-${pkgver}"
 
-	patch -Np1 -i "${srcdir}/mozjs-fixes.patch"
+	bsdtar -xf "${srcdir}/mozjs-${pkgver}gnome1.tar.xz" -C "${srcdir}/mozjs-${pkgver}"
 }
 
 build() {
-	cd "${srcdir}/mozjs-38.0.0/js/src"
+	cd "${srcdir}/mozjs-${pkgver}/js/src"
 
+	unset CFLAGS CXXFLAGS
+
+	export CC="gcc"
+	export CXX="g++"
 	export PYTHON="/usr/bin/python"
 	export SHELL="/bin/bash"
 
-	touch configure
-
 	./configure --prefix=/usr \
-		--enable-ctypes \
 		--enable-readline \
-		--enable-shared-js \
-		--enable-system-ffi \
-		--enable-threadsafe \
+		--with-intl-api \
 		--with-system-icu \
 		--with-system-nspr \
 		--with-system-zlib
@@ -37,7 +36,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/mozjs-38.0.0/js/src"
+	cd "${srcdir}/mozjs-${pkgver}/js/src"
 
 	make install DESTDIR="${pkgdir}"
 
@@ -47,5 +46,4 @@ package() {
 	find "${pkgdir}/usr/lib/pkgconfig" -type f -exec chmod 644 {} \;
 }
 
-sha512sums=('60262c7619cc418569aec81775a671105acbc5bf372273828868f2fbbbc4ea33f78380f7455710816bfcdae828fb4115a08234d599cb30d0db859fcba17f019d'
-            '6d84a79199cd520d1b9e2d614e6a748375510cf1cf996a4f2b83185d71174b1a155f086905f5c4d186b6b468b2367b0dd5a5aa2bb02aaa3bfb084a2b4810e0e5')
+sha512sums=('e4f2a90fe25541a5120158ca58f837b20f350ab51da3f17a2c0c552166499155fc0519dd99f37e15caf00b4e373af0a06b9c6ddc5812830248423fe87380d6e4')

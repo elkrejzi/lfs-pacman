@@ -1,6 +1,6 @@
 pkgbase=wayland
 pkgname=('wayland' 'lib32-wayland')
-pkgver=1.14.92
+pkgver=1.15.0
 pkgrel=1
 arch=('x86_64')
 url="https://wayland.freedesktop.org/"
@@ -55,4 +55,4 @@ package_lib32-wayland() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('d0ba6838652165d65399bd11e7e5abdf13a6cf9cb2c54fe5534ac7d3056922844001b237064224c82bb7dcea2b92111c1c25e798c2d39e5637cc1615c318e618')
+sha512sums=('f908917f1b575d2dc4d9770d3303e2637e8744fcb5c81feb2af2fe82cc51f54e22beaddfbe775fcf9623584169b7a062c75076132abeb888717180bfab53b3a8')

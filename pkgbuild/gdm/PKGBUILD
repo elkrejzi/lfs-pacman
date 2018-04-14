@@ -1,5 +1,5 @@
 pkgname=gdm
-pkgver=3.28.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="Display manager and login screen"
 arch=('x86_64')
@@ -36,5 +36,5 @@ package() {
 	install -v -Dm644 "${srcdir}/gdm.sysusers" "${pkgdir}/usr/lib/sysusers.d/gdm.conf"
 }
 
-sha512sums=('9e752c3715aca74964af04e186ebd7f157cc5638546b60f61b5810abbda15050bbdee8579d4e3fe6c669c75eeffea9869f2674ee8564dc46b16b08e587b9d046'
+sha512sums=('b5367a7910f8da42b322ddc0450fa9558b9723b2835454f7bebf4a9342099a419f131ab16296b2f37d80b957167c5273035550aa856b2a7ceb76b219631bdf2b'
             'afdfe702121ab9b9b64450e736a9d7fcd603a5c373e13e3a2ad6caa993fedca23b673d9bcaa3465e830f19bb6bc4c6c71d9f2699a57807f11d6706a97d190573')

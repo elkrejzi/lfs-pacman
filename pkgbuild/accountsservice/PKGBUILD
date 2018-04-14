@@ -1,5 +1,5 @@
 pkgname=accountsservice
-pkgver=0.6.45
+pkgver=0.6.46
 pkgrel=1
 pkgdesc="D-Bus interface for user account query and manipulation"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('09975f9fa03a3177d923de6d6f6e6acfffeb2ff4924c45eaac78c994c16974427c8e936a87034747ba494d2bb3df6e8a92ff44db387761b06e06e311d7cf105a')
+sha512sums=('fe603a9d98bb2b22b511f77e2ab78e8134d7b2d78c5e47706eb191697f7f252a8b3e33a99776a1e28491192b818d627a4ba4b972c3c0fc8c8762f78cdcb58054')

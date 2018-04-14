@@ -1,5 +1,5 @@
 pkgname=weston
-pkgver=3.0.92
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e2e3e961de19df8a2da328676506bc5ea922302e89ab62f7c7b30b0327d4baab92b4069fd3d2e7dbe273ba5fc73c9736eabe5274aa4115ad945695ac73b33881')
+sha512sums=('0af41016ff4eae85779f95b5c5e44b9683f4ef681a8e52256efeebfa38073082b83e039d0db3c94ac22f22f8d8314c9d6cd16611144b260b353fc5bfdd1ded19')

@@ -6,8 +6,8 @@ arch=('x86_64')
 url="http://www.unicode.org/"
 license=('BSD')
 #depends=()
-source=("UCD-${pkgver}.zip::http://www.unicode.org/Public/zipped/10.0.0/UCD.zip"
-	"Unihan-${pkgver}.zip::http://www.unicode.org/Public/zipped/10.0.0/Unihan.zip")
+source=("UCD-${pkgver}.zip::http://www.unicode.org/Public/zipped/${pkgver}/UCD.zip"
+	"Unihan-${pkgver}.zip::http://www.unicode.org/Public/zipped/${pkgver}/Unihan.zip")
 
 package() {
 	install -v -dm755 "${pkgdir}/usr/share/unicode/ucd"

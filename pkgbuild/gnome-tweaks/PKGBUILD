@@ -1,5 +1,5 @@
 pkgname=gnome-tweaks
-pkgver=3.28.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="Customize advanced GNOME 3 options"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('fadc79fed56bc7a56867261f90010b0a6c8c71967fd9a46db75fb705adef33a6b7711c25448089ee1d2e657eccf7be21f00d2a1408019fb18c423a59e4cf5048')
+sha512sums=('c3d1f65012b465b428809bcd734df4de37f1530611d1bce6363067683184acfbc736b432b12834882b10aa7d0f03d4242cc51319b6f49de95eea7b7c43db90dc')

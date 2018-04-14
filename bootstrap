@@ -334,7 +334,6 @@ fuse3
 guile
 libevent
 libical
-libgnome-keyring
 libgudev
 libsecret
 serf
@@ -382,7 +381,6 @@ libgusb
 libpaper
 libsass
 mozjs
-mozjs52
 polkit
 sassc
 colord

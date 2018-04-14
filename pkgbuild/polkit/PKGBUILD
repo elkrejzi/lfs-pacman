@@ -1,6 +1,5 @@
 pkgname=polkit
-_commit=766a2ea
-pkgver=0.113+${_commit}
+pkgver=0.114
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
@@ -8,25 +7,20 @@ url="https://www.freedesktop.org/wiki/Software/polkit/"
 license=('LGPL')
 #depends=()
 options=(emptydirs)
-source=("git+https://anongit.freedesktop.org/git/polkit.git#commit=${_commit}"
-	"polkit-mozjs38.patch"
+source=("https://www.freedesktop.org/software/polkit/releases/polkit-${pkgver}.tar.gz"
 	"polkit-1.pam"
 	"polkit.sysusers")
 
 prepare() {
-	cd "${srcdir}/polkit"
-
-	patch -Np1 -i "${srcdir}/polkit-mozjs38.patch"
-
-	NOCONFIGURE=1 ./autogen.sh
+	cd "${srcdir}/polkit-${pkgver}"
 
 	sed -i "s:/sys/fs/cgroup/systemd/:/bin:g" configure
 }
 
 build() {
-	cd "${srcdir}/polkit"
+	cd "${srcdir}/polkit-${pkgver}"
 
-	export CXX="${CXX} -std=c++11"
+	#export CXX="${CXX} -std=c++11"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -38,7 +32,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/polkit"
+	cd "${srcdir}/polkit-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
 
@@ -49,7 +43,6 @@ package() {
 	chown 27:27 "${pkgdir}/etc/polkit-1/rules.d" "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-sha512sums=('SKIP'
-            '319c57d4deaec45913d1e543350eed95433f062657e3b6607ae10eb356b770567db48a653a9dbecbadbb7365b6cf8988e3c2b3a4393e86838f6e8791ff57c132'
+sha512sums=('49cdf9dd3663714b1c6569ad8740cb413d9c5bd5c11e4bdbba3ce82b744f36638b652547edff9203caab9287834bc68a1d6a4895ec7a188fa1524dc1e9c9b4ea'
             '3f6dbf7119083ce09cbfc543e93c1007e91d5706d0cfefdcecd89d788cb3827d0764c11205fa562ebc936bacda60bd645c7d40f85c42d334faab9f21f325beac'
             '327822bfd25ca317e75626b206cec5520482ddbbba86a4e933b71a1fed2052ff1ba0d9e50a498a50f64d626dccd8a3573b9572237bb919c3f7fa4c63b52ef467')

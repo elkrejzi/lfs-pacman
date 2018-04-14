@@ -1,5 +1,5 @@
 pkgname=man-db
-pkgver=2.8.2
+pkgver=2.8.3
 pkgrel=1
 pkgdesc="A utility for reading man pages"
 arch=('x86_64')
@@ -39,6 +39,6 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('ffd6c3ba605da419c819dcad10edf713242074a035ce405f4c97dbbd2a7e9b253f82efae1022d08d9f04591014e752ff38a3f8727e5a5cf60d33a9167cc2d8fc'
+sha512sums=('35d5dda7a2bda94978d10770d24d4c78b3c62c71a68cfeb400df61b0df289ed17aa8aa223d4ae3ffa094d76df8d9172b878230fd7b0397ce7728b9c8ac0b1745'
             '36587635b2b4d496a353a53c0bb2f863d321b5b329a5549643f09076d3d176efc13ebe3715aa5c14e217ef581f0a335eae2b4fcf20dea7873858eab232355e87'
             '2ed529500fbe18ba00ac7a6fc4c9da59e396464afb256db33f462b1127e497916602370e65e485c8d788c839f5b1b1130028502f61e1cc9ec8571ad6dd993738')
