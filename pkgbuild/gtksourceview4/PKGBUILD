@@ -1,0 +1,27 @@
+pkgname=gtksourceview4
+pkgver=4.0.0
+pkgrel=1
+pkgdesc="A text widget adding syntax highlighting and more to GNOME"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/GtkSourceView"
+license=('GPL')
+#depends=()
+source=("https://download.gnome.org/sources/gtksourceview/${pkgver:0:3}/gtksourceview-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gtksourceview-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--localstatedir=/var
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gtksourceview-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('2f8e211ae2e351db143da2eb164ed702161de91073c0c9bcfc4dbecf5d93243c842694fbaf850fd50ab7994858d63f15684c357bdd2436f26b983affc7864705')

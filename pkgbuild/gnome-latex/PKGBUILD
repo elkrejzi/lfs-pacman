@@ -1,0 +1,25 @@
+pkgname=gnome-latex
+pkgver=3.28.0
+pkgrel=1
+pkgdesc="A LaTeX editor for the GNOME desktop"
+arch=('x86_64')
+url="https://wiki.gnome.org/Apps/GNOME-LaTeX"
+license=('GPL3')
+#depends=()
+source=("https://download.gnome.org/sources/gnome-latex/${pkgver:0:4}/gnome-latex-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/gnome-latex-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/gnome-latex-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('7c16bdfae340699d2a9242df3816fd1b98bac8fba2dc1115c7acfa2b7f6b43a20d89e9e48ff929db921ac4cec86e1d25fb4a62447923e4a6764017622d5336b1')

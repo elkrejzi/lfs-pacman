@@ -1,5 +1,5 @@
 pkgname=poppler
-pkgver=0.63.0
+pkgver=0.64.0
 pkgrel=1
 pkgdesc="PDF rendering library based on xpdf 3.0"
 arch=('x86_64')
@@ -9,13 +9,15 @@ license=('GPL')
 source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz")
 
 prepare() {
+	cd "${srcdir}/poppler-${pkgver}"
+
+	sed -i "/math.h/a #include <array>" qt5/src/ArthurOutputDev.cc
+
         install -v -dm755 "${srcdir}/build"
 }
 
 build() {
 	cd "${srcdir}/build"
-
-	export CXX="${CXX} -std=c++11"
 
 	cmake -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
@@ -36,4 +38,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-sha512sums=('a151d08480e9940a02191355ef5e7499d6494cff05f22f49de2bb8223512f5e5c9bb9b33651943ded30b4cd7096a2423fb7a01fa62228fbcd1d3a221b885cfe9')
+sha512sums=('2799c3f628e63803eb11a25e54798a136aad91ea843d4bc1fb284af478f4a8cde87b7f95fc28cf23baf25975fbde6ca93f6ac91befb87af42e642c7650053f1c')

@@ -1,5 +1,5 @@
 pkgname=texlive-bin
-pkgver=20170524
+pkgver=20180414
 pkgrel=1
 pkgdesc="TeX Live distribution"
 arch=('x86_64')
@@ -7,8 +7,8 @@ url="http://tug.org/texlive/"
 license=('GPL')
 #depends=()
 install=texlive.install
-source=("ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-source.tar.xz"
-	"ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-extra.tar.xz"
+source=("ftp://tug.org/texlive/historic/${pkgver:0:4}/texlive-${pkgver}-source.tar.xz"
+	"ftp://tug.org/texlive/historic/${pkgver:0:4}/texlive-${pkgver}-extra.tar.xz"
 	"texlive-poppler.patch")
 noextract=("texlive-${pkgver}-extra.tar.xz")
 
@@ -17,15 +17,17 @@ prepare() {
 
 	patch -Np1 -i "${srcdir}/texlive-poppler.patch"
 
+	cp -v texk/web2c/pdftexdir/pdftoepdf{-newpoppler,}.cc
+	cp -v texk/web2c/pdftexdir/pdftosrc{-newpoppler,}.cc
+
 	install -v -dm755 build
 }
 
 build() {
 	cd "${srcdir}/texlive-${pkgver}-source/build"
 
-	CXXFLAGS+=" -Wno-reserved-user-defined-literal" # Required for building in C++11 mode
-
-	export CXX="${CXX} -std=c++11"
+	#CXXFLAGS+=" -Wno-reserved-user-defined-literal" # Required for building in C++11 mode
+	#export CXX="${CXX} -std=c++11"
 
 	# An ugly hack, to avoid future rebuilds when bumping poppler
 	export LDFLAGS="-Wl,-rpath,/usr/lib/texlive-poppler"
@@ -49,7 +51,6 @@ build() {
 		--with-system-harfbuzz \
 		--with-system-icu \
 		--with-system-kpathsea \
-		--with-system-libgs \
 		--with-system-libpaper \
 		--with-system-libpng \
 		--with-system-mpfr \
@@ -78,6 +79,6 @@ package() {
 	cp -rv /usr/lib/libpoppler.so.* "${pkgdir}/usr/lib/texlive-poppler"
 }
 
-sha512sums=('18c18940992ab94ce22e22ccd4ad798253ea14ac2ab296a10ea5e9a8da9f33989f2e2641b42b564d1d5fb53bd371da3e68726b676d706b469016ad146cd19daa'
-            '5f32f0dfeadb70412918c9d876d744f4c595310cbad8d343619d2170b22105f97eab63bbae288d0ac08ae52e49250dd2d0d26fb4cde0968dcfba4aea49878acb'
-            '65a78a7931f8b03acc62f8cf160993f2d0932ebf18f42e380db6034c17ad5cb737f941fbc4b35d61d5019975efdfb5962dfb6bcc3198ab3cffdddb4eb2a8489b')
+sha512sums=('ecac9b8203d2747be7ba7f82d68096d859fb35713276106d7049035dd3a8cfca07f8a8648982f0317b3812f8480db7326714de32f95998e3e6f73571de2aa140'
+            'd8d33208ce4e74dcae45d9c91805399d2c226e2ba0f9387bb18e791021bbe5d8e9e676254e3d10b5919f338b5e88ad8c5c64733b43934411a85453f41924e1cc'
+            '3a2f466a0e82d14aa977faa71ca03594b4544c4c103e76e345f8f86efe3329d4d180b4d1c98e5eba6675057e217b9fc5e7eab6b942f920c9da3b481041039361')

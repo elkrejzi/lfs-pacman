@@ -1,5 +1,5 @@
 pkgname=gnome-shell
-pkgver=3.28.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="The next generation GNOME Shell"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('0c5e78393c8bca8ddb548c2cecd7799258ca00735cb7600feb9f7fa43f460719ad22636255496a40ea81dfcb779faf141b972b54555626f9e27ea5ca2377cc68')
+sha512sums=('ec8e7dd1d9b4e74cdc84a30546296a5049f13fc64f8b1f46cbba635dd41c0d88e66b297839370690b88dc71acafbb20503f16d4c1970749ff4c2d072537a58c2')

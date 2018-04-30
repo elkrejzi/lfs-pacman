@@ -674,6 +674,7 @@ gnome-online-accounts
 gnome-video-effects
 gspell
 gtksourceview
+gtksourceview4
 libcryptui
 libgee
 libgtop
@@ -722,9 +723,9 @@ gedit
 gnome-calculator
 gnome-control-center
 gnome-disk-utility
+gnome-latex
 gnome-session
 gnome-tweaks
-latexila
 seahorse
 simple-scan
 gnome-shell

@@ -1,5 +1,5 @@
 pkgname=texlive-texmf
-pkgver=20170524
+pkgver=20180414
 pkgrel=1
 pkgdesc="TeX Live distribution - TeXmf Data"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="http://tug.org/texlive/"
 license=('GPL')
 #depends=()
 options=(!strip)
-source=("ftp://tug.org/texlive/historic/2017/texlive-${pkgver}-texmf.tar.xz")
+source=("ftp://tug.org/texlive/historic/${pkgver:0:4}/texlive-${pkgver}-texmf.tar.xz")
 noextract=("texlive-${pkgver}-texmf.tar.xz")
 
 package() {
@@ -27,4 +27,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/texmf.cnf
 }
 
-sha512sums=('b421267ca03034aa0c9104707096a0c4ace71c2efa700e0f9d709ecb02907f7d0480d59cca56511d3089ecd57394ee796a893a24021cf4b2d1884314390a9acb')
+sha512sums=('024617b75ccbff064cf32dfafa535209e6c29aafe0b33e1ed12722c49a6b00f3ddfd04e985afee47c0a32a8de5d0944e946191b592e930dabd2e1c17f113dbf4')

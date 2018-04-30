@@ -1,22 +1,12 @@
 pkgname=ffmpeg
-pkgver=3.4.2
+pkgver=4.0
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
 url="http://www.ffmpeg.org/"
 license=('GPL3')
 #depends=()
-#source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
-source=("git+https://git.videolan.org/git/ffmpeg.git#commit=c0919c4")
-
-prepare() {
-	rm -rf "${srcdir}/ffmpeg-${pkgver}"
-	cp -a "${srcdir}/ffmpeg" "${srcdir}/ffmpeg-${pkgver}"
-
-	cd "${srcdir}/ffmpeg-${pkgver}"
-
-#	patch -Np1 -i "${srcdir}/ffmpeg-openjp2.patch"
-}
+source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/ffmpeg-${pkgver}"
@@ -74,4 +64,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('SKIP')
+sha512sums=('78026f31cd0235a4167b2a6f3c5414fe3dd5e9d70a20f59aea08f8b9b94c13e87159074a50981877b3280cdd28c50bf5ff7e7bebdf992750be379984324f6329')

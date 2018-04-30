@@ -1,5 +1,5 @@
 pkgname=libblockdev
-pkgver=2.16
+pkgver=2.17
 pkgrel=1
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
@@ -17,7 +17,9 @@ prepare(){
 build() {
 	cd "${srcdir}/libblockdev-${pkgver}"
 
-	./configure --prefix=/usr --sysconfdir=/etc
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--without-nvdimm
 
 	make
 }
@@ -28,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5cef2e605c354901041ff7c26162b410ecaa43ef84a5ae3d32e660b901290247185a2666b7f415776c3457936818e650c1a4a4b42645335254e4d896180c6c1b')
+sha512sums=('3dc02bd442a2d0cb6599c58e698c9c70e8520082c9043d6885e67559dd1dd597113521625ba7f5e6cba313d92ccc18b124a1df11da9bea12c92f23cfdfdebbff')

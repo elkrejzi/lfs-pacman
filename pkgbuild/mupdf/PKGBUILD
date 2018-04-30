@@ -1,5 +1,5 @@
 pkgname=mupdf
-pkgver=1.12.0
+pkgver=1.13.0
 pkgrel=1
 pkgdesc="A lightweight PDF, XPS, and E-book viewer"
 arch=('x86_64')
@@ -7,7 +7,6 @@ url="https://www.mupdf.com/"
 license=('AGPL3')
 #depends=()
 source=("https://mupdf.com/downloads/mupdf-${pkgver}-source.tar.gz"
-	"mupdf-openjpeg.patch"
 	"mupdf-shared-libs.patch")
 
 prepare() {
@@ -16,7 +15,6 @@ prepare() {
 	rm -rf thirdparty/curl thirdparty/freetype thirdparty/harfbuzz
 	rm -rf thirdparty/libjpeg thirdparty/openjpeg thirdparty/zlib
 
-#	patch -Np1 -i "${srcdir}/mupdf-openjpeg.patch"
 	patch -Np1 -i "${srcdir}/mupdf-shared-libs.patch"
 }
 
@@ -32,6 +30,5 @@ package() {
 	make XCFLAGS="${CFLAGS}" build=release install prefix="${pkgdir}/usr"
 }
 
-sha512sums=('11ae620e55e9ebd5844abd7decacc0dafc90dd1f4907ba6ed12f5c725d3920187fc730a7fc33979bf3ff9451da7dbb51f34480a878083e2064f3455555f47d96'
-            '344d58e8310403bea80720e6c0e06f3b70327f1ce479fd4d73a5f32b515003456c6668e4950837e20353a8ccff45fca54125ef8ef48e7c0b67d80befafa96eea'
-            '5482a95de6ca7e7a2cbe1d1e563332c16cee4e63411eb11c463b62f4282173cdc1598529780b9b3826f5c80111c5eb4cdfe390e5bcb763fe468be97b38a76562')
+sha512sums=('d7fca7292e612959893a728d35964cf7b4e607385bdd72e81b8ca1de6ab642f999b734afbbf32d75400cd29b7e178ec360e65c91d7b1e1a53c2a04ff0adbd707'
+            'aec4fbc3be7a833872cc3f33ba9ba0286b4d8f4d3d7fb6a2ccaab35e537d6ef0db994b7741d33927505f813a791df9c0ee401a48db8be228c14a4e248fd5700b')

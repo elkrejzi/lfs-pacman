@@ -1,5 +1,5 @@
 pkgname=xfsprogs
-pkgver=4.15.1
+pkgver=4.16.0
 pkgrel=1
 pkgdesc="XFS filesystem utilities"
 arch=('x86_64')
@@ -14,12 +14,10 @@ build() {
 	export OPTIMIZER="${CFLAGS}"
 	unset CFLAGS
 
-	sed -i "s#copy_file_range(#xfs_&#g" io/copy_file_range.c
-
 	make DEBUG=-DNDEBUG     \
 		INSTALL_USER=root  \
 		INSTALL_GROUP=root \
-		LOCAL_CONFIGURE_OPTIONS="--enable-readline --disable-lib64"
+		LOCAL_CONFIGURE_OPTIONS="--enable-readline --disable-lib64 --disable-lto"
 }
 
 package() {
@@ -28,4 +26,4 @@ package() {
 	make -j1 install install-dev DESTDIR="${pkgdir}" PKG_ROOT_LIB_DIR=/usr/lib PKG_ROOT_SBIN_DIR=/usr/sbin
 }
 
-sha512sums=('4ec3f0438f33322f0ff6e5acb27cbb554ab48df3ae0ef11071992b085016f84b49ca7bdbaf3a6859427877ea9c419bcd37ac3058914d67409ba2d65e586508ee')
+sha512sums=('0ca0cb3347ccc103f92f496016beaf5e5742fea2a4ca8515f6e340537e446df09483d9d30ce159789eb05a73430f8d517e57d1a8548029f1e73c108484b4e6e8')

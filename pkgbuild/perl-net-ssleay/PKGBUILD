@@ -1,5 +1,5 @@
 pkgname=perl-net-ssleay
-pkgver=1.84
+pkgver=1.85
 pkgrel=1
 pkgdesc="Perl extension for using OpenSSL"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('8bec39297a8e38f59f8b8a53c234ace79eec9088e5924df3a94b47a87f3ba6ae961c8596680bd9a8a3403e74e15c3d69ecfcc95724ce6b305adc881aa01ce075')
+sha512sums=('74e0f2f56b707f1ff845c78c1fa7ce26a71b8f943bb99e994d4e065d1f42259fe4cd1a6a17d333459727534158f9541f116dbc8515122380807d9450b0faa26b')

@@ -1,6 +1,6 @@
 pkgbase=vulkan
 pkgname=('vulkan' 'lib32-vulkan')
-pkgver=1.1.70.0
+pkgver=1.1.73.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.khronos.org/vulkan/"
@@ -79,4 +79,4 @@ package_lib32-vulkan() {
 	mv dest/usr/bin/vulkaninfo "${pkgdir}/usr/bin/vulkaninfo32"
 }
 
-sha512sums=('ae57e6890225b6e4607fde04a296a14bc54fd6b61b360b771bd24f00607dcb6fff06b3ec38a761173c92c90628a139f1424445e174c21adad4af6f445b91ed26')
+sha512sums=('609cef72369265dbae467cbd9677416e62715119140e6e0a74a593d7d00a723fe265344e180e099af46fb92204d494fbb975ba1c9490261b676709fb7dce5d09')
