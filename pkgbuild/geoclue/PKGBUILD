@@ -1,5 +1,5 @@
 pkgname=geoclue
-pkgver=2.4.8
+pkgver=2.4.10
 pkgrel=1
 pkgdesc="Modular geoinformation service built on the D-Bus messaging system"
 arch=('x86_64')
@@ -23,8 +23,9 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
+	rm -rf "${pkgdir}/etc/xdg"
 	rm -rf "${pkgdir}/usr/libexec/geoclue-2.0"
 	rm -rf "${pkgdir}/usr/share/applications"
 }
 
-sha512sums=('1741962b4bdce925af090961bd50f4d0d934f7b81e53968d5d8ea7957e8593c4c9a8084bbd149c454d76f2af35be036748f212c99506b475567384a43f579f3d')
+sha512sums=('5e6d620d752de1b72ee064f286f0fdef9ef9c4d695f55379de5a1d7e1e15bddc2dc2596ceefa6f3714b9532d67e49042babc6bcec1ad5a9cacee67da9d481f5c')

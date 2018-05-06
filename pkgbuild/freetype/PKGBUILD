@@ -1,6 +1,6 @@
 pkgbase=freetype
 pkgname=('freetype' 'lib32-freetype')
-pkgver=2.9
+pkgver=2.9.1
 pkgrel=1
 arch=('x86_64')
 url="http://www.freetype.org/"
@@ -56,9 +56,8 @@ package_lib32-freetype() {
 
 	make install DESTDIR="${PWD}/dest"
 
-	install -v -dm755 "${pkgdir}/usr/bin"
+	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
-	mv dest/usr/bin/freetype-config "${pkgdir}/usr/bin/freetype-config32"
 }
 
-sha512sums=('28465f3453baf9a187529432118389de8f1b85273c9fb787d2c8f0feee8ab64b387ddd936b4e67ec58dcf71e33884e7e25f01169b737824221ab143839a9161a')
+sha512sums=('856766e1f3f4c7dc8afb2b5ee991138c8b642c6a6e5e007cd2bc04ae58bde827f082557cf41bf541d97e8485f7fd064d10390d1ee597f19d1daed6c152e27708')

@@ -1,6 +1,6 @@
 pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
-pkgver=7.3.0
+pkgver=8.1.0
 _pkgver=${pkgver}
 _gnatver=2017
 pkgrel=1
@@ -195,6 +195,6 @@ package_gcc-ada() {
 	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('ad41a7e4584e40e92cdf860bc0288500fbaf5dfb7e8c3fcabe9eba809c87bcfa85b46c19c19921b0cdf6d05483faede8287bb9ea120c0d1559449a70e602c8d4'
+sha512sums=('c96246f34a7aeb404c4525b754dc7f7708a18e06271aadb2b32fef00e6e0940f584e52430bfe2ab01e699c93e3cb418adc113d2622fa826facbec0ec8ce3eb2c'
             '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f'
             'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')

@@ -1,5 +1,5 @@
 pkgname=libaio
-pkgver=0.3.110
+pkgver=0.3.111
 pkgrel=1
 pkgdesc="The Linux-native asynchronous I/O facility (aio) library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make prefix="${pkgdir}/usr" install
 }
 
-sha512sums=('664295d330d6e9adc005e2331e77582619625b479ffc2b81728ba6a682487380ee936079c4a69d35144b458bbe35c612f4ed9b32e913bd7e109b824345763eb3')
+sha512sums=('440f2b62f99ca2e72ffc8c2c04b4779a1a7cf24a8ba2a30b34d18b4ee77630a2078610fe8c435559f81a5c3bfa93049bd53d77464a0da8267833fbde3f40ceeb')

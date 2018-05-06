@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=18.1.0.rc2
+pkgver=18.1.0.rc3
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -90,4 +90,4 @@ package_lib32-mesa() {
 	rm -rf "${pkgdir}"/usr/lib32/pkgconfig/wayland-egl.pc
 }
 
-sha512sums=('43ddb27c436ab6ad08c4f5f764855e0681c10995e5279146c01e03e6e8af98dd23d96a20d3ac50107a6ca89cc3dd094bc472ddd70d290d0357cef3059ae34cfc')
+sha512sums=('aae834672ce2ce28c9223626019b7ade5908919e9c2423ded070b215248b502dc1cc24e5c12527e28ae23ddce0b37e69c5d777ff923143c273f0a775ee215fc0')

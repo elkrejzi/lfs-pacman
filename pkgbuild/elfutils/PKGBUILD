@@ -19,6 +19,8 @@ build() {
 	export CC="gcc"
 	export CXX="g++"
 
+	CFLAGS+=" -Wno-packed-not-aligned"
+
 	./configure --prefix=/usr --program-prefix="eu-"
 
 	cd "${srcdir}/elfutils32-${pkgver}"
