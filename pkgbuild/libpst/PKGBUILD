@@ -11,7 +11,9 @@ source=("http://www.five-ten-sg.com/libpst/packages/libpst-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/libpst-${pkgver}"
 
-	./configure --prefix=/usr --enable-libpst-shared
+	./configure --prefix=/usr \
+		--disable-python \
+		--enable-libpst-shared
 
 	make
 }

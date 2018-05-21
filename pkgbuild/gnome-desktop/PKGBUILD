@@ -1,5 +1,5 @@
 pkgname=gnome-desktop
-pkgver=3.28.1
+pkgver=3.28.2
 pkgrel=1
 pkgdesc="Library with common API for various GNOME modules"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f31812275c7da91bcc526d92dd77f4d88930fe9c3de741c954bd2589830a70eb538583706b725935c6465213850e29530341e30f984094c53fe0003958872c6d')
+sha512sums=('732946b341321c1321be1c16fe71138f970fc0eb88e2633a010898b1dca0f3d625e62c39611814d4ddbe7f8989371e4647fa1b12566d6da28f45572bdf332ee0')

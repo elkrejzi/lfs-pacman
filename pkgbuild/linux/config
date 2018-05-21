@@ -321,6 +321,7 @@ CONFIG_ARCH_MMAP_RND_COMPAT_BITS=8
 CONFIG_HAVE_ARCH_COMPAT_MMAP_BASES=y
 CONFIG_HAVE_COPY_THREAD_TLS=y
 CONFIG_HAVE_STACK_VALIDATION=y
+CONFIG_HAVE_RELIABLE_STACKTRACE=y
 # CONFIG_HAVE_ARCH_HASH is not set
 # CONFIG_ISA_BUS_API is not set
 CONFIG_OLD_SIGSUSPEND3=y
@@ -437,7 +438,7 @@ CONFIG_X86_FAST_FEATURE_TESTS=y
 # CONFIG_X86_X2APIC is not set
 # CONFIG_X86_MPPARSE is not set
 # CONFIG_GOLDFISH is not set
-# CONFIG_RETPOLINE is not set
+CONFIG_RETPOLINE=y
 # CONFIG_INTEL_RDT is not set
 # CONFIG_X86_EXTENDED_PLATFORM is not set
 # CONFIG_X86_INTEL_LPSS is not set
@@ -1433,7 +1434,7 @@ CONFIG_DEVTMPFS_MOUNT=y
 CONFIG_STANDALONE=y
 CONFIG_PREVENT_FIRMWARE_BUILD=y
 CONFIG_FW_LOADER=y
-CONFIG_EXTRA_FIRMWARE="amdgpu/topaz_ce.bin amdgpu/topaz_k_smc.bin amdgpu/topaz_mc.bin amdgpu/topaz_me.bin amdgpu/topaz_mec2.bin amdgpu/topaz_mec.bin amdgpu/topaz_pfp.bin amdgpu/topaz_rlc.bin amdgpu/topaz_sdma1.bin amdgpu/topaz_sdma.bin amdgpu/topaz_smc.bin i915/skl_dmc_ver1_26.bin i915/skl_guc_ver6_1.bin intel/dsp_fw_release.bin intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq intel/ibt-hw-37.8.bseq iwlwifi-7265D-29.ucode rtl_nic/rtl8168h-2.fw"
+CONFIG_EXTRA_FIRMWARE="amdgpu/topaz_ce.bin amdgpu/topaz_k_smc.bin amdgpu/topaz_mc.bin amdgpu/topaz_me.bin amdgpu/topaz_mec2.bin amdgpu/topaz_mec.bin amdgpu/topaz_pfp.bin amdgpu/topaz_rlc.bin amdgpu/topaz_sdma1.bin amdgpu/topaz_sdma.bin amdgpu/topaz_smc.bin i915/skl_dmc_ver1_27.bin i915/skl_guc_ver9_33.bin intel/dsp_fw_release.bin intel/ibt-hw-37.8.10-fw-1.10.3.11.e.bseq intel/ibt-hw-37.8.bseq iwlwifi-7265D-29.ucode rtl_nic/rtl8168h-2.fw"
 CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"
 # CONFIG_FW_LOADER_USER_HELPER_FALLBACK is not set
 CONFIG_WANT_DEV_COREDUMP=y
@@ -3755,7 +3756,6 @@ CONFIG_X86_PLATFORM_DEVICES=y
 # CONFIG_ALIENWARE_WMI is not set
 # CONFIG_ASUS_LAPTOP is not set
 # CONFIG_DELL_SMBIOS is not set
-# CONFIG_DELL_LAPTOP is not set
 # CONFIG_DELL_WMI is not set
 # CONFIG_DELL_WMI_AIO is not set
 # CONFIG_DELL_WMI_LED is not set
@@ -4283,7 +4283,7 @@ CONFIG_DEBUG_FS=y
 # CONFIG_DEBUG_SECTION_MISMATCH is not set
 CONFIG_SECTION_MISMATCH_WARN_ONLY=y
 CONFIG_FRAME_POINTER=y
-# CONFIG_STACK_VALIDATION is not set
+CONFIG_STACK_VALIDATION=y
 # CONFIG_DEBUG_FORCE_WEAK_PER_CPU is not set
 CONFIG_MAGIC_SYSRQ=y
 CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE=0x1

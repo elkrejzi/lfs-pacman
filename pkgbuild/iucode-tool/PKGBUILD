@@ -1,0 +1,25 @@
+pkgname=iucode-tool
+pkgver=2.3.1
+pkgrel=1
+pkgdesc="Tool to manipulate Intel® IA-32/X86-64 microcode bundles"
+arch=('x86_64')
+url="https://gitlab.com/iucode-tool/iucode-tool/wikis/home"
+license=('GPL')
+#depends=()
+source=("https://gitlab.com/iucode-tool/releases/raw/master/iucode-tool_${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/iucode-tool-${pkgver}"
+
+	./configure --prefix=/usr --sbindir=/usr/bin
+
+	make
+}
+
+package() {
+	cd "${srcdir}/iucode-tool-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('2c7f72eaf509f9daa482ec5f8eb86a45ac9fa84fa856678fdf9ad056e19532e3734e04656d9dbebbd3a774d69f4c861c1340bbe67b1c6c60d61135705980e7d6')

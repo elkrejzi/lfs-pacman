@@ -1,5 +1,5 @@
 pkgname=usbutils
-pkgver=009
+pkgver=010
 pkgrel=1
 pkgdesc="USB Device Utilities"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	install -Dm644 usb.ids "${pkgdir}/usr/share/misc/usb.ids"
 }
 
-sha512sums=('e5936a42615690c13e618655fc5eb4f414d9a84f85b860eaeb3bcf737258e05d299b09d1c5388d50c718626036ec8cac5d670ad567ceadfaab85f401f0744a8a')
+sha512sums=('8bc197307bc34b38c406c58c939be32f0b20ce9d3e7c977472fe4c3d47e791765432e381fd8d7393df621bbd4bf159ca24a08b22441770e7ae464e767f99a2e3')

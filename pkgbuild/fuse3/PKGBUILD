@@ -1,5 +1,5 @@
 pkgname=fuse3
-pkgver=3.2.2
+pkgver=3.2.3
 pkgrel=1
 pkgdesc="A library that makes it possible to implement a filesystem in a userspace program"
 arch=('x86_64')
@@ -41,5 +41,5 @@ package() {
 	install -v -Dm644 "${srcdir}/fuse.conf" "${pkgdir}/etc/fuse.conf"
 }
 
-sha512sums=('234256ed8e9e277557775d34b0aa77f3b0a3c40a715e52db1437f2ffd2a7d8eda2e12ef35963a918b3310f7244bba9b3755003a25b98ea6d29b6d4b322cddec7'
+sha512sums=('f91ee4b24df64e62d0c50db0bc3807229cfde06da118c87826bc3ee01b41689ec93a96b026226e948e6d7904bb506dc1d8ffa83d29aa12ea7f17009f6060263e'
             '2d2be62dad148a71d072cff5ae01c9788e7a9a01baad79ae4d696b0192567ac46cdb92a836a2a33cafca3c07b322c970c1f91db35af426bbd105d43d5968b1a0')

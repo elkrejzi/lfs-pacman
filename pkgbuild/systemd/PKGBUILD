@@ -18,7 +18,8 @@ backup=(etc/rc.local
 	etc/systemd/user.conf)
 options=(emptydirs)
 install=systemd.install
-source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz"
+#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz"
+source=("git+https://github.com/systemd/systemd.git#commit=6982156"
 	"locale.sh"
 	"rc.local"
 	"systemd-hook"
@@ -35,7 +36,8 @@ source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}
 prepare() {
 	install -v -dm755 "${srcdir}/build"
 
-	cd "${srcdir}/systemd-${pkgver}"
+	cd "${srcdir}/systemd" #-${pkgver}"
+
 	sed -i 's/GROUP="render", //' rules/50-udev-default.rules.in
 }
 
@@ -52,6 +54,7 @@ build() {
 		-Dima=false \
 		-Dsmack=false \
 		-Dgnu-efi=true \
+		-Dlibidn2=true \
 		-Dsysvinit-path=/etc/init.d \
 		-Dsysvrcnd-path=/etc \
 		-Dhalt-local="" \
@@ -65,7 +68,7 @@ build() {
 		-Ddefault-hierarchy=unified \
 		-Dwheel-group=false \
 		-Dnobody-group=nogroup \
-		"${srcdir}/systemd-${pkgver}"
+		"${srcdir}/systemd" #-${pkgver}"
 
 	ninja ${MAKEFLAGS}
 }
@@ -127,7 +130,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('c0f272b022308d3bd94679184e102a8dc85de55310bda205a458ea33c77c7733e5c8c8e5b15f786ba3e0ce59e7c6a9bf0d5a0950517c6b91e0f345950129b9c8'
+sha512sums=('SKIP'
             'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '462ed39bd5c90168079956a402abafe8f0910882e6876b165a2c27af73833d0cad1be9cdbcb3549b34652ea86e5d0dba044946a38797bd533fdd1f5a0083f63b'

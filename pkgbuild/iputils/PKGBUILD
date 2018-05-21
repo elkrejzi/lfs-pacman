@@ -1,5 +1,5 @@
 pkgname=iputils
-pkgver=20161105
+pkgver=20180515
 pkgrel=1
 pkgdesc="Network monitoring tools, including ping"
 arch=('x86_64')
@@ -7,16 +7,17 @@ url="http://www.skbuff.net/iputils/"
 license=('GPL')
 #depends=()
 install=iputils.install
-source=("iputils-s${pkgver}.tar.gz::https://github.com/iputils/iputils/archive/s${pkgver}.tar.gz")
+#source=("https://github.com/iputils/iputils/archive/s${pkgver}/iputils-s${pkgver}.tar.gz")
+source=("git+https://github.com/iputils/iputils.git#commit=db372e3")
 
 prepare() {
-	cd "${srcdir}/iputils-s${pkgver}"
+	cd "${srcdir}/iputils" #-s${pkgver}"
 
 	sed -i "s#-O3#${CFLAGS}#g" Makefile
 }
 
 build() {
-	cd "${srcdir}/iputils-s${pkgver}"
+	cd "${srcdir}/iputils" #-s${pkgver}"
 
 	unset CFLAGS
 
@@ -25,7 +26,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/iputils-s${pkgver}"
+	cd "${srcdir}/iputils" #-s${pkgver}"
 
 	install -v -Dm755 ping "${pkgdir}/usr/bin/ping"
 	install -v -Dm755 arping "${pkgdir}/usr/sbin/arping"
@@ -42,4 +43,4 @@ package() {
 	ln -sfv tracepath.8 "${pkgdir}/usr/share/man/man8/tracepath6.8"
 }
 
-sha512sums=('1593077b6eff1e57eb8a32897dd9624a745d0c87db1501a96436b168b109ef22d41ee69406a4a2154d8d72c823c1df723b4c52eeec8d82ba2762fb01dc0d4797')
+sha512sums=('SKIP')

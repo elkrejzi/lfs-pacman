@@ -13,7 +13,7 @@ source=("http://http.debian.net/debian/pool/main/c/ca-certificates/ca-certificat
 build() {
 	cd "${srcdir}/ca-certificates" #-${pkgver}"
 
-	make
+	make -j1
 }
 
 package() {
@@ -24,7 +24,7 @@ package() {
 		"${pkgdir}/usr/sbin" \
 		"${pkgdir}/usr/share/ca-certificates"
 
-	make install DESTDIR="${pkgdir}"
+	make -j1 install DESTDIR="${pkgdir}"
 
 	install -v -Dm644 sbin/update-ca-certificates.8 \
 		"${pkgdir}/usr/share/man/man8/update-ca-certificates.8"

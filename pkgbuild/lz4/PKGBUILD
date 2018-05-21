@@ -1,6 +1,6 @@
 pkgbase=lz4
 pkgname=('lz4' 'lib32-lz4')
-pkgver=1.8.1.2
+pkgver=1.8.2
 pkgrel=1
 arch=('x86_64')
 url="http://www.lz4.org/"
@@ -20,7 +20,7 @@ prepare() {
 build() {
 	cd "${srcdir}/lz4-${pkgver}"
 
-	make -C lib PREFIX=/usr MANDIR=/usr/share/man/man1
+	make -C lib PREFIX=/usr
 	make -C programs PREFIX=/usr lz4 lz4c
 
 	cd "${srcdir}/lz432-${pkgver}"
@@ -40,7 +40,7 @@ package_lz4() {
 
 	cd "${srcdir}/lz4-${pkgver}"
 
-	make install PREFIX=/usr MANDIR=/usr/share/man/man1 DESTDIR="${pkgdir}"
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
 }
 
 package_lib32-lz4() {
@@ -54,4 +54,4 @@ package_lib32-lz4() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('f4ed450bc05477cc6c2b42e6fe1fbb1fb0907f1d05b68b1d69d975b555ddb385550f204258e6d91642e14ce373815141dc218cda03b711793935d5458bc45c7f')
+sha512sums=('5fadc79334d37739c947d6dfc24f48ce82989fc5ee4f2bb8201ccf7ee3230b9e6e7c8488beb64050a035369f4247161d258bdb539578bec224ccebfef1b8a763')

@@ -23,6 +23,7 @@ build() {
 		--disable-gtk \
 		--with-drivers=ALL \
 		--with-system-libtiff \
+		--without-libidn \
 		--with-fontpath=/usr/share/fonts/ghostscript:/usr/share/fonts
 
 	make so all SHARE_JPEG=1 SHARE_LIBPNG=1 SHARE_LIBTIFF=1 SHARE_ZLIB=1 SHARE_IJS=1 \

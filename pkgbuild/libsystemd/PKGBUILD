@@ -6,7 +6,8 @@ arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
 license=('GPL2' 'LGPL2.1')
 #depends=()
-source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
+#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz")
+source=("git+https://github.com/systemd/systemd.git#commit=6982156")
 
 prepare() {
 	install -v -dm755 "${srcdir}"/build{32,64}
@@ -56,7 +57,7 @@ build() {
 
 	cd "${srcdir}/build64"
 
-	meson "${configure_shared[@]}" "${srcdir}/systemd-${pkgver}"
+	meson "${configure_shared[@]}" "${srcdir}/systemd" #-${pkgver}"
 
 	cd "${srcdir}/build32"
 
@@ -66,7 +67,7 @@ build() {
 
 	meson "${configure_shared[@]}" \
 		--libdir /usr/lib32 \
-		"${srcdir}/systemd-${pkgver}"
+		"${srcdir}/systemd" #-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -106,4 +107,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32/lib{systemd,udev}.so* "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('c0f272b022308d3bd94679184e102a8dc85de55310bda205a458ea33c77c7733e5c8c8e5b15f786ba3e0ce59e7c6a9bf0d5a0950517c6b91e0f345950129b9c8')
+sha512sums=('SKIP')

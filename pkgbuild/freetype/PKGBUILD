@@ -22,7 +22,7 @@ prepare() {
 build() {
 	cd "${srcdir}/freetype-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr --enable-freetype-config
 
 	cd "${srcdir}/freetype32-${pkgver}"
 

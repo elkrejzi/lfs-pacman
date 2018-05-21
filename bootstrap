@@ -154,7 +154,6 @@ libunistring
 boost
 libgpg-error
 libgcrypt
-libidn
 libidn2
 libmetalink
 libxml2
@@ -321,6 +320,7 @@ dbus
 dbus-glib
 dbus-python
 htop
+iucode-tool
 intel-ucode
 lsb-release
 man-pages

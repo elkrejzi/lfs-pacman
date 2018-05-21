@@ -1,5 +1,5 @@
 pkgname=links
-pkgver=2.14
+pkgver=2.16
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
@@ -13,8 +13,8 @@ build() {
 
 	./configure --prefix=/usr \
 		--mandir=/usr/share/man \
+		--disable-javascript \
 		--enable-graphics \
-		--enable-javascript \
 		--without-gpm
 
 	make
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d03b091957e0a2e06605fcf7c9bc56d48ebbcdc695f4ce894901540008455a9bc6544abdecd787faa041e2dbdff28b0d6ddcc9d26528d39d7d72750655c73575')
+sha512sums=('3ce169e214eae0f997c1f8647d354dc0803c9118a97dcd2594d62af23336890272f4b027d3ab0a0e151672d1506e50da0f0e561999c5841f0f183f32a279b14a')

@@ -1,5 +1,5 @@
 pkgname=unrar
-pkgver=5.6.3
+pkgver=5.6.4
 pkgrel=1
 pkgdesc="The RAR uncompression program"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	install -v -Dm755 unrar "${pkgdir}/usr/bin/unrar"
 }
 
-sha512sums=('cd3c97d357242a91917cdd9ee6898527829bff73dd187e58d7490d0d0ed5ffd8f8db651ce63d4bd8307c6a085fa95d72faa7b0cf1348bba191086136232a98fc')
+sha512sums=('0ff55a82f8593c59c9773ffa7dec00386b762c504a08497bc1a50de5502c52e1c1d1043cb8ba353291aa61a3ebc9f5f0a21d313d89639f400e5fc45f01d62cca')

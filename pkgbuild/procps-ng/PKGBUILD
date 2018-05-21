@@ -1,5 +1,5 @@
 pkgname=procps-ng
-pkgver=3.3.14
+pkgver=3.3.15
 pkgrel=1
 pkgdesc="Utilities for monitoring your system and its processes"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('45617924ae1520765c15d71b76278dc80cac04f5985f83c9b65a8ba379d9a80a2ff0dc14c5a6edee7d6cfa66ce50ec019e8b5203704175ff94547ae6ff2b18c5')
+sha512sums=('bc83ccc1941e7be8266588fdfbba17e2424b30163a215873ee6dee96215d66249f5d5e46fec2278d030b42bd7599861c4878360042dacec4c221ce411453747c')

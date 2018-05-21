@@ -1,5 +1,5 @@
 pkgname=evolution
-pkgver=3.28.1
+pkgver=3.28.2
 pkgrel=1
 pkgdesc="Manage your email, contacts and schedule"
 arch=('x86_64')
@@ -20,6 +20,7 @@ build() {
 		-DCMAKE_BUILD_TYPE=Release \
 		-DSYSCONF_INSTALL_DIR=/etc \
 		-DENABLE_GTK_DOC=ON \
+		-DENABLE_LIBCRYPTUI=OFF \
 		"${srcdir}/evolution-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -31,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('8567d5c8563a30b006f9f7dae1c1b3ce76b517526730b1cef1f367f9dccf66e0dd6adc50281331839c04be344be1d60343418ad584c21219659fa547cb9656ea')
+sha512sums=('9cfb8f7c041fcfca3665ffc493dba63bc857c3e4d7bae50e1574407c0e28cebff5dd96dcd51e8035ae1d32c80fd0f696454c66333a0c5ea5ea01a9cca76e87a5')

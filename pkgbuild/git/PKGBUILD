@@ -23,7 +23,6 @@ build() {
 	make prefix=/usr CC="${CC}" CFLAGS="${CFLAGS}" USE_LIBPCRE2=YesPlease \
 		NO_CROSS_DIRECTORY_HARDLINKS=1 INSTALLDIRS=vendor V=1
 
-	make -C contrib/credential/gnome-keyring CC="${CC}" CFLAGS="${CFLAGS}" V=1
 	make -C contrib/credential/libsecret CC="${CC}" CFLAGS="${CFLAGS}" V=1
 }
 
@@ -39,9 +38,6 @@ package() {
 	bsdtar --no-same-owner --no-same-permissions -xf "${srcdir}/git-manpages-${pkgver}.tar.xz" -C "${pkgdir}/usr/share/man"
 
 	find "${pkgdir}/usr/share/man" -type d -exec chmod 755 {} \;
-
-	install -v -Dm755 contrib/credential/gnome-keyring/git-credential-gnome-keyring \
-		"${pkgdir}/usr/libexec/git-core/git-credential-gnome-keyring"
 
 	install -v -Dm755 contrib/credential/libsecret/git-credential-libsecret \
 		"${pkgdir}/usr/libexec/git-core/git-credential-libsecret"

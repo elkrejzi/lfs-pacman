@@ -18,11 +18,11 @@ cat > /etc/fstab << "EOF"
 #
 # <file system>	<dir>	<type>	<options>	<dump>	<pass>
 
-/dev/sda9 /     ext4 noatime,errors=remount-ro 0 1
-/dev/sda8 /home ext4 noatime                   0 2
-/dev/sda7 none  swap defaults                  0 0
+/dev/sda10 /     ext4 noatime,errors=remount-ro 0 1
+/dev/sda9  /home ext4 noatime                   0 2
+/dev/sda8  none  swap defaults                  0 0
 
-/dev/sda2 /boot vfat defaults                  0 0
+/dev/sda2 /boot vfat defaults                   0 0
 
 none /var/tmp tmpfs defaults 0 0
 
@@ -91,7 +91,7 @@ chmod 440 /etc/sudoers.d/99-local
 sed -i "s:#HandleLidSwitch=suspend:HandleLidSwitch=ignore:g" /etc/systemd/logind.conf
 sed -i "s:#DefaultTimeoutStopSec=90s:DefaultTimeoutStopSec=30s:g" /etc/systemd/system.conf
 
-systemctl enable lightdm
+systemctl enable gdm
 
 echo "Entering password for user root:"
 passwd

@@ -1,0 +1,1105 @@
+--- a/hwdb/60-evdev.hwdb	2018-03-05 23:16:37.000000000 +0100
++++ b/hwdb/60-evdev.hwdb	2018-05-20 11:17:53.327490800 +0200
+@@ -114,8 +114,10 @@
+  EVDEV_ABS_35=::18
+  EVDEV_ABS_36=::16
+ 
+-# Asus X550CC and S550CB
+-evdev:name:ETPS/2 Elantech Touchpad:dmi:*:svnASUSTeKCOMPUTERINC.:pn?550C?:*
++# Asus X550CC, S550CB and N550JV
++evdev:name:ETPS/2 Elantech Touchpad:dmi:*:svnASUSTeKCOMPUTERINC.:pnX550CC:*
++evdev:name:ETPS/2 Elantech Touchpad:dmi:*:svnASUSTeKCOMPUTERINC.:pnS550CB:*
++evdev:name:ETPS/2 Elantech Touchpad:dmi:*:svnASUSTeKCOMPUTERINC.:pnN550JV:*
+  EVDEV_ABS_00=::31
+  EVDEV_ABS_01=::30
+  EVDEV_ABS_35=::31
+@@ -144,6 +146,20 @@
+  EVDEV_ABS_00=::14
+  EVDEV_ABS_01=::18
+ 
++# Dell Inspiron 3537 - PS/2
++evdev:name:SynPS/2 Synaptics TouchPad:dmi:*svnDellInc.:pnInspiron3537*
++ EVDEV_ABS_00=1268:5675:41
++ EVDEV_ABS_01=1101:4792:61
++ EVDEV_ABS_35=1268:5675:41
++ EVDEV_ABS_36=1101:4792:61
++
++# Dell Inspiron 3537 - RMI4
++evdev:name:Synaptics TM2382-001:dmi:*svnDellInc.:pnInspiron3537*
++ EVDEV_ABS_00=::24
++ EVDEV_ABS_01=::34
++ EVDEV_ABS_35=::24
++ EVDEV_ABS_36=::34
++
+ # Dell Inspiron N5040
+ evdev:name:AlpsPS/2 ALPS DualPoint TouchPad:dmi:bvn*:bvr*:bd*:svnDellInc.:pnInspironN5040*
+  EVDEV_ABS_00=25:2000:22
+@@ -241,6 +257,13 @@
+  EVDEV_ABS_35=1068:5805:44
+  EVDEV_ABS_36=1197:4890:57
+ 
++# HP Pavilion 15
++evdev:name:SynPS/2 Synaptics TouchPad:dmi:*svnHP:pnHPLaptop15-bs0xx:*
++ EVDEV_ABS_00=1272:5689:38
++ EVDEV_ABS_01=1029:4916:78
++ EVDEV_ABS_35=1272:5689:38
++ EVDEV_ABS_36=1029:4916:78
++
+ # HP Spectre
+ evdev:name:SynPS/2 Synaptics TouchPad:dmi:i*svnHP:pnHPSpectreNotebook*
+  EVDEV_ABS_00=1205:5691:47
+@@ -390,6 +413,17 @@
+  EVDEV_ABS_36=653:5395:116
+ 
+ #########################################
++# Razer
++#########################################
++
++# Razer Blade Stealth
++evdev:name:1A586753:00 06CB:8323 Touchpad:dmi:*svnRazer:pnBladeStealth:*
++ EVDEV_ABS_00=::12:8
++ EVDEV_ABS_01=::11:8
++ EVDEV_ABS_35=::12:8
++ EVDEV_ABS_36=::11:8
++
++#########################################
+ # Samsung
+ #########################################
+ 
+--- a/hwdb/60-keyboard.hwdb	2018-03-05 23:16:37.000000000 +0100
++++ b/hwdb/60-keyboard.hwdb	2018-05-20 11:17:53.327490800 +0200
+@@ -1421,3 +1421,24 @@
+ evdev:input:b0003v046Dp4002*
+  KEYBOARD_LED_NUMLOCK=0
+  KEYBOARD_LED_CAPSLOCK=0
++
++# Lenovo ThinkPad T430s
++evdev:atkbd:dmi:bvn*:bvr*:bd*:svnLENOVO:pn*:pvrThinkPadT430s
++ KEYBOARD_LED_CAPSLOCK=0
++
++# Lenovo ThinkPad T440s
++evdev:atkbd:dmi:bvn*:bvr*:bd*:svnLENOVO:pn*:pvrThinkPadT440s
++ KEYBOARD_LED_CAPSLOCK=0
++
++# Lenovo ThinkPad T450s
++evdev:atkbd:dmi:bvn*:bvr*:bd*:svnLENOVO:pn*:pvrThinkPadT450s
++ KEYBOARD_LED_CAPSLOCK=0
++
++# Lenovo ThinkPad T560s
++evdev:atkbd:dmi:bvn*:bvr*:bd*:svnLENOVO:pn*:pvrThinkPadT560s
++ KEYBOARD_LED_CAPSLOCK=0
++ KEYBOARD_LED_NUMLOCK=0
++
++# Lenovo ThinkPad X1 Carbon 3rd Gen
++evdev:atkbd:dmi:bvn*:bvr*:bd*:svnLENOVO:pn*:pvrThinkPadX1Carbon3rd
++ KEYBOARD_LED_CAPSLOCK=0
+--- a/hwdb/60-sensor.hwdb	2018-03-05 23:16:37.000000000 +0100
++++ b/hwdb/60-sensor.hwdb	2018-05-20 11:17:53.327490800 +0200
+@@ -15,7 +15,7 @@
+ #   /etc/udev/hwdb.d/61-sensor-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+ #   systemd-hwdb update
+-#   udevadm trigger -y `dirname $(udevadm info -n "/dev/iio:deviceXXX" -q path)`
++#   udevadm trigger -v -p DEVNAME=/dev/iio:deviceXXX
+ # where /dev/iio:deviceXXX is the device in question.
+ #
+ # If your changes are generally applicable, preferably send them as a pull
+@@ -82,7 +82,7 @@
+  ACCEL_MOUNT_MATRIX=0, 1, 0; 1, 0, 0; 0, 0, 1
+ 
+ sensor:modalias:acpi:SMO8500*:dmi:*svn*ASUSTeK*:*pn*TP300LD*
+- ACCEL_MOUNT_MATRIX=0, 1, 0; 1, 0, 0; 0, 0, 1
++ ACCEL_MOUNT_MATRIX=0, -1, 0; -1, 0, 0; 0, 0, 1
+ 
+ #########################################
+ # Axxo
+@@ -148,6 +148,12 @@
+  ACCEL_MOUNT_MATRIX=0, 1, 0; 0, 0, -1; -1, 0, 0
+ 
+ #########################################
++# Eve Technology
++#########################################
++sensor:modalias:acpi:KIOX000A*:dmi:*:svnEVE*:pnEveV:*
++ ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
++
++#########################################
+ # GP-electronic
+ #########################################
+ sensor:modalias:acpi:KIOX000A*:dmi:bvnINSYDECorp.:bvrBYT70A.YNCHENG.WIN.007:*:svnInsyde:pnT701:*
+--- a/man/hostnamectl.xml	2018-03-05 23:16:37.000000000 +0100
++++ b/man/hostnamectl.xml	2018-05-20 11:17:53.328490811 +0200
+@@ -121,6 +121,10 @@
+       <xi:include href="standard-options.xml" xpointer="help" />
+       <xi:include href="standard-options.xml" xpointer="version" />
+     </variablelist>
++  </refsect1>
++
++  <refsect1>
++    <title>Commands</title>
+ 
+     <para>The following commands are understood:</para>
+ 
+@@ -128,9 +132,8 @@
+       <varlistentry>
+         <term><command>status</command></term>
+ 
+-        <listitem><para>Show current system
+-        hostname and related
+-        information.</para></listitem>
++        <listitem><para>Show current system hostname and related information. If no command is specified,
++        this is the implied default.</para></listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+--- a/man/localectl.xml	2018-03-05 23:16:37.000000000 +0100
++++ b/man/localectl.xml	2018-05-20 11:17:53.328490811 +0200
+@@ -118,6 +118,10 @@
+       <xi:include href="standard-options.xml" xpointer="version" />
+       <xi:include href="standard-options.xml" xpointer="no-pager" />
+     </variablelist>
++  </refsect1>
++
++  <refsect1>
++    <title>Commands</title>
+ 
+     <para>The following commands are understood:</para>
+ 
+@@ -125,8 +129,8 @@
+       <varlistentry>
+         <term><command>status</command></term>
+ 
+-        <listitem><para>Show current settings of the system locale and
+-        keyboard mapping.</para></listitem>
++        <listitem><para>Show current settings of the system locale and keyboard mapping.
++        If no command is specified, this is the implied default.</para></listitem>
+       </varlistentry>
+ 
+       <varlistentry>
+--- a/man/timedatectl.xml	2018-03-05 23:16:37.000000000 +0100
++++ b/man/timedatectl.xml	2018-05-20 11:17:53.328490811 +0200
+@@ -98,6 +98,10 @@
+       <xi:include href="standard-options.xml" xpointer="version" />
+       <xi:include href="standard-options.xml" xpointer="no-pager" />
+     </variablelist>
++  </refsect1>
++
++  <refsect1>
++    <title>Commands</title>
+ 
+     <para>The following commands are understood:</para>
+ 
+@@ -109,6 +113,7 @@
+         including whether network time synchronization through
+         <filename>systemd-timesyncd.service</filename> is active. Even if it is
+         inactive, a different service might still synchronize the clock.
++        If no command is specified, this is the implied default.
+         </para></listitem>
+       </varlistentry>
+ 
+--- a/meson.build	2018-03-05 23:16:37.000000000 +0100
++++ b/meson.build	2018-05-20 11:17:53.328490811 +0200
+@@ -604,7 +604,7 @@
+ conf.set_quoted('TELINIT', get_option('telinit-path'))
+ 
+ if run_command('ln', '--relative', '--help').returncode() != 0
+-        error('ln does not support --relative')
++        error('ln does not support --relative (added in coreutils 8.16)')
+ endif
+ 
+ ############################################################
+@@ -2903,8 +2903,9 @@
+         ['debug mmap cache'],
+ ]
+ 
+-        cond = tuple.get(1, '')
+-        if cond == ''
++        if tuple.length() >= 2
++                cond = tuple[1]
++        else
+                 ident1 = 'HAVE_' + tuple[0].underscorify().to_upper()
+                 ident2 = 'ENABLE_' + tuple[0].underscorify().to_upper()
+                 cond = conf.get(ident1, 0) == 1 or conf.get(ident2, 0) == 1
+--- a/NEWS	2018-03-05 23:16:37.000000000 +0100
++++ b/NEWS	2018-05-20 11:17:53.330490832 +0200
+@@ -11,7 +11,7 @@
+           other forms of resource accounting (CPU, IO, IP) remain off for now,
+           because it's not clear yet that their impact is small enough to move
+           from opt-in to opt-out. We recommend downstreams to leave memory
+-          accounting on by default if kernel 4.14 or higher is are primarily
++          accounting on by default if kernel 4.14 or higher is primarily
+           used. On very resource constrained systems or when support for old
+           kernels is a necessity, -Dmemory-accounting-default=false can be used
+           to revert this change.
+@@ -35,12 +35,12 @@
+           disk (in case some of those files are owned by that user), while
+           still allowing local admin overrides.
+ 
+-          This functionality is exposed to rpm scriplets through a new
++          This functionality is exposed to rpm scriptlets through a new
+           %sysusers_create_package macro. Old %sysusers_create and
+           %sysusers_create_inline macros are deprecated.
+ 
+           A transfiletrigger for sysusers.d configuration is now installed,
+-          which means that it should be uncessary to call systemd-sysusers from
++          which means that it should be unnecessary to call systemd-sysusers from
+           package installation scripts, unless the package installs any files
+           owned by those newly-created users, in which case
+           %sysusers_create_package should be used.
+--- a/shell-completion/zsh/_systemd-analyze	2018-03-05 23:16:37.000000000 +0100
++++ b/shell-completion/zsh/_systemd-analyze	2018-05-20 11:17:53.330490832 +0200
+@@ -33,12 +33,13 @@
+         'plot:Output SVG graphic showing service initialization'
+         'dot:Dump dependency graph (in dot(1) format)'
+         'dump:Dump server status'
+-        'unit-paths':List unit load paths'
++        'unit-paths:List unit load paths'
+         'log-level:Get/set systemd log threshold'
+         'log-target:Get/set systemd log target'
+         'service-watchdogs:Get/set service watchdog status'
+         'syscall-filter:List syscalls in seccomp filter'
+         'verify:Check unit files for correctness'
++        'calendar:Validate repetitive calendar time events'
+     )
+ 
+     if (( CURRENT == 1 )); then
+--- a/src/basic/cgroup-util.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/basic/cgroup-util.c	2018-05-20 11:17:53.331490843 +0200
+@@ -2038,7 +2038,6 @@
+                 char **ret_values) {
+ 
+         _cleanup_free_ char *filename = NULL, *contents = NULL;
+-        _cleanup_fclose_ FILE *f = NULL;
+         const char *p;
+         size_t n, i, n_done = 0;
+         char **v;
+--- a/src/basic/log.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/basic/log.c	2018-05-20 11:17:53.331490843 +0200
+@@ -814,7 +814,7 @@
+         log_dispatch_internal(level, 0, file, line, func, NULL, NULL, NULL, NULL, buffer);
+ }
+ 
+-noreturn void log_assert_failed_realm(
++_noreturn_ void log_assert_failed_realm(
+                 LogRealm realm,
+                 const char *text,
+                 const char *file,
+@@ -826,7 +826,7 @@
+         abort();
+ }
+ 
+-noreturn void log_assert_failed_unreachable_realm(
++_noreturn_ void log_assert_failed_unreachable_realm(
+                 LogRealm realm,
+                 const char *text,
+                 const char *file,
+--- a/src/basic/log.h	2018-03-05 23:16:37.000000000 +0100
++++ b/src/basic/log.h	2018-05-20 11:17:53.331490843 +0200
+@@ -186,7 +186,7 @@
+                 char *buffer);
+ 
+ /* Logging for various assertions */
+-noreturn void log_assert_failed_realm(
++_noreturn_ void log_assert_failed_realm(
+                 LogRealm realm,
+                 const char *text,
+                 const char *file,
+@@ -195,7 +195,7 @@
+ #define log_assert_failed(text, ...) \
+         log_assert_failed_realm(LOG_REALM, (text), __VA_ARGS__)
+ 
+-noreturn void log_assert_failed_unreachable_realm(
++_noreturn_ void log_assert_failed_unreachable_realm(
+                 LogRealm realm,
+                 const char *text,
+                 const char *file,
+--- a/src/basic/macro.h	2018-03-05 23:16:37.000000000 +0100
++++ b/src/basic/macro.h	2018-05-20 11:17:53.331490843 +0200
+@@ -53,6 +53,15 @@
+ #else
+ #define _fallthrough_
+ #endif
++/* Define C11 noreturn without <stdnoreturn.h> and even on older gcc
++ * compiler versions */
++#ifndef _noreturn_
++#if __STDC_VERSION__ >= 201112L
++#define _noreturn_ _Noreturn
++#else
++#define _noreturn_ __attribute__((noreturn))
++#endif
++#endif
+ 
+ /* Temporarily disable some warnings */
+ #define DISABLE_WARNING_DECLARATION_AFTER_STATEMENT                     \
+@@ -414,16 +423,6 @@
+ #endif
+ #endif
+ 
+-/* Define C11 noreturn without <stdnoreturn.h> and even on older gcc
+- * compiler versions */
+-#ifndef noreturn
+-#if __STDC_VERSION__ >= 201112L
+-#define noreturn _Noreturn
+-#else
+-#define noreturn __attribute__((noreturn))
+-#endif
+-#endif
+-
+ #define DEFINE_TRIVIAL_CLEANUP_FUNC(type, func)                 \
+         static inline void func##p(type *p) {                   \
+                 if (*p)                                         \
+--- a/src/basic/process-util.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/basic/process-util.c	2018-05-20 11:17:53.332490853 +0200
+@@ -987,7 +987,7 @@
+         return cached > 0;
+ }
+ 
+-noreturn void freeze(void) {
++_noreturn_ void freeze(void) {
+ 
+         log_close();
+ 
+--- a/src/basic/process-util.h	2018-03-05 23:16:37.000000000 +0100
++++ b/src/basic/process-util.h	2018-05-20 11:17:53.332490853 +0200
+@@ -91,7 +91,7 @@
+ 
+ bool is_main_thread(void);
+ 
+-noreturn void freeze(void);
++_noreturn_ void freeze(void);
+ 
+ bool oom_score_adjust_is_valid(int oa);
+ 
+--- a/src/busctl/busctl.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/busctl/busctl.c	2018-05-20 11:17:53.333490864 +0200
+@@ -112,6 +112,9 @@
+         }
+ 
+         merged = new(char*, hashmap_size(names) + 1);
++        if (!merged)
++                return log_oom();
++
+         HASHMAP_FOREACH_KEY(v, k, names, iterator)
+                 merged[n++] = k;
+ 
+@@ -283,8 +286,6 @@
+ 
+ static void print_tree(const char *prefix, char **l) {
+ 
+-        pager_open(arg_no_pager, false);
+-
+         prefix = strempty(prefix);
+ 
+         if (arg_list) {
+--- a/src/core/cgroup.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/cgroup.c	2018-05-20 11:17:53.333490864 +0200
+@@ -2272,19 +2272,20 @@
+         /* 5. Make sure we are in the special "init.scope" unit in the root slice. */
+         scope_path = strjoina(m->cgroup_root, "/" SPECIAL_INIT_SCOPE);
+         r = cg_create_and_attach(SYSTEMD_CGROUP_CONTROLLER, scope_path, 0);
+-        if (r < 0)
+-                return log_error_errno(r, "Failed to create %s control group: %m", scope_path);
++        if (r >= 0) {
++                /* Also, move all other userspace processes remaining in the root cgroup into that scope. */
++                r = cg_migrate(SYSTEMD_CGROUP_CONTROLLER, m->cgroup_root, SYSTEMD_CGROUP_CONTROLLER, scope_path, 0);
++                if (r < 0)
++                        log_warning_errno(r, "Couldn't move remaining userspace processes, ignoring: %m");
+ 
+-        /* Also, move all other userspace processes remaining in the root cgroup into that scope. */
+-        r = cg_migrate(SYSTEMD_CGROUP_CONTROLLER, m->cgroup_root, SYSTEMD_CGROUP_CONTROLLER, scope_path, 0);
+-        if (r < 0)
+-                log_warning_errno(r, "Couldn't move remaining userspace processes, ignoring: %m");
++                /* 6. And pin it, so that it cannot be unmounted */
++                safe_close(m->pin_cgroupfs_fd);
++                m->pin_cgroupfs_fd = open(path, O_RDONLY|O_CLOEXEC|O_DIRECTORY|O_NOCTTY|O_NONBLOCK);
++                if (m->pin_cgroupfs_fd < 0)
++                        return log_error_errno(errno, "Failed to open pin file: %m");
+ 
+-        /* 6. And pin it, so that it cannot be unmounted */
+-        safe_close(m->pin_cgroupfs_fd);
+-        m->pin_cgroupfs_fd = open(path, O_RDONLY|O_CLOEXEC|O_DIRECTORY|O_NOCTTY|O_NONBLOCK);
+-        if (m->pin_cgroupfs_fd < 0)
+-                return log_error_errno(errno, "Failed to open pin file: %m");
++        } else if (r < 0 && !m->test_run_flags)
++                return log_error_errno(r, "Failed to create %s control group: %m", scope_path);
+ 
+         /* 7. Always enable hierarchical support if it exists... */
+         if (!all_unified && m->test_run_flags == 0)
+--- a/src/core/macros.systemd.in	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/macros.systemd.in	2018-05-20 11:17:53.334490875 +0200
+@@ -101,7 +101,9 @@
+ %{nil}
+ 
+ %sysusers_create_inline() \
+-echo %{?*} | systemd-sysusers - >/dev/null 2>&1 || : \
++systemd-sysusers - <<SYSTEMD_INLINE_EOF >/dev/null 2>&1 || : \
++%{?*} \
++SYSTEMD_INLINE_EOF \
+ %{nil}
+ 
+ # This should be used by package installation scripts which require users or
+@@ -118,7 +120,9 @@
+ #   %files
+ #   %{_sysusersdir}/%{name}.conf
+ %sysusers_create_package() \
+-echo "%(cat %2)" | systemd-sysusers --replace=%_sysusersdir/%1.conf - >/dev/null 2>&1 || : \
++systemd-sysusers --replace=%_sysusersdir/%1.conf - <<SYSTEMD_INLINE_EOF >/dev/null 2>&1 || : \
++%(cat %2) \
++SYSTEMD_INLINE_EOF \
+ %{nil}
+ 
+ # This may be used by package installation scripts to create files according to
+@@ -135,7 +139,9 @@
+ #   %files
+ #   %{_tmpfilesdir}/%{name}.conf
+ %tmpfiles_create_package() \
+-echo "%(cat %2)" | systemd-tmpfiles --replace=%_tmpfilesdir/%1.conf --create - >/dev/null 2>&1 || : \
++systemd-tmpfiles --replace=%_tmpfilesdir/%1.conf --create - <<SYSTEMD_INLINE_EOF >/dev/null 2>&1 || : \
++%(cat %2) \
++SYSTEMD_INLINE_EOF \
+ %{nil}
+ 
+ %sysctl_apply() \
+--- a/src/core/main.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/main.c	2018-05-20 11:17:53.334490875 +0200
+@@ -141,7 +141,7 @@
+ static sd_id128_t arg_machine_id = {};
+ static EmergencyAction arg_cad_burst_action = EMERGENCY_ACTION_REBOOT_FORCE;
+ 
+-noreturn static void freeze_or_reboot(void) {
++_noreturn_ static void freeze_or_reboot(void) {
+ 
+         if (arg_crash_reboot) {
+                 log_notice("Rebooting in 10s...");
+@@ -156,7 +156,7 @@
+         freeze();
+ }
+ 
+-noreturn static void crash(int sig) {
++_noreturn_ static void crash(int sig) {
+         struct sigaction sa;
+         pid_t pid;
+ 
+--- a/src/core/mount-setup.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/mount-setup.c	2018-05-20 11:17:53.335490885 +0200
+@@ -248,6 +248,7 @@
+ 
+ int mount_cgroup_controllers(char ***join_controllers) {
+         _cleanup_set_free_free_ Set *controllers = NULL;
++        bool has_argument = !!join_controllers;
+         int r;
+ 
+         if (!cg_is_legacy_wanted())
+@@ -255,7 +256,7 @@
+ 
+         /* Mount all available cgroup controllers that are built into the kernel. */
+ 
+-        if (!join_controllers)
++        if (!has_argument)
+                 /* The defaults:
+                  * mount "cpu" + "cpuacct" together, and "net_cls" + "net_prio".
+                  *
+@@ -300,7 +301,8 @@
+ 
+                                         t = set_remove(controllers, *i);
+                                         if (!t) {
+-                                                free(*i);
++                                                if (has_argument)
++                                                        free(*i);
+                                                 continue;
+                                         }
+                                 }
+--- a/src/core/triggers.systemd.in	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/triggers.systemd.in	2018-05-20 11:17:53.335490885 +0200
+@@ -84,7 +84,7 @@
+     end
+ end
+ 
+-%transfiletriggerin -P 100500 --  @tmpfilesdir@
++%transfiletriggerin -P 100500 -p <lua> -- @tmpfilesdir@
+ -- This script will process files installed in @tmpfilesdir@ to create
+ -- tmpfiles automatically. The priority is set such that it will run
+ -- after the sysusers file trigger, but before any other triggers.
+@@ -97,7 +97,7 @@
+     end
+ end
+ 
+-%transfiletriggerin --  @udevhwdbdir@
++%transfiletriggerin -p <lua> -- @udevhwdbdir@
+ -- This script will automatically invoke hwdb update if files have been
+ -- installed or updated in @udevhwdbdir@.
+ if posix.access("/run/systemd/system") then
+@@ -109,7 +109,7 @@
+     end
+ end
+ 
+-%transfiletriggerin --  @catalogdir@
++%transfiletriggerin -p <lua> -- @catalogdir@
+ -- This script will automatically invoke journal catalog update if files
+ -- have been installed or updated in @catalogdir@.
+ if posix.access("/run/systemd/system") then
+@@ -121,7 +121,7 @@
+     end
+ end
+ 
+-%transfiletriggerin -- @udevrulesdir@
++%transfiletriggerin -p <lua> -- @udevrulesdir@
+ -- This script will automatically update udev with new rules if files
+ -- have been installed or updated in @udevrulesdir@.
+ if posix.access("/run/systemd/system") then
+@@ -133,7 +133,7 @@
+     end
+ end
+ 
+-%transfiletriggerin -- @sysctldir@
++%transfiletriggerin -p <lua> -- @sysctldir@
+ -- This script will automatically apply sysctl rules if files have been
+ -- installed or updated in @sysctldir@.
+ if posix.access("/run/systemd/system") then
+@@ -145,7 +145,7 @@
+     end
+ end
+ 
+-%transfiletriggerin -- @binfmtdir@
++%transfiletriggerin -p <lua> -- @binfmtdir@
+ -- This script will automatically apply binfmt rules if files have been
+ -- installed or updated in @binfmtdir@.
+ if posix.access("/run/systemd/system") then
+--- a/src/core/umount.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/umount.c	2018-05-20 11:17:53.335490885 +0200
+@@ -61,6 +61,8 @@
+         LIST_REMOVE(mount_point, *head, m);
+ 
+         free(m->path);
++        free(m->options);
++        free(m->type);
+         free(m);
+ }
+ 
+@@ -313,7 +315,7 @@
+                 if (!node)
+                         return -ENOMEM;
+ 
+-                m = new(MountPoint, 1);
++                m = new0(MountPoint, 1);
+                 if (!m) {
+                         free(node);
+                         return -ENOMEM;
+--- a/src/core/unit.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/core/unit.c	2018-05-20 11:17:53.336490896 +0200
+@@ -2502,8 +2502,11 @@
+                 }
+         }
+ 
+-        manager_recheck_journal(m);
+-        manager_recheck_dbus(m);
++        if (!MANAGER_IS_RELOADING(u->manager)) {
++                manager_recheck_journal(m);
++                manager_recheck_dbus(m);
++        }
++
+         unit_trigger_notify(u);
+ 
+         if (!MANAGER_IS_RELOADING(u->manager)) {
+--- a/src/journal/journal-verify.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/journal/journal-verify.c	2018-05-20 11:17:53.342490960 +0200
+@@ -1245,7 +1245,7 @@
+         }
+ 
+         if (entry_monotonic_set &&
+-            (!sd_id128_equal(entry_boot_id, f->header->boot_id) ||
++            (sd_id128_equal(entry_boot_id, f->header->boot_id) &&
+              entry_monotonic != le64toh(f->header->tail_entry_monotonic))) {
+                 error(0, "Invalid tail monotonic timestamp");
+                 r = -EBADMSG;
+--- a/src/journal/test-journal-interleaving.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/journal/test-journal-interleaving.c	2018-05-20 11:17:53.348491024 +0200
+@@ -37,7 +37,7 @@
+ 
+ static bool arg_keep = false;
+ 
+-noreturn static void log_assert_errno(const char *text, int error, const char *file, int line, const char *func) {
++_noreturn_ static void log_assert_errno(const char *text, int error, const char *file, int line, const char *func) {
+         log_internal(LOG_CRIT, error, file, line, func,
+                      "'%s' failed at %s:%u (%s): %m", text, file, line, func);
+         abort();
+--- a/src/journal-remote/meson.build	2018-03-05 23:16:37.000000000 +0100
++++ b/src/journal-remote/meson.build	2018-05-20 11:17:53.348491024 +0200
+@@ -61,6 +61,6 @@
+         meson.add_install_script('sh', '-c',
+                                  mkdir_p.format('/var/log/journal/remote'))
+         meson.add_install_script('sh', '-c',
+-                                 'chown 0:0 $DESTDIR/var/log/journal/remote &&
+-                                 chmod 755 $DESTDIR/var/log/journal/remote || :')
++                                 '''chown 0:0 $DESTDIR/var/log/journal/remote &&
++                                    chmod 755 $DESTDIR/var/log/journal/remote || :''')
+ endif
+--- a/src/libsystemd/sd-bus/bus-socket.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/libsystemd/sd-bus/bus-socket.c	2018-05-20 11:17:53.349491035 +0200
+@@ -960,14 +960,9 @@
+         if (r == 0) {
+                 /* Child */
+ 
+-                safe_close(s[0]);
+-
+                 if (rearrange_stdio(s[1], s[1], STDERR_FILENO) < 0)
+                         _exit(EXIT_FAILURE);
+ 
+-                (void) fd_nonblock(STDIN_FILENO, false);
+-                (void) fd_nonblock(STDOUT_FILENO, false);
+-
+                 if (b->exec_argv)
+                         execvp(b->exec_path, b->exec_argv);
+                 else {
+--- a/src/nspawn/nspawn.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/nspawn/nspawn.c	2018-05-20 11:17:53.358491131 +0200
+@@ -2323,10 +2323,15 @@
+                       arg_uid_shift,
+                       arg_uid_range,
+                       arg_selinux_apifs_context);
+-
+         if (r < 0)
+                 return r;
+ 
++        if (!arg_network_namespace_path && arg_private_network) {
++                r = unshare(CLONE_NEWNET);
++                if (r < 0)
++                        return log_error_errno(errno, "Failed to unshare network namespace: %m");
++        }
++
+         r = mount_sysfs(NULL, arg_mount_settings);
+         if (r < 0)
+                 return r;
+@@ -2341,7 +2346,7 @@
+         if (arg_use_cgns && cg_ns_supported()) {
+                 r = unshare(CLONE_NEWCGROUP);
+                 if (r < 0)
+-                        return log_error_errno(errno, "Failed to unshare cgroup namespace");
++                        return log_error_errno(errno, "Failed to unshare cgroup namespace: %m");
+                 r = mount_cgroups(
+                                 "",
+                                 arg_unified_cgroup_hierarchy,
+@@ -2568,7 +2573,6 @@
+         ssize_t l;
+         int r;
+         _cleanup_close_ int fd = -1;
+-        bool create_netns;
+ 
+         assert(barrier);
+         assert(directory);
+@@ -2811,11 +2815,8 @@
+         if (fd < 0)
+                 return fd;
+ 
+-        create_netns = !arg_network_namespace_path && arg_private_network;
+-
+         pid = raw_clone(SIGCHLD|CLONE_NEWNS|
+                         arg_clone_ns_flags |
+-                        (create_netns ? CLONE_NEWNET : 0) |
+                         (arg_userns_mode != USER_NAMESPACE_NO ? CLONE_NEWUSER : 0));
+         if (pid < 0)
+                 return log_error_errno(errno, "Failed to fork inner child: %m");
+--- a/src/shared/pager.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/shared/pager.c	2018-05-20 11:17:53.362491173 +0200
+@@ -47,7 +47,7 @@
+ static bool stdout_redirected = false;
+ static bool stderr_redirected = false;
+ 
+-noreturn static void pager_fallback(void) {
++_noreturn_ static void pager_fallback(void) {
+         int r;
+ 
+         r = copy_bytes(STDIN_FILENO, STDOUT_FILENO, (uint64_t) -1, 0);
+--- a/src/systemctl/systemctl.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/systemctl/systemctl.c	2018-05-20 11:17:53.363491184 +0200
+@@ -2915,8 +2915,8 @@
+                         return log_error_errno(r, "Failed to request match for PropertiesChanged signal: %m");
+         }
+ 
+-        log_debug("%s manager for %s on %s, %s",
+-                  arg_dry_run ? "Would call" : "Calling",
++        log_debug("%s dbus call org.freedesktop.systemd1.Manager %s(%s, %s)",
++                  arg_dry_run ? "Would execute" : "Executing",
+                   method, name, mode);
+         if (arg_dry_run)
+                 return 0;
+@@ -3215,6 +3215,10 @@
+         if (!m)
+                 return log_oom();
+ 
++        log_debug("%s wall message \"%s\".", arg_dry_run ? "Would set" : "Setting", m);
++        if (arg_dry_run)
++                return 0;
++
+         r = sd_bus_call_method(
+                         bus,
+                         "org.freedesktop.login1",
+@@ -3285,6 +3289,10 @@
+         polkit_agent_open_maybe();
+         (void) logind_set_wall_message();
+ 
++        log_debug("%s org.freedesktop.login1.Manager %s dbus call.", arg_dry_run ? "Would execute" : "Executing", method);
++        if (arg_dry_run)
++                return 0;
++
+         r = sd_bus_call_method(
+                         bus,
+                         "org.freedesktop.login1",
+@@ -3483,6 +3491,9 @@
+                 return 0;
+         }
+ 
++        if (access(KEXEC, X_OK) < 0)
++                return log_error_errno(errno, KEXEC" is not available: %m");
++
+         r = find_esp_and_warn(arg_esp_path, false, &where, NULL, NULL, NULL, NULL);
+         if (r == -ENOKEY) /* find_esp_and_warn() doesn't warn about this case */
+                 return log_error_errno(r, "Cannot find the ESP partition mount point.");
+@@ -3511,9 +3522,12 @@
+         if (!options)
+                 return log_oom();
+ 
+-        log_debug("%s kexec kernel %s initrd %s options \"%s\".",
+-                  arg_dry_run ? "Would load" : "loading",
+-                  kernel, initrd, options);
++        log_full(arg_quiet ? LOG_DEBUG : LOG_INFO,
++                 "%s "KEXEC" --load \"%s\" --append \"%s\"%s%s%s",
++                 arg_dry_run ? "Would run" : "Running",
++                 kernel,
++                 options,
++                 initrd ? " --initrd \"" : NULL, strempty(initrd), initrd ? "\"" : "");
+         if (arg_dry_run)
+                 return 0;
+ 
+@@ -3521,7 +3535,6 @@
+         if (r < 0)
+                 return r;
+         if (r == 0) {
+-
+                 const char* const args[] = {
+                         KEXEC,
+                         "--load", kernel,
+@@ -3534,7 +3547,13 @@
+                 _exit(EXIT_FAILURE);
+         }
+ 
+-        return wait_for_terminate_and_check("kexec", pid, WAIT_LOG);
++        r = wait_for_terminate_and_check("kexec", pid, WAIT_LOG);
++        if (r < 0)
++                return r;
++        if (r > 0)
++                /* Command failed */
++                return -EPROTO;
++        return 0;
+ }
+ 
+ static int set_exit_code(uint8_t code) {
+@@ -3592,7 +3611,9 @@
+ 
+         } else if (a == ACTION_KEXEC) {
+                 r = load_kexec_kernel();
+-                if (r < 0)
++                if (r < 0 && arg_force >= 1)
++                        log_notice("Failed to load kexec kernel, continuing without.");
++                else if (r < 0)
+                         return r;
+ 
+         } else if (a == ACTION_EXIT && argc > 1) {
+--- a/src/sysusers/sysusers.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/sysusers/sysusers.c	2018-05-20 11:17:53.364491195 +0200
+@@ -396,6 +396,7 @@
+ static int write_temporary_passwd(const char *passwd_path, FILE **tmpfile, char **tmpfile_path) {
+         _cleanup_fclose_ FILE *original = NULL, *passwd = NULL;
+         _cleanup_(unlink_and_freep) char *passwd_tmp = NULL;
++        struct passwd *pw = NULL;
+         Iterator iterator;
+         Item *i;
+         int r;
+@@ -409,7 +410,6 @@
+ 
+         original = fopen(passwd_path, "re");
+         if (original) {
+-                struct passwd *pw;
+ 
+                 r = sync_rights(original, passwd);
+                 if (r < 0)
+@@ -430,6 +430,11 @@
+                         }
+ 
+                         errno = 0;
++
++                        /* Make sure we keep the NIS entries (if any) at the end. */
++                        if (IN_SET(pw->pw_name[0], '+', '-'))
++                                break;
++
+                         if (putpwent(pw, passwd) < 0)
+                                 return errno ? -errno : -EIO;
+ 
+@@ -467,6 +472,19 @@
+                 if (putpwent(&n, passwd) != 0)
+                         return errno ? -errno : -EIO;
+         }
++        errno = 0;
++
++        /* Append the remaining NIS entries if any */
++        while (pw) {
++                errno = 0;
++                if (putpwent(pw, passwd) < 0)
++                        return errno ? -errno : -EIO;
++
++                errno = 0;
++                pw = fgetpwent(original);
++        }
++        if (!IN_SET(errno, 0, ENOENT))
++                return -errno;
+ 
+         r = fflush_and_check(passwd);
+         if (r < 0)
+@@ -482,6 +500,7 @@
+ static int write_temporary_shadow(const char *shadow_path, FILE **tmpfile, char **tmpfile_path) {
+         _cleanup_fclose_ FILE *original = NULL, *shadow = NULL;
+         _cleanup_(unlink_and_freep) char *shadow_tmp = NULL;
++        struct spwd *sp = NULL;
+         Iterator iterator;
+         long lstchg;
+         Item *i;
+@@ -498,7 +517,6 @@
+ 
+         original = fopen(shadow_path, "re");
+         if (original) {
+-                struct spwd *sp;
+ 
+                 r = sync_rights(original, shadow);
+                 if (r < 0)
+@@ -519,6 +537,11 @@
+                         }
+ 
+                         errno = 0;
++
++                        /* Make sure we keep the NIS entries (if any) at the end. */
++                        if (IN_SET(sp->sp_namp[0], '+', '-'))
++                                break;
++
+                         if (putspent(sp, shadow) < 0)
+                                 return errno ? -errno : -EIO;
+ 
+@@ -551,6 +574,19 @@
+                 if (putspent(&n, shadow) != 0)
+                         return errno ? -errno : -EIO;
+         }
++        errno = 0;
++
++        /* Append the remaining NIS entries if any */
++        while (sp) {
++                errno = 0;
++                if (putspent(sp, shadow) < 0)
++                        return errno ? -errno : -EIO;
++
++                errno = 0;
++                sp = fgetspent(original);
++        }
++        if (!IN_SET(errno, 0, ENOENT))
++                return -errno;
+ 
+         r = fflush_sync_and_check(shadow);
+         if (r < 0)
+@@ -567,6 +603,7 @@
+         _cleanup_fclose_ FILE *original = NULL, *group = NULL;
+         _cleanup_(unlink_and_freep) char *group_tmp = NULL;
+         bool group_changed = false;
++        struct group *gr = NULL;
+         Iterator iterator;
+         Item *i;
+         int r;
+@@ -580,7 +617,6 @@
+ 
+         original = fopen(group_path, "re");
+         if (original) {
+-                struct group *gr;
+ 
+                 r = sync_rights(original, group);
+                 if (r < 0)
+@@ -604,6 +640,12 @@
+                                 return  -EEXIST;
+                         }
+ 
++                        errno = 0;
++
++                        /* Make sure we keep the NIS entries (if any) at the end. */
++                        if (IN_SET(gr->gr_name[0], '+', '-'))
++                                break;
++
+                         r = putgrent_with_members(gr, group);
+                         if (r < 0)
+                                 return r;
+@@ -635,6 +677,19 @@
+ 
+                 group_changed = true;
+         }
++        errno = 0;
++
++        /* Append the remaining NIS entries if any */
++        while (gr) {
++                errno = 0;
++                if (putgrent(gr, group) != 0)
++                        return errno > 0 ? -errno : -EIO;
++
++                errno = 0;
++                gr = fgetgrent(original);
++        }
++        if (!IN_SET(errno, 0, ENOENT))
++                return -errno;
+ 
+         r = fflush_sync_and_check(group);
+         if (r < 0)
+--- a/src/test/test-cgroup-util.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/test/test-cgroup-util.c	2018-05-20 11:17:53.365491205 +0200
+@@ -408,9 +408,15 @@
+ static void test_cg_get_keyed_attribute(void) {
+         _cleanup_free_ char *val = NULL;
+         char *vals3[3] = {}, *vals3a[3] = {};
+-        int i;
++        int i, r;
+ 
+-        assert_se(cg_get_keyed_attribute("cpu", "/init.scope", "no_such_file", STRV_MAKE("no_such_attr"), &val) == -ENOENT);
++        r = cg_get_keyed_attribute("cpu", "/init.scope", "no_such_file", STRV_MAKE("no_such_attr"), &val);
++        if (r == -ENOMEDIUM) {
++                log_info_errno(r, "Skipping most of %s, /sys/fs/cgroup not accessible: %m", __func__);
++                return;
++        }
++
++        assert_se(r == -ENOENT);
+         assert_se(val == NULL);
+ 
+         if (access("/sys/fs/cgroup/init.scope/cpu.stat", R_OK) < 0) {
+--- a/src/test/test-fileio.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/test/test-fileio.c	2018-05-20 11:17:53.365491205 +0200
+@@ -406,7 +406,7 @@
+ 
+ static void test_write_string_stream(void) {
+         char fn[] = "/tmp/test-write_string_stream-XXXXXX";
+-        _cleanup_fclose_ FILE *f = NULL;
++        FILE *f = NULL;
+         int fd;
+         char buf[64];
+ 
+@@ -416,8 +416,9 @@
+         f = fdopen(fd, "r");
+         assert_se(f);
+         assert_se(write_string_stream(f, "boohoo", 0) < 0);
++        f = safe_fclose(f);
+ 
+-        f = freopen(fn, "r+", f);
++        f = fopen(fn, "r+");
+         assert_se(f);
+ 
+         assert_se(write_string_stream(f, "boohoo", 0) == 0);
+@@ -425,8 +426,9 @@
+ 
+         assert_se(fgets(buf, sizeof(buf), f));
+         assert_se(streq(buf, "boohoo\n"));
++        f = safe_fclose(f);
+ 
+-        f = freopen(fn, "w+", f);
++        f = fopen(fn, "w+");
+         assert_se(f);
+ 
+         assert_se(write_string_stream(f, "boohoo", WRITE_STRING_FILE_AVOID_NEWLINE) == 0);
+@@ -435,6 +437,7 @@
+         assert_se(fgets(buf, sizeof(buf), f));
+         printf(">%s<", buf);
+         assert_se(streq(buf, "boohoo"));
++        f = safe_fclose(f);
+ 
+         unlink(fn);
+ }
+@@ -607,7 +610,8 @@
+         char name[] = "/tmp/test-systemd_writing_tmpfile.XXXXXX";
+         _cleanup_free_ char *contents = NULL;
+         size_t size;
+-        int fd, r;
++        int r;
++        _cleanup_close_ int fd = -1;
+         struct iovec iov[3];
+ 
+         iov[0] = IOVEC_MAKE_STRING("abc\n");
+--- a/src/test/test-mount-util.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/test/test-mount-util.c	2018-05-20 11:17:53.365491205 +0200
+@@ -80,12 +80,8 @@
+                 int mnt_id = PTR_TO_INT(k), mnt_id2;
+ 
+                 r = path_get_mnt_id(p, &mnt_id2);
+-                if (r == -EOPNOTSUPP) { /* kernel or file system too old? */
+-                        log_debug("%s doesn't support mount IDs\n", p);
+-                        continue;
+-                }
+-                if (IN_SET(r, -EACCES, -EPERM)) {
+-                        log_debug("Can't access %s\n", p);
++                if (r < 0) {
++                        log_debug_errno(r, "Failed to get the mnt id of %s: %m\n", p);
+                         continue;
+                 }
+ 
+--- a/src/test/test-process-util.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/test/test-process-util.c	2018-05-20 11:17:53.365491205 +0200
+@@ -193,6 +193,8 @@
+         assert_se(pid == 0);
+         assert_se(unshare(CLONE_NEWNS) >= 0);
+ 
++        assert_se(mount(NULL, "/", NULL, MS_PRIVATE|MS_REC, NULL) >= 0);
++
+         fd = mkostemp(path, O_CLOEXEC);
+         assert_se(fd >= 0);
+ 
+--- a/src/udev/collect/collect.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/udev/collect/collect.c	2018-05-20 11:17:53.366491216 +0200
+@@ -58,7 +58,7 @@
+         return container_of(node, struct _mate, node);
+ }
+ 
+-noreturn static void sig_alrm(int signo)
++_noreturn_ static void sig_alrm(int signo)
+ {
+         exit(4);
+ }
+--- a/src/udev/udev-builtin-net_id.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/udev/udev-builtin-net_id.c	2018-05-20 11:17:53.366491216 +0200
+@@ -297,7 +297,7 @@
+                 if (snprintf_ok(str, sizeof str, "%s/%s/address", slots, dent->d_name) &&
+                     read_one_line_file(str, &address) >= 0)
+                         /* match slot address with device by stripping the function */
+-                        if (streq(address, udev_device_get_sysname(names->pcidev)))
++                        if (startswith(udev_device_get_sysname(names->pcidev), address))
+                                 hotplug_slot = i;
+ 
+                 if (hotplug_slot > 0)
+--- a/src/udev/v4l_id/v4l_id.c	2018-03-05 23:16:37.000000000 +0100
++++ b/src/udev/v4l_id/v4l_id.c	2018-05-20 11:17:53.366491216 +0200
+@@ -68,9 +68,11 @@
+                 printf("ID_V4L_VERSION=2\n");
+                 printf("ID_V4L_PRODUCT=%s\n", v2cap.card);
+                 printf("ID_V4L_CAPABILITIES=:");
+-                if ((v2cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) > 0)
++                if ((v2cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) > 0 ||
++                    (v2cap.capabilities & V4L2_CAP_VIDEO_CAPTURE_MPLANE) > 0)
+                         printf("capture:");
+-                if ((v2cap.capabilities & V4L2_CAP_VIDEO_OUTPUT) > 0)
++                if ((v2cap.capabilities & V4L2_CAP_VIDEO_OUTPUT) > 0 ||
++                    (v2cap.capabilities & V4L2_CAP_VIDEO_OUTPUT_MPLANE) > 0)
+                         printf("video_output:");
+                 if ((v2cap.capabilities & V4L2_CAP_VIDEO_OVERLAY) > 0)
+                         printf("video_overlay:");
+--- a/units/system-update-cleanup.service.in	2018-03-05 23:16:37.000000000 +0100
++++ b/units/system-update-cleanup.service.in	2018-05-20 11:17:53.366491216 +0200
+@@ -14,6 +14,7 @@
+ DefaultDependencies=no
+ Conflicts=shutdown.target
+ Before=shutdown.target
++SuccessAction=reboot
+ 
+ # system-update-generator uses laccess("/system-update"), while a plain
+ # ConditionPathExists=/system-update uses access("/system-update"), so
+@@ -32,4 +33,3 @@
+ [Service]
+ Type=oneshot
+ ExecStart=/bin/rm -fv /system-update
+-SuccessAction=reboot

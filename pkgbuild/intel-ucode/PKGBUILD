@@ -1,32 +1,27 @@
 pkgname=intel-ucode
-_dlid=27591
-pkgver=20180312
+_dlid=27776
+pkgver=20180425
 pkgrel=1
 pkgdesc="Microcode update files for Intel CPUs"
 arch=('x86_64')
 url="https://downloadcenter.intel.com/SearchResult.aspx?lang=eng&keyword=%22microcode%22"
 license=('custom')
 #depends=()
-source=("https://downloadmirror.intel.com/${_dlid}/eng/microcode-${pkgver}.tgz"
-	"intel-microcode2ucode.c")
+source=("https://downloadmirror.intel.com/${_dlid}/eng/microcode-${pkgver}.tgz")
 
 build() {
 	cd "${srcdir}"
 
-	${CC} -Wall -o intel-microcode2ucode intel-microcode2ucode.c
-
-	./intel-microcode2ucode ./microcode.dat
+	rm -rfv intel-ucode/list intel-ucode-with-caveats/list
+	install -v -dm755 kernel/x86/microcode
+	iucode_tool -w kernel/x86/microcode/GenuineIntel.bin intel-ucode/ intel-ucode-with-caveats/
+	echo kernel/x86/microcode/GenuineIntel.bin | bsdcpio -o -H newc -R 0:0 > intel-ucode.img
 }
 
 package() {
 	cd "${srcdir}"
 
-	install -v -dm755 kernel/x86/microcode
-	mv -v microcode.bin kernel/x86/microcode/GenuineIntel.bin
-
-	install -v -dm755 "${pkgdir}/boot"
-	echo kernel/x86/microcode/GenuineIntel.bin | bsdcpio -o -H newc -R 0:0 > "${pkgdir}/boot/intel-ucode.img"
+	install -v -Dm644 intel-ucode.img "${pkgdir}/boot/intel-ucode.img"
 }
 
-sha512sums=('cc2cabf6d12c83b65eeb30fca7eb0b503e037dbee3d7ce9cb307b02ed8ac9426b2bafc2c1f1281dddff0945f8308f0d3cd320edea4596551354188d64760b854'
-            'ee60f968acab4067f5660449eabae533b5d3996cd59fd4b69d0e23e0b264da216ab6e6ccd554222cf355fc14dbd348562a2d36a87a60f1f54433603e04998cd1')
+sha512sums=('6cea53cc0f486891fb9ddffc1e03e8e0a6d1d91df6bfda81250b2c60714e7b4111caa9df5afa7f13d8144e591550ef7eb4fd1e153fc67fc904afb83ccc2e3bb0')
