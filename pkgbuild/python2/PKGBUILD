@@ -8,13 +8,10 @@ arch=('x86_64')
 url="http://www.python.org/"
 license=('PSF')
 #depends=()
-source=("https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz"
-	"python2-bdb.patch")
+source=("https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/Python-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/python2-bdb.patch"
 
 	rm -rf Modules/expat Modules/zlib Modules/_ctypes/{darwin,libffi}*
 
@@ -29,7 +26,7 @@ build() {
 		--with-system-expat \
 		--with-system-ffi \
 		--enable-unicode=ucs4 \
-		--with-dbmliborder=bdb:gdbm:ndbm
+		--with-dbmliborder=gdbm:ndbm
 
 	make
 }
@@ -51,5 +48,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py2majorver}/{ctypes/test,lib2to3/tests,email/test,unittest/test,bsddb/test}
 }
 
-sha512sums=('27ea43eb45fc68f3d2469d5f07636e10801dee11635a430ec8ec922ed790bb426b072da94df885e4dfa1ea8b7a24f2f56dd92f9b0f51e162330f161216bd6de6'
-            '831f402f5fa8f4fbf7b93d5f49568bd734e4f284a649badc2770b7eacac61e94d433bd1bef7a71c9692c364a6836dee63eb245b1417ffaac90fb7a7f8b2962b5')
+sha512sums=('27ea43eb45fc68f3d2469d5f07636e10801dee11635a430ec8ec922ed790bb426b072da94df885e4dfa1ea8b7a24f2f56dd92f9b0f51e162330f161216bd6de6')

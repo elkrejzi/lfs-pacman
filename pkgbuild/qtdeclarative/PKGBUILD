@@ -1,5 +1,5 @@
 pkgname=qtdeclarative
-pkgver=5.10.1
+pkgver=5.11.1
 pkgrel=1
 pkgdesc="Classes for QML and JavaScript languages"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('b45b7c2232a3e7ddc8076066957f5c110a0ca9c815ee659f6e7656e85175a9ae56c52d6402d5437e4b60cd86508eb3c912ddd441e0be0ac9590ea263ad397048')
+sha512sums=('d4252f58fcc811273b1a51f80167bca19f744d70c47362b631bbb7875473a808402d64b26475e2f5ff1813d8b8cc66b81cac1b8a4b5e36f7ca1fdbb15666f053')

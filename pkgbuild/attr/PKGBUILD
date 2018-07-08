@@ -1,12 +1,12 @@
 pkgbase=attr
 pkgname=('attr' 'lib32-attr')
-pkgver=2.4.47
+pkgver=2.4.48
 pkgrel=1
 arch=('x86_64')
 url="http://savannah.nongnu.org/projects/attr"
 license=('LGPL')
 #depends=()
-source=("http://download.savannah.gnu.org/releases/attr/attr-${pkgver}.src.tar.gz")
+source=("http://download.savannah.gnu.org/releases/attr/attr-${pkgver}.tar.gz")
 
 prepare() {
 	cp -a "${srcdir}"/attr{,32}-${pkgver}
@@ -15,11 +15,7 @@ prepare() {
 build() {
 	cd "${srcdir}/attr-${pkgver}"
 
-	sed -i "/SUBDIRS/s:man2::" man/Makefile
-
-	export INSTALL_USER=root INSTALL_GROUP=root
-
-	./configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib
+	./configure --prefix=/usr --sysconfdir=/etc
 
 	cd "${srcdir}/attr32-${pkgver}"
 
@@ -27,7 +23,9 @@ build() {
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr --libdir=/usr/lib32 --libexecdir=/usr/lib32
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--libdir=/usr/lib32
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -43,9 +41,7 @@ package_attr() {
 
 	cd "${srcdir}/attr-${pkgver}"
 
-	make install install-lib install-dev DIST_ROOT="${pkgdir}"
-
-	chmod -v 755 "${pkgdir}/usr/lib/libattr.so"
+	make install DESTDIR="${pkgdir}"
 }
 
 package_lib32-attr() {
@@ -53,12 +49,10 @@ package_lib32-attr() {
 
 	cd "${srcdir}/attr32-${pkgver}"
 
-	make install install-lib install-dev DIST_ROOT="${PWD}/dest"
+	make install DESTDIR="${PWD}/dest"
 
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
-
-	chmod -v 755 "${pkgdir}/usr/lib32/libattr.so"
 }
 
-sha512sums=('2a333f63655758298650cf8f89c175efdc0112dcc4013e8d023e2a9a69f177e4bcb1f1d10b6666d6f2027dca4dec0833d54749952ab153d28367e1a72e6e2831')
+sha512sums=('75f870a0e6e19b8975f3fdceee786fbaff3eadaa9ab9af01996ffa8e50fe5b2bba6e4c22c44a6722d11b55feb9e89895d0151d6811c1d2b475ef4ed145f0c923')

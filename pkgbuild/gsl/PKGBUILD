@@ -1,5 +1,5 @@
 pkgname=gsl
-pkgver=2.4
+pkgver=2.5
 pkgrel=1
 pkgdesc="A modern numerical library for C and C++ programmers"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('12442b023dd959e8b22a9c486646b5cedec7fdba0daf2604cda365cf96d10d99aefdec2b42e59c536cc071da1525373454e5ed6f4b15293b305ca9b1dc6db130')
+sha512sums=('5b4c5c023f9029ce220f4e09aa4d0234fed94d42ac224d58fda095fe0532d54237a7c33278f8b5d0ba051f6004486edb38d0adb4fcb49337a8c1d8a18cf4a24a')

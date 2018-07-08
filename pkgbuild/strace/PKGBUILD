@@ -1,9 +1,9 @@
 pkgname=strace
-pkgver=4.21
+pkgver=4.23
 pkgrel=1
 pkgdesc="A useful diagnositic, instructional, and debugging tool"
 arch=('x86_64')
-url="https://sourceforge.net/projects/strace/"
+url="https://strace.io/"
 license=('custom')
 #depends=()
 source=("https://strace.io/files/${pkgver}/strace-${pkgver}.tar.xz")
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d3b0393f1f727530e2e5b4490c80a905d251223167a61f9a86884a4b8a4f25522c46c465961968ca25013f321e561e217cb6e8f15be31d4d371274030526187d')
+sha512sums=('b54df972dc86e27668784ea4619e8c55230816b249e0a7fcca99a37b7f9ec37710742aca08c9e39b508522accb654a83c98207bab9ccac1197bb8e73e51ab116')

@@ -1,5 +1,5 @@
 pkgname=systemd
-pkgver=238
+pkgver=239
 pkgrel=1
 pkgdesc="system and service manager"
 arch=('x86_64')
@@ -18,8 +18,7 @@ backup=(etc/rc.local
 	etc/systemd/user.conf)
 options=(emptydirs)
 install=systemd.install
-#source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz"
-source=("git+https://github.com/systemd/systemd.git#commit=6982156"
+source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz"
 	"locale.sh"
 	"rc.local"
 	"systemd-hook"
@@ -36,7 +35,7 @@ source=("git+https://github.com/systemd/systemd.git#commit=6982156"
 prepare() {
 	install -v -dm755 "${srcdir}/build"
 
-	cd "${srcdir}/systemd" #-${pkgver}"
+	cd "${srcdir}/systemd-${pkgver}"
 
 	sed -i 's/GROUP="render", //' rules/50-udev-default.rules.in
 }
@@ -68,7 +67,7 @@ build() {
 		-Ddefault-hierarchy=unified \
 		-Dwheel-group=false \
 		-Dnobody-group=nogroup \
-		"${srcdir}/systemd" #-${pkgver}"
+		"${srcdir}/systemd-${pkgver}"
 
 	ninja ${MAKEFLAGS}
 }
@@ -116,7 +115,7 @@ package() {
 	install -v -Dm644 "${srcdir}/systemd-daemon-reload.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-daemon-reload.hook"
 	install -v -Dm644 "${srcdir}/systemd-hwdb.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-hwdb.hook"
 	install -v -Dm644 "${srcdir}/systemd-sysctl.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-sysctl.hook"
-	install -v -Dm644 "${srcdir}/systemd-sysusers.hook" "${pkgdir}/usr/share/libalpm/hooks/ystemd-sysusers.hook"
+	install -v -Dm644 "${srcdir}/systemd-sysusers.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-sysusers.hook"
 	install -v -Dm644 "${srcdir}/systemd-tmpfiles.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-tmpfiles.hook"
 	install -v -Dm644 "${srcdir}/systemd-udev-reload.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-udev-reload.hook"
 
@@ -130,7 +129,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('SKIP'
+sha512sums=('fd44590dfd148504c5ed1e67521efce50d84b627b7fc77015fa95dfa76d7a42297c56cc89eff40181809732024b16d48f2a87038cf435e0c63bc2b95ecd86b0f'
             'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '462ed39bd5c90168079956a402abafe8f0910882e6876b165a2c27af73833d0cad1be9cdbcb3549b34652ea86e5d0dba044946a38797bd533fdd1f5a0083f63b'

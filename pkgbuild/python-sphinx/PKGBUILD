@@ -1,6 +1,6 @@
 pkgbase=python-sphinx
 pkgname=('python2-sphinx' 'python3-sphinx')
-pkgver=1.7.4
+pkgver=1.7.5
 pkgrel=1
 pkgdesc="Python documentation generator"
 arch=('x86_64')
@@ -40,4 +40,4 @@ package_python2-sphinx() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('bb4b22aef42918283de3ac7cd99eb7918e95b749a090274adc2c969e2a137f9f3942f7215bbfec4f92f3094d0e32a4fdf503f63f6fd01ba74070ac7f9579a341')
+sha512sums=('db2a8df2cdb2ed78ce2341175575c2b04a149451b2bc8a4f74ddc73e308a19d505874fdbae4e370ce48a9b1cdb4de47cdab489bc57c1b378e857d5b8d04a07b8')

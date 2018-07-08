@@ -1,5 +1,5 @@
 pkgname=webkitgtk
-pkgver=2.20.2
+pkgver=2.20.3
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8b8078994d0fe9a759d7062e6fe528edbe8931a3a0a198b4d9b9459417ee0521d964746341bfa5813469129bfa4c52d648d7016481f9e57c4f7355931c93a847')
+sha512sums=('69a7b27e294de6fd43240ce1d314cd1ccdbf29674c97967674459fd02720b31fa53e5412efbd93dc1e805d38e38feb7fe9a12cdd9c472471676b8db3c11734de')

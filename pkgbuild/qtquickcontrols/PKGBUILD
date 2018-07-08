@@ -1,5 +1,5 @@
 pkgname=qtquickcontrols
-pkgver=5.10.1
+pkgver=5.11.1
 pkgrel=1
 pkgdesc="Reusable Qt Quick based UI controls to create classic desktop-style user interfaces"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	make install INSTALL_ROOT="${pkgdir}"
 }
 
-sha512sums=('b73e8aef52b8010d5db3516afd692a406a2c4c66360ad3212aaca35090ec65c8e13842b5dcce233787b77ddc9067a985690cf1b56d4534efc57fb2f580b12818')
+sha512sums=('d12cffe5a91f10e37b2ebea435fa147508fa60dc83076a1fb1c26d4ea16666c13ced0c36a5222092b6c4d6c1c723bed5b881fc33557353e09cb9aca068dde26c')

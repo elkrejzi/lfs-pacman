@@ -1,6 +1,6 @@
 pkgbase=pulseaudio
 pkgname=('pulseaudio' 'lib32-pulseaudio')
-pkgver=11.1
+pkgver=12.0
 _pulsever=${pkgver}
 pkgrel=1
 arch=('x86_64')
@@ -19,8 +19,6 @@ prepare() {
 	sed -i "/exit-idle-time/iexit-idle-time = 0" src/daemon/daemon.conf.in
 
 	find . -name "Makefile.in" | xargs sed -i "s|(libdir)/@PACKAGE@|(libdir)/pulse|"
-
-	sed -i '/int memfd_create/,+2 d' src/pulsecore/memfd-wrappers.h
 
 	cp -a "${srcdir}"/pulseaudio{,32}-${pkgver}
 }
@@ -85,4 +83,4 @@ package_lib32-pulseaudio() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('8863d8d7aede0d9a4d158e84e7bece91747c335f9ac98c7b21fafe76b762f8817e1125307aa46e561e540d2c40525e91f51a55ec34ac55d58fd5980199856a7a')
+sha512sums=('e9b02522f1e9cc2cf2e9db3364153fff5bc70561df34bc8e254e373a24c45585c1c722de8b6ebd7cd1814f523cf29b67c6940390a6fcc1ccbdde5aeff48f8d8c')

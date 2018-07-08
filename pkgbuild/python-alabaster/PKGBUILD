@@ -1,6 +1,6 @@
 pkgbase=python-alabaster
 pkgname=('python2-alabaster' 'python3-alabaster')
-pkgver=0.7.10
+pkgver=0.7.11
 pkgrel=1
 pkgdesc="A configurable sidebar-enabled Sphinx theme"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-alabaster() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('e2391079360e050e532f878619e70a120f141a3e84d1e213e508e4be25ff2ac704717fe8398dfaf016dfb6dd3ad1105a67e1d5438737f45064f7602a5ce5fda8')
+sha512sums=('3b3762cc9f0a04296d07bdadeb7e77ae007e307bfad81d8ddfa8e883dcf7577bf544957b3664ec4cc354749fa249627071474466dc771c5883c75571c86d8f3b')

@@ -21,8 +21,9 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Dbrowser_plugin=false \
-		-Dgtk_doc=true \
 		"${srcdir}/gnome-shell-${pkgver}"
+
+		#-Dgtk_doc=true
 
 	ninja ${MAKEFLAGS}
 }

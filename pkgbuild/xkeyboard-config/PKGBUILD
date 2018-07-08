@@ -1,5 +1,5 @@
 pkgname=xkeyboard-config
-pkgver=2.23.1
+pkgver=2.24
 pkgrel=1
 pkgdesc="X keyboard configuration files"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d651bb89c265e58abe8bba4af6683364a8023cb73af7d00f401f33960e44fa94a7d8a8fdd2483d6703d1c261ca72ae5f2b53f543cfb70b2f571cfe9dcb80c3ba')
+sha512sums=('96b65d18a85443a9bf93d65a4423da6e2b3d44882dae6a03bf46768a92017e9762cf3721361ba399c2873d53782944d0292eb673484f1cd8a8bdbf643e7a1dc0')

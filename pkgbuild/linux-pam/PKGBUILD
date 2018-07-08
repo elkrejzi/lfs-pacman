@@ -1,5 +1,5 @@
-pkgname=pam
-pkgver=1.3.0
+pkgname=linux-pam
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="PAM (Pluggable Authentication Modules) library"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="http://linux-pam.org"
 license=('GPL2')
 #depends=()
 options=(emptydirs)
-source=("http://linux-pam.org/library/Linux-PAM-${pkgver}.tar.bz2"
+source=("https://github.com/linux-pam/linux-pam/releases/download/v${pkgver}/Linux-PAM-${pkgver}.tar.xz"
 	"other"
 	"pam.conf"
 	"system-account"
@@ -46,7 +46,7 @@ package() {
 	rm -rf "${pkgdir}/var"
 }
 
-sha512sums=('4a89ca4b6f4676107aca4018f7c11addf03495266b209cb11c913f8b5d191d9a1f72197715dcf2a69216b4036de88780bcbbb5a8652e386910d71ba1b6282e42'
+sha512sums=('6bc8e2a5b64686f0a23846221c5228c88418ba485b17c53b3a12f91262b5bb73566d6b6a5daa1f63bbae54310aee918b987e44a72ce809b4e7c668f0fadfe08e'
             'c6c6edd3739e40f2acbb7c18af3f0e2cea18dc2c7fc0a99fe3886d80f3494f753f2f5d05e26dac397257eaa70854134d1b4f0b758261a0c3b74971b29b2e8ad6'
             '2035050a233d3997c916af5f8f3c45fb5bfe05bc90c5d443b01000032890284cd5142925e77edf9aeb38e7440afa13233855a0157b5382041e8f71f617855890'
             'a66e4d1e3a88efff6e6f9614e9d8a9224649179c49ef0b50d01aa17df9d1097938a5835ad5e8eaa988c91fced93a53836d1ad7b5143ee88fc2c042c22e2b587e'

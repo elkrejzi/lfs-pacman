@@ -2,7 +2,6 @@ pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
 pkgver=7.3.0
 _pkgver=${pkgver}
-_gnatver=2017
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
 arch=('x86_64')
@@ -12,13 +11,7 @@ license=('GPL' 'LGPL' 'FDL' 'custom')
 options=(staticlibs debug)
 source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.xz"
 #source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/${_pkgver}/gcc-${_pkgver}.tar.xz"
-	"gnat-gpl-${_gnatver}-x86_64-linux-bin.tar.gz::http://mirrors.cdn.adacore.com/art/591c6d80c7a447af2deed1d7"
 	"gcc-pure64.patch")
-
-# GNAT available from: http://libre.adacore.com/download/configurations
-
-gnat_available=0
-test -e "/usr/bin/gnatmake" && gnat_available=1
 
 prepare() {
 	cd "${srcdir}/gcc-${_pkgver}"
@@ -34,15 +27,6 @@ prepare() {
 	ln -sfv "gcc-${_pkgver}" "${srcdir}/src"
 
 	install -v -dm755 "${srcdir}/build"
-
-	if [ "${gnat_available}" == "0" ]
-	then
-		cd "${srcdir}/gnat-gpl-${_gnatver}-x86_64-linux-bin"
-		make ins-all prefix="${srcdir}/build/gnat-bin"
-
-		find "${srcdir}/build/gnat-bin" -name ld -exec mv -v {} {}.old \;
-		find "${srcdir}/build/gnat-bin" -name as -exec mv -v {} {}.old \;
-	fi
 }
 
 build() {
@@ -53,20 +37,9 @@ build() {
 
 	export SED=sed
 
-	enable_bootstrap="--disable-bootstrap"
-
-	if [ "${gnat_available}" == "0" ]
-	then
-		export CFLAGS=${CFLAGS/-march=skylake/-march=native}
-		export CXXFLAGS=${CXXFLAGS/-march=skylake/-march=native}
-		export PATH="${srcdir}/build/gnat-bin/bin:$PATH"
-
-		enable_bootstrap="--enable-bootstrap"
-	fi
-
 	../src/configure --prefix=/usr \
 		--libdir=/usr/lib \
-		${enable_bootstrap} \
+		--disable-bootstrap \
 		--disable-cloog-version-check \
 		--disable-libssp \
 		--disable-libstdcxx-pch \
@@ -196,5 +169,4 @@ package_gcc-ada() {
 }
 
 sha512sums=('ad41a7e4584e40e92cdf860bc0288500fbaf5dfb7e8c3fcabe9eba809c87bcfa85b46c19c19921b0cdf6d05483faede8287bb9ea120c0d1559449a70e602c8d4'
-            '01a8f3be9b7b7e83cc5bd4a45137b1d35c6448bc22a88bcaf5d312cd63e11081b6b2fe9f09ad2a27d8f0b6471fc5c1a99573bf3bcee1589329054074eaeef04f'
             'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')

@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-KF5VER=5.9.2
+KF5VER=5.11.1
 
 PKGS=(qtbase
 qtimageformats
@@ -36,11 +36,14 @@ qtwebview)
 
 for pkg in ${PKGS[@]}
 do
-  pushd ${pkg}
-    rm -f ${pkg}*.tar.xz
-    sed -i "s#pkgver=.*#pkgver=${KF5VER}#g" PKGBUILD
-    sed -i "/sha512sums=('/,/')/d" PKGBUILD
-    makepkg --geninteg >> PKGBUILD
-    rmdir src
-  popd
+  if [ -e ${pkg} ]
+  then
+    pushd ${pkg}
+      rm -f ${pkg}*.tar.xz
+      sed -i "s#pkgver=.*#pkgver=${KF5VER}#g" PKGBUILD
+      sed -i "/sha512sums=('/,/')/d" PKGBUILD
+      makepkg --geninteg >> PKGBUILD
+      rmdir src
+    popd
+  fi
 done

@@ -9,6 +9,10 @@ license=('LGPL')
 source=("libproxy-${pkgver}.tar.gz::https://github.com/libproxy/libproxy/archive/${pkgver}.tar.gz")
 
 prepare() {
+	cd "${srcdir}/libproxy-${pkgver}"
+
+	sed -i "s:VERSIONS 3.6:VERSIONS 3.7 3.6:g" cmake/FindPython3Interp.cmake
+
 	install -v -dm755 "${srcdir}/build"
 }
 

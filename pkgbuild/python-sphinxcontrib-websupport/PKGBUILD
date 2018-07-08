@@ -1,6 +1,6 @@
 pkgbase=python-sphinxcontrib-websupport
 pkgname=('python2-sphinxcontrib-websupport' 'python3-sphinxcontrib-websupport')
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Sphinx API for Web Apps"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-sphinxcontrib-websupport() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('67807b2505e063639163b020f0e62469b0c2838c303516cce9a8d90181cc7b8a10d76532adb1267556d40f95966efc20ec9f8ee1a6731056bda827a6f97f40ec')
+sha512sums=('adbd7db06150a4424a881a22442c2535ed823c7adcc295ef9c3af5ae38d823349830a114e8a7af2138498d0e68b37189707c1bb5a28b45c76031bcf94210fb89')

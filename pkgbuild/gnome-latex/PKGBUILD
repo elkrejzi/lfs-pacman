@@ -1,5 +1,5 @@
 pkgname=gnome-latex
-pkgver=3.28.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="A LaTeX editor for the GNOME desktop"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7c16bdfae340699d2a9242df3816fd1b98bac8fba2dc1115c7acfa2b7f6b43a20d89e9e48ff929db921ac4cec86e1d25fb4a62447923e4a6764017622d5336b1')
+sha512sums=('fe5c2456839757237d422d0f0629f11a43a8ca5b3cd86ce94b37ee26f68165f111940d5c3c47adba7be05532c413a97a867219c498abec3fd064122516e0c470')

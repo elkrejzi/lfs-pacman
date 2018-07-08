@@ -4,7 +4,7 @@
 
 rm -rf acl-${ACL_VER} ${LOGDIR}/acl-${ACL_VER}.log
 
-tar xf ${SROOT}/acl-${ACL_VER}.src.tar.gz
+tar xf ${SROOT}/acl-${ACL_VER}.tar.gz
 
 {
 
@@ -12,7 +12,7 @@ tar xf ${SROOT}/acl-${ACL_VER}.src.tar.gz
   pushd acl-${ACL_VER}
     ./configure --prefix=/tools
     make
-    make install install-dev install-lib
+    make install
   popd
   }
 

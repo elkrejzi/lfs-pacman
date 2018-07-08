@@ -1,12 +1,12 @@
 pkgname=iso-codes
-pkgver=3.77
+pkgver=3.79
 pkgrel=1
 pkgdesc="Lists of the country, language, and currency names"
 arch=('x86_64')
 url="https://pkg-isocodes.alioth.debian.org/"
 license=('LGPL')
 #depends=()
-source=("https://pkg-isocodes.alioth.debian.org/downloads/iso-codes-${pkgver}.tar.xz")
+source=("https://salsa.debian.org/iso-codes-team/iso-codes/uploads/ef8de8bc12e0512d26ed73436a477871/iso-codes-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/iso-codes-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ec75ef123800ee84c593246a7bb08d06d9598de67253cc641c0503ec6f6125b669e347a791f616b40259a5f0ae3267323e21893293082bf7fc3871e308095af3')
+sha512sums=('286d4f328142cdc7ace409d2aaa811e3732df49d78b1875ce71f76f1bb683ce0c4d3f9d2bba752bf6cd25ee8f4c53bdc84568e2eaf85f49650452df19800b345')

@@ -1,5 +1,5 @@
 pkgname=bind
-_pkgver=9.12.1-P2
+_pkgver=9.13.1
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="The ISC DNS Server"
@@ -9,7 +9,7 @@ license=('custom:ISC')
 #depends=()
 options=(emptydirs)
 install=bind.install
-source=("ftp://ftp.isc.org/isc/bind/${_pkgver}/bind-${_pkgver}.tar.gz"
+source=("http://ftp.isc.org/isc/bind/${_pkgver}/bind-${_pkgver}.tar.gz"
 	"db.127"
 	"db.local"
 	"db.root"
@@ -58,7 +58,7 @@ package() {
 	install -v -Dm644 "${srcdir}/named.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/named.conf"
 }
 
-sha512sums=('de47eef272c437316444c4f585a2f98ae9169fc118fd057464a5cd064bb9079ffc07145dabf388cd240f56a5ad6d3ad78cf8d98fc37609681eba5d87e18a4f9a'
+sha512sums=('1f4f4b187e6ca9e0bd770cfb2aaee15fe4edd9f960c1b95682b43edfa05a255517f8bd9df19def089acd06ef616f46af4574b09ed1600060e6eed1e479cd87ce'
             '97f3a47efc8a27511ad579cda326f443eec630649c23a7da4ef9b3ed060e036ba358cf50bec4e6656346c01047e1ecd494f741147e26d9d8620fff4980fb6ee5'
             '5daebe2c3d0dd48f4c47670a2be063dbe70e7a4c2b6bd4146f67845a701637fc2f612386cbab31654a904dcd9eb0105227e20698c40841de47aa777152ae38b2'
             'ed2aa57cd5a07f3d69645c6e6d3132cbd2a6932457874a7d8430d575245c71da966da770e52b267b03c18acf439c4b22116f6893a66956b9f9bf4c78886e19e6'

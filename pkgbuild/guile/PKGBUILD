@@ -1,5 +1,5 @@
 pkgname=guile
-pkgver=2.2.3
+pkgver=2.2.4
 pkgrel=1
 pkgdesc="Portable, embeddable Scheme implementation written in C"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/*.scm
 }
 
-sha512sums=('acab003b776ccf1fdb1ae299af90192a210500513338cc994d1fd79f1ac116f34bfccf9f7ade8e1c6e0876b5bcf191da39b47d3a06f0d57720ad2f25403683bf')
+sha512sums=('1ecacc6493877424b6d4ed5296568bd4587c7a222d3460bf2fa590ef44db2d7a79deeee362d2ca572fe612242193a68fa100c7cf6d407a338d24927dbf9d1703')

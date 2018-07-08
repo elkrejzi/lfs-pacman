@@ -1,12 +1,19 @@
 pkgname=nodejs
-pkgver=9.11.1
+pkgver=8.11.3
 pkgrel=1
 pkgdesc="Evented I/O for V8 Javascript"
 arch=('x86_64')
 url="https://nodejs.org/en/"
 license=('MIT')
 #depends=()
-source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
+source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz"
+	"node-system-icu.patch")
+
+prepare() {
+	cd "${srcdir}/node-v${pkgver}"
+
+	patch -Np1 -i "${srcdir}/node-system-icu.patch"
+}
 
 build() {
 	cd "${srcdir}/node-v${pkgver}"
@@ -29,4 +36,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6e5ed333ebb678c08fca8f567708874a50bd9311e326196bf86ca77db3046dd196b50208bcffb7f3435f0c031d47dff5471465c840be12903f3c683802000a1e')
+sha512sums=('48f50f400d61c8ed35bb2b0771f31da453359f312574fdf7f2b29cba0cafa008fb0d4ad11c2cfbbcc5aa4a5c7270dc9356fe0389292136de6e2a82ed3ee4d7b4'
+            '5a417b965a8a3a236eee1859feec67dfecd711a3051237f969c8ac6e8cf01ca0f8a894f3462983c8223751fbf7a12f95b198cc2f961ffc9db156643ecf07c14b')

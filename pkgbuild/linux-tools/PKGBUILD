@@ -1,6 +1,6 @@
 pkgbase=linux-tools
 pkgname=('acpidump' 'perf' 'tmon' 'turbostat' 'x86_energy_perf_policy')
-pkgver=4.15
+pkgver=4.17
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
@@ -61,4 +61,4 @@ package_x86_energy_perf_policy() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c00d92659df815a53dcac7dde145b742b1f20867d380c07cb09ddb3295d6ff10f8931b21ef0b09d7156923a3957b39d74d87c883300173b2e20690d2b4ec35ea')
+sha512sums=('4d9de340a26155a89ea8773131c76220cc2057f2b5d031b467b60e8b14c1842518e2d60a863d8c695f0f7640f3f18d43826201984a238dade857b6cef79837db')

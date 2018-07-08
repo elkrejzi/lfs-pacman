@@ -1,12 +1,12 @@
 pkgname=libwacom
-pkgver=0.29
+pkgver=0.30
 pkgrel=1
 pkgdesc="Library to identify Wacom tablets and their features"
 arch=('x86_64')
 url="https://sourceforge.net/projects/linuxwacom/"
 license=('MIT')
 #depends=()
-source=("https://downloads.sourceforge.net/linuxwacom/libwacom-${pkgver}.tar.bz2")
+source=("https://github.com/linuxwacom/libwacom/releases/download/libwacom-${pkgver}/libwacom-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/libwacom-${pkgver}"
@@ -25,4 +25,4 @@ package() {
 	tools/generate-udev-rules > "${pkgdir}/usr/lib/udev/rules.d/65-libwacom.rules"
 }
 
-sha512sums=('22fb7610a21a577d7ebc567e14ed1135b883723bc6c37adda540915261ebaea2365e4ab19339beefe6c412ba3c45e85b958129ddb24bff8ec73338b7a63a70ff')
+sha512sums=('863df2bca6778181b8cbe2546d4766143f78b3f9e555d6ac62ffe7f6ce53729dd78badfd1d795f217b0d4a335b600921932850c1ca2bfe832614bf22f93e09ae')

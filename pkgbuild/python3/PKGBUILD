@@ -1,6 +1,6 @@
 pkgname=python3
-_py3majorver=3.6
-_py3minorver=5
+_py3majorver=3.7
+_py3minorver=0
 pkgver=${_py3majorver}.${_py3minorver}
 pkgrel=1
 pkgdesc="A high-level scripting language"
@@ -8,19 +8,15 @@ arch=('x86_64')
 url="http://www.python.org/"
 license=('PSF')
 #depends=()
-source=("https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz"
-	"python3-bdb.patch")
+source=("https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/Python-${pkgver}"
 
-	patch -Np1 -i "${srcdir}/python3-bdb.patch"
+	rm -rf Modules/expat Modules/_ctypes/{darwin,libffi}*
 
-	rm -rf Modules/expat Modules/zlib Modules/_ctypes/{darwin,libffi}*
-
-	sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python3|" Lib/cgi.py
-
-	echo "nis nismodule.c -lnsl -I/usr/include/tirpc" >> Modules/Setup.dist
+	sed -i "/INSTALL_SHARED/s:555:755:g" Makefile.pre.in
+	sed -i "s|^#.* /usr/local/bin/python|#!/usr/bin/python3|" Lib/cgi.py
 }
 
 build() {
@@ -51,5 +47,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{ctypes/test,tkinter/test,test,sqlite3/test}
 }
 
-sha512sums=('6b26fcd296b9bd8e67861eff10d14db7507711ddba947288d16d6def53135c39326b7f969c04bb2b2993f924d9e7ad3f5c5282a3915760bc0885cf0a8ea5eb51'
-            '18338db251551c4f6606862a4abf6f7ef05ab90d98dd3a011eefcf6a3c140d56beb7a08c05484bf62b5c51de208cc73567f566011563cfc420e2b87977bf1504')
+sha512sums=('8bb11233fb67ee9ab8ed1b72f8fdc62f66e26a6beaaeb92448bce681cf065269833b1658d3ed2459127f25ba43adb0eab73cf27c59834a2a803fb529b4216739')

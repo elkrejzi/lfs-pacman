@@ -1,5 +1,5 @@
 pkgname=qtxmlpatterns
-pkgver=5.10.1
+pkgver=5.11.1
 pkgrel=1
 pkgdesc="Support for XPath, XQuery, XSLT and XML schema validation"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('942188fbfde248d956af009e69639beb90f860febc11b6b5d779376516e007d6d6c883ca68b8b70a2f7dbc6b353e65a2cccbde01766224d821052f07d6d56134')
+sha512sums=('207fda037fce412412909799ba7737764ebfa5d8cd4b0185f158791adbecd9a0e0db15bb7e40aaa5e664809b600e77a7a3398a35d2f4e087f1ab15a31e706066')

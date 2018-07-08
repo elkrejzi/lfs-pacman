@@ -1,7 +1,7 @@
 post_install() {
 	if [ ! -e /etc/bind/rndc.key ]
 	then
-		rndc-confgen -r /dev/urandom -a
+		rndc-confgen -a
 		chown root:20 /etc/bind/rndc.key
 		chmod 660 /etc/bind/rndc.key
 	fi

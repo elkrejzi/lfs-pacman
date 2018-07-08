@@ -100,7 +100,7 @@ libcap-ng
 openssl
 tcl
 db
-pam
+linux-pam
 libcap
 bash
 coreutils
@@ -675,7 +675,6 @@ gnome-video-effects
 gspell
 gtksourceview
 gtksourceview4
-libcryptui
 libgee
 libgtop
 libgweather

@@ -1,6 +1,6 @@
 pkgname=intel-ucode
-_dlid=27776
-pkgver=20180425
+_dlid=27945
+pkgver=20180703
 pkgrel=1
 pkgdesc="Microcode update files for Intel CPUs"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	install -v -Dm644 intel-ucode.img "${pkgdir}/boot/intel-ucode.img"
 }
 
-sha512sums=('6cea53cc0f486891fb9ddffc1e03e8e0a6d1d91df6bfda81250b2c60714e7b4111caa9df5afa7f13d8144e591550ef7eb4fd1e153fc67fc904afb83ccc2e3bb0')
+sha512sums=('25af4158f97fba2fb88f05a44f42ed7d2415001ccc58f573d366f405ff198472517468f619628f4f6e5a371793c41ea8faf5a932d2362b2a51726bb5c84e0eed')

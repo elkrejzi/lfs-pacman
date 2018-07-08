@@ -20,8 +20,8 @@ tar xf ${SROOT}/binutils-${BINUTILS_VER}.tar.xz
                  --with-lib-path=/tools/lib32:/tools/lib
     make
     make install
-    mkdir /tools/lib
-    ln -s lib /tools/lib64
+    mkdir -p /tools/lib
+    ln -sf lib /tools/lib64
   popd
   }
 

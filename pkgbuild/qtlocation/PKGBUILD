@@ -1,5 +1,5 @@
 pkgname=qtlocation
-pkgver=5.10.1
+pkgver=5.11.1
 pkgrel=1
 pkgdesc="Provides access to position, satellite and area monitoring classes"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('c804de1026d8fd1d98aae2d8ac9e9383414f3d3316637463a059c2ed56e39d66d48126a2ad421df1a747cb4629fa4520a0ff18f56a5597fb6f73e8da7352fa0d')
+sha512sums=('8b89aae5bb7caa0999c20c86da1a356e5ba21e1e12ac892a695d180f21527846aa45f926828934b83147b851145477028ff1212802c1c21f8f6bb4e616b8b1fd')

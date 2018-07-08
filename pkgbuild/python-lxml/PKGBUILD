@@ -1,6 +1,6 @@
 pkgbase=python-lxml
 pkgname=('python2-lxml' 'python3-lxml')
-pkgver=4.2.1
+pkgver=4.2.3
 pkgrel=1
 pkgdesc="XML processing library combining libxml2/libxslt with the ElementTree API"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-lxml() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('17dfa309f1066ba2478cdc87b8ec018f99dd9d43dd088c458dcae83683dbde2f9c341f64dfeab4e1d1f341b8294e6168b24294bec21e393c4f4bf9513b271124')
+sha512sums=('40852e44a0fe105c1296438e970bd46d590b73c9e4f2b3badd5795d7c53d6db3ab9827cab4f74dd94760dc538f50c14ef5bf5ae268b2e8ddeba377adcc92a6f1')

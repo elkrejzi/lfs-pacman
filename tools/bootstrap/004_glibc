@@ -21,6 +21,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           --libexecdir=/tools/lib            \
           --host=${LFS_TGT}                  \
           --build=$(../scripts/config.guess) \
+          --disable-werror                   \
           --enable-kernel=2.6.32             \
           --enable-obsolete-nsl              \
           --enable-obsolete-rpc              \
@@ -42,6 +43,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
           --libexecdir=/tools/lib32          \
           --host=i686-lfs-linux-gnu          \
           --build=$(../scripts/config.guess) \
+          --disable-werror                   \
           --enable-kernel=2.6.32             \
           --enable-obsolete-nsl              \
           --enable-obsolete-rpc              \

@@ -4,7 +4,7 @@
 
 rm -rf attr-${ATTR_VER} ${LOGDIR}/attr-${ATTR_VER}.log
 
-tar xf ${SROOT}/attr-${ATTR_VER}.src.tar.gz
+tar xf ${SROOT}/attr-${ATTR_VER}.tar.gz
 
 {
 
@@ -12,7 +12,7 @@ tar xf ${SROOT}/attr-${ATTR_VER}.src.tar.gz
   pushd attr-${ATTR_VER}
     ./configure --prefix=/tools
     make
-    make install install-dev install-lib
+    make install
   popd
   }
 

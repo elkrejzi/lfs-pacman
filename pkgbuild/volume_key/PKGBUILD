@@ -1,19 +1,12 @@
 pkgname=volume_key
-pkgver=0.3.9
+pkgver=0.3.10
 pkgrel=1
 pkgdesc="A library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases"
 arch=('x86_64')
 url="https://pagure.io/volume_key"
 license=('GPL')
 #depends=()
-source=("https://releases.pagure.org/volume_key/volume_key-${pkgver}.tar.xz"
-	"volume_key-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/volume_key-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/volume_key-fixes.patch"
-}
+source=("https://releases.pagure.org/volume_key/volume_key-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/volume_key-${pkgver}"
@@ -27,9 +20,6 @@ package() {
 	cd "${srcdir}/volume_key-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-
-	sed -i "/#include <config.h>/d" "${pkgdir}/usr/include/volume_key/libvolume_key.h"
 }
 
-sha512sums=('bc0e690997b9fa1c9fff361d04e7eddcac4cac09779d7a1f9e161be117f5c589a7e444ac16dab25fb3e3ce201591f7dc937595ddf2745d7daa625d4ab0a255e0'
-            'd63260655ab46aa9a4c6bac2ea95cc5140afd91800edaecfc21fb21fbe2e2fde20d3dcb90d6b3e9d560414b8f4dfeb13edd4251092a29048caf7cf47ac78cd9f')
+sha512sums=('b050d333e021bc3721f5e72c1d2498adea3265afe7f702e1b1e859546755745ac70dcffc194739a4833d4b0b77168506f7fe90fde382d8aab4df2af7b635932b')

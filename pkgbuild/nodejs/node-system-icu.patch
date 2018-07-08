@@ -1,0 +1,95 @@
+--- a/src/inspector_io.cc	2018-06-13 00:25:56.000000000 +0200
++++ b/src/inspector_io.cc	2018-07-08 11:58:00.574090292 +0200
+@@ -74,11 +74,11 @@
+ 
+   size_t result_length = view.length() * sizeof(*source);
+   std::string result(result_length, '\0');
+-  UnicodeString utf16(unicodeSource, view.length());
++  icu::UnicodeString utf16(unicodeSource, view.length());
+   // ICU components for std::string compatibility are not enabled in build...
+   bool done = false;
+   while (!done) {
+-    CheckedArrayByteSink sink(&result[0], result_length);
++    icu::CheckedArrayByteSink sink(&result[0], result_length);
+     utf16.toUTF8(sink);
+     result_length = sink.NumberOfBytesAppended();
+     result.resize(result_length);
+@@ -111,8 +111,9 @@
+ }  // namespace
+ 
+ std::unique_ptr<StringBuffer> Utf8ToStringView(const std::string& message) {
+-  UnicodeString utf16 =
+-      UnicodeString::fromUTF8(StringPiece(message.data(), message.length()));
++  icu::UnicodeString utf16 =
++    icu::UnicodeString::fromUTF8(icu::StringPiece(message.data(),
++      message.length()));
+   StringView view(reinterpret_cast<const uint16_t*>(utf16.getBuffer()),
+                   utf16.length());
+   return StringBuffer::create(view);
+--- a/src/node_i18n.cc	2018-06-13 00:25:56.000000000 +0200
++++ b/src/node_i18n.cc	2018-07-08 11:58:00.575090302 +0200
+@@ -523,7 +523,7 @@
+   } else if (!strcmp(type, TYPE_UNICODE)) {
+     return U_UNICODE_VERSION;
+   } else if (!strcmp(type, TYPE_TZ)) {
+-    return TimeZone::getTZDataVersion(*status);
++    return icu::TimeZone::getTZDataVersion(*status);
+   } else if (!strcmp(type, TYPE_CLDR)) {
+     UVersionInfo versionArray;
+     ulocdata_getCLDRVersion(versionArray, status);
+--- a/tools/icu/iculslocs.cc	2018-06-13 00:25:59.000000000 +0200
++++ b/tools/icu/iculslocs.cc	2018-07-08 11:58:00.575090302 +0200
+@@ -64,7 +64,7 @@
+ #define RES_INDEX "res_index"
+ #define INSTALLEDLOCALES "InstalledLocales"
+ 
+-CharString packageName;
++icu::CharString packageName;
+ const char* locale = RES_INDEX;  // locale referring to our index
+ 
+ void usage() {
+@@ -147,7 +147,7 @@
+   if (VERBOSE > 1) {
+     printf("Trying to open %s:%s\n", packageName.data(), loc);
+   }
+-  LocalUResourceBundlePointer aResource(
++  icu::LocalUResourceBundlePointer aResource(
+       ures_openDirect(packageName.data(), loc, &status));
+   *exists = FALSE;
+   if (U_SUCCESS(status)) {
+@@ -189,11 +189,11 @@
+  * @return 0 for OK, 1 for err
+  */
+ int dumpAllButInstalledLocales(int lev,
+-                               LocalUResourceBundlePointer* bund,
++                               icu::LocalUResourceBundlePointer* bund,
+                                FILE* bf,
+                                UErrorCode* status) {
+   ures_resetIterator(bund->getAlias());
+-  LocalUResourceBundlePointer t;
++  icu::LocalUResourceBundlePointer t;
+   while (U_SUCCESS(*status) && ures_hasNext(bund->getAlias())) {
+     t.adoptInstead(ures_getNextResource(bund->getAlias(), t.orphan(), status));
+     ASSERT_SUCCESS(status, "while processing table");
+@@ -254,10 +254,10 @@
+     printf("\"locale\": %s\n", locale);
+   }
+ 
+-  LocalUResourceBundlePointer bund(
++  icu::LocalUResourceBundlePointer bund(
+       ures_openDirect(packageName.data(), locale, &status));
+   ASSERT_SUCCESS(&status, "while opening the bundle");
+-  LocalUResourceBundlePointer installedLocales(
++  icu::LocalUResourceBundlePointer installedLocales(
+       // NOLINTNEXTLINE (readability/null_usage)
+       ures_getByKey(bund.getAlias(), INSTALLEDLOCALES, NULL, &status));
+   ASSERT_SUCCESS(&status, "while fetching installed locales");
+@@ -295,7 +295,7 @@
+   }
+ 
+   // OK, now list them.
+-  LocalUResourceBundlePointer subkey;
++  icu::LocalUResourceBundlePointer subkey;
+ 
+   int validCount = 0;
+   for (int32_t i = 0; i < count; i++) {

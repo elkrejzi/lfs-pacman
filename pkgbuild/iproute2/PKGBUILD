@@ -1,5 +1,5 @@
 pkgname=iproute2
-pkgver=4.16.0
+pkgver=4.17.0
 pkgrel=1
 pkgdesc="IP Routing Utilities"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	ln -sf ../bin/ip "${pkgdir}/usr/sbin/ip"
 }
 
-sha512sums=('a8fbc92665a8d4ca6ee1e894bfb27373cf6b16dac9e2ab3831e418fcc9b895acc7d6fc64efa0b0e37b3affd4ef8eacf4dae5715536138d6a05c65ad49a2becad')
+sha512sums=('ccd7fb70afd58f1fcd4e17c38a24607207da853c4d6118fda423efa6e51faad3ad03c4d6d58a579c40ef9c68aaf13b1c455e12b0c36e155712d3d4db3c2ff4b5')

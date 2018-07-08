@@ -1,5 +1,5 @@
 pkgname=qtsvg
-pkgver=5.10.1
+pkgver=5.11.1
 pkgrel=1
 pkgdesc="Classes for displaying the contents of SVG files"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('4da434da5391f76f620df2689bc3de1e4dcb79caf6479839ecba0f2d9ce878b798d96e9e052f53d671d833adaccd7c70ae01398cab5e05121bcea60ff724b088')
+sha512sums=('2e9b126e72335b4b39296d033c6ea8761739148b812841797e1678135eaad944a5e4073010b5dbfb17708bd8fc8de0dd6b2b092330176b3b29c7637357353e39')

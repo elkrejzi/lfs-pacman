@@ -1,12 +1,12 @@
 pkgbase=gc
 pkgname=('gc' 'lib32-gc')
-pkgver=7.6.4
+pkgver=7.6.6
 pkgrel=1
 arch=('x86_64')
 url="http://www.hboehm.info/gc/"
 license=('GPL')
 #depends=()
-source=("http://www.hboehm.info/gc/gc_source//gc-${pkgver}.tar.gz")
+source=("https://github.com/ivmai/bdwgc/releases/download/v${pkgver}/gc-${pkgver}.tar.gz")
 
 prepare() {
 	cp -a "${srcdir}"/gc{,32}-${pkgver}
@@ -60,4 +60,4 @@ package_lib32-gc() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('2c85be3e24b85732b3dc6f08fe98cf1a82b6fb2a22ec73090f80920721c737ef92cee8f0cd7ea7228d686005d164e7da54ce3907c3a1ba5eefa43355a472085e')
+sha512sums=('85be341132fa460fcad7ca323cf1c594f37e19430269d639ca796b9e3502b0d496822cdccb2b7ca77859f3d19a43165b963142b60fce6b1271ed9a3cccb6620b')

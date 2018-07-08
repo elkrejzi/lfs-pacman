@@ -1,6 +1,6 @@
 pkgbase=python-beaker
 pkgname=('python2-beaker' 'python3-beaker')
-pkgver=1.9.1
+pkgver=1.10.0
 pkgrel=1
 pkgdesc="A Session and Caching library with WSGI Middleware"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-beaker() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('b75985b76553d87d1570020a7ad86159fe504b8ffa4812bd4862e87a8bd2995fc5657b11c1978f3394d19cb6da8146b9893b6e081a10418baf6e7f7d9fbdc3e7')
+sha512sums=('245e9e7c8943ccec723f9b8afb8dae1caa97e4b4e7e2174ba6e7cc664b29bc8c836d24752b0f45125e8afc6f75ec4facf40fbb68db30edfcce07bbe77b1d3449')

@@ -51,6 +51,7 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.xz
         --disable-shared                               \
         --disable-decimal-float                        \
         --disable-threads                              \
+        --disable-libada                               \
         --disable-libatomic                            \
         --disable-libgomp                              \
         --disable-libmpx                               \
@@ -59,9 +60,24 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.xz
         --disable-libvtv                               \
         --disable-libstdcxx                            \
         --enable-multilib                              \
-        --enable-languages=c,c++
+        --enable-languages=ada,c,c++
     make
     make -j1 install
+
+    export HOST_GCC_DIR=$(dirname $(gcc -print-libgcc-file-name))
+    export CROSS_GCC_DIR=$(dirname $(${LFS_TGT}-gcc -print-libgcc-file-name))
+
+    install -m755 /usr/bin/gnatbind /tools/bin/${LFS_TGT}-gnatbind
+    install -m755 /usr/bin/gnatmake /tools/bin/${LFS_TGT}-gnatmake
+
+    cp -r "${HOST_GCC_DIR}"/{adainclude,adalib} "${CROSS_GCC_DIR}"
+    rm -f "${CROSS_GCC_DIRT}"/adalib/*.so
+
+    if [ -e "${HOST_GCC_DIR}/32" ]
+    then
+      cp -r "${HOST_GCC_DIR}"/32/{adainclude,adalib} "${CROSS_GCC_DIR}/32"
+      rm -f "${CROSS_GCC_DIR}"/32/adalib/*.so
+    fi
   popd
   }
 

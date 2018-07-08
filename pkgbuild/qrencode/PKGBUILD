@@ -1,5 +1,5 @@
 pkgname=qrencode
-pkgver=4.0.0
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="C library for encoding data in a QR Code symbol"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d4140d77fce3a1c39735cc3e98e3a19018daaa08c870644f71727d27ffb17711e76b4ed4e51718d90d812e78df75fe575617580ea9b1bf210438f8fd1734204e')
+sha512sums=('2429c7938e32eacbaf327c029c7745ba33259f879661a8b6470cc617c780daf5bd1d5689599151df62e84badd2568eccab6c12f157331e512ab24a3899e0f002')

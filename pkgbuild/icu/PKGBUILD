@@ -1,6 +1,6 @@
 pkgbase=icu
 pkgname=('icu' 'lib32-icu')
-pkgver=61.1
+pkgver=62.1
 pkgrel=1
 arch=('x86_64')
 url="http://www.icu-project.org/"
@@ -9,10 +9,6 @@ license=('custom:icu')
 source=("http://download.icu-project.org/files/${pkgname}4c/${pkgver}/${pkgname}4c-${pkgver//./_}-src.tgz")
 
 prepare() {
-	cd "${srcdir}/icu/source"
-
-	sed -i "s#xlocale.h#locale.h#g" i18n/digitlst.cpp
-
 	cp -a "${srcdir}"/icu{,32}
 }
 
@@ -59,4 +55,4 @@ package_lib32-icu() {
 	mv dest/usr/bin/icu-config "${pkgdir}/usr/bin/icu-config32"
 }
 
-sha512sums=('4c37691246db802e4bae0c8c5f6ac1dac64c5753b607e539c5c1c36e361fcd9dd81bd1d3b5416c2960153b83700ccdb356412847d0506ab7782ae626ac0ffb94')
+sha512sums=('8295f2754fb6907e2cc8f515dccca05530963b544e89a2b8e323cd0ddfdbbe0c9eba8b367c1dbc04d7bb906b66b1003fd545ca05298939747c832c9d4431cf2a')

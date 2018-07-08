@@ -1,5 +1,5 @@
 pkgname=gnome-calculator
-pkgver=3.28.0
+pkgver=3.28.2
 pkgrel=1
 pkgdesc="GNOME Scientific calculator"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e0ba7cea12072e8e8b506032575ce330e25d10cf4117acbec9b9020d038cbaf332a96625ed9bc10398d6b980d9ff3f9d9084c4b32899fe77091f5c957e92750e')
+sha512sums=('63b750a24c12feb4db20cdff6bbeb2ce595c7ba165b264c03a507ff9b7c10b70f874230a0f80741ccae775c30a5a39acc9c1fe39270b435eb6d4caef1d92dce5')
