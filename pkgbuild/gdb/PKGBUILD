@@ -1,5 +1,5 @@
 pkgname=gdb
-pkgver=8.1
+pkgver=8.1.1
 pkgrel=1
 pkgdesc="The GNU Debugger"
 arch=('x86_64')
@@ -11,7 +11,8 @@ source=("https://ftp.gnu.org/gnu/gdb/gdb-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/gdb-${pkgver}"
 
-	unset CC CXX
+	export CC="gcc"
+	export CXX="g++"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -28,4 +29,4 @@ package() {
 	make install -C gdb DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ffd82f415d7652d62dad1716c307836f594217a363429609beb7d70239e8bf06b73b393345b0e000796228e56681ed7656ac3c8be05e91d6d652ab0d5b1dc357')
+sha512sums=('7dcd5e8c90de92f577834d887b5f54edb93a07083bfe661bc46c270a6cc4919f0b348e7e2fe8ae4511298a570ef150eeefdc667ef7cf527f0cf60943177ab6c9')

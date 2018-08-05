@@ -1,5 +1,5 @@
 pkgname=libuv
-pkgver=1.20.3
+pkgver=1.22.0
 pkgrel=1
 pkgdesc="Multi-platform support library with a focus on asynchronous I/O"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('60ebc0059ec9fdd022aa9d60b2a0340f29e037bf79fa08707f6f2ecca9ec263c7a6466bdc1f94e0875a6a627ee749efa86117dedb22119676a7bafed8b5d77a0')
+sha512sums=('e79cae6aa1d9cf2c8f7c0262c866fea2858d7104ece7c556e537e7d1cf884f191d5cd3e56539bfe857fa15dc50b57fdcb33019824cd585a2ca250a77d923af73')

@@ -1,5 +1,5 @@
 pkgname=geoclue
-pkgver=2.4.10
+pkgver=2.4.11
 pkgrel=1
 pkgdesc="Modular geoinformation service built on the D-Bus messaging system"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/applications"
 }
 
-sha512sums=('5e6d620d752de1b72ee064f286f0fdef9ef9c4d695f55379de5a1d7e1e15bddc2dc2596ceefa6f3714b9532d67e49042babc6bcec1ad5a9cacee67da9d481f5c')
+sha512sums=('a2b617e48cd60f930e75e3dbb6ac2b802cae307fdc2475ed727b3e0cc56a4eb14f3c240a4094e5ceb904bc537499d67d01487f8f91325d759964d04305e82130')

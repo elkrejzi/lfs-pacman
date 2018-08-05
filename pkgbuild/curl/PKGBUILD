@@ -1,12 +1,12 @@
 pkgname=curl
-pkgver=7.60.0
+pkgver=7.61.0
 pkgrel=1
 pkgdesc="An URL retrieval utility and library"
 arch=('x86_64')
 url="https://curl.haxx.se"
 license=('MIT')
 #depends=()
-source=("http://curl.haxx.se/download/curl-${pkgver}.tar.bz2")
+source=("http://curl.haxx.se/download/curl-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/curl-${pkgver}"
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c7566bbe7289cd75d34a65b457905d54b5d07543b9fed5a762c889eb09114ad66de62c3edafd1973e87bc8e303a434e77b4e40eea1718801e79ae9256531abe9')
+sha512sums=('1b450bbd794460fea12374a49739a49a43c3651038dc092c277769bab09a62627f8eedfa94b5c1610503bf20eeaf60643a1e32fdcf1bcf8d4085090c4a598b13')

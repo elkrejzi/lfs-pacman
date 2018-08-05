@@ -1,6 +1,6 @@
 pkgbase=intel-vaapi-driver
 pkgname=('intel-vaapi-driver' 'lib32-intel-vaapi-driver')
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
@@ -55,4 +55,4 @@ package_lib32-intel-vaapi-driver() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('44869d042248468aed7b7be7f98bb3e1042ec38a90c926d3dac0a75b2d07782007587407c44441873a1bdedeae2155d32c362700454abc7e0217c6210cc83bb8')
+sha512sums=('7f269a513e827a2a291bf513c860de0341daf487697b47d4515fcdf78a1b51d0ab5e491bdc1a1babaa888ecc3dcfb1c7ae16624eee41b2d3609c8d1d24d0e12f')

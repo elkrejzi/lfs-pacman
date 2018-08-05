@@ -1,6 +1,6 @@
 pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs' 'gcc-ada')
 pkgbase=gcc
-pkgver=7.3.0
+pkgver=8.2.0
 _pkgver=${pkgver}
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
@@ -8,7 +8,7 @@ arch=('x86_64')
 url="http://gcc.gnu.org"
 license=('GPL' 'LGPL' 'FDL' 'custom')
 #depends=()
-options=(staticlibs debug)
+options=(staticlibs)
 source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.xz"
 #source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/${_pkgver}/gcc-${_pkgver}.tar.xz"
 	"gcc-pure64.patch")
@@ -40,13 +40,15 @@ build() {
 	../src/configure --prefix=/usr \
 		--libdir=/usr/lib \
 		--disable-bootstrap \
-		--disable-cloog-version-check \
 		--disable-libssp \
 		--disable-libstdcxx-pch \
 		--disable-libunwind-exceptions \
 		--enable-__cxa_atexit \
+		--enable-cet=auto \
 		--enable-checking=release \
 		--enable-clocale=gnu \
+		--enable-default-pie \
+		--enable-default-ssp \
 		--enable-gnu-unique-object \
 		--enable-install-libiberty \
 		--enable-languages=c,c++,ada,fortran,lto,objc,obj-c++ \
@@ -168,5 +170,5 @@ package_gcc-ada() {
 	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('ad41a7e4584e40e92cdf860bc0288500fbaf5dfb7e8c3fcabe9eba809c87bcfa85b46c19c19921b0cdf6d05483faede8287bb9ea120c0d1559449a70e602c8d4'
+sha512sums=('64898a165f67e136d802a92e7633bf1b06c85266027e52127ea025bf5fc2291b5e858288aac0bdba246e6cdf7c6ec88bc8e0e7f3f6f1985f4297710cafde56ed'
             'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')

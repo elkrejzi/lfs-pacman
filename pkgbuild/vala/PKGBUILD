@@ -1,5 +1,5 @@
 pkgname=vala
-pkgver=0.40.7
+pkgver=0.40.8
 pkgrel=1
 pkgdesc="Compiler for the GObject type system"
 arch=('x86_64')
@@ -31,5 +31,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c8a53d026072e4a49b1ef27dcffb9898ac74dd5228081116fef0989eb75543b45e339e7be422faf8c52fba3676e96d0858f6d57fb232cdd074fc10be8b2c4bd4'
+sha512sums=('c8df97de8d5c65724d9a558d0cbd0b01ee7c1d77d0c96713040b510625b767f0d937e3fba05630a7d026a1b9e43f81ae080cb870a045abc112856f1ab22ce8df'
             '04299aaccc56348d461366e94f7e39404ca688bb61ebfd34cac526eae32595d667c6c3d147f347b6a6d5e0016e02633b8d0107a88d6b17665c4773786c5e8bee')

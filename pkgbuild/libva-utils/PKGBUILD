@@ -1,5 +1,5 @@
 pkgname=libva-utils
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Video Acceleration (VA) API for Linux (client utilities)"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('17517c09197a84d1c56b2da1b8af5cc17cfe5bf6a667eb78d80398d54a74e2f27d45808710d52a4348700fcd6cde9866140e9826b24ffa39e08e6400ec17a5f2')
+sha512sums=('bd1a6e4fa72379b6b2ac44c00fb1813447a6b44b2bbb08df5158ddc9dc36b3cb774b3caf4e7e3813edbb01cbe4dab1683185d921fdfbc2a3f1cef0057912df80')

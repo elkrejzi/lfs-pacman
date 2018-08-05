@@ -1,6 +1,6 @@
 pkgname=lua
 _luamajor=5.3
-_luaminor=4
+_luaminor=5
 pkgver=${_luamajor}.${_luaminor}
 pkgrel=1
 pkgdesc="Powerful lightweight programming language designed for extending applications"
@@ -20,6 +20,8 @@ prepare() {
 
 	sed -i '/#define LUA_ROOT/s:/usr/local:/usr:' src/luaconf.h
 	sed -i "s/gcc/${CC}/g" src/Makefile
+
+	sed -i "s#V.4#V.5#g" Makefile
 }
 
 build() {
@@ -41,6 +43,6 @@ package() {
 	    "${srcdir}/lua.pc" > "${pkgdir}/usr/lib/pkgconfig/lua.pc"
 }
 
-sha512sums=('739e31f82e6a60fa99910c2005e991b3a1e21339af52847f653cb190b30842054d189ca116ffcfdf9b36e07888c9ce5642b1dd2988cc7eff9f8789f9a2e34997'
+sha512sums=('4f9516acc4659dfd0a9e911bfa00c0788f0ad9348e5724fe8fb17aac59e9c0060a64378f82be86f8534e49c6c013e7488ad17321bafcc787831d3d67406bd0f4'
             '067276b85c2b31d24412e95b20e9b3aa46bb2df01d4ebc09f83f4cc8bc880bac361244cc0d4a77b9f835f25db7b8ac63cffea019c45e4e5274226a6b028e453a'
             '3f26ae0a1eb78c2c697cacb6c7c21e5daacd9f365108bb3f397c814f1e174833b7fb8cb86362fc6da161698add9576083b616238fcb0c284ccb1884b49bd6247')

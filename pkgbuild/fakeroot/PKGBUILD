@@ -1,12 +1,12 @@
 pkgname=fakeroot
-pkgver=1.22
+pkgver=1.23
 pkgrel=1
 pkgdesc="Tool for simulating superuser privileges"
 arch=('x86_64')
 url="http://packages.debian.org/fakeroot"
 license=('GPL')
 #depends=()
-source=("http://cdn-fastly.deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_${pkgver}.orig.tar.bz2"
+source=("http://cdn-fastly.deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_${pkgver}.orig.tar.xz"
 	"fakeroot-fixes.patch")
 
 prepare() {
@@ -36,5 +36,5 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/nl
 }
 
-sha512sums=('193478d9ff88ca2ae69fe47b73b6c61aeb2ba3f2a9e7ed5d455022705857c6f34cdcbe2d3f614c4c4c9509368dc78b9a7b7aa56fb3b50bb3309448140abd796a'
+sha512sums=('0984679207e6e340abf715d4b26a213f85420cd8c58f21e65eb069337a3bd67436c6f80168412c10b28701689ec63290f122a5ff5d44a57b2b166aa72799d036'
             'bdc0bea42aea45d1ed1088c7d066c7e4a65aba53216790803c1a56fdf5496b438bdefddfcb2905868ae103872bfe184bb7a6fc59a4877127a2024a231677ebac')

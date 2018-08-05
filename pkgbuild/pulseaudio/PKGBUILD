@@ -1,6 +1,6 @@
 pkgbase=pulseaudio
 pkgname=('pulseaudio' 'lib32-pulseaudio')
-pkgver=12.0
+pkgver=12.2
 _pulsever=${pkgver}
 pkgrel=1
 arch=('x86_64')
@@ -83,4 +83,4 @@ package_lib32-pulseaudio() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('e9b02522f1e9cc2cf2e9db3364153fff5bc70561df34bc8e254e373a24c45585c1c722de8b6ebd7cd1814f523cf29b67c6940390a6fcc1ccbdde5aeff48f8d8c')
+sha512sums=('877754c1838b3cb042dbc18a5f1cc3cf313ffcaee7a64703330406d1f86279c34f1107634ac3083b158365e6757fbacf5ec406bc3c5788d291de67b77a561a4e')

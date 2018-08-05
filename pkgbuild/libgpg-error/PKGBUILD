@@ -1,6 +1,6 @@
 pkgbase=libgpg-error
 pkgname=('libgpg-error' 'lib32-libgpg-error')
-pkgver=1.31
+pkgver=1.32
 pkgrel=1
 arch=('x86_64')
 url="http://www.gnupg.org"
@@ -55,4 +55,4 @@ package_lib32-libgpg-error() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('23983470be51035b2bc0cdbfa20f0915aec92c53c964c645eac51ba4e992b8436bd3a21f0b48d77d7c4ef178d2aacaf57ab33c7fad24b4f96f4ffb1d7116e67f')
+sha512sums=('0130af48fe81f4db401635757d22a330455aab5dc27edfffad44b7c7c5c439399e92d234c9e00f4d3a399646b52e06c95d53196ea19f5a166817e2032511cb20')

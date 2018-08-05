@@ -1,5 +1,5 @@
 pkgname=fribidi
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="A Free Implementation of the Unicode Bidirectional Algorithm"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('435bd48c48ec3c2dc1f1266e401abdbd400d2202b55df6367dbe84580c21e4aa73205058324cf630dfec365733d3e0ac186d14608baa1c9f63231875fb7cc525')
+sha512sums=('c8fb32468be4c461832d586d6c6af65fad1cfe9d5b2fed405f247d6974425ccedeb21ad11609fbcabc3ae5d635d78d88c12d201a4d19ef997e9497054afcdeb2')

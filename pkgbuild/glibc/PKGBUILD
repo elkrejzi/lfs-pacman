@@ -1,12 +1,12 @@
 pkgname=('glibc' 'lib32-glibc')
 pkgbase=glibc
-pkgver=2.27
+pkgver=2.28
 pkgrel=1
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
 license=('GPL' 'LGPL')
 #depends=()
-options=(staticlibs debug emptydirs)
+options=(staticlibs emptydirs)
 source=("https://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.xz"
 	"glibc.conf"
 	"locale-gen"
@@ -29,10 +29,18 @@ prepare() {
 
 build() {
 	local configure_flags=(
-		--disable-profile --enable-add-ons --enable-kernel=4.0
-		--enable-bind-now --enable-multi-arch --enable-lock-elision
-		--enable-stackguard-randomization --enable-stack-protector=strong
-		--with-headers=/usr/include --with-pkgversion="Krejzi ${pkgver}"
+		--disable-profile
+		--disable-werror
+		--enable-add-ons
+		--enable-kernel=4.0
+		--enable-bind-now
+		--enable-multi-arch
+		--enable-lock-elision
+		--enable-stackguard-randomization
+		--enable-stack-protector=strong
+		--enable-static-pie
+		--with-headers=/usr/include
+		--with-pkgversion="Krejzi ${pkgver}"
 		--without-selinux
 	)
 
@@ -48,6 +56,7 @@ build() {
 	../src/configure --prefix=/usr \
 		--libdir=/usr/lib \
 		--libexecdir=/usr/lib \
+		--enable-cet \
 		"${configure_flags[@]}"
 
 	cd "${srcdir}/build32"
@@ -128,7 +137,7 @@ package_lib32-glibc() {
 	rm -rf "${pkgdir}"/usr/lib32/libnsl.{a,so}
 }
 
-sha512sums=('7c5581154487d38d173ce1feb944e60207139cca148bccf066eaae322c0c2d219423bdcfa15c7f9be1b5e45dfc43c641cc5d80d3c3c65837d08a83cdb4e2a147'
+sha512sums=('521f820953ff07c69ece4c2186f59fc061a7f9747932cd70ef2995c2b2deee76eeb6de700d85071cdca5949179aa8ccee75eda7feca1394121ec7b821ad0a3f3'
             '062341482c1b44d3a97a00cb0915afc2d45b0acf5c7a79c98e37927a902a5ba040db973d0ee9f24e645a245c54704139e43df67e5adb8fa93c91411deeba01ff'
             'ba1e4d42b1ccc07c0a3a11b8c788b96526a40a1d70eb5807749067b2591d27e3d00b88752f1689e918f1129d110797ece2861ba7a508fa55ae089e7cc5c8bf8b'
             '3d9facc6da5159dcd877473c8a4d77006ef5615e2619ef743255112bfa136baf65239367222e87e7ada823d5c7d747aa5204f8365a806141e5884477898ccd14'

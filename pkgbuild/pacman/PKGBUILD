@@ -1,5 +1,5 @@
 pkgname=pacman
-pkgver=5.0.2
+pkgver=5.1.1
 pkgrel=1
 pkgdesc="A library-based package manager with dependency support"
 arch=('x86_64')
@@ -25,19 +25,17 @@ build() {
 		--localstatedir=/var
 
 	make
-	make -C contrib
 }
 
 package() {
 	cd "${srcdir}/pacman-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
-	make -C contrib install DESTDIR="${pkgdir}"
 
 	rm -rf "${pkgdir}/etc/bash_completion.d"
 
 	install -v -Dm644 "${srcdir}/makepkg.conf" "${pkgdir}/etc/makepkg.conf"
 }
 
-sha512sums=('94a8cce1a52d2365a993c72f16537f4dbea6100feb8f22e8782cc7d2c1ef8a525a63f3c40bb183294c0faedcc743e3d806d2fc3c50a21ab9b03df2910039d628'
-            '2cf9b2ec039d31dd137c2e861852a0590f73f26ce6ad32c458bdf39a2803f6281be58813c387c3b94649cc20adab94addf35d57a9eb0b32cbef51a07a2434524')
+sha512sums=('7112025dbd3e263c16f5b0ab34c9db3e8d631a0801bb086b47a2252d1764172261be6a14df1f24598c62935dcdfd74c89fa9d116deea41efb9e0f53dcadeb61c'
+            '0bcdcad4887c0b0d02b71e5a9086cbf4dfeda9b391466ed303de9308934c1246468286214855e698366c89358310591f0cac6313786774f5cafe86e26fd5ade4')

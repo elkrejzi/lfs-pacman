@@ -1,5 +1,5 @@
 pkgname=e2fsprogs
-pkgver=1.44.2
+pkgver=1.44.3
 pkgrel=1
 pkgdesc="Ext2/3/4 filesystem utilities"
 arch=('x86_64')
@@ -14,10 +14,9 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--enable-elf-shlibs \
-		--disable-libblkid \
-		--disable-libuuid \
-		--disable-uuidd \
-		--disable-fsck
+		--enable-relative-symlinks \
+		--disable-fsck \
+		--disable-uuidd
 
 	make
 }
@@ -31,4 +30,4 @@ package() {
 	sed -i 's#^ET_DIR=.*#ET_DIR="/usr/share/et"#' "${pkgdir}/usr/bin/compile_et"
 }
 
-sha512sums=('db34be8c2b606da565a46635d9ed859ccc28921c9a494dd90fbe461a400d0411b0ec6582d3a858adc916d68ec5e835814da798f1cb44710b75fc4efe0145eb90')
+sha512sums=('38fdf918762a8ef8b49f04fe229bbb226a22d084bbfd21bd2d5fe5579f5b40eaa1b769cd3112d540f6460ed6d5b2a49ddf72128d1458c8b733193998a079e0be')
