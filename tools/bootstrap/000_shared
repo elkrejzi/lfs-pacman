@@ -31,7 +31,7 @@ export PROOT=${ROOT_PATH}/patches
 # export CXXFLAGS="-g -O2"
 # export LDFLAGS=""
 
-export MAKEFLAGS="-j4"
+export MAKEFLAGS="-j8"
 
 export LC_ALL=C
 
@@ -41,67 +41,67 @@ export LOGDIR=$(dirname $0)
 
 set +h
 
-BINUTILS_VER=2.30
+BINUTILS_VER=2.32
 GMP_VER=6.1.2
-MPFR_VER=4.0.1
+MPFR_VER=4.0.2
 MPC_VER=1.1.0
-GCC_VER=7.3.0
-LINUX_VER=4.17
-LINUX_PATCH_VER=4.17.4
-GLIBC_VER=2.27
-TCL_VER=8.6.8
+GCC_VER=8.3.0
+LINUX_VER=5.0
+LINUX_PATCH_VER=5.0.2
+GLIBC_VER=2.28
+TCL_VER=8.6.9
 EXPECT_VER=5.45.4
-DEJAGNU_VER=1.6.1
-BISON_VER=3.0.5
+DEJAGNU_VER=1.6.2
+BISON_VER=3.3.2
 NCURSES_VER=6.1
-BASH_VER=4.4.18
+BASH_VER=5.0
 BZIP2_VER=1.0.6
-COREUTILS_VER=8.30
-DIFFUTILS_VER=3.6
-FILE_VER=5.32
+COREUTILS_VER=8.31
+DIFFUTILS_VER=3.7
+FILE_VER=5.36
 FINDUTILS_VER=4.6.0
 GAWK_VER=4.2.1
 GETTEXT_VER=0.19.8.1
-GREP_VER=3.1
-GZIP_VER=1.9
+GREP_VER=3.3
+GZIP_VER=1.10
 M4_VER=1.4.18
 MAKE_VER=4.2.1
 PATCH_VER=2.7.6
-PERL_VER=5.28.0
-SED_VER=4.5
-TAR_VER=1.30
-TEXINFO_VER=6.5
-UTIL_LINUX_VER=2.32
+PERL_VER=5.28.1
+SED_VER=4.7
+TAR_VER=1.32
+TEXINFO_VER=6.6
+UTIL_LINUX_VER=2.33.1
 XZ_VER=5.2.4
 ATTR_VER=2.4.48
 ACL_VER=2.2.53
-EXPAT_VER=2.2.5
-LIBCAP_VER=2.25
+EXPAT_VER=2.2.6
+LIBCAP_VER=2.26
 LIBFFI_VER=3.2.1
-OPENSSL_VER=1.0.2o
+OPENSSL_VER=1.1.1b
 ZLIB_VER=1.2.11
-CURL_VER=7.60.0
-GIT_VER=2.18.0
-LIBARCHIVE_VER=3.3.2
-NANO_VER=2.9.8
-PYTHON3_VER=3.7.0
-WGET_VER=1.19.5
-CMAKE_VER=3.11.4
-MESON_VER=0.47.0
-NINJA_VER=1.8.2
-LLVM_VER=6.0.1
-FAKEROOT_VER=1.22
+CURL_VER=7.64.0
+GIT_VER=2.21.0
+LIBARCHIVE_VER=3.3.3
+NANO_VER=3.2
+PYTHON3_VER=3.7.2
+WGET_VER=1.20.1
+CMAKE_VER=3.14.0
+MESON_VER=0.50.0
+NINJA_VER=1.9.0
+LLVM_VER=8.0.0rc5
+FAKEROOT_VER=1.23
 SHADOW_VER=4.6
-PACMAN_VER=5.0.2
+PACMAN_VER=5.1.3
 AUTOCONF_VER=2.69
 AUTOMAKE_VER=1.16.1
 LIBTOOL_VER=2.4.6
 
 #export LLVM_RELEASE_BRANCH=""
-export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
-#export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
-export LLVM_FINAL_VERSION=${LLVM_VER}
-#export LLVM_FINAL_VERSION=6.0.0
+#export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
+export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
+#export LLVM_FINAL_VERSION=${LLVM_VER}
+export LLVM_FINAL_VERSION=8.0.0
 
 if [ ! -z $1 ]
 then
@@ -114,7 +114,7 @@ ${GNU_MIRROR}/gmp/gmp-${GMP_VER}.tar.xz
 ${GNU_MIRROR}/mpfr/mpfr-${MPFR_VER}.tar.xz
 ${GNU_MIRROR}/mpc/mpc-${MPC_VER}.tar.gz
 ${GNU_MIRROR}/gcc/gcc-${GCC_VER}/gcc-${GCC_VER}.tar.xz
-https://www.kernel.org/pub/linux/kernel/v4.x/linux-${LINUX_VER}.tar.xz
+https://www.kernel.org/pub/linux/kernel/v${LINUX_VER:0:1}.x/linux-${LINUX_VER}.tar.xz
 ${GNU_MIRROR}/glibc/glibc-${GLIBC_VER}.tar.xz
 http://downloads.sourceforge.net/tcl/tcl-core${TCL_VER}-src.tar.gz
 http://downloads.sourceforge.net/expect/expect${EXPECT_VER}.tar.gz
@@ -122,10 +122,10 @@ ${GNU_MIRROR}/dejagnu/dejagnu-${DEJAGNU_VER}.tar.gz
 ${GNU_MIRROR}/bison/bison-${BISON_VER}.tar.xz
 ${GNU_MIRROR}/ncurses/ncurses-${NCURSES_VER}.tar.gz
 ${GNU_MIRROR}/bash/bash-${BASH_VER}.tar.gz
-http://www.bzip.org/${BZIP2_VER}/bzip2-${BZIP2_VER}.tar.gz
+http://downloads.sourceforge.net/bzip2/bzip2-${BZIP2_VER}.tar.gz
 ${GNU_MIRROR}/coreutils/coreutils-${COREUTILS_VER}.tar.xz
 ${GNU_MIRROR}/diffutils/diffutils-${DIFFUTILS_VER}.tar.xz
-https://distfiles.macports.org/file/file-${FILE_VER}.tar.gz
+ftp://ftp.astron.com/pub/file/file-${FILE_VER}.tar.gz
 ${GNU_MIRROR}/findutils/findutils-${FINDUTILS_VER}.tar.gz
 ${GNU_MIRROR}/gawk/gawk-${GAWK_VER}.tar.xz
 ${GNU_MIRROR}/gettext/gettext-${GETTEXT_VER}.tar.xz
@@ -142,15 +142,15 @@ https://www.kernel.org/pub/linux/utils/util-linux/v${UTIL_LINUX_VER:0:4}/util-li
 http://tukaani.org/xz/xz-${XZ_VER}.tar.xz
 http://download.savannah.gnu.org/releases/attr/attr-${ATTR_VER}.tar.gz
 http://download.savannah.gnu.org/releases/acl/acl-${ACL_VER}.tar.gz
-http://downloads.sourceforge.net/expat/expat-${EXPAT_VER}.tar.bz2
+https://github.com/libexpat/libexpat/releases/download/R_${EXPAT_VER//./_}/expat-${EXPAT_VER}.tar.bz2
 https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${LIBCAP_VER}.tar.xz
 http://sourceware.org/ftp/libffi/libffi-${LIBFFI_VER}.tar.gz
 https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz
 http://zlib.net/zlib-${ZLIB_VER}.tar.xz
-https://curl.haxx.se/download/curl-${CURL_VER}.tar.bz2
+https://curl.haxx.se/download/curl-${CURL_VER}.tar.xz
 https://www.kernel.org/pub/software/scm/git/git-${GIT_VER}.tar.xz
 http://libarchive.org/downloads/libarchive-${LIBARCHIVE_VER}.tar.gz
-https://nano-editor.org/dist/v${NANO_VER:0:3}/nano-${NANO_VER}.tar.xz
+https://nano-editor.org/dist/v${NANO_VER:0:1}/nano-${NANO_VER}.tar.xz
 https://www.python.org/ftp/python/${PYTHON3_VER}/Python-${PYTHON3_VER}.tar.xz
 ${GNU_MIRROR}/wget/wget-${WGET_VER}.tar.gz
 https://cmake.org/files/v${CMAKE_VER:0:4}/cmake-${CMAKE_VER}.tar.gz
@@ -163,7 +163,7 @@ ${LLVM_URL}/libcxx-${LLVM_VER}.src.tar.xz
 ${LLVM_URL}/libcxxabi-${LLVM_VER}.src.tar.xz
 ${LLVM_URL}/libunwind-${LLVM_VER}.src.tar.xz
 ${LLVM_URL}/openmp-${LLVM_VER}.src.tar.xz
-http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_${FAKEROOT_VER}.orig.tar.bz2
+http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_${FAKEROOT_VER}.orig.tar.xz
 https://github.com/shadow-maint/shadow/releases/download/${SHADOW_VER}/shadow-${SHADOW_VER}.tar.xz
 https://sources.archlinux.org/other/pacman/pacman-${PACMAN_VER}.tar.gz
 ${GNU_MIRROR}/autoconf/autoconf-${AUTOCONF_VER}.tar.xz
@@ -173,7 +173,7 @@ EOF
 
     if [ ! -z "${LINUX_PATCH_VER}" ]
     then
-      wget -c https://www.kernel.org/pub/linux/kernel/v4.x/patch-${LINUX_PATCH_VER}.xz
+      wget -c https://www.kernel.org/pub/linux/kernel/v${LINUX_VER:0:1}.x/patch-${LINUX_PATCH_VER}.xz
     fi
 
     exit 0

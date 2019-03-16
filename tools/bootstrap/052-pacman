@@ -23,9 +23,11 @@ tar xf ${SROOT}/pacman-${PACMAN_VER}.tar.gz
     cat > /tools/etc/makepkg.conf << "EOF"
 PATH=/usr/bin:/usr/sbin:/tools/bin
 
-DLAGENTS=('ftp::/tools/bin/curl -fC - --ftp-pasv --retry 3 --retry-delay 3 -o %o %u'
-          'http::/tools/bin/curl -fLC - --retry 3 --retry-delay 3 -o %o %u'
-          'https::/tools/bin/curl -fLC - --retry 3 --retry-delay 3 -o %o %u'
+
+DLAGENTS=('file::/tools/bin/curl -gqC - -o %o %u'
+          'ftp::/tools/bin/curl -gqfC - --ftp-pasv --retry 3 --retry-delay 3 -o %o %u'
+          'http::/tools/bin/curl -gqb "" -fLC - --retry 3 --retry-delay 3 -o %o %u'
+          'https::/tools/bin/curl -gqb "" -fLC - --retry 3 --retry-delay 3 -o %o %u'
           'rsync::/usr/bin/rsync --no-motd -z %u %o'
           'scp::/usr/bin/scp -C %u %o')
 
@@ -41,17 +43,17 @@ CC=clang
 CXX=clang++
 
 CPPFLAGS=""
-CFLAGS="-march=skylake -fomit-frame-pointer -fstack-protector-strong -O2 -pipe"
-CXXFLAGS="-march=skylake -fomit-frame-pointer -fstack-protector-strong -O2 -pipe"
+CFLAGS="-march=skylake -O2 -pipe"
+CXXFLAGS="-march=skylake -O2 -pipe"
 LDFLAGS=""
 
-MAKEFLAGS="-j4"
+MAKEFLAGS="-j8"
 
-DEBUG_CFLAGS="-march=skylake -fstack-protector-strong -g -O2 -pipe"
-DEBUG_CXXFLAGS="-march=skylake -fstack-protector-strong -g -O2 -pipe"
+DEBUG_CFLAGS="-march=skylake -g -O2 -pipe"
+DEBUG_CXXFLAGS="-march=skylake -g -O2 -pipe"
 
 BUILDENV=(!distcc color !ccache check !sign)
-OPTIONS=(strip !docs !libtool !staticlibs !emptydirs zipman purge !optipng !upx !debug)
+OPTIONS=(strip !docs !libtool !staticlibs !emptydirs zipman purge !debug)
 
 INTEGRITY_CHECK=(sha512)
 STRIP_BINARIES="--strip-all"
@@ -61,6 +63,7 @@ STRIP_STATIC="--strip-debug"
 MAN_DIRS=({usr{,/local}{,/share},opt/*}/{man,info})
 DOC_DIRS=(usr/{,local/}{,share/}doc opt/*/doc)
 PURGE_TARGETS=(usr/{,share}/info/dir .packlist *.pod)
+DBGSRCDIR="/usr/src/debug"
 
 COMPRESSGZ=(gzip -c -f -n)
 COMPRESSBZ2=(bzip2 -c -f)

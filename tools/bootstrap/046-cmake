@@ -11,13 +11,6 @@ tar xf ${SROOT}/cmake-${CMAKE_VER}.tar.gz
   time {
   pushd cmake-${CMAKE_VER}
     ./bootstrap --prefix=/tools           \
-                --system-bzip2            \
-                --system-curl             \
-                --system-expat            \
-                --system-libarchive       \
-                --system-liblzma          \
-                --system-zlib             \
-                --mandir=/share/man       \
                 --docdir=/share/doc/cmake \
                 --parallel=$(nproc)
     make

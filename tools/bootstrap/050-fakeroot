@@ -4,7 +4,7 @@
 
 rm -rf fakeroot-${FAKEROOT_VER} ${LOGDIR}/fakeroot-${FAKEROOT_VER}.log
 
-tar xf ${SROOT}/fakeroot_${FAKEROOT_VER}.orig.tar.bz2
+tar xf ${SROOT}/fakeroot_${FAKEROOT_VER}.orig.tar.xz
 
 {
 

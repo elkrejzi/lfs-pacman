@@ -11,6 +11,8 @@ tar xf ${SROOT}/wget-${WGET_VER}.tar.gz
   time {
   pushd wget-${WGET_VER}
     ./configure --prefix=/tools    \
+                --disable-pcre     \
+                --disable-pcre2    \
                 --with-ssl=openssl \
                 --without-libidn   \
                 --without-libpsl   \

@@ -4,7 +4,7 @@
 
 rm -rf curl-${CURL_VER} ${LOGDIR}/curl-${CURL_VER}.log
 
-tar xf ${SROOT}/curl-${CURL_VER}.tar.bz2
+tar xf ${SROOT}/curl-${CURL_VER}.tar.xz
 
 {
 

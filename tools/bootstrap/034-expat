@@ -10,7 +10,7 @@ tar xf ${SROOT}/expat-${EXPAT_VER}.tar.bz2
 
   time {
   pushd expat-${EXPAT_VER}
-    ./configure --prefix=/tools
+    ./configure --prefix=/tools --without-docbook
     make
     make install
   popd

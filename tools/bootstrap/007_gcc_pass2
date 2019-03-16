@@ -51,7 +51,7 @@ tar xf ${SROOT}/gcc-${GCC_VER}.tar.xz
         --prefix=/tools                                \
         --with-local-prefix=/tools                     \
         --with-native-system-header-dir=/tools/include \
-        --enable-languages=c,c++,ada                   \
+        --enable-languages=c,c++                       \
         --enable-multilib                              \
         --disable-libstdcxx-pch                        \
         --disable-bootstrap                            \
