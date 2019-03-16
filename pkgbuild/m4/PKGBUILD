@@ -11,6 +11,9 @@ source=("https://ftp.gnu.org/gnu/m4/m4-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/m4-${pkgver}"
 
+	sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+	echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
+
 	./configure --prefix=/usr
 
 	make

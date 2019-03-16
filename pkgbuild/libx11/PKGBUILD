@@ -1,6 +1,6 @@
 pkgbase=libx11
 pkgname=('libx11' 'lib32-libx11')
-pkgver=1.6.5
+pkgver=1.6.7
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libx11() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('63c40d37c92b8d1ac78541830b0c624c4e936924b26bce769936e0e2523fa8997be364647705057065f803f804897ea8173d1c41ef69a92832f20cc7c0fd40a0')
+sha512sums=('edd2273b9dadbbf90ad8d7b5715db29eb120a5a22ad2595f697e56532cc24b84e358580c00548fa6be8e9d26601a2b2cdab32272c59266709534317abbd05cd5')

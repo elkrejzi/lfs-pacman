@@ -1,5 +1,5 @@
 pkgname=psmisc
-pkgver=23.1
+pkgver=23.2
 pkgrel=1
 pkgdesc="Miscellaneous procfs tools"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f678869ea555986a2538ada9630b74ce79304f3ee85cc9d69a3912d8d30ad491829eac0dcb69aae7003ee9b5de9645d2135b80a9e0b77824e60c417dc0be5f95')
+sha512sums=('a8d4e91443b66de1c4418fd74b5eb6dd42caddc937e75dfb35a4e49b9b35236db779e2a480c1693bcc7feaf0957b1028850134040685e88e6ff7ffcb572e20e8')

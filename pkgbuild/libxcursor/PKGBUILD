@@ -1,6 +1,6 @@
 pkgbase=libxcursor
 pkgname=('libxcursor' 'lib32-libxcursor')
-pkgver=1.1.15
+pkgver=1.2.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxcursor() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('53ad0fa2afd7b4cf1108b560e44ea71abdf5c55a18df243d7123942513589c927f5c105395f790d8769959e0129db54264e6aac7efd51a5f1aec270379b1f2f5')
+sha512sums=('2b12d0fd17e311ce269dbba58588698885815eb07aa44d48525ed5cd9e5f379bb90138a792a191e2f74888ab10b3ca9a4f507f21de0984ed79748973ab927a03')

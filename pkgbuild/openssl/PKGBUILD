@@ -1,6 +1,6 @@
 pkgbase=openssl
 pkgname=('openssl' 'lib32-openssl')
-_basever=1.0.2o
+_basever=1.1.1b
 pkgver=${_basever/[a-z]/.${_basever//[0-9.]/}}
 pkgrel=1
 arch=('x86_64')
@@ -8,15 +8,13 @@ url="https://www.openssl.org"
 license=('custom:BSD')
 #depends=()
 options=(emptydirs)
-source=("https://www.openssl.org/source/openssl-${_basever}.tar.gz"
-	"openssl.patch"
-	"openssl-fixes.patch")
+source=("https://www.openssl.org/source/openssl-${_basever}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/openssl-${_basever}"
 
-	patch -Np1 -i "${srcdir}/openssl.patch"
-	patch -Np1 -i "${srcdir}/openssl-fixes.patch"
+	sed -i "s#(libdir)/engines#(libdir)/openssl/engines#g" Configurations/unix-Makefile.tmpl
+	sed -i "s#./demoCA#/etc/ssl#g" apps/openssl.cnf
 
 	cp -a "${srcdir}"/openssl{,32}-${_basever}
 }
@@ -62,7 +60,7 @@ package_openssl() {
 
 	cd "${srcdir}/openssl-${_basever}"
 
-	make install INSTALL_PREFIX="${pkgdir}" MANDIR=/usr/share/man MANSUFFIX=ssl
+	make install_sw install_ssldirs install_man_docs DESTDIR="${pkgdir}" MANDIR=/usr/share/man MANSUFFIX=ssl
 }
 
 package_lib32-openssl() {
@@ -70,12 +68,10 @@ package_lib32-openssl() {
 
 	cd "${srcdir}/openssl32-${_basever}"
 
-	make install INSTALL_PREFIX="${PWD}/dest" MANDIR=/usr/share/man MANSUFFIX=ssl
+	make install_sw DESTDIR="${PWD}/dest" MANDIR=/usr/share/man MANSUFFIX=ssl
 
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('8a2c93657c85143e76785bb32ee836908c31a6f5f8db993fa9777acba6079e630cdddd03edbad65d1587199fc13a1507789eacf038b56eb99139c2091d9df7fd'
-            'be7e6b1b449c2b88e83f7c69b176b7ef250bb1a982c856ba9b7c16fcf05f0503e16351f6413affab536dcdb82c80c94120750be2b073429910f5fbf5375341c1'
-            '46353d4c617e5844cea202730d98200a1950d12d0537cd3e4b04b1d8ea4480e52af17b1ef8ade1fa5e263066b910db608a08022df137736c6a940c9734823f06')
+sha512sums=('b54025fbb4fe264466f3b0d762aad4be45bd23cd48bdb26d901d4c41a40bfd776177e02230995ab181a695435039dbad313f4b9a563239a70807a2e19ecf045d')

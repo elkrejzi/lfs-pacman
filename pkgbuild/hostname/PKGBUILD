@@ -1,5 +1,5 @@
 pkgname=hostname
-pkgver=3.18
+pkgver=3.21
 pkgrel=1
 pkgdesc="Utility to set/show the host name or domain name"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	make install BINDIR=/usr/bin BASEDIR="${pkgdir}"
 }
 
-sha512sums=('1e42adb404479aa3c694658d7ce2e7db125f1b4b74001faef3ac5f2f57b77e8684a03827ed275bfc4145f187924b4c025d78ae29e5f8469b682e6d76345dfde6')
+sha512sums=('48862c53259a40fa749430ddf98510b2d7cdd243c19f3e31dde6258645386281f09243b8f9713f6e7ba9ea7216f992c6f017086cf74e62a654aa8b9165eb2171')

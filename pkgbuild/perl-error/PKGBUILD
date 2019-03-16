@@ -1,12 +1,12 @@
 pkgname=perl-error
-pkgver=0.17026
+pkgver=0.17027
 pkgrel=1
 pkgdesc="Perl/CPAN Error module - Error/exception handling in an OO-ish way"
 arch=('x86_64')
 url="https://metacpan.org/release/Error/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/Error-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/S/SH/SHLOMIF/Error-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Error-${pkgver}"
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('58d43a133fb74d94d726ae923cdfb7df8e1faf156247bb07cb7308218e21a627485f031d029b3ee3179d92e756dca7f1e6dd1e2f4378f420c72b171aefe2f410')
+sha512sums=('f7a649254bd2a5228a0baaa7bb286872dcbcf373134446176ff63a5ec0159e7472e0ea930aaff78f7f7961f797ae0a8e5c8725bdc06d2bab177ce469a4ede4b9')

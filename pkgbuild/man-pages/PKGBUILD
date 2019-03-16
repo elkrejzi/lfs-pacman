@@ -1,5 +1,5 @@
 pkgname=man-pages
-pkgver=4.16
+pkgver=5.00
 pkgrel=1
 pkgdesc="Linux man pages"
 arch=('x86_64')
@@ -17,6 +17,10 @@ package() {
 	rm -rf "${pkgdir}/usr/share/man/man3/getspnam.3"
 	rm -rf "${pkgdir}/usr/share/man/man5/attr.5"
 	rm -rf "${pkgdir}/usr/share/man/man5/passwd.5"
+	rm -rf "${pkgdir}/usr/share/man/man5/tzfile.5"
+	rm -rf "${pkgdir}/usr/share/man/man8/tzselect.8"
+	rm -rf "${pkgdir}/usr/share/man/man8/zdump.8"
+	rm -rf "${pkgdir}/usr/share/man/man8/zic.8"
 }
 
-sha512sums=('df282a0480e2c1cc74e4ba02d6ff02ba95886b6583058c737028ea609b916270ba7dcaf075e0c450fd4b49b335979765abfc7d0a75f5570eec5fa2381c10201c')
+sha512sums=('7ab44d5c8ed06696e7c463ec5118305fada7a6d284fc38d32e0771faa3ff12b74a8b696f9577481a0d1d2c7f1e5e78a21a72d80d2f34bd50955622b226b39fa2')

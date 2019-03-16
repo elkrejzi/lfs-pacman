@@ -1,5 +1,5 @@
 pkgname=groff
-pkgver=1.22.3
+pkgver=1.22.4
 pkgrel=1
 pkgdesc="GNU troff text-formatting system"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	done
 }
 
-sha512sums=('c526ab203d13a9c9d110bcd3149fe50d1cd0d309437e9e2731a7ce90d890507ebc0a2331899ecf4dba2938daa756b6094cf76fd347a0ded59797c70ccfd0c95c')
+sha512sums=('1c42d3cd71efaf067b5850945d9097fa1f0fadd5e2b6ba7446bd9d4f439fe1ad058e4ddb0d4e0f503682137dfc7c822944ce1e3e5cf981673f8ba197ea77126d')

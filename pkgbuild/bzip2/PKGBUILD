@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://www.bzip.org/"
 license=('custom')
 #depends=()
-source=("http://www.bzip.org/${pkgver}/bzip2-${pkgver}.tar.gz")
+source=("http://downloads.sourceforge.net/bzip2/bzip2-${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/bzip2-${pkgver}"

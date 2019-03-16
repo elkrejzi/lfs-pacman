@@ -1,5 +1,5 @@
 pkgname=libsecret
-pkgver=0.18.6
+pkgver=0.18.8
 pkgrel=1
 pkgdesc="Library for storing and retrieving passwords and other secrets"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4997519762f1470cfc0a4b3a791362d030af3c9b6ce6f58f8f8073b3a8adeea9b8caacedc884163997081dc39f395f9172330dbb41fed45d6c43ac5809de48e3')
+sha512sums=('9e2ec8d458af6ed078bf3c6d956599f73f2cc7720332c424e9aede1f77f3d969c5122cf7b70899bc07ad96a3a628bf79bc5fffa88274d1ef2bcaaca6719f90d4')

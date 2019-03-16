@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/Digest-HMAC/"
 license=('PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/Digest-HMAC-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/G/GA/GAAS/Digest-HMAC-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Digest-HMAC-${pkgver}"

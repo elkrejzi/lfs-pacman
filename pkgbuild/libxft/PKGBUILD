@@ -1,6 +1,6 @@
 pkgbase=libxft
 pkgname=('libxft' 'lib32-libxft')
-pkgver=2.3.2
+pkgver=2.3.3
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxft() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('eb2e0c46b4434198690a3ca2b613df14ad599c860b47d10a1e8efe3b4e812a78460f9f414eaf89db21d605613a4e18324dcb8a22928609c6bc15178330a05398')
+sha512sums=('28fdaf3baa3b156a4a7fdd6e39c4d8026d7d21eaa9be27c9797c8d329dab691a1bc82ea6042f9d4729a9343d93787536fb7e4b606f722f33cbe608b2e79910e8')

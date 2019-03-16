@@ -1,6 +1,6 @@
 pkgbase=libgcrypt
 pkgname=('libgcrypt' 'lib32-libgcrypt')
-pkgver=1.8.3
+pkgver=1.8.4
 pkgrel=1
 arch=('x86_64')
 url="http://www.gnupg.org"
@@ -55,4 +55,4 @@ package_lib32-libgcrypt() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('8c873204303f173dd3f49817a81035c1d504b2fc885965c9bc074a6e3fb108ceb6dca366d85e840a40712a6890fc325018ea9b8c1b7b8804c51c44b296cb96a0')
+sha512sums=('b831fc337eb14806897e224b0d1e78d1f8e9db91dffa818a015a4aa104144e2d971e5a855904907ee2bb9990a9d526de32d6787e1cae98e28a65c3258b2b1ea1')

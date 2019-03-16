@@ -7,7 +7,7 @@ arch=('x86_64')
 url="https://pypi.python.org/pypi/setuptools/"
 license=('PSF')
 #depends=()
-source=("https://files.pythonhosted.org/packages/source/s/setuptools/setuptools-${pkgver}.zip")
+source=("https://github.com/pypa/setuptools/archive/v${pkgver}/setuptools-${pkgver}.tar.gz")
 
 prepare() {
 	cp -a "${srcdir}/setuptools-${pkgver}" "${srcdir}/setuptools-${pkgver}-py2"
@@ -16,10 +16,12 @@ prepare() {
 build() {
 	cd "${srcdir}/setuptools-${pkgver}"
 
+	python3 bootstrap.py
 	python3 setup.py build
 
 	cd "${srcdir}/setuptools-${pkgver}-py2"
 
+	python2 bootstrap.py
 	python2 setup.py build
 }
 
@@ -37,4 +39,4 @@ package_python2-setuptools() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('333d2ca51639a7f58e248f4df71f10caaf2353ecaa9b7664de12140170d8eec8390fc4dde5bd7dd7dbd61deca46acdef375075cf45fedffb2797ac69131c719a')
+sha512sums=('187a300e72fec3ec68383b53f37faa9d20c523792a51f7e88761e05ae0e1e2689af04fa7bc3160c0607d117a9952ae77bb19cf370720f1c351545c4730a3d807')

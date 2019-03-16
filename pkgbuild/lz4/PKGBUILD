@@ -1,6 +1,6 @@
 pkgbase=lz4
 pkgname=('lz4' 'lib32-lz4')
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=1
 arch=('x86_64')
 url="http://www.lz4.org/"
@@ -54,4 +54,4 @@ package_lib32-lz4() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('5fadc79334d37739c947d6dfc24f48ce82989fc5ee4f2bb8201ccf7ee3230b9e6e7c8488beb64050a035369f4247161d258bdb539578bec224ccebfef1b8a763')
+sha512sums=('5d284f75a0c4ad11ebc4abb4394d98c863436da0718d62f648ef2e2cda8e5adf47617a4b43594375f7b0b673541a9ccfaf73880a55fd240986594558214dbf9f')

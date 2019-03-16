@@ -1,6 +1,6 @@
 pkgbase=elfutils
 pkgname=('elfutils' 'lib32-elfutils')
-pkgver=0.173
+pkgver=0.176
 pkgrel=1
 arch=('x86_64')
 url="https://sourceware.org/elfutils/"
@@ -56,4 +56,4 @@ package_lib32-elfutils() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('7f38e4ce2098b685f15030bf01f0a66a74aa32fbfcead0304c1d0e0a929b348a72f99e685cd4605465f4337393382112f64b8847e6c2f7cc1a57a4fd03d03eb3')
+sha512sums=('7f032913be363a43229ded85d495dcf7542b3c85974aaaba0d984228dc9ac1721da3dc388d3fa02325a80940161db7e9ad2c9e4521a424ad8a7d050c0902915b')

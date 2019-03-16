@@ -1,6 +1,6 @@
 pkgbase=libfs
 pkgname=('libfs' 'lib32-libfs')
-pkgver=1.0.7
+pkgver=1.0.8
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libfs() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('3596e87710c14706ab345377799e9b2dbab79500fd75b4213f9615bf7db7df3265b4dbc65fdeca9d32343b848013780cfa1a43e76229665ce80246332bb8b96f')
+sha512sums=('466198ae5c0b83e3579713d86ddfd0b039f5c5b511cf6d5dc0e9664ee2d40aec9e8929445c8e97394d85faf76a7cf2f81bddb13d23de7ce19919e3b1e36ba56f')

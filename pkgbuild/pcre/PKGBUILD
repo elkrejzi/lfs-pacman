@@ -1,12 +1,12 @@
 pkgbase=pcre
 pkgname=('pcre' 'lib32-pcre')
-pkgver=8.42
+pkgver=8.43
 pkgrel=1
 arch=('x86_64')
 url="http://www.pcre.org/"
 license=('BSD')
 #depends=()
-source=("ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${pkgver}.tar.bz2")
+source=("https://ftp.pcre.org/pub/pcre/pcre-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/pcre{,32}-${pkgver}
@@ -65,4 +65,4 @@ package_lib32-pcre() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('b47b923108f6ee0c31409b79d0888314271b482a22590e164d02f21d2112fba22dd0342c24f9ba0f5fcc5b8c65550bad08c476e30a2fc79b34ecf4601ed82f3d')
+sha512sums=('3b4ac2c7ccd77c9575d07a33c3456f40b50731029e62d01fb8f2f5871d7118e12bc9e6bc7a8079769c765e38da5ecf98c4b261b10ff0a2f14f0881b434f67af7')

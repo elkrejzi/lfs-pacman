@@ -1,5 +1,5 @@
 pkgname=lvm2
-pkgver=2.02.181
+pkgver=2.02.183
 pkgrel=1
 pkgdesc="Logical Volume Manager 2"
 arch=('x86_64')
@@ -44,4 +44,4 @@ package() {
 	make install_systemd_generators DESTDIR="${pkgdir}"
 }
 
-sha512sums=('599d992823510e27f3ec3ceaf0d2332402b731afc0d2df88096ab55ed98dba8c3bdc5408d51b9f5b0ffbbb9ac3760ee37b878a0f36ab379449dc076c58e59511')
+sha512sums=('3947523c6b0862ada40677ed171ed0cf95e070119e377296fc5ccb153e9c4212d34c0b16a887dbd68ccf265525345dabfed2aa59fb3604555429a7e2ecfff4d7')

@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/Authen-SASL/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/G/GB/GBARR/Authen-SASL-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/G/GB/GBARR/Authen-SASL-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Authen-SASL-${pkgver}"

@@ -1,5 +1,5 @@
 pkgname=nss
-pkgver=3.38
+pkgver=3.43
 pkgrel=1
 pkgdesc="Network Security Services"
 arch=('x86_64')
@@ -13,8 +13,6 @@ source=("https://ftp.mozilla.org/pub/security/nss/releases/NSS_${pkgver//./_}_RT
 prepare() {
 	cd "${srcdir}/nss-${pkgver}/nss"
 
-	sed -i "/WARNING_CFLAGS/s:Werror:Wall:g" coreconf/Werror.mk
-
 	patch -Np2 -i "${srcdir}/nss-standalone.patch"
 }
 
@@ -24,13 +22,15 @@ build() {
 	export XCFLAGS="${CFLAGS}"
 	unset CFLAGS
 
-	make nss_build_all BUILD_OPT=1 \
+	make -j1 \
+		BUILD_OPT=1 \
 		NSPR_INCLUDE_DIR=/usr/include/nspr \
 		USE_SYSTEM_ZLIB=1 \
 		ZLIB_LIBS=-lz \
+		NSS_ENABLE_WERROR=0 \
 		NSS_USE_SYSTEM_SQLITE=1 \
 		USE_64=1 \
-		CC="${CC}" CCC="${CXX}" -j1
+		CC="${CC}" CCC="${CXX}"
 }
 
 package() {
@@ -53,5 +53,5 @@ package() {
 	install -v -m644 ../dist/Linux*/lib/pkgconfig/nss.pc "${pkgdir}/usr/lib/pkgconfig/nss.pc"
 }
 
-sha512sums=('06804163daa08f1f65cfe0e9546ddf066ec7f773aa615431a5952f6c04956dd62425fec38d11037ff7fb02b709de03e5a7637c6ba13de5b7686db4f9ecda52ab'
+sha512sums=('e9dfba5bd6f68c5ab58fc7a6fa1b16a035be1b1b7c436cf787bdc99257c5f54c78d73d94d015bffd29420df19b2a2818166c68fe592dd7208ab5605344827fb5'
             '3e78b07cb11a2298486d38fad0c21690c126205ffa722bc8647259802c3cd82bf3ba7f5ff17a53f8db89c24b8ab8df78f40e9c0031322eaf8c936b94dc8dc9a0')

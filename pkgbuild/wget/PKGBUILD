@@ -1,5 +1,5 @@
 pkgname=wget
-pkgver=1.19.5
+pkgver=1.20.1
 pkgrel=1
 pkgdesc="A network utility to retrieve files from the Web"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0d4964e0f5adb0c023edc831bde9c9f13f3222f6efc1ce93250d234ab937e92b53921624532fb0e6586151ddfdee6df9a7ca91a2a99b3d16e2e68401c625301b')
+sha512sums=('855c7e3c45f9020a9fdb30e286ee6a0bdcaa780be3d0dda9ffdae73b562ae1012d4550242f66240407a28076a7054328d4f08a469a0da227a9e3410b8d5f46dc')

@@ -1,6 +1,6 @@
 pkgbase=libxkbfile
 pkgname=('libxkbfile' 'lib32-libxkbfile')
-pkgver=1.0.9
+pkgver=1.1.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxkbfile() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('5fa268f10d7c4bd7b1e0c9f12adaa53d86b149f193d228fc620b3b81d360b37e4ede0192f5a0dc715bf830a57bd1388af01399fb33609413fc64623ee91cb8d1')
+sha512sums=('1c6a57564e916ccdc3df3c49b9f3589f701df0cec55112c12ddc35ac3ed556608c28fe98e5ba0ac1962e9a65ed1e90eb7e6169b564951bf55a7cf3499b745826')

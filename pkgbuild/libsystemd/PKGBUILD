@@ -1,6 +1,6 @@
 pkgbase=libsystemd
 pkgname=('libsystemd' 'lib32-libsystemd')
-pkgver=239
+pkgver=241
 pkgrel=1
 arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
@@ -33,7 +33,9 @@ build() {
 		-Dbashcompletiondir=no
 		-Drpmmacrosdir=no
 		-Dzshcompletiondir=no
-		-Ddefault-hierarchy=unified
+		-Ddefault-hierarchy=hybrid
+		-Ddefault-locale=C
+		-Ddefault-kill-user-processes=false
 		-Dwheel-group=false
 		-Dnobody-group=nogroup
 		-Dacl=false
@@ -106,4 +108,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32/lib{systemd,udev}.so* "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('fd44590dfd148504c5ed1e67521efce50d84b627b7fc77015fa95dfa76d7a42297c56cc89eff40181809732024b16d48f2a87038cf435e0c63bc2b95ecd86b0f')
+sha512sums=('a7757574590e8aa37e1291ea0b2c5eb03a8d8062fe9462fa5b0bf50830c933e2b301d106c70d904f94afc0aa8e43a8acfd11926dfa25b1b89174580e491e545e')

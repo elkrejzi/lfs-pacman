@@ -1,14 +1,14 @@
 --- a/config-bot.h	2016-05-19 20:34:43.000000000 +0200
-+++ b/config-bot.h	2016-09-18 14:55:26.005672469 +0200
++++ b/config-bot.h	2019-03-16 16:48:43.755848324 +0100
 @@ -200,4 +200,4 @@
  /******************************************************************/
  
  /* If you don't want bash to provide a default mail file to check. */
 -/* #undef DEFAULT_MAIL_DIRECTORY */
 +#undef DEFAULT_MAIL_DIRECTORY
---- a/config-top.h	2016-05-19 20:34:02.000000000 +0200
-+++ b/config-top.h	2016-09-18 14:55:26.005672469 +0200
-@@ -63,14 +63,14 @@
+--- a/config-top.h	2018-10-12 21:35:23.000000000 +0200
++++ b/config-top.h	2019-03-16 16:50:20.635946510 +0100
+@@ -63,7 +63,7 @@
  /* The default value of the PATH variable. */
  #ifndef DEFAULT_PATH_VALUE
  #define DEFAULT_PATH_VALUE \
@@ -16,7 +16,8 @@
 +  "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
  #endif
  
- /* The value for PATH when invoking `command -p'.  This is only used when
+ /* If you want to unconditionally set a value for PATH in every restricted
+@@ -74,7 +74,7 @@
     the Posix.2 confstr () function, or CS_PATH define are not present. */
  #ifndef STANDARD_UTILS_PATH
  #define STANDARD_UTILS_PATH \
@@ -25,7 +26,7 @@
  #endif
  
  /* Default primary and secondary prompt strings. */
-@@ -87,20 +87,20 @@
+@@ -91,20 +91,20 @@
  #define DEFAULT_BASHRC "~/.bashrc"
  
  /* System-wide .bashrc file for interactive shells. */

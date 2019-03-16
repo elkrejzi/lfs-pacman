@@ -1,6 +1,6 @@
 pkgbase=freetype
 pkgname=('freetype' 'lib32-freetype')
-pkgver=2.9.1
+pkgver=2.10.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.freetype.org/"
@@ -60,4 +60,4 @@ package_lib32-freetype() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('856766e1f3f4c7dc8afb2b5ee991138c8b642c6a6e5e007cd2bc04ae58bde827f082557cf41bf541d97e8485f7fd064d10390d1ee597f19d1daed6c152e27708')
+sha512sums=('dfad66f419ea9577f09932e0730c0c887bdcbdbc8152fa7477a0c39d69a5b68476761deed6864ddcc5cf18d100a7a3f728049768e24afcb04b1a74b25b6acf7e')

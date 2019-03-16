@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/Parse-Yapp"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/W/WB/WBRASWELL/Parse-Yapp-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Parse-Yapp-${pkgver}"

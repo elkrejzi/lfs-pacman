@@ -1,5 +1,5 @@
 pkgname=man-db
-pkgver=2.8.4
+pkgver=2.8.5
 pkgrel=1
 pkgdesc="A utility for reading man pages"
 arch=('x86_64')
@@ -20,7 +20,8 @@ build() {
 		--disable-setuid \
 		--with-browser=/usr/bin/lynx \
 		--with-vgrind=/usr/bin/vgrind \
-		--with-grap=/usr/bin/grap
+		--with-grap=/usr/bin/grap \
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 
 	make
 }
@@ -30,15 +31,12 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	install -v -Dm644 "${srcdir}/man-db.timer" "${pkgdir}/usr/lib/systemd/system/man-db.timer"
-	install -v -Dm644 "${srcdir}/man-db.service" "${pkgdir}/usr/lib/systemd/system/man-db.service"
-
 	install -v -dm755 "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants"
 	ln -sfv ../man-db.timer "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/man-db.timer"
 
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('3cc160a5a8a0a4e918f6f6546582d1e5fe9851a13c5bd8dc94e3fcbf4ec28cb3cd1524b1ae30722931c84981fa8ca9ac64c9c4d9544c2d0bea80ac9f39cb5e66'
+sha512sums=('8d1524c3b6459c9ac02d969149c18c198cb171bcd6acc493e863a466c01309958ee9f5ac52df4d7d27da29d35cb7c64132732f5b969181ab336500df2e6dad69'
             '36587635b2b4d496a353a53c0bb2f863d321b5b329a5549643f09076d3d176efc13ebe3715aa5c14e217ef581f0a335eae2b4fcf20dea7873858eab232355e87'
             '2ed529500fbe18ba00ac7a6fc4c9da59e396464afb256db33f462b1127e497916602370e65e485c8d788c839f5b1b1130028502f61e1cc9ec8571ad6dd993738')

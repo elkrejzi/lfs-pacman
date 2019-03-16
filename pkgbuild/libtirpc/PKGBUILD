@@ -1,12 +1,12 @@
 pkgbase=libtirpc
 pkgname=('libtirpc' 'lib32-libtirpc')
-pkgver=1.0.3
+pkgver=1.1.4
 pkgrel=1
 arch=('x86_64')
 url="http://libtirpc.sourceforge.net/"
 license=('BSD')
 #depends=()
-source=("https://downloads.sourceforge.net/sourceforge/libtirpc/libtirpc-${pkgver}.tar.bz2")
+source=("https://downloads.sourceforge.net/libtirpc/libtirpc-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/libtirpc{,32}-${pkgver}
@@ -58,4 +58,4 @@ package_lib32-libtirpc() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('1f1cf7dd6f30ddddc919e4caf6db926f1d532f78d5a93e8aaa2acde6b046be0650c4c46549da0ffd5fa7fb9e550af1a871ed6e02ededf504c6667d2e82eba2cc')
+sha512sums=('392f391f9fc1bd68d81dc44e4058831a64b32790b5c8c37338b0ab416fad2ae4d16389e632596734dba09780347918cc65c6f134e0c1afd09e81ec250785ed23')

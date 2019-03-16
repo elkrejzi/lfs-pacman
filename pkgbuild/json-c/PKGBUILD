@@ -1,25 +1,56 @@
-pkgname=json-c
+pkgbase=json-c
+pkgname=('json-c' 'lib32-json-c')
 pkgver=0.13.1
 pkgrel=1
-pkgdesc="A JSON implementation in C"
 arch=('x86_64')
 url="https://github.com/json-c/json-c/wiki"
 license=('MIT')
 #depends=()
 source=("https://s3.amazonaws.com/json-c_releases/releases/json-c-${pkgver}.tar.gz")
 
+prepare() {
+	cp -a "${srcdir}"/json-c{,32}-${pkgver}
+}
+
 build() {
 	cd "${srcdir}/json-c-${pkgver}"
 
 	./configure --prefix=/usr
 
-	make
+	cd "${srcdir}/json-c32-${pkgver}"
+
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	./configure --prefix=/usr --libdir=/usr/lib32
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/json-c-${pkgver}"
+	make -C "${srcdir}/json-c32-${pkgver}"
 }
 
-package() {
+package_json-c() {
+pkgdesc="A JSON implementation in C"
+
 	cd "${srcdir}/json-c-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-json-c() {
+pkgdesc="A JSON implementation in C (32 bit)"
+
+	cd "${srcdir}/json-c32-${pkgver}"
+
+	make install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
 sha512sums=('e984db2a42b9c95b52c798b2e8dd1b79951a8dcba27370af30c43b9549fbb00008dbcf052a535c528209aaee38e6d1f760168b706905ae72f3e704ed20f8a1a1')

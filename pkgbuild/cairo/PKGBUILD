@@ -1,12 +1,12 @@
 pkgbase=cairo
 pkgname=('cairo' 'lib32-cairo')
-pkgver=1.15.12
+pkgver=1.16.0
 pkgrel=1
 arch=('x86_64')
 url="https://cairographics.org/"
 license=('LGPL' 'MPL')
 #depends=()
-source=("https://www.cairographics.org/snapshots/cairo-${pkgver}.tar.xz")
+source=("https://www.cairographics.org/releases/cairo-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/cairo-${pkgver}"
@@ -59,4 +59,4 @@ package_lib32-cairo() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('97fb2c515f6449c1d84dc3187d11187290a219d39f8168a4367ca43505da80167df93b609a69b7e3938e9d38a2b7db459ad7130d9b5f12ff8c898994dfaa6d7e')
+sha512sums=('9eb27c4cf01c0b8b56f2e15e651f6d4e52c99d0005875546405b64f1132aed12fbf84727273f493d84056a13105e065009d89e94a8bfaf2be2649e232b82377f')

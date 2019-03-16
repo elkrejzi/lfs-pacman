@@ -1,6 +1,6 @@
 pkgname=perl
 _perlmajor=5.28
-_perlminor=0
+_perlminor=1
 pkgver=${_perlmajor}.${_perlminor}
 pkgrel=1
 pkgdesc="A highly capable, feature-rich programming language"
@@ -84,4 +84,4 @@ package() {
 	ln -sfv ${pkgver} "${pkgdir}/usr/share/perl/${_perlmajor}"
 }
 
-sha512sums=('de701e37371b81cecf06098bb2c09017bde9cebaf9537d58838d0adf605ac2ecf739897b0a73576a7adb74d4cf65591ec4d2ed1f94b7191e695f88cb7e214a39')
+sha512sums=('6d18e9684c3a15bea2ccd28f116d1829c3acd5547551ee3539f0060c0d1a75246dfe570dfb9d5f00625a994a0afb0cbd6a5a5f9a407fef75a421e7dbc6491b43')

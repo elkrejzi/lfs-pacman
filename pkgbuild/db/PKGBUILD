@@ -1,5 +1,5 @@
 pkgname=db
-pkgver=18.1.25
+pkgver=18.1.32
 pkgrel=1
 pkgdesc="The Berkeley DB embedded database system"
 arch=('x86_64')
@@ -7,12 +7,6 @@ url="http://www.oracle.com/technology/software/products/berkeley-db/index.html"
 license=('custom')
 #depends=()
 source=("https://fossies.org/linux/misc/db-${pkgver}.tar.gz")
-
-prepare() {
-	cd "${srcdir}/db-${pkgver}"
-
-	#patch -Np1 -i "${srcdir}/db-clang.patch"
-}
 
 build() {
 	cd "${srcdir}/db-${pkgver}/build_unix"
@@ -37,4 +31,4 @@ package() {
 	rm -rf "${pkgdir}/usr/docs"
 }
 
-sha512sums=('30a0508dc7eb92adb56bdc881cedf179e901f888c776bc515b342ae585168521fa9f3c763f438d0e8a008e7cc779b3f40a7385285d724f8494d25d3652e6f1c9')
+sha512sums=('890b3047c28114ac30794c0234126b0b2a3e699f3ed259831091f02d51885e3583dd10c0ef0cecc215b9b8d80b48a2d3a82a5793cd3816afb45f6cc19ae23f25')

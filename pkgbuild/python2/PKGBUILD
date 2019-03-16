@@ -1,6 +1,6 @@
 pkgname=python2
 _py2majorver=2.7
-_py2minorver=15
+_py2minorver=16
 pkgver=${_py2majorver}.${_py2minorver}
 pkgrel=1
 pkgdesc="A high-level scripting language"
@@ -48,4 +48,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py2majorver}/{ctypes/test,lib2to3/tests,email/test,unittest/test,bsddb/test}
 }
 
-sha512sums=('27ea43eb45fc68f3d2469d5f07636e10801dee11635a430ec8ec922ed790bb426b072da94df885e4dfa1ea8b7a24f2f56dd92f9b0f51e162330f161216bd6de6')
+sha512sums=('16e814e8dcffc707b595ca2919bd2fa3db0d15794c63d977364652c4a5b92e90e72b8c9e1cc83b5020398bd90a1b397dbdd7cb931c49f1aa4af6ef95414b43e0')

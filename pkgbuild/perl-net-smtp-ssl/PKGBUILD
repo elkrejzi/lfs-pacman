@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/Net-SMTP-SSL/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/R/RJ/RJBS/Net-SMTP-SSL-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/R/RJ/RJBS/Net-SMTP-SSL-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Net-SMTP-SSL-${pkgver}"

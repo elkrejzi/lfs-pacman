@@ -1,5 +1,5 @@
 pkgname=file
-pkgver=5.34
+pkgver=5.36
 pkgrel=1
 pkgdesc="File type identification utility"
 arch=('x86_64')
@@ -22,5 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-
-sha512sums=('57849f8496fd356a66e5559804fdd907059dc2e2f75ede470a25c65b1c499481aad3d7978454b15a15e94c07c9d6795864e8705304a2281dacf1c4e31501bed8')
+sha512sums=('3ec5e51ffb7a82defa74845a90fbc983f6e169fc116606049bc01ff6e720d340c8abf6eb7a08b9ac1099162a5c02deac3633b07b039d486344c8abd9052ca751')

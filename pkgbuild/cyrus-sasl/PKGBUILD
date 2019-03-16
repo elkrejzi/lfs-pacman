@@ -1,13 +1,13 @@
 pkgname=cyrus-sasl
-pkgver=2.1.26
+pkgver=2.1.27
 pkgrel=1
 pkgdesc="Cyrus Simple Authentication Service Layer (SASL)"
 arch=('x86_64')
-url="http://cyrusimap.web.cmu.edu/"
+url="https://www.cyrusimap.org/"
 license=('custom')
 #depends=()
 install=cyrus-sasl.install
-source=("ftp://ftp.cyrusimap.org/cyrus-sasl/cyrus-sasl-${pkgver}.tar.gz"
+source=("https://www.cyrusimap.org/releases/cyrus-sasl-${pkgver}.tar.gz"
 	"cyrus-sasl-fixes.patch"
 	"saslauthd.default"
 	"saslauthd.service"
@@ -19,10 +19,6 @@ prepare() {
 	patch -Np1 -i "${srcdir}/cyrus-sasl-fixes.patch"
 
 	autoreconf -fi
-
-	pushd saslauthd
-		autoreconf -fi
-	popd
 }
 
 build() {
@@ -57,8 +53,8 @@ package() {
 	install -v -Dm644 "${srcdir}/saslauthd.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/saslauthd.conf"
 }
 
-sha512sums=('78819cb9bb38bea4537d6770d309deeeef09ff44a67526177609d3e1257ff4334d2b5e5131d5a1e4dea7430d8db1918ea9d171f0dee38b5e8337f4b72ed068f0'
-            'f40936566e88eec8cddfa5b024bd1fce3b951e162d39e410f11dfb563d888c3795d4e4be5215c75503440ac867c50bc57f3f2be2ef235213c20a7c52ce817676'
+sha512sums=('d11549a99b3b06af79fc62d5478dba3305d7e7cc0824f4b91f0d2638daafbe940623eab235f85af9be38dcf5d42fc131db531c177040a85187aee5096b8df63b'
+            '2ba7f5736701079b6213b1d407fc351b59fbc59e3364944ffa2504834eb7718606ac087476b8a07a026135cf2a4c871ac79eec7d3141a962ef033dcb5d2f60b6'
             '7b7686e1eb471abf6d2f7ad94d532bd83a3ba66a427b2f42dabfe91d4682609f9c648fb56e9d2f5a947fe8fc94c3a37b6f4fd915b2c7feeaf2a019ec4bc71502'
             'c85eccb630d0ec437ec2c146d8f6bd56d4bebc3c974704878c447fb886c1cf472dd6ea8410fe49626b32925eb5ae7cfeacac49a7ae39f79ad84ca7d55989556d'
             '2b57f712ef10d94c3bd64dab9d2c044a9a0e233c5ad9f0058bda6080c2cacd40f06b195ebd95b9aabf07a15c16771fd97c7be8684fe79e5436807ff36163dfe7')

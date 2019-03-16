@@ -1,12 +1,12 @@
 pkgname=perl-io-socket-ssl
-pkgver=2.056
+pkgver=2.066
 pkgrel=1
 pkgdesc="Nearly transparent SSL encapsulation for IO::Socket::INET"
 arch=('x86_64')
 url="https://metacpan.org/release/IO-Socket-SSL/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/IO-Socket-SSL-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/S/SU/SULLR/IO-Socket-SSL-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/IO-Socket-SSL-${pkgver}"
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('a3d580f977f8fd99f196a710f6eb5bc649d46e22d17f4e02660b2bab130629b34d1aff037974f320ce52121b13c1d77aa2f504278ec50530667e67413442b70b')
+sha512sums=('2a15f6d65f276ad4eae33139ae7af4c891d4c9e5f6aa65f45e51bfa02c85e8367a275bd33c73ece1b47b9d18eadc59e65fe1c584f9ccd3c7655948710fb4a57a')

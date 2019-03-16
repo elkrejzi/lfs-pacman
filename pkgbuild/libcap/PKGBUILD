@@ -1,6 +1,6 @@
 pkgbase=libcap
 pkgname=('libcap' 'lib32-libcap')
-pkgver=2.25
+pkgver=2.26
 pkgrel=1
 arch=('x86_64')
 url="http://sites.google.com/site/fullycapable/"
@@ -8,6 +8,7 @@ license=('GPL2')
 #depends=()
 source=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${pkgver}.tar.xz")
 
+CC=clang
 prepare() {
 	cd "${srcdir}/libcap-${pkgver}"
 
@@ -33,7 +34,7 @@ build() {
 
 	sed -i "s| gcc| ${CC}|" Make.Rules
 
-	make -C libcap BUILD_GPERF=no
+	make -C libcap BUILD_GPERF=no lib=lib32
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -44,7 +45,7 @@ package_libcap() {
 
 	cd "${srcdir}/libcap-${pkgver}"
 
-	make install BUILD_GPERF=no RAISE_SETFCAP=no prefix=/usr LIBDIR=/usr/lib DESTDIR="${pkgdir}"
+	make install BUILD_GPERF=no RAISE_SETFCAP=no prefix=/usr lib=lib DESTDIR="${pkgdir}"
 
 	chmod 755 "${pkgdir}/usr/lib/libcap.so"
 
@@ -65,4 +66,4 @@ package_lib32-libcap() {
 	chmod 755 "${pkgdir}/usr/lib32/libcap.so"
 }
 
-sha512sums=('c3ab491885292adc171cde542b96f1295e84132febb50112a46575c3bde3a3eb6fcf733f7a756b4b656e013c0abb5ed6571db24799f8c0b23d8f759f992864f9')
+sha512sums=('1c2d59f007226405a924950b2c2090393527e06f0692a84e6463e33915a070df61a9070b8f30a624d5630ddd39290eac117e5d440577d1edd48510195b9d12f0')

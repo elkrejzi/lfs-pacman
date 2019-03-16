@@ -1,13 +1,13 @@
 pkgname=intel-ucode
-_dlid=27945
-pkgver=20180703
+_dlid=28087
+pkgver=20180807.a
 pkgrel=1
 pkgdesc="Microcode update files for Intel CPUs"
 arch=('x86_64')
 url="https://downloadcenter.intel.com/SearchResult.aspx?lang=eng&keyword=%22microcode%22"
 license=('custom')
 #depends=()
-source=("https://downloadmirror.intel.com/${_dlid}/eng/microcode-${pkgver}.tgz")
+source=("https://downloadmirror.intel.com/${_dlid}/eng/microcode-${pkgver/./}.tgz")
 
 build() {
 	cd "${srcdir}"
@@ -24,4 +24,4 @@ package() {
 	install -v -Dm644 intel-ucode.img "${pkgdir}/boot/intel-ucode.img"
 }
 
-sha512sums=('25af4158f97fba2fb88f05a44f42ed7d2415001ccc58f573d366f405ff198472517468f619628f4f6e5a371793c41ea8faf5a932d2362b2a51726bb5c84e0eed')
+sha512sums=('3cd6794a5ce26e86f7b644e523ba978699316046e593da215b73b17c4b43049ac4a81636e2ce3e727d06c2efbac98657764aa3ff355edb429127585bb49a9b10')

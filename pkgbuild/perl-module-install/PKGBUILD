@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/Module-Install/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/Module-Install-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/E/ET/ETHER/Module-Install-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Module-Install-${pkgver}"

@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/inc-latest/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/inc-latest-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/D/DA/DAGOLDEN/inc-latest-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/inc-latest-${pkgver}"

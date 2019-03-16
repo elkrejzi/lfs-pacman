@@ -11,6 +11,8 @@ source=("http://www.linuxfromscratch.org/~krejzi/rtmpdump-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/rtmpdump-${pkgver}"
 
+	sed -i "s#CRYPTO=OPENSSL#CRYPTO=GNUTLS#g" Makefile librtmp/Makefile
+
 	make CC="${CC}" OPT="${CFLAGS}"
 }
 

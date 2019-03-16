@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/XML-Parser/"
 license=('GPL' 'PerlArtistic')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/T/TO/TODDR/XML-Parser-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/XML-Parser-${pkgver}"

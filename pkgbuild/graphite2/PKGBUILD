@@ -1,6 +1,6 @@
 pkgbase=graphite2
 pkgname=('graphite2' 'lib32-graphite2')
-pkgver=1.3.11
+pkgver=1.3.13
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/silnrsi/graphite"
@@ -62,4 +62,4 @@ package_lib32-graphite2() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('fd5e997a30492a7668ad7afd78889e40cb37195cb8e11f42817ee00901b699d6a591e8230bf7a40abd1b218ae26588948a92b23e48c9fd03164fd5e2f4031afe')
+sha512sums=('44ac2f353c1a795a55c78b4ff72df35a3a5a94700356c0eefe105d66cd499ac93f9cfd5ab7b3ea842b575156cb8df19e0b57ff8b9dbaee8a576319ff5889c131')

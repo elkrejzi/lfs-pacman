@@ -1,5 +1,5 @@
 pkgname=systemd
-pkgver=239
+pkgver=241
 pkgrel=1
 pkgdesc="system and service manager"
 arch=('x86_64')
@@ -13,13 +13,14 @@ backup=(etc/rc.local
 	etc/systemd/journal-upload.conf
 	etc/systemd/logind.conf
 	etc/systemd/resolved.conf
+	etc/systemd/sleep.conf
 	etc/systemd/system.conf
 	etc/systemd/timesyncd.conf
-	etc/systemd/user.conf)
+	etc/systemd/user.conf
+	etc/udev/udev.conf)
 options=(emptydirs)
 install=systemd.install
 source=("https://github.com/systemd/systemd/archive/v${pkgver}/systemd-${pkgver}.tar.gz"
-	"locale.sh"
 	"rc.local"
 	"systemd-hook"
 	"systemd-binfmt.hook"
@@ -53,6 +54,7 @@ build() {
 		-Dima=false \
 		-Dsmack=false \
 		-Dgnu-efi=true \
+		-Defi-libdir=/usr/lib \
 		-Dlibidn2=true \
 		-Dsysvinit-path=/etc/init.d \
 		-Dsysvrcnd-path=/etc \
@@ -64,7 +66,9 @@ build() {
 		-Dbashcompletiondir=no \
 		-Drpmmacrosdir=no \
 		-Dzshcompletiondir=no \
-		-Ddefault-hierarchy=unified \
+		-Ddefault-hierarchy=hybrid \
+		-Ddefault-locale=C \
+		-Ddefault-kill-user-processes=false \
 		-Dwheel-group=false \
 		-Dnobody-group=nogroup \
 		"${srcdir}/systemd-${pkgver}"
@@ -103,11 +107,8 @@ package() {
 
 	ln -sfv /dev/null "${pkgdir}/etc/udev/rules.d/80-net-setup-link.rules"
 
-	install -v -Dm644 "${srcdir}/locale.sh" "${pkgdir}/etc/profile.d/locale.sh"
 	install -v -Dm644 "${srcdir}/systemd-user" "${pkgdir}/etc/pam.d/systemd-user"
-
 	install -v -Dm755 "${srcdir}/rc.local" "${pkgdir}/etc/rc.local"
-
 	install -v -Dm755 "${srcdir}/systemd-hook" "${pkgdir}/usr/share/libalpm/scripts/systemd-hook"
 
 	install -v -Dm644 "${srcdir}/systemd-binfmt.hook" "${pkgdir}/usr/share/libalpm/hooks/systemd-binfmt.hook"
@@ -129,8 +130,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('fd44590dfd148504c5ed1e67521efce50d84b627b7fc77015fa95dfa76d7a42297c56cc89eff40181809732024b16d48f2a87038cf435e0c63bc2b95ecd86b0f'
-            'c0ea27d3ddc0ff93e18c2dcb2c30cd302c7e860809ec5543045683e6d14b07457a0a8234155d019a75314714585b57080feb6c9db956780954bf832f7c11599f'
+sha512sums=('a7757574590e8aa37e1291ea0b2c5eb03a8d8062fe9462fa5b0bf50830c933e2b301d106c70d904f94afc0aa8e43a8acfd11926dfa25b1b89174580e491e545e'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '462ed39bd5c90168079956a402abafe8f0910882e6876b165a2c27af73833d0cad1be9cdbcb3549b34652ea86e5d0dba044946a38797bd533fdd1f5a0083f63b'
             '46f93725bc94381300535737fd0186a3c096fa83661179eab0c450c7b164a87d9a5dd9abcf6ae98bdeb4bf50a4ba4f1944769948c236e4814f166ff03b0ee177'

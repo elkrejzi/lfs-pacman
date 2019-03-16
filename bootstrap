@@ -35,7 +35,7 @@ rm -rf ${LFS}/{dev,etc,proc}
 lfs_pacman_install_temp filesystem
 
 ln -sf /tools/bin/{bash,cat,dd,echo,install} ${LFS}/usr/bin
-ln -sf /tools/bin/{ln,perl,pwd,rm,stty} ${LFS}/usr/bin
+ln -sf /tools/bin/{env,ln,perl,pwd,rm,stty} ${LFS}/usr/bin
 
 ln -sf /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib
@@ -225,12 +225,12 @@ nss
 openldap
 p11-kit
 popt
-rtmpdump
 vala
 chrpath
 gnutls
 krb5
 libarchive
+rtmpdump
 curl
 cyrus-sasl
 libmicrohttpd
@@ -345,6 +345,7 @@ ntfs-3g
 ruby
 rust
 subversion
+
 linux-firmware
 linux
 libunwind

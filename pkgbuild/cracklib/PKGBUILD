@@ -1,12 +1,12 @@
 pkgname=cracklib
-pkgver=2.9.6
+pkgver=2.9.7
 pkgrel=1
 pkgdesc="Password Checking Library"
 arch=('x86_64')
 url="https://github.com/cracklib/cracklib"
 license=('GPL')
 #depends=()
-source=("https://github.com/cracklib/cracklib/releases/download/cracklib-${pkgver}/cracklib-${pkgver}.tar.gz")
+source=("https://github.com/cracklib/cracklib/releases/download/v${pkgver}/cracklib-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/cracklib-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2b09672e5b412d670e7ed911ebf0c0023fe2901ea05c9c02eefb7a58a13cddbc27a65d75bb20be9f8cebf4c90a9a56dfe1a3b656dff62b1d6048f5376e671786')
+sha512sums=('f6bf65ac092ba46ff78ddbc115692260fb76dc71219cd679d2ea935ebfb9e709fbb30259a7406743ed00dbdc415335b3ac9d9fcba1d204ea36d5eb96bf1333a2')

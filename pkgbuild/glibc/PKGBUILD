@@ -98,6 +98,8 @@ package_glibc() {
 
 	rm -rf "${pkgdir}/etc/ld.so.conf" "${pkgdir}/etc/ld.so.cache" "${pkgdir}/lib64"
 	rm -rf "${pkgdir}"/usr/lib/libnsl.{a,so}
+	rm -rf "${pkgdir}/usr/bin/tzselect"
+	rm -rf "${pkgdir}/usr/sbin/zic"
 
 	install -v -dm755 "${pkgdir}/etc/ld.so.conf.d" "${pkgdir}/usr/lib/systemd/system" \
 		"${pkgdir}/usr/lib/locale" "${pkgdir}/usr/lib/tmpfiles.d" \

@@ -1,5 +1,5 @@
 pkgname=ca-certificates
-pkgver=20180409
+pkgver=20190110
 pkgrel=1
 pkgdesc="Common CA certificates"
 arch=('x86_64')
@@ -11,15 +11,13 @@ install=ca-certificates.install
 source=("http://http.debian.net/debian/pool/main/c/ca-certificates/ca-certificates_${pkgver}.tar.xz")
 
 build() {
-	cd "${srcdir}/ca-certificates" #-${pkgver}"
-
-	sed -i "s#openssl rehash#c_rehash#g" sbin/update-ca-certificates
+	cd "${srcdir}/ca-certificates-${pkgver}"
 
 	make -j1
 }
 
 package() {
-	cd "${srcdir}/ca-certificates" #-${pkgver}"
+	cd "${srcdir}/ca-certificates-${pkgver}"
 
 	install -v -dm755 "${pkgdir}/etc/ca-certificates/update.d" \
 		"${pkgdir}/etc/ssl/certs" \
@@ -40,4 +38,4 @@ find . -name '*.crt' | sort | cut -b3-
 ) > "${pkgdir}/etc/ca-certificates.conf"
 }
 
-sha512sums=('e0742da19416d367618547107cc0f1cc045d5ba62c30fb7238e0e36ec0d19ea48e2ffdee2c68a9f06954025c58db9a5376f149e221ede95a3a029cda39d86a53')
+sha512sums=('9ce2661018edb120d0ef5bd3ed52c0f73f577d7607d135a31730549f5eb4176db4865cdb8bde77a78dc3efb8968846da5e72af8a833a9da2a8a7deb4f1560372')

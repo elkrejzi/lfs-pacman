@@ -1,5 +1,5 @@
 pkgname=fuse2
-pkgver=2.9.8
+pkgver=2.9.9
 pkgrel=1
 pkgdesc="A library that makes it possible to implement a filesystem in a userspace program (verion 2)"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}/dev" "${pkgdir}/etc"
 }
 
-sha512sums=('0a9b14d96c6f98f5c903baf00114bfff72f9aeb97224702bbed370516b2b582401d5b436fcef979918ffd85d69ba4a82c8f722c0b35ebd50f7aa5f4ddfdcf8ad')
+sha512sums=('3d82fafd04f2924299bb09d2bb144935fa004a43fb9a6568e2e1cc5a60fded2efa1711029a0d7f12b3e6e4501f7217f2ee3545646d89da8dece083cb390f23e2')

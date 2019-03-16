@@ -1,6 +1,6 @@
 pkgbase=python-idna
 pkgname=('python2-idna' 'python3-idna')
-pkgver=2.7
+pkgver=2.8
 pkgrel=1
 pkgdesc="Support for the Internationalised Domain Names in Applications (IDNA) protocol as specified in RFC 5891"
 arch=('x86_64')
@@ -39,4 +39,4 @@ package_python2-idna() {
 	find "${pkgdir}" -type f -exec chmod 644 {} \;
 }
 
-sha512sums=('34ba985862e386243f43616586e53830177cf4ba0925b6054198dfa63c085ec5c6c5b54c2b3c0989bc768aacceeef76b84471e58a16183b960dc4b8812cd1c61')
+sha512sums=('8ca5cfe6350c51250bafdac7c6e4ddd54c4a5d6bf7acbcef896760a759868c8e9df1fdf550121d8512fa3eb316dcf031ec6058e03b4f66eadee21b63e2187d33')

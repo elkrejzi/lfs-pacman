@@ -1,27 +1,39 @@
 pkgname=tzdata
-pkgver=2018e
+pkgver=2018i
 pkgrel=1
 pkgdesc="Sources for time zone and daylight saving time data"
-arch=('any')
+arch=('x86_64')
 url="http://www.iana.org/time-zones"
 license=('GPL')
 options=(!strip)
-source=("https://www.iana.org/time-zones/repository/releases/tzdata${pkgver}.tar.gz")
+source=("https://www.iana.org/time-zones/repository/releases/tzcode${pkgver}.tar.gz"
+	"https://www.iana.org/time-zones/repository/releases/tzdata${pkgver}.tar.gz")
 
 timezones=('africa' 'antarctica' 'asia' 'australasia'
            'europe' 'northamerica' 'southamerica'
            'pacificnew' 'etcetera' 'backward'
            'systemv' 'factory')
 
+build() {
+	cd "${srcdir}"
+
+	make
+}
+
 package() {
 	cd "${srcdir}"
 
-	zic -y ./yearistype -d "${pkgdir}/usr/share/zoneinfo" ${timezones[@]}
-	zic -y ./yearistype -d "${pkgdir}/usr/share/zoneinfo/posix" ${timezones[@]}
-	zic -y ./yearistype -d "${pkgdir}/usr/share/zoneinfo/right" -L leapseconds ${timezones[@]}
-  
-	zic -y ./yearistype -d "${pkgdir}/usr/share/zoneinfo" -p America/New_York
+	make install DESTDIR="${pkgdir}"
+
+	./zic -d "${pkgdir}/usr/share/zoneinfo" ${timezones[@]}
+	./zic -d "${pkgdir}/usr/share/zoneinfo/posix" ${timezones[@]}
+	./zic -d "${pkgdir}/usr/share/zoneinfo/right" -L leapseconds ${timezones[@]}
+
+	./zic -d "${pkgdir}/usr/share/zoneinfo" -p America/New_York
 	install -m444 -t "${pkgdir}/usr/share/zoneinfo" iso3166.tab zone1970.tab zone.tab
+
+	rm -rf "${pkgdir}/etc"
 }
 
-sha512sums=('d059fcd381b2f6ecdafcd68fdd2a00451d1bf9b1affeb164ae7cabca2e022d499e77f0706ec3f3091b8e84c2211aa66da6c90937108771f1bf070cfebc105cae')
+sha512sums=('1a3d53043f20b8252f7598f547d78e7294d9e0cf1fcdd2159354d9769f824c8c8a03cef9cbb7fa579345fdb41372335117d2ef782ecd9c107dd0526e59492d9d'
+            '6afcacb377842190648ed26f01abcf3db37aa2e7c63d8c509c29b4bc0078b7ff2d4e5375291b9f53498215b9e2f04936bc6145e2f651ae0be6d8166d8d336f6a')

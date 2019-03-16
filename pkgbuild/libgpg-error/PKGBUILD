@@ -1,12 +1,12 @@
 pkgbase=libgpg-error
 pkgname=('libgpg-error' 'lib32-libgpg-error')
-pkgver=1.32
+pkgver=1.35
 pkgrel=1
 arch=('x86_64')
 url="http://www.gnupg.org"
 license=('LGPL')
 #depends=()
-source=("ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-${pkgver}.tar.bz2")
+source=("https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/libgpg-error{,32}-${pkgver}
@@ -55,4 +55,4 @@ package_lib32-libgpg-error() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('0130af48fe81f4db401635757d22a330455aab5dc27edfffad44b7c7c5c439399e92d234c9e00f4d3a399646b52e06c95d53196ea19f5a166817e2032511cb20')
+sha512sums=('9b1983f18f44f51b89a034c15b27415f710c21ead12dd63821aa489fb4c6d4b649a658ce1d5e1f3424cee483d3243be151b8fe32a24642af4531ded508aa4ac7')

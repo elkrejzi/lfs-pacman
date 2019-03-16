@@ -1,5 +1,5 @@
 pkgname=filesystem
-pkgver=3
+pkgver=4
 pkgrel=1
 pkgdesc="Base file system"
 arch=('x86_64')
@@ -22,6 +22,7 @@ source=("crypttab"
 	"issue"
 	"ld.so.conf"
 	"lfs-release"
+	"locale.sh"
 	"lsb-release"
 	"nsswitch.conf"
 	"os-release"
@@ -73,6 +74,7 @@ package() {
 	install -m644 issue "${pkgdir}/etc/issue"
 	install -m644 ld.so.conf "${pkgdir}/etc/ld.so.conf"
 	install -m644 lfs-release "${pkgdir}/etc/lfs-release"
+	install -m644 locale.sh "${pkgdir}/etc/profile.d/locale.sh"
 	install -m644 lsb-release "${pkgdir}/etc/lsb-release"
 	install -m644 nsswitch.conf "${pkgdir}/etc/nsswitch.conf"
 	install -m644 os-release "${pkgdir}/etc/os-release"
@@ -103,6 +105,7 @@ sha512sums=('f875cca6ede665254dba3ff594098bd597083231564ddffc8bafd8a2b6ab8712155
             '014c559bd26e002a0b069822aeba671fa37b16f2feb65642cac2dbb9f011db0cd29be709df348b79dd1c693757d39f35a2638ba85efc6a0c11a4c62d3e354b7e'
             'c2a2ec2cc43d948140c76821469979c249ad06488bd47f093804f9f3ca0f4b0670b475fd73d42da15bfbcc86f357da88eb5aed6bfb3a2639d18649730f5f28df'
             'b41018156936c4bcc6028e78e9c62efb0d357b969b810f0f4975c5ceeccefe2915ff5c61580bf16d6eed49a8cc867599a79020c23efbb7664d1a8385767da852'
+            '5d7a30e01a144b31d83faf50a07bc6cf0841120823a5315a86781da96ed1123a4270cbe8137300d6e4bcfbd8d93a68866791b4b30a5173a93e21dfebead9034e'
             '190d53a3af77558ab90c3615389d3fb1111a8593e1a754952027cc0d5e0d03a7db92ed8a087956cd1209f74d54bdbe6c8d4d559638f4206911451b1255b5a54c'
             '13cb6170aee0e242c6bb1513b99a2af96904b665eca9c69fda6bd618334bd8e4621a2fed04091d93c58e02bbac7deda9413945e067f3945364d8e716161a7b74'
             'ee335e1d0779ef9e6dea607de47bd1dcfaab425bd5fd97e10b3e4ad05de7945c3ff829397f0d034684466f25766f94e92172f9d55107b810de3e184b50c7ad94'

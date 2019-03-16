@@ -1,12 +1,12 @@
 pkgname=libxkbcommon
-pkgver=0.8.1
+pkgver=0.8.4
 pkgrel=1
 pkgdesc="Keymap handling library for toolkits and window systems"
 arch=('x86_64')
 url="https://xkbcommon.org/"
 license=('custom')
 #depends=()
-source=("http://xkbcommon.org/download/libxkbcommon-${pkgver}.tar.xz")
+source=("https://xkbcommon.org/download/libxkbcommon-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/libxkbcommon-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('efe57ddb01c555a517451d8d08b69fc298c55823f353873d5e2267b34700fa190e34730ae5be7170a362eba9a0421c03507f3244414f075a303eaefbdaf9ff17')
+sha512sums=('dbd441d0d7d5ba4fb352d64d150d163d4cdcf8340059457c291dc1fc69d1606ff6589732cb41a7fcfe106af0192977b243d7d68c4d95b90ece7abb620df360e3')

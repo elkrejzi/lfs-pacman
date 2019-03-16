@@ -1,5 +1,5 @@
 pkgname=gdbm
-pkgver=1.16
+pkgver=1.18.1
 pkgrel=1
 pkgdesc="GNU database library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('97f4f37fd95cee4dd5c9c3f42ea3aecaa28016e90fe0e168a9d8c38e92602221f946c273bb249d508200249701c6403d0f9351460485dfae34a3bf625de59d2c')
+sha512sums=('adf9d6c5bc843ff0d7f88c2a1667d509973b2d63378d0001d7e74cc10aee6ea498a4513cc88ddf78c32ba4db5cb040b2794f4f1b3338c65d9894058850e2f5ef')

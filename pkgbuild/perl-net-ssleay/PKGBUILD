@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://metacpan.org/release/Net-SSLeay/"
 license=('custom:BSD')
 #depends=()
-source=("http://search.cpan.org/CPAN/authors/id/M/MI/MIKEM/Net-SSLeay-${pkgver}.tar.gz")
+source=("https://www.cpan.org/authors/id/M/MI/MIKEM/Net-SSLeay-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/Net-SSLeay-${pkgver}"

@@ -10,12 +10,14 @@ license=('custom')
 source=("http://downloads.sourceforge.net/infozip/${pkgname}${_pkgver}.tar.gz"
 	"unzip-fixes.patch")
 
+export CC=clang
+
 prepare() {
 	cd "${srcdir}/unzip${_pkgver}"
 
 	patch -Np1 -i "${srcdir}/unzip-fixes.patch"
 
-	sed -i "s/CFLAGS=\"-O -Wall/& -DNO_LCHMOD ${CFLAGS}/" unix/Makefile
+	sed -i "s/CFLAGS=\"-O -Wall/& -DNO_LCHMOD -fPIC ${CFLAGS}/" unix/Makefile
 	sed -i "s/=gcc/=${CC}/" unix/Makefile
 }
 
