@@ -1,5 +1,5 @@
 pkgname=colord
-pkgver=1.4.3
+pkgver=1.4.4
 pkgrel=1
 pkgdesc="System daemon for managing color devices"
 arch=('x86_64')
@@ -41,5 +41,5 @@ package() {
 	chown -R 71:71 "${pkgdir}/var/lib/colord"
 }
 
-sha512sums=('8a4dc9c6c480cff0a3a9d9187e087cc07e1c8c262edd45cbb69e51d384fab4331b1115c354ee2160ab36137b7d342fb450672acd29066dd45e7878562197dce2'
+sha512sums=('0187a363c41ae5102dc3b454fcd84df83d71ac0dc32d88b33651edc1df15cbf1f47218caee3037c876e892613a2301226886a73b39759cfb709d0fef8e168628'
             '46d421c626bf135b5cb2c491f3090b15bde6b4a06e5400ccea1e6d455c3fd406364555e34bfdeafac40072d9e64c1a9d9feb07d3dbac8594e83182f5b38eecf8')

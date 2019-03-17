@@ -1,4 +1,4 @@
-pkgname=mozjs
+pkgname=js52
 pkgver=52.6.0
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries - Version 52"

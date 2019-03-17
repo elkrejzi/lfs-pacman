@@ -1,5 +1,5 @@
 pkgname=libjpeg-turbo
-pkgver=1.5.3
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="JPEG image codec with accelerated baseline compression and decompression"
 arch=('x86_64')
@@ -8,18 +8,25 @@ license=('custom')
 #depends=()
 source=("https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-${pkgver}.tar.gz")
 
-build() {
-	cd "${srcdir}/libjpeg-turbo-${pkgver}"
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
 
-	./configure --prefix=/usr --with-jpeg8
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DWITH_JPEG8=ON \
+		"${srcdir}/libjpeg-turbo-${pkgver}"
 
 	make
 }
 
 package() {
-	cd "${srcdir}/libjpeg-turbo-${pkgver}"
+	cd "${srcdir}/build"
 
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b611b1cc3d1ddedddad871854b42449d053a5f910ed1bdfa45c98e0270f4ecc110fde3a10111d2b876d847a826fa634f09c0bb8c357056c9c3a91c9065eb5202')
+sha512sums=('204b6d083e99488c975c75efb08699e4dc1c409556e4dee4f21e3ee67e9c6682eb342f2e5712816b0342c00399fbe6e43fbce30c3d22f30f7ef91db006b3be08')

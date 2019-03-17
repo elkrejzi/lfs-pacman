@@ -1,5 +1,5 @@
 pkgname=at-spi2-core
-pkgver=2.28.0
+pkgver=2.32.0
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
 arch=('x86_64')
@@ -23,7 +23,7 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Denable_docs=true \
+		-Ddocs=true \
 		"${srcdir}/at-spi2-core-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -35,4 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('ce5251f234d48f657a5fd5fbd9a85799365e9814235ecff62fa5088611c0c8c0489e17fb27a805453a2864163cb83f8d8d5ed4cdb7e37c4ee9ebb897146e2d1d')
+sha512sums=('4c77b4e0d37b559d20e6521107e8f7e03e91392414dc7ffdceb558667f3a7a6137af6895f3a8cd97dc3e85715d7875812d658dcc84277a63a10276992bde2fa6')

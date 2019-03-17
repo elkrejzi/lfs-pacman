@@ -1,0 +1,362 @@
+--- a/configure.ac	2018-10-09 16:58:04.000000000 +0200
++++ b/configure.ac	2019-03-16 19:43:11.928924598 +0100
+@@ -69,6 +69,8 @@
+ 
+ AM_INIT_AUTOMAKE([1.11 tar-ustar dist-bzip2 foreign -Wno-portability subdir-objects])
+ 
++AM_MAINTAINER_MODE
++
+ DIRS=""
+ 
+ AC_ARG_ENABLE(cmulocal,
+@@ -892,7 +894,9 @@
+      LIB_PGSQL_DIR=$LIB_PGSQL
+      LIB_PGSQL="$LIB_PGSQL -lpq"
+ 
+-     if test -d ${with_pgsql}/include/pgsql; then
++     if test -d ${with_pgsql}/include/postgresql/; then
++         CPPFLAGS="${CPPFLAGS} -I${with_pgsql}/include/postgresql"
++     elif test -d ${with_pgsql}/include/pgsql; then
+          CPPFLAGS="${CPPFLAGS} -I${with_pgsql}/include/pgsql"
+      elif test -d ${with_pgsql}/pgsql/include; then
+          CPPFLAGS="${CPPFLAGS} -I${with_pgsql}/pgsql/include"
+@@ -1556,7 +1560,6 @@
+ AC_CONFIG_HEADERS(config.h)
+ 
+ AC_OUTPUT(Makefile
+-libsasl2.pc
+ include/Makefile
+ saslauthd/Makefile
+ sasldb/Makefile
+--- a/lib/common.c	2018-11-08 18:29:57.000000000 +0100
++++ b/lib/common.c	2019-03-16 19:41:13.809859255 +0100
+@@ -816,7 +816,7 @@
+     result = sasl_canonuser_add_plugin("INTERNAL", internal_canonuser_init);
+     if(result != SASL_OK) return result;    
+ 
+-    if (!free_mutex) {
++    if (!free_mutex || free_mutex == 0x1) {
+ 	free_mutex = sasl_MUTEX_ALLOC();
+     }
+     if (!free_mutex) return SASL_FAIL;
+@@ -836,10 +836,10 @@
+ 
+   /* serialize disposes. this is necessary because we can't
+      dispose of conn->mutex if someone else is locked on it */
+-  if (!free_mutex) {
++  if (!free_mutex || free_mutex == 0x1) {
+       free_mutex = sasl_MUTEX_ALLOC();
+-      if (!free_mutex) return;
+   }
++  if (!free_mutex) return;
+ 
+   result = sasl_MUTEX_LOCK(free_mutex);
+   if (result!=SASL_OK) return;
+--- a/lib/dlopen.c	2018-11-08 18:29:57.000000000 +0100
++++ b/lib/dlopen.c	2019-03-16 19:42:23.539295156 +0100
+@@ -246,113 +246,6 @@
+     return result;
+ }
+ 
+-/* this returns the file to actually open.
+- *  out should be a buffer of size PATH_MAX
+- *  and may be the same as in. */
+-
+-/* We'll use a static buffer for speed unless someone complains */
+-#define MAX_LINE 2048
+-
+-static int _parse_la(const char *prefix, const char *in, char *out) 
+-{
+-    FILE *file;
+-    size_t length;
+-    char line[MAX_LINE];
+-    char *ntmp = NULL;
+-
+-    if(!in || !out || !prefix || out == in) return SASL_BADPARAM;
+-
+-    /* Set this so we can detect failure */
+-    *out = '\0';
+-
+-    length = strlen(in);
+-
+-    if (strcmp(in + (length - strlen(LA_SUFFIX)), LA_SUFFIX)) {
+-	if(!strcmp(in + (length - strlen(SO_SUFFIX)),SO_SUFFIX)) {
+-	    /* check for a .la file */
+-	    if (strlen(prefix) + strlen(in) + strlen(LA_SUFFIX) + 1 >= MAX_LINE)
+-		return SASL_BADPARAM;
+-	    strcpy(line, prefix);
+-	    strcat(line, in);
+-	    length = strlen(line);
+-	    *(line + (length - strlen(SO_SUFFIX))) = '\0';
+-	    strcat(line, LA_SUFFIX);
+-	    file = fopen(line, "r");
+-	    if(file) {
+-		/* We'll get it on the .la open */
+-		fclose(file);
+-		return SASL_FAIL;
+-	    }
+-	}
+-        if (strlen(prefix) + strlen(in) + 1 >= PATH_MAX)
+-            return SASL_BADPARAM;
+-	strcpy(out, prefix);
+-	strcat(out, in);
+-	return SASL_OK;
+-    }
+-
+-    if (strlen(prefix) + strlen(in) + 1 >= MAX_LINE)
+-        return SASL_BADPARAM;
+-    strcpy(line, prefix);
+-    strcat(line, in);
+-
+-    file = fopen(line, "r");
+-    if(!file) {
+-	_sasl_log(NULL, SASL_LOG_WARN,
+-		  "unable to open LA file: %s", line);
+-	return SASL_FAIL;
+-    }
+-    
+-    while(!feof(file)) {
+-	if(!fgets(line, MAX_LINE, file)) break;
+-	if(line[strlen(line) - 1] != '\n') {
+-	    _sasl_log(NULL, SASL_LOG_WARN,
+-		      "LA file has too long of a line: %s", in);
+-	    fclose(file);
+-	    return SASL_BUFOVER;
+-	}
+-	if(line[0] == '\n' || line[0] == '#') continue;
+-	if(!strncmp(line, "dlname=", sizeof("dlname=") - 1)) {
+-	    /* We found the line with the name in it */
+-	    char *end;
+-	    char *start;
+-	    size_t len;
+-	    end = strrchr(line, '\'');
+-	    if(!end) continue;
+-	    start = &line[sizeof("dlname=")-1];
+-	    len = strlen(start);
+-	    if(len > 3 && start[0] == '\'') {
+-		ntmp=&start[1];
+-		*end='\0';
+-		/* Do we have dlname="" ? */
+-		if(ntmp == end) {
+-		    _sasl_log(NULL, SASL_LOG_DEBUG,
+-			      "dlname is empty in .la file: %s", in);
+-		    fclose(file);
+-		    return SASL_FAIL;
+-		}
+-		strcpy(out, prefix);
+-		strcat(out, ntmp);
+-	    }
+-	    break;
+-	}
+-    }
+-    if(ferror(file) || feof(file)) {
+-	_sasl_log(NULL, SASL_LOG_WARN,
+-		  "Error reading .la: %s\n", in);
+-	fclose(file);
+-	return SASL_FAIL;
+-    }
+-    fclose(file);
+-
+-    if(!(*out)) {
+-	_sasl_log(NULL, SASL_LOG_WARN,
+-		  "Could not find a dlname line in .la file: %s", in);
+-	return SASL_FAIL;
+-    }
+-
+-    return SASL_OK;
+-}
+ #endif /* DO_DLOPEN */
+ 
+ /* loads a plugin library */
+@@ -506,18 +399,18 @@
+ 		if (length + pos>=PATH_MAX) continue; /* too big */
+ 
+ 		if (strcmp(dir->d_name + (length - strlen(SO_SUFFIX)),
+-			   SO_SUFFIX)
+-		    && strcmp(dir->d_name + (length - strlen(LA_SUFFIX)),
+-			   LA_SUFFIX))
++			   SO_SUFFIX))
+ 		    continue;
+ 
++		/* We only use .so files for loading plugins */
++
+ 		memcpy(name,dir->d_name,length);
+ 		name[length]='\0';
+ 
+-		result = _parse_la(prefix, name, tmp);
+-		if(result != SASL_OK)
+-		    continue;
+-		
++		/* Create full name with path */
++		strncpy(tmp, prefix, PATH_MAX);
++		strncat(tmp, name, PATH_MAX);
++
+ 		/* skip "lib" and cut off suffix --
+ 		   this only need be approximate */
+ 		strcpy(plugname, name + 3);
+--- a/lib/Makefile.am	2018-10-05 16:40:16.000000000 +0200
++++ b/lib/Makefile.am	2019-03-16 19:41:49.199568270 +0100
+@@ -98,7 +98,7 @@
+ 
+ libsasl2.a: libsasl2.la $(SASL_STATIC_OBJS)
+ 	@echo adding static plugins and dependencies
+-	$(AR) cru .libs/$@ $(SASL_STATIC_OBJS)
++	$(AR) cru $@ $(SASL_STATIC_OBJS)
+ 	@for i in ./libsasl2.la ../common/libplugin_common.la ../sasldb/libsasldb.la ../plugins/lib*.la; do \
+ 	if test ! -f $$i; then continue; fi; . $$i; \
+ 	for j in $$dependency_libs foo; do \
+--- a/m4/berkdb.m4	2016-01-29 18:35:35.000000000 +0100
++++ b/m4/berkdb.m4	2019-03-16 19:41:55.259519432 +0100
+@@ -213,7 +213,7 @@
+ 	fi
+ 
+ 	saved_LIBS=$LIBS
+-	    for dbname in ${with_bdb} \
++	    for dbname in ${with_bdb} db \
+ 	        db-5.2 db5.2 db52 \
+ 	        db-5.1 db5.2 db51 \
+ 	        db-5.0 db5.2 db50 \
+--- a/m4/sasl2.m4	2017-11-30 22:15:49.000000000 +0100
++++ b/m4/sasl2.m4	2019-03-16 19:43:14.218907453 +0100
+@@ -282,6 +282,7 @@
+                     ])
+     fi
+   fi
++  AC_CHECK_FUNCS(krb5_gss_register_acceptor_identity)
+   AC_CHECK_FUNCS(gss_decapsulate_token)
+   AC_CHECK_FUNCS(gss_encapsulate_token)
+   AC_CHECK_FUNCS(gss_oid_equal)
+@@ -311,9 +312,10 @@
+                     [AC_DEFINE(HAVE_GSS_C_SEC_CONTEXT_SASL_SSF,,
+                                [Define if your GSSAPI implementation defines GSS_C_SEC_CONTEXT_SASL_SSF])])
+   fi
++  LIBS="$cmu_save_LIBS"
++
+   cmu_save_LIBS="$LIBS"
+   LIBS="$LIBS $GSSAPIBASE_LIBS"
+-
+   AC_MSG_CHECKING([for SPNEGO support in GSSAPI libraries])
+   AC_TRY_RUN([
+ #ifdef HAVE_GSSAPI_H
+--- a/Makefile.am	2018-10-05 16:40:16.000000000 +0200
++++ b/Makefile.am	2019-03-16 19:42:57.379034335 +0100
+@@ -44,6 +44,15 @@
+ #
+ ################################################################
+ 
++do_subst = sed -e 's,[@]LIB_DOOR[@],$(LIB_DOOR),g' \
++	       -e 's,[@]SASL_DL_LIB[@],$(SASL_DL_LIB),g' \
++	       -e 's,[@]LIBS[@],$(LIBS),g' \
++	       -e 's,[@]VERSION[@],$(VERSION),g' \
++	       -e 's,[@]libdir[@],$(libdir),g' \
++	       -e 's,[@]prefix[@],$(prefix),g' \
++	       -e 's,[@]exec_prefix[@],$(exec_prefix),g' \
++	       -e 's,[@]includedir[@],$(includedir),g'
++
+ if SASLAUTHD
+ SAD = saslauthd
+ else
+@@ -141,6 +150,10 @@
+ ## define this unconditionally because dist-hook references it
+ SPHINX_CACHE = docsrc/.doctrees
+ 
++libsasl2.pc:	$(srcdir)/libsasl2.pc.in Makefile
++	rm -f $@
++	$(do_subst) < $(srcdir)/libsasl2.pc.in > $@
++
+ dist-hook:
+ 	@find $(distdir) -exec chmod u+w {} ';'
+ 	@find $(distdir) -name CVS -print | xargs -t rm -rf
+--- a/plugins/gssapi.c	2018-11-08 18:29:57.000000000 +0100
++++ b/plugins/gssapi.c	2019-03-16 19:42:35.179204539 +0100
+@@ -1545,7 +1545,7 @@
+ };
+ 
+ int gssapiv2_server_plug_init(
+-#ifndef HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY
++#if !defined(HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY) && !defined(HAVE_KRB5_GSS_REGISTER_ACCEPTOR_IDENTITY)
+     const sasl_utils_t *utils __attribute__((unused)),
+ #else
+     const sasl_utils_t *utils,
+@@ -1555,7 +1555,7 @@
+     sasl_server_plug_t **pluglist,
+     int *plugcount)
+ {
+-#ifdef HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY
++#if defined(HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY) || defined(HAVE_KRB5_GSS_REGISTER_ACCEPTOR_IDENTITY)
+     const char *keytab = NULL;
+     char keytab_path[1024];
+     unsigned int rl;
+@@ -1565,7 +1565,7 @@
+ 	return SASL_BADVERS;
+     }
+     
+-#ifdef HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY
++#if defined(HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY) || defined(HAVE_KRB5_GSS_REGISTER_ACCEPTOR_IDENTITY)
+     /* unfortunately, we don't check for readability of keytab if it's
+        the standard one, since we don't know where it is */
+     
+@@ -1587,7 +1587,12 @@
+ 	
+ 	strncpy(keytab_path, keytab, 1024);
+ 	
++#ifdef HAVE_GSSKRB5_REGISTER_ACCEPTOR_IDENTITY
+ 	gsskrb5_register_acceptor_identity(keytab_path);
++#endif
++#ifdef HAVE_KRB5_GSS_REGISTER_ACCEPTOR_IDENTITY
++	krb5_gss_register_acceptor_identity(keytab_path);
++#endif
+     }
+ #endif
+     
+--- a/saslauthd/Makefile.am	2018-09-20 17:44:51.000000000 +0200
++++ b/saslauthd/Makefile.am	2019-03-16 19:42:01.009473349 +0100
+@@ -25,7 +25,7 @@
+ saslauthd_DEPENDENCIES = saslauthd-main.o $(LTLIBOBJS_FULL)
+ saslauthd_LDADD	= @SASL_KRB_LIB@ \
+ 		  @GSSAPIBASE_LIBS@ @LIB_CRYPT@ @LIB_SIA@ \
+-		  @LIB_SOCKET@ @SASL_DB_LIB@ @LIB_PAM@ @LDAP_LIBS@ $(LTLIBOBJS_FULL) $(CRYPTO_COMPAT_OBJS) $(LIBSASLDB_OBJS)
++		  @LIB_SOCKET@ ../sasldb/libsasldb.la @LIB_PAM@ @LDAP_LIBS@ $(LTLIBOBJS_FULL) $(CRYPTO_COMPAT_OBJS) $(LIBSASLDB_OBJS)
+ 
+ testsaslauthd_SOURCES = testsaslauthd.c utils.c
+ testsaslauthd_LDADD = @LIB_SOCKET@
+--- a/saslauthd/saslauthd.mdoc	2017-11-25 17:34:56.000000000 +0100
++++ b/saslauthd/saslauthd.mdoc	2019-03-16 19:40:55.710012030 +0100
+@@ -10,7 +10,7 @@
+ .\" manpage in saslauthd.8 whenever you change this source
+ .\" version. Only the pre-formatted manpage is installed.
+ .\"
+-.Dd 12 12 2005
++.Dd December 12 2005
+ .Dt SASLAUTHD 8
+ .Os "CMU-SASL"
+ .Sh NAME
+@@ -245,7 +245,7 @@
+ .Em (All platforms that support OpenLDAP 2.0 or higher)
+ .Pp
+ Authenticate against an ldap server.  The ldap configuration parameters are
+-read from /usr/local/etc/saslauthd.conf.  The location of this file can be
++read from /etc/saslauthd.conf.  The location of this file can be
+ changed with the -O parameter. See the LDAP_SASLAUTHD file included with the
+ distribution for the list of available parameters.
+ .It Li sia
+@@ -278,7 +278,7 @@
+ .Bl -tag -width "/var/run/saslauthd/mux"
+ .It Pa /var/run/saslauthd/mux
+ The default communications socket.
+-.It Pa /usr/local/etc/saslauthd.conf
++.It Pa /etc/saslauthd.conf
+ The default configuration file for ldap support.
+ .El
+ .Sh SEE ALSO
+--- a/sasldb/Makefile.am	2016-01-29 18:35:35.000000000 +0100
++++ b/sasldb/Makefile.am	2019-03-16 19:42:01.009473349 +0100
+@@ -54,6 +54,6 @@
+ 
+ libsasldb_la_SOURCES = allockey.c sasldb.h
+ EXTRA_libsasldb_la_SOURCES = $(extra_common_sources)
+-libsasldb_la_DEPENDENCIES = $(SASL_DB_BACKEND)
+-libsasldb_la_LIBADD = $(SASL_DB_BACKEND)
++libsasldb_la_DEPENDENCIES = $(SASL_DB_BACKEND) $(SASL_DB_LIB)
++libsasldb_la_LIBADD = $(SASL_DB_BACKEND) $(SASL_DB_LIB)
+ libsasldb_la_LDFLAGS = -no-undefined

@@ -1,5 +1,5 @@
 pkgname=libpaper
-pkgver=1.1.24
+pkgver=1.1.26
 pkgrel=1
 pkgdesc="Library for handling paper characteristics"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="https://packages.debian.org/source/sid/libpaper"
 license=('GPL')
 #depends=()
 options=(emptydirs)
-source=("http://http.debian.net/debian/pool/main/libp/libpaper/libpaper_${pkgver}+nmu5.tar.gz")
+source=("http://ftp.debian.org/debian/pool/main/libp/libpaper/libpaper_${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/libpaper-${pkgver}+nmu5"
@@ -33,4 +33,4 @@ package() {
 	echo "# Simply write the paper name. See papersize(5) for possible values" > "${pkgdir}/etc/papersize"
 }
 
-sha512sums=('4d20d454dd7d09dd7e84b9ccc3b0ff8d65d95e0ae3874ec41462f812882e7ead032310396801a47a32bfff112c4a9adaf2d8d3e6235a1fa6fbb853196a363c56')
+sha512sums=('6c54d28004c2dc95cfcc58467026d87b1590d35c9acf09d85568be0c558a04c183e0657afe3278dc894825428372ae60ccf417ece955b7d358fd9ce7b3d78b76')

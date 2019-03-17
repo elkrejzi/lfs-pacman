@@ -1,5 +1,5 @@
 pkgname=gdk-pixbuf
-pkgver=2.36.12
+pkgver=2.38.1
 pkgrel=1
 pkgdesc="An image loading library"
 arch=('x86_64')
@@ -24,8 +24,9 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Denable_jasper=true \
-		-Dwith_docs=true \
+		-Djasper=true \
+		-Ddocs=true \
+		-Dinstalled_tests=false \
 		"${srcdir}/gdk-pixbuf-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -39,5 +40,5 @@ package() {
 	install -v -Dm644 "${srcdir}/gdk-pixbuf-query-loaders.hook" "${pkgdir}/usr/share/libalpm/hooks/gdk-pixbuf-query-loaders.hook"
 }
 
-sha512sums=('5d3bd620cf464bf92079b15c78f8400db48c427053c6eeedc4ea9652a4c290a09a26310100cc7eb487daf4b565df9f7e3a6edf14685f81ddbff6a0652fb6b41b'
+sha512sums=('e50badaad2ccb3c816ba0849be386ecb75ea3c7df203d0b0144541c463ad1ace86c0d190b7550e3f59f0cba9639acc5cc048b7127484287894e4df6d62777920'
             'a3d558fb92a0802307427f5c936ca4b86dd966acb96978f247f64cac54b434657cc9b952cece266b992d22655bb658129025718b29beb380a4a0429c34fdd417')

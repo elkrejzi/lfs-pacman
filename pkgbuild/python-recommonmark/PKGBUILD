@@ -1,0 +1,43 @@
+pkgbase=python-recommonmark
+pkgname=('python2-recommonmark' 'python3-recommonmark')
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="Markdown parser for docutils"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/recommonmark/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/r/recommonmark/recommonmark-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/recommonmark-${pkgver}" "${srcdir}/recommonmark-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/recommonmark-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/recommonmark-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-recommonmark() {
+	cd "${srcdir}/recommonmark-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*
+	do
+		mv ${file} ${file%.py}3
+	done
+}
+
+package_python2-recommonmark() {
+	cd "${srcdir}/recommonmark-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('581b3492e082ab4f0a53e50df0c9cfa3badda7ba9ee28dadbea85c55de96304257790e6aa06ebc793fba1d9ac399ce470fe821492106150b3a0db10dc734ee4b')

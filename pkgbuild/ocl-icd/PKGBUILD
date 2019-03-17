@@ -1,15 +1,18 @@
 pkgbase=ocl-icd
 pkgname=('ocl-icd' 'lib32-ocl-icd')
 pkgver=2.2.12
-_dlid=836
 pkgrel=1
 arch=('x86_64')
 url="https://forge.imag.fr/projects/ocl-icd/"
 license=('custom')
 #depends=()
-source=("https://forge.imag.fr/frs/download.php/${_dlid}/ocl-icd-${pkgver}.tar.gz")
+source=("https://github.com/OCL-dev/ocl-icd/archive/v${pkgver}/ocl-icd-${pkgver}.tar.gz")
 
 prepare() {
+	cd "${srcdir}/ocl-icd-${pkgver}"
+
+	autoreconf -fi
+
 	cp -a "${srcdir}"/ocl-icd{,32}-${pkgver}
 }
 
@@ -54,4 +57,4 @@ package_lib32-ocl-icd() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('8a5afe80da8ece3dcb5a8893942b77f7e44466d9aefd1d58ad8f0bcd686d83e3566192bf59880363c39d0b96b0f33f777e0f221f6b346bbe62c3e2b27faf2d1b')
+sha512sums=('f1668c3a39ecfbc089ee5a5f61f44ceb86ab80e504e58064dec306ce907daf77936c5403b4af15ed8714068891d68346c86725f285cfbc90c4fcb35d18db4048')

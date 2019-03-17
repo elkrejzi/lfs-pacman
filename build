@@ -22,7 +22,7 @@ case ${thispkg} in
     rm -rf ${LFS}/usr/lib/libgcc_s.so{,.1} ${LFS}/usr/lib/libstdc++.so{,.6}
     rm -rf ${LFS}/usr/lib32/libgcc_s.so{,.1} ${LFS}/usr/lib32/libstdc++.so{,.6}
   ;;
-  "llvm" )
+  "clang-runtime" )
     rm -rf ${LFS}/usr/lib/libc++.so{,.1} ${LFS}/usr/lib/libc++abi.so{,.1} ${LFS}/usr/lib/libomp.so
     rm -rf ${LFS}/usr/lib32/libc++.so{,.1} ${LFS}/usr/lib32/libc++abi.so{,.1} ${LFS}/usr/lib32/libomp.so
   ;;

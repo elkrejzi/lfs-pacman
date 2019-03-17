@@ -17,7 +17,7 @@ prepare() {
 
 	autoreconf -fi
 
-	sed -i "s:ruby-1.9:ruby-2.5:g" configure
+	sed -i "s:ruby-1.9:ruby-2.6:g" configure
 }
 
 build() {

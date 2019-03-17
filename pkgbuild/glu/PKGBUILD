@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://cgit.freedesktop.org/mesa/glu/"
 license=('LGPL')
 #depends=()
-source=("ftp://ftp.freedesktop.org/pub/mesa/glu/glu-${pkgver}.tar.bz2")
+source=("https://mesa.freedesktop.org/archive/glu/glu-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/glu{,32}-${pkgver}

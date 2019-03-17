@@ -1,5 +1,5 @@
 pkgname=librsvg
-pkgver=2.42.5
+pkgver=2.44.13
 pkgrel=1
 pkgdesc="SVG rendering library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('da78aa1fa2f64aaefe9db3f2d27018fe0a4f8210766634d332e137004a3c0d62b011f5ce2ad58a5f9d793da69090c2d5079c91248aa402214b784b95e254a304')
+sha512sums=('87f137471a8ddb67816f72c71898b66cedec34083341e939435eba879cff2d45c4f01c782c22ec57c6c36b7e96d07fabb2489edb5794317f2c0f74400ed5e063')

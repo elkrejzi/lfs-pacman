@@ -1,0 +1,31 @@
+pkgname=vulkan-headers
+pkgver=1.1.103
+pkgrel=1
+pkgdesc="Vulkan header files"
+arch=('x86_64')
+url="https://www.khronos.org/vulkan/"
+license=('APACHE')
+#depends=()
+source=("https://github.com/KhronosGroup/Vulkan-Headers/archive/v${pkgver}/Vulkan-Headers-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		"${srcdir}/Vulkan-Headers-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('cb4beb870fea45ec988a076082d884c0eeac03907299aedaf8c187e0b838a3583792b9b25e8e82951b48ece18722f5ab48902b403a684a3cd1cf1f0ce089ca76')

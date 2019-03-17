@@ -1,6 +1,6 @@
 pkgname=opencl-headers
-pkgver=2.0.20170214
-_rev=d4cc397547207c0c47e6aa8a61684adf25712735
+pkgver=2.2.20190119
+_rev=c60b351ca632da6670d78afdb3c365604efb8e89
 pkgrel=1
 pkgdesc="OpenCL (Open Computing Language) header files"
 arch=('x86_64')
@@ -14,11 +14,12 @@ headers=("cl.h"
 	"cl_gl.h"
 	"cl_gl_ext.h"
 	"cl_platform.h"
+	"cl_version.h"
 	"opencl.h")
 
 for hh in ${headers[@]}
 do
-	source+=("https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/${_rev}/${hh}")
+	source+=("https://raw.githubusercontent.com/KhronosGroup/OpenCL-Headers/${_rev}/CL/${hh}")
 done
 
 package() {
@@ -28,10 +29,11 @@ package() {
 	done
 }
 
-sha512sums=('080091b1d15b25b9daad3b9d40c785ba2ab9f33f449a667cf1e239c6a2c02138ab2344397655825fb7a652a61f885b453219d6b2706fec4424f8d674c562d05d'
-            '3de3359caaa7bbfd7dea3eb771298854b538fc7e626e7bfc6e67d2b8acee5ee1f4c22dec382f04efa2e603d5d45813b98a2710f828859137ca76d85287f7da24'
-            'a98b7c0576accc0343896cc2b41ff21e600539a151406bbd5f8a05abbb8d5891f673cfb5a865b364c21106dd30b4389e1e31c5c6ae35a918662a6e49681011b2'
-            '62f63b353b347a2aa0b63d3cde53f46ee494e2eb6bc42bf59e8749a1f1ad66d120451d519727e3358bb3be525390a6162fd6ab2e8f46bb9642a1bcfd27e7a21c'
-            '1c6badebf48d420cf36e28e69eecbc54da0367dffcb2f082f411ed25dafc93388a9a8534ada00e69d9cbd283180f1344e2e364f1b90ed8d9e0aada03938d1795'
-            'bf730afbe3ee77053d914ebfaff06fbab8fe383ba603f94b6855b00a2fd266dda6763d3a6e4d138629fe9b10c693d0559e888f5a9b61a24f6d796e6bda16d2e3'
-            '901b940173d148b91b30a32f2bd35f17fb16f14df8aa5b54ec7e0014aeafe3fecf73f8f8a6f96799a82704e19e9e41c4e1db0608ed256321c9305992db3a4b71')
+sha512sums=('e8dea37d9d98dc5d803ebe535e5ecc537e3086818a91fb8adb34bde033bb5a5a8de7ced254b863fa59d7d8bf64b32bc2031f6bb688aed390055c0c49b2d52f2a'
+            'b934dd7fe6ef4204914a44169fb6cfbb5fd8fc84c520184d1ffedc22de1cba1685517f0120baf14e297b0a37d527ae8b39485ba84b8332a158c7a9c3dfa218e5'
+            '4a93e6a12bf7787e9ac3513f4be29759f65fb403fa75e92f3020f06be32cb618b743f32f89afe832f74dadfdc93fdf81cdec508ab4262e9b57e3331399fc6d7d'
+            'e968c033c32a9ba83db8eb66b82131c92aa3366f28b2e5c4d8f2543edb9105d142c34e4a6789d77af53b855dcee3f6fcae13b2642cfc053cde4df703b5a7c62d'
+            '897c4ae4e62e6b5ca9aefd6a3cf4611b1cbeb3647846937f10f83cbd8445877534b4a68da52c1aad1285b9bf725088642a6daa8ed0e2d70e2934af92d5b6c385'
+            'ac8c2b17f38f1bdc567184bb2498d801c518d2b79efc7d69da83ddb425655f5a0b882a2b8ba3bc856543635757d34bf244d80e8c8b861ff5a0c38a907ad5b90d'
+            '7f3820fb113d3c4b0c9bca63e4b759c0c572174b0557486ec40e0584b60a7db7800eb1bc2fdeefae3b455193d3c036d8a843c0799b01084dbba873f039ec678d'
+            'f9b39fb5fbce7d4602edc781cc0e16dfc21f0876807bde578bef077f678a4023b13fb375109ca5ee61509014a8ccd7aa91cf5c7523f18b9fd4704f4a177a6936')

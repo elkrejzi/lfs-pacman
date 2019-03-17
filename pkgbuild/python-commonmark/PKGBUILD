@@ -1,0 +1,43 @@
+pkgbase=python-commonmark
+pkgname=('python2-commonmark' 'python3-commonmark')
+pkgver=0.8.1
+pkgrel=1
+pkgdesc="Python parser for the CommonMark Markdown spec"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/commonmark/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/c/commonmark/commonmark-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/commonmark-${pkgver}" "${srcdir}/commonmark-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/commonmark-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/commonmark-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-commonmark() {
+	cd "${srcdir}/commonmark-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*
+	do
+		mv ${file} ${file%.py}3
+	done
+}
+
+package_python2-commonmark() {
+	cd "${srcdir}/commonmark-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('dbab51d45c1973a8d0906148d785fb8ddc2b52177dfe0e69fe79bef2a5eb05a5a7ab8693852f4aaa8545af19d741569d04a24f06ea65171e6e80d9f66af47fdf')

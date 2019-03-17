@@ -1,5 +1,5 @@
 pkgname=atk
-pkgver=2.28.1
+pkgver=2.32.0
 pkgrel=1
 pkgdesc="A library providing a set of interfaces for accessibility"
 arch=('x86_64')
@@ -23,7 +23,7 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Denable_docs=true \
+		-Ddocs=true \
 		"${srcdir}/atk-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -35,4 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('aa61e7718b3f4d9c33ec2b4747e35f894a51550ef39ecc4a7af5705811c029645bd3c728071f446b075a0b7aef0c35c1b73406a210cd30171838f24a8dfc0abb')
+sha512sums=('8cd2a3ee006f21835f3e564f2e1de4ae61bd9529b4c0b4f2e3ece88e905e2dd36b67affb089f41582806a1397576602a526a4b8698303708894f20af97ecac22')

@@ -1,5 +1,5 @@
 pkgname=xorg-x11perf
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Simple X server performance benchmarker"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a9508c9dd6db2663b5bd30f5e1f5f80b1d22ce5221ae3dc292e746f8e554fda2d3130f7311f2545e20244dceb51e867fe80fec82c9ac5911dcdc90a73b231623')
+sha512sums=('b386151bfe3d7c04ab9953ae1882f3c5b627d6d1afb9a8cfe87c58236a88883fc11bbadb2226b9aa61df84b4fce625a1c9e3d146a124ac17e8d7d605b35d9c0b')

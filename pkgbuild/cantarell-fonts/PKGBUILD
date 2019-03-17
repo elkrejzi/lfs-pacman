@@ -1,5 +1,5 @@
 pkgname=cantarell-fonts
-pkgver=0.101
+pkgver=0.111
 pkgrel=1
 pkgdesc="Cantarell font family"
 arch=('x86_64')
@@ -19,6 +19,7 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
+		-Dbuildappstream=false \
 		"${srcdir}/cantarell-fonts-${pkgver}"
 		
 	ninja ${MAKEFLAGS}
@@ -30,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('52dbd8358de7e20146e627ab0b1298efb97ee335e45d8e63bab7c3a7d05314d0bb94ac448e34af4c6f7212623185a9e03a30eb24acee4915142e40af0086bbfb')
+sha512sums=('638298a6381a3ede862d1b100fcfea943bebb5e1c0dc4f1597ab2f841e933b484436b139090a669c770c02483a24f2b92bbd12bce71d7a40eb4c325573e3df9e')

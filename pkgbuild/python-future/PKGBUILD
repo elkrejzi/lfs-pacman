@@ -1,0 +1,43 @@
+pkgbase=python-future
+pkgname=('python2-future' 'python3-future')
+pkgver=0.17.1
+pkgrel=1
+pkgdesc="Clean single-source support for Python 3 and 2"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/future/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/f/future/future-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/future-${pkgver}" "${srcdir}/future-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/future-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/future-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-future() {
+	cd "${srcdir}/future-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	for file in "${pkgdir}"/usr/bin/*
+	do
+		mv ${file} ${file%.py}3
+	done
+}
+
+package_python2-future() {
+	cd "${srcdir}/future-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('50094c44db81afbfd37ee25e1710ed11ecb2c2d64ad076fb62a2688dd36a9696ab26b0d7989bf1ecb10da251961a0ee6bb37c4dbd115f70384cd8c9a675d0b2d')

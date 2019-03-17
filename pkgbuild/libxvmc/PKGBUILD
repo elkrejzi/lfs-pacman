@@ -1,6 +1,6 @@
 pkgbase=libxvmc
 pkgname=('libxvmc' 'lib32-libxvmc')
-pkgver=1.0.10
+pkgver=1.0.11
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxvmc() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('db979627eda2e58dbc95f0705681aa4acf51dc375a078467ea0b1c78414963e52417e525bcf224b4642eab2e540619c168c1e4757fad97bac7d07b60b23b3e19')
+sha512sums=('4fe49e956ac97a45d851292cbba7bf242706aaf3bd9eb7ea4d2fc50e40745115d857a4fe179d2b87bc7cb6f9ac93911e89a167f02f6d1ae25a59df9a517a2476')

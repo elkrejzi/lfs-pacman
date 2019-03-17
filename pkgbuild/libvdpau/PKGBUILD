@@ -1,6 +1,6 @@
 pkgbase=libvdpau
 pkgname=('libvdpau' 'lib32-libvdpau')
-pkgver=1.1.1
+pkgver=1.2
 pkgrel=1
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/VDPAU/"
@@ -55,4 +55,4 @@ package_lib32-libvdpau() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('723515365db1116078deb822592260daff933f3a780d43fdabbd3fd2889ae397ffba97972360dac1ee4090dc68cbc634b6b1e3d0c56f83d1df4c21e3ec601175')
+sha512sums=('86aa3f2a39cb73a597bf417da2eeef73ff01160ed9f54dff3725785ff5a289f47040496de44e2f5292d59657d4746e369b3fa307c4f83a32f7cc28e4cd8bce6f')

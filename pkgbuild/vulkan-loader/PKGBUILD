@@ -1,0 +1,72 @@
+pkgbase=vulkan-loader
+pkgname=('vulkan-loader' 'lib32-vulkan-loader')
+pkgver=1.1.102
+pkgrel=1
+arch=('x86_64')
+url="https://www.khronos.org/vulkan/"
+license=('custom')
+#depends=()
+options=(emptydirs)
+source=("https://github.com/KhronosGroup/Vulkan-Loader/archive/v${pkgver}/Vulkan-Loader-${pkgver}.tar.gz")
+
+CC=clang
+CXX=clang++
+
+prepare() {
+	#cp -a "${srcdir}"/Vulkan-Loader{,32}-${pkgver}
+
+	install -v -dm755 "${srcdir}"/build{32,64}
+}
+
+build() {
+	local _flags=(-DCMAKE_INSTALL_PREFIX=/usr
+		-DCMAKE_BUILD_TYPE=Release
+		-DCMAKE_INSTALL_SYSCONFDIR=/etc
+		-DCMAKE_INSTALL_DATADIR=share
+		-DCMAKE_SKIP_RPATH=ON
+		-DBUILD_TESTS=OFF
+		-DBUILD_WSI_XCB_SUPPORT=ON
+		-DBUILD_WSI_XLIB_SUPPORT=ON
+		-DBUILD_WSI_WAYLAND_SUPPORT=ON)
+
+	cd "${srcdir}/build64"
+
+	cmake "${srcdir}/Vulkan-Loader-${pkgver}" \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		${_flags[@]}
+
+	cd "${srcdir}/build32"
+
+	export ASFLAGS="--32"
+	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
+	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	cmake "${srcdir}/Vulkan-Loader-${pkgver}" \
+		-DCMAKE_INSTALL_LIBDIR=lib32 \
+		${_flags[@]}
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset ASFLAGS CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+
+	make -C "${srcdir}/build64"
+	make -C "${srcdir}/build32"
+}
+
+package_vulkan-loader() {
+	pkgdesc="Vulkan Installable Client Driver (ICD) Loader"
+
+	cd "${srcdir}/build64"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+package_lib32-vulkan-loader() {
+	pkgdesc="Vulkan Installable Client Driver (ICD) Loader (32 bit)"
+
+	cd "${srcdir}/build32"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('0ee1b9db9688c834cbc0d79247c52a3aba7c060e71e79a30b33f918ad86896eb541213cfdfae0f7a3406b3988f89f9e0f961958be5849486aa3fc0e4cd6ace13')

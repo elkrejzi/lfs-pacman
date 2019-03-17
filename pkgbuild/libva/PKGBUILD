@@ -1,12 +1,12 @@
 pkgbase=libva
 pkgname=('libva' 'lib32-libva')
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=1
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
 license=('MIT')
 #depends=()
-source=("https://github.com/01org/libva/releases/download/${pkgver}/libva-${pkgver}.tar.bz2")
+source=("https://github.com/intel/libva/releases/download/${pkgver}/libva-${pkgver}.tar.bz2")
 
 prepare() {
 	cd "${srcdir}/libva-${pkgver}"
@@ -55,4 +55,4 @@ package_lib32-libva() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('21e79b32cd846f3786635f470763c2046b302fdd3574eb70ac67c40140168ec76a33e2bbcdd2408859b38b9774fa15c89429e128ef381092505b4f39b1b1331a')
+sha512sums=('67373e20932bca0d52cd8f48ed10c1f01752be73642ad4d2c85dcee813dccf205c8ca62fdc69fb3f4f83a685e2a8ef2c6646174e3453a8f5763cac16a58321c3')

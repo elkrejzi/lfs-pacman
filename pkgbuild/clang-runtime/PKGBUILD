@@ -1,0 +1,230 @@
+pkgbase=clang-runtime
+pkgname=('compiler-rt' 'libcxx' 'lib32-libcxx' 'openmp' 'lib32-openmp')
+_realver=8.0.0rc5
+_fullver=${_realver/rc*/}
+_pre_release=1
+pkgver=${_realver/rc/.rc}
+pkgrel=1
+arch=('x86_64')
+url="http://www.llvm.org/"
+license=('custom')
+#depends=()
+
+if [ "${_pre_release}" -eq "1" ]
+then
+	_url="http://prereleases.llvm.org/${pkgver/.rc/\/rc}"
+else
+	_url="http://releases.llvm.org/${pkgver}"
+fi
+
+source=("${_url}/llvm-${_realver}.src.tar.xz"
+	"${_url}/cfe-${_realver}.src.tar.xz"
+	"${_url}/compiler-rt-${_realver}.src.tar.xz"
+	"${_url}/libcxx-${_realver}.src.tar.xz"
+	"${_url}/libcxxabi-${_realver}.src.tar.xz"
+	"${_url}/libunwind-${_realver}.src.tar.xz"
+	"${_url}/openmp-${_realver}.src.tar.xz"
+	"crtbegin-i386.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/i386/crtbegin.S"
+	"crtbegin-x86_64.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/x86_64/crtbegin.S"
+	"crtend-i386.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/i386/crtend.S"
+	"crtend-x86_64.S::http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/x86_64/crtend.S"
+	"crtfastmath.c")
+
+prepare() {
+	cp "${srcdir}/crtfastmath.c" "${srcdir}/crtfastmath-i386.c"
+	cp "${srcdir}/crtfastmath.c" "${srcdir}/crtfastmath-x86_64.c"
+
+	sed -i "/asm.h/d;/RCSID/d" "${srcdir}"/crtbegin-{i386,x86_64}.S
+	sed -i "/asm.h/d;/RCSID/d" "${srcdir}"/crtend-{i386,x86_64}.S
+
+	cd "${srcdir}/openmp-${_realver}.src"
+
+	sed -i "/OpenMPTesting/d;/construct_check_openmp_target/d" CMakeLists.txt
+	sed -i "/add_openmp_testsuite/d" runtime/test/CMakeLists.txt
+	sed -i "/add_subdirectory(test)/d" libomptarget/CMakeLists.txt
+
+	rm -rf "${srcdir}"/llvm-${_realver}.src/projects/{compiler-rt,libcxx,libcxxabi,libunwind,openmp}
+
+	mv -v "${srcdir}/compiler-rt-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/compiler-rt"
+	mv -v "${srcdir}/libcxx-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/libcxx"
+	mv -v "${srcdir}/libcxxabi-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/libcxxabi"
+	mv -v "${srcdir}/libunwind-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/libunwind"
+	mv -v "${srcdir}/openmp-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/openmp"
+
+	rm -rf "${srcdir}/llvm-${_realver}.src/tools/clang"
+
+	mv -v "${srcdir}/cfe-${_realver}.src" "${srcdir}/llvm-${_realver}.src/tools/clang"
+
+	rm -rf "${srcdir}/llvm32-${_realver}.src"
+	cp -a "${srcdir}"/llvm{,32}-${_realver}.src
+
+	rm -rf "${srcdir}/llvm32-${_realver}.src/projects/compiler-rt"
+	rm -rf "${srcdir}/llvm32-${_realver}.src/tools/clang"
+
+	rm -rf "${srcdir}"/llvm-build{,32}
+	install -v -dm755 "${srcdir}"/llvm-build{,32}
+}
+
+build() {
+	local cmake_flags_common=(-DCMAKE_INSTALL_PREFIX=/usr
+		-DCMAKE_BUILD_TYPE=Release
+		-DCOMPILER_RT_SANITIZERS_TO_BUILD="none"
+		-DCOMPILER_RT_USE_LIBCXX=ON
+		-DLIBCXX_ENABLE_STATIC=OFF
+		-DLIBCXX_INCLUDE_DOCS=OFF
+		-DLIBCXX_INCLUDE_TESTS=OFF
+		-DLIBCXX_USE_COMPILER_RT=ON
+		-DLIBCXXABI_ENABLE_ASSERTIONS=OFF
+		-DLIBCXXABI_ENABLE_STATIC=OFF
+		-DLIBCXXABI_ENABLE_STATIC_UNWINDER=ON
+		-DLIBCXXABI_INCLUDE_TESTS=OFF
+		-DLIBCXXABI_USE_COMPILER_RT=ON
+		-DLIBCXXABI_USE_LLVM_UNWINDER=ON
+		-DLIBOMP_INSTALL_ALIASES=OFF
+		-DLIBUNWIND_ENABLE_ASSERTIONS=OFF
+		-DLIBUNWIND_ENABLE_SHARED=OFF
+		-DLIBUNWIND_USE_COMPILER_RT=ON
+		-DSANITIZER_CXX_ABI="libc++"
+		-DLLVM_BUILD_LLVM_DYLIB=ON
+		-DLLVM_ENABLE_ASSERTIONS=OFF
+		-DLLVM_ENABLE_DOXYGEN=OFF
+		-DLLVM_ENABLE_EH=ON
+		-DLLVM_ENABLE_FFI=ON
+		-DLLVM_ENABLE_LIBCXX=ON
+		-DLLVM_ENABLE_RTTI=ON
+		-DLLVM_INCLUDE_EXAMPLES=OFF
+		-DLLVM_INCLUDE_TESTS=OFF
+		-DLLVM_INSTALL_UTILS=ON
+		-DLLVM_LINK_LLVM_DYLIB=ON
+		-DLLVM_TARGETS_TO_BUILD="AMDGPU;X86"
+		-DLLVM_BINUTILS_INCDIR=/usr/include
+		-DLLVM_BUILD_DOCS=OFF
+		-DLLVM_ENABLE_SPHINX=OFF
+		-DLLVM_INCLUDE_DOCS=OFF)
+
+	cd "${srcdir}/llvm-build"
+
+	cmake "${cmake_flags_common[@]}" \
+		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
+		"${srcdir}/llvm-${_realver}.src"
+
+	cd "${srcdir}/llvm-build32"
+
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	cmake "${cmake_flags_common[@]}" \
+		-DLLVM_BUILD_32_BITS=ON \
+		-DLLVM_LIBDIR_SUFFIX=32 \
+		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
+		-DFFI_LIBRARY_PATH="/usr/lib32/libffi.so" \
+		"${srcdir}/llvm32-${_realver}.src"
+
+	cd "${srcdir}"
+
+	make -C "${srcdir}/llvm-build/projects"
+	make -C "${srcdir}/llvm-build32/projects"
+
+	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtbegin-x86_64.S" -o "${srcdir}/crtbegin-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtbegin-i386.S" -o "${srcdir}/crtbegin-i386.o"
+
+	clang -g -O2 -fno-stack-protector -fpic -DSHARED -c "${srcdir}/crtbegin-x86_64.S" -o "${srcdir}/crtbeginS-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -DSHARED -c "${srcdir}/crtbegin-i386.S" -o "${srcdir}/crtbeginS-i386.o"
+
+	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtend-x86_64.S" -o "${srcdir}/crtend-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtend-i386.S" -o "${srcdir}/crtend-i386.o"
+
+	clang -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtfastmath-x86_64.c" -o "${srcdir}/crtfastmath-x86_64.o"
+	clang -m32 -g -O2 -fno-stack-protector -fpic -c "${srcdir}/crtfastmath-i386.c" -o "${srcdir}/crtfastmath-i386.o"
+}
+
+package_compiler-rt() {
+	pkgdesc="C language family frontend for LLVM (compiler builtins)"
+
+	make -C "${srcdir}/llvm-build/projects" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build32/projects" install DESTDIR="${pkgdir}"
+
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_fullver}/x86_64/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
+	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_fullver}/i386/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
+
+	for ll in i386 x86_64
+	do
+		install -v -dm755 "${pkgdir}/usr/lib/clang/${_fullver}/${ll}"
+
+		cp -v "${srcdir}/crtbegin-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtbegin.o"
+		cp -v "${srcdir}/crtbeginS-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtbeginS.o"
+		cp -v "${srcdir}/crtend-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtend.o"
+		cp -v "${srcdir}/crtfastmath-${ll}.o" "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtfastmath.o"
+
+		ln -sfv crtbegin.o "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtbeginT.o"
+		ln -sfv crtend.o "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/crtendS.o"
+
+		mv -v "${pkgdir}/usr/lib/clang/${_fullver}/lib/linux/libclang_rt.builtins-${ll}.a" \
+			"${pkgdir}/usr/lib/clang/${_fullver}/${ll}"
+
+cat > "${pkgdir}/usr/lib/clang/${_fullver}/${ll}/libcompiler-rt.a" << EOF
+INPUT ( /usr/lib/clang/${_fullver}/${ll}/libclang_rt.builtins-${ll}.a AS_NEEDED ( /usr/lib/clang/${_fullver}/${ll}/libunwind-clang.a -lpthread -ldl -lm ) )
+EOF
+
+		ln -sfv ../../${ll}/libcompiler-rt.a "${pkgdir}/usr/lib/clang/${_fullver}/lib/linux/libclang_rt.builtins-${ll}.a"
+	done
+
+	mv -v "${pkgdir}/usr/lib/libunwind.a" "${pkgdir}/usr/lib/clang/${_fullver}/x86_64/libunwind-clang.a"
+	mv -v "${pkgdir}/usr/lib32/libunwind.a" "${pkgdir}/usr/lib/clang/${_fullver}/i386/libunwind-clang.a"
+
+	rm -rf "${pkgdir}"/usr/lib/*.so.*
+	rm -rf "${pkgdir}"/usr/lib/libomp*.so
+
+	rm -rf "${pkgdir}"/usr/lib32/*.so.*
+	rm -rf "${pkgdir}"/usr/lib32/libomp*.so
+	rm -rf "${pkgdir}/usr/lib32/clang"
+}
+
+
+package_libcxx() {
+	pkgdesc="Low Level Virtual Machine (C++ runtime libraries)"
+
+	make -C "${srcdir}/llvm-build/projects/libcxx" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build/projects/libcxxabi" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/include"
+	rm -rf "${pkgdir}"/usr/lib/*.{a,so}
+}
+
+package_lib32-libcxx() {
+	pkgdesc="Low Level Virtual Machine (C++ runtime libraries) (32 bit)"
+
+	make -C "${srcdir}/llvm-build32/projects/libcxx" install DESTDIR="${pkgdir}"
+	make -C "${srcdir}/llvm-build32/projects/libcxxabi" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/include"
+	rm -rf "${pkgdir}"/usr/lib32/*.{a,so}
+}
+
+package_openmp() {
+	pkgdesc="Low Level Virtual Machine (OpenMP runtime libraries)"
+
+	make -C "${srcdir}/llvm-build/projects/openmp" install DESTDIR="${pkgdir}"
+	
+	rm -rf "${pkgdir}/usr/lib/clang"
+}
+
+package_lib32-openmp() {
+	pkgdesc="Low Level Virtual Machine (OpenMP runtime libraries) (32 bit)"
+
+	make -C "${srcdir}/llvm-build32/projects/openmp" install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/lib32/clang"
+}
+
+sha512sums=('b015bab2f0b0644d9fab295dee5d3b2a4d4d7c9d5870a06d7829f43d61e92aeb31b28d4c074f6a20ad803dde06399ef3298c951f1580b010f4b756f75bb4453b'
+            '40f3b6069e40fc4f831662912a8f4c3ab1579587bf48c1fcd9e80287b7e26e8b70becfce525a0b55b1b8283f20a9d67d232cf5ce10189a39d655e2fe3fb3dd73'
+            '6d7e520e2b16e097b35fcfce1637160ce8b3a174ef79b7c56e4fae466aef9dafc45f577de590426637f9950bbb2f0c18213cea90e566b05f4f6251e4e5de0dca'
+            'aaf6495ea7ddf68441aa4422ca7d0d02f17875553f34010d1e5061a5180774990b227edc6fe133dd4081de7e4f835228ac286b974800fd396b3650c4f7899b7a'
+            '9bc9bde4787a21febc0b385c22dd20c33876c79aff585dbee6414d9982cce8ee5df05ed2a681eaf40b4d656e177feb4dcff4782663119ede72c4f4907aca2b9f'
+            '994cc5db4d250cadb2b8e71842f4d1c937fbb102b71980054b641bbedf64b7867ac9f380ed0ca2b557b9c5ab2cd2d911398d4b8545bfefd5cd3d250ced9bd170'
+            '818daa70fc638879ae00dda783bef69e9b39f3ca6d57bc233b4a5a0478e96ddf311d99ff3d254a81a26a6b75eca56accb6f7d30e4911bcd1cd259fab1dad80b4'
+            '8bc8873bb68998a3c97cc302e69e7bc6b4ab185b51dfa7e74d804ff4643af3fd4037679990053c24cb02d8f4f631d731cacba0b2b46d265f51baf289d3b3b962'
+            '9025e55af7f98018cfdfc0810f08c2dba8b813efadb8e104e0c3d54592d2c94238372a121871713dfbbd44bdd5ec6cb6b73a2325d22e133089d2951bff6255db'
+            'cf4c43c0a590b4f0e63e9a6008a747524e4553034fba72a7e99626aff6c61fd2ac4073874a1b116177f77bcb0d0021c17edd5da1950c7e3421be4de0ea133b4c'
+            '6619d490db49b5005d4e7a767d3cdb417f8e152557bcbf6f773a44e766943e4dbd4fc7a1be619c2350cb5f4a798c01d093f4f0d89ba9cb2705c923bcb6a8c3b4'
+            'ca67607b33d6010da9b3dea1255e7d48abe489729ef36f588898c85c0220c7aba3ecc65905ff881ee51cc633411bd385392b5236e01c05cbfb689523ad8a3cf7')

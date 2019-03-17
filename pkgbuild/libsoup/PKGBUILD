@@ -1,5 +1,5 @@
 pkgname=libsoup
-pkgver=2.62.2
+pkgver=2.66.0
 pkgrel=1
 pkgdesc="GNOME HTTP Library"
 arch=('x86_64')
@@ -8,18 +8,31 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/libsoup/${pkgver:0:4}/libsoup-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/libsoup-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr --disable-tls-check
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dntlm_auth=/usr/bin/ntlm_auth \
+		-Ddoc=true \
+		-Dntlm=true \
+		-Dtls_check=false \
+		-Dtests=false \
+		"${srcdir}/libsoup-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libsoup-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('fbb3f2bc35cf11c7ecf47aada8d92344a15e351ace4133686512b3e2d619e831d9f80781387252a2652625cc0ba21cf4775bf5c1ca8bec5f5ccf0af15ef23850')
+sha512sums=('a79d4dafbf12a3345803b38859a398839e3e9e389552c90bab60b005ffa7e4ce2f43112e322ca10f134ab6e6c53568e058c82c370617e872539e1fafd82a1352')

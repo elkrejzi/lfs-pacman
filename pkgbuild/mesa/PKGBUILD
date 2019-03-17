@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=18.1.5
+pkgver=19.0.0
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -9,66 +9,69 @@ license=('custom')
 source=("https://mesa.freedesktop.org/archive/mesa-${pkgver/.rc/-rc}.tar.xz")
 
 prepare() {
-	#cd "${srcdir}/mesa-${pkgver/.r/-r}"
-	#autoreconf -fi
-
-	cp -a "${srcdir}"/mesa{,32}-${pkgver/.rc/-rc}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	configure_flags=(--disable-valgrind
-		--disable-xvmc
-		--enable-texture-float
-		--enable-llvm-shared-libs
-		--enable-gles1
-		--enable-gles2
-		--enable-gbm
-		--enable-vdpau
-		--enable-va
-		--enable-glx-tls
-		--with-dri-drivers=i965
-		--with-platforms=drm,surfaceless,wayland,x11
-		--with-gallium-drivers=radeonsi,swrast
-		--with-vulkan-drivers=intel,radeon)
+	local configure_shared=(
+		--prefix /usr
+		--sysconfdir /etc
+		--localstatedir /var
+		--buildtype=plain
+		-Dplatforms="drm,surfaceless,wayland,x11"
+		-Ddri3=true
+		-Ddri-drivers="i965"
+		-Dgallium-drivers="radeonsi,swrast"
+		-Dgallium-vdpau=true
+		-Dgallium-xvmc=false
+		-Dgallium-omx=disabled
+		-Dgallium-va=true
+		-Dgallium-xa=false
+		-Dgallium-nine=true
+		-Dgallium-opencl=disabled
+		-Dvulkan-drivers="amd,intel"
+		-Dshared-glapi=true
+		-Dgles1=true
+		-Dgles2=true
+		-Dgbm=true
+		-Dglx=dri
+		-Degl=true
+		-Dshared-llvm=true
+		-Dvalgrind=false
+		-Dlibunwind=true
+		-Dlmsensors=false
+	)
 
-	export DLOPEN_LIBS="-ldl"
+	cd "${srcdir}/build64"
 
-	cd "${srcdir}/mesa-${pkgver/.rc/-rc}"
+	meson "${configure_shared[@]}" "${srcdir}/mesa-${pkgver/.rc/-rc}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		"${configure_flags[@]}"
-
-	cd "${srcdir}/mesa32-${pkgver/.rc/-rc}"
+	cd "${srcdir}/build32"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 	export LLVM_CONFIG=/usr/bin/llvm-config32
-	export LDFLAGS="-lcompiler-rt"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--libdir=/usr/lib32 \
-		--build=i686-pc-linux-gnu \
-		--host=i686-pc-linux-gnu \
-		"${configure_flags[@]}"
+	i386 meson "${configure_shared[@]}" \
+		--libdir /usr/lib32 \
+		"${srcdir}/mesa-${pkgver/.rc/-rc}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/mesa-${pkgver/.rc/-rc}"
-	make -C "${srcdir}/mesa32-${pkgver/.rc/-rc}"
+	ninja -C build64 ${MAKEFLAGS}
+	ninja -C build32 ${MAKEFLAGS}
 }
 
 package_mesa() {
 	pkgdesc="Mesa 3D graphics library"
 
-	cd "${srcdir}/mesa-${pkgver/.rc/-rc}"
+	cd "${srcdir}/build64"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	rm -rf "${pkgdir}"/usr/lib/libwayland-egl.so*
 	rm -rf "${pkgdir}"/usr/lib/pkgconfig/wayland-egl.pc
@@ -77,9 +80,9 @@ package_mesa() {
 package_lib32-mesa() {
 	pkgdesc="Mesa 3D graphics library (32 bit)"
 
-	cd "${srcdir}/mesa32-${pkgver/.rc/-rc}"
+	cd "${srcdir}/build32"
 
-	make install DESTDIR="${PWD}/dest"
+	DESTDIR="${PWD}/dest" ninja install
 
 	install -v -dm755 "${pkgdir}/usr"
 
@@ -90,4 +93,4 @@ package_lib32-mesa() {
 	rm -rf "${pkgdir}"/usr/lib32/pkgconfig/wayland-egl.pc
 }
 
-sha512sums=('f0bcb903bbf2ff7fc0b4a8fe100ea26ee91c0029b64adaf5fc4877ed7681f325c54b1be8eb0b140bff620da79f30a96375c2e1085e504ebfaf50e57f6da93013')
+sha512sums=('5759b85275bcd145513cf14a9ef7505595766fb33b82c53738f74ede462e5850580d48ab4af326b41209e7f4b05aab75539f2bfebf67c3098a4680ea95c37591')

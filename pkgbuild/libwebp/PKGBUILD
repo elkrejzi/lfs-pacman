@@ -1,5 +1,5 @@
 pkgname=libwebp
-pkgver=1.0.0
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="WebP library and conversion tools"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2af7036957722a3f1533fa2da0da15c76d7eb8ac98ec4ad5cf71dd4262f3d7c9897fb6b50befab83b7de22f0abceeb2c0ff52d60927513d40f8a41aa6a9abd99')
+sha512sums=('e095b8fdf0096395daf12892b3b74c472868e727f23640ba7aa5922a5a028b778a6a60d8a94f696f6c0ca49577dfc9a0b599ecb74ad831ade48c6db812b71d2e')
