@@ -8,7 +8,6 @@ license=('LGPL')
 #depends=()
 source=("https://www.libssh.org/files/${pkgver:0:3}/libssh-${pkgver}.tar.xz")
 
-
 prepare() {
 	install -v -dm755 "${srcdir}/build"
 }

@@ -9,7 +9,9 @@ license=('custom')
 source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
 
 prepare() {
-#	cd "${srcdir}/webkitgtk-${pkgver}"
+	cd "${srcdir}/webkitgtk-${pkgver}"
+
+	sed -i "/<array>/a#include <cstdio>" Source/WebCore/platform/text/TextCodec.cpp
 
 	install -v -dm755 "${srcdir}/build"
 }
