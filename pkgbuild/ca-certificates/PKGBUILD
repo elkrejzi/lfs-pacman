@@ -24,6 +24,7 @@ package() {
 		"${pkgdir}/usr/sbin" \
 		"${pkgdir}/usr/share/ca-certificates"
 
+
 	make -j1 install DESTDIR="${pkgdir}"
 
 	install -v -Dm644 sbin/update-ca-certificates.8 \

@@ -1,12 +1,12 @@
 pkgname=ninja
-pkgver=1.8.2
+pkgver=1.9.0
 pkgrel=1
 pkgdesc="Small build system with a focus on speed"
 arch=('x86_64')
 url="https://ninja-build.org/"
 license=('APACHE')
 #depends=()
-source=("ninja-${pkgver}.tar.gz::https://github.com/ninja-build/ninja/archive/v${pkgver}.tar.gz")
+source=("https://github.com/ninja-build/ninja/archive/v${pkgver}/ninja-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/ninja-${pkgver}"
@@ -20,4 +20,4 @@ package() {
 	install -Dm755 ninja "${pkgdir}/usr/bin/ninja"
 }
 
-sha512sums=('1650bf9e3eddeb0b0fbb415c2b8e0a7c094421e991fa8139fd77fae0f6ee7ee980b7cf5e98d883c3a884f99abcb06fa26e3980af3a3a5bb6dd655124755782c2')
+sha512sums=('a8b5ad00b60bddbdb8439a6092c91a65d093f9bcd6241f69088eb35bea2847efe673c3107a130dc754c747c7712b839d8f88e88d8389520cf7143668ee053feb')

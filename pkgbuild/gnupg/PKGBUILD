@@ -1,5 +1,5 @@
 pkgname=gnupg
-pkgver=2.2.13
+pkgver=2.2.14
 pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3770e33902ca608f567bc9f0decb57129b77dd3479e5c1bbd569ede4c1f6690cdfe00105ffdc1e7721faa331abcb879adb56e87931313b13ed48763763c6632f')
+sha512sums=('9d5216dee085efe6de300579d8fb773a5a55df639d5a435708611a974df522dd60dc995fbfcaad98065475dbeb731bbba19ecc3273e78b9b45fccff640dde69b')

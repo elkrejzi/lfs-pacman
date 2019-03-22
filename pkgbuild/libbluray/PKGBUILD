@@ -1,5 +1,5 @@
 pkgname=libbluray
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Library to access Blu-Ray disks for video playback"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('798d38cc95af87599af5838e5c288f2536a73b33191db8ff3774cf7eb5b835006bea83693f016d47dff551001b98527d8b1f14051f673fb3b28073b820e325d7')
+sha512sums=('9e1c8408ded0548584cf9d01fdf8153bb713cae5bfc8ff4cb6ace92cddcb2f8546d08db960507e4be8a79741c6196176726da7befac4244f887ab72b35136e9d')

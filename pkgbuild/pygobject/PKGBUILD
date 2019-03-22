@@ -1,6 +1,6 @@
 pkgbase=pygobject
 pkgname=('pygobject-common' 'python2-gobject' 'python3-gobject')
-pkgver=3.28.3
+pkgver=3.32.0
 pkgrel=1
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/PyGObject"
@@ -12,23 +12,33 @@ build() {
 	install -v -dm755 "${srcdir}/build-python2"
 
 	cd "${srcdir}/build-python2"
-
-	"${srcdir}"/pygobject-${pkgver}/configure --prefix=/usr --with-python=/usr/bin/python2
+	
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dpython=python2 \
+		"${srcdir}/pygobject-${pkgver}"
 
 	install -v -dm755 "${srcdir}/build-python3"
 
 	cd "${srcdir}/build-python3"
+	
+		meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dpython=python3 \
+		"${srcdir}/pygobject-${pkgver}"
 
-	"${srcdir}"/pygobject-${pkgver}/configure --prefix=/usr --with-python=/usr/bin/python3
-
-	make -C "${srcdir}/build-python2"
-	make -C "${srcdir}/build-python3"
+	ninja ${MAKEFLAGS} -C "${srcdir}/build-python2"
+	ninja ${MAKEFLAGS} -C "${srcdir}/build-python3"
 }
 
 package_pygobject-common() {
 	pkgdesc="Python Bindings for GLib/GObject/GIO/GTK+ (common files)"
 
-	make -C "${srcdir}/build-python2" install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C "${srcdir}/build-python3" install 
 
 	rm -rf "${pkgdir}"/usr/lib/python*
 }
@@ -36,7 +46,7 @@ package_pygobject-common() {
 package_python2-gobject() {
 	pkgdesc="Python 2 Bindings for GLib/GObject/GIO/GTK+"
 
-	make -C "${srcdir}/build-python2" install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C "${srcdir}/build-python2" install
 
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 }
@@ -44,9 +54,9 @@ package_python2-gobject() {
 package_python3-gobject() {
 	pkgdesc="Python 3 Bindings for GLib/GObject/GIO/GTK+"
 
-	make -C "${srcdir}/build-python3" install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C "${srcdir}/build-python3" install
 
 	rm -rf "${pkgdir}/usr/include" "${pkgdir}/usr/lib/pkgconfig"
 }
 
-sha512sums=('0abda393dd774f9cea04f883eab53f5ebde81d2439ed18cfe08ef39a1996054ab34bf4e770f70116a4485fb4f9970464b9a950ffa4af76cfa21ecc8d4dff968d')
+sha512sums=('beb0625e3257cdc2be251624dbf852d2f51bcb95d13bff676b93d46a80d9df94f6fb6ef9850e5c38c56325b72854165fba9ce20ab78f13d99552b3b10ff0fa81')

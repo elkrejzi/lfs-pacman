@@ -1,5 +1,5 @@
 pkgname=net-snmp
-pkgver=5.7.3
+pkgver=5.8
 pkgrel=1
 pkgdesc="A suite of applications used to implement SNMP v1, SNMP v2c and SNMP v3 using both IPv4 and IPv6"
 arch=('x86_64')
@@ -8,13 +8,12 @@ license=('BSD')
 #depends=()
 source=("https://downloads.sourceforge.net/net-snmp/net-snmp-${pkgver}.tar.gz"
 	"snmpd.service"
-	"snmptrapd.service"
-	"net-snmp-perl-fixes.patch")
+	"snmptrapd.service")
 
 prepare() {
 	cd "${srcdir}/net-snmp-${pkgver}"
 
-	patch -Np1 -i "${srcdir}/net-snmp-perl-fixes.patch"
+	#patch -Np1 -i "${srcdir}/net-snmp-perl-fixes.patch"
 }
 
 build() {
@@ -45,7 +44,6 @@ package() {
 	install -v -Dm644 "${srcdir}/snmptrapd.service" "${pkgdir}/usr/lib/systemd/system/snmptrapd.service"
 }
 
-sha512sums=('0758bba5844cfd6c80959ac16b83906a2f830ba49fd0ab1bf9e191dc6a79d312a2e4760bd53b3e1a1c82759481f0064d088d5a3cf475d84b25679a6bd0f049bb'
+sha512sums=('27895a583b23f3e14c48562bc32f3ba83513d81aa848e878be9a3650f0458d45950635c937ef627135f80b757b663e71fab9a3bde4fd91889153998ae3468fe7'
             '4da98eaa0f18e51033a2b19c09227c3c74e4882b42f078b780fbd879b9b13b5638c8c1341c09c386884b435aad2263ae36c3989316c34327f501d9172c86c958'
-            'a6fa907a4bc18a0f0b767ce824679bb5c227745ee3cf4edf7f2c11a96c4bebb4762193afad17223c4a979adf74d21cf708dd9c607f83789a559d73ae5d122eba'
-            '7ff0d709d86c260d9a27d79f718530f2c3b7507b2ff1c54ff067eda06a31d4c1d0bb9db621c11fcf4b2f1fac60cf34649fdeb2bc5ffbe23823057031062c9e8d')
+            'a6fa907a4bc18a0f0b767ce824679bb5c227745ee3cf4edf7f2c11a96c4bebb4762193afad17223c4a979adf74d21cf708dd9c607f83789a559d73ae5d122eba')

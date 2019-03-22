@@ -8,18 +8,27 @@ license=('MIT')
 #depends=()
 source=("https://github.com/anholt/libepoxy/releases/download/${pkgver}/libepoxy-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/libepoxy-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dtests=false \
+		"${srcdir}/libepoxy-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libepoxy-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
 sha512sums=('746dfe2a0a91319abd3906c75f81f6b895117f39120e0d8897db1daec1b6d2e91e1318f0dfe588c81907727b0a6dd1a7e4a819ee6b3063a23875312570464720')

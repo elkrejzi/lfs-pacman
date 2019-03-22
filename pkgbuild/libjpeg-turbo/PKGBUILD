@@ -17,6 +17,7 @@ build() {
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_DEFAULT_LIBDIR=lib \
 		-DWITH_JPEG8=ON \
 		"${srcdir}/libjpeg-turbo-${pkgver}"
 

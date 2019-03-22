@@ -1,5 +1,5 @@
 pkgname=libmtp
-pkgver=1.1.13
+pkgver=1.1.15
 pkgrel=1
 pkgdesc="Library implementation of the Media Transfer Protocol"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('99d5a277806f29f1d27a64a478e344916e8bfc9949a41a807c16d37bd29ec99dc3f36d504cfc6e67f1e91ee932a7cf82f13d4c9fe14b7e34333d9b12b04fff77')
+sha512sums=('c85f47ef4e05d7f5b47d06463ca97c123fa068c4b7369aeba496cb1cfa03f0148b3ba73feed7da96269ba94b76b4b81858ee4bda5af67b0aac3b07fe39b5354a')

@@ -91,6 +91,7 @@ package_lib32-mesa() {
 
 	rm -rf "${pkgdir}"/usr/lib32/libwayland-egl.so*
 	rm -rf "${pkgdir}"/usr/lib32/pkgconfig/wayland-egl.pc
+	rm -rf "${pkgdir}/usr/share/drirc.d"
 }
 
 sha512sums=('5759b85275bcd145513cf14a9ef7505595766fb33b82c53738f74ede462e5850580d48ab4af326b41209e7f4b05aab75539f2bfebf67c3098a4680ea95c37591')

@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-KF5VER=5.11.1
+KF5VER=5.12.2
 
 PKGS=(qtbase
 qtimageformats

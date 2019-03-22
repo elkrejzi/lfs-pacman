@@ -50,6 +50,7 @@ lfs_chroot_exec_cmd() {
   local cmd=${1}
 
   chroot "$LFS" /tools/bin/env -i \
+      LC_ALL=en_US.UTF-8          \
       HOME=/root                  \
       TERM="$TERM"                \
       PS1='\u:\w\$ '              \
@@ -93,7 +94,7 @@ lfs_pacman_install_temp() {
         *-debug-[0-9]* )
         ;;
         * )
-          PATH=/usr/bin:/usr/sbin:/tools/bin /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff} || exit 1
+          PATH=/usr/bin:/usr/sbin:/tools/bin LC_ALL=en_US.UTF-8 /tools/bin/pacman -U -r ${LFS} --noconfirm --hookdir ${LFS}/usr/share/libalpm/hooks ${ff} || exit 1
         ;;
       esac
     done

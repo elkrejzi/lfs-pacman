@@ -1,5 +1,5 @@
 pkgname=fonts-hack
-pkgver=3.000
+pkgver=3.003
 pkgrel=1
 pkgdesc="A hand groomed and optically balanced typeface based on Bitstream Vera Mono"
 arch=('x86_64')
@@ -16,4 +16,4 @@ package() {
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/hack"
 }
 
-sha512sums=('1116bc0d30c32664957a964ec173193fca53188fb9e1297808d736ea7a2958506ad94541837c1f3cd1deb715503fdfc62887b293132d75f706a20957f6246d7a')
+sha512sums=('d6480957ef77b0e117a564b76e7b8b041a28cfc89441d394a27e2a1b230cae7a67c0b9f3cbe6aab48c5d2cc832b0ea653017a3b925db1d0cc2885e02eab9a81d')

@@ -1,17 +1,17 @@
 pkgname=ghostscript
-pkgver=9.23
+pkgver=9.26
 pkgrel=1
 pkgdesc="An interpreter for the PostScript language"
 arch=('x86_64')
 url="https://ghostscript.com/"
 license=('AGPL' 'custom')
 #depends=()
-source=("https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkgver/./}/ghostscript-${pkgver}.tar.gz")
+source=("https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkgver/./}/ghostscript-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/ghostscript-${pkgver}"
 
-	rm -rf cups/libs expat freetype ijs jpeg jpegxr lcms lcms2 libpng tiff zlib
+	rm -rf cups/libs ijs jpeg lcms2mt libpng openjpeg tiff zlib
 }
 
 build() {
@@ -26,8 +26,7 @@ build() {
 		--without-libidn \
 		--with-fontpath=/usr/share/fonts/ghostscript:/usr/share/fonts
 
-	make so all SHARE_JPEG=1 SHARE_LIBPNG=1 SHARE_LIBTIFF=1 SHARE_ZLIB=1 SHARE_IJS=1 \
-		SHARE_EXPAT=1 WHICH_CMS=lcms2 SHARE_LCMS=1 LCMS2DIR=/usr SHARE_FT=1
+	make so all
 }
 
 package() {
@@ -40,4 +39,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('33fcf00b5edd1d45ebeb9cb259b564377fdc9863089dd83067bb49a3d14184ae3679f504fdb26e7bb95ae023260bcf597cf9f9b9a336d7c3ad2fc3412fb38c48')
+sha512sums=('3ddb83029edf32282357bf606f4045a9ac73df6543cd423cfad09158ec12ada083a0dbb5aac3b73ae24cbc6c1e9d7574257a5c1fae63ba8776fbb00150ef2a3e')

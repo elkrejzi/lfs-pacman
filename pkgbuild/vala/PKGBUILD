@@ -1,5 +1,5 @@
 pkgname=vala
-pkgver=0.44.0
+pkgver=0.44.1
 pkgrel=1
 pkgdesc="Compiler for the GObject type system"
 arch=('x86_64')
@@ -7,13 +7,6 @@ url="https://wiki.gnome.org/Projects/Vala"
 license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/vala/${pkgver:0:4}/vala-${pkgver}.tar.xz")
-
-prepare() {
-	cd "${srcdir}/vala-${pkgver}"
-
-	#patch -Np1 -i "${srcdir}/vala-remove-valadoc.patch"
-	#autoreconf -fi
-}
 
 build() {
 	cd "${srcdir}/vala-${pkgver}"
@@ -29,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1c2e962e849fbf7f3a2be56cca3f26770f6f754f403f7ff7dc8a7ed28bba212d3b704313e02cce86a27432b9b3b918009f59155398ca3be26afc698cc3952b3d')
+sha512sums=('319b97dc5a28fffb5ef6bf2c8bde6b47c72066746fe468f8a1b7e5df978c027853cdef2224c77998f9dc2a418eb1087d1337e3a56ebe3807b744d110618fb6ca')

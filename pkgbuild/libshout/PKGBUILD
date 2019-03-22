@@ -10,6 +10,8 @@ source=("http://downloads.xiph.org/releases/libshout/libshout-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libshout-${pkgver}"
+	
+	sed -i 's/SSLeay_add_all_algorithms/OpenSSL_add_all_algorithms/g' src/tls.c
 
 	./configure --prefix=/usr --sysconfdir=/etc
 

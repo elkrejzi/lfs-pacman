@@ -13,6 +13,7 @@ prepare() {
 
 	cd "${srcdir}/at-spi2-core-${pkgver}"
 
+	sed -i 's/subdir:/install_dir:/' atspi/meson.build
 	sed -i 's#from "@filename@"##' atspi/atspi-enum-types.h.template
 }
 

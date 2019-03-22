@@ -16,6 +16,7 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--disable-install-setuid \
+		--disable-selective-werror \
 		--enable-dri2 \
 		--enable-dri3 \
 		--enable-glamor \

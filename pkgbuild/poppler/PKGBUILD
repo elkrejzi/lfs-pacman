@@ -1,5 +1,5 @@
 pkgname=poppler
-pkgver=0.66.0
+pkgver=0.75.0
 pkgrel=1
 pkgdesc="PDF rendering library based on xpdf 3.0"
 arch=('x86_64')
@@ -9,9 +9,7 @@ license=('GPL')
 source=("https://poppler.freedesktop.org/poppler-${pkgver}.tar.xz")
 
 prepare() {
-	cd "${srcdir}/poppler-${pkgver}"
-
-        install -v -dm755 "${srcdir}/build"
+	install -v -dm755 "${srcdir}/build"
 }
 
 build() {
@@ -22,7 +20,10 @@ build() {
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DENABLE_GTK_DOC=ON \
-		-DENABLE_XPDF_HEADERS=ON \
+		-DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+		-DBUILD_CPP_TESTS=OFF \
+		-DBUILD_GTK_TESTS=OFF \
+		-DBUILD_QT5_TESTS=OFF \
 		"${srcdir}/poppler-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -36,4 +37,4 @@ package() {
 	rm -rf "${pkgdir}/usr/bin/poppler-glib-demo"
 }
 
-sha512sums=('cf0ce3855d7cc28021685731308bfdeca0a7a764345432242887852d67fb4119b149ab7ba692e7031e2f0e79b9982e71446efbd75bb7886450d13ea6c5035b51')
+sha512sums=('6a1b76cc5095b7c5809eaa5072aeb4ea615744ff8ffce537f40a3f73a81fc12cc18d596876ceda1c78b5312ad20535f72366e69c861b620d108616f24a98e6b8')

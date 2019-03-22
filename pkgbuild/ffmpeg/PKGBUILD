@@ -1,5 +1,5 @@
 pkgname=ffmpeg
-pkgver=4.0.2
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
@@ -25,6 +25,7 @@ build() {
 		--enable-libopenjpeg \
 		--enable-libopus \
 		--enable-libpulse \
+		--enable-librsvg \
 		--enable-librtmp \
 		--enable-libsoxr \
 		--enable-libspeex \
@@ -39,6 +40,7 @@ build() {
 		--enable-libx264 \
 		--enable-libx265 \
 		--enable-libxvid \
+		--enable-libxml2 \
 		--enable-nonfree \
 		--enable-openal \
 		--enable-opencl  \
@@ -64,4 +66,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2dc2b8c66d9c31b6d06da5da336ef45415e3c24fac8c9063cd47f7d4cf688ec4846f88cdd9e841b956cea81e56bb3c6b7655aef503400c7367c32910c28990ac')
+sha512sums=('fe72680f1e4ca0b226199d1407803e1de11f00f5a88a23251182172cda4a7369cf1826c4ef86230bf60b0f9ff0d69382da5eeec26574a31eacd9935cf4eeb86f')

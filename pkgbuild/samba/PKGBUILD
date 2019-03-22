@@ -1,5 +1,5 @@
 pkgname=samba
-pkgver=4.8.3
+pkgver=4.10.0
 pkgrel=1
 pkgdesc="SMB Fileserver and AD Domain server"
 arch=('x86_64')
@@ -9,16 +9,9 @@ license=('GPL3')
 backup=(etc/samba/smb.conf)
 options=(emptydirs)
 source=("https://www.samba.org/ftp/samba/samba-${pkgver}.tar.gz"
-	"samba.default"
 	"samba.pam"
 	"samba.sysusers"
-	"samba.tmpfiles"
-	"nmbd.service"
-	"samba.service"
-	"smbd.service"
-	"smbd@.service"
-	"smbd.socket"
-	"winbindd.service")
+	"samba.tmpfiles")
 
 _samba4_idmap_modules=idmap_ad,idmap_rid,idmap_adex,idmap_hash,idmap_tdb2
 _samba4_pdb_modules=pdb_tdbsam,pdb_ldap,pdb_ads,pdb_smbpasswd,pdb_wbc_sam,pdb_samba4
@@ -31,6 +24,8 @@ prepare() {
 	sed -i 's|log file = .*$|log file = /var/log/samba/log.%m|g' examples/smb.conf.default
 	sed -i 's|/usr/spool/samba|/var/spool/samba|g' examples/smb.conf.default
 	sed -i 's|log.%m|%m.log|g' examples/smb.conf.default
+
+	sed -i "s#sysconfig#default#g" packaging/systemd/*.service.in
 }
 
 build() {
@@ -41,9 +36,14 @@ build() {
 		--localstatedir=/var \
 		--libdir=/usr/lib \
 		--enable-fhs \
+		--with-configdir=/etc/samba \
 		--with-lockdir=/run/samba \
+		--with-sockets-dir=/run/samba \
+		--with-piddir=/run \
 		--with-pammodulesdir=/usr/lib/security \
 		--enable-gnutls \
+		--with-systemd \
+		--systemd-install-services \
 		--bundled-libraries=!tdb,!talloc,!pytalloc-util,!tevent,!popt,!ldb,!pyldb-util \
 		--with-shared-modules=${_samba4_idmap_modules},${_samba4_pdb_modules},${_samba4_auth_modules} \
 		--disable-rpath-install
@@ -62,32 +62,18 @@ package() {
 	install -v -dm1770 -g 97 "${pkgdir}/var/lib/samba/usershares"
 	install -v -dm1777 "${pkgdir}/var/spool/samba"
 
-	install -v -m644 examples/smb.conf.default "${pkgdir}/etc/samba/smb.conf"
-
 	ln -sfv /usr/bin/smbspool "${pkgdir}/usr/lib/cups/backend/smb"
 
-	install -v -Dm644 "${srcdir}/samba.default" "${pkgdir}/etc/default/samba"
+	install -v -Dm644 examples/smb.conf.default "${pkgdir}/etc/samba/smb.conf"
 	install -v -Dm644 "${srcdir}/samba.pam" "${pkgdir}/etc/pam.d/samba"
 
 	install -v -Dm644 "${srcdir}/samba.sysusers" "${pkgdir}/usr/lib/sysusers.d/samba.conf"
 	install -v -Dm644 "${srcdir}/samba.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/samba.conf"
 
-	install -v -Dm644 "${srcdir}/nmbd.service" "${pkgdir}/usr/lib/systemd/system/nmbd.service"
-	install -v -Dm644 "${srcdir}/smbd.service" "${pkgdir}/usr/lib/systemd/system/smbd.service"
-	install -v -Dm644 "${srcdir}/samba.service" "${pkgdir}/usr/lib/systemd/system/samba.service"
-	install -v -Dm644 "${srcdir}/smbd@.service" "${pkgdir}/usr/lib/systemd/system/smbd@.service"
-	install -v -Dm644 "${srcdir}/smbd.socket" "${pkgdir}/usr/lib/systemd/system/smbd.socket"
-	install -v -Dm644 "${srcdir}/winbindd.service" "${pkgdir}/usr/lib/systemd/system/winbindd.service"
+	mv "${pkgdir}"/etc/{sysconfig,default}
 }
 
-sha512sums=('0dd035f5f2cfc5f47f2e9b9e295548ecce73014f01e9539d9cc639f27b00e1e71a57acb018da70e70d3761281246933b6935be151df1bd35e539d6d338686217'
-            '8d4c44003c2f1910a7f859cc1a5caec23f399071cd087a96dc0ed445c722fab2543f98d417dac0169b7ac745804a0e318ec31ece6ac6d8ef2c82c3ce00397ee6'
+sha512sums=('e82a8ec78cea666a653bddab066eaa22382f5b016b38f7618492e39f470d6f4c3ddd6dc21e9f0e9fde73ab98c4dd3da1a3823fd457f085ac14c36070b447ac90'
             'd05772aedd6a55faade4a683f13782de3d463db3cfd781acfc9855bd4d30860bf1965e836feb69222cb07abc2e0b5ea75557b3a87bbc8f90ca88dc268dd74b7b'
             '3798cc28c8a25132bd72e30efcda1489da5cfb1f9838b05473669b4856be9a4e1663a71ae1f1c87a9c9fcee065e05355053aea826a8c2fa19ee1e9246c23e341'
-            'a57c7813ef9ffb524c30582884188f4c26b33da120d4021d1bec5fc028d9f1ecb986ecc00ea56f261a794292777fc0a8773598e8df2902c3a4608d6ece7ccbe9'
-            '6777c5a4eb97fed63d68c55567c227536b3a7f95fe4d244b9aaa7ba2ffc7cb6487aed50e0b3b89eef0983c72a9cffe1ed7e1b073cf48aba3ccb7aadeb0ab5abd'
-            'a1e6b67d85ad8f79c0cd3a81b4d5878010497084d4db1e48ed3f7065a829710c928b3584cd86278772a4c33e160c42cdbc6d255980b32d3a1054b9927fcad9ca'
-            'e5c4d261caa9f9f7805ecff81f01de368ab4af698007feaa3cd32541dbe7a7330c6fcf732b18b45dffd0396798f13c33f129862ea908e28ccefbbce52de92dea'
-            'bf482159f3f4413de9692969e0c9a3fe0cd8ffb979fa43cd389b1b9e1607ef2a2e61565fea975fd76314f8251bfc698940384ddbdd5f0c0b9072f58fad319583'
-            '2db4a707fcc6ef1928ac010e5e92cdaf0f6ff3ffa8aef918e0db1ce910abfb481d6a19082337f9c8444cd780d1d442fa8df2bb65e6142fc109d29657532572ed'
-            '9e3725fdcd07df85698957ffa0076da6a56d096474f9e2dacd5ae361637a1eb476fc318a3ac96b0990db95e00dd3f43b2a6e106c3515386e3c9fd66229770240')
+            'a57c7813ef9ffb524c30582884188f4c26b33da120d4021d1bec5fc028d9f1ecb986ecc00ea56f261a794292777fc0a8773598e8df2902c3a4608d6ece7ccbe9')

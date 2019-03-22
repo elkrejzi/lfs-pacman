@@ -7,14 +7,14 @@ url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
 source=("https://github.com/annulen/webkit/releases/download/qtwebkit-${pkgver/.alpha/-alpha}/qtwebkit-${pkgver/.alpha/-alpha}.tar.xz"
-	"qtwebkit-cmake5.10.patch"
+	"qtwebkit-cmake3.10.patch"
 	"qtwebkit-gcc7.patch"
 	"qtwebkit-null-pointer-dereference.patch")
 
 prepare() {
 	cd "${srcdir}/qtwebkit-${pkgver/.alpha/-alpha}"
 
-	patch -Np1 -i "${srcdir}/qtwebkit-cmake5.10.patch"
+	patch -Np1 -i "${srcdir}/qtwebkit-cmake3.10.patch"
 	patch -Np1 -i "${srcdir}/qtwebkit-gcc7.patch"
 	patch -Np1 -i "${srcdir}/qtwebkit-null-pointer-dereference.patch"
 

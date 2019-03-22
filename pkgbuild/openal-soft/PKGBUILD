@@ -1,5 +1,5 @@
 pkgname=openal-soft
-pkgver=1.18.1
+pkgver=1.19.1
 pkgrel=1
 pkgdesc="Cross-platform 3D audio library, software implementation"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('5ee86f21c499d79b139b78e3a8ddb6f79d293d7fb2076342396444a2a056eeb5bf39def18577280a41c9192ba5c6cfd3c67a68e97a6914a9c0ae81b4811c0c60')
+sha512sums=('356a3f12bbe284bfac71f4f2a9f83d084083a832012222e73743042ac27812cf051c12b0ddcf53c010ff77e44ae2e9033cea9b9324d316a22a59a154307a64a4')

@@ -43,14 +43,14 @@ CC=clang
 CXX=clang++
 
 CPPFLAGS=""
-CFLAGS="-march=skylake -O2 -pipe"
-CXXFLAGS="-march=skylake -O2 -pipe"
+CFLAGS="-march=broadwell -O2 -pipe"
+CXXFLAGS="-march=broadwell -O2 -pipe"
 LDFLAGS=""
 
 MAKEFLAGS="-j8"
 
-DEBUG_CFLAGS="-march=skylake -g -O2 -pipe"
-DEBUG_CXXFLAGS="-march=skylake -g -O2 -pipe"
+DEBUG_CFLAGS="-march=broadwell -g -O2 -pipe"
+DEBUG_CXXFLAGS="-march=broadwell -g -O2 -pipe"
 
 BUILDENV=(!distcc color !ccache check !sign)
 OPTIONS=(strip !docs !libtool !staticlibs !emptydirs zipman purge !debug)

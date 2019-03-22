@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://www.opendesktop.org.tw/"
 license=('custom:Arphic Public License')
 #depends=()
-source=("http://ftp.nsysu.edu.tw/FreeBSD/ports/local-distfiles/chinsan/fonts/opendesktop-fonts-${pkgver}.tar.gz")
+source=("http://freebsd.sin.openmirrors.asia/pub/FreeBSD/ports/local-distfiles/chinsan/fonts/opendesktop-fonts-${pkgver}.tar.gz")
 
 package() {
 	cd "${srcdir}/opendesktop-fonts-${pkgver}"

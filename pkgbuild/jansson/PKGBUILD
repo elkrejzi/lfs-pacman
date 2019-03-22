@@ -1,5 +1,5 @@
 pkgname=jansson
-pkgver=2.10
+pkgver=2.12
 pkgrel=1
 pkgdesc="C library for encoding, decoding and manipulating JSON data"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fb51e029275e3f9fb0eb2a3307a24b17e6445fa6fde16791f29ef9f8aac6ffaf5878c4f01d2ed0ed04b2e7fcb82ca86263916745fd5b28746ed32991e59f3812')
+sha512sums=('6ed665a441c789cdf7eb22b6e69d02575746c81b00e0a81ced90d30aaf2badc93fac32e5841fd4e07751a27726a327a63fe28bb0689c6bef5b6164b435bbc30d')

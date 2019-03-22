@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://www.redhat.com/promo/fonts/"
 license=('custom:OFL')
 #depends=()
-source=("http://distcache.freebsd.org/local-distfiles/thierry/liberation-fonts-ttf-${pkgver}.tar.gz")
+source=("https://releases.pagure.org/liberation-fonts/liberation-fonts-ttf-${pkgver}.tar.gz")
 
 package() {
 	cd "${srcdir}/liberation-fonts-ttf-${pkgver}"

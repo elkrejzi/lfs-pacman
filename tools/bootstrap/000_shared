@@ -47,8 +47,8 @@ MPFR_VER=4.0.2
 MPC_VER=1.1.0
 GCC_VER=8.3.0
 LINUX_VER=5.0
-LINUX_PATCH_VER=5.0.2
-GLIBC_VER=2.28
+LINUX_PATCH_VER=5.0.3
+GLIBC_VER=2.29
 TCL_VER=8.6.9
 EXPECT_VER=5.45.4
 DEJAGNU_VER=1.6.2
@@ -89,7 +89,7 @@ WGET_VER=1.20.1
 CMAKE_VER=3.14.0
 MESON_VER=0.50.0
 NINJA_VER=1.9.0
-LLVM_VER=8.0.0rc5
+LLVM_VER=8.0.0
 FAKEROOT_VER=1.23
 SHADOW_VER=4.6
 PACMAN_VER=5.1.3
@@ -98,10 +98,10 @@ AUTOMAKE_VER=1.16.1
 LIBTOOL_VER=2.4.6
 
 #export LLVM_RELEASE_BRANCH=""
-#export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
-export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
-#export LLVM_FINAL_VERSION=${LLVM_VER}
-export LLVM_FINAL_VERSION=8.0.0
+export LLVM_URL=""http://releases.llvm.org/${LLVM_VER}""
+#export LLVM_URL="http://prereleases.llvm.org/${LLVM_VER/rc/\/rc}"
+export LLVM_FINAL_VERSION=${LLVM_VER}
+#export LLVM_FINAL_VERSION=8.0.0
 
 if [ ! -z $1 ]
 then

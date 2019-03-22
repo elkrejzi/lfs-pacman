@@ -11,15 +11,13 @@ source=("https://downloads.sourceforge.net/giflib/giflib-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/giflib-${pkgver}"
 
-	./configure --prefix=/usr
-
-	make
+	make PREFIX=/usr CC="${CC}" OFLAGS="${CFLAGS}" LDLIBS="-L. -lgif -lm"
 }
 
 package() {
 	cd "${srcdir}/giflib-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	make install PREFIX=/usr DESTDIR="${pkgdir}"
 }
 
 sha512sums=('b30c3707839a6d66a3e54d92607c303e5ca3d04d6a02d2037fdc8b80386f9a7fa4148727705014481c3c167bdfac2e99d7e4db1ff7f277b64bd2d9193a89f8b0')

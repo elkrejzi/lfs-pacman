@@ -3,11 +3,11 @@ pkgver=20030928
 pkgrel=1
 pkgdesc="Croatian hunspell dictionaries"
 arch=('x86_64')
-url="http://www.linux.hr/"
+url="http://cvs.linux.hr/spell/"
 license=('LGPL2')
 #depends=()
-source=("http://ftp.linux.hr/pub/spell/myspell/hr_HR.aff"
-	"http://ftp.linux.hr/pub/spell/myspell/hr_HR.dic")
+source=("http://cvs.linux.hr/spell/myspell/hr_HR.aff"
+	"http://cvs.linux.hr/spell/myspell/hr_HR.dic")
 
 package() {
 	cd "${srcdir}"

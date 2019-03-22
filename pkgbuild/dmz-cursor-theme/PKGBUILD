@@ -1,12 +1,12 @@
 pkgname=dmz-cursor-theme
-pkgver=0.4.4
+pkgver=0.4.5
 pkgrel=1
 pkgdesc="Vanilla DMZ cursor theme"
 arch=('x86_64')
 url="http://jimmac.musichall.cz/"
 license=('CCPL:by-nc-sa')
 #depends=()
-source=("http://http.debian.net/debian/pool/main/d/dmz-cursor-theme/dmz-cursor-theme_${pkgver}.tar.gz")
+source=("http://http.debian.net/debian/pool/main/d/dmz-cursor-theme/dmz-cursor-theme_${pkgver}.tar.xz")
 
 package() {
 	cd "${srcdir}/dmz-cursor-theme-${pkgver}"
@@ -26,4 +26,4 @@ package() {
 	ln -sfv ../DMZ-White/cursor.theme "${pkgdir}/usr/share/icons/default/index.theme"
 }
 
-sha512sums=('e0f455e3b66c0acb87eb9f017e7d7e6e16782a58c8c3a3518c879d1251372beaf92bdf87775ee72ff6eb477385f4f58e6d00479967d634337c5fae766179a5d3')
+sha512sums=('627fff9e4f690e30c6acbedb06035abc3ca7f6c6656a7e1290d752e115dbd8a41c37a2fe0d7cd7ece697c54dd7a343dd78d3c4604d124158961d95125f899f73')

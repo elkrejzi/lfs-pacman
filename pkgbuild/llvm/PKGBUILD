@@ -1,8 +1,8 @@
 pkgbase=llvm
 pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang')
-_realver=8.0.0rc5
+_realver=8.0.0
 _fullver=${_realver/rc*/}
-_pre_release=1
+_pre_release=0
 pkgver=${_realver/rc/.rc}
 pkgrel=1
 arch=('x86_64')
@@ -176,8 +176,8 @@ package_clang() {
 	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/clang"
 }
 
-sha512sums=('b015bab2f0b0644d9fab295dee5d3b2a4d4d7c9d5870a06d7829f43d61e92aeb31b28d4c074f6a20ad803dde06399ef3298c951f1580b010f4b756f75bb4453b'
-            '40f3b6069e40fc4f831662912a8f4c3ab1579587bf48c1fcd9e80287b7e26e8b70becfce525a0b55b1b8283f20a9d67d232cf5ce10189a39d655e2fe3fb3dd73'
-            '98f0f66b970295fda5706a0e4c1f517805b42e55ed10d1f7bcfba84d77a21f7aaa177e678e2bf8145409dd3eebf8a1d8f89defe2abec24ec3b2e6bed07b6d4e0'
+sha512sums=('1602343b451b964f5d8c2d6b0654d89384c80d45883498c5f0e2f4196168dd4a1ed2a4dadb752076020243df42ffe46cb31d82ffc145d8e5874163cbb9686a1f'
+            '98e540222719716985e5d8439116e47469cb01201ea91d1da7e46cb6633da099688d9352c3b65e5c5f660cbbae353b3d79bb803fc66b3be663f2b04b1feed1c3'
+            '434e4cb7b76f89b0a0af25f05f32f2f2e8edb9e9f14547be845df75f5032c1d9dbf475be408bb989c476ec667c10af54a15d40e42559b05e52d24c5fd416b517'
             'faa70eea968a421c4fbb8716326ee66ccf6e2bac36c4f405a204737cb3d12d248a63c959f515071dc9e211893e18522339ad86fb62886c975bcfea1326a2f950'
             '75e743dea28b280943b3cc7f8bbb871b57d110a7f2b9da2e6845c1c36bf170dd883fca54e463f5f49e0c3effe07fbd0db0f8cf5a12a2469d3f792af21a73fcdd')

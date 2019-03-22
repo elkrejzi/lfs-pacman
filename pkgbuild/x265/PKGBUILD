@@ -1,12 +1,12 @@
 pkgname=x265
-pkgver=2.8
+pkgver=3.0
 pkgrel=1
 pkgdesc="Open Source H265/HEVC video encoder"
 arch=('x86_64')
 url="https://bitbucket.org/multicoreware/x265/wiki/Home"
 license=('GPL')
 #depends=()
-source=("https://bitbucket.org/multicoreware/x265/downloads/x265_${pkgver}.tar.gz")
+source=("http://download.videolan.org/pub/videolan/x265/x265_${pkgver}.tar.gz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c2a8eaec64aa022badcbcd2a96304a9abd9d08489300b6a9c4c9d76066f3d9848e6948238c84ae16ea91bff0b2fac528a67ee29950d94dcd0ea7c0e9e7baa714')
+sha512sums=('bb7665194ddd4bccbb91c16337463ad4ef32111a1e7779e4cc16964df0992aa99e578cb74fef0edbf41119105e4085574247f60541b0558cc36730ea12d2c6ba')

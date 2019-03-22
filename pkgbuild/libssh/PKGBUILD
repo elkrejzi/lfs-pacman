@@ -1,13 +1,13 @@
 pkgname=libssh
-pkgver=0.7.5
-_dlid=218
+pkgver=0.8.7
 pkgrel=1
 pkgdesc="Library for accessing ssh client services through C libraries"
 arch=('x86_64')
-url="http://www.libssh.org/"
+url="https://www.libssh.org/"
 license=('LGPL')
 #depends=()
-source=("https://red.libssh.org/attachments/download/${_dlid}/libssh-${pkgver}.tar.xz")
+source=("https://www.libssh.org/files/${pkgver:0:3}/libssh-${pkgver}.tar.xz")
+
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6c7f539899caaedf13d66fa2e0fac1a475ecdfe389131abcbdf908bdebc50a0b9e6b0d43e67e52aea85c32f6aa68e46ca2f50695992f82ded83489f445a8e775')
+sha512sums=('13c3dccad81d521edf29c8a5e2c5f7fdd90507a0eda652b2b040a0a17bab88860873e089a46e181907ea3f449ca1847b1c84453b1960f456e391eefe5be983c5')

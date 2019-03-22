@@ -1,15 +1,18 @@
 pkgname=gst-plugins-good
-pkgver=1.14.2
+pkgver=1.14.4
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Good Plugins"
 arch=('x86_64')
 url="https://gstreamer.freedesktop.org/"
 license=('LGPL')
 #depends=()
-source=("https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.xz")
+source=("https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.xz"
+	"gst-plugins-good-libvpx.patch")
 
 build() {
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/gst-plugins-good-libvpx.patch"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -27,4 +30,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('26ff40d949ab95043ed717350fb344a616c72b049cd52c3e7debd9cc37f73eb9d4704b4f437ba257cecb9dba702ce451647279cb821e9405b36210b46ae9aa05')
+sha512sums=('30aeb3bb74571287cad1598973da38e7a43a0128d35480ded6d280c1373dc4ecd4ea76caaa04a71cdfba2e1850aee5f1b72d96be86ae92d66633e7d32081c504'
+            '87b3971b05c4879471b6d22cf2cf5f0d8168caf12a3d27deb826b126bebe18039537bada9545332ad7eb1ec7aa768e06a3f3da3616b9ee048b97a3c0b0409720')

@@ -1,5 +1,5 @@
 pkgname=ibus
-pkgver=1.5.18
+pkgver=1.5.20
 pkgrel=1
 pkgdesc="Next Generation Input Bus for Linux"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('34519c3464eaf2cac3320e1568fc76f4edb281afa70f335c015b828ff4e86b3224d77b95cdc0b2e76e42459c54b1044264ff226963fe739dd553ac7326d2f2d3')
+sha512sums=('2bbcc19742882fa55d9c8704251f133c5be9f36a93cf52d70c460a4713419868deb634f965e67c1d5c45b615de388b92c0fbb863b118a546fbb89370a38eb77b')

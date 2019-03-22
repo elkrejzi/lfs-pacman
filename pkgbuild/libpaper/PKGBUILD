@@ -10,13 +10,13 @@ options=(emptydirs)
 source=("http://ftp.debian.org/debian/pool/main/libp/libpaper/libpaper_${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/libpaper-${pkgver}+nmu5"
+	cd "${srcdir}/libpaper-${pkgver}"
 
 	autoreconf -fi
 }
 
 build() {
-	cd "${srcdir}/libpaper-${pkgver}+nmu5"
+	cd "${srcdir}/libpaper-${pkgver}"
 
 	./configure --prefix=/usr --sysconfdir=/etc
 
@@ -24,7 +24,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/libpaper-${pkgver}+nmu5"
+	cd "${srcdir}/libpaper-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
 

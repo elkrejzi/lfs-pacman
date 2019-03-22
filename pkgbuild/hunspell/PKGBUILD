@@ -1,12 +1,12 @@
 pkgname=hunspell
-pkgver=1.6.2
+pkgver=1.7.0
 pkgrel=1
 pkgdesc="Spell checker and morphological analyzer library and program"
 arch=('x86_64')
 url="http://hunspell.github.io/"
 license=('GPL' 'LGPL' 'MPL')
 #depends=()
-source=("hunspell-${pkgver}.tar.gz::https://github.com/hunspell/hunspell/archive/v${pkgver}.tar.gz")
+source=("https://github.com/hunspell/hunspell/archive/v${pkgver}/hunspell-${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/hunspell-${pkgver}"
@@ -30,4 +30,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('a23127f1271da95ac06a1fb2f57b659485e959567b61da05b2bb350684003a0fb7e882b5e524c465fd890f79f513ed03174f38611989a1c09081147c47d6da11')
+sha512sums=('8149b2e8b703a0610c9ca5160c2dfad3cf3b85b16b3f0f5cfcb7ebb802473b2d499e8e2d0a637a97a37a24d62424e82d3880809210d3f043fa17a4970d47c903')

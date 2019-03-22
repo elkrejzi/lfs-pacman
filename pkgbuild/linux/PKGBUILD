@@ -1,17 +1,16 @@
 pkgbase=linux
 pkgname=('linux' 'linux-headers')
-_basever=4.17
-pkgver=4.17.12
+_basever=5.0
+pkgver=5.0.3
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
 license=('GPL2')
 options=(!strip)
-source=("https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${_basever}.tar.xz"
-	"linux-march-native.patch"
+source=("https://cdn.kernel.org/pub/linux/kernel/v${pkgver:0:1}.x/linux-${_basever}.tar.xz"
 	"config")
 
-[ ${_basever} != ${pkgver} ] && source+=("https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-${pkgver}.xz")
+[ ${_basever} != ${pkgver} ] && source+=("https://cdn.kernel.org/pub/linux/kernel/v${pkgver:0:1}.x/patch-${pkgver}.xz")
 
 export KBUILD_BUILD_USER="krejzi"
 export KBUILD_BUILD_HOST="email.com"
@@ -20,7 +19,7 @@ prepare() {
 	cd "${srcdir}/linux-${_basever}"
 	[ ${_basever} != ${pkgver} ] && patch -Np1 -i "${srcdir}/patch-${pkgver}" || true
 
-	patch -Np1 -i "${srcdir}/linux-march-native.patch"
+	# patch -Np1 -i "${srcdir}/linux-march-native.patch"
 
 	install -v -m644 "${srcdir}/config" .config
 }
@@ -93,7 +92,6 @@ package_linux-headers() {
 	find "${_hdrdir}/scripts" -name "*.c*" -delete
 }
 
-sha512sums=('4d9de340a26155a89ea8773131c76220cc2057f2b5d031b467b60e8b14c1842518e2d60a863d8c695f0f7640f3f18d43826201984a238dade857b6cef79837db'
-            '1e54857b1dc4fdf75b7c3fb163d97575dd5028ca2f2f70bef5c1bb7257a3874e88e838756716f73dc20585f99d09e0d01311109b9490d4509234ba235621bb96'
-            '29e269356866e2d75211123bd669b23a0e7977253dd918553e5cb7c40800465c61fe4983e422d4e1097048998fe4c1db140c019c6f86c4eb9bfbe02bc1b135c2'
-            '516270daaa65a0f40bf6202909fc1950a8c723b77d5a54089a72eb664c3708ece050c938230cdd3b1b3e281d73c1c5e909def5fe1e0c8ddecbf9fbd43713a3aa')
+sha512sums=('3fbab70c7b03b1a10e9fa14d1e2e1f550faba4f5792b7699ca006951da74ab86e7d7f19c6a67849ab99343186e7d6f2752cd910d76222213b93c1eab90abf1b0'
+            '84132beec44b61ab27e70439fbd7403567bfe2397fe390aabe8a4b72da40b12a5cd141a411eb4179e447315e3e4c19bff71a0d9f6559747d9554828bfd502490'
+            'f14f1f456acacf9272cd07f1ed9da02ddeef98687b18cb9d62968689c055405b839c1b043e92ece6639afc035c67abe1187ee74b0271860b40824ad1bd130a48')

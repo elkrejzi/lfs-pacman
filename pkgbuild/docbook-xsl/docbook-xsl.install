@@ -12,6 +12,16 @@ post_install() {
 		"http://docbook.sourceforge.net/release/xsl/current" \
 		"/usr/share/xml/docbook/xsl-stylesheets-current" \
 		/etc/xml/catalog
+
+	xmlcatalog --noout --add "rewriteSystem" \
+		"http://docbook.sourceforge.net/release/xsl-ns/current" \
+		"/usr/share/xml/docbook/xsl-stylesheets-current" \
+		/etc/xml/catalog
+
+	xmlcatalog --noout --add "rewriteURI" \
+		"http://docbook.sourceforge.net/release/xsl-ns/current" \
+		"/usr/share/xml/docbook/xsl-stylesheets-current" \
+		/etc/xml/catalog
 }
 
 post_upgrade() {

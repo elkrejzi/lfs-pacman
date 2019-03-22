@@ -8,12 +8,14 @@ license=('custom:GPL/BSD')
 #depends=()
 options=(emptydirs)
 source=("https://www.samba.org/ftp/ppp/ppp-${pkgver}.tar.gz"
-	"ppp-distro.patch")
+	"ppp-distro.patch"
+	"ppp-des.patch")
 
 prepare() {
 	cd "${srcdir}/ppp-${pkgver}"
 
 	patch -Np1 -i "${srcdir}/ppp-distro.patch"
+	patch -Np1 -i "${srcdir}/ppp-des.patch"
 
 	sed -i "s:^#FILTER=y:FILTER=y:" pppd/Makefile.linux
 	sed -i "s:^#HAVE_INET6=y:HAVE_INET6=y:" pppd/Makefile.linux
@@ -62,4 +64,5 @@ package() {
 }
 
 sha512sums=('e34ce24020af6a73e7a26c83c4f73a9c83fa455b7b363794dba27bf01f70368be06bff779777843949bd77f4bc9385d6ad455ea48bf8fff4e0d73cc8fef16ae2'
-            'e690fcdc54a7883efe1aa5bb8189bc26fdced75e5b02bb9eae73873105e888b36ea023411ca12ba2d9445c364e9fa3c8c172ce517c815ee73de7f6d3d73e954e')
+            'e690fcdc54a7883efe1aa5bb8189bc26fdced75e5b02bb9eae73873105e888b36ea023411ca12ba2d9445c364e9fa3c8c172ce517c815ee73de7f6d3d73e954e'
+            'fc012971a062456fa4e253f5b4a5e2ce56ae1852293d0245ecfd165ba162fa76ec2c28e1035dd89de3e9d43941d528e2d95a40552eb8037a5ba084c1717c20d1')

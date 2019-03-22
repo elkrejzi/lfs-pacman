@@ -1,0 +1,135 @@
+Submitted by:            DJ Lucas (dj_AT_linuxfromscratch_DOT_org)
+Date:                    2019-02-10
+Initial Package Version: 1.14.4
+Upstream Status:         Comitted
+Origin:                  https://cgit.freedesktop.org/gstreamer/gst-plugins-bad
+Description:             Fixes build with fdk-aac-2.0.
+
+
+From 52e4a20b4e9bfbe92390dcbb69cf124d2564f91e Mon Sep 17 00:00:00 2001
+From: Yeongjin Jeong <yeongjin.jeong@navercorp.com>
+Date: Tue, 22 Jan 2019 01:54:24 +0900
+Subject: fdkaacdec: Fix build for fdkaac < 0.1.4
+
+The fdkaac decoder supports 6.1 / 7.1 channels with downmixer
+since v0.1.4. Old versions can use AAC_PCM_OUTPUT_CHANNELS
+instead of AAC_PCM_MAX_OUTPUT_CHANNELS.
+
+Fixes #873
+---
+ ext/fdkaac/gstfdkaacdec.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/ext/fdkaac/gstfdkaacdec.c b/ext/fdkaac/gstfdkaacdec.c
+index a5d20a3..ea5588a 100644
+--- a/ext/fdkaac/gstfdkaacdec.c
++++ b/ext/fdkaac/gstfdkaacdec.c
+@@ -32,12 +32,19 @@
+  * - Error concealment
+  */
+ 
++#ifndef HAVE_FDK_AAC_0_1_4
++#define AAC_PCM_MAX_OUTPUT_CHANNELS AAC_PCM_OUTPUT_CHANNELS
++#define CHANNELS_CAPS_STR "channels = (int) [1, 6]"
++#else
++#define CHANNELS_CAPS_STR "channels = (int) [1, 8]"
++#endif
++
+ static GstStaticPadTemplate sink_template = GST_STATIC_PAD_TEMPLATE ("sink",
+     GST_PAD_SINK,
+     GST_PAD_ALWAYS,
+     GST_STATIC_CAPS ("audio/mpeg, "
+         "mpegversion = (int) 4, "
+-        "stream-format = (string) { adts, adif, raw }")
++        "stream-format = (string) { adts, adif, raw }, " CHANNELS_CAPS_STR)
+     );
+ 
+ static GstStaticPadTemplate src_template = GST_STATIC_PAD_TEMPLATE ("src",
+@@ -46,7 +53,7 @@ static GstStaticPadTemplate src_template = GST_STATIC_PAD_TEMPLATE ("src",
+     GST_STATIC_CAPS ("audio/x-raw, "
+         "format = (string) " GST_AUDIO_NE (S16) ", "
+         "layout = (string) interleaved, "
+-        "rate = (int) [8000, 96000], " "channels = (int) [1, 8]")
++        "rate = (int) [8000, 96000], " CHANNELS_CAPS_STR)
+     );
+ 
+ GST_DEBUG_CATEGORY_STATIC (gst_fdkaacdec_debug);
+-- 
+cgit v1.1
+
+From f4fdb9770c76113f38515245fecc5f11b3ace20d Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <jan.steffens@gmail.com>
+Date: Tue, 4 Dec 2018 17:54:42 +0100
+Subject: fdkaacenc: Remove MODE_2_1
+
+This is not a standard mode and no longer supported by fdk-aac 2.0.0.
+
+For https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/issues/825
+---
+ ext/fdkaac/gstfdkaacenc.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/ext/fdkaac/gstfdkaacenc.c b/ext/fdkaac/gstfdkaacenc.c
+index ad2bcb4..8410e68 100644
+--- a/ext/fdkaac/gstfdkaacenc.c
++++ b/ext/fdkaac/gstfdkaacenc.c
+@@ -71,10 +71,6 @@ static const struct
+   GST_AUDIO_CHANNEL_POSITION_FRONT_CENTER,
+           GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT,
+           GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT}}, {
+-    3, MODE_2_1, {
+-  GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT,
+-          GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT,
+-          GST_AUDIO_CHANNEL_POSITION_LFE1}}, {
+     4, MODE_1_2_1, {
+   GST_AUDIO_CHANNEL_POSITION_FRONT_CENTER,
+           GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT,
+-- 
+cgit v1.1
+
+From 19d34f6b5e1633d5ec4bb2832c58470f0c829cab Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <jan.steffens@gmail.com>
+Date: Wed, 5 Dec 2018 10:10:39 +0100
+Subject: fdkaacdec: Use WAV channel mapping instead of interleave setting
+
+The latter is going away in libfdk-aac 2.0.0. Instead, MPEG-style output
+is always non-interleaved and WAV-style output is always interleaved.
+Earlier libfdk-aac also defaults interleaving accordingly.
+
+Since our reordering looks at the associated PCE indices instead of the
+actual channel order, we're agnostic to the mapping.
+
+For https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/issues/825
+---
+ ext/fdkaac/gstfdkaacdec.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/ext/fdkaac/gstfdkaacdec.c b/ext/fdkaac/gstfdkaacdec.c
+index c271837..f5136b3 100644
+--- a/ext/fdkaac/gstfdkaacdec.c
++++ b/ext/fdkaac/gstfdkaacdec.c
+@@ -151,17 +151,13 @@ gst_fdkaacdec_set_format (GstAudioDecoder * dec, GstCaps * caps)
+     gst_buffer_unref (codec_data);
+   }
+ 
++  /* Choose WAV channel mapping to get interleaving even with libfdk-aac 2.0.0
++   * The pChannelIndices retain the indices from the standard MPEG mapping so
++   * we're agnostic to the actual order. */
+   if ((err =
+           aacDecoder_SetParam (self->dec, AAC_PCM_OUTPUT_CHANNEL_MAPPING,
+-              0)) != AAC_DEC_OK) {
+-    GST_ERROR_OBJECT (self, "Failed to set output channel mapping: %d", err);
+-    return FALSE;
+-  }
+-
+-  if ((err =
+-          aacDecoder_SetParam (self->dec, AAC_PCM_OUTPUT_INTERLEAVED,
+               1)) != AAC_DEC_OK) {
+-    GST_ERROR_OBJECT (self, "Failed to set interleaved output: %d", err);
++    GST_ERROR_OBJECT (self, "Failed to set output channel mapping: %d", err);
+     return FALSE;
+   }
+ 
+-- 
+cgit v1.1
+

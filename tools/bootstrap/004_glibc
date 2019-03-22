@@ -35,6 +35,7 @@ tar xf ${SROOT}/glibc-${GLIBC_VER}.tar.xz
   pushd glibc-${GLIBC_VER}/build32
     echo slibdir=/tools/lib32 > configparms
     CC="$LFS_TGT-gcc -m32"                   \
+    CXX="$LFS_TGT-g++ -m32"                  \
     ../configure                             \
           --prefix=/tools                    \
           --libdir=/tools/lib32              \

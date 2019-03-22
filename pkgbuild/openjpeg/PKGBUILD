@@ -6,12 +6,13 @@ arch=('x86_64')
 url="http://www.openjpeg.org"
 license=('custom: BSD')
 #depends=()
-source=("openjpeg-${pkgver}.tar.gz::https://github.com/uclouvain/openjpeg/archive/v${pkgver}.tar.gz")
+source=("https://github.com/uclouvain/openjpeg/archive/v${pkgver}/openjpeg-${pkgver}.tar.gz"
+	"openjpeg-shared-only.patch")
 
 prepare() {
 	cd "${srcdir}/openjpeg-${pkgver}"
 
-	sed -i "s#defined(OPJ_STATIC)#0 \&\& &#g" src/lib/openjp2/openjpeg.h
+	patch -Np1 -i "${srcdir}/openjpeg-shared-only.patch"	
 
 	install -v -dm755 "${srcdir}/build"
 }
@@ -21,6 +22,7 @@ build() {
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_STATIC_LIBS=OFF \
 		"${srcdir}/openjpeg-${pkgver}"
 
 	make
@@ -32,4 +34,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('0a9d427be4a820b1d759fca4b50e293721b45fe4885aa61ca1ae09e099f75ed93520448090c780d62f51076d575cc03618cd6d5181bdb6b34e4fc07b4cfdd568')
+sha512sums=('0a9d427be4a820b1d759fca4b50e293721b45fe4885aa61ca1ae09e099f75ed93520448090c780d62f51076d575cc03618cd6d5181bdb6b34e4fc07b4cfdd568'
+            'f1509c0baa5b4bcfbb2456e7fb22e4c8dec5e039c91203f8d80de20a19c69a8254f859c7724d103189db26f5329f1669d6378ec153f08069c88ccaa15459aa1b')

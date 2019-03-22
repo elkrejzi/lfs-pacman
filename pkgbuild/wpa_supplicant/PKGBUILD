@@ -1,5 +1,5 @@
 pkgname=wpa_supplicant
-pkgver=2.6
+pkgver=2.7
 pkgrel=1
 pkgdesc="A utility providing key negotiation for WPA wireless networks"
 arch=('x86_64')
@@ -51,5 +51,5 @@ package() {
 	install -v -m644 systemd/*.service "${pkgdir}"/usr/lib/systemd/system
 }
 
-sha512sums=('46442cddb6ca043b8b08d143908f149954c238e0f3a57a0df73ca4fab9c1acd91b078f3f26375a1d99cd1d65625986328018c735d8705882c8f91e389cad28a6'
+sha512sums=('8b6eb5b5f30d351c73db63d73c09f24028a18166246539b4a4f89f0d226fb42751afa2ff72296df33317f615150325d285e8e7bda30e0d88abcdc9637ab731d3'
             'd023da33b5e134ae96533b795369d03b390e004a57127dab32e41c9053ca3e8555e6032b776e8724aa4edb456a6426deb5a7a6b1e120ce40fb459191536ae166')

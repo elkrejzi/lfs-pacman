@@ -1,5 +1,5 @@
 pkgname=weston
-pkgver=4.0.0
+pkgver=5.0.94
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -8,18 +8,32 @@ license=('MIT')
 #depends=()
 source=("https://wayland.freedesktop.org/releases/weston-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/weston-${pkgver}"
 
-	./configure --prefix=/usr --enable-demo-clients-install
+	sed -i "s#pangocairo#gobject-2.0 &#" clients/meson.build
+}
 
-	make
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dbackend-rdp=false \
+		-Dsimple-dmabuf-drm=intel \
+		"${srcdir}/weston-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/weston-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('0af41016ff4eae85779f95b5c5e44b9683f4ef681a8e52256efeebfa38073082b83e039d0db3c94ac22f22f8d8314c9d6cd16611144b260b353fc5bfdd1ded19')
+sha512sums=('daafd16c8e7993b96c7745adea10029501a3b0273f6564f38feaee9d5a27e7555902ffca388fa261fcab486012cf95a9632d7535f85181b51ddf262e7b717e8b')

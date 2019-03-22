@@ -8,18 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gsettings-desktop-schemas/${pkgver:0:4}/gsettings-desktop-schemas-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gsettings-desktop-schemas-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr --disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/gsettings-desktop-schemas-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gsettings-desktop-schemas-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
 sha512sums=('cf1d78a8f9f1697e20c995286b50d556c2ecc83bf4b28be19b3258a724494a2827fb9567cabf29cda1c590488fd2645e905072e08321766c8bdddd22ac3710dc')
