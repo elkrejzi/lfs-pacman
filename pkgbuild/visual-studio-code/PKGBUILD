@@ -1,5 +1,5 @@
 pkgname=visual-studio-code
-pkgver=1.22.2
+pkgver=1.32.3
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('x86_64')
@@ -23,5 +23,5 @@ package() {
 	ln -sfv /opt/visual-studio-code/code "${pkgdir}/usr/bin/code"
 }
 
-sha512sums=('a281ce25d955801a1b40b98bef317d5b9eac32c4db9df237d87a05e540009295c75490ec6ac19b190f5936c3805f6c3240722fc6e37da617cb522c2c6fb58659'
+sha512sums=('d91faef02d03a695323c55ea9ebae5e43af689c54418bad6f98cc9ee6a31cd75aca7e0ff34f0d24d7f4557ecc6e7d90d81146d22d4a2312b8c03206f9af71874'
             'c69806fe7f00ef065b47a591382b61f27de6e510bcf83bbbc26fbb8ba930048d8edbc7c2af37b07f337c0dbd8444c550b5ac1272d23ebc0dd17bfc35a14fc3d2')

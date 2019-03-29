@@ -1,5 +1,5 @@
 pkgname=libgxps
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="XPS Documents library"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('283ce3041f0238ef1dcae30ce2adbc3f843677e00ae22f20ed3459828f3edaab6d05d87c20dddb613925ab248ed0b29855a94198b982606c3dcb2e59f800b013')
+sha512sums=('80401bd3c9753c74e425c5c08510cac314ad255ebeda9676bd5396a217770c7f5d8733c64b649cc6fdaa43423bb1a4ad21e1e0e3f7903f486e75a1d678850239')

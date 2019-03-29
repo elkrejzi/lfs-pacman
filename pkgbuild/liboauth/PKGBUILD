@@ -6,10 +6,15 @@ arch=('x86_64')
 url="https://github.com/x42/liboauth"
 license=('MIT')
 #depends=()
-source=("https://downloads.sourceforge.net/liboauth/liboauth-${pkgver}.tar.gz")
+source=("https://downloads.sourceforge.net/liboauth/liboauth-${pkgver}.tar.gz"
+	"liboauth-fixes.patch")
 
 build() {
 	cd "${srcdir}/liboauth-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/liboauth-fixes.patch"
+
+	autoreconf -fi
 
 	./configure --prefix=/usr --enable-nss
 
@@ -22,4 +27,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5a13818dbb3e0df76f7a3fde451eff4f90c9bebfe2076a294921af0c07c2b0789f717f0f862ac6961562d4227e016dc198ddd7efb9c7ac599c3bfbcdb2ac33fa')
+sha512sums=('5a13818dbb3e0df76f7a3fde451eff4f90c9bebfe2076a294921af0c07c2b0789f717f0f862ac6961562d4227e016dc198ddd7efb9c7ac599c3bfbcdb2ac33fa'
+            'b73f65cd38aac6268d60b9aa7a055aeaca37118fded0094ab6be67c5d550d1baf269636d0c4f5dc797d5073d2c1dc04d9b5c6697014ee6033a57983625994b72')

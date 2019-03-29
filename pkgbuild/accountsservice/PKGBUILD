@@ -1,5 +1,5 @@
 pkgname=accountsservice
-pkgver=0.6.49
+pkgver=0.6.54
 pkgrel=1
 pkgdesc="D-Bus interface for user account query and manipulation"
 arch=('x86_64')
@@ -9,21 +9,29 @@ license=('GPL3')
 options=(emptydirs)
 source=("https://www.freedesktop.org/software/accountsservice/accountsservice-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/accountsservice-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--enable-admin-group=adm
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dadmin_group=adm \
+		-Dsystemd=true \
+		-Dgtk_doc=true \
+		"${srcdir}/accountsservice-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/accountsservice-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('4077f7d401f1964ca909ca1188297b09137d553f578ceea1d648827d5bef3a4a86180b4d715b82434d047fdf764fc5c684c95479c3510b17f10253f1e1800f89')
+sha512sums=('5fbcccc286dba60efba905aa79b1b51a5478fe52bf2e256d40d9fc2d7a311aea4ce397365045659a4ef2ecb2cc079130fb1d0107749c3c906c394517056ac1c0')

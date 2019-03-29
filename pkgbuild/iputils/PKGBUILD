@@ -1,5 +1,5 @@
 pkgname=iputils
-pkgver=20180515
+pkgver=20190324
 pkgrel=1
 pkgdesc="Network monitoring tools, including ping"
 arch=('x86_64')
@@ -7,33 +7,32 @@ url="http://www.skbuff.net/iputils/"
 license=('GPL')
 #depends=()
 install=iputils.install
-#source=("https://github.com/iputils/iputils/archive/s${pkgver}/iputils-s${pkgver}.tar.gz")
-source=("git+https://github.com/iputils/iputils.git#commit=db372e3")
+source=("https://github.com/iputils/iputils/archive/s${pkgver}/iputils-s${pkgver}.tar.gz")
+#source=("git+https://github.com/iputils/iputils.git#commit=db372e3")
 
 prepare() {
-	cd "${srcdir}/iputils" #-s${pkgver}"
-
-	sed -i "s#-O3#${CFLAGS}#g" Makefile
+	install -v -dm755 "${srcdir}/build"
 }
 
 build() {
-	cd "${srcdir}/iputils" #-s${pkgver}"
+	cd "${srcdir}/build"
 
-	unset CFLAGS
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-DBUILD_RDISC=false \
+		-DBUILD_TFTPD=false \
+		-DBUILD_NINFOD=false \
+		"${srcdir}/iputils-s${pkgver}"
 
-	make
-	make -C doc man
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/iputils" #-s${pkgver}"
+	cd "${srcdir}/build"
 
-	install -v -Dm755 ping "${pkgdir}/usr/bin/ping"
-	install -v -Dm755 arping "${pkgdir}/usr/sbin/arping"
-	install -v -Dm755 tracepath "${pkgdir}/usr/bin/tracepath"
-
-	install -v -dm755 "${pkgdir}/usr/share/man/man8"
-	install -v -m644 doc/arping.8 doc/tracepath.8 doc/ping.8 "${pkgdir}/usr/share/man/man8"
+	DESTDIR="${pkgdir}" ninja install
 
 	# compat symlinks
 	ln -sfv ping "${pkgdir}/usr/bin/ping6"
@@ -43,4 +42,4 @@ package() {
 	ln -sfv tracepath.8 "${pkgdir}/usr/share/man/man8/tracepath6.8"
 }
 
-sha512sums=('SKIP')
+sha512sums=('eeb7e34a279be1ff3e1f81446fef5dfc679654be7b9c4a81538355339d452ee69d738c54ac0be744c9264d8adb9eaf9eae13d7104d1c23fa5659f08c4e3089b6')

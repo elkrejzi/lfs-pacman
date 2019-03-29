@@ -1,12 +1,12 @@
 pkgname=exempi
-pkgver=2.4.5
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="A library to parse XMP metadata"
 arch=('x86_64')
-url="https://libopenraw.freedesktop.org/wiki/Exempi"
+url="https://libopenraw.pages.freedesktop.org/exempi/"
 license=('custom:BSD')
 #depends=()
-source=("https://libopenraw.freedesktop.org/download/exempi-${pkgver}.tar.bz2")
+source=("https://libopenraw.pages.freedesktop.org/download/exempi-${pkgver}.tar.bz2")
 
 prepare() {
 	cd "${srcdir}/exempi-${pkgver}"
@@ -17,8 +17,6 @@ prepare() {
 
 build() {
 	cd "${srcdir}/exempi-${pkgver}"
-
-	export CXX="${CXX} -std=c++11"
 
 	./configure --prefix=/usr
 
@@ -31,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('da0ba2c79037f49218c4b64b552f286a471608eb0a5be435dcea14833a3da2a79271e394918803a1fe5c27a0c03b8200db8a5a560b70b619b4c4a5a48f737df6')
+sha512sums=('1d042ffe3c3daadf937c4938e7892d52c4835275065e159f7991ddc9f533424fb6cd7d607600c3381440020db9dfa06af5ae15168d7a8012358fa5c8ac453bba')

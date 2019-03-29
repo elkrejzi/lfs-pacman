@@ -1,0 +1,22 @@
+--- a/prnt/hpps/hppsfilter.c	2019-03-14 10:29:15.000000000 +0100
++++ b/prnt/hpps/hppsfilter.c	2019-03-29 15:02:47.547294369 +0100
+@@ -104,7 +104,7 @@
+     if(ptempbooklet_file == NULL)
+     {
+             fprintf(stderr, "ERROR: Unable to open temp file %s\n", temp_filename);
+-            return 1;
++            return;
+     }  
+     chmod(temp_filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+ 
+--- a/scan/sane/hpaio.c	2019-03-14 10:28:56.000000000 +0100
++++ b/scan/sane/hpaio.c	2019-03-29 15:02:30.937640757 +0100
+@@ -46,6 +46,8 @@
+ #include "escl.h"
+ #include "io.h"
+ #include "orblitei.h"
++#include "orblite.h"
++#include "mdns.h"
+ 
+ 
+ #define DEBUG_DECLARE_ONLY

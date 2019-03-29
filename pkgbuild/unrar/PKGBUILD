@@ -1,12 +1,12 @@
 pkgname=unrar
-pkgver=5.6.5
+pkgver=5.7.3
 pkgrel=1
 pkgdesc="The RAR uncompression program"
 arch=('x86_64')
-url="http://www.rarlab.com/rar_add.htm"
+url="https://www.rarlab.com/rar_add.htm"
 license=('custom')
 #depends=()
-source=("http://www.rarlab.com/rar/unrarsrc-${pkgver}.tar.gz")
+source=("https://www.rarlab.com/rar/unrarsrc-${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/unrar"
@@ -28,4 +28,4 @@ package() {
 	install -v -Dm755 unrar "${pkgdir}/usr/bin/unrar"
 }
 
-sha512sums=('984340935671913b4d2a765db5c4edc0d08d859fc43f3ae0e97e681c4ea302a51808fefa8c11c3aeecad1c2681541f363c5051813d978b5b14959c2e55f71281')
+sha512sums=('958e1d0757a902b20dd56cc26522d7b8b379a427d1f958205558732ec61e1a1f6275fe35e6601347259c9812a056d7bb04a7e82fefcb3e3dfbb3b0f1a84cfea0')

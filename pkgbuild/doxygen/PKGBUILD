@@ -1,12 +1,12 @@
 pkgname=doxygen
-pkgver=1.8.14
+pkgver=1.8.15
 pkgrel=1
 pkgdesc="A documentation system for C++, C, Java, IDL and PHP"
 arch=('x86_64')
-url="http://www.stack.nl/~dimitri/doxygen/"
+url="http://www.doxygen.nl/"
 license=('GPL')
 #depends=()
-source=("http://ftp.stack.nl/pub/users/dimitri/doxygen-${pkgver}.src.tar.gz")
+source=("http://doxygen.nl/files/doxygen-${pkgver}.src.tar.gz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -36,4 +36,4 @@ package() {
 	install -v -m644 doc/*.1 "${pkgdir}/usr/share/man/man1"
 }
 
-sha512sums=('5fac7e457a51b1f8e39fb65de5e0c07633e573f74e876580e7bcad5693540d6970fde1b2cb799a4df6ab9dfca951ece15b76b3010134d7658db3500183bea85c')
+sha512sums=('a5512e78be66c1591d8ec7e284d5d25c92a97218c79e6fed3c538c723a8dfef4ff7085970bf271a6b639e907157cd4df9fb55d3c975f8d3302fb1012a4d92079')

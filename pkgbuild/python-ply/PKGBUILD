@@ -1,0 +1,38 @@
+pkgbase=python-ply
+pkgname=('python2-ply' 'python3-ply')
+pkgver=3.11
+pkgrel=1
+pkgdesc="Implementation of lex and yacc parsing tools"
+arch=('x86_64')
+url="https://pypi.python.org/pypi/ply/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/p/ply/ply-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/ply-${pkgver}" "${srcdir}/ply-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/ply-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/ply-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-ply() {
+	cd "${srcdir}/ply-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+package_python2-ply() {
+	cd "${srcdir}/ply-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('37e39a4f930874933223be58a3da7f259e155b75135f1edd47069b3b40e5e96af883ebf1c8a1bbd32f914a9e92cfc12e29fec05cf61b518f46c1d37421b20008')

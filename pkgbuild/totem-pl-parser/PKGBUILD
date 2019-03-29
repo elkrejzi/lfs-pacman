@@ -1,5 +1,5 @@
 pkgname=totem-pl-parser
-pkgver=3.26.1
+pkgver=3.26.3
 pkgrel=1
 pkgdesc="Simple GObject-based library to parse and save a host of playlist formats"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('99219e34d257c8317e147411ca7bb7f8ffef0c2be7985494cf93823d96be1cb33b16525b8c863e2b6e547cce4709c163ee560e62178821b76ba4d1e1485c538d')
+sha512sums=('f059fd9447627268ce5029ed48551b0a2b6c30ba28c50a360d37808ad63fa8423824eef29c7f4d7a752f24861d4c7a7139f321fa2e19085085446e7ed15130cd')

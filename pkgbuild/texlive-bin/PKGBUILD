@@ -15,10 +15,10 @@ noextract=("texlive-${pkgver}-extra.tar.xz")
 prepare() {
 	cd "${srcdir}/texlive-${pkgver}-source"
 
-	patch -Np1 -i "${srcdir}/texlive-poppler.patch"
+	#patch -Np1 -i "${srcdir}/texlive-poppler.patch"
 
-	cp -v texk/web2c/pdftexdir/pdftoepdf{-newpoppler,}.cc
-	cp -v texk/web2c/pdftexdir/pdftosrc{-newpoppler,}.cc
+	#cp -v texk/web2c/pdftexdir/pdftoepdf{-newpoppler,}.cc
+	#cp -v texk/web2c/pdftexdir/pdftosrc{-newpoppler,}.cc
 
 	install -v -dm755 build
 }
@@ -55,11 +55,12 @@ build() {
 		--with-system-libpng \
 		--with-system-mpfr \
 		--with-system-pixman \
-		--with-system-poppler \
-		--with-system-xpdf \
 		--with-system-zlib \
 		--with-system-zziplib \
 		--with-banner-add=" - Krejzi"
+
+		#--with-system-poppler \
+		#--with-system-xpdf \
 
 	make
 }

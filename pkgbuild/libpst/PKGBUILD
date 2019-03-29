@@ -1,12 +1,12 @@
 pkgname=libpst
-pkgver=0.6.71
+pkgver=0.6.72
 pkgrel=1
 pkgdesc="Outlook .pst file converter"
 arch=('x86_64')
-url="http://www.five-ten-sg.com/libpst/"
+url="https://www.five-ten-sg.com/libpst/"
 license=('GPL')
 #depends=()
-source=("http://www.five-ten-sg.com/libpst/packages/libpst-${pkgver}.tar.gz")
+source=("https://www.five-ten-sg.com/libpst/packages/libpst-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libpst-${pkgver}"
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('7e03d8e7c37acdae3bd2fd9f3eca03de2c683146416d2a17ed4e673a69cb553dc59932fd8388a751de399e9063f559eaa8d2511f6d3407eebfa6b211763d83aa')
+sha512sums=('f2aeb2dc1b9d3e4e33bfddffac6dc3484e8bede432fdaf05a2250d375872db9514a16ff3e19aa823c674fc5ac82d03e257dc06b76e00195439077fd63657b5a5')

@@ -1,5 +1,5 @@
 pkgname=mdadm
-pkgver=4.0
+pkgver=4.1
 pkgrel=1
 pkgdesc="A tool for managing/monitoring Linux md device arrays, also known as Software RAID"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install BINDIR=/usr/sbin DESTDIR="${pkgdir}"
 }
 
-sha512sums=('12fb26e6b9c1912698defa406e5e47a7ca8d68d4a9aa7acdc9b463ee2d4a37fc6ecef6beb5395ff619018c3f6bdb6d8c573060d027707540f645ad2265170e8b')
+sha512sums=('0859c5d3e786345d93ff2c3b291ca8866ba60f1375479e5b4d343124f6824140a8268d42b8ae603b069edba761aa30aaf20d49e9ec54dfcbad34bad3bea0e433')

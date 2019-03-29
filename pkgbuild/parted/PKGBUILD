@@ -11,6 +11,8 @@ source=("https://ftp.gnu.org/gnu/parted/parted-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/parted-${pkgver}"
 
+	sed -i '/utsname.h/a#include <sys/sysmacros.h>' libparted/arch/linux.c
+
 	./configure --prefix=/usr
 
 	make

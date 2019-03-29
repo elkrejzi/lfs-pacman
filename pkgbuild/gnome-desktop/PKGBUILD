@@ -1,5 +1,5 @@
 pkgname=gnome-desktop
-pkgver=3.28.2
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="Library with common API for various GNOME modules"
 arch=('x86_64')
@@ -8,21 +8,28 @@ license=('GPL' 'LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-desktop/${pkgver:0:4}/gnome-desktop-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-desktop-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--with-gnome-distributor=Krejzi
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgnome_distributor=Krejzi \
+		-Dgtk_doc=true \
+		"${srcdir}/gnome-desktop-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-desktop-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('732946b341321c1321be1c16fe71138f970fc0eb88e2633a010898b1dca0f3d625e62c39611814d4ddbe7f8989371e4647fa1b12566d6da28f45572bdf332ee0')
+sha512sums=('7e31e11894e23cccd80c82fb30b3614a00dd62f211b8110b23df00cf567e4f811106a39368a6395abfed996b018865fb624ac0a97a568a8a16957584b674b66d')

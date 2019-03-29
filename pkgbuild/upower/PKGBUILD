@@ -1,5 +1,5 @@
 pkgname=upower
-pkgver=0.99.7
+pkgver=0.99.10
 pkgrel=1
 pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="https://upower.freedesktop.org/"
 license=('GPL')
 #depends=()
 options=(emptydirs)
-source=("https://upower.freedesktop.org/releases/upower-${pkgver}.tar.xz")
+source=("https://gitlab.freedesktop.org/upower/upower/uploads/c438511024b9bc5a904f8775cfc8e4c4/upower-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/upower-${pkgver}"
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a1ad200e715284eae815580bba3faad480f7f13401f6ff1a2e7446172796a2413990ce2b553de713ddc530849b2dff1f0ddc12fbd2fd9b55510bbb644d2340a4')
+sha512sums=('aefe1b2ff5a390f1ea9676fe7e753750bebc56034365a9183e946a8463904047da0a4ac71340eb2efedc16bce6f6d9ef4609ddca37dc1fc31b56bcdbfbbfa59d')

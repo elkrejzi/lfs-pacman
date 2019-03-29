@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://zziplib.sourceforge.net"
 license=('LGPL' 'MPL')
 #depends=()
-source=("zziplib-${pkgver}.tar.gz::https://github.com/gdraheim/zziplib/archive/v${pkgver}.tar.gz")
+source=("https://github.com/gdraheim/zziplib/archive/v${pkgver}/zziplib-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/zziplib-${pkgver}"

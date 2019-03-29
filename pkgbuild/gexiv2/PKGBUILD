@@ -1,5 +1,5 @@
 pkgname=gexiv2
-pkgver=0.10.8
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="GObject-based wrapper around the Exiv2 library"
 arch=('x86_64')
@@ -8,20 +8,27 @@ license=('GPL2')
 #depends=()
 source=("https://download.gnome.org/sources/gexiv2/${pkgver:0:4}/gexiv2-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gexiv2-${pkgver}"
+	cd "${srcdir}/build"
 
-	sed -i "s:-Wl,-lstdc++::g" Makefile.in
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		"${srcdir}/gexiv2-${pkgver}"
 
-	./configure --prefix=/usr --enable-introspection
-
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gexiv2-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('4c25cf6884495151947a70e62a096f3279223673bece4d4ff02720b2820aaad9e80c8715e02bf46c3f5598f582fdf07b4b3ddabd017d53001245e3381a4cc286')
+sha512sums=('c89e7d307359c718dff1f3991acb4ece66bce985a3d8bee1c8fccf4ce39187af62684c87eaae9b0425a6fdbf147b7330902041d9588e52a4bad1da4255d245e9')

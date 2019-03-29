@@ -1,19 +1,12 @@
 pkgname=gnome-menus
-pkgver=3.13.3
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="GNOME menu specifications"
 arch=('x86_64')
 url="https://git.gnome.org/browse/gnome-menus/"
 license=('GPL' 'LGPL')
 #depends=()
-source=("https://download.gnome.org/sources/gnome-menus/${pkgver:0:4}/gnome-menus-${pkgver}.tar.xz"
-	"gnome-menus-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/gnome-menus-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/gnome-menus-fixes.patch"
-}
+source=("https://download.gnome.org/sources/gnome-menus/${pkgver:0:4}/gnome-menus-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gnome-menus-${pkgver}"
@@ -31,5 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d631eb17ddc1b33227d0e5862a9344a8605ee1e9ebc1f12ce4ac98895adaf8a82ef2a49415d99bc194a02f30f30c3d6d49759f280fbc246c9e482711fd5021d2'
-            '334822c41df7fa58d2da5ebb1cf3b8c50e1177421795165478b91152facecad96870de8c9d73bdb47eecaa618d70cc0aa0d661749c454f9dc2e6001b0b4e3e37')
+sha512sums=('8a429e092b1e4a1a794473d7cae611684321e797792e1063911ddcbb496140033838b348bc209b4c0566a13233cfa1144cae7a188a483abf34c5af6feb44a884')

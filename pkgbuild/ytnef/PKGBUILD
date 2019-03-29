@@ -1,5 +1,5 @@
 pkgname=ytnef
-pkgver=1.9.2
+pkgver=1.9.3
 pkgrel=1
 pkgdesc="Yerase's TNEF Stream Reader library"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('125727a8afac959ac9c60fa977913da743b1ace05ea6af6cd75fff3a786ecf7cb54b49006c8c5249eb48d9aefe0ffcdc24af2944a8611f54a03eb4c24a78506e')
+sha512sums=('be0a46e79561a5ff34f812b892a781809606cc7e38c6bfed15bae7773f952b4b55aed0fa784922e72839121672c540496db1bac602630c5a83141f8517a4a543')

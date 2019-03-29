@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://c-ares.haxx.se"
 license=('custom')
 #depends=()
-source=("http://c-ares.haxx.se/download/c-ares-${pkgver}.tar.gz")
+source=("https://c-ares.haxx.se/download/c-ares-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/c-ares-${pkgver}"

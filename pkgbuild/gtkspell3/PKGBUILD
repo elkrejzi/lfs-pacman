@@ -1,5 +1,5 @@
 pkgname=gtkspell3
-pkgver=3.0.9
+pkgver=3.0.10
 pkgrel=1
 pkgdesc="Provides word-processor-style highlighting and replacement of misspelled words in a GtkTextView widget"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("https://downloads.sourceforge.net/gtkspell/gtkspell3-${pkgver}.tar.xz")
 prepare() {
 	cd "${srcdir}/gtkspell3-${pkgver}"
 
-	sed -i "s#enchant_dict_add_to_pwl#enchant_dict_add#g" gtkspell/gtkspell.c
+	#sed -i "s#enchant_dict_add_to_pwl#enchant_dict_add#g" gtkspell/gtkspell.c
 }
 
 build() {
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('de6cc24ca092067a101996142bf2b3cfb6a5af2170ea4b0185a997e5c88adead7ba53c5a297c3110b3a66dc87d37e429720f972895bb2931f9a033fc006e2eab')
+sha512sums=('3b1ceaa9ffa06bd3f6dae39c95db951588e5cf2edf4f551cac6972822ba230af3415c5045fa24f7a4dfe05c2e386ab3f67cb80cb779576b4e54293b7b9fbc28e')

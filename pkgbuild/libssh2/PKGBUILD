@@ -1,5 +1,5 @@
 pkgname=libssh2
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="A library implementing the SSH2 protocol as defined by Internet Drafts"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f09ad9ed04d25305b966e7f8c210082fe06c2b236dcd5018b009bd0bd6aaff123d16559d280892a5060760ed055ffe295bc02dc6e8dd1e7b8383c6c703f09290')
+sha512sums=('390ab4ad93bb738415ec11a6eb92806c9b9e9e5d8ee7c442d841a58b4292c1c447a9bc99e153ba464e2e11f9c0d1913469303598c3046722d1ae821991e8cb93')

@@ -1,5 +1,5 @@
 pkgname=youtube-dl
-pkgver=2018.07.04
+pkgver=2019.03.18
 pkgrel=1
 pkgdesc="A small command-line program to download videos from YouTube.com and a few more sites"
 arch=('x86_64')
@@ -17,4 +17,4 @@ package() {
 	rm -rf "${pkgdir}/usr/etc"
 }
 
-sha512sums=('7a67948307d8909c0415635c9c560bdf809b085f1675aa2c4aafa8007b8f420beb6347a56e3fbe61507aca1b42ac932ce75ae46aa2cd62e129fa604cd6ceb6e0')
+sha512sums=('0a683631da7d67aa2f23eb6326664e483b71ef776b3ff63c732bdef54f58c7f615733023f8c4b948078f59d136414bd059bdc753d89aec630126bbe826db58ce')

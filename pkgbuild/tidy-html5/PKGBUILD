@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://www.html-tidy.org/"
 license=('custom')
 #depends=()
-source=("tidy-html5-${pkgver}.tar.gz::https://github.com/htacg/tidy-html5/archive/${pkgver}.tar.gz")
+source=("https://github.com/htacg/tidy-html5/archive/${pkgver}/tidy-html5-${pkgver}.tar.gz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"

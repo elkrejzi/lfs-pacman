@@ -187,6 +187,7 @@ python-idna
 python-imagesize
 python-markupsafe
 python-packaging
+python-ply
 python-pyparsing
 python-pygments
 python-pytz
@@ -390,6 +391,7 @@ libgusb
 libpaper
 libsass
 js52
+js60
 polkit
 sassc
 colord
@@ -616,7 +618,6 @@ gst-plugins-ugly
 gst-libav
 gstreamer-vaapi
 webkitgtk
-
 gcr
 pinentry
 media-player-info
@@ -643,7 +644,6 @@ mdadm
 nss-mdns
 parted
 sane-backends
-strongswan
 t1lib
 tidy-html5
 volume_key
@@ -699,6 +699,7 @@ zenity
 accountsservice
 clutter-gst
 clutter-gtk
+
 gnome-backgrounds
 gnome-bluetooth
 gnome-settings-daemon
@@ -713,7 +714,6 @@ evince
 evolution-data-server
 gnome-keyring
 gvfs
-networkmanager-strongswan
 yelp
 folks
 aisleriot
@@ -736,6 +736,7 @@ gnome-shell
 gnome-shell-extensions
 gnome-terminal
 gnome-user-docs
+
 mailnag
 xdg-user-dirs
 xdg-user-dirs-gtk
@@ -754,7 +755,7 @@ perl-authen-sasl
 geany
 gthumb
 hexchat
-transmission
+transmissio
 dosfstools
 gdb
 iputils
@@ -770,7 +771,6 @@ whois
 texlive-texmf
 texlive-bin
 dblatex
-libgconf
 teamviewer
 viber
 visual-studio-code
