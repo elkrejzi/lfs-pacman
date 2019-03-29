@@ -17,8 +17,6 @@ prepare() {
 build() {
 	cd "${srcdir}/cups-filters-${pkgver}"
 
-	#export CXX="${CXX} -std=c++11"
-
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \

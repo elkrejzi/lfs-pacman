@@ -8,12 +8,6 @@ license=('GPL')
 #depends=()
 source=("https://downloads.sourceforge.net/gtkspell/gtkspell3-${pkgver}.tar.xz")
 
-prepare() {
-	cd "${srcdir}/gtkspell3-${pkgver}"
-
-	#sed -i "s#enchant_dict_add_to_pwl#enchant_dict_add#g" gtkspell/gtkspell.c
-}
-
 build() {
 	cd "${srcdir}/gtkspell3-${pkgver}"
 
