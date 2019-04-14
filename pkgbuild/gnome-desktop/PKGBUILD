@@ -1,5 +1,5 @@
 pkgname=gnome-desktop
-pkgver=3.32.0
+pkgver=3.32.1
 pkgrel=1
 pkgdesc="Library with common API for various GNOME modules"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('7e31e11894e23cccd80c82fb30b3614a00dd62f211b8110b23df00cf567e4f811106a39368a6395abfed996b018865fb624ac0a97a568a8a16957584b674b66d')
+sha512sums=('d1489d036784db9405d2ebc330d55c7413e0c5ad35e4c7965fdf9345456aef1e5651a2768a5f9e83b889838badfce889b18e2e8fc9289bdfe46627e4e8025f17')

@@ -1,5 +1,5 @@
 pkgname=nautilus
-pkgver=3.28.1
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 arch=('x86_64')
@@ -10,6 +10,10 @@ source=("https://download.gnome.org/sources/nautilus/${pkgver:0:4}/nautilus-${pk
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
+
+	cd "${srcdir}/nautilus-${pkgver}"
+	
+	sed -i "/Werror/d" meson.build
 }
 
 build() {
@@ -21,6 +25,7 @@ build() {
 		--buildtype=plain \
 		-Ddocs=true \
 		-Dpackagekit=false \
+		-Dtests=none \
 		"${srcdir}/nautilus-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -32,4 +37,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('6b695c097e5082062afe8cb036e819c837ce1e2570f581f81860f378e34f38f3020b8802e6a4285243c111d5208e892c419ac92621cdb1d35b2df205a3ccaa13')
+sha512sums=('a964fa03fc186016f9f37efd5958d6abc1ecd23ea821d97f2a00af0b2a98e715e7284abfb457ca73cfa434094b9298a4f1ceed5dc0729bcd11ba446c7e955bdb')

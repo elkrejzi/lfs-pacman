@@ -1,5 +1,5 @@
 pkgname=grilo
-pkgver=0.3.6
+pkgver=0.3.7
 pkgrel=1
 pkgdesc="Framework that provides access to various sources of multimedia content"
 arch=('x86_64')
@@ -8,21 +8,27 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/grilo/${pkgver:0:3}/grilo-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/grilo-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-compile-warnings
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Denable-gtk-doc=true \
+		"${srcdir}/grilo-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/grilo-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('175cf61a43aea8456a41f4dce7694fac50e854cf6340ed0671f233e6188fa34347c1e7308aac99bc49d081c36747776b9a8c1c5cc7c0be00a1df2c9d015d8849')
+sha512sums=('82c41d63edc23c056e189a73b0de87db342bba575d42efeda78ed4bf78fb8994111a2e9457e6f2453045b9b7b2d171b9e89d71c3a107cfa06af24644d9cb71df')

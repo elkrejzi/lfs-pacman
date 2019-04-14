@@ -1,0 +1,33 @@
+pkgname=pipewire
+pkgver=0.2.5
+pkgrel=1
+pkgdesc="Server and user space API to deal with multimedia pipelines"
+arch=('x86_64')
+url="https://pipewire.org"
+license=('LGPL2.1')
+#depends=()
+source=("https://github.com/PipeWire/pipewire/archive/${pkgver}/pipewire-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/pipewire-${pkgver}"
+
+	ninja ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	DESTDIR="${pkgdir}" ninja install
+}
+
+sha512sums=('f084df7b39d7a643fbd52f469270e4cdc61c10b3cd95d68b3dd31efc34f7b718aa792c82c01a1ab9ee8357823d1882058137d3543f66460ba85778d65cf09c87')

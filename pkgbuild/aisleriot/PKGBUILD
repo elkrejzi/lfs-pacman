@@ -1,5 +1,5 @@
 pkgname=aisleriot
-pkgver=3.22.5
+pkgver=3.22.8
 pkgrel=1
 pkgdesc="A collection of patience games written in guile scheme"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2a9c2e7d78a7b980226962e20af21efab20662c708a97284d5594997551587f1fea9c313d4e32360c398cb7943413cdbd8ac5de47ccf7237f6215496a349d152')
+sha512sums=('b7f650050d1f5c28665173095bf7d7c3e16b2820faebd6e494504aa4a10529823c60eccd86c5792cae62c52f9e3a8181255ed5cd3a32244324d4f4310d465acd')

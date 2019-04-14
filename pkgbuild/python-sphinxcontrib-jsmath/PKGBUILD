@@ -1,0 +1,23 @@
+pkgname=python-sphinxcontrib-jsmath
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Sphinx extension which renders display math in HTML via JavaScript"
+arch=('x86_64')
+url="https://pypi.org/project/sphinxcontrib-jsmath/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/sphinxcontrib-jsmath/sphinxcontrib-jsmath-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/sphinxcontrib-jsmath-${pkgver}"
+
+	python3 setup.py build
+}
+
+package() {
+	cd "${srcdir}/sphinxcontrib-jsmath-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('c1e6488f5c0ca4567c27ec7c597c9db321ac32ce354c4ad62fea534b2ae1c0acb183a921f46216bbc3891f14acfaac05ddf324b8fdaf99828df07bc91aa7e5c7')

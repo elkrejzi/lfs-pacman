@@ -1,0 +1,23 @@
+pkgname=python-sphinxcontrib-htmlhelp
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Sphinx extension which renders HTML help files"
+arch=('x86_64')
+url="https://pypi.org/project/sphinxcontrib-htmlhelp/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/sphinxcontrib-htmlhelp/sphinxcontrib-htmlhelp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/sphinxcontrib-htmlhelp-${pkgver}"
+
+	python3 setup.py build
+}
+
+package() {
+	cd "${srcdir}/sphinxcontrib-htmlhelp-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('2ee6c8a91095d8f87208ea509153edc5495b9ef78231add39880e133413b1fa95e152264e5c9dfe6afc89afcb107acacc241754e7b5d86137bb5c64a851702de')

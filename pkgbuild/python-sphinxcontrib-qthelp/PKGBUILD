@@ -1,0 +1,23 @@
+pkgname=python-sphinxcontrib-qthelp
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Sphinx extension which outputs QtHelp document"
+arch=('x86_64')
+url="https://pypi.org/project/sphinxcontrib-qthelp/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/sphinxcontrib-qthelp/sphinxcontrib-qthelp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/sphinxcontrib-qthelp-${pkgver}"
+
+	python3 setup.py build
+}
+
+package() {
+	cd "${srcdir}/sphinxcontrib-qthelp-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('8fe840e011fabd596194f539d27a502b77ae8a6030ae1a7646b1af9f203d3578b7420ead655297b2a752f0cb0e6803247c7a79b2ccd2d4662ed9f58398947864')

@@ -1,5 +1,5 @@
 pkgname=gnome-shell
-pkgver=3.28.3
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="The next generation GNOME Shell"
 arch=('x86_64')
@@ -20,10 +20,8 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Dbrowser_plugin=false \
+		-Dgtk_doc=true \
 		"${srcdir}/gnome-shell-${pkgver}"
-
-		#-Dgtk_doc=true
 
 	ninja ${MAKEFLAGS}
 }
@@ -34,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('3550a9e59101a96cf04e4a4bc183ac9a447baa72d74e57c3f438764741b4365f8848895c1eb2c4d0af5c7936e38eb8971ef578bbee315e78b9fdcbbe49fdc1e8')
+sha512sums=('253a2673defb8a3c20764b846875419194f69287167899855c676aa4988e0cffbad83ee3086be751fb55f97897b3b35a7cb9010b5f4fd8bff688af66ee96fb99')

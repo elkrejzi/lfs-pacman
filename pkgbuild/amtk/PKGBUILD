@@ -1,0 +1,25 @@
+pkgname=amtk
+pkgver=5.0.0
+pkgrel=1
+pkgdesc="Actions, Menus and Toolbars Kit for GTK+ applications"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/Amtk"
+license=('LGPL2.1')
+#depends=()
+source=("https://download.gnome.org/sources/amtk/${pkgver:0:3}/amtk-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/amtk-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/amtk-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('86433a7b314bfbdd00cd53a7223561645b0ebd40ec519f97b61e8df073b88c76425182ad71a49794090a51eddf68b81f4c7d88c4bf6a618311aa92908f5bea73')

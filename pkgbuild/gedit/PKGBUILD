@@ -1,5 +1,5 @@
 pkgname=gedit
-pkgver=3.28.1
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="GNOME Text Editor"
 arch=('x86_64')
@@ -8,22 +8,27 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gedit/${pkgver:0:4}/gedit-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gedit-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-schemas-compile \
-		--disable-updater
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddocumentation=true \
+		"${srcdir}/gedit-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gedit-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f5931ac562cb5005a83eec43048b718ef431e6006b72470fea54ad0e94bd64940ebdec160ee0459ceb5adb235ab111711a2f9fbdc74104d2edd8f287d7474815')
+sha512sums=('f25ed05f5d3b7ab7711be32c6516479c8b515d6d5983e3bc3a00407740fb8ec42b1e9a3005473671fc144f4437b9e98355a3669210eefb5bf8288f171188f387')

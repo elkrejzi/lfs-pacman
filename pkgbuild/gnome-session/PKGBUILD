@@ -1,5 +1,5 @@
 pkgname=gnome-session
-pkgver=3.28.1
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="The GNOME Session Handler"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('ceeacb3cb4729d4b0a646220097a49359d1eb85ec20cd5d5a44c273b661d41ee83caaf6598def06c4e89b5f785f9317b1171b5550bf8f5634bc882a21e5e685b')
+sha512sums=('53d5f84ba8ddbac5cfe0e4e3115c76008a3571779cad62a5fe064a409a507497a9ab93a46d6ba7ee4238ac0efb2f2c1379647855ac8058a945350c88400daf34')

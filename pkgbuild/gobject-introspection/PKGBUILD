@@ -1,5 +1,5 @@
 pkgname=gobject-introspection
-pkgver=1.60.0
+pkgver=1.60.1
 pkgrel=1
 pkgdesc="Introspection system for GObject-based libraries"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('858cf12b1a606be4ec884444ef0c9f05aaaf75d4f547dde489c4eef35d125a66d3d1b7c3cd879bae0f01bc0fb75dd3473a1e1bc9f66241f32ac27b0a35a06901')
+sha512sums=('01adbeffee08ff6487f11a303fd7a59a99c36714dce21be9bbae7fd2bf8f080665e830bc3a47566140a6081dc74f6c2f8d8232286759b761f70493545a9d90ea')

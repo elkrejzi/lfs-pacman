@@ -1,5 +1,5 @@
 pkgname=evolution-data-server
-pkgver=3.28.5
+pkgver=3.32.1
 pkgrel=1
 pkgdesc="Centralized access to appointments and contacts"
 arch=('x86_64')
@@ -23,7 +23,6 @@ build() {
 		-DSYSCONF_INSTALL_DIR=/etc \
 		-DENABLE_INTROSPECTION=ON \
 		-DENABLE_VALA_BINDINGS=ON \
-		-DENABLE_UOA=OFF \
 		-DENABLE_GTK_DOC=ON \
 		-DENABLE_SCHEMAS_COMPILE=OFF \
 		-DENABLE_EXAMPLES=OFF \
@@ -38,4 +37,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f95593c7c47b80a1333a2c2a1026316ec9cdad401da46e0d9bb9ef155e97130216f136a6efec2476441052296050c49913843eea1f397b40b53a96511e853c3b')
+sha512sums=('bbaf9f1eca40b02978df155a64bbc8da94d56e2e4f4602905784f7974a1622ce0798d1d6ee75a560a4082fb1f8d1b621a2c1dccb0056715345273a265abea96d')

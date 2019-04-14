@@ -203,8 +203,12 @@ python-lxml
 python-mako
 python-requests
 python-sphinx
-python-sphinxcontrib-websupport
-python-sphinx_rtd_theme
+python-sphinxcontrib-applehelp
+python-sphinxcontrib-devhelp
+python-sphinxcontrib-htmlhelp
+python-sphinxcontrib-jsmath
+python-sphinxcontrib-qthelp
+python-sphinxcontrib-serializinghtml
 python-recommonmark
 elfutils
 gtk-doc
@@ -657,6 +661,7 @@ hplip
 libblockdev
 libpst
 nodejs
+pipewire
 udisks
 upower
 google-chrome
@@ -668,6 +673,7 @@ geocode-glib
 gmime
 rest
 telepathy-glib
+amtk
 clutter
 colord-gtk
 gexiv2
@@ -699,16 +705,15 @@ zenity
 accountsservice
 clutter-gst
 clutter-gtk
-
 gnome-backgrounds
 gnome-bluetooth
 gnome-settings-daemon
 grilo
+gsound
 libgdata
 mutter
 nautilus
 tepl
-caribou
 cheese
 evince
 evolution-data-server
@@ -718,7 +723,6 @@ yelp
 folks
 aisleriot
 eog
-epiphany
 evolution
 evolution-ews
 file-roller
@@ -736,7 +740,6 @@ gnome-shell
 gnome-shell-extensions
 gnome-terminal
 gnome-user-docs
-
 mailnag
 xdg-user-dirs
 xdg-user-dirs-gtk

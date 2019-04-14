@@ -1,5 +1,5 @@
 pkgname=libnotify
-pkgver=0.7.7
+pkgver=0.7.8
 pkgrel=1
 pkgdesc="Library for sending desktop notifications"
 arch=('x86_64')
@@ -8,18 +8,28 @@ license=('LGPL')
 #depends=()
 source=("https://download.gnome.org/sources/libnotify/${pkgver:0:3}/libnotify-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/libnotify-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dtests=false \
+		-Dgtk_doc=true \
+		"${srcdir}/libnotify-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libnotify-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('133874114407bf12267ef609f5941657181760bc7cf115c5973b1810cb72bf55072b621c143e32be1e7e8b49f244851925d14bc3f9f26457747b8a8695ee9954')
+sha512sums=('9973d7a1af5dd7cfbaa0d0d2c9e72a40df9d814967fde47e95763a69690cc4ed32ecf713d75f91f3dff99a693eff9dab963be124e0530ebf231d517a44e75e94')

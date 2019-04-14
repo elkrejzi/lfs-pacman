@@ -1,5 +1,5 @@
 pkgname=eog
-pkgver=3.28.3
+pkgver=3.32.1
 pkgrel=1
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('1878e36aca74360f48de9938ddad1de6d984a87fb6c2dd8c35c837709af95605677ac42ff44927b15d68a78c82ca1187eb4c299019f98efeedab7df8d5f34eeb')
+sha512sums=('2117445555399624cafef48acb3acfec8fda1d924b1c6f8a449e70bdae09ca7334a14615b60c7cabe51e442d6571fd1b2a52137ca12a31c03917273c21bd385b')

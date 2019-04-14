@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=19.0.1
+pkgver=19.0.2
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -96,4 +96,4 @@ package_lib32-mesa() {
 	rm -rf "${pkgdir}/usr/share/drirc.d"
 }
 
-sha512sums=('13afade840dfc44198b08298c9ebeb24c626c98bfff3ec6d08daaaea690ea9d47af466c877146f9afa3b45035e02c1e21fdc4b53a79c99e38dfc6126efe8ece5')
+sha512sums=('6b317205efa7d62150fae23489fbad5f062ecde99fb5b210fa7ccbed2e0ef60aee1f1e66e2c606ea5d59193c3218f732556706ab3b645b175044342d88984d51')

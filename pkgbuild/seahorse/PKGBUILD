@@ -1,5 +1,5 @@
 pkgname=seahorse
-pkgver=3.20.0
+pkgver=3.32
 pkgrel=1
 pkgdesc="GNOME application for managing PGP keys"
 arch=('x86_64')
@@ -8,21 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/seahorse/${pkgver:0:4}/seahorse-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/seahorse-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/seahorse-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/seahorse-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('a02d3da7af95256941ef065ac024bd5bfb53a026767b951fa2e26446fb0eed23707e69f72f6e8ebfa7d538823fa41411709fa2bebad4fbd662af1e81bc15ab82')
+sha512sums=('569a01d7fb31ceacd273ac8980aac76bdfbd9278736604d764f6911f7b2a719a24fd5ae9f58d28cfb0b92198e216edbc63b893f9ce66fbfbfe915569529842c4')

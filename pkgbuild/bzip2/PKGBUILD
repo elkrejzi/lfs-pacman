@@ -3,10 +3,10 @@ pkgname=('bzip2' 'lib32-bzip2')
 pkgver=1.0.6
 pkgrel=1
 arch=('x86_64')
-url="http://www.bzip.org/"
+url="https://sourceware.org/bzip2/"
 license=('custom')
 #depends=()
-source=("http://downloads.sourceforge.net/bzip2/bzip2-${pkgver}.tar.gz")
+source=("https://sourceware.org/pub/bzip2/bzip2-${pkgver}.tar.gz")
 
 prepare() {
 	cd "${srcdir}/bzip2-${pkgver}"

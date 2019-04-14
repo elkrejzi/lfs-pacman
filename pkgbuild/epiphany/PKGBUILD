@@ -1,5 +1,5 @@
 pkgname=epiphany
-pkgver=3.28.3.1
+pkgver=3.32.1.2
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 arch=('x86_64')
@@ -13,6 +13,7 @@ prepare() {
 
 	cd "${srcdir}/epiphany-${pkgver}"
 
+	sed -i "/Werror/d" subprojects/libdazzle/meson.build
 	sed -i "s#multipart/related;##" data/org.gnome.Epiphany.desktop.in
 }
 
@@ -23,8 +24,7 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Ddistributor_name="Krejzi" \
-		-Dunit_tests=false \
+		-Dunit_tests=disabled \
 		"${srcdir}/epiphany-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -36,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('6165d9cb5f64fedf0fbe7a139d237c4445ed96c7ab4f349f73d8fff8aee6c2fee419929d89c1aae9585d452935d9b7f447a7675f76ee8b4be30aab593ecbd0a1')
+sha512sums=('7114e932535d05c131e792e185be415e2e431c6399e3114e984cfd574adeeef3ad9679d2c5b9894cce51372cfb15a35e84b4b06f688425a50409670ab0bc6cf7')

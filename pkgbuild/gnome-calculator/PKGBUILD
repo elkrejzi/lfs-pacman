@@ -1,5 +1,5 @@
 pkgname=gnome-calculator
-pkgver=3.28.2
+pkgver=3.32.1
 pkgrel=1
 pkgdesc="GNOME Scientific calculator"
 arch=('x86_64')
@@ -8,20 +8,26 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gnome-calculator/${pkgver:0:4}/gnome-calculator-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gnome-calculator-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/gnome-calculator-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gnome-calculator-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('63b750a24c12feb4db20cdff6bbeb2ce595c7ba165b264c03a507ff9b7c10b70f874230a0f80741ccae775c30a5a39acc9c1fe39270b435eb6d4caef1d92dce5')
+sha512sums=('c428287fd7eb9a0e5d85a3e7c50e686e1ddeb75ecf6e548afbf4a8e129d275a9b884909efbe92578fb7729de523808d3f5bdca771e4799327d876626accdc445')

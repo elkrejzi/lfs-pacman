@@ -1,5 +1,5 @@
 pkgname=mutter
-pkgver=3.28.3
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="A window manager for GNOME"
 arch=('x86_64')
@@ -8,24 +8,34 @@ license=('GPL')
 #depends=()
 source=("https://download.gnome.org/sources/mutter/${pkgver:0:4}/mutter-${pkgver}.tar.xz")
 
-build() {
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/mutter-${pkgver}"
+	
+	sed -i "/Werror/d" meson.build
+}
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--enable-compile-warnings=minimum \
-		--disable-maintainer-flags \
-		--disable-Werror \
-		--disable-schemas-compile
+build() {
+	cd "${srcdir}/build"
 
-	make
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dcogl_tests=false \
+		-Dclutter_tests=false \
+		-Dinstalled_tests=false \
+		-Dtests=false \
+		"${srcdir}/mutter-${pkgver}"
+
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/mutter-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('1230e4489693188c4d9ffe5460b235cd018b16f27741451120c3acb6027901d5286d9793cc0c9ad50a2233ff20ea91e7a47c0df611bb4479f1e33af0d185f69a')
+sha512sums=('7f26e7f752a5cedbe066b05b34eec8c4086aee1a7cbd787fad3e9b9c3a440fc8a74ada2440717a115bb69bb0781184f01e55bbbdfaa20f58d060ce6102895de1')

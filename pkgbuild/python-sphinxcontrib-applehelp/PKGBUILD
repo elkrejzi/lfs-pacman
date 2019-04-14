@@ -1,0 +1,23 @@
+pkgname=python-sphinxcontrib-applehelp
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Sphinx extension which outputs Apple help books"
+arch=('x86_64')
+url="https://pypi.org/project/sphinxcontrib-applehelp/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/s/sphinxcontrib-applehelp/sphinxcontrib-applehelp-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/sphinxcontrib-applehelp-${pkgver}"
+
+	python3 setup.py build
+}
+
+package() {
+	cd "${srcdir}/sphinxcontrib-applehelp-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('a6500bc2899f25c0b04c8649e86a6f688823e573a3f58f2b786117768e8b415acffbe79b99cff8aeb6ae3c74dd244254de120b82b7432cf61c5fabdd38f21603')
