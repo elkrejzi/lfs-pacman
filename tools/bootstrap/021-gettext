@@ -9,8 +9,9 @@ tar xf ${SROOT}/gettext-${GETTEXT_VER}.tar.xz
 {
 
   time {
-  pushd gettext-${GETTEXT_VER}/gettext-tools
-    EMACS="no" ./configure --prefix=/tools
+  pushd gettext-${GETTEXT_VER}
+    ./configure --prefix=/tools --disable-shared
+    sed -i "/libgnuintl.so/d" gettext-tools/intl/Makefile
     make
     make install
   popd

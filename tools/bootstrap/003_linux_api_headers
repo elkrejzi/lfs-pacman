@@ -15,8 +15,8 @@ tar xf ${SROOT}/linux-${LINUX_VER}.tar.xz
       xz -cd ${SROOT}/patch-${LINUX_PATCH_VER}.xz | patch -Np1 -i -
     fi
     make mrproper
-    make INSTALL_HDR_PATH=dest headers_install
-    cp -rv dest/include/* /tools/include
+    make headers
+    cp -rv usr/include/* /tools/include
   popd
   }
 

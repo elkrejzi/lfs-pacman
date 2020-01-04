@@ -4,16 +4,12 @@
 
 rm -rf findutils-${FINDUTILS_VER} ${LOGDIR}/findutils-${FINDUTILS_VER}.log
 
-tar xf ${SROOT}/findutils-${FINDUTILS_VER}.tar.gz
+tar xf ${SROOT}/findutils-${FINDUTILS_VER}.tar.xz
 
 {
 
   time {
   pushd findutils-${FINDUTILS_VER}
-    sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' gl/lib/*.c
-    sed -i '/unistd/a #include <sys/sysmacros.h>' gl/lib/mountlist.c
-    echo "#define _IO_IN_BACKUP 0x100" >> gl/lib/stdio-impl.h
-
     ./configure --prefix=/tools
     make
     make install

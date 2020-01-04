@@ -10,8 +10,7 @@ tar xf ${SROOT}/pacman-${PACMAN_VER}.tar.gz
 
   time {
   pushd pacman-${PACMAN_VER}
-    sed -i "s#CPPFLAGS CFLAGS CXXFLAGS LDFLAGS#CC CXX &#" scripts/makepkg.sh.in
-    sed -i "/C*LAGS+=.*DEBUG/s#FLAGS+=#FLAGS=#g" scripts/makepkg.sh.in
+    sed -i "s#CPPFLAGS CFLAGS CXXFLAGS LDFLAGS#CC CXX &#" scripts/libmakepkg/buildenv.sh.in
     ./configure --prefix=/tools   \
                 --without-gpgme   \
                 --without-libcurl
@@ -43,14 +42,14 @@ CC=clang
 CXX=clang++
 
 CPPFLAGS=""
-CFLAGS="-march=broadwell -O2 -pipe"
-CXXFLAGS="-march=broadwell -O2 -pipe"
+CFLAGS="-march=znver1 -O2 -pipe"
+CXXFLAGS="-march=znver1 -O2 -pipe"
 LDFLAGS=""
 
 MAKEFLAGS="-j8"
 
-DEBUG_CFLAGS="-march=broadwell -g -O2 -pipe"
-DEBUG_CXXFLAGS="-march=broadwell -g -O2 -pipe"
+DEBUG_CFLAGS="-march=znver1 -g -O2 -pipe"
+DEBUG_CXXFLAGS="-march=znver1 -g -O2 -pipe"
 
 BUILDENV=(!distcc color !ccache check !sign)
 OPTIONS=(strip !docs !libtool !staticlibs !emptydirs zipman purge !debug)

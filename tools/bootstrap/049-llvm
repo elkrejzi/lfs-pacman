@@ -3,7 +3,7 @@
 . $(dirname $0)/000_shared
 
 proj=(
-  cfe
+  clang
   compiler-rt
   libcxx
   libcxxabi
@@ -80,14 +80,14 @@ do
     fi
   fi
 
-  if [ ${project} == "cfe" ]
+  if [ ${project} == "clang" ]
   then
     pushd ${project}
       patch -Np1 -i ${PROOT}/clang-runtime.patch
     popd
 
     mv ${project} llvm/tools/clang
-  elif [ ${project} != "cfe" ] && [ ${project} != "llvm" ]
+  elif [ ${project} != "clang" ] && [ ${project} != "llvm" ]
   then
     mv ${project} llvm/projects
   fi
@@ -111,7 +111,7 @@ install -dm755 llvm-build llvm-build32
 
   time {
   pushd llvm-build
-    cmake ${cmake_shared[@]} ../llvm
+    cmake ${cmake_shared[@]} -DFFI_LIBRARY_PATH="/tools/lib/libffi.so" ../llvm
     make
     make install
   popd
