@@ -1,5 +1,5 @@
 pkgname=xfsprogs
-pkgver=4.20.0
+pkgver=5.4.0
 pkgrel=1
 pkgdesc="XFS filesystem utilities"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make -j1 install install-dev DESTDIR="${pkgdir}" PKG_ROOT_LIB_DIR=/usr/lib PKG_ROOT_SBIN_DIR=/usr/sbin
 }
 
-sha512sums=('6adf93fbe20d6b3250c4690237bda041a6dd0cfdc2387f5c88704fc06e6f095bf047964d701ccd65efef7607c15fb8e97b6046f3d631ef327aa8f4c118a36e22')
+sha512sums=('c0973fcf97e2666385b46c80cd1398728702cb34fd7e0f89e2a63686300573405d09a81d3ae43d79c2e9710ccf6b6bd6ed1c3f3f831c75cd0916f094f203aaa7')

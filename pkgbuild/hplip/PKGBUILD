@@ -1,5 +1,5 @@
 pkgname=hplip
-pkgver=3.19.3
+pkgver=3.19.12
 pkgrel=1
 pkgdesc="Drivers for HP DeskJet, OfficeJet, Photosmart, Business Inkjet and some LaserJet"
 arch=('x86_64')
@@ -18,6 +18,8 @@ prepare() {
 
 build() {
 	cd "${srcdir}/hplip-${pkgver}"
+
+	export CFLAGS+=" $(python3-config --includes)"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -42,5 +44,5 @@ package() {
 	rm -rf "${pkgdir}/etc/xdg" "${pkgdir}/usr/share/hal"
 }
 
-sha512sums=('6191974d6c9a35e58a9b0d2ff1077b3a9479e44ccb76a551f3e29ca56d420bfe0778fa6b7a4e51b18f2e55cae9ad1f5216f716e22b651122ec0fe9e730fcd29a'
+sha512sums=('5552cd717ae082ee55cdb77d79e8d035d8ecb7cf23c79d659fda43468d8ed414a33c4d869eab4ab83dee836f0d1cceb74c3c4a249e26f904a5ab2350e08a5677'
             '96beaf08aa8a866693efd1d3a863ccbc9db468629ab6b86a11b9e6cfad5933b031c198ff4a86a836ea1cd66f2c375454580219100a196665aa63faa43d71aa79')

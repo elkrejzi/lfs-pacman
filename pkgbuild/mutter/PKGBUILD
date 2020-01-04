@@ -1,5 +1,5 @@
 pkgname=mutter
-pkgver=3.32.0
+pkgver=3.34.2
 pkgrel=1
 pkgdesc="A window manager for GNOME"
 arch=('x86_64')
@@ -23,10 +23,9 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Dcogl_tests=false \
-		-Dclutter_tests=false \
-		-Dinstalled_tests=false \
 		-Dtests=false \
+		-Dprofiler=false \
+		-Dinstalled_tests=false \
 		"${srcdir}/mutter-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -38,4 +37,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('7f26e7f752a5cedbe066b05b34eec8c4086aee1a7cbd787fad3e9b9c3a440fc8a74ada2440717a115bb69bb0781184f01e55bbbdfaa20f58d060ce6102895de1')
+sha512sums=('d78fa702ee3e7e039c49f1c890c7b9ad79ee156ca7d9fc9952bd5ca04c3c569a7df7bdbad446ef53a939d6d1ec086f5aecd47b6844d34ce09b6ed9662bcbd0bd')

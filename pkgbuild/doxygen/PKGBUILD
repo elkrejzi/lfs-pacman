@@ -1,5 +1,5 @@
 pkgname=doxygen
-pkgver=1.8.15
+pkgver=1.8.17
 pkgrel=1
 pkgdesc="A documentation system for C++, C, Java, IDL and PHP"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	install -v -m644 doc/*.1 "${pkgdir}/usr/share/man/man1"
 }
 
-sha512sums=('a5512e78be66c1591d8ec7e284d5d25c92a97218c79e6fed3c538c723a8dfef4ff7085970bf271a6b639e907157cd4df9fb55d3c975f8d3302fb1012a4d92079')
+sha512sums=('2fd087d127e301ea48355ea52c9af4f2091df06551cf64da80df81f0758194b296efb1e8d3962867a6a6d2da5a3fc323842f7766a445748005b30097ded30a75')

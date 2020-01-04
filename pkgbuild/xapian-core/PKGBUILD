@@ -1,5 +1,5 @@
 pkgname=xapian-core
-pkgver=1.4.11
+pkgver=1.4.14
 pkgrel=1
 pkgdesc="Open source search engine library."
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('72ab7b0c774390f38319d241689b2dc3c2837fbbf933616574f6ad167f14a25c2eff747910022065508dc7c44f806dc2b71dae80a1b4f1f47e1675fb951bc785')
+sha512sums=('c08c9abe87e08491566b7cfa8cda9e2a80e4959a647428b6d82bce7af1c967b4cb463607ffb8976372a980c163923ced36117a66e0b5a1f35659393def3d371b')

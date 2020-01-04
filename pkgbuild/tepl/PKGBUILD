@@ -1,5 +1,5 @@
 pkgname=tepl
-pkgver=4.2.0
+pkgver=4.2.1
 pkgrel=1
 pkgdesc="A library that eases the development of GtkSourceView-based text editors and IDEs"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('32f69c6f0942a82e6b7f94eba776d55dce2af1c8e4c7abadf6af38a0a5abb0a94f0c426d5ec727b8eb478406ba113728b771597c2c84e508b8ccb113a74eab3d')
+sha512sums=('c1b848cf1d336efdc2971e16060baf721e9019e6e6827bd755235c9dd37ae47803343e51888d9dd5817b6127bb1ba05a19d4a1be0caab9d2de125bc0cd8175a7')

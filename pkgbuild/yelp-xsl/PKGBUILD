@@ -1,5 +1,5 @@
 pkgname=yelp-xsl
-pkgver=3.32.1
+pkgver=3.34.2
 pkgrel=1
 pkgdesc="Document transformations from Yelp"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('05a03e045c8278faaf39604d6cbccb449130d2c85e3231c8c9737e344fc249cd2949011fb1a0e4fb6085dc21374e7804fc7fa4161f51607d93b301cbcf5453be')
+sha512sums=('ec31a46c8ee2f751f84fb309bf9a1ee3af090856b313375afb8db0ba17e9758b1616cddda4945de7c65f163893bb89a94a7372f90040b37a836f5d6173c80472')

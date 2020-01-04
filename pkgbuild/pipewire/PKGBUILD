@@ -1,5 +1,5 @@
 pkgname=pipewire
-pkgver=0.2.5
+pkgver=0.2.7
 pkgrel=1
 pkgdesc="Server and user space API to deal with multimedia pipelines"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f084df7b39d7a643fbd52f469270e4cdc61c10b3cd95d68b3dd31efc34f7b718aa792c82c01a1ab9ee8357823d1882058137d3543f66460ba85778d65cf09c87')
+sha512sums=('10d3e20cc3d233fbcd1fc39702ae3043a656ebcd9cd3c39c77f0cc2bf42ff4956fc03e7933c7b397bca446c63f45ddacea948d5ec7e4a3300499fa2794f14334')

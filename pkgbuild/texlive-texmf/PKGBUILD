@@ -1,5 +1,5 @@
 pkgname=texlive-texmf
-pkgver=20180414
+pkgver=20190410
 pkgrel=1
 pkgdesc="TeX Live distribution - TeXmf Data"
 arch=('x86_64')
@@ -19,12 +19,10 @@ package() {
 		--no-same-permissions --strip-components=1 \
 		-xf texlive-${pkgver}-texmf.tar.xz -C "${pkgdir}/usr/share"
 
-	# libkpathsea
-	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktex.opt
-	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexdir{,.opt}
-	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexnam{,.opt}
-	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/mktexupd
-	rm -rf "${pkgdir}"/usr/share/texmf-dist/web2c/texmf.cnf
+	sed -i "s@TEXMFROOT = \$SELFAUTOPARENT@TEXMFROOT = /usr/share@g" "${pkgdir}/usr/share/texmf-dist/web2c/texmf.cnf"
+	sed -i "s@TEXMFSYSVAR = \$TEXMFROOT/texmf-var@TEXMFSYSVAR = /var/lib/texmf@g" "${pkgdir}/usr/share/texmf-dist/web2c/texmf.cnf"
+	sed -i "s@TEXMFSYSCONFIG = \$TEXMFROOT/texmf-config@TEXMFSYSCONFIG = /etc/texmf@g" "${pkgdir}/usr/share/texmf-dist/web2c/texmf.cnf"
+	sed -i "s@TEXMFHOME = ~/texmf@TEXMFHOME = ~/.texmf@g" "${pkgdir}/usr/share/texmf-dist/web2c/texmf.cnf"
 }
 
-sha512sums=('024617b75ccbff064cf32dfafa535209e6c29aafe0b33e1ed12722c49a6b00f3ddfd04e985afee47c0a32a8de5d0944e946191b592e930dabd2e1c17f113dbf4')
+sha512sums=('e729b661cd8d2a6f0cf0718d75983cee0d9476b5a1d0705b820f212096489dbe4183318960059381e91a6009b53312e1dae68473526c9888211dfe4ee76abd71')

@@ -1,5 +1,5 @@
 pkgname=evolution-ews
-pkgver=3.32.1
+pkgver=3.34.3
 pkgrel=1
 pkgdesc="MS Exchange integration through Exchange Web Services"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('dc93e31afb5a53830397eca4a543847571cd03021a77efad19ecb87e5b0a39622d5e7c2685728ed4ad9568bf5647820996a06dd27c6c8117ea8451b17cd16d9f')
+sha512sums=('837948efdff22ecbfcc841f6eacf5e45e419b3db18a5aebbb3422b7611432520c1e43d60faf71397a8de262ad6528f6bf71da52fe2ed21a6b868ff258348214f')

@@ -1,12 +1,12 @@
 pkgname=tracker
-pkgver=2.2.1
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="Desktop-neutral user information store, search tool and indexer"
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/Tracker"
 license=('GPL')
 #depends=()
-source=("https://download.gnome.org/sources/tracker/${pkgver:0:4}/tracker-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/tracker/${pkgver:0:3}/tracker-${pkgver}.tar.xz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('eaa235cf9e35d4bec4e9db5e4b5010518c5fda9ed466f1b4decc495cbb654a3722134812fe698d226e9bb6dfb34f9f496d3ffffab3a7d15cdbaff7c63df79f6c')
+sha512sums=('7642e90383dd47362fda70b6dff25c962c9f3a6155c12dc09223e4635ee9e150a2bb2b52451074a94ac43136bdf80326d293e4e6f6430a1b725781120cb4a333')

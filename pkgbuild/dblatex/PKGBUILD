@@ -1,5 +1,5 @@
 pkgname=dblatex
-pkgver=0.3.10
+pkgver=0.3.11
 pkgrel=1
 pkgdesc="DocBook (XML and SGML) to DVI, PDF, PostScript converter using LaTeX"
 arch=('x86_64')
@@ -14,4 +14,4 @@ package() {
 	python setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('33a5ee3d23d3b9a1576be248a312ca741ea7cb629334a98fb6cb49e0f0f932334506ea934312de04ec645c86ec52699687bd2574b1802d3c23815b44c8514b7b')
+sha512sums=('4ada869fd9885f3ffdf46d8ec571837c76fcbb95dd855fcbf0cafdb9b7f3c506ed942885d64caab9ee8d4626735d3a8f00cb0dafc0fcd18fba63413b17863488')

@@ -1,5 +1,5 @@
 pkgname=gnome-keyring
-pkgver=3.31.91
+pkgver=3.34.0
 pkgrel=1
 pkgdesc="Stores passwords and encryption keys"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c66ad13fd84764f01e75de2d6142ecb42954d6111f86738c27e7b5b94e702be2af5af7f83ba4e4b9aae58cfa04f3973e272c8177179d1f8a54f63c037aea0210')
+sha512sums=('09f84bdf5ea415a55baf6a57dba2889cdf592005d273335029107ea3f83152447b3263cd190810930aae41af22dd508e765e649da3c8a9afa127db1d298bb72a')

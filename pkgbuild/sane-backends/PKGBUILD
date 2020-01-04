@@ -1,5 +1,5 @@
 pkgname=sane-backends
-pkgver=1.0.27
+pkgver=1.0.28
 pkgrel=1
 pkgdesc="Scanner Access Now Easy"
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="http://www.sane-project.org/"
 license=('GPL')
 #depends=()
 backup=(etc/sane.d/dll.conf)
-source=("http://fossies.org/linux/misc/sane-backends-${pkgver}.tar.gz"
+source=("https://gitlab.com/sane-project/backends/uploads/9e718daff347826f4cfe21126c8d5091/sane-backends-${pkgver}.tar.gz"
 	"sane-backends.sysusers")
 
 build() {
@@ -33,5 +33,5 @@ package() {
 	install -v -Dm644 "${srcdir}/sane-backends.sysusers" "${pkgdir}/usr/lib/sysusers.d/sane-backends.conf"
 }
 
-sha512sums=('c6552768bfc10216730fc11011c82f74ca0952182019ded3916072147ec09be5c975ce1d37dc3ccea050c488dbdf983c2ca17dcd702644060ba796ae2591f9c5'
+sha512sums=('84607739cea28c31f9a2f21df583c3d9f3ad1e7e87ad54fb8af8103450b22d2de6cf1670563eaa8310750491f840b377a2ca42c5eaee45aaec500a0a6792b3af'
             '0ea7d0937be75e086a93e64dceb8cd0d60f0150eda488a716c38cb0c78918ab0ab0b64385c2ad9155694a15f596d746242b048494218765d7bbf4a73603c63f9')

@@ -1,5 +1,5 @@
 pkgname=tidy-html5
-pkgver=5.6.0
+pkgver=5.7.28
 pkgrel=1
 pkgdesc="A tool to tidy down your HTML code to a clean style"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('179088a6dbd29bb0e4f0219222f755b186145495f7414f6d0e178803ab67140391283d35352d946f9790c6b1b5b462ee6e24f1cc84f19391cb9b65e73979ffd1')
+sha512sums=('557cae0c00d581c9272649e0b3c143b70bc1941a59c497dd0b7266d70b3b2ff652dea075a855737d2d02ea58bb57d9403d61287c1ae40ec0281e7801991b57d7')

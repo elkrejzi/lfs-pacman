@@ -1,5 +1,5 @@
 pkgname=libbytesize
-pkgver=1.4
+pkgver=2.1
 pkgrel=1
 pkgdesc="A tiny library providing a C class for working with arbitrary big sizes in bytes"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('54aba1f605ad662ff525c47206e8342e727c807692225361f1fa8d6a66c00f2740fc3d3672978eec2806227d85f146034042a9808e458d8d6271a08934032959')
+sha512sums=('6b93d877e921820c19ed6874a36d9f8b6958112f6230f24980e8e6e30570b39ce74594f0ef126f70dc81b5434899c1f0f3ad0925f3ff7b6a596a9329c8f106c8')

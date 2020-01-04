@@ -1,5 +1,5 @@
 pkgname=texlive-bin
-pkgver=20180414
+pkgver=20190410
 pkgrel=1
 pkgdesc="TeX Live distribution"
 arch=('x86_64')
@@ -8,12 +8,13 @@ license=('GPL')
 #depends=()
 install=texlive.install
 source=("ftp://tug.org/texlive/historic/${pkgver:0:4}/texlive-${pkgver}-source.tar.xz"
-	"ftp://tug.org/texlive/historic/${pkgver:0:4}/texlive-${pkgver}-extra.tar.xz"
-	"texlive-poppler.patch")
+	"ftp://tug.org/texlive/historic/${pkgver:0:4}/texlive-${pkgver}-extra.tar.xz")
 noextract=("texlive-${pkgver}-extra.tar.xz")
 
 prepare() {
 	cd "${srcdir}/texlive-${pkgver}-source"
+
+	sed -i "s#have_libgs#HAVE_LIBGS#g" texk/dvisvgm/configure
 
 	#patch -Np1 -i "${srcdir}/texlive-poppler.patch"
 
@@ -30,7 +31,7 @@ build() {
 	#export CXX="${CXX} -std=c++11"
 
 	# An ugly hack, to avoid future rebuilds when bumping poppler
-	export LDFLAGS="-Wl,-rpath,/usr/lib/texlive-poppler"
+	# export LDFLAGS="-Wl,-rpath,/usr/lib/texlive-poppler"
 
 	../configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -50,7 +51,6 @@ build() {
 		--with-system-graphite2 \
 		--with-system-harfbuzz \
 		--with-system-icu \
-		--with-system-kpathsea \
 		--with-system-libpaper \
 		--with-system-libpng \
 		--with-system-mpfr \
@@ -76,10 +76,9 @@ package() {
 	rm -rf "${pkgdir}/usr/share/texmf-dist"
 
 	# Add current libpoppler.so
-	install -v -dm755 "${pkgdir}/usr/lib/texlive-poppler"
-	cp -rv /usr/lib/libpoppler.so.* "${pkgdir}/usr/lib/texlive-poppler"
+	#install -v -dm755 "${pkgdir}/usr/lib/texlive-poppler"
+	#cp -rv /usr/lib/libpoppler.so.* "${pkgdir}/usr/lib/texlive-poppler"
 }
 
-sha512sums=('ecac9b8203d2747be7ba7f82d68096d859fb35713276106d7049035dd3a8cfca07f8a8648982f0317b3812f8480db7326714de32f95998e3e6f73571de2aa140'
-            'd8d33208ce4e74dcae45d9c91805399d2c226e2ba0f9387bb18e791021bbe5d8e9e676254e3d10b5919f338b5e88ad8c5c64733b43934411a85453f41924e1cc'
-            '3a2f466a0e82d14aa977faa71ca03594b4544c4c103e76e345f8f86efe3329d4d180b4d1c98e5eba6675057e217b9fc5e7eab6b942f920c9da3b481041039361')
+sha512sums=('7759d8e668e53c0c73e48907096da9d8fb6384dd9c3342ddfb05e17d077054c5351d35256cf4e63a6da502de2f09f521979bede7209cdd5bd8ae80eba0efed2e'
+            '528030c5d5ae48daf2bb7a0f0ac602372cec8c6489786a210122e304f140b231e0b91569e2e562d1331aa5eedc93c7c1d94eaa2233b7476d390641a748a723d2')

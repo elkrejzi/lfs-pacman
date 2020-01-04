@@ -1,5 +1,5 @@
 pkgname=udisks
-pkgver=2.8.2
+pkgver=2.8.4
 pkgrel=1
 pkgdesc="Disk Management Service"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('dc0087ed2d3ab71dc66f63f868a6e2cd0e4e7578c40b2240739cecaffd6f50f5a2cecfc7ef7df9304e291d84ab12f59a940b9fb42b34a5a60d12061e6aaffc1a')
+sha512sums=('70860e5ca9ac73d442ca67f0e0429ce2f33575d8f64945fbf06d1694b080c8b6fed8d65b2485eff0ab66eab59cdebeb9309424820a2ee82c5faaa38029e15e6c')

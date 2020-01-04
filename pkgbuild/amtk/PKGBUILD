@@ -1,5 +1,5 @@
 pkgname=amtk
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Actions, Menus and Toolbars Kit for GTK+ applications"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('86433a7b314bfbdd00cd53a7223561645b0ebd40ec519f97b61e8df073b88c76425182ad71a49794090a51eddf68b81f4c7d88c4bf6a618311aa92908f5bea73')
+sha512sums=('21c581b9ea44bc6e9c13d5c9e6298b55a0f28b1943fab1943d2a8b53a9b82f8c29a983f73e5a4a66a16912645ff8c29023490380d6e6c3de157b9c35f56a4e00')

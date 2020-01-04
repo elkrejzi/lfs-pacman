@@ -1,5 +1,5 @@
 pkgname=colord-gtk
-pkgver=0.1.26
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Additional GTK support code for colord"
 arch=('x86_64')
@@ -11,17 +11,22 @@ source=("https://www.freedesktop.org/software/colord/releases/colord-gtk-${pkgve
 build() {
 	cd "${srcdir}/colord-gtk-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--enable-vala
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddoc=true \
+		-Dtests=false \
+		-Dvapi=true \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/colord-gtk-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('14f59110e2bc100c542323a68566102e9fb5ab44b679da21bf29101960dae38e646e926d884e14f1838a5991e6ebe15af72d5338723265868eadd5f026545c3d')
+sha512sums=('797eebfd4451fcae4cf70835f5de3d9bdc9e8401ddb82a2fef2310002f28bf523b599c587ff35eb89ceff38a245a6311129ad90b107f837ac4f42f268c9aad97')

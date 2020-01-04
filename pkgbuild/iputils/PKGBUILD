@@ -1,5 +1,5 @@
 pkgname=iputils
-pkgver=20190324
+pkgver=20190709
 pkgrel=1
 pkgdesc="Network monitoring tools, including ping"
 arch=('x86_64')
@@ -42,4 +42,4 @@ package() {
 	ln -sfv tracepath.8 "${pkgdir}/usr/share/man/man8/tracepath6.8"
 }
 
-sha512sums=('eeb7e34a279be1ff3e1f81446fef5dfc679654be7b9c4a81538355339d452ee69d738c54ac0be744c9264d8adb9eaf9eae13d7104d1c23fa5659f08c4e3089b6')
+sha512sums=('5db18ac49fa46ed810da4d508e78f4baf2d5c07e7f923eb49d005ad8745743d8861e5788b34a7e37fb7261cee7ddfb768b737eee9d200502ea53537142cac6b5')

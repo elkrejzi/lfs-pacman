@@ -1,10 +1,10 @@
 pkgname=sudo
-_pkgver=1.8.27
+_pkgver=1.8.30
 pkgver=${_pkgver/p/.p}
 pkgrel=1
 pkgdesc="Give certain users the ability to run some commands as root"
 arch=('x86_64')
-url="https://www.sudo.ws/sudo/"
+url="https://www.sudo.ws/"
 license=('custom')
 #depends=()
 options=(emptydirs)
@@ -38,5 +38,5 @@ package() {
 	install -v -Dm644 "${srcdir}/sudo.pam" "${pkgdir}/etc/pam.d/sudo"
 }
 
-sha512sums=('0480def650ab880ab9e6c51c606a06897fd638f0381e99c038f5aa47d064aaa2fb35b73eee7f86e73185e18d5dbb8b6ba49c616b1785a1edb2dd6d7b2fa4fcac'
+sha512sums=('d44831feabd92d736614239e0e0f086829d84b213c98524fffb4b926a96715b1156538a7ab5e0b6e0db8be67a6e24a1642b3648105b076d23b58c39d0dd947af'
             'a8c8ae1d8c500bcbefd48109af1b28932d17cec83ffcca9b04e2cd827c011c68106fddd7a1066b6f89927f9195286d60ab771d4006dd08e446d99c709741b8a9')

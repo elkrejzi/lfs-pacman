@@ -1,5 +1,5 @@
 pkgname=google-chrome
-pkgver=73.0.3683.103
+pkgver=79.0.3945.88
 pkgrel=1
 pkgdesc="An attempt at creating a safer, faster, and more stable browser "
 arch=('x86_64')
@@ -25,14 +25,14 @@ package() {
 	rm -rf opt/google/chrome/product_logo_32.xpm
 	rm -rf opt/google/chrome/xdg-*
 
-	for s in 16 22 24 32 48 64 128 256
+	for s in 16 24 32 48 64 128 256
 	do
 		install -v -Dm644 opt/google/chrome/product_logo_${s}.png "${pkgdir}/usr/share/icons/hicolor/${s}x${s}/apps/google-chrome.png"
 		rm -rf opt/google/chrome/product_logo_${s}.png
 	done
 
 	mv -v usr/bin "${pkgdir}/usr"
-	mv -v usr/share/{applications,gnome-control-center,man} "${pkgdir}/usr/share"
+	mv -v usr/share/{appdata,applications,gnome-control-center,man} "${pkgdir}/usr/share"
 	mv -v opt "${pkgdir}"
 
 	ln -sfv google-chrome-stable "${pkgdir}/usr/bin/google-chrome"

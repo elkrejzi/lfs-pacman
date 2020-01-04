@@ -1,12 +1,12 @@
 pkgname=bogofilter
-pkgver=1.2.4
+pkgver=1.2.5
 pkgrel=1
 pkgdesc="A fast Bayesian spam filtering tool"
 arch=('x86_64')
 url="http://bogofilter.sourceforge.net"
 license=('GPL3')
 #depends=()
-source=("https://downloads.sourceforge.net/bogofilter/bogofilter-${pkgver}.tar.bz2")
+source=("https://downloads.sourceforge.net/bogofilter/bogofilter-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/bogofilter-${pkgver}"
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e8c0b6bcc14f12fbbb2752e697a6d9065e17abfca3f70045ce9fe668d01c1cfad4adaa35c81546ecdd3639b0c28f3f4776bb5ed4699f21e9e2a5b19ca33479db')
+sha512sums=('3a7280485cfe5802dd3e9721c153f88ccf28bff7a6a24590e985e860d1f1e0ddea7bde8a8e5ad1ff643e94c9fd7b26b2a5ed5a9fb991cee3fd5b0ce67ce9abfe')

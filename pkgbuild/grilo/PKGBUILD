@@ -1,15 +1,20 @@
 pkgname=grilo
-pkgver=0.3.7
+pkgver=0.3.10
 pkgrel=1
 pkgdesc="Framework that provides access to various sources of multimedia content"
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/Grilo"
 license=('LGPL')
 #depends=()
-source=("https://download.gnome.org/sources/grilo/${pkgver:0:3}/grilo-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/grilo/${pkgver:0:3}/grilo-${pkgver}.tar.xz"
+	"totem-pl-parser.patch::https://gitlab.gnome.org/GNOME/grilo/commit/60d135ef64f16671bb0ab4079ecbc59bdc32cbc7.patch")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
+
+	cd "${srcdir}/grilo-${pkgver}"
+
+	patch -Np1 -i "${srcdir}/totem-pl-parser.patch"
 }
 
 build() {
@@ -31,4 +36,5 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('82c41d63edc23c056e189a73b0de87db342bba575d42efeda78ed4bf78fb8994111a2e9457e6f2453045b9b7b2d171b9e89d71c3a107cfa06af24644d9cb71df')
+sha512sums=('c08780f1a8e778dcba0342fd924f6b573ce1e42162f25439c29a34a01bf2e24c3335317c10cc61301f3263b0a01ccfce74c80eb6c5cc02da58a1ec3eaf3a0a1a'
+            'd90c7a6243cd1b068c0426607dcbe70280daa318aae8855d853fcbdf47447c2c4372ba379a89319d6b79d0785720e70e51d197ef4afb053e00de16afa0d00f7a')

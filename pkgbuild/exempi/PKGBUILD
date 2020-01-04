@@ -1,5 +1,5 @@
 pkgname=exempi
-pkgver=2.5.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="A library to parse XMP metadata"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1d042ffe3c3daadf937c4938e7892d52c4835275065e159f7991ddc9f533424fb6cd7d607600c3381440020db9dfa06af5ae15168d7a8012358fa5c8ac453bba')
+sha512sums=('97f2a688e1f92e219d0b68b077608112373cf3e6cbfe4141bbb9c3d1f416926bfd568957c1d0a081b95b524cbd500da0b7bca0ce45e1e8611818f66bcb1b6518')

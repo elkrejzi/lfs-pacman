@@ -1,5 +1,5 @@
 pkgname=libgsf
-pkgver=1.14.45
+pkgver=1.14.46
 pkgrel=1
 pkgdesc="An extensible I/O abstraction library for dealing with structured file formats"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2e993150b6fec336a14fd85d5c631e4a3b43187039dab0cba3b8badf62873f39814392db92bb737b92aa9a6d8b4ba41f1fb248c1fe07b88cddd28ded5e4d9ebd')
+sha512sums=('130331f63d48455cc2ce60756e2ac703f8a7f5fa8f1243d9d9321fb87e01bf1d616d085d100a3e5d1cf34fb851ffb77bc642aff6c674ace167b9aa117f4fb1b0')

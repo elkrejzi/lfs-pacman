@@ -1,5 +1,5 @@
 pkgname=libgdata
-pkgver=0.17.9
+pkgver=0.17.11
 pkgrel=1
 pkgdesc="GLib-based library for accessing online service APIs using the GData protocol"
 arch=('x86_64')
@@ -11,15 +11,23 @@ source=("https://download.gnome.org/sources/libgdata/${pkgver:0:4}/libgdata-${pk
 build() {
 	cd "${srcdir}/libgdata-${pkgver}"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dalways_build_tests=false \
+		-Dinstalled_tests=false \
+		-Dman=true \
+		-Dgtk_doc=true \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/libgdata-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('90289309cbdc4ec6932bf385ddbfcc75c0c2f8b9ca356329298aaa37f6c3db7a16de20e5c947c16c595e43e729a664e4d6d3e2c5a60bb1e463a13d1306f374ce')
+sha512sums=('5abb00e6ebee1010fb6d9eab675e03d94883cac88e42b403a7d750bff73d65d0b35aae5c9e8f17a182819193b4a049ac7e9fc644ad9fa79872924ed5704c8982')

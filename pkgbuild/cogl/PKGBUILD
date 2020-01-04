@@ -1,5 +1,5 @@
 pkgname=cogl
-pkgver=1.22.2
+pkgver=1.22.4
 pkgrel=1
 pkgdesc="An object oriented GL/GLES Abstraction/Utility Layer"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2ec99f5ff22683d12925b9a1f748387b47c4506aaf3c5afec851b3b6fe6b7cdfd211fb7e4359bd7a1d1b7cb3cb7fbd257efbcb7d2941d0f133a60bad1c9645e3')
+sha512sums=('85f3af49c16dd2e545a3b91c076ac10107a4b9d0dc785cefe489e91eabdd82837f732685f1f0dca1695fc2f8095f42d5f30f145b659eb4295964787f06c1e37a')

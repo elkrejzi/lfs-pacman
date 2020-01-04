@@ -1,5 +1,5 @@
 pkgname=gspell
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="a flexible API to implement the spell checking in a GTK+ application"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ae94f46c7bdcdeefa0279cd4ac3c50e53b63092016e298ef6b502c40c2574a2135c503ab322f5a3a7b8b4422fdec291a6ed0c937683a8c0f32d7ad474cc1569b')
+sha512sums=('220bdec2b8229e848960e5e31bda1209dedac232637d3e6d4931ca2552054fbdf3f576d52f3d5a7ac734e6e626f2fcc7cefd0bff906b29ba9930cef791906c32')

@@ -1,12 +1,12 @@
 pkgname=valgrind
-pkgver=3.14.0
+pkgver=3.15.0
 pkgrel=1
 pkgdesc="A tool to help find memory-management problems in programs"
 arch=('x86_64')
 url="http://valgrind.org/"
 license=('GPL')
 #depends=()
-source=("ftp://sourceware.org/pub/valgrind/valgrind-${pkgver}.tar.bz2")
+source=("https://sourceware.org/ftp/valgrind/valgrind-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/valgrind-${pkgver}"
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('68e548c42df31dc2b883a403e0faff7480c49b3054841870f5d2f742141ba199eca5d83c96bbf283115f0633f2bdb0860161d422f98e3ec720ec65760d250f97')
+sha512sums=('5695d1355226fb63b0c80809ed43bb077b6eed4d427792d9d7ed944c38b557a84fe3c783517b921e32f161228e10e4625bea0550faa4685872bb4454450cfa7f')

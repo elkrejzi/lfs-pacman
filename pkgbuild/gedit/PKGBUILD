@@ -1,5 +1,5 @@
 pkgname=gedit
-pkgver=3.32.0
+pkgver=3.34.1
 pkgrel=1
 pkgdesc="GNOME Text Editor"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('f25ed05f5d3b7ab7711be32c6516479c8b515d6d5983e3bc3a00407740fb8ec42b1e9a3005473671fc144f4437b9e98355a3669210eefb5bf8288f171188f387')
+sha512sums=('22968c678a2f7ecf062f490d5eedc97aaa53b15932db801ea83eb336f01f41e7a6037a85508a40164f38dee406f8db097b7ef6f1481ab44ea82668766d24966d')

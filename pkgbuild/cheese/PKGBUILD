@@ -1,5 +1,5 @@
 pkgname=cheese
-pkgver=3.32.1
+pkgver=3.34.0
 pkgrel=1
 pkgdesc="Take photos and videos with your webcam, with fun graphical effects"
 arch=('x86_64')
@@ -11,19 +11,20 @@ source=("https://download.gnome.org/sources/cheese/${pkgver:0:4}/cheese-${pkgver
 build() {
 	cd "${srcdir}/cheese-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-compile-warnings \
-		--disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/cheese-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('bdd0ae72e3df596d19ad467dc0222a49b028f2ad8c285d55360813624ca2dac1956463cfd9cea4f2a6ff123070966544cd7254ee2891e973dca42d07061a6c94')
+sha512sums=('093b4e5f7f15fd0c445fffd254d4a5035a4e3e91bacccdeeda64a4a7182901646daea5c8596c954a67896f9aaf37dab2309c21e8f026583f59d787a2c1e4c200')

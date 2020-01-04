@@ -1,5 +1,5 @@
 pkgname=evince
-pkgver=3.32.0
+pkgver=3.34.2
 pkgrel=1
 pkgdesc="Document viewer (PDF, Postscript, djvu, tiff, dvi, XPS, SyncTex support with gedit, comics books (cbr,cbz,cb7 and cbt))"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('565298a200d9ae2f6b4cb53c3cba0d0d0e4cfbef60e4145bfb9c82a5682947ceb2371e52c27179cd69a238cd387bcfd744d3c55df814b6347f07781aec3ea658')
+sha512sums=('51bfa4671e17a98c536790185ece6f4f77b956062901f840cd298cdc3e42eb7e8cabe9bfa84387f185cdf7462a322ef54bbc463b988a677af68561e55acd9f12')

@@ -1,5 +1,5 @@
 pkgname=gnome-video-effects
-pkgver=0.4.3
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="Collection of GStreamer effects for GNOME"
 arch=('x86_64')
@@ -11,17 +11,19 @@ source=("https://download.gnome.org/sources/gnome-video-effects/${pkgver:0:3}/gn
 build() {
 	cd "${srcdir}/gnome-video-effects-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gnome-video-effects-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('5cf708f7deea4edd5d80cd838a78a7b539cb87504f55bfda1686bbe0136ee0eba20885ab8cd2a880ad0c825bf5ca972b0f612a579016eace736b790d7bdd10d3')
+sha512sums=('48d68984913e6732a097b4f235671ecb3442945ec843accfae4b4526ecd27641831a847ea193ac1e13a452700c4a76fa15fa84c2293cbaf7b1b2f4d1b85487ce')
