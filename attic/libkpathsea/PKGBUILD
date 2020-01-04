@@ -1,5 +1,5 @@
 pkgname=libkpathsea
-pkgver=20180414
+pkgver=20190410
 pkgrel=1
 pkgdesc="Path search library for TeX"
 arch=('x86_64')
@@ -33,4 +33,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ecac9b8203d2747be7ba7f82d68096d859fb35713276106d7049035dd3a8cfca07f8a8648982f0317b3812f8480db7326714de32f95998e3e6f73571de2aa140')
+sha512sums=('7759d8e668e53c0c73e48907096da9d8fb6384dd9c3342ddfb05e17d077054c5351d35256cf4e63a6da502de2f09f521979bede7209cdd5bd8ae80eba0efed2e')

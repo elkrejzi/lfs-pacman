@@ -53,13 +53,6 @@ ln -sf bash ${LFS}/usr/bin/sh
 
 cp -L /etc/resolv.conf ${LFS}/etc/resolv.conf
 
-if [ "$(hostname)" == "krejzi" ]
-then
-	install -dm755 ${LFS}/media/ntfs
-	install -m644 /media/ntfs/chromium-api.sh ${LFS}/media/ntfs
-	install -m644 /media/ntfs/*-api.key ${LFS}/media/ntfs
-fi
-
 PKGS=(linux-api-headers
 glibc
 rpcsvc-proto
@@ -68,6 +61,8 @@ pkg-config
 libtirpc
 libnsl
 libnss_nis
+bzip2
+xz
 zlib
 file
 m4
@@ -80,8 +75,6 @@ mpfr
 mpc
 ncurses
 readline
-bzip2
-xz
 pcre
 pcre2
 libatomic_ops
@@ -185,6 +178,7 @@ python-cssselect
 python-future
 python-idna
 python-imagesize
+python-markdown
 python-markupsafe
 python-packaging
 python-ply
@@ -210,7 +204,6 @@ python-sphinxcontrib-jsmath
 python-sphinxcontrib-qthelp
 python-sphinxcontrib-serializinghtml
 python-recommonmark
-elfutils
 gtk-doc
 glib
 libcroco
@@ -249,6 +242,7 @@ ninja
 pixman
 swig
 cmake
+elfutils
 meson
 clang-runtime
 llvm
@@ -333,8 +327,6 @@ dbus
 dbus-glib
 dbus-python
 htop
-iucode-tool
-intel-ucode
 lsb-release
 man-pages
 nasm
@@ -387,14 +379,20 @@ shared-mime-info
 atk
 gdk-pixbuf
 pango
+brotli
+jansson
 librsvg
 links
+lmdb
+talloc
+tdb
+tevent
 xdg-utils
+ldb
 libdaemon
 libgusb
 libpaper
 libsass
-js52
 js60
 polkit
 sassc
@@ -405,12 +403,15 @@ gtk2
 libepoxy
 libevdev
 mtdev
-libwacom
-libinput
-at-spi2-core
-at-spi2-atk
+samba
 json-glib
 libsoup
+libwacom
+geocode-glib
+libinput
+rest
+at-spi2-core
+at-spi2-atk
 gcab
 gtk3
 adwaita-icon-theme
@@ -471,12 +472,7 @@ pygobject
 unicode-character-database
 unicode-emoji
 ibus
-talloc
-tdb
-tevent
-ldb
 fftw
-jansson
 libmbim
 libndp
 libnl
@@ -486,6 +482,8 @@ libqmi
 libteam
 newt
 dhcp
+media-player-info
+mobile-broadband-provider-info
 modemmanager
 ppp
 wpa_supplicant
@@ -508,6 +506,8 @@ soxr
 webrtc-audio-processing
 pulseaudio
 alsa-plugins
+alsa-topology-conf
+alsa-ucm-conf
 alsa-utils
 gstreamer
 gst-plugins-base
@@ -515,7 +515,6 @@ clinfo
 intel-vaapi-driver
 libvdpau-va-gl
 mesa-demos
-weston
 aspell
 hunspell
 hyphen
@@ -529,6 +528,7 @@ libproxy
 libvpx
 startup-notification
 wireless_tools
+woff2
 aspell-en
 aspell-hr
 hunspell-en
@@ -550,7 +550,6 @@ fonts-opendesktop
 fonts-scheherazade
 fonts-vlgothic
 dmz-cursor-theme
-mime-types
 glib-networking
 qtbase
 qtscript
@@ -565,23 +564,21 @@ qtsensors
 qttools
 qtwebchannel
 qtwebkit
-samba
 djvulibre
 ijs
-ilmbase
 libexif
 libgd
 libieee1284
 libraw
 libssh
 net-snmp
+openexr
 openjpeg
 qpdf
 exiv2
 ghostscript
 libgphoto2
 mupdf
-openexr
 poppler
 graphviz
 imagemagick
@@ -593,7 +590,9 @@ libdvdnav
 libdvdcss
 v4l-utils
 chromaprint
+dav1d
 fdk-aac
+ffnv-codec-headers
 lame
 libass
 libbluray
@@ -621,11 +620,13 @@ gst-plugins-bad
 gst-plugins-ugly
 gst-libav
 gstreamer-vaapi
-webkitgtk
+bubblewrap
 gcr
+libwpe
 pinentry
-media-player-info
-mobile-broadband-provider-info
+wpebackend-fdo
+xdg-dbus-proxy
+webkitgtk
 c-ares
 cups-filters
 cups-pk-helper
@@ -634,11 +635,9 @@ exempi
 gptfdisk
 gsl
 gtkspell3
-http-parser
 libatasmart
 libbytesize
 libgsf
-libkpathsea
 liboauth
 libpwquality
 libspectre
@@ -660,18 +659,18 @@ doxygen
 hplip
 libblockdev
 libpst
-nodejs
 pipewire
+texlive-texmf
+texlive-bin
 udisks
 upower
 google-chrome
 bind
 openssh
 rtkit
+weston
 cogl
-geocode-glib
 gmime
-rest
 telepathy-glib
 amtk
 clutter
@@ -684,7 +683,6 @@ gnome-menus
 gnome-online-accounts
 gnome-video-effects
 gspell
-gtksourceview
 gtksourceview4
 libgee
 libgtop
@@ -699,7 +697,6 @@ totem-pl-parser
 tracker
 uhttpmock
 vte
-vte2
 yelp-xsl
 zenity
 accountsservice
@@ -771,8 +768,6 @@ traceroute
 unrar
 valgrind
 whois
-texlive-texmf
-texlive-bin
 dblatex
 teamviewer
 viber
