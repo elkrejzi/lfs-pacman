@@ -9,6 +9,10 @@ license=('LGPL')
 source=("https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-${pkgver}.tar.bz2")
 
 prepare() {
+	cd "${srcdir}/libgpg-error-${pkgver}"
+
+	sed -i 's/namespace/pkg_&/' src/Makefile.{am,in} src/mkstrtable.awk
+
 	cp -a "${srcdir}"/libgpg-error{,32}-${pkgver}
 }
 

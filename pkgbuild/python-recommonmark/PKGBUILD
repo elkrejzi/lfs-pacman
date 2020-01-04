@@ -1,6 +1,6 @@
 pkgbase=python-recommonmark
 pkgname=('python2-recommonmark' 'python3-recommonmark')
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="Markdown parser for docutils"
 arch=('x86_64')
@@ -40,4 +40,4 @@ package_python2-recommonmark() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('581b3492e082ab4f0a53e50df0c9cfa3badda7ba9ee28dadbea85c55de96304257790e6aa06ebc793fba1d9ac399ce470fe821492106150b3a0db10dc734ee4b')
+sha512sums=('f94f1ee426015478a95c2ed4b6ea87a75012447ae65d6623445f923d9d616b34efb055bcfde157862fcce38749c827905b839194fa1af3a1fe1cb7e11f18835a')

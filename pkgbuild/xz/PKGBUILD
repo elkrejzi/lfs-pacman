@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://tukaani.org/xz/"
 license=('GPL' 'LGPL' 'custom')
 #depends=()
-source=("http://tukaani.org/xz/xz-${pkgver}.tar.xz")
+source=("https://tukaani.org/xz/xz-${pkgver}.tar.xz")
 
 prepare() {
 	cp -a "${srcdir}"/xz{,32}-${pkgver}

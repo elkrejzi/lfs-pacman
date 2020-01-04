@@ -1,5 +1,5 @@
 pkgname=libevent
-pkgver=2.1.8
+pkgver=2.1.11
 pkgrel=1
 pkgdesc="An event notification library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a2fd3dd111e73634e4aeb1b29d06e420b15c024d7b47778883b5f8a4ff320b5057a8164c6d50b53bd196c79d572ce2639fe6265e03a93304b09c22b41e4c2a17')
+sha512sums=('9d0517b117f128f4f196b19a810524814bab75fa967d533063aaa619d3cf2dca97b443edd5805b764da2993d8e37caa536dce39f68ffcc2a88d32a89204c2de3')

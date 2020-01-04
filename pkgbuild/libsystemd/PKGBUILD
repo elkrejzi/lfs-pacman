@@ -1,6 +1,6 @@
 pkgbase=libsystemd
 pkgname=('libsystemd' 'lib32-libsystemd')
-pkgver=242
+pkgver=244
 pkgrel=1
 arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
@@ -108,4 +108,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32/lib{systemd,udev}.so* "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('578f68a3c8f2d454198fc04ff8d943abcfb390531d57f9603d185857f7afa7f4dc641dafecf49ce50fe22f5837b252b181400891e8efd4459fd4f69bb4283cb4')
+sha512sums=('08f260fb15b5eb273faafda826dd9154e9a02841b4c5911cc1c7e1445072ad51389f8cced7b9acf112737c20fd56b2fbf48b3f914733c934c774d38a23b616fb')

@@ -1,12 +1,12 @@
 pkgbase=harfbuzz
 pkgname=('harfbuzz' 'lib32-harfbuzz')
-pkgver=2.4.0
+pkgver=2.6.4
 pkgrel=1
 arch=('x86_64')
 url="http://www.freedesktop.org/wiki/Software/HarfBuzz"
 license=('MIT')
 #depends=()
-source=("https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-${pkgver}.tar.bz2")
+source=("https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-${pkgver}.tar.xz")
 
 prepare() {
 	cp -a "${srcdir}"/harfbuzz{,32}-${pkgver}
@@ -59,4 +59,4 @@ package_lib32-harfbuzz() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('daeaf029bd5d0d0674f930a8d0dcdc4e0b1253b2369c732c7b4fd130ab9438d0d9526967224a583ee58974c3b492874acaccdac13c71b58c950f0b3f031e505c')
+sha512sums=('d8664bb64fda11ff7646693070637e3827f8b3d1de50e11ecf108ce4d19c878b26b2ba4cff278da6e6cc0cb431e1630d9eaa7c32a9bebb9655a7aa8dabf7114f')

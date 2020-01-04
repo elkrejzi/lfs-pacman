@@ -1,5 +1,5 @@
 pkgname=texinfo
-pkgver=6.6
+pkgver=6.7
 pkgrel=1
 pkgdesc="GNU documentation system for on-line information and printed output"
 arch=('x86_64')
@@ -28,6 +28,6 @@ package() {
 	install -v -Dm644 "${srcdir}/texinfo-remove.hook" "${pkgdir}/usr/share/libalpm/hooks/texinfo-remove.hook"
 }
 
-sha512sums=('96e0764d0808152d3662e65c3287fb0f86ed918912cdc036380637dbadaacd6a489b516543c07b08105686575e8d495a945f73e23ff0909d5a0f12026e4131e0'
+sha512sums=('da55a0d0a760914386393c5e8e864540265d8550dc576f784781a6d72501918e8afce716ff343e5c2a0ce09cf921bfaf0a48ecb49f6182a7d10e920ae3ea17e7'
             '9e41d028d3eed2fdf3170648677e25a676bb8f5e308dacd62ed61a73aa06f54a90bef73f00faf1b9dd693c99dca9124629d88c371b7aa9018295f3b69d23dcf9'
             '8bc1822a48c66804e53559eed7a99275866b12f16e0a6efbd8b358108f5753432d6afb0a056f4182bcde50e753b06420dea4459edb3a95ee6695ed403f16a461')

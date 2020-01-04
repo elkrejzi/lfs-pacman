@@ -1,5 +1,5 @@
 pkgname=gawk
-pkgver=4.2.1
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="GNU version of awk"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	rm -rf "${pkgdir}/etc"
 }
 
-sha512sums=('0e3006a795dc3ac91359a7d2590c0cccbfd39b18a1d491617d68505c55a2800355b1439050681b4fcacf65fb0d533151a046babe0fd774503037bab363ef2ae4')
+sha512sums=('ff9842a91035f843482d93eac8a35cddf2ce16acaa43a0112c1efff08802aebf705ee70d47eff74a190dca7be330c31f7204ad27cb63bdee65333f9b9c984212')

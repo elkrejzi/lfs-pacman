@@ -1,13 +1,17 @@
-pkgname=linux-firmware
+pkgbase=linux-firmware
+pkgname=('linux-firmware' 'amd-ucode')
 pkgver=4
 pkgrel=1
-pkgdesc="Firmware files for Linux"
 arch=('x86_64')
 url="https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/"
 license=('GPL2' 'GPL3' 'custom')
 #depends=()
 
-firmwares=(amdgpu/topaz_ce.bin
+firmwares=(amd-ucode/microcode_amd.bin
+amd-ucode/microcode_amd_fam15h.bin
+amd-ucode/microcode_amd_fam16h.bin
+amd-ucode/microcode_amd_fam17h.bin
+amdgpu/topaz_ce.bin
 amdgpu/topaz_k_smc.bin
 amdgpu/topaz_mc.bin
 amdgpu/topaz_me.bin
@@ -32,7 +36,18 @@ do
 	source+=("https://git.kernel.org/cgit/linux/kernel/git/firmware/linux-firmware.git/plain/${ff}")
 done
 
-package() {
+build() {
+	mkdir -p kernel/x86/microcode
+	cat microcode_amd*.bin > kernel/x86/microcode/AuthenticAMD.bin
+
+	echo kernel/x86/microcode/AuthenticAMD.bin |
+		bsdtar --uid 0 --gid 0 -cnf - -T - |
+		bsdtar --null -cf - --format=newc @- > amd-ucode.img
+}
+
+package_linux-firmware() {
+	pkgdesc="Firmware files for Linux"
+
 	for ff in ${firmwares[@]}
 	do
 		install -v -Dm644 "${srcdir}"/$(basename ${ff}) "${pkgdir}/usr/lib/firmware/${ff}"
@@ -41,7 +56,17 @@ package() {
 	mv "${pkgdir}/usr/lib/firmware/intel/dsp_fw_release_v3402.bin" "${pkgdir}/usr/lib/firmware/intel/dsp_fw_release.bin"
 }
 
-sha512sums=('b3b58414c405195e7057a4c69041ee0719222ff5ec2d37f7e9109b0217f7ec7f7f997dbda5490f6a776eeec15dcac28e272f2dc4754d9ae3508316b4c31528a2'
+package_amd-ucode() {
+	pkgdesc="Microcode update files for AMD CPUs"
+
+	install -v -Dm644 amd-ucode.img "${pkgdir}/boot/amd-ucode.img"
+}
+
+sha512sums=('a4fe134c50efd1a67dd548f1da28f0ee05a25c0a701e6a0d41b5791b886dd62d63a008d6639bc854dbf0d74f8e1ba3cd50f1b5f23e5a7a523253d401fb23629d'
+            'd8bb935fb642082041e9b2c18c83b21b447ce293cfbe306cbead8e835a187825eba841c3190211ee7235784b5762d88fe4d404dfc2401ca459b16339a3146b40'
+            '31336fb461bab73af9b35e9fdbb24c5423c0b1dfb27a65032f97a5246290a612b5d11954eec2b5e1e62e44392213864f8f7ec8b75be25ca1fb7f4801ecbc50ab'
+            'f69e7f9392ff9932277a5eb7567c3348d8e4c06aeb58bb8d8b9d4c198a0b577487d0e5ad5e11e7eb2f46a4d2c7ef95edaa5bfc0f054bc8b4caa104cb465112da'
+            'b3b58414c405195e7057a4c69041ee0719222ff5ec2d37f7e9109b0217f7ec7f7f997dbda5490f6a776eeec15dcac28e272f2dc4754d9ae3508316b4c31528a2'
             '052ba5b95fe23916e62d7d2dfb782715d55c88d81d4dd865b66a366983d86bbfd7f810715133ebb2686cabe2958f55ecdcd97dbfbbd3625cf7700cc5ce157ad4'
             '25b402222ffba7e5c49122576f92b06ea170f71569ecf3222b4127bfa4216e39fecbf5782556b63d0b4adb05766e0cb519977c0ba3dbe345999bb494e1feaa3f'
             '9d212aa0b341746a21538614f0a0fcdecbcd69d5e3fe7d974a8d034662c79b3ea05d03333f89bf0497a261ca97fe7cd6cdba53c63be077c57e3ae05cf57e9641'
@@ -58,5 +83,5 @@ sha512sums=('b3b58414c405195e7057a4c69041ee0719222ff5ec2d37f7e9109b0217f7ec7f7f9
             'ab87d1d5ff52f3ed688eb80d234d14371f93d1fdfef231007b01c20f2f235a16f697beb4264898f78b1eec421690564767e7844fc2dec7f59e34b22c16195eb4'
             'fc87922da036a046d97bd98f673963fca0065ae6fa44ced171044c6cbae1bc3074cec39b1645a2b6dfe5dde2edba97081e398ae034b64541b6e9ab8e2184f1c3'
             'd211a1a406a6a031222af242f55e99e2af7407b0c12d0ed0ff68e3782a29f61573a5c9f054a449ea3c90a496aaebd780dd23cb6e556d91ad487a3b328c6dca7c'
-            'c694f6307d5bfe074f39f8e9e97dad88ad9023dc07c9083d308de9407c13c4ef57e8c195767a128ea350ae0144140ccd393130e73293a1b15e22f30bf81ab4f5'
+            '081e82ec77524733a170fb0936c62dffba3f4dfd6ed140ec155ea987b9df92f72672837723178b965c017ac7cac3f432ec10793a2574f0799bd114cec4799f6a'
             'fd1eb2c1ddbbdcc16f3f1217764d04b3346992a34f274e8dc34658a1fd9c83d14476afcfa83e5fc216b27f195a670114f526d2e26c00442267aa814a858feff1')

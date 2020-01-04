@@ -1,13 +1,13 @@
 pkgname=iptables
-pkgver=1.8.2
+pkgver=1.8.4
 pkgrel=1
 pkgdesc="Linux kernel packet control tool"
 arch=('x86_64')
-url="http://www.netfilter.org/projects/iptables/index.html"
+url="https://www.netfilter.org/projects/iptables/index.html"
 license=('GPL2')
 #depends=()
 options=(staticlibs)
-source=("http://netfilter.org/projects/iptables/files/iptables-${pkgver}.tar.bz2")
+source=("https://netfilter.org/projects/iptables/files/iptables-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/iptables-${pkgver}"
@@ -27,4 +27,4 @@ package() {
 	ln -sfv ../sbin/xtables-multi "${pkgdir}/usr/bin/iptables-xml"
 }
 
-sha512sums=('8cf0f515764e1dc6e03284581d682d1949b33e8f25fea29c27ae856f1089fe8ca7b1814524b85f4378fd1fc7c7c7d002f06557b257ae2bbc945f8555bad0dc76')
+sha512sums=('a7faaab58608ffaa51e26e8056551c0e91a49187439d30fcf5cce2800274cc3c0515db6cfba0f4c85613fb80779cf96089b8915db0e89161e9980a6384faebdb')

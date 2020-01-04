@@ -1,6 +1,6 @@
 pkgname=linux-api-headers
-_basever=5.0
-pkgver=5.0.7
+_basever=5.4
+pkgver=5.4.6
 pkgrel=1
 pkgdesc="Kernel headers sanitized for use in userspace"
 arch=('x86_64')
@@ -19,18 +19,17 @@ build() {
 	cd "${srcdir}/linux-${_basever}"
 
 	make mrproper
-	make headers_check
+	make headers
+
+	rm -rf usr/include/drm
+	find usr/include \( -name '.*' -o -name Makefile \) -delete
 }
 
 package() {
 	cd "${srcdir}/linux-${_basever}"
-
-	make headers_install INSTALL_HDR_PATH="${pkgdir}/usr"
-
-	rm -rf "${pkgdir}/usr/include/drm"
-
-	find "${pkgdir}/usr/include" \( -name .install -o -name ..install.cmd \) -delete
+	install -dm755 "${pkgdir}/usr/include"
+	cp -r usr/include/* "${pkgdir}/usr/include"
 }
 
-sha512sums=('3fbab70c7b03b1a10e9fa14d1e2e1f550faba4f5792b7699ca006951da74ab86e7d7f19c6a67849ab99343186e7d6f2752cd910d76222213b93c1eab90abf1b0'
-            '301ac04ea4462536a6c5bd4f45f19473b4ad798134b81221fc9d03f86be4b004a2e194ba79b19d4d8c728a5b198a6341ab88b53f8355904a88bd87fc4668dc2e')
+md5sums=('ce9b2d974d27408a61c53a30d3f98fb9'
+         '9f348b83af2fd13db31b7595aded4846')

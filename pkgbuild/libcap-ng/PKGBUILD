@@ -1,12 +1,12 @@
 pkgname=libcap-ng
-pkgver=0.7.9
+pkgver=0.7.10
 pkgrel=1
 pkgdesc="A library making programming with POSIX capabilities easier than traditional libcap"
 arch=('x86_64')
-url="http://people.redhat.com/sgrubb/libcap-ng/"
+url="https://people.redhat.com/sgrubb/libcap-ng/"
 license=('GPL2' 'LGPL2.1')
 #depends=()
-source=("http://people.redhat.com/sgrubb/libcap-ng/libcap-ng-${pkgver}.tar.gz")
+source=("https://people.redhat.com/sgrubb/libcap-ng/libcap-ng-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/libcap-ng-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('095edabaf76a943aab0645b843b14e20b1733ba1d47a8e34d82f6586ca9a1512ba2677d232b13dd3900b913837401bb58bf74481970e967ba19041959dc43259')
+sha512sums=('1b93c7f5c20ae5cc705fe5244af3e299454e988388cda95f006e248d97c0713e77da2a81c67ecf15755f3958df373fc6d1ca14197d6357ab1f2d8c3a0fd12def')

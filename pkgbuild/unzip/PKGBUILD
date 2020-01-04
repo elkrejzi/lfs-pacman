@@ -7,7 +7,7 @@ arch=('x86_64')
 url="http://www.info-zip.org/UnZip.html"
 license=('custom')
 #depends=()
-source=("http://downloads.sourceforge.net/infozip/${pkgname}${_pkgver}.tar.gz"
+source=("https://downloads.sourceforge.net/infozip/${pkgname}${_pkgver}.tar.gz"
 	"unzip-fixes.patch")
 
 export CC=clang

@@ -1,6 +1,6 @@
 pkgbase=python-pyparsing
 pkgname=('python2-pyparsing' 'python3-pyparsing')
-pkgver=2.3.1
+pkgver=2.4.6
 pkgrel=1
 pkgdesc="Python parsing module"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-pyparsing() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('fc8342780c38fd08c07d0b885c4d6c77d59f38098aa13c3abd05a790ee6caf2065a0bdab33bc290a6e2da123f4ac7e38c049e389b740546499dc48eba7ae431f')
+sha512sums=('6c8e7e2ecd633d26eb6a0547fe805b5c5ce459d4ed7ec7a5db1431b563125fdbce0b76dc05a6ff220f26e906d21e70691a008dfed06642a52e962bbbf1d21cd4')

@@ -1,5 +1,5 @@
 pkgname=bluez
-pkgver=5.50
+pkgver=5.52
 pkgrel=1
 pkgdesc="Linux Bluetooth Protocol Stack"
 arch=('x86_64')
@@ -34,4 +34,4 @@ package() {
 	ln -sfv /usr/lib/systemd/user/obex.service "${pkgdir}/usr/lib/systemd/user/dbus-org.bluez.obex.service"
 }
 
-sha512sums=('64a680e4b3c270bc2439610c91ad2aef36131d84401e4bbdf6c2b7ec8708a19dfc942b31b9189c38a97ca072c761c669ae1aace5f4ff5d06de3ccbf33184be45')
+sha512sums=('9024481910d1dee85578bf3d7a4fc4be2bece516e6216c91aa1a7ac18537f092b47c41c4a5506ddd7e279599d58002e98203c5439745c01df4dbc22a75234c84')

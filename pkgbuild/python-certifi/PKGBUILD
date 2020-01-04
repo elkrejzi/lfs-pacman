@@ -1,6 +1,6 @@
 pkgbase=python-certifi
 pkgname=('python2-certifi' 'python3-certifi')
-pkgver=2019.3.9
+pkgver=2019.11.28
 pkgrel=1
 pkgdesc="Python package for providing Mozilla's CA Bundle"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-certifi() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('d86559b0d384f8114245b169391c73d5e6df02ba411cf9706c9d4e5958eeef610b6550bcb5eb519856b8fa25f3f5eb1cea02c0df1f6df72e16da8201732b0dd9')
+sha512sums=('6821444f02db0d9d03ab1891731178af1d7858df3c729f079147a9c588cf97a456e050da3421a0d2a3559145610826669034a8d46cd50b7c76e90249db1b09ad')

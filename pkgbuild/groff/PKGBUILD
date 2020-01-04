@@ -9,6 +9,9 @@ license=('GPL')
 options=(emptydirs)
 source=("https://ftp.gnu.org/gnu/groff/groff-${pkgver}.tar.gz")
 
+export CC="gcc"
+export CXX="g++"
+
 build() {
 	cd "${srcdir}/groff-${pkgver}"
 

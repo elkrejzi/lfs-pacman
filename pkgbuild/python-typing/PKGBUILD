@@ -1,5 +1,5 @@
 pkgname=python2-typing
-pkgver=3.6.6
+pkgver=3.7.4.1
 pkgrel=1
 pkgdesc="Type Hints for Python"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('9baa331a2093276b571f26a21ab6419e85138574109471141eb88ccddb6c30adb6fbda35f11aeb1231adc334191c426c242494b17d593a2b279f09dea1b1f0ca')
+sha512sums=('5f5080bf66b1de094b7984ed3d1de22651de8ca018ffde927dfa67fe65b13f91602a877faa24e73d44558638b609be276b924b894d63999bb93b0657a2d5ec6e')

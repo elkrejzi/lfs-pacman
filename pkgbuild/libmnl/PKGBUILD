@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://www.netfilter.org/projects/libmnl/"
 license=('LGPL2.1')
 #depends=()
-source=("http://netfilter.org/projects/libmnl/files/libmnl-${pkgver}.tar.bz2")
+source=("https://netfilter.org/projects/libmnl/files/libmnl-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/libmnl-${pkgver}"

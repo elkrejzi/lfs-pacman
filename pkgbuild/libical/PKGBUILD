@@ -1,5 +1,5 @@
 pkgname=libical
-pkgver=3.0.4
+pkgver=3.0.7
 pkgrel=1
 pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
 arch=('x86_64')
@@ -18,6 +18,8 @@ build() {
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DGOBJECT_INTROSPECTION=ON \
+		-DICAL_GLIB_VAPI=ON \
 		-DSHARED_ONLY=ON \
 		"${srcdir}/libical-${pkgver}"
 
@@ -30,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('491a1dd0c33bb823a79165eb6e4f86ef048a44642adfe44f8e69c83598b458ddf8e4365b11afc37d0b21bc1367e0a99096fc7887aae29e7ff4e3bd1cdee64dd9')
+sha512sums=('4e1df3fad9c9df795da441243471d05168287519b6155b148b5aa28092ecac687626fa92713b280864a41f6ffc0c7fb43d2770fb1821396cb838e96e76d8d9d8')

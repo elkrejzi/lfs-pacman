@@ -1,6 +1,6 @@
 pkgbase=libxi
 pkgname=('libxi' 'lib32-libxi')
-pkgver=1.7.9
+pkgver=1.7.10
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxi() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('9f1536944fcd232ba725addbc3afb1154c4e0df3c4380f4a54bada31371029ce3714fe0458529cd6b2787e3283f3bd35366420bca15fedfbd41f2f6b10eddce5')
+sha512sums=('591f0860bf5904897587c4990d6c852f3729a212d1ef390362d41242440e078221877c31db2232d5cc81727fe97f4e194b077f7de917e251e60641bbd06ee218')

@@ -1,6 +1,6 @@
 pkgbase=python-commonmark
 pkgname=('python2-commonmark' 'python3-commonmark')
-pkgver=0.8.1
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="Python parser for the CommonMark Markdown spec"
 arch=('x86_64')
@@ -40,4 +40,4 @@ package_python2-commonmark() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('dbab51d45c1973a8d0906148d785fb8ddc2b52177dfe0e69fe79bef2a5eb05a5a7ab8693852f4aaa8545af19d741569d04a24f06ea65171e6e80d9f66af47fdf')
+sha512sums=('bacf5ef387a0c330a2128f42c42c29c1a48ae623683e6e56ad28a1621aabd72e29cd3e2d661e8207b8cc0c347d267f262a55f2145fc58f8c8aeff91e7a283324')

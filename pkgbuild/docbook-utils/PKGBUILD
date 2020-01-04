@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://www.sourceware.org/docbook-tools/"
 license=('GPL2')
 #depends=()
-source=("ftp://sourceware.org/pub/docbook-tools/new-trials/SOURCES/docbook-utils-${pkgver}.tar.gz"
+source=("https://sourceware.org/ftp/docbook-tools/new-trials/SOURCES/docbook-utils-${pkgver}.tar.gz"
 	"docbook-utils.patch")
 
 prepare() {

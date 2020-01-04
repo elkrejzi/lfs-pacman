@@ -7,8 +7,11 @@ arch=('x86_64')
 url="http://www.mpfr.org/"
 license=('LGPL')
 #depends=()
-source=("http://www.mpfr.org/mpfr-current/mpfr-${_basever}.tar.xz")
-#	"mpfr-cumulative.patch::http://www.mpfr.org/mpfr-current/allpatches")
+source=("http://mpfr.org/mpfr-current/mpfr-${_basever}.tar.xz")
+#	"mpfr-cumulative.patch::http://mpfr.org/mpfr-current/allpatches")
+
+export CC="gcc"
+export CXX="g++"
 
 prepare() {
 	cd "${srcdir}/mpfr-${_basever}"
@@ -18,9 +21,6 @@ prepare() {
 
 build() {
 	cd "${srcdir}/mpfr-${_basever}"
-
-	export CC=gcc
-	export CXX=g++
 
 	./configure --prefix=/usr --enable-thread-safe
 

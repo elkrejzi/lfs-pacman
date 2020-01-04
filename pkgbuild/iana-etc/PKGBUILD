@@ -9,7 +9,6 @@ license=('custom:none')
 source=("http://sethwklein.net/iana-etc-${pkgver}.tar.bz2"
 	"iana-etc-fixes.patch")
 
-
 prepare() {
 	cd "${srcdir}/iana-etc-${pkgver}"
 

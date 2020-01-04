@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://rpm5.org"
 license=('custom')
 #depends=()
-source=("http://rpm5.org/files/popt/popt-${pkgver}.tar.gz")
+source=("https://fossies.org/linux/misc/popt-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/popt-${pkgver}"

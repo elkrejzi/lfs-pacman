@@ -1,6 +1,6 @@
 pkgbase=libedit
 pkgname=('libedit' 'lib32-libedit')
-_realver=20181209-3.1
+_realver=20191211-3.1
 pkgver=${_realver/-/+}
 pkgrel=1
 arch=('x86_64')
@@ -58,4 +58,4 @@ package_lib32-libedit() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('7673fb5612149a0d3508a103ac6f92041704911b27fffa084624f835fa6ac55b17c43b6e622ff9eac6ca06368e80ede14d93ec75afb5a368651734b8bfe045d2')
+sha512sums=('8393477a87e65d330b037494110501b5d6d2c1cbe80d82b9bc7a6315a21fd1327fe91354346966d30541015e2c277be2187fa4bb737b14f706957c70f4083547')

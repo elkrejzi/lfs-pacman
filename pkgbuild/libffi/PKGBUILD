@@ -1,12 +1,15 @@
 pkgbase=libffi
 pkgname=('libffi' 'lib32-libffi')
-pkgver=3.2.1
+pkgver=3.3
 pkgrel=1
 arch=('x86_64')
 url="http://sourceware.org/libffi/"
 license=('MIT')
 #depends=()
-source=("ftp://sourceware.org/pub/libffi/libffi-${pkgver}.tar.gz")
+source=("https://sourceware.org/ftp/libffi/libffi-${pkgver}.tar.gz")
+
+export CC="gcc"
+export CXX="g++"
 
 prepare() {
 	cp -a "${srcdir}"/libffi{,32}-${pkgver}
@@ -53,4 +56,4 @@ package_lib32-libffi() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('980ca30a8d76f963fca722432b1fe5af77d7a4e4d2eac5144fbc5374d4c596609a293440573f4294207e1bdd9fda80ad1e1cafb2ffb543df5a275bc3bd546483')
+sha512sums=('61513801a156f11420f541d325de697131846487122d6bdcf5491b18b4da788589f5c0bb07e88e396495d3be5830d74e9135595e2b8ddbfe95c448d8597fbd6f')

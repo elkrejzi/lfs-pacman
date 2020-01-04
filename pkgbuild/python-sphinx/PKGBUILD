@@ -1,5 +1,5 @@
 pkgname=python-sphinx
-pkgver=2.0.1
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="Python documentation generator"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package_python-sphinx() {
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('28430912917a8e3eb6efe6b69268e2a5ae06795c261f2a18ef62f781e365396832c4e4bcfaad7704b1c5f840e98a9dfb82e3b438a491a13cea5c10bee66bf23b')
+sha512sums=('10916d4d173456c485eca97c65b731d9986f3cf6a7773a33e25e38702a2bba069935cf333cc5747fc8b211d2816a0b8c706513db5e9f5b8034ba73a8975ef045')

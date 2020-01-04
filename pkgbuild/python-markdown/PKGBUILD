@@ -1,0 +1,40 @@
+pkgbase=python-markdown
+pkgname=('python2-markdown' 'python3-markdown')
+pkgver=3.1.1
+pkgrel=1
+pkgdesc="A super-fast templating language"
+arch=('x86_64')
+url="https://pypi.python.org/project/Markdown/"
+license=('PSF')
+#depends=()
+source=("https://files.pythonhosted.org/packages/source/M/Markdown/Markdown-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}/Markdown-${pkgver}" "${srcdir}/Markdown-${pkgver}-py2"
+}
+
+build() {
+	cd "${srcdir}/Markdown-${pkgver}"
+
+	python3 setup.py build
+
+	cd "${srcdir}/Markdown-${pkgver}-py2"
+
+	python2 setup.py build
+}
+
+package_python3-markdown() {
+	cd "${srcdir}/Markdown-${pkgver}"
+
+	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	mv "${pkgdir}"/usr/bin/markdown_py{,3}
+}
+
+package_python2-markdown() {
+	cd "${srcdir}/Markdown-${pkgver}-py2"
+
+	python2 setup.py install --root="${pkgdir}" --optimize=1
+}
+
+sha512sums=('78f089f2eef5c73d683ac96fd20c87145e243d12b0f230b9b0228b995035fbb084dde40be788679c63637f05956487ad520cc9dd61d133926bf13521aa600090')

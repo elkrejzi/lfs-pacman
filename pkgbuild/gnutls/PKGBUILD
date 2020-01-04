@@ -1,5 +1,5 @@
 pkgname=gnutls
-pkgver=3.6.7
+pkgver=3.6.11.1
 pkgrel=1
 pkgdesc="A library which provides a secure layer over a reliable transport layer"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/info/*.png "${pkgdir}"/usr/share/info/*guile*
 }
 
-sha512sums=('ae9b8996eb9b7269d28213f0aca3a4a17890ba8d47e3dc3b8e754ab8e2b4251e9412aaaa161a8bf56167f04cc169b4cada46f55a7bde92b955eb36cd717a99f3')
+sha512sums=('55fbbf0ebc824fbc91ccd08d1708452c5b1c12af75e332f29414540eb2f81337fa605a693ce9f34319a927e9d71177e6e7ffea5c6747792d341fb740f68c9489')

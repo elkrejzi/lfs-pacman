@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://directory.fsf.org/project/chrpath/"
 license=('GPL2')
 #depends=()
-source=("http://deb.debian.org/debian/pool/main/c/chrpath/chrpath_${pkgver}.orig.tar.gz")
+source=("http://ftp.debian.org/debian/pool/main/c/chrpath/chrpath_${pkgver}.orig.tar.gz")
 
 build() {
 	cd "${srcdir}/chrpath-${pkgver}"

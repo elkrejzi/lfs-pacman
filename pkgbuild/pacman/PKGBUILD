@@ -1,5 +1,5 @@
 pkgname=pacman
-pkgver=5.1.3
+pkgver=5.2.1
 pkgrel=1
 pkgdesc="A library-based package manager with dependency support"
 arch=('x86_64')
@@ -13,8 +13,7 @@ source=("https://sources.archlinux.org/other/pacman/pacman-${pkgver}.tar.gz"
 prepare() {
 	cd "${srcdir}/pacman-${pkgver}"
 
-	sed -i "s#CPPFLAGS CFLAGS CXXFLAGS LDFLAGS#CC CXX &#" scripts/makepkg.sh.in
-	sed -i "/C*LAGS+=.*DEBUG/s#FLAGS+=#FLAGS=#g" scripts/makepkg.sh.in
+	sed -i "s#CPPFLAGS CFLAGS CXXFLAGS LDFLAGS#CC CXX &#" scripts/libmakepkg/buildenv.sh.in
 }
 
 build() {
@@ -37,5 +36,5 @@ package() {
 	install -v -Dm644 "${srcdir}/makepkg.conf" "${pkgdir}/etc/makepkg.conf"
 }
 
-sha512sums=('b556b6d01d651a675ce1e153ede776e682ca0eb671cd2be00d7b7c602504dd119291f38ef5c318e675b4ce865db7e1c57e0ebc157510f0fc72e656feb8947e54'
-            '15bc4d83d7a8281f684ae94bed74111e07b5b61d7ef12a8773dddcfd007435818f262a6d80e7cef3de08748c11c8f3ec7453f1bd4b2ec697a606503a0102189d')
+sha512sums=('7814420b8d71090313f1bc7d9a513138bda74c5cbcb43d9741acc27ea7b4d180a38848a7d7059969cc7afed1b108d26ba2622a16d8761566357c50a5da456981'
+            '83f321e3edf42ab992aff133384317e442072b748001daee8f9de8053cd0fc00897a2ba315e40c65b2a6362f76b6a42e25a9fb077ae0da747cb7410c71581d6b')

@@ -1,6 +1,6 @@
 pkgbase=clang-runtime
 pkgname=('compiler-rt' 'libcxx' 'lib32-libcxx' 'openmp' 'lib32-openmp')
-_realver=8.0.0
+_realver=9.0.1
 _fullver=${_realver/rc*/}
 _pre_release=0
 pkgver=${_realver/rc/.rc}
@@ -12,13 +12,13 @@ license=('custom')
 
 if [ "${_pre_release}" -eq "1" ]
 then
-	_url="http://prereleases.llvm.org/${pkgver/.rc/\/rc}"
+	_url="https://github.com/llvm/llvm-project/releases/download/llvmorg-${pkgver}"
 else
-	_url="http://releases.llvm.org/${pkgver}"
+	_url="https://github.com/llvm/llvm-project/releases/download/llvmorg-${pkgver/rc/\-rc}"
 fi
 
 source=("${_url}/llvm-${_realver}.src.tar.xz"
-	"${_url}/cfe-${_realver}.src.tar.xz"
+	"${_url}/clang-${_realver}.src.tar.xz"
 	"${_url}/compiler-rt-${_realver}.src.tar.xz"
 	"${_url}/libcxx-${_realver}.src.tar.xz"
 	"${_url}/libcxxabi-${_realver}.src.tar.xz"
@@ -53,7 +53,7 @@ prepare() {
 
 	rm -rf "${srcdir}/llvm-${_realver}.src/tools/clang"
 
-	mv -v "${srcdir}/cfe-${_realver}.src" "${srcdir}/llvm-${_realver}.src/tools/clang"
+	mv -v "${srcdir}/clang-${_realver}.src" "${srcdir}/llvm-${_realver}.src/tools/clang"
 
 	rm -rf "${srcdir}/llvm32-${_realver}.src"
 	cp -a "${srcdir}"/llvm{,32}-${_realver}.src
@@ -113,6 +113,8 @@ build() {
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	cmake "${cmake_flags_common[@]}" \
+		-DCOMPILER_RT_DEFAULT_TARGET_TRIPLE=i686-pc-linux-gnu \
+		-DLLVM_DEFAULT_TARGET_TRIPLE=i686-pc-linux-gnu \
 		-DLLVM_BUILD_32_BITS=ON \
 		-DLLVM_LIBDIR_SUFFIX=32 \
 		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
@@ -143,8 +145,8 @@ package_compiler-rt() {
 	make -C "${srcdir}/llvm-build/projects" install DESTDIR="${pkgdir}"
 	make -C "${srcdir}/llvm-build32/projects" install DESTDIR="${pkgdir}"
 
-	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_fullver}/x86_64/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
-	sed -i "s#-lunwind#AS_NEEDED( /usr/lib/clang/${_fullver}/i386/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
+	sed -i "s#-lc++abi#& AS_NEEDED( /usr/lib/clang/${_fullver}/x86_64/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
+	sed -i "s#-lc++abi#& AS_NEEDED( /usr/lib/clang/${_fullver}/i386/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
 
 	for ll in i386 x86_64
 	do
@@ -216,13 +218,13 @@ package_lib32-openmp() {
 	rm -rf "${pkgdir}/usr/lib32/clang"
 }
 
-sha512sums=('1602343b451b964f5d8c2d6b0654d89384c80d45883498c5f0e2f4196168dd4a1ed2a4dadb752076020243df42ffe46cb31d82ffc145d8e5874163cbb9686a1f'
-            '98e540222719716985e5d8439116e47469cb01201ea91d1da7e46cb6633da099688d9352c3b65e5c5f660cbbae353b3d79bb803fc66b3be663f2b04b1feed1c3'
-            'fe9f69fe2269fa3d560ae97fdacd462f855fb0b7a5f647f5b8595206ff7febca6496725adc953de411a827c761e2b3ca11a2149f25707d6c62af0722b68ba913'
-            '2e0fcd3e78f7e15ea894e52c51351daef8e3a2aaf53b3df7497b11403d28f5269ff49a4674bacea1d565a5faa2b24502caaaeff9cd48518f0d141563d8f9cc03'
-            '9ee2e6d5899529be45b2e5edc395606fa9040d25789b3da1ae0182113626e7624cbb071eae525c478293a7b371876e41614348ee5808f90f3f9c7b08837e1055'
-            '8c10e986b4123b6db9f010f053d9c67786fd739d0990146c481f7eaf69ae44fdbcb99dfad9b240b369c3f93be05dfeaf0bd977685360be94e2872ddb04019380'
-            '0fff071c9dbf118bc1908e433d6ce571f47a4f2dbc5bf2d843151889e3414473bb5a9c97dc0b6dc6d1bd9ab0c6e365cae625f97d1b11d5d6ae059fa5a0496cb3'
+sha512sums=('bfb6960a4dd1e18f4005f324f478a781c69e8ec7c20569d9b243fcb9372dc7733b254f26c683373537990cc9c109c78eaf0f65449629ee17caca1bce9b9ccccd'
+            '3bcdcfd1ebb20a2cb15d57c608106b6e6e9c2eda4b781f573e84e0600b775bb7609f6df9edcf819ee5d91cc01a28ee089353c29fd57c23b867afbf6ad2f5cd13'
+            'edd7e87197581d3888d5298e0f4464071d1ecd351781687f3bec91097e5e72ea0d290036c4b6713b06978b79b0b124fbad1cac4028df2ec4d5198e19c0ba9c95'
+            'aabbc98c5bd6935d3dabfb309dfc171fbc16441396628d22d8dcdb89a5015f8fdedef4237134b841314d572205f7d5cfe44c1c8900db0f0156810f7810376bb2'
+            'b5dbe4379a13046e7b9003e6913b0435271476feef0acbfd4e8207fca6d4a580182628866bd2032ce84a55d524fee8620841f17214bc79c8f46a3fde2f57627a'
+            'b54d2460454e61e4889f240fd1318799f9449dc6104349297ca0ca3c157257398e4d6bb589e9a30261fdfa93a1f7660111b8e1584ae980eb82c101b8d2bb225b'
+            '608b87f9a1fd0cbd88d6273fab413d5bf47052f958888326e9e8a278409fc78071c740edcd306b1a76ceb8f1b2652ea6768e248ea19ccb5f00f1276e886255cf'
             '8bc8873bb68998a3c97cc302e69e7bc6b4ab185b51dfa7e74d804ff4643af3fd4037679990053c24cb02d8f4f631d731cacba0b2b46d265f51baf289d3b3b962'
             '9025e55af7f98018cfdfc0810f08c2dba8b813efadb8e104e0c3d54592d2c94238372a121871713dfbbd44bdd5ec6cb6b73a2325d22e133089d2951bff6255db'
             'cf4c43c0a590b4f0e63e9a6008a747524e4553034fba72a7e99626aff6c61fd2ac4073874a1b116177f77bcb0d0021c17edd5da1950c7e3421be4de0ea133b4c'

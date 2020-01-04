@@ -1,6 +1,6 @@
 pkgbase=python-docutils
 pkgname=('python2-docutils' 'python3-docutils')
-pkgver=0.14
+pkgver=0.15.2
 pkgrel=1
 pkgdesc="Python Documentation Utilities"
 arch=('x86_64')
@@ -45,4 +45,4 @@ package_python2-docutils() {
 	done
 }
 
-sha512sums=('1ed72c2ef7d2ca38d1c6f3154b7986ea46f599d9bd826405a5257fdd7740c8626957d6298aa95fb0edea8a24515de22f1ad9b2ecbd59341a1ab7a2bab30f500c')
+sha512sums=('b4528c7eba5a27e40f290a9df6894c277d11906d02f6842b9f364b29af9aa1e46f6008c87e4355947bcfa9f2db1cae9f38cf9fa7b8008ba45fa6d685922003a6')

@@ -1,6 +1,6 @@
 pkgname=python3
-_py3majorver=3.7
-_py3minorver=3
+_py3majorver=3.8
+_py3minorver=1
 pkgver=${_py3majorver}.${_py3minorver}
 pkgrel=1
 pkgdesc="A high-level scripting language"
@@ -37,14 +37,14 @@ package() {
 
 	make install DESTDIR="${pkgdir}"
 
-	sed -i "s#$PWD:##" "${pkgdir}/usr/lib/python${_py3majorver}/config-${_py3majorver}m-x86_64-linux-gnu/Makefile" \
-		"${pkgdir}/usr/lib/python${_py3majorver}/_sysconfigdata_m_linux_x86_64-linux-gnu.py"
+	sed -i "s#$PWD:##" "${pkgdir}/usr/lib/python${_py3majorver}/config-${_py3majorver}-x86_64-linux-gnu/Makefile" \
+		"${pkgdir}/usr/lib/python${_py3majorver}/_sysconfigdata__linux_x86_64-linux-gnu.py"
 
-	sed -i "s#$PWD##" "${pkgdir}/usr/lib/python${_py3majorver}/config-${_py3majorver}m-x86_64-linux-gnu/Makefile" \
-		"${pkgdir}/usr/lib/python${_py3majorver}/_sysconfigdata_m_linux_x86_64-linux-gnu.py"
+	sed -i "s#$PWD##" "${pkgdir}/usr/lib/python${_py3majorver}/config-${_py3majorver}-x86_64-linux-gnu/Makefile" \
+		"${pkgdir}/usr/lib/python${_py3majorver}/_sysconfigdata__linux_x86_64-linux-gnu.py"
 
 	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{distutils/tests,unittest/test,lib2to3/tests,idlelib/idle_test}
 	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{ctypes/test,tkinter/test,test,sqlite3/test}
 }
 
-sha512sums=('6d9b7c0f1764e0f655a39430a3af6f7b5e3c9b7166c042e780677a54b17ad4ca6d0d9cba262c82b1b70bba8f7c28883dad4cc0d7cc194fc7d2c1b5f4f08a763a')
+sha512sums=('d41381848cc1ec8009643b71875f395a9ac2c8e12a5b1efef33caf8a9e99a337c790d4354695c85352d11b62092ae372b5af62f78724363fcbf3504ff9a6ddca')

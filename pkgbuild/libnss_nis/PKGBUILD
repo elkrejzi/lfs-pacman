@@ -1,20 +1,15 @@
 pkgbase=libnss_nis
 pkgname=('libnss_nis' 'lib32-libnss_nis')
-pkgver=3.0
+pkgver=3.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/thkukuk/libnss_nis"
 license=('LGPL2.1')
 #depends=()
-source=("https://github.com/thkukuk/libnss_nis/archive/v${pkgver}/libnss_nis-${pkgver}.tar.gz")
+source=("https://github.com/thkukuk/libnss_nis/releases/download/v${pkgver}/libnss_nis-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/libnss_nis-${pkgver}"
-
-	export ACLOCAL_PATH=/usr/share/aclocal
-
-	autoreconf -fi
-
 	cp -a "${srcdir}"/libnss_nis{,32}-${pkgver}
 }
 
@@ -59,4 +54,4 @@ package_lib32-libnss_nis() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('3dde989a278f97a8cb9d831d5c10c1e5dce5b75c2e2b755177a054df0fb86795311e1750d721c52066d59a026035df4fdd7dc5d90ef743315e5b962ffef9f737')
+sha512sums=('3743730aeaf98011d40c0d242f34967ab382d586bbe8da1eb5b3698070c73ca967bbb6dc9dfac0e4c5074a293e0d3f009bfd44c2a50aeb648d65ffd0d6468715')

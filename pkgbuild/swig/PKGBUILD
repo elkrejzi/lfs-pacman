@@ -1,5 +1,5 @@
 pkgname=swig
-pkgver=3.0.12
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Generate scripting interfaces to C/C++ code"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5eaa2e06d8e4197fd02194051db1e518325dbb074a4c55a91099ad9c55193874f577764afc9029409a41bd520a95154095f26e33ef5add5c102bb2c1d98d33eb')
+sha512sums=('595ef01cb83adfa960ceed9c325a9429192549e8d1e9aa3ab35a4301512a61d82e2e89a8c7939c2a5a0811254ea1832a443bd387e11459eb2b0bafc563ad1308')

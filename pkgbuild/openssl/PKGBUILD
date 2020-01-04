@@ -1,6 +1,6 @@
 pkgbase=openssl
 pkgname=('openssl' 'lib32-openssl')
-_basever=1.1.1b
+_basever=1.1.1d
 pkgver=${_basever/[a-z]/.${_basever//[0-9.]/}}
 pkgrel=1
 arch=('x86_64')
@@ -74,4 +74,4 @@ package_lib32-openssl() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('b54025fbb4fe264466f3b0d762aad4be45bd23cd48bdb26d901d4c41a40bfd776177e02230995ab181a695435039dbad313f4b9a563239a70807a2e19ecf045d')
+sha512sums=('2bc9f528c27fe644308eb7603c992bac8740e9f0c3601a130af30c9ffebbf7e0f5c28b76a00bbb478bad40fbe89b4223a58d604001e1713da71ff4b7fe6a08a7')

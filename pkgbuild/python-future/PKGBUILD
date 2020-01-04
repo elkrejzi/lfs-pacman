@@ -1,6 +1,6 @@
 pkgbase=python-future
 pkgname=('python2-future' 'python3-future')
-pkgver=0.17.1
+pkgver=0.18.2
 pkgrel=1
 pkgdesc="Clean single-source support for Python 3 and 2"
 arch=('x86_64')
@@ -40,4 +40,4 @@ package_python2-future() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('50094c44db81afbfd37ee25e1710ed11ecb2c2d64ad076fb62a2688dd36a9696ab26b0d7989bf1ecb10da251961a0ee6bb37c4dbd115f70384cd8c9a675d0b2d')
+sha512sums=('91c025f7d94bcdf93df838fab67053165a414fc84e8496f92ecbb910dd55f6b6af5e360bbd051444066880c5a6877e75157bd95e150ead46e5c605930dfc50f2')

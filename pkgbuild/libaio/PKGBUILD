@@ -6,7 +6,7 @@ arch=('x86_64')
 url="http://lse.sourceforge.net/io/aio.html"
 license=('LGPL')
 #depends=()
-source=("http://deb.debian.org/debian/pool/main/liba/libaio/libaio_${pkgver}.orig.tar.xz")
+source=("http://ftp.debian.org/debian/pool/main/liba/libaio/libaio_${pkgver}.orig.tar.xz")
 
 build() {
 	cd "${srcdir}/libaio-${pkgver}"

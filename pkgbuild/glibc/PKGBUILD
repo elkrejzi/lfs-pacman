@@ -1,6 +1,6 @@
 pkgname=('glibc' 'lib32-glibc')
 pkgbase=glibc
-pkgver=2.29
+pkgver=2.30
 pkgrel=1
 arch=('x86_64')
 url="https://www.gnu.org/software/libc/"
@@ -139,7 +139,7 @@ package_lib32-glibc() {
 	rm -rf "${pkgdir}"/usr/lib32/libnsl.{a,so}
 }
 
-sha512sums=('146bc0769fe853d9edbf93cea7f74c5b3d84d69cb7614c62588e7acdecd1ec789a9d8949f3e8b99f8f36f2ccac740a003bed94f32b07817baf780b06cfeb6ed0'
+sha512sums=('37483990cd653685873e96c45dd1651b32b441b6d7919a68ebe3bae31a0c3f7ce183fc9b110f0b268b353f80312f18370559a1e7aecea0e5aa755c8f2aef1d6b'
             '062341482c1b44d3a97a00cb0915afc2d45b0acf5c7a79c98e37927a902a5ba040db973d0ee9f24e645a245c54704139e43df67e5adb8fa93c91411deeba01ff'
             'ba1e4d42b1ccc07c0a3a11b8c788b96526a40a1d70eb5807749067b2591d27e3d00b88752f1689e918f1129d110797ece2861ba7a508fa55ae089e7cc5c8bf8b'
             '3d9facc6da5159dcd877473c8a4d77006ef5615e2619ef743255112bfa136baf65239367222e87e7ada823d5c7d747aa5204f8365a806141e5884477898ccd14'

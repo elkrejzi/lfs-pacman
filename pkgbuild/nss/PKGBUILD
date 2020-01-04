@@ -1,5 +1,5 @@
 pkgname=nss
-pkgver=3.43
+pkgver=3.48
 pkgrel=1
 pkgdesc="Network Security Services"
 arch=('x86_64')
@@ -53,5 +53,5 @@ package() {
 	install -v -m644 ../dist/Linux*/lib/pkgconfig/nss.pc "${pkgdir}/usr/lib/pkgconfig/nss.pc"
 }
 
-sha512sums=('e9dfba5bd6f68c5ab58fc7a6fa1b16a035be1b1b7c436cf787bdc99257c5f54c78d73d94d015bffd29420df19b2a2818166c68fe592dd7208ab5605344827fb5'
+sha512sums=('71aefe323501dd8d750ed36606554f2e67ecb2bca85b55bc798d5dfc3a47f3d454348ca950971aaaafb16f6d847c098d2b1c40d40b50380e0c2540ed1b9a9e9a'
             '3e78b07cb11a2298486d38fad0c21690c126205ffa722bc8647259802c3cd82bf3ba7f5ff17a53f8db89c24b8ab8df78f40e9c0031322eaf8c936b94dc8dc9a0')

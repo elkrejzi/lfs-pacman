@@ -1,6 +1,6 @@
 pkgbase=libxpm
 pkgname=('libxpm' 'lib32-libxpm')
-pkgver=3.5.12
+pkgver=3.5.13
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -53,4 +53,4 @@ package_lib32-libxpm() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('a5707d5f758d577414101b0723af334fc8ac223e5b9f869994765735e1cbd8dafed48ea2851ebc479fecaf84381bfd5fbef842ec971a487f7fa9e77d54d3a17e')
+sha512sums=('3b8f6e926272f39b1d95135c2274c00f5aaee1f9fb2ef79f71628df5edeb7ba20158819ef6a778101cc4092493a3b5b613c53634fdccadcc0fc85f0605e5e9a5')

@@ -1,6 +1,6 @@
 pkgbase=python-mako
 pkgname=('python2-mako' 'python3-mako')
-pkgver=1.0.8
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="A super-fast templating language"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package_python2-mako() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('84da36cf798421528156a93c1b722fe604df5811a9db66244a9085af9ae17ce13d1e8057b3e53aa1af61acf457ce9d13ae240ebade3a7e60ea3cde1f1d9bf264')
+sha512sums=('acb0f53a22ae152c359c38391f508eca706efcc52916a6e87f2702517dd48b5ffd26eef0f2f9172046f1abd0aea1f47328354ff622938886aa00f950a261e8d4')

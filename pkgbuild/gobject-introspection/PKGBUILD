@@ -1,5 +1,5 @@
 pkgname=gobject-introspection
-pkgver=1.60.1
+pkgver=1.62.0
 pkgrel=1
 pkgdesc="Introspection system for GObject-based libraries"
 arch=('x86_64')
@@ -8,20 +8,28 @@ license=('LGPL' 'GPL')
 #depends=()
 source=("https://download.gnome.org/sources/gobject-introspection/${pkgver:0:4}/gobject-introspection-${pkgver}.tar.xz")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/gobject-introspection-${pkgver}"
+	cd "${srcdir}/build"
 
-	export PYTHON=python3
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddoctool=true \
+		-Dgtk_doc=true \
+		"${srcdir}/gobject-introspection-${pkgver}"
 
-	./configure --prefix=/usr
-
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/gobject-introspection-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('01adbeffee08ff6487f11a303fd7a59a99c36714dce21be9bbae7fd2bf8f080665e830bc3a47566140a6081dc74f6c2f8d8232286759b761f70493545a9d90ea')
+sha512sums=('b460a95fd7a323e9b0c9a45e680ebe98bbae7632abfa53b3e0b0ec050775cab17dde693314d6d4f8e93614c32b5587f8ce0b4a4c9ee9ba46c029ce029014e638')

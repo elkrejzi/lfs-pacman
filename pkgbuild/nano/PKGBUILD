@@ -1,5 +1,5 @@
 pkgname=nano
-pkgver=4.0
+pkgver=4.7
 pkgrel=1
 pkgdesc="Pico editor clone with enhancements"
 arch=('x86_64')
@@ -29,5 +29,5 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('2cef28df05f890bc27ef8faa9eb5350f8de2cc6cc69b4dc8e11c19248911630a7088ddbee57c8a8aa56df6efaab13124132d0cda55e5ae1f151265723d7d0ede'
+sha512sums=('53fc587554ca639f27cfdd81adc8108e38adddae4fda9d73c3ebff57e546feaa45be7a2851da43bcdafd442e4834a42cc1f9eec1a99051a32410a712142f48c3'
             '90473cf8487334cf695684fffcc528a291a895f4c2e37a1f6bc5dd9fd42e52b0ff02e1fc4d74a3c08099c19ebe75268968aaa8901e57166d1385ad61861a46ab')
