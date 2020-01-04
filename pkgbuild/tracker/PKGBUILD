@@ -20,7 +20,7 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Ddocs=true \
-		-Dbash_completion=false \
+		-Dbash_completion=no \
 		-Dfunctional_tests=false \
 		"${srcdir}/tracker-${pkgver}"
 
