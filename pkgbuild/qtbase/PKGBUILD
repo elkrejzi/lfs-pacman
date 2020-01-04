@@ -1,5 +1,5 @@
 pkgname=qtbase
-pkgver=5.12.2
+pkgver=5.14.0
 pkgrel=1
 pkgdesc="A cross-platform application and UI framework"
 arch=('x86_64')
@@ -14,7 +14,6 @@ build() {
         CFLAGS+=" -isystem /usr/include/c++/v1"
 
 	sed -i "s#^\(QMAKE_CFLAGS_RELEASE.*\)#\1 ${CFLAGS}#g" mkspecs/common/gcc-base.conf
-	sed -i "s#config.atspi#libs.atspi#g" src/gui/configure.json
 
 	./configure -prefix /usr \
 		-sysconfdir /etc/xdg \
@@ -60,4 +59,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share"
 }
 
-sha512sums=('6752ecc096f8baf8e14e56f0d1f139e8a0d75967ab61bf1734ad5f4f4609a7cc707ab080f5f85f2230bbbb1454a0669be60a14d57d9a93aef553ce6f85f71613')
+sha512sums=('27e640643aa2a15fece96b1a83f8f6fbfbc8a83e224f6dea4d7e6a94c8069a2b18a55ddc76943b10b40ccc95168a48dcfdf46264fdfc24b3594d1c6ea160aff6')

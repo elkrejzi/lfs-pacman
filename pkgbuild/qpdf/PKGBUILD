@@ -1,5 +1,5 @@
 pkgname=qpdf
-pkgver=8.4.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc="A Content-Preserving PDF Transformation System"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('13225c6285311e8fe89970971b082b9613e70d474ee71dd5572f1ae268234d366c2c9c7bf427c4758a746a1a27ecc0127d31044ab501dbc08885c8aa0a514028')
+sha512sums=('7561ffc366dbce9df58cc85ff18480b28b0d46de04733ba463139188bee95690f92cf0960a328619f0c9f34ce865598db490fa1c6aaa76ee87d2c034a5f7f57e')

@@ -1,19 +1,20 @@
 pkgname=webkitgtk
-pkgver=2.24.1
+pkgver=2.26.2
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
 url="https://webkitgtk.org/"
 license=('custom')
 #depends=()
-source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
+source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz"
+	"icu65.patch")
 
 prepare() {
+	install -v -dm755 "${srcdir}/build"
+
 	cd "${srcdir}/webkitgtk-${pkgver}"
 
-	sed -i "/<array>/a#include <cstdio>" Source/WebCore/platform/text/TextCodec.cpp
-
-	install -v -dm755 "${srcdir}/build"
+	patch -Np1 -i "${srcdir}/icu65.patch"
 }
 
 build() {
@@ -26,7 +27,6 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DPORT=GTK \
 		-DLIB_INSTALL_DIR=/usr/lib \
-		-DUSE_WOFF2=OFF \
 		"${srcdir}/webkitgtk-${pkgver}"
 
 	make
@@ -38,4 +38,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('65424f03b6baca53d64f0d633f53e2f7788c7fb65aa8b50b696418c140707c40351ec3cc0a8652806d75b9da98a04a8bb4203dd6ee4c51a3f93878964354c1ca')
+sha512sums=('98d47282fd8f766dbe4a74c1a3f618aaeeeed69bd0666ed4e8674ae562b634681b3bd18b0d428df6bfefbaa3e18eb4cfb2fb077f5be4fed34cbc81c8293ec33e'
+            '73fb43352ed238455ef33568a511e5c4d9cadc2bc6cfa48830d810114ec6f6ea1e355dbff83db9df302e242c9b017b529b200856f57aea06587a2bb5d105e020')

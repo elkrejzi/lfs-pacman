@@ -1,5 +1,5 @@
 pkgname=gtk3
-pkgver=3.24.8
+pkgver=3.24.13
 pkgrel=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 arch=('x86_64')
@@ -17,7 +17,6 @@ build() {
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--disable-cloudprint \
 		--disable-schemas-compile \
 		--enable-broadway-backend \
 		--enable-wayland-backend \
@@ -38,7 +37,7 @@ package() {
 	install -v -Dm755 "${srcdir}/gtk-update-icon-cache.script" "${pkgdir}/usr/share/libalpm/scripts/gtk-update-icon-cache"
 }
 
-sha512sums=('a988ca2e25f0f32e55b2931f16c72f9649ed98405579d217e8a5e7f0ac10bcd1969090c622c5d9eb7d75235813ff7ccb90e30e252afd71ba283c6172ee459fe5'
+sha512sums=('9129d4574cca258b4a517d8d65dad246a746fc3dc574b78e098db9aa9743956ce227efbf963f63e1e0f1a1a09810716150526b2bfe8015a5960bad38b0c88406'
             'f0ffd95544863f2e10fda81488b4727aa9a8a35a7d39fb96872db6664d03442db2b58af788b5990825c7b3a83681f7220ca481409cca5421dfb39b9a3bbac9ac'
             'abfd73de4faa6f53784182800395aa3c39bb98e15a0eb300fb4142073ff7ce565a0836a2363393b2f132060b5293dbc0c30c380a023f38d5bd39c62cb58389c2'
             '5cd50d93bb6bc203438a2a0764bd717409658e124058b18a1da26a21f10ef7564a16f32fc0633a68b45b2e303fa63a5efefeadd6b0bf1d7f474556df8cdb6c58'

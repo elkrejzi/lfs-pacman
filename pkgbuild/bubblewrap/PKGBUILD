@@ -1,0 +1,25 @@
+pkgname=bubblewrap
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Unprivileged sandboxing tool"
+arch=('x86_64')
+url="https://github.com/containers/bubblewrap"
+license=('GPL')
+#depends=()
+source=("https://github.com/containers/bubblewrap/releases/download/v${pkgver}/bubblewrap-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/bubblewrap-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/bubblewrap-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('119e7dbd82f273ca05496433d1c3070ec7ce629c63546abced92e801ba95ffae60f7198ff607d95040f20dc23df896700d83f65430ba4422e8e40e376370f910')

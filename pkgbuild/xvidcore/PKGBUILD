@@ -1,12 +1,12 @@
 pkgname=xvidcore
-pkgver=1.3.5
+pkgver=1.3.7
 pkgrel=1
 pkgdesc="XviD is an open source MPEG-4 video codec"
 arch=('x86_64')
-url="https://www.xvid.com/"
+url="https://labs.xvid.com/"
 license=('GPL')
 #depends=()
-source=("http://downloads.xvid.org/downloads/xvidcore-${pkgver}.tar.bz2")
+source=("https://downloads.xvid.com/downloads/xvidcore-${pkgver}.tar.bz2")
 
 prepare() {
 	cd "${srcdir}/xvidcore/build/generic"
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3297243400ce9ed2d0083559ee15fdfa422e585114c4e92c72fe702f43fea4af9fe4e9e794630959c220222379fa329452c4163a395f4ba1998c9be03a2e9441')
+sha512sums=('e2b22e7a7e103af7adcc999d95484f991a0a33df02b912fe042b2e23d2af07381c737d23158dbf0fad770ee680572f86fbe04ab2ef33c81e2e0180ead2acc8ed')

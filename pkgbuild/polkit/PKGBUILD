@@ -1,5 +1,5 @@
 pkgname=polkit
-pkgver=0.115
+pkgver=0.116
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
@@ -19,8 +19,6 @@ prepare() {
 
 build() {
 	cd "${srcdir}/polkit-${pkgver}"
-
-	#export CXX="${CXX} -std=c++11"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -43,6 +41,6 @@ package() {
 	chown 27:27 "${pkgdir}/etc/polkit-1/rules.d" "${pkgdir}/usr/share/polkit-1/rules.d"
 }
 
-sha512sums=('1153011fa93145b2c184e6b3446d3ca21b38918641aeccd8fac3985ac3e30ec6bc75be6973985fde90f2a24236592f1595be259155061c2d33358dd17c4ee4fc'
+sha512sums=('b66b01cc2bb4349de70147f41f161f0f6f41e7230b581dfb054058b48969ec57041ab05b51787c749ccfc36aa5f317952d7e7ba337b4f6f6c0a923ed5866c2d5'
             '3f6dbf7119083ce09cbfc543e93c1007e91d5706d0cfefdcecd89d788cb3827d0764c11205fa562ebc936bacda60bd645c7d40f85c42d334faab9f21f325beac'
             '327822bfd25ca317e75626b206cec5520482ddbbba86a4e933b71a1fed2052ff1ba0d9e50a498a50f64d626dccd8a3573b9572237bb919c3f7fa4c63b52ef467')

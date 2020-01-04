@@ -1,13 +1,13 @@
 pkgname=fonts-noto-emoji
-pkgver=20180317
-_notorev=6a609ec
+pkgver=20191022
+_notorev=018aa14
 pkgrel=1
 pkgdesc="Google Noto Emoji fonts"
 arch=('x86_64')
 url="https://www.google.com/get/noto/"
 license=('custom:OFL')
 #depends=()
-source=("https://github.com/googlei18n/noto-emoji/archive/${_notorev}/noto-fonts-emoji-${pkgver}.zip")
+source=("https://github.com/googlefonts/noto-emoji/archive/${_notorev}/noto-fonts-emoji-${pkgver}.zip")
 noextract=("noto-fonts-emoji-${pkgver}.zip")
 
 prepare() {
@@ -23,4 +23,4 @@ package() {
 	install -v -m644 fonts/*.ttf "${pkgdir}/usr/share/fonts/noto"
 }
 
-sha512sums=('0f409b68acc49f4155c66a71d97d7dcb6f9d3c9acbc39548bbaa34aa5b54487422c16deecb29f17cb602c6297e40614ed907978b0c76348f7f7c5393ca4fc22b')
+sha512sums=('49fde72a087da5ffc400e47b3dc2e29c50f00ee35359b210760f53845ff046db9d183a6f18a55ef19820d081ea089c3a8293930e3aa7ffb3fcba956044145a62')

@@ -1,5 +1,5 @@
 pkgname=x264
-pkgver=20190321
+pkgver=20191217
 pkgrel=1
 pkgdesc="Library for encoding H264/AVC video streams"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('866ec925802cd4ba60ff395bf263b8efdad181c2a1232e581915591ea850b7782dcdb973f16babe4cd29162c61681f9a9c1c9bd475a358d383845860345668f9')
+sha512sums=('89061f66fa86dfb868759e5b1dabbb6d1cd9d1240b1bf16afc789f1aa080b3940df5766ddb25e0f0faf0bc8b2603bc35b932848426eeaa4b603199066368f5f0')

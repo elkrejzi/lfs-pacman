@@ -1,5 +1,5 @@
 pkgname=libepoxy
-pkgver=1.5.3
+pkgver=1.5.4
 pkgrel=1
 pkgdesc="Library handling OpenGL function pointer management"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('746dfe2a0a91319abd3906c75f81f6b895117f39120e0d8897db1daec1b6d2e91e1318f0dfe588c81907727b0a6dd1a7e4a819ee6b3063a23875312570464720')
+sha512sums=('7bde6fe7164aaa88b6e476dafb13391c551c530267936a1456e242d2bf648117f319788ba089100b3f773444098a894db6d27326b47dc4ae26db4766308d7510')

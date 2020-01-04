@@ -1,5 +1,5 @@
 pkgname=libmbim
-pkgver=1.18.2
+pkgver=1.20.4
 pkgrel=1
 pkgdesc="MBIM modem protocol helper library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2da289f60d2fb9678f969b591f8addc724bef8c2780011e62567a9ade2ebc71bc4dd76e54f93335aa475e65c733e3628d9f2f96f81f8797ec809042c046eb828')
+sha512sums=('246f601ddda48b10e8a7b337d6e996dc65f6300e87f13d5260a5c903f95e9035e8a8d1c88540101c22fb3c44eca242451ab75bbfdb6503cfbce279c6d4cf99c8')

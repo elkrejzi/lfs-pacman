@@ -1,38 +1,31 @@
 pkgname=gst-plugins-bad
-pkgver=1.14.4
+pkgver=1.16.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Bad Plugins"
 arch=('x86_64')
 url="https://gstreamer.freedesktop.org/"
 license=('LGPL')
 #depends=()
-source=("https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-${pkgver}.tar.xz"
-	"gst-plugins-bad-fdk-aac.patch")
+source=("https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gst-plugins-bad-${pkgver}"
 
-	export CXX="${CXX} -std=c++11"
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dpackage-name="GStreamer Bad Plugins ${pkgver} Krejzi" \
+		-Dpackage-origin="https://github.com/elkrejzi/" \
+		build
 
-	sed -i "s#openjpeg-2.2/openjpeg.h#openjpeg-2.3/openjpeg.h#" ext/openjpeg/gstopenjpeg.h
-
-	patch -Np1 -i "${srcdir}/gst-plugins-bad-fdk-aac.patch"
-
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--libexecdir=/usr/lib \
-		--with-package-name="GStreamer Bad Plugins ${pkgver} Krejzi" \
-		--with-package-origin="https://github.com/elkrejzi/"
-
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gst-plugins-bad-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('a5bef1863110ae25ef4c75ad2cdbbde011e1d1a722754cc0372e8de9c81aee9159e2301d90d6f9b04b66a20887abe20de20d74dbe207d20102e8081130eaf839'
-            '7747e0246cdc8a114621af92580778ccc453fe4e134fcfada73a5f4b1a747dbec87599c6b19635d891203f92efe16ad43141351e8c2679092fca03e7e469725c')
+sha512sums=('aeaf3388156fe7317e193a3f940d391a6d8a1187f93e6925cee4cb02c4e78d9b456c22c27c318f0f9b2212ca68887c5cdcc256adaf068bfab8ec5c091a1e8805')

@@ -1,0 +1,32 @@
+pkgname=libwpe
+pkgver=1.4.0.1
+pkgrel=1
+pkgdesc="General-purpose library for WPE WebKit"
+arch=('x86_64')
+url="https://wpewebkit.org/"
+license=('custom')
+#depends=()
+source=("https://wpewebkit.org/releases/libwpe-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib \
+		"${srcdir}/libwpe-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('cbbe6b8e9bbb864d7f96bbdb56db262bbd341c86bc7bedfcc51be8077c0ea58a4e88c61b7b7bec937d5476e6cb81c093229bf80e3ee99452829287bd26175670')

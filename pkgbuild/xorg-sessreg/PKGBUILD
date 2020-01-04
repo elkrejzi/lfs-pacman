@@ -1,5 +1,5 @@
 pkgname=xorg-sessreg
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Register X sessions in system utmp/utmpx databases"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('92a21d31c5698212fa3d04360f4e931e018156ffed70ba03bee3f1ecd8540d5d54f07a0c7661e1077b73255eee4cc1afd1dda6907df109d3556626495ec08193')
+sha512sums=('7e3c2bdcadb7133aace463b58d8c6108d315ec95d2a42509073eeddc7f02644092a4b3168bd3b426c041736a016291092e0bf8368acd620dbeff96d53d12f98c')

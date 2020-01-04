@@ -1,25 +1,33 @@
 pkgname=libva-utils
-pkgver=2.4.0
+pkgver=2.6.0
 pkgrel=1
 pkgdesc="Video Acceleration (VA) API for Linux (client utilities)"
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
 license=('MIT')
 #depends=()
-source=("https://github.com/intel/libva-utils/releases/download/${pkgver}/libva-utils-${pkgver}.tar.bz2")
+source=("https://github.com/intel/libva-utils/archive/${pkgver}/libva-utils-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
 
 build() {
-	cd "${srcdir}/libva-utils-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/libva-utils-${pkgver}"
 
-	make
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/libva-utils-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('c5c674179ed589968fd296a7e33dd57a3476c237d8e15258938b364051d501e156c22b41b98fe59d6bc36805495a934dee602ec9e9bb5350c72aa65d3d300ff6')
+sha512sums=('2722504861d09e049495ffaa07cfb5fb23720770e19d6d5e03b10592e20d99c87d9e401e8db26edd00cb7edb7e85438ca721c8c323b23664bd5a1e094bbed8d4')

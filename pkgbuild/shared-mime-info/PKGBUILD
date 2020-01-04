@@ -1,12 +1,12 @@
 pkgname=shared-mime-info
-pkgver=1.12
+pkgver=1.15
 pkgrel=1
 pkgdesc="Freedesktop.org Shared MIME Info"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/shared-mime-info"
 license=('GPL2')
 #depends=()
-source=("https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/80c7f1afbcad2769f38aeb9ba6317a51/shared-mime-info-${pkgver}.tar.xz"
+source=("https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/b27eb88e4155d8fccb8bb3cd12025d5b/shared-mime-info-${pkgver}.tar.xz"
 	"update-mime-database.hook")
 
 build() {
@@ -26,5 +26,5 @@ package() {
 	install -v -Dm644 "${srcdir}/update-mime-database.hook" "${pkgdir}/usr/share/libalpm/hooks/update-mime-database.hook"
 }
 
-sha512sums=('c9db138586fe4c789b5a89d3cdcf865d5b3258241accd254deecd7665e8b51fc538adeaeeda4fe332474f7d7ffa84f101cba26539a58e134201673d6d1495a2f'
+sha512sums=('3666aa500dfa6a28bd0524400c47fa16d90ae61f8c80f350fd895972319ec2f511618b8a7fa3cbde621edee46fde19e4506bda62f0bd2d0ede1b08d7bdb9aef2'
             '365e2bca04e108a6a65c1e8a2b82efcee3916630ca522808e51074db7fb499d7f7c67bb84b304f5f398c17379ff26ec7fd1e44d56991a47581111c1c360ffdb8')

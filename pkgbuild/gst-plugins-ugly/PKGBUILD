@@ -1,5 +1,5 @@
 pkgname=gst-plugins-ugly
-pkgver=1.14.4
+pkgver=1.16.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Ugly Plugins"
 arch=('x86_64')
@@ -11,20 +11,21 @@ source=("https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly
 build() {
 	cd "${srcdir}/gst-plugins-ugly-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--libexecdir=/usr/lib \
-		--with-package-name="GStreamer Ugly Plugins ${pkgver} Krejzi" \
-		--with-package-origin="https://github.com/elkrejzi/"
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dpackage-name="GStreamer Ugly Plugins ${pkgver} Krejzi" \
+		-Dpackage-origin="https://github.com/elkrejzi/" \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gst-plugins-ugly-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('9a5fc123a8e904d6517a3946402ef27710a5e2460ebe748b3ad7b78d5092748a563f7ed4f6c734a9839e0781c2923d62425aa65f3d7469d7083861264f831cf1')
+sha512sums=('9f393043f51b12b376607e68b3b86437af86e321e3a3566e59c7f3507ed26622211df87e30a23bcc927f37bc11f53ca3b29f1b12bf58e623ce18edc88a9cdee3')

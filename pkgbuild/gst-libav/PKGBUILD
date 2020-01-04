@@ -1,5 +1,5 @@
 pkgname=gst-libav
-pkgver=1.14.4
+pkgver=1.16.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework ffmpeg Plugins"
 arch=('x86_64')
@@ -11,21 +11,21 @@ source=("https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-${pkgver}.tar
 build() {
 	cd "${srcdir}/gst-libav-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--libexecdir=/usr/lib \
-		--without-system-libav \
-		--with-package-name="GStreamer ffmpeg Plugins ${pkgver} Krejzi" \
-		--with-package-origin="https://github.com/elkrejzi/"
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dpackage-name="GStreamer ffmpeg Plugins ${pkgver} Krejzi" \
+		-Dpackage-origin="https://github.com/elkrejzi/" \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gst-libav-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('4a0e9a91c23cba82e6a6b8eb65ff42b9d80389dd232b08c22b3431d3942fb93a6a7e64be97083d11cbceb2abe5d45dc5b37d230f7552e1a7fb193610d0530717')
+sha512sums=('10817dec823b8ca84372d16e36c4ee11ab7a96a9168418f4c0bd0909fbda0ff45426bd3f754d7d491d4b07a51ec7eaa8e065e7e5c1daa120828c35a68adb312d')

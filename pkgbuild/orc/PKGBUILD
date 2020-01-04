@@ -1,5 +1,5 @@
 pkgname=orc
-pkgver=0.4.28
+pkgver=0.4.31
 pkgrel=1
 pkgdesc="Optimized Inner Loop Runtime Compiler"
 arch=('x86_64')
@@ -11,15 +11,20 @@ source=("https://gstreamer.freedesktop.org/src/orc/orc-${pkgver}.tar.xz")
 build() {
 	cd "${srcdir}/orc-${pkgver}"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=enabled \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/orc-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('2ae3100e7d0c03eba9a8a10a8924da4d729e1967b63e5dfdf88c4aee907d7ece82c782d74f4cb7e28a366dd74ce5e1ddc6e2b971e5a2f879b0501cc313b93410')
+sha512sums=('4e97597e70982dbfc239d1ef9a8913b0155e5aaac15d91162d7f73a1095bd944e27fbe6d6194b9f74af07b985a44b1d9dddbe917425e1ad9e8da17ce86495696')

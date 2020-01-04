@@ -1,5 +1,5 @@
 pkgname=alsa-utils
-pkgver=1.1.8
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="An alternative implementation of Linux sound support"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f877b491840126420dd9847347d0af865b6d03eccac2e2c3853cdbc76e91899f5a5139753cc41a4db942e7999c8d53cf9bd57d2fd5e1d32c872871b2d25146d9')
+sha512sums=('b7729659cd9809197dc30042f522f5103ff41ddc047f13f9c733c93f7e91a26f90cd864c70e654d12ef7a552b1d9ebe2727a24ec9fad03560cb7cdea906662ec')

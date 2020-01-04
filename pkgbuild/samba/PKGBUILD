@@ -1,5 +1,5 @@
 pkgname=samba
-pkgver=4.10.2
+pkgver=4.11.4
 pkgrel=1
 pkgdesc="SMB Fileserver and AD Domain server"
 arch=('x86_64')
@@ -41,12 +41,13 @@ build() {
 		--with-sockets-dir=/run/samba \
 		--with-piddir=/run \
 		--with-pammodulesdir=/usr/lib/security \
-		--enable-gnutls \
 		--with-systemd \
 		--systemd-install-services \
 		--bundled-libraries=!tdb,!talloc,!pytalloc-util,!tevent,!popt,!ldb,!pyldb-util \
 		--with-shared-modules=${_samba4_idmap_modules},${_samba4_pdb_modules},${_samba4_auth_modules} \
-		--disable-rpath-install
+		--disable-rpath-install \
+		--with-system-mitkrb5 \
+		--with-experimental-mit-ad-dc
 
 	make
 }
@@ -73,7 +74,7 @@ package() {
 	mv "${pkgdir}"/etc/{sysconfig,default}
 }
 
-sha512sums=('3d146ea12567ebb02a7babcad779b82339ffbfb19f6f2be5cac33eb18af2c9b546dc1cd910072a5c9e152ba9c4a632ed6870c48a8f6ad9d04304b130f240a4bf'
+sha512sums=('18ae1cb8b092c441a3fd4c6ecc9f35841dc51e3061f435107f7d2579b5e8ca6f8c96a947627dbd401b81c7de2293ff2587c30be694e160bf8a10c6d15aa73880'
             'd05772aedd6a55faade4a683f13782de3d463db3cfd781acfc9855bd4d30860bf1965e836feb69222cb07abc2e0b5ea75557b3a87bbc8f90ca88dc268dd74b7b'
             '3798cc28c8a25132bd72e30efcda1489da5cfb1f9838b05473669b4856be9a4e1663a71ae1f1c87a9c9fcee065e05355053aea826a8c2fa19ee1e9246c23e341'
             'a57c7813ef9ffb524c30582884188f4c26b33da120d4021d1bec5fc028d9f1ecb986ecc00ea56f261a794292777fc0a8773598e8df2902c3a4608d6ece7ccbe9')

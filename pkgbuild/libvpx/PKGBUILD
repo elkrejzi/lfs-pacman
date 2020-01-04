@@ -1,5 +1,5 @@
 pkgname=libvpx
-pkgver=1.8.0
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="VP8 and VP9 codec"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('77477ec7059de1d90f048c10783b4adce463a84c9c828f125686e533f5bc8c9eeab8a1747df5c928e0869ccf855a9af5608199c8c376a75d35659f719ee870ef')
+sha512sums=('da2ab0775a28ddd78654bbe46886e833d4ef7ba91867fc1427dceced735b6177eff06b24f204c075c50c3a5cadc5be6a1fb213c44df189218a543b52554f3a38')

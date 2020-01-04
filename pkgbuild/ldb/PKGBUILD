@@ -1,5 +1,5 @@
 pkgname=ldb
-pkgver=1.5.4
+pkgver=2.0.8
 pkgrel=1
 pkgdesc="A schema-less, ldap like, API and database"
 arch=('x86_64')
@@ -14,7 +14,6 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc/samba \
 		--localstatedir=/var \
-		--without-ldb-lmdb \
 		--disable-rpath \
 		--disable-rpath-install \
 		--bundled-libraries=cmocka \
@@ -31,4 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fc323e4283671c14d6dd4feb7e9ca943a63a166688077dbf3591f9d957cf821f9e739869842e15ca1ec4fd3764123d5afc6f4954b1af437bd1ec54df58366a22')
+sha512sums=('23a44968c9b4b57deb3f7b7b2466f140b4d8534a07a5e866545dd108c3d305ee4b0ea9bceec3177fcd09a4efcb4876a8283ca58b5c496fcf323b810666e1e79a')

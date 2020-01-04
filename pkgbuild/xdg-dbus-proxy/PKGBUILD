@@ -1,0 +1,25 @@
+pkgname=xdg-dbus-proxy
+pkgver=0.1.2
+pkgrel=1
+pkgdesc="D-Bus proxy"
+arch=('x86_64')
+url="https://github.com/flatpak/xdg-dbus-proxy"
+license=('LGPL2.1')
+#depends=()
+source=("https://github.com/flatpak/xdg-dbus-proxy/releases/download/${pkgver}/xdg-dbus-proxy-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/xdg-dbus-proxy-${pkgver}"
+
+	./configure --prefix=/usr
+
+	make
+}
+
+package() {
+	cd "${srcdir}/xdg-dbus-proxy-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('c76460e365778efeb1ef7cb9e479491afd1dc270680d108e7ece82b27be30bb4f958d4d218ac7d4497dcc749da25437f62119003866dcdeafcb6cea843dcbe1e')

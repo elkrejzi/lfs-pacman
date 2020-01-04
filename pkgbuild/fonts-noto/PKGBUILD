@@ -1,13 +1,13 @@
 pkgname=fonts-noto
-pkgver=20190316
-_notorev=4bff97c
+pkgver=20191230
+_notorev=0a07b76
 pkgrel=1
 pkgdesc="Google Noto TTF fonts"
 arch=('x86_64')
 url="https://www.google.com/get/noto/"
 license=('custom:SIL')
 #depends=()
-source=("https://github.com/googlei18n/noto-fonts/archive/${_notorev}/noto-fonts-${pkgver}.zip")
+source=("https://github.com/googlefonts/noto-fonts/archive/${_notorev}/noto-fonts-${pkgver}.zip")
 noextract=("noto-fonts-${pkgver}.zip")
 
 prepare() {
@@ -21,8 +21,8 @@ package() {
 
 	install -v -dm755 "${pkgdir}/usr/share/fonts/noto"
 
-	install -v -m644 hinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
-	install -v -m644 unhinted/Noto*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
+	install -v -m644 hinted/Noto*/*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
+	install -v -m644 unhinted/Noto*/*.tt[fc] "${pkgdir}/usr/share/fonts/noto"
 }
 
-sha512sums=('a79dc20328a65f901bee83a8348285c8b4a753955e7143b667f7dabc087d74521726849fe51f0cfe904a159e40647bdb9437fd77a364fddcf80b56ff4e61a63f')
+sha512sums=('a85f7557ec41c3e9b85fd71ed2b1804fb73c9ec31f85b3f3896b98cd9977149ebcbe3691bae3f13e1baaff61c5592c9181aa628496897c47b045d68cccc9b027')

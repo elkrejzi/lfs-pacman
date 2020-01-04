@@ -1,0 +1,32 @@
+pkgname=wpebackend-fdo
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="freedesktop.org backend for WPE WebKit"
+arch=('x86_64')
+url="https://wpewebkit.org/"
+license=('custom')
+#depends=()
+source=("https://wpewebkit.org/releases/wpebackend-fdo-${pkgver}.tar.xz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib \
+		"${srcdir}/wpebackend-fdo-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('f94167b13345adfda15312b16e5de04910f812c7481f7e3c8a00163ce8387be22373867b51b2c5cb424e62de877c1aaa48592aac85ec9cc03c969c7e83185660')

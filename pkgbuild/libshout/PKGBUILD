@@ -1,5 +1,5 @@
 pkgname=libshout
-pkgver=2.4.1
+pkgver=2.4.3
 pkgrel=1
 pkgdesc="Library for accessing a shoutcast/icecast server"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4d4b958947e020de3330d49d39d59220fc89315f25f653a7456b9aa24ca9566fca30bb3d65e6348e79958656096b6b864ea8885157d24e55c8d84d6604670219')
+sha512sums=('fe36778c6640e620f27504cb21234940e18a65a33f9178bf7e77d4baf854a9affc82d85db8ed8c1c8e2d80399685d8be10106fff5be1ddf76e03e2ffeeed1d34')

@@ -1,58 +1,65 @@
 pkgbase=libva
 pkgname=('libva' 'lib32-libva')
-pkgver=2.4.0
+pkgver=2.6.0
 pkgrel=1
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
 license=('MIT')
 #depends=()
-source=("https://github.com/intel/libva/releases/download/${pkgver}/libva-${pkgver}.tar.bz2")
+source=("https://github.com/intel/libva/archive/${pkgver}/libva-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/libva-${pkgver}"
-
-	cp -a "${srcdir}"/libva{,32}-${pkgver}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	cd "${srcdir}/libva-${pkgver}"
+	cd "${srcdir}/build64"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		"${srcdir}/libva-${pkgver}"
 
-	cd "${srcdir}/libva32-${pkgver}"
+	cd "${srcdir}/build32"
 
 	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
 	export CC="${CC} -m32" CXX="${CXX} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr --libdir=/usr/lib32
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--libdir /usr/lib32 \
+		--buildtype=plain \
+		"${srcdir}/libva-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/libva-${pkgver}"
-	make -C "${srcdir}/libva32-${pkgver}"
+	ninja -C build64 ${MAKEFLAGS}
+	ninja -C build32 ${MAKEFLAGS}
 }
 
 package_libva() {
 	pkgdesc="Video Acceleration (VA) API for Linux"
 
-	cd "${srcdir}/libva-${pkgver}"
+	cd "${srcdir}/build64"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
 package_lib32-libva() {
 	pkgdesc="Video Acceleration (VA) API for Linux (32 bit)"
 
-	cd "${srcdir}/libva32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	make install DESTDIR="${PWD}/dest"
+	DESTDIR="${PWD}/dest" ninja install
 
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('67373e20932bca0d52cd8f48ed10c1f01752be73642ad4d2c85dcee813dccf205c8ca62fdc69fb3f4f83a685e2a8ef2c6646174e3453a8f5763cac16a58321c3')
+sha512sums=('190fd9875d8ec91e94d42c41b770bb51ef9f430534f99d22fa394d6e4cf8dd308ffac61a37171855e4b499982c3cc59925d238b131dd2261a3beaae03e4937d0')

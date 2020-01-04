@@ -6,6 +6,7 @@ Origin: Self
 Description: Change static libraries to shared libraries
 
 Rediffed for Version 1.14 2018-10-07
+Rediffed for Version 1.16 2018-10-07
 
 diff -Naur mupdf-1.14.0-source.orig/Makefile mupdf-1.14.0-source/Makefile
 --- mupdf-1.14.0-source.orig/Makefile	2018-10-04 04:19:28.000000000 -0500
@@ -36,11 +37,11 @@ diff -Naur mupdf-1.14.0-source.orig/Makefile mupdf-1.14.0-source/Makefile
 +$(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_LIB) $(THREAD_LIB)
 +	$(LINK_CMD) -shared -Wl,-soname -Wl,libmupdf.so -Wl,--no-undefined $(THIRD_LIBS)
  $(THIRD_LIB) : $(THIRD_OBJ)
-+	$(LINK_CMD) -shared -Wl,-soname -Wl,libmupdfthird.so -Wl,--no-undefined
++	$(LINK_CMD) -shared -Wl,-soname -Wl,libmupdf-third.so -Wl,--no-undefined
  $(THREAD_LIB) : $(THREAD_OBJ)
-+	$(LINK_CMD) -shared -Wl,-soname -Wl,libmuthreads.so -Wl,--no-undefined -lpthread
++	$(LINK_CMD) -shared -Wl,-soname -Wl,libmupdf-threads.so -Wl,--no-undefined -lpthread
  $(PKCS7_LIB) : $(PKCS7_OBJ)
-+	$(LINK_CMD) -shared -Wl,-soname -Wl,libmupkcs7.so
++	$(LINK_CMD) -shared -Wl,-soname -Wl,libmupfs-pkcs7.so
  
 -INSTALL_LIBS := $(MUPDF_LIB) $(THIRD_LIB)
 +INSTALL_LIBS := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB)
@@ -56,8 +57,8 @@ diff -Naur mupdf-1.14.0-source.orig/Makefile mupdf-1.14.0-source/Makefile
 -  USE_SYSTEM_JBIG2DEC := yes
 +  USE_SYSTEM_JBIG2DEC := no
    USE_SYSTEM_JPEGXR := no # not available
--  USE_SYSTEM_LCMS2 := no # need lcms2-art fork
-+  USE_SYSTEM_LCMS2 := yes # need lcms2-art fork
+-  USE_SYSTEM_LCMS2 := no # lcms2mt is strongly preferred
++  USE_SYSTEM_LCMS2 := yes # lcms2mt is strongly preferred
    USE_SYSTEM_LIBJPEG := yes
    USE_SYSTEM_MUJS := no # not available
    USE_SYSTEM_OPENJPEG := yes

@@ -1,6 +1,6 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=19.0.2
+pkgver=19.3.1
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
@@ -23,7 +23,7 @@ build() {
 		-Dplatforms="drm,surfaceless,wayland,x11"
 		-Ddri3=true
 		-Ddri-drivers="i965"
-		-Dgallium-drivers="radeonsi,swrast"
+		-Dgallium-drivers="nouveau,radeonsi,swrast"
 		-Dgallium-vdpau=true
 		-Dgallium-xvmc=false
 		-Dgallium-omx=disabled
@@ -96,4 +96,4 @@ package_lib32-mesa() {
 	rm -rf "${pkgdir}/usr/share/drirc.d"
 }
 
-sha512sums=('6b317205efa7d62150fae23489fbad5f062ecde99fb5b210fa7ccbed2e0ef60aee1f1e66e2c606ea5d59193c3218f732556706ab3b645b175044342d88984d51')
+sha512sums=('338d2e37122ef22cc4e27a2f3c39e23e419703a507ace99383c749a563936c5f0428cce9a68ac80d0bd2ff57be8a55f42aee0ed6d16bf6b77b4e59d428729568')

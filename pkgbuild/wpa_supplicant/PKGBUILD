@@ -1,5 +1,5 @@
 pkgname=wpa_supplicant
-pkgver=2.7
+pkgver=2.9
 pkgrel=1
 pkgdesc="A utility providing key negotiation for WPA wireless networks"
 arch=('x86_64')
@@ -39,17 +39,14 @@ package() {
 	install -v -m644 doc/docbook/wpa_background.8 doc/docbook/wpa_cli.8 "${pkgdir}/usr/share/man/man8"
 	install -v -m644 doc/docbook/wpa_passphrase.8 doc/docbook/wpa_supplicant.8 "${pkgdir}/usr/share/man/man8"
 
-	install -v -Dm644 dbus/fi.epitest.hostap.WPASupplicant.service \
-		"${pkgdir}/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service"
-
 	install -v -Dm644 dbus/fi.w1.wpa_supplicant1.service \
 		"${pkgdir}/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service"
 
-	install -v -Dm644 dbus/dbus-wpa_supplicant.conf "${pkgdir}/etc/dbus-1/system.d/wpa_supplicant.conf"
+	install -v -Dm644 dbus/dbus-wpa_supplicant.conf "${pkgdir}/usr/share/dbus-1/system.d/wpa_supplicant.conf"
 
 	install -v -m644 examples/*.conf "${pkgdir}/usr/share/doc/wpa_supplicant"
 	install -v -m644 systemd/*.service "${pkgdir}"/usr/lib/systemd/system
 }
 
-sha512sums=('8b6eb5b5f30d351c73db63d73c09f24028a18166246539b4a4f89f0d226fb42751afa2ff72296df33317f615150325d285e8e7bda30e0d88abcdc9637ab731d3'
+sha512sums=('37a33f22cab9d27084fbef29856eaea0f692ff339c5b38bd32402dccf293cb849afd4a870cd3b5ca78179f0102f4011ce2f3444a53dc41dc75a5863b0a2226c8'
             'd023da33b5e134ae96533b795369d03b390e004a57127dab32e41c9053ca3e8555e6032b776e8724aa4edb456a6426deb5a7a6b1e120ce40fb459191536ae166')

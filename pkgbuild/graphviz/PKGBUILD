@@ -15,9 +15,9 @@ prepare() {
 
 	patch -Np1 -i "${srcdir}/graphviz-qt5.patch"
 
-	autoreconf -fi
+	sed -i "s#'\\\\-perl#&5#g" configure.ac
 
-	sed -i "s:ruby-1.9:ruby-2.6:g" configure
+	autoreconf -fi
 }
 
 build() {

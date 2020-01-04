@@ -1,5 +1,5 @@
 pkgname=mpv
-pkgver=0.29.1
+pkgver=0.31.0
 _wafrelease=2.0.9
 pkgrel=1
 pkgdesc="A free, open source, and cross-platform media player"
@@ -25,11 +25,9 @@ build() {
 		--enable-cdda \
 		--enable-dvbin \
 		--enable-dvdnav \
-		--enable-dvdread \
 		--enable-libsmbclient \
 		--enable-openal \
 		--enable-sdl2 \
-		--enable-tv \
 		--enable-libmpv-shared
 
 	./waf build
@@ -41,5 +39,5 @@ package() {
 	./waf install --destdir="${pkgdir}"
 }
 
-sha512sums=('ec57c9ceaaf2915ee237dd5a1c5ea5d22725d8611e28a9b998e5bb0d8ab5bdf3631d0267fc7b54da31cb1eaa145ef35841e68846bd41c3b9e1024902e92fd086'
-            '0755170ded115b03e78a2096f197cd9fff62b5036db764153d26ce426f182ea7d7b8231cfa1a10b4a564a8480428502f3691851df66e7b83c7bca8e5fe26de7d')
+sha512sums=('5199183d35bc2d7fffde1af250edf829fe768cedd7aa00f424d2a11a11d82cdb451c62886159ba3e1efc407b242c25e2485f4ebffd13b1da9c70defbd1f4c309'
+            'e7493767f65deeb38aa162adef22adf60ebbd038410e9cdf4fe6f0de8c43395dbbba14962aa2c3855e1277136085fc22ad12ebfb8ac4e76f16358296039b8ea2')

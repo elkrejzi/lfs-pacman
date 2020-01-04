@@ -1,34 +1,31 @@
 pkgname=gst-plugins-good
-pkgver=1.14.4
+pkgver=1.16.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Good Plugins"
 arch=('x86_64')
 url="https://gstreamer.freedesktop.org/"
 license=('LGPL')
 #depends=()
-source=("https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.xz"
-	"gst-plugins-good-libvpx.patch")
+source=("https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
 
-	patch -Np1 -i "${srcdir}/gst-plugins-good-libvpx.patch"
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dpackage-name="GStreamer Good Plugins ${pkgver} Krejzi" \
+		-Dpackage-origin="https://github.com/elkrejzi/" \
+		build
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--libexecdir=/usr/lib \
-		--with-package-name="GStreamer Good Plugins ${pkgver} Krejzi" \
-		--with-package-origin="https://github.com/elkrejzi/"
-
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('30aeb3bb74571287cad1598973da38e7a43a0128d35480ded6d280c1373dc4ecd4ea76caaa04a71cdfba2e1850aee5f1b72d96be86ae92d66633e7d32081c504'
-            '87b3971b05c4879471b6d22cf2cf5f0d8168caf12a3d27deb826b126bebe18039537bada9545332ad7eb1ec7aa768e06a3f3da3616b9ee048b97a3c0b0409720')
+sha512sums=('ab0dfd51af3ea345db466618547c35c78b5f08e725096b66074a5a7e0a83ca25ac51d2d915b7a8c07b70f8e4c9fc65d51c1851f147a5a5a71fbca58e1eb5ffd4')

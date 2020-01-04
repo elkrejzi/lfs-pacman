@@ -1,25 +1,37 @@
 pkgname=openexr
-pkgver=2.2.1
+pkgver=2.4.0
 pkgrel=1
-pkgdesc="An high dynamic-range image file format library"
+pkgdesc="A high dynamic-range image file format library"
 arch=('x86_64')
-url="http://www.openexr.com"
+url="https://www.openexr.com"
 license=('BSD')
 #depends=()
-source=("http://download.savannah.nongnu.org/releases/openexr/openexr-${pkgver}.tar.gz")
+source=("https://github.com/AcademySoftwareFoundation/openexr/archive/v${pkgver}/openexr-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
 
 build() {
-	cd "${srcdir}/openexr-${pkgver}"
+	cd "${srcdir}/build"
 
-	./configure --prefix=/usr
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib \
+		"${srcdir}/openexr-${pkgver}"
 
 	make
 }
 
 package() {
-	cd "${srcdir}/openexr-${pkgver}"
+	cd "${srcdir}/build"
 
 	make install DESTDIR="${pkgdir}"
+
+	sed -e 's|=include|=${prefix}/include|g' -e 's|=lib|=${prefix}/lib|g' \
+		-i "${pkgdir}/usr/lib/pkgconfig/OpenEXR.pc" \
+		-i "${pkgdir}/usr/lib/pkgconfig/IlmBase.pc"
 }
 
-sha512sums=('192100c6ac47534f3a93c55327d2ab90b07a8265156855086b326184328c257dcde12991b3f3f1831e2df4226fe884adcfe481c2f02a157c715aee665e89a480')
+sha512sums=('b544b1fc9d785cad029f35388894d1e9dae278dfda3c80d5615280386206f2af5c94b72c17e1e1d1514f73a7151b5be0f166a4be5b74abefc2f27fdf0500dfe8')
+

@@ -1,0 +1,32 @@
+pkgname=brotli
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="Brotli compression library"
+arch=('x86_64')
+url="https://github.com/google/brotli"
+license=('MIT')
+#depends=()
+source=("https://github.com/google/brotli/archive/v${pkgver}/brotli-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		"${srcdir}/brotli-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('a82362aa36d2f2094bca0b2808d9de0d57291fb3a4c29d7c0ca0a37e73087ec5ac4df299c8c363e61106fccf2fe7f58b5cf76eb97729e2696058ef43b1d3930a')

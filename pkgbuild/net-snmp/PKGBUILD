@@ -12,8 +12,6 @@ source=("https://downloads.sourceforge.net/net-snmp/net-snmp-${pkgver}.tar.gz"
 
 prepare() {
 	cd "${srcdir}/net-snmp-${pkgver}"
-
-	#patch -Np1 -i "${srcdir}/net-snmp-perl-fixes.patch"
 }
 
 build() {

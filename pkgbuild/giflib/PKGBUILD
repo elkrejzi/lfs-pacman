@@ -1,5 +1,5 @@
 pkgname=giflib
-pkgver=5.1.9
+pkgver=5.2.1
 pkgrel=1
 pkgdesc="A library for reading and writing gif images"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	make install PREFIX=/usr DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b6350b39755e3eeba58b5fccf319bbaeee2db6564e13c8ce44d3652cc32d243c391def74b6b1529bc5e0d4573eff94b2ffa5faa90fc564a049122d3e23f1d184')
+sha512sums=('4550e53c21cb1191a4581e363fc9d0610da53f7898ca8320f0d3ef6711e76bdda2609c2df15dc94c45e28bff8de441f1227ec2da7ea827cb3c0405af4faa4736')

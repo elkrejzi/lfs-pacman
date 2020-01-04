@@ -1,5 +1,5 @@
 pkgname=js60
-pkgver=60.1.0
+pkgver=60.8.0
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries - Version 52"
 arch=('x86_64')
@@ -41,4 +41,4 @@ package() {
 	rm -rf "${pkgdir}/usr/lib/libjs_static.ajs"
 }
 
-sha512sums=('d9250eaee2778321786028ee546b23af8e92daffea3b95fc04114b027d76a030387356df0008bffdf39c81f4309dccd1b6333019330f454484c1b4d6eae890e6')
+sha512sums=('9d6d72ec6924e1c0f2a07503cde7bdf322ca8ab92a6fb704bca93f1e541a2d12d2dfb442e9bc9d7967e10e0f315b52aa6a274f6a8388971b013d99cf2db65285')

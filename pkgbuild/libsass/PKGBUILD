@@ -1,5 +1,5 @@
 pkgname=libsass
-pkgver=3.5.5
+pkgver=3.6.3
 pkgrel=1
 pkgdesc="Sass compiler library written in C++"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('dcb73a5080c00023b60a19ea037ba5af481253a7b47492bd7114bf45ab78ed931c7b207fa8f12ed200a39760553d72ae92dbe4eb80b826b59a6201fb34008fe5')
+sha512sums=('e290f2045784ba1cf84e87e5bd33129b5452fec1d25da657b084b3561ec76df195a75595248a493dbd85c6a1215ed600332477945922309c021d9e416ebb29ee')

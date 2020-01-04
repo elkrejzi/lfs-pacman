@@ -1,5 +1,5 @@
 pkgname=gsettings-desktop-schemas
-pkgver=3.32.0
+pkgver=3.34.0
 pkgrel=1
 pkgdesc="Shared GSettings schemas for the desktop"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('cf1d78a8f9f1697e20c995286b50d556c2ecc83bf4b28be19b3258a724494a2827fb9567cabf29cda1c590488fd2645e905072e08321766c8bdddd22ac3710dc')
+sha512sums=('6cbe59facf77566ed93faabafc6b00ad03fb398a9a4686ba94a08b1c2d0df1d44bd673fb4d51340209a66ebc0aa32095615e7e63b78f4cc4c10d240a7b0a8fa1')

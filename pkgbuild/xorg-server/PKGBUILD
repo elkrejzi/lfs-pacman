@@ -1,5 +1,5 @@
 pkgname=xorg-server
-pkgver=1.20.4
+pkgver=1.20.6
 pkgrel=1
 pkgdesc="Xorg X server"
 arch=('x86_64')
@@ -42,4 +42,4 @@ package() {
 	install -v -dm755 "${pkgdir}/etc/X11/xorg.conf.d"
 }
 
-sha512sums=('f1c92ef6d7613e0636973d3395b48dfdad42230847ab1c8b1cea84647a968f649f9aba97bdb01c10ee8351cbe954d4e6ca4a0fc84bb8fa662d49c8ba2aee00a8')
+sha512sums=('9aa0ba4aee92fe628f2b8c41e4fe0134dc86154bb8787f907884ef2fd970e18e68e72ea8a1beb706d11ecf155b2abc9731f1abadff251ed592f8cca3b1240dd6')

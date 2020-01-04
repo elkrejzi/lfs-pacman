@@ -1,5 +1,5 @@
 pkgname=xf86-input-wacom
-pkgver=0.36.1
+pkgver=0.39.0
 pkgrel=1
 pkgdesc="X.Org Wacom tablet driver"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('2618bb53f4d6ed4166cd738022efcd3f35b31e27b04b8293834a1650131f2cbe9e1f11594bbcfb309861360311ae68dfb179d86d27fcb57033847a7b26d6e832')
+sha512sums=('9ad92c86c4ba3587d68e2107057c89dfe8628c0a2ec882f5a424ab4983c18ff6048489d7f6d3a8de87403744f74de1982de25327fc955bb5c21346a242e0aaa3')

@@ -1,5 +1,5 @@
---- a/scheduler/main.c	2018-06-05 18:06:54.000000000 +0200
-+++ b/scheduler/main.c	2018-07-07 22:31:39.295318569 +0200
+--- a/scheduler/main.c	2019-12-13 15:44:10.000000000 +0100
++++ b/scheduler/main.c	2019-12-31 16:01:57.193166435 +0100
 @@ -681,8 +681,15 @@
  
  #ifdef HAVE_ONDEMAND
@@ -17,24 +17,14 @@
  #endif /* HAVE_ONDEMAND */
    if (fg)
      cupsdAddEvent(CUPSD_EVENT_SERVER_STARTED, NULL, NULL, "Scheduler started in foreground.");
---- a/scheduler/org.cups.cupsd.path.in	2018-06-05 18:06:54.000000000 +0200
-+++ b/scheduler/org.cups.cupsd.path.in	2018-07-07 22:31:39.295318569 +0200
-@@ -3,7 +3,7 @@
- PartOf=org.cups.cupsd.service
- 
- [Path]
--PathExists=@CUPS_CACHEDIR@/org.cups.cupsd
-+PathExistsGlob=@CUPS_REQUESTS@/d*
- 
- [Install]
- WantedBy=multi-user.target
---- a/scheduler/org.cups.cupsd.service.in	2018-06-05 18:06:54.000000000 +0200
-+++ b/scheduler/org.cups.cupsd.service.in	2018-07-07 22:31:39.295318569 +0200
-@@ -1,10 +1,11 @@
+--- a/scheduler/org.cups.cupsd.service.in	2019-12-13 15:44:10.000000000 +0100
++++ b/scheduler/org.cups.cupsd.service.in	2019-12-31 16:01:57.193166435 +0100
+@@ -1,11 +1,11 @@
  [Unit]
  Description=CUPS Scheduler
  Documentation=man:cupsd(8)
-+After=network.target
+-After=sssd.service
++After=sssd.service network.target
  
  [Service]
  ExecStart=@sbindir@/cupsd -l

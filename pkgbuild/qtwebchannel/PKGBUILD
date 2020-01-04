@@ -1,5 +1,5 @@
 pkgname=qtwebchannel
-pkgver=5.12.2
+pkgver=5.14.0
 pkgrel=1
 pkgdesc="Provides access to QObject or QML objects from HTML clients for seamless integration of Qt applications with HTML/JavaScript clients"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('73f16385788730339bb5e059f89b6e339b84e6ac1826c4fa1fe8843028e4cb629d3c6e50365673325f736766d039c660e6ede3d3890638167225de6bbde1e659')
+sha512sums=('fbd201c305989dec92c13e6a300ae72282002ec5d2a415920a34b0c1d345a46d42b44127cd0a5ab288735797cd535bfd9fd1114ea950a612167e15df7eb29525')

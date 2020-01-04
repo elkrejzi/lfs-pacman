@@ -1,5 +1,5 @@
 pkgname=qtwebkit
-pkgver=5.212.0.alpha2
+pkgver=5.212.0.alpha3
 pkgrel=1
 pkgdesc="Classes for a WebKit2 based implementation and a new QML API"
 arch=('x86_64')
@@ -7,16 +7,13 @@ url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
 source=("https://github.com/annulen/webkit/releases/download/qtwebkit-${pkgver/.alpha/-alpha}/qtwebkit-${pkgver/.alpha/-alpha}.tar.xz"
-	"qtwebkit-cmake3.10.patch"
-	"qtwebkit-gcc7.patch"
-	"qtwebkit-null-pointer-dereference.patch")
+	"icu65.patch")
 
 prepare() {
 	cd "${srcdir}/qtwebkit-${pkgver/.alpha/-alpha}"
 
-	patch -Np1 -i "${srcdir}/qtwebkit-cmake3.10.patch"
-	patch -Np1 -i "${srcdir}/qtwebkit-gcc7.patch"
-	patch -Np1 -i "${srcdir}/qtwebkit-null-pointer-dereference.patch"
+	patch -Np1 -i "${srcdir}/icu65.patch"
+
 
 	install -v -dm755 "${srcdir}/build"
 }
@@ -26,6 +23,7 @@ build() {
 
         cmake -DCMAKE_INSTALL_PREFIX=/usr \
                 -DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="${CXXFLAGS} -DNDEBUG" \
                 -DPORT=Qt \
 		-DENABLE_TOOLS=OFF \
 		"${srcdir}/qtwebkit-${pkgver/.alpha/-alpha}"
@@ -37,15 +35,7 @@ package() {
 	cd "${srcdir}/build"
 
 	make install DESTDIR="${pkgdir}"
-
-	# Fix pkgconfig files
-	sed -i 's|qt/Qt5WebKit|qt/QtWebKit|' "${pkgdir}/usr/lib/pkgconfig/Qt5WebKit.pc"
-	sed -i 's|qt/Qt5WebKitWidgets|qt/QtWebKitWidgets|' "${pkgdir}/usr/lib/pkgconfig/Qt5WebKitWidgets.pc"
-	sed -i '/Name/a Description: Qt WebKit module' "${pkgdir}/usr/lib/pkgconfig/Qt5WebKit.pc"
-	sed -i '/Name/a Description: Qt WebKitWidgets module' "${pkgdir}/usr/lib/pkgconfig/Qt5WebKitWidgets.pc"
 }
 
-sha512sums=('b15985aab20c5618dc1f71a0d91f02dbed993516272090a4a12990714bf4c9554ccbdcf9d6a143bf46fcc2c170f691e571114d61686fe49791f8d5c540785758'
-            '998b6f6c7a7f2aaaf8ae79db990e99f5fd8ca535cbbf3ed896c7dbbc9b40a1b156943485f750c09bb0b09b3a745ecd002fed265663138f5a374ba4b6ea6f1b05'
-            'ccc00c228d174e114c9b1371549ed0b7f758f867e54ee3cbe2419a0691d241250e2de68a0e9925bd72786464b49d65c45b3c918c0509556881b52149a19113ff'
-            '1e414cb90e54332a5b0790ad9327281fcd325982a717a7c620dd25bbbea744fd375f0bb19a6018b5a8b6a44470306000f29190c67f828fbd0c14c4e21e33851b')
+sha512sums=('38794514b886de3fa63a41277c2bcbb970e87a12070962b527e3898466cf7ad3b65ce4588669498415d365310b37729e81aabb457808fe11120558ef8e35445f'
+            '5d7359ddb2d6e36ce4d07aa18a38fc9ed397cc1903503c202f246154f195954f726f9b510ed60cb24c2a5d094190d7f319f92428fbc62d37b38f9912c76571ce')

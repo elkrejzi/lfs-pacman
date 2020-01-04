@@ -1,12 +1,12 @@
 pkgname=wavpack
-pkgver=5.1.0
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="Audio compression format with lossless, lossy and hybrid compression modes"
 arch=('x86_64')
 url="http://www.wavpack.com/"
 license=('BSD')
 #depends=()
-source=("http://www.wavpack.com/wavpack-${pkgver}.tar.bz2")
+source=("https://github.com/dbry/WavPack/releases/download/${pkgver}/wavpack-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/wavpack-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('4c31616ae63c3a875afa20f26ce935f7a8f9921e2892b4b8388eca3ccd83b2d686f43eed8b9ec1dead934a1148401b9dced3b05f509b7942c48d7af31cf80a54')
+sha512sums=('f255bb62c9defb16c1b301fd1cfb53df123c869a74eca2b68f1c8af2771e22ff8661f823ad4bd2746d06c0941a3cb83a6dbb55b44b371fc50d0ecdf80a5199c2')

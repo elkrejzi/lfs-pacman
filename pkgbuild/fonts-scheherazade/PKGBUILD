@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://software.sil.org/scheherazade/"
 license=('custom:OFL')
 #depends=()
-source=("http://software.sil.org/downloads/r/scheherazade/Scheherazade-${pkgver}.zip")
+source=("https://software.sil.org/downloads/r/scheherazade/Scheherazade-${pkgver}.zip")
 
 package() {
 	cd "${srcdir}/Scheherazade-${pkgver}"

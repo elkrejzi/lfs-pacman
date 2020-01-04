@@ -1,6 +1,6 @@
 pkgbase=pulseaudio
 pkgname=('pulseaudio' 'lib32-pulseaudio')
-pkgver=12.2
+pkgver=13.0
 _pulsever=${pkgver}
 pkgrel=1
 arch=('x86_64')
@@ -11,6 +11,9 @@ source=("https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-${p
 
 _libs="libpulse.la libpulse-simple.la libpulse-mainloop-glib.la"
 _pkglibs="libpulsecommon-${_pulsever}.la libpulsedsp.la"
+
+export CC="gcc"
+export CXX="g++"
 
 prepare() {
 	cd "${srcdir}/pulseaudio-${pkgver}"
@@ -29,7 +32,6 @@ build() {
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
-		--disable-bluez4 \
 		--disable-rpath \
 		--disable-samplerate \
 		--with-module-dir=/usr/lib/pulse/modules \
@@ -45,7 +47,6 @@ build() {
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--libdir=/usr/lib32 \
-		--disable-bluez4 \
 		--disable-rpath \
 		--disable-samplerate \
 		--with-module-dir=/usr/lib/pulse/modules \
@@ -83,4 +84,4 @@ package_lib32-pulseaudio() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('877754c1838b3cb042dbc18a5f1cc3cf313ffcaee7a64703330406d1f86279c34f1107634ac3083b158365e6757fbacf5ec406bc3c5788d291de67b77a561a4e')
+sha512sums=('d445b8ccd43029a0ca0e456fc9291a79d3434d6496ead7eb329ab348d5249235e8bde6cf2be68765d8f761452dbe1486fb10c739e40b1e67ed75787bbd24ac0c')

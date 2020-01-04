@@ -1,5 +1,5 @@
 pkgname=qtmultimedia
-pkgver=5.12.2
+pkgver=5.14.0
 pkgrel=1
 pkgdesc="Classes for audio, video, radio and camera functionality"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('3ee8e2f93f2a7a094e821f5b08fead32ee67bc0af7bd7eaadf2a40bbc12c774c62e4b9dc4f8526245e43530665156fd79f891243434d7c06da8c92401f3a9088')
+sha512sums=('ab5cf713e207c0538004860debc2da74830fd4b1d13c3c3ee0b3b9ee8f4438512f94952ec4ca7408cd055b69f4d1b0396d79d123365a6c74c14c4fee1f86c622')

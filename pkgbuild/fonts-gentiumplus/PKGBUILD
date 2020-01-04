@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://software.sil.org/gentium/"
 license=('custom:OFL')
 #depends=()
-source=("http://software.sil.org/downloads/r/gentium/GentiumPlus-${pkgver}.zip")
+source=("https://software.sil.org/downloads/r/gentium/GentiumPlus-${pkgver}.zip")
 
 package() {
 	cd "${srcdir}/GentiumPlus-${pkgver}"

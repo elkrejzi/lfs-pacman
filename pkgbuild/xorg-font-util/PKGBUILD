@@ -1,5 +1,5 @@
 pkgname=xorg-font-util
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=1
 pkgdesc="X.Org font utilities"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9fd6dd4c0a01ede5f0b09ec0f9d316267ca086e2ee9526a43a4e4d6ce3cd67c977293bd3cf440328ca417292fcae1579888b24b7259eaf012230890210d74889')
+sha512sums=('7cac529b12ae71185b89c72c1569b9826f52eeaecc1c76010338e7c42c4078ae339f18220b580bbd68fb5dc09df6ecf169a47c32e6104d8ee53bd443fa21d167')

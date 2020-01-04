@@ -1,5 +1,5 @@
 pkgname=xorg-xauth
-pkgver=1.0.10
+pkgver=1.1
 pkgrel=1
 pkgdesc="X.Org authorization settings program"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('1ddcd80848c4efffc6d0a576177f92a3ce47eb871a6c7e2097d96491aec027404d437e0bd792714ef423989153a9644f5ff179bde4dfeb4b340636d642d5849f')
+sha512sums=('b6ecd59a853a491ef45bf8cfbff63bed36645f81cb79ae9d18458b57f7502bccf92f0d979d3337578518646f680ad379e67b1dac15a927cbb11372733e7a3a0c')

@@ -1,0 +1,30 @@
+pkgname=dav1d
+pkgver=0.5.2
+pkgrel=1
+pkgdesc="AV1 cross-platform decoder focused on speed and correctness"
+arch=('x86_64')
+url="https://code.videolan.org/videolan/dav1d"
+license=('BSD')
+#depends=()
+source=("https://downloads.videolan.org/pub/videolan/dav1d/${pkgver}/dav1d-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/dav1d-${pkgver}"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--libdir /usr/lib \
+		--buildtype=plain \
+		build
+
+	ninja -C build ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/dav1d-${pkgver}"
+
+	DESTDIR="${pkgdir}" ninja -C build install
+}
+
+sha512sums=('255e592256e47305921f8331f3ea7f9792e2c62b981f62a0ee05a342c3c1073ef4b469092252442c9d67294c0d69b03c127a49a73519aee0e37ab6d89e3000c3')

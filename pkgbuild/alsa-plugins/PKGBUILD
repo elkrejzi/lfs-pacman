@@ -1,6 +1,6 @@
 pkgbase=alsa-plugins
 pkgname=('alsa-plugins' 'lib32-alsa-plugins')
-pkgver=1.1.8
+pkgver=1.2.1
 pkgrel=1
 arch=('x86_64')
 url="https://alsa-project.org/wiki/Main_Page"
@@ -15,7 +15,7 @@ prepare() {
 build() {
 	cd "${srcdir}/alsa-plugins-${pkgver}"
 
-	./configure --prefix=/usr
+	./configure --prefix=/usr --sysconfdir=/etc
 
 	cd "${srcdir}/alsa-plugins32-${pkgver}"
 
@@ -24,6 +24,7 @@ build() {
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \
+		--sysconfdir=/etc \
 		--libdir=/usr/lib32 \
 		--disable-avcodec
 
@@ -55,4 +56,4 @@ package_lib32-alsa-plugins() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('bb1a4411921ec332f47b43515f6d3b4c03a01568854950b9b5c3f0d8172d9a0c4a5b3652bc64c62eae5ea3aaa5d95fe3d32c0a213fe99adf490a9807bcb58ecd')
+sha512sums=('a49ef9290b66855112e301a5fd5a0932f13a50254e164f3340f2b342a36469532ee783beabfe5e95870dbf4cd81ca1e8d0415d94c8c7ee963133fb3c343721de')

@@ -1,0 +1,36 @@
+pkgname=woff2
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Web Open Font Format 2 reference implementation"
+arch=('x86_64')
+url="https://github.com/google/woff2"
+license=('MIT')
+#depends=()
+source=("https://github.com/google/woff2/archive/v${pkgver}/woff2-${pkgver}.tar.gz")
+
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+
+	cd "${srcdir}/woff2-${pkgver}"
+
+	sed -i 's/NOT BUILD_SHARED_LIBS/TRUE/' CMakeLists.txt
+}
+
+build() {
+	cd "${srcdir}/build"
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		"${srcdir}/woff2-${pkgver}"
+
+	make
+}
+
+package() {
+	cd "${srcdir}/build"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('c788bba1530aec463e755e901f9342f4b599e3a07f54645fef1dc388ab5d5c30625535e5dd38e9e792e04a640574baa50eeefb6b7338ab403755f4a4e0c3044d')

@@ -1,5 +1,5 @@
 pkgname=sassc
-pkgver=3.5.0
+pkgver=3.6.1
 pkgrel=1
 pkgdesc="Sass compiler written in C++"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9c94056f66688016dd8eaae9cc791be4b397406b89f1289946c4481b5e1904486878d22fd65e695ed89f9b41a9f902932eb4074e7b0923ce3d4823ea3140334f')
+sha512sums=('b6df8f481db0737ca08808c0849dcbd83e80799d883271d382607b7a74028153195f5f9c26768ffe1a9a92ee8c26be3c382ad7b3a5336eb6e4a0dad58132690e')

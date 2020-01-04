@@ -1,5 +1,5 @@
 pkgname=gcr
-pkgver=3.28.1
+pkgver=3.34.0
 pkgrel=1
 pkgdesc="A library for bits of crypto UI and parsing"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ae36c39584d6bc2ba9d86de8bc71eac21fb3251b966ab1eddf467d01ed5789ba6e6597c83ea2ed9403e632893e7c7cb6c17e04878d726b72528af9199bebb3da')
+sha512sums=('9314b531ed46a42b2c8c1531c7d95003db04f2c8065e46f4e6a84ec26400ce6302ea71c4db42a8c7b98884a0b84d75a0ca65d988aa0fe6de6d897d772b070093')

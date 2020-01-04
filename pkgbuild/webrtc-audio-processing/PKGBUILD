@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/"
 license=('custom')
 #depends=()
-source=("http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-${pkgver}.tar.xz")
+source=("https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/webrtc-audio-processing-${pkgver}"

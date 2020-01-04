@@ -1,5 +1,5 @@
 pkgname=x265
-pkgver=3.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc="Open Source H265/HEVC video encoder"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('bb7665194ddd4bccbb91c16337463ad4ef32111a1e7779e4cc16964df0992aa99e578cb74fef0edbf41119105e4085574247f60541b0558cc36730ea12d2c6ba')
+sha512sums=('5cb29b9d4475c1f686f6e31e47ccddde3db1639d5dcf9c058513389a9fdeb35a83b14e30e59498a76dec74bb0b410b6d8f5b1b45d18927be9811bb6a40d8d568')

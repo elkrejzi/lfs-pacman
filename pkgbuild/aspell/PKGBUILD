@@ -1,19 +1,12 @@
 pkgname=aspell
-pkgver=0.60.6.1
+pkgver=0.60.8
 pkgrel=1
 pkgdesc="A spell checker designed to eventually replace Ispell"
 arch=('x86_64')
 url="http://aspell.net/"
 license=('LGPL')
 #depends=()
-source=("https://ftp.gnu.org/gnu/aspell/aspell-${pkgver}.tar.gz"
-	"aspell-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/aspell-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/aspell-fixes.patch"
-}
+source=("https://ftp.gnu.org/gnu/aspell/aspell-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/aspell-${pkgver}"
@@ -31,5 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f310c7590be98406589b5c26ca36a2ecfe4733f0b40fd6c176b96b7955ef2b5cd0ec9a3d770cf132146ae7a896042b4b698945112995ee1ae66adcfa5542247f'
-            '0afada7808a63a6123da618c18cebfe72ce52feaf6fa45d665069f4054ddb27c64fd64215625fbdd8af9224703758b1db8db8f0410741e4f080bd57d5752f504')
+sha512sums=('8ef4952c553b6234dfe777240d2d97beb13ef9201e18d56bee3b5068d13525db3625b7130d9f5122f7c529da0ccb0c70eb852a81472a7d15fb7c4ee5ba21cd29')
