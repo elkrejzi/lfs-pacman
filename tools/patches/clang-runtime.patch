@@ -1,5 +1,5 @@
---- a/lib/Driver/ToolChains/Linux.cpp	2019-12-11 20:15:30.000000000 +0100
-+++ b/lib/Driver/ToolChains/Linux.cpp	2019-12-29 18:22:06.552096476 +0100
+--- a/lib/Driver/ToolChains/Linux.cpp	2020-10-07 12:10:48.000000000 +0200
++++ b/lib/Driver/ToolChains/Linux.cpp	2020-12-27 15:37:27.150230669 +0100
 @@ -205,7 +205,7 @@
    if (Triple.getArch() == llvm::Triple::riscv32)
      return "lib32";
@@ -8,9 +8,9 @@
 +  return Triple.isArch32Bit() ? "lib32" : "lib";
  }
  
- static void addMultilibsFilePaths(const Driver &D, const MultilibSet &Multilibs,
-@@ -317,8 +317,15 @@
-   const std::string OSLibDir = getOSLibDir(Triple, Args);
+ Linux::Linux(const Driver &D, const llvm::Triple &Triple, const ArgList &Args)
+@@ -295,6 +295,13 @@
+   const std::string OSLibDir = std::string(getOSLibDir(Triple, Args));
    const std::string MultiarchTriple = getMultiarchTriple(D, Triple, SysRoot);
  
 +  SmallString<128> libSuffix((Arch == llvm::Triple::x86) ? "i386" : "x86_64");
@@ -20,13 +20,10 @@
 +
 +  addPathIfExists(D, crtSysPath, Paths);
 +
-   // Add the multilib suffixed paths where they are available.
--  if (GCCInstallation.isValid()) {
-+  if (false && GCCInstallation.isValid()) {
-     const llvm::Triple &GCCTriple = GCCInstallation.getTriple();
-     const std::string &LibPath = GCCInstallation.getParentLibPath();
+   Generic_GCC::AddMultilibPaths(D, SysRoot, OSLibDir, MultiarchTriple, Paths);
  
-@@ -628,13 +635,13 @@
+   // Similar to the logic for GCC above, if we currently running Clang inside
+@@ -531,13 +538,13 @@
      Loader = "ld64.so.1";
      break;
    case llvm::Triple::x86:

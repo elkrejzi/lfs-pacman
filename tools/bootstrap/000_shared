@@ -31,7 +31,7 @@ export PROOT=${ROOT_PATH}/patches
 # export CXXFLAGS="-g -O2"
 # export LDFLAGS=""
 
-export MAKEFLAGS="-j8"
+export MAKEFLAGS="-j16"
 
 export LC_ALL=C
 
@@ -41,60 +41,60 @@ export LOGDIR=$(dirname $0)
 
 set +h
 
-BINUTILS_VER=2.33.1
-GMP_VER=6.1.2
-MPFR_VER=4.0.2
-MPC_VER=1.1.0
-GCC_VER=9.2.0
+BINUTILS_VER=2.35.1
+GMP_VER=6.2.1
+MPFR_VER=4.1.0
+MPC_VER=1.2.1
+GCC_VER=10.2.0
 LINUX_VER=5.4
-LINUX_PATCH_VER=5.4.6
-GLIBC_VER=2.30
+LINUX_PATCH_VER=5.4.85
+GLIBC_VER=2.32
 TCL_VER=8.6.10
 EXPECT_VER=5.45.4
 DEJAGNU_VER=1.6.2
-BISON_VER=3.5
-NCURSES_VER=6.1
-BASH_VER=5.0
+BISON_VER=3.7.4
+NCURSES_VER=6.2
+BASH_VER=5.1
 BZIP2_VER=1.0.8
-COREUTILS_VER=8.31
+COREUTILS_VER=8.32
 DIFFUTILS_VER=3.7
-FILE_VER=5.38
+FILE_VER=5.39
 FINDUTILS_VER=4.7.0
-GAWK_VER=5.0.1
-GETTEXT_VER=0.20.1
-GREP_VER=3.3
+GAWK_VER=5.1.0
+GETTEXT_VER=0.21
+GREP_VER=3.6
 GZIP_VER=1.10
 M4_VER=1.4.18
-MAKE_VER=4.2.1
+MAKE_VER=4.3
 PATCH_VER=2.7.6
-PERL_VER=5.30.1
+PERL_VER=5.32.0
 SED_VER=4.7
 TAR_VER=1.32
 TEXINFO_VER=6.7
-UTIL_LINUX_VER=2.34
-XZ_VER=5.2.4
+UTIL_LINUX_VER=2.36.1
+XZ_VER=5.2.5
 ATTR_VER=2.4.48
 ACL_VER=2.2.53
-EXPAT_VER=2.2.9
-LIBCAP_VER=2.29
+EXPAT_VER=2.2.10
+LIBCAP_VER=2.46
 LIBFFI_VER=3.3
-OPENSSL_VER=1.1.1d
+OPENSSL_VER=1.1.1i
 ZLIB_VER=1.2.11
-CURL_VER=7.67.0
-GIT_VER=2.24.1
-LIBARCHIVE_VER=3.4.0
-NANO_VER=4.7
-PYTHON3_VER=3.8.1
+CURL_VER=7.74.0
+GIT_VER=2.29.2
+LIBARCHIVE_VER=3.5.1
+NANO_VER=5.4
+PYTHON3_VER=3.9.1
 WGET_VER=1.20.3
-CMAKE_VER=3.16.2
-MESON_VER=0.52.1
-NINJA_VER=1.9.0
-LLVM_VER=9.0.1
-FAKEROOT_VER=1.24
-SHADOW_VER=4.8
-PACMAN_VER=5.2.1
-AUTOCONF_VER=2.69
-AUTOMAKE_VER=1.16.1
+CMAKE_VER=3.19.2
+MESON_VER=0.56.0
+NINJA_VER=1.10.2
+LLVM_VER=11.0.0
+FAKEROOT_VER=1.25.3
+SHADOW_VER=4.8.1
+PACMAN_VER=5.2.2
+AUTOCONF_VER=2.70
+AUTOMAKE_VER=1.16.3
 LIBTOOL_VER=2.4.6
 
 #export LLVM_RELEASE_BRANCH=""
@@ -125,16 +125,16 @@ ${GNU_MIRROR}/bash/bash-${BASH_VER}.tar.gz
 https://sourceware.org/pub/bzip2/bzip2-${BZIP2_VER}.tar.gz
 ${GNU_MIRROR}/coreutils/coreutils-${COREUTILS_VER}.tar.xz
 ${GNU_MIRROR}/diffutils/diffutils-${DIFFUTILS_VER}.tar.xz
-ftp://ftp.astron.com/pub/file/file-${FILE_VER}.tar.gz
+http://ftp.astron.com/pub/file/file-${FILE_VER}.tar.gz
 ${GNU_MIRROR}/findutils/findutils-${FINDUTILS_VER}.tar.xz
 ${GNU_MIRROR}/gawk/gawk-${GAWK_VER}.tar.xz
 ${GNU_MIRROR}/gettext/gettext-${GETTEXT_VER}.tar.xz
 ${GNU_MIRROR}/grep/grep-${GREP_VER}.tar.xz
 ${GNU_MIRROR}/gzip/gzip-${GZIP_VER}.tar.xz
 ${GNU_MIRROR}/m4/m4-${M4_VER}.tar.xz
-${GNU_MIRROR}/make/make-${MAKE_VER}.tar.bz2
+${GNU_MIRROR}/make/make-${MAKE_VER}.tar.gz
 ${GNU_MIRROR}/patch/patch-${PATCH_VER}.tar.xz
-http://www.cpan.org/src/5.0/perl-${PERL_VER}.tar.xz
+https://www.cpan.org/src/5.0/perl-${PERL_VER}.tar.xz
 ${GNU_MIRROR}/sed/sed-${SED_VER}.tar.xz
 ${GNU_MIRROR}/tar/tar-${TAR_VER}.tar.xz
 ${GNU_MIRROR}/texinfo/texinfo-${TEXINFO_VER}.tar.xz
@@ -142,14 +142,14 @@ https://www.kernel.org/pub/linux/utils/util-linux/v${UTIL_LINUX_VER:0:4}/util-li
 http://tukaani.org/xz/xz-${XZ_VER}.tar.xz
 https://download.savannah.gnu.org/releases/attr/attr-${ATTR_VER}.tar.gz
 https://download.savannah.gnu.org/releases/acl/acl-${ACL_VER}.tar.gz
-https://github.com/libexpat/libexpat/releases/download/R_${EXPAT_VER//./_}/expat-${EXPAT_VER}.tar.bz2
+https://github.com/libexpat/libexpat/releases/download/R_${EXPAT_VER//./_}/expat-${EXPAT_VER}.tar.xz
 https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${LIBCAP_VER}.tar.xz
 https://sourceware.org/ftp/libffi/libffi-${LIBFFI_VER}.tar.gz
 https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz
 https://www.zlib.net/zlib-${ZLIB_VER}.tar.xz
-https://curl.haxx.se/download/curl-${CURL_VER}.tar.xz
+https://curl.se/download/curl-${CURL_VER}.tar.xz
 https://www.kernel.org/pub/software/scm/git/git-${GIT_VER}.tar.xz
-https://libarchive.org/downloads/libarchive-${LIBARCHIVE_VER}.tar.gz
+https://libarchive.org/downloads/libarchive-${LIBARCHIVE_VER}.tar.xz
 https://nano-editor.org/dist/v${NANO_VER:0:1}/nano-${NANO_VER}.tar.xz
 https://www.python.org/ftp/python/${PYTHON3_VER}/Python-${PYTHON3_VER}.tar.xz
 ${GNU_MIRROR}/wget/wget-${WGET_VER}.tar.gz

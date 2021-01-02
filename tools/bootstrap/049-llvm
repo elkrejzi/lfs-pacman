@@ -38,6 +38,7 @@ cmake_shared=(
   -DLLVM_ENABLE_EH=ON
   -DLLVM_ENABLE_FFI=ON
   -DLLVM_ENABLE_RTTI=ON
+  -DLLVM_ENABLE_LIBXML2=OFF
   -DLLVM_INCLUDE_EXAMPLES=OFF
   -DLLVM_INCLUDE_TESTS=OFF
   -DLLVM_INSTALL_UTILS=ON
@@ -100,7 +101,6 @@ pushd llvm
   fi
 
   sed -i "s#LIBOMPTARGET_DEP_LIBELF_FOUND#FALSE#" projects/openmp/libomptarget/plugins/CMakeLists.txt
-  sed -i "s#LIBXML2_FOUND#FALSE#g" cmake/config-ix.cmake tools/clang/CMakeLists.txt
 popd
 
 rm -rf llvm-build llvm-build32 ${LOGDIR}/llvm-${LLVM_VER}.log
@@ -140,7 +140,7 @@ install -dm755 llvm-build llvm-build32
 
       /usr/bin/wget -O - http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/${arch}/crtbegin.S | sed "/asm.h/d;/RCSID/d" > crtbegin-${arch}.S
       /usr/bin/wget -O - http://ftp.netbsd.org/pub/NetBSD/NetBSD-current/src/lib/csu/arch/${arch}/crtend.S | sed "/asm.h/d;/RCSID/d" > crtend-${arch}.S
-      /usr/bin/wget "https://gcc.gnu.org/viewcvs/gcc/trunk/libgcc/config/i386/crtfastmath.c?view=co" -O crtfastmath-${arch}.c
+      /usr/bin/wget "https://gcc.gnu.org/git/?p=gcc.git;a=blob_plain;f=libgcc/config/i386/crtfastmath.c;h=62fb120b7cc418308397224923e545eabcce40d6;hb=HEAD" -O crtfastmath-${arch}.c
 
       install -dm755 /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}
 
@@ -156,7 +156,8 @@ install -dm755 llvm-build llvm-build32
       mv /tools/lib/clang/${LLVM_FINAL_VERSION}/lib/linux/libclang_rt.builtins-${arch}.a /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}
       mv /tools/${LIB}/libunwind.a /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libunwind-clang.a
 
-      sed -i "s#-lunwind#/tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libcompiler-rt.a#g;s#INPUT#GROUP#g" /tools/${LIB}/libc++.so
+      # TODO: Check why this doesn't work, or is not needed anymore.
+      #sed -i "s#-lunwind#/tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libcompiler-rt.a#g;s#INPUT#GROUP#g" /tools/${LIB}/libc++.so
 
 cat > /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libcompiler-rt.a << EOF
 INPUT ( /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libclang_rt.builtins-${arch}.a AS_NEEDED ( /tools/lib/clang/${LLVM_FINAL_VERSION}/${arch}/libunwind-clang.a -lpthread -ldl -lm ) )

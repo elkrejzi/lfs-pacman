@@ -4,7 +4,7 @@
 
 rm -rf expat-${EXPAT_VER} ${LOGDIR}/expat-${EXPAT_VER}.log
 
-tar xf ${SROOT}/expat-${EXPAT_VER}.tar.bz2
+tar xf ${SROOT}/expat-${EXPAT_VER}.tar.xz
 
 {
 

@@ -10,8 +10,8 @@ tar xf ${SROOT}/fakeroot_${FAKEROOT_VER}.orig.tar.gz
 
   time {
   pushd fakeroot-${FAKEROOT_VER}
-    patch -Np1 -i ${PROOT}/fakeroot-fixes.patch
-
+    sed -i "/SUBDIRS/s#doc ##g" Makefile.am
+    ./bootstrap
     ./configure --prefix=/tools
     make
     make install

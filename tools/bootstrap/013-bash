@@ -11,7 +11,7 @@ tar xf ${SROOT}/bash-${BASH_VER}.tar.gz
   time {
   pushd bash-${BASH_VER}
     ./configure --prefix=/tools --without-bash-malloc
-    make
+    make -j1
     make install
     ln -sv bash /tools/bin/sh
   popd
