@@ -1,0 +1,29 @@
+pkgname=libnma
+pkgver=1.8.30
+pkgrel=1
+pkgdesc="NetworkManager GUI client library"
+arch=('x86_64')
+url="https://wiki.gnome.org/Projects/NetworkManager/"
+license=('GPL' 'LGPL')
+#depends=()
+source=("https://download.gnome.org/sources/libnma/${pkgver:0:3}/libnma-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/libnma-${pkgver}"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		build
+
+	ninja -C build ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/libnma-${pkgver}"
+
+	DESTDIR="${pkgdir}" ninja -C build install
+}
+
+sha512sums=('4d8f93d035fca4252e5c5dafc756ee6bc8f1d302aaeca77c5c0acb5d7f6cd4214224fb48e2706e69084c5a714aafa7837769be17d0642cc29eded9eb175a1107')

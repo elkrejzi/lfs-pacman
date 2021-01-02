@@ -1,5 +1,5 @@
 pkgname=iputils
-pkgver=20190709
+pkgver=20200821
 pkgrel=1
 pkgdesc="Network monitoring tools, including ping"
 arch=('x86_64')
@@ -8,7 +8,6 @@ license=('GPL')
 #depends=()
 install=iputils.install
 source=("https://github.com/iputils/iputils/archive/s${pkgver}/iputils-s${pkgver}.tar.gz")
-#source=("git+https://github.com/iputils/iputils.git#commit=db372e3")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -42,4 +41,4 @@ package() {
 	ln -sfv tracepath.8 "${pkgdir}/usr/share/man/man8/tracepath6.8"
 }
 
-sha512sums=('5db18ac49fa46ed810da4d508e78f4baf2d5c07e7f923eb49d005ad8745743d8861e5788b34a7e37fb7261cee7ddfb768b737eee9d200502ea53537142cac6b5')
+sha512sums=('4a57c3637cdd9aab2600682774e27370716cbdf1c7ac8ae61bf86c21c08701a5b697792df4aa95309b196eaa74f3cb6b2836a40f04da0e602156e982ac99d8c9')

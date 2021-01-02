@@ -1,5 +1,5 @@
 pkgname=mailnag
-pkgver=1.3.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="An extensible mail notification daemon"
 arch=('x86_64')
@@ -11,13 +11,13 @@ source=("https://github.com/pulb/mailnag/archive/v${pkgver}/mailnag-${pkgver}.ta
 build() {
 	cd "${srcdir}/mailnag-${pkgver}"
 
-	python2 setup.py build
+	python3 setup.py build
 }
 
 package() {
 	cd "${srcdir}/mailnag-${pkgver}"
 
-	python2 setup.py install --root="${pkgdir}" --optimize=1
+	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('b87a13712af8bc4650a7f64b602a03d6e1a3d2e508d384967e1b8b315c93e460983c879437ef5d661775c84db83193dfdd863be7080630ae99c5757736e0233d')
+sha512sums=('3e576cd367cf543a3d0afaf15386f9da6a3f603520d53fd4d1318f366cb54d5be1a4556692efbbb72efe59ccd631ad942e39c3e55cca1634a48a152c8e424e55')

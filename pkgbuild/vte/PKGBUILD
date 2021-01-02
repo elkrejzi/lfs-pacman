@@ -1,5 +1,5 @@
 pkgname=vte
-pkgver=0.58.3
+pkgver=0.62.1
 pkgrel=1
 pkgdesc="Virtual Terminal Emulator widget for use with GTK3"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('b0a38eb1cd7d923b0431af943dbdb89932833f9a2b0b8fc1fa9ee728c87418c1f5a424b2ccee661721093a80c569f3b41c721b0ba2302ba0c3a42d4c5e31aa9a')
+sha512sums=('2f8f76953e0ea6c604357ab08630d3822a252051d8997cf7714553fec1688735468726bfd74e03f122dd1c8d0717e511ec7ec1e5463a086bd407afc6f7df91cf')

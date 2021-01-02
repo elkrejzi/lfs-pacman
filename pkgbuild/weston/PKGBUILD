@@ -24,6 +24,7 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Dbackend-rdp=false \
+		-Dpipewire=false \
 		-Dsimple-dmabuf-drm=intel \
 		"${srcdir}/weston-${pkgver}"
 

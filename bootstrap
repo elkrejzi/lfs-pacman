@@ -412,6 +412,7 @@ json-glib
 libsoup
 libwacom
 geocode-glib
+graphene
 libinput
 rest
 at-spi2-core
@@ -674,9 +675,9 @@ bind
 openssh
 rtkit
 weston
-
 cogl
 gmime
+libnma
 telepathy-glib
 amtk
 clutter
@@ -694,6 +695,7 @@ libgee
 libgtop
 libgweather
 libgxps
+libhandy
 libpeas
 libwnck
 network-manager-applet
@@ -775,6 +777,7 @@ unrar
 valgrind
 whois
 dblatex
+
 teamviewer
 viber
 visual-studio-code

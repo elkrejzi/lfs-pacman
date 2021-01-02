@@ -1,5 +1,5 @@
 pkgname=evince
-pkgver=3.34.2
+pkgver=3.38.0
 pkgrel=1
 pkgdesc="Document viewer (PDF, Postscript, djvu, tiff, dvi, XPS, SyncTex support with gedit, comics books (cbr,cbz,cb7 and cbt))"
 arch=('x86_64')
@@ -11,20 +11,21 @@ source=("https://download.gnome.org/sources/evince/${pkgver:0:4}/evince-${pkgver
 build() {
 	cd "${srcdir}/evince-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--enable-introspection \
-		--disable-compile-warnings \
-		--disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		-Dps=enabled \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/evince-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('51bfa4671e17a98c536790185ece6f4f77b956062901f840cd298cdc3e42eb7e8cabe9bfa84387f185cdf7462a322ef54bbc463b988a677af68561e55acd9f12')
+sha512sums=('2d532388b933891c15ecc598b167c087647c507db5c6081abefab062007f14f5bb2cbdf80cecee3620600922fbbe6e3090cbc44663193b2a79c2caeeacb54fb9')

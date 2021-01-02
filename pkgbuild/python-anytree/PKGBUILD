@@ -18,6 +18,8 @@ package_python-anytree() {
 	cd "${srcdir}/anytree-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
+
+	rm -rf "${pkgdir}/usr/LICENSE"
 }
 
 sha512sums=('907fe690965b143b51b61dda837625d882f83268eb25d8e59b63b129681922c76e61616de9c030ef1fb42c23b502942584e99736432393f4c7b5e1dadb8f7eea')

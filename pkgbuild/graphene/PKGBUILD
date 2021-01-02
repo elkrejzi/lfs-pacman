@@ -1,0 +1,31 @@
+pkgname=graphene
+pkgver=1.10.2
+pkgrel=1
+pkgdesc="A thin layer of graphic data types"
+arch=('x86_64')
+url="https://ebassi.github.io/graphene/"
+license=('MIT')
+#depends=()
+source=("https://download.gnome.org/sources/graphene/${pkgver:0:4}/graphene-${pkgver}.tar.xz")
+
+build() {
+	cd "${srcdir}/graphene-${pkgver}"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		-Dinstalled_tests=false \
+		build
+
+	ninja -C build ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/graphene-${pkgver}"
+
+	DESTDIR="${pkgdir}" ninja -C build install
+}
+
+sha512sums=('a8a8ef1e4ccffee2313a18b9b8dda06c7ede6d49fdde8578694500634e3c90278fd30af7d88938d5ecb08c519cc3e09d21fe69d0f21cb766e056ceedbb3eafb0')

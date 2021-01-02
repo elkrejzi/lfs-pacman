@@ -1,12 +1,12 @@
 pkgname=gthumb
-pkgver=3.8.3
+pkgver=3.10.1
 pkgrel=1
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 arch=('x86_64')
 url="https://wiki.gnome.org/Apps/gthumb"
 license=('GPL')
 #depends=()
-source=("https://download.gnome.org/sources/gthumb/${pkgver:0:3}/gthumb-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/gthumb/${pkgver:0:4}/gthumb-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gthumb-${pkgver}"
@@ -27,4 +27,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('321fab9e5b8a026b2568f7ee0ec853158b762a9b2669ae88d16eb646699c62e0672471b9b073aeb43333df5364e22d54661960a67cd6ff4a6b11d29e7c699c21')
+sha512sums=('5813f563aa9abbeffa19a8999c07d4207a2f93fc102b12a6191f48bb56375bee41abb31479cce8b8c7014adb4739d3bb9777c357fd6bee59231b26abd166f04d')

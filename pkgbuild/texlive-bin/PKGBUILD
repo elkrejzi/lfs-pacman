@@ -69,7 +69,7 @@ package() {
 	cd "${srcdir}/texlive-${pkgver}-source/build"
 
 	make install DESTDIR="${pkgdir}"
-	make texlinks DESTDIR="${pkgdir}"
+	LD_LIBRARY_PATH="${pkgdir}/usr/lib" make texlinks DESTDIR="${pkgdir}"
 
 	tar --wildcards --strip-components=1 -xf "${srcdir}/texlive-${pkgver}-extra.tar.xz" -C "${pkgdir}/usr/share" "*/tlpkg"
 

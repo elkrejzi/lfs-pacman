@@ -1,5 +1,5 @@
 pkgname=seahorse
-pkgver=3.34
+pkgver=3.38.0.1
 pkgrel=1
 pkgdesc="GNOME application for managing PGP keys"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('06cbb8982bccabf1cfdcbb9ec7178681ec1b7f210d7401a145506defe90f38a6ef14a643c3c248164aff1e6f6943caa35db05263fc66c42fc1292e925110faf9')
+sha512sums=('d0fdbb81d71e5e0908f732ad49db89a3cae936f98e0285f758a8861259bff976d33083783a7e19474bd6a1e95c11ec74021b6b7f5cdd3d51372e9cd93d4fd014')

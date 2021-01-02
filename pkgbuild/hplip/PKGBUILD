@@ -8,12 +8,17 @@ license=('GPL')
 #depends=()
 options=(emptydirs)
 source=("https://downloads.sourceforge.net/hplip/hplip-${pkgver}.tar.gz"
-	"hplip-fixes.patch")
+	"hplip-fixes.patch"
+	"archlinux-fixes.patch")
 
 prepare() {
 	cd "${srcdir}/hplip-${pkgver}"
 
+	export AUTOMAKE='automake --foreign'
+	autoreconf --force --install
+
 	patch -Np1 -i "${srcdir}/hplip-fixes.patch"
+	patch -Np1 -i "${srcdir}/archlinux-fixes.patch"
 }
 
 build() {
@@ -45,4 +50,5 @@ package() {
 }
 
 sha512sums=('f583fb4140a29c5e21956c3e51fe3620baa65d33b40447af419d7fc61473a1148a1873216a84e89be785b155ee8e9aebd5e3eb19d2ded82b8415b1a35de1b55d'
-            '96beaf08aa8a866693efd1d3a863ccbc9db468629ab6b86a11b9e6cfad5933b031c198ff4a86a836ea1cd66f2c375454580219100a196665aa63faa43d71aa79')
+            '9ddb08a8ee411bcba0b45b09e013d7bef5335e5688193cc98c09783b2f72ef9342d9386eeb8d291aa17d7681d44027c0533b74c9b1da341d5d65a413e3a6a093'
+            'ac6df3dc664bfbf2357835cbf910569d209e6ce516909495585f8668713b4ef945dc606e85795f85be75da1193ca8b37b0d5b4748310914cb0fcfdcaf6d7bb74')

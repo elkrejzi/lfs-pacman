@@ -1,5 +1,5 @@
 pkgname=gtksourceview4
-pkgver=4.4.0
+pkgver=4.8.0
 pkgrel=1
 pkgdesc="A text widget adding syntax highlighting and more to GNOME"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('068e723525290c5356c5ce3f5e5b5b8ecc9f7b1ff2f8234da247d1a84bed63ff5601cad6550981720859286e107705ec25cc7793b754ada164ec6569df0df9eb')
+sha512sums=('69549a58871047eb8cffd9f28042a4e64c0d74dfcb0e241bfb3dd1e4cb229c2ab5fad1f1dd56c6bbb4d0656b2a44fb4b3d14e79203f7f3f2118c5fe84423539d')

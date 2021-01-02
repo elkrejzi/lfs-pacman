@@ -1,5 +1,5 @@
 pkgname=libwnck
-pkgver=3.32.0
+pkgver=3.36.0
 pkgrel=1
 pkgdesc="Library to manage X windows and workspaces (via pagers, tasklists, etc.)"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('a939b96feda20b0eba2b87556b97a9ba4b9aaea4c82c0e274a23796a3a9b49cb93be582d79e32a52a87b5ca6e35182a9d617cb802802b3c2ba2bff2b028aa3de')
+sha512sums=('b7bf5d935327f61634a898594cf20a270e1b403c8df6c74e6ac20e22eea2845ac8c3007b31994728b74953e40c1015373efe10ed64243cf5e85fd210654aecb3')

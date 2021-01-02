@@ -1,5 +1,5 @@
 pkgname=gnome-menus
-pkgver=3.32.0
+pkgver=3.36.0
 pkgrel=1
 pkgdesc="GNOME menu specifications"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8a429e092b1e4a1a794473d7cae611684321e797792e1063911ddcbb496140033838b348bc209b4c0566a13233cfa1144cae7a188a483abf34c5af6feb44a884')
+sha512sums=('e830e66639c2b6aebecf572188208d33b1515270e69af3f2c6f7a640d305a7b9c2bce10e5f520b3da1dea681b194fd14c551468ea5747aa333e649b5c46774e4')

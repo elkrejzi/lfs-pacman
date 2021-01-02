@@ -1,5 +1,5 @@
 pkgname=clutter
-pkgver=1.26.2
+pkgver=1.26.4
 pkgrel=1
 pkgdesc="A toolkit for creating fast, portable, compelling dynamic UIs"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c8008a1a1f111313d9abaff8d4415f112ddc32a02e08845f3735d33bb25b72b082f133daba06749bb9595eaf1ba83b308d30a413fbbe8dcdc1afdd7077a30937')
+sha512sums=('6d43ac09df7671fa2bda74d1231166e8331f3ef1dbe0d167225033b3ddae7377d1062db81b73fc498c2e9f0db467bf4febb7306a6f40c9ef0266dac2a397f43a')

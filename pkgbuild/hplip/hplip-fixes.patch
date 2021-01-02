@@ -1,5 +1,5 @@
---- a/prnt/hpps/hppsfilter.c	2019-03-14 10:29:15.000000000 +0100
-+++ b/prnt/hpps/hppsfilter.c	2019-03-29 15:02:47.547294369 +0100
+--- a/prnt/hpps/hppsfilter.c	2020-11-30 01:03:52.000000000 +0100
++++ b/prnt/hpps/hppsfilter.c	2021-01-02 20:42:52.275016577 +0100
 @@ -104,7 +104,7 @@
      if(ptempbooklet_file == NULL)
      {
@@ -9,14 +9,14 @@
      }  
      chmod(temp_filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
  
---- a/scan/sane/hpaio.c	2019-03-14 10:28:56.000000000 +0100
-+++ b/scan/sane/hpaio.c	2019-03-29 15:02:30.937640757 +0100
-@@ -46,6 +46,8 @@
+--- a/scan/sane/hpaio.c	2020-11-30 01:03:52.000000000 +0100
++++ b/scan/sane/hpaio.c	2021-01-02 20:43:20.535080068 +0100
+@@ -51,7 +51,7 @@
  #include "escl.h"
  #include "io.h"
  #include "orblitei.h"
+-
 +#include "orblite.h"
-+#include "mdns.h"
- 
  
  #define DEBUG_DECLARE_ONLY
+ #include "sanei_debug.h"

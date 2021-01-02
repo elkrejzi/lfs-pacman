@@ -1,5 +1,5 @@
 pkgname=gnome-calculator
-pkgver=3.34.1
+pkgver=3.38.2
 pkgrel=1
 pkgdesc="GNOME Scientific calculator"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('43900cebc6b479292a45619f1e4f6afc5264e2dceda5d0049b59f27ebe2a32b5f4b2465a22f33b33b882ab0e737f7048fbe9395b18f9b5d2023da2941b6783f6')
+sha512sums=('41e58b34640e795108a552aa0d95b03f0c84c4d5af6eef7fe8350c5f4e031a0fad7cad73034b38b2121f09687815b6b10a6a86fb00c7cbf720ccb06a8eea0403')

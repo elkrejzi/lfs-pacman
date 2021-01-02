@@ -1,5 +1,5 @@
 pkgname=tepl
-pkgver=4.2.1
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="A library that eases the development of GtkSourceView-based text editors and IDEs"
 arch=('x86_64')
@@ -11,15 +11,20 @@ source=("https://download.gnome.org/sources/tepl/${pkgver:0:3}/tepl-${pkgver}.ta
 build() {
 	cd "${srcdir}/tepl-${pkgver}"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/tepl-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('c1b848cf1d336efdc2971e16060baf721e9019e6e6827bd755235c9dd37ae47803343e51888d9dd5817b6127bb1ba05a19d4a1be0caab9d2de125bc0cd8175a7')
+sha512sums=('f363d182185976447d235cf1201148e5201cdabd1fa8b88d7a763a965896f87bd222a0161c11e93662afaf4e474bbd0308643d28559aadc27b9d48974f4c458d')

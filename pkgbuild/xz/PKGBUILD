@@ -40,6 +40,8 @@ package_xz() {
 	cd "${srcdir}/xz-${pkgver}"
 
 	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
 package_lib32-xz() {

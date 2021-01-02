@@ -1,5 +1,5 @@
 pkgname=gnome-backgrounds
-pkgver=3.34.0
+pkgver=3.38.0
 pkgrel=1
 pkgdesc="Background images and data for GNOME"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('bea6df85611a845c1013091dfccfd1d1fc697781a74348d936c15f8cec1ace765c37e6f57fed403cc2c6a91a18e522c8cc3db74b2c2327cd3ed71371075a9834')
+sha512sums=('01000409d6d54af81e520b8b292c24bb64e763a493c69cf71cabb9f885c7feee5a1805db40e2d0544834c40b7866f889c106e9816fd8e8b8f5273b0a099f1488')

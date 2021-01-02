@@ -1,5 +1,5 @@
 pkgname=valgrind
-pkgver=3.15.0
+pkgver=3.16.1
 pkgrel=1
 pkgdesc="A tool to help find memory-management problems in programs"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5695d1355226fb63b0c80809ed43bb077b6eed4d427792d9d7ed944c38b557a84fe3c783517b921e32f161228e10e4625bea0550faa4685872bb4454450cfa7f')
+sha512sums=('2a4173efe1b6facdd2f5c5ee8ed006704168eba1813736fccc8191d60363afd96197512cf42037e65f18d4ddd49adc74a54c47210df216fba3c46bf68ef0f950')

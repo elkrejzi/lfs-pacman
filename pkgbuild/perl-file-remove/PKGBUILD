@@ -1,5 +1,5 @@
 pkgname=perl-file-remove
-pkgver=1.58
+pkgver=1.60
 pkgrel=1
 pkgdesc="Remove files and directories"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
 
-sha512sums=('2d616751328d57ff6975775189f92745fb3cb1d69675049ebddd96a2612c11c62c1995a70720efe4e73a9c10b9a2ec5528b90d468815e7c2ee395145241608e2')
+sha512sums=('7781629896f16f0b34574a879803473002249c32cf03001f4c1c290edd379571d96d5b1049874f9f71bdb8d7881c3f30a86dcdd0d4f42b4e78998cd6a96de750')

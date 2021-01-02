@@ -1,5 +1,5 @@
 pkgname=gjs
-pkgver=1.58.3
+pkgver=1.66.1
 pkgrel=1
 pkgdesc="Javascript Bindings for GNOME"
 arch=('x86_64')
@@ -11,17 +11,24 @@ source=("https://download.gnome.org/sources/gjs/${pkgver:0:4}/gjs-${pkgver}.tar.
 build() {
 	cd "${srcdir}/gjs-${pkgver}"
 
-	./configure --prefix=/usr
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dinstalled_tests=false \
+		-Dverbose_logs=false \
+		-Dprofiler=disabled \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gjs-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 
 	rm -rf "${pkgdir}/usr/libexec"
 }
 
-sha512sums=('f75b0ca6809636026e3f533a18c7599caf377cf6380f40cf39b2c24608cbd2959094d9395494fefce6764ab9ba2ee152809a748a124e4f8b7e9ffa6d136a0260')
+sha512sums=('601d0c645ab1586e7d770f753bf68653816dc631faf89b5e70216320f6b7707e4aaa3507111fb6ff3331f76656050e32e8b1441720bf080de957e03e4565a43f')

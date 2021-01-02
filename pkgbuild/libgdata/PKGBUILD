@@ -1,5 +1,5 @@
 pkgname=libgdata
-pkgver=0.17.11
+pkgver=0.17.13
 pkgrel=1
 pkgdesc="GLib-based library for accessing online service APIs using the GData protocol"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('5abb00e6ebee1010fb6d9eab675e03d94883cac88e42b403a7d750bff73d65d0b35aae5c9e8f17a182819193b4a049ac7e9fc644ad9fa79872924ed5704c8982')
+sha512sums=('b074097bd3cc78951638f0d726a948c9ba994c64c85c0cfe713c3d87419a9a96b66688bde88732dfb529325dca2b8251bd161337532bffaf9564f7f5819b9343')

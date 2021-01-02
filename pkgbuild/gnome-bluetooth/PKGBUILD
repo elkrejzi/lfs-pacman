@@ -1,5 +1,5 @@
 pkgname=gnome-bluetooth
-pkgver=3.34.0
+pkgver=3.34.3
 pkgrel=1
 pkgdesc="The GNOME Bluetooth Subsystem"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('25c99f3ac4398b24c08018cdf41a124c94312bc0b1c7202c82918134ddbdea16d6ee0980536cb45deb42ae8fa25b6e86ad21870646235108583831bf5f00926e')
+sha512sums=('a20985576fbc0594a198c8f58e6098db24c73454a9dfc0f5f47581a1bfc0a72e3f0d2592f4a01593c5ed132e4924d934d4d65fd501d274f3b032e1e548794272')

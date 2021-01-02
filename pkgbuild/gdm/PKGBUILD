@@ -1,5 +1,5 @@
 pkgname=gdm
-pkgver=3.34.1
+pkgver=3.38.2.1
 pkgrel=1
 pkgdesc="Display manager and login screen"
 arch=('x86_64')
@@ -8,33 +8,45 @@ license=('GPL')
 #depends=()
 options=(emptydirs)
 source=("https://download.gnome.org/sources/gdm/${pkgver:0:4}/gdm-${pkgver}.tar.xz"
+	"default.pa"
 	"gdm.sysusers")
 
 build() {
 	cd "${srcdir}/gdm-${pkgver}"
 
-	./configure --prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--disable-schemas-compile \
-		--enable-gdm-xsession \
-		--with-default-pam-config=lfs \
-		--without-plymouth
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddefault-pam-config=lfs \
+		-Dgdm-xsession=true \
+		-Dipv6=true \
+		-Dplymouth=disabled \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gdm-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 
-	chown -R 21:21 "${pkgdir}/var/lib/gdm"
+	install -v -dm1770 -o 21 -g 21 "${pkgdir}/var/lib"
+	install -v -dm0700 -o 21 -g 21 "${pkgdir}/var/lib/gdm/.config"
+	install -v -dm0700 -o 21 -g 21 "${pkgdir}/var/lib/gdm/.config/pulse"
+	install -v -dm0700 -o 21 -g 21 "${pkgdir}/var/lib/gdm/.local"
+	install -v -dm0755 -o 21 -g 21 "${pkgdir}/var/lib/gdm/.local/share"
+	install -v -dm0755 -o 21 -g 21 "${pkgdir}/var/lib/gdm/.local/share/applications"
+
+	# https://src.fedoraproject.org/rpms/gdm/blob/master/f/default.pa-for-gdm
+	install -v -Dm644 -o 21 -g 21 "${srcdir}/default.pa" "${pkgdir}/var/lib/gdm/.config/pulse/default.pa"
 
 	rm -rf "${pkgdir}"/var/{cache,log,run}
 
 	install -v -Dm644 "${srcdir}/gdm.sysusers" "${pkgdir}/usr/lib/sysusers.d/gdm.conf"
 }
 
-sha512sums=('71b71699e8e31643080d2af5dc54381592c0c6a2f7adbb0434a9957c8e59c67a20afaf48dce57139453157572c5bae617134420f36e8da68fbc74e95746d26fb'
+sha512sums=('fea210382d5760050d211650b0e2eaf18b39e5e67fef98d9a7fa53245b134c62235265bc48438d1bc50c729414ae027d50ec6007a15c6f5aed3b8e927a844aed'
+            'f6bc7055e79ebca1284d150da9323531f194beddbe669ad7a980566f5d8e0f92d6cc5497cbe511cc36c6ae7e7bc29aa09171f348fcc2e688a0e4aebb1fd230ab'
             'afdfe702121ab9b9b64450e736a9d7fcd603a5c373e13e3a2ad6caa993fedca23b673d9bcaa3465e830f19bb6bc4c6c71d9f2699a57807f11d6706a97d190573')

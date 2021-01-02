@@ -1,5 +1,5 @@
 pkgname=transmission
-pkgver=2.94
+pkgver=3.00
 pkgrel=1
 pkgdesc="Fast, easy, and free BitTorrent client"
 arch=('x86_64')
@@ -7,12 +7,6 @@ url="https://transmissionbt.com/"
 license=('MIT')
 #depends=()
 source=("https://github.com/transmission/transmission-releases/raw/master/transmission-${pkgver}.tar.xz")
-
-prepare() {
-	cd "${srcdir}/transmission-${pkgver}"
-
-	sed -i "s:libsystemd-daemon:libsystemd:g" configure
-}
 
 build() {
 	cd "${srcdir}/transmission-${pkgver}"
@@ -30,4 +24,4 @@ package() {
 	install -Dm644 daemon/transmission-daemon.service "${pkgdir}/usr/lib/systemd/system/transmission-daemon.service"
 }
 
-sha512sums=('ee411743940f2897aa0bbc351ce79f11d860075d2e9e399d60301eae8cfc453e20426ef553fc62ee43019a07c052d512f5d7972cc4411fb57b1312c2c1558da7')
+sha512sums=('eeaf7fe46797326190008776a7fa641b6341c806b0f1684c2e7326c1284832a320440013e42a37acda9fd0ee5dca695f215d6263c8acb39188c5d9a836104a61')

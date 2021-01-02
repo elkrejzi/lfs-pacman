@@ -1,5 +1,5 @@
 pkgname=tracker
-pkgver=2.3.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="Desktop-neutral user information store, search tool and indexer"
 arch=('x86_64')
@@ -20,8 +20,8 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Ddocs=true \
-		-Dbash_completion=no \
-		-Dfunctional_tests=false \
+		-Dbash_completion=false \
+		-Dtest_utils=false \
 		"${srcdir}/tracker-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -33,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('7642e90383dd47362fda70b6dff25c962c9f3a6155c12dc09223e4635ee9e150a2bb2b52451074a94ac43136bdf80326d293e4e6f6430a1b725781120cb4a333')
+sha512sums=('2ed0529e419c39b0bf272984eae92376c48d2463fd3a0d86e40a4d47ec7c04e8c9f9b662281d0ce64c85f5d028621f38256be591d9df5faa80ccab6d48dcbdaa')

@@ -1,5 +1,5 @@
 pkgname=folks
-pkgver=0.13.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="Library to aggregates people into metacontacts"
 arch=('x86_64')
@@ -15,6 +15,7 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
+		-Dbluez_backend=false \
 		build
 
 	ninja -C build ${MAKEFLAGS}
@@ -26,4 +27,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('b134172077bed1655cd7f24b1402ed347d405b22114c33d6638040a5e475632ea33cde898a08fc143eaefc7057d4b6dccceac7e797e1976fdf88c58764818afe')
+sha512sums=('94dc025668ac34df203ea351430bf82dddb4e275d936e2b959a1b9a4cf0fff0218a4baa7d3a89c152a2cb21a94250d731c8e7470d50ac4b658fbe1448974a69e')
