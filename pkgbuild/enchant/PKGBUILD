@@ -1,5 +1,5 @@
 pkgname=enchant
-pkgver=2.2.7
+pkgver=2.2.15
 pkgrel=1
 pkgdesc="A wrapper library for generic spell checking"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('696455cf782b3186d19988ed59ca3cc6030a431d44ef3828039590afb08fd282a79ce6246a342e6bf7a0bf3bf63d4822d841ba01394da9f9e4394a491b2373b6')
+sha512sums=('e29b3a85d993af28044a86dd23a3ca74c7d50b4218e542c380053a3eaf70c3ea2406feb3361ba8e793bac586c252330bb20fb56c65f3a0a54f63f103cc0abb35')

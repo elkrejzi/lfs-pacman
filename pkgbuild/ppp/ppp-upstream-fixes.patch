@@ -1,0 +1,189 @@
+--- a/chat/Makefile.linux	2019-12-31 02:31:26.000000000 +0100
++++ b/chat/Makefile.linux	2021-01-02 13:30:23.273562941 +0100
+@@ -25,7 +25,7 @@
+ 
+ install: chat
+ 	mkdir -p $(BINDIR) $(MANDIR)
+-	$(INSTALL) -s -c chat $(BINDIR)
++	$(INSTALL) -c chat $(BINDIR)
+ 	$(INSTALL) -c -m 644 chat.8 $(MANDIR)
+ 
+ clean:
+--- a/pppd/eap.c	2019-12-31 02:31:26.000000000 +0100
++++ b/pppd/eap.c	2021-01-02 13:30:23.273562941 +0100
+@@ -1329,6 +1329,12 @@
+ #endif /* USE_SRP */
+ 
+ 	/*
++	 * Ignore requests if we're not open
++	 */
++	if (esp->es_client.ea_state <= eapClosed)
++		return;
++
++	/*
+ 	 * Note: we update es_client.ea_id *only if* a Response
+ 	 * message is being generated.  Otherwise, we leave it the
+ 	 * same for duplicate detection purposes.
+@@ -1420,7 +1426,7 @@
+ 		}
+ 
+ 		/* Not so likely to happen. */
+-		if (vallen >= len + sizeof (rhostname)) {
++		if (len - vallen >= sizeof (rhostname)) {
+ 			dbglog("EAP: trimming really long peer name down");
+ 			BCOPY(inp + vallen, rhostname, sizeof (rhostname) - 1);
+ 			rhostname[sizeof (rhostname) - 1] = '\0';
+@@ -1736,6 +1742,12 @@
+ 	u_char dig[SHA_DIGESTSIZE];
+ #endif /* USE_SRP */
+ 
++	/*
++	 * Ignore responses if we're not open
++	 */
++	if (esp->es_server.ea_state <= eapClosed)
++		return;
++
+ 	if (esp->es_server.ea_id != id) {
+ 		dbglog("EAP: discarding Response %d; expected ID %d", id,
+ 		    esp->es_server.ea_id);
+@@ -1846,7 +1858,7 @@
+ 		}
+ 
+ 		/* Not so likely to happen. */
+-		if (vallen >= len + sizeof (rhostname)) {
++		if (len - vallen >= sizeof (rhostname)) {
+ 			dbglog("EAP: trimming really long peer name down");
+ 			BCOPY(inp + vallen, rhostname, sizeof (rhostname) - 1);
+ 			rhostname[sizeof (rhostname) - 1] = '\0';
+@@ -2047,6 +2059,12 @@
+ int id;
+ int len;
+ {
++	/*
++	 * Ignore failure messages if we're not open
++	 */
++	if (esp->es_client.ea_state <= eapClosed)
++		return;
++
+ 	if (!eap_client_active(esp)) {
+ 		dbglog("EAP unexpected failure message in state %s (%d)",
+ 		    eap_state_name(esp->es_client.ea_state),
+--- a/pppd/Makefile.linux	2019-12-31 02:31:26.000000000 +0100
++++ b/pppd/Makefile.linux	2021-01-02 13:30:23.273562941 +0100
+@@ -107,7 +107,7 @@
+ CFLAGS	+= -DUSE_SRP -DOPENSSL -I/usr/local/ssl/include
+ LIBS	+= -lsrp -L/usr/local/ssl/lib -lcrypto
+ TARGETS	+= srp-entry
+-EXTRAINSTALL = $(INSTALL) -s -c -m 555 srp-entry $(BINDIR)/srp-entry
++EXTRAINSTALL = $(INSTALL) -c -m 555 srp-entry $(BINDIR)/srp-entry
+ MANPAGES += srp-entry.8
+ EXTRACLEAN += srp-entry.o
+ NEEDDES=y
+@@ -219,7 +219,7 @@
+ install: pppd
+ 	mkdir -p $(BINDIR) $(MANDIR)
+ 	$(EXTRAINSTALL)
+-	$(INSTALL) -s -c -m 555 pppd $(BINDIR)/pppd
++	$(INSTALL) -c -m 555 pppd $(BINDIR)/pppd
+ 	if chgrp pppusers $(BINDIR)/pppd 2>/dev/null; then \
+ 	  chmod o-rx,u+s $(BINDIR)/pppd; fi
+ 	$(INSTALL) -c -m 444 pppd.8 $(MANDIR)
+--- a/pppd/plugins/radius/Makefile.linux	2019-12-31 02:31:26.000000000 +0100
++++ b/pppd/plugins/radius/Makefile.linux	2021-01-02 13:30:23.273562941 +0100
+@@ -12,7 +12,8 @@
+ INSTALL	= install
+ 
+ PLUGIN=radius.so radattr.so radrealms.so
+-CFLAGS=-I. -I../.. -I../../../include -O2 -fPIC -DRC_LOG_FACILITY=LOG_DAEMON
++CFLAGS ?= -O2
++CFLAGS += -I. -I../.. -I../../../include -fPIC -DRC_LOG_FACILITY=LOG_DAEMON
+ 
+ # Uncomment the next line to include support for Microsoft's
+ # MS-CHAP authentication protocol.
+@@ -36,9 +37,9 @@
+ 
+ install: all
+ 	$(INSTALL) -d -m 755 $(LIBDIR)
+-	$(INSTALL) -s -c -m 755 radius.so $(LIBDIR)
+-	$(INSTALL) -s -c -m 755 radattr.so $(LIBDIR)
+-	$(INSTALL) -s -c -m 755 radrealms.so $(LIBDIR)
++	$(INSTALL) -c -m 755 radius.so $(LIBDIR)
++	$(INSTALL) -c -m 755 radattr.so $(LIBDIR)
++	$(INSTALL) -c -m 755 radrealms.so $(LIBDIR)
+ 	$(INSTALL) -c -m 444 pppd-radius.8 $(MANDIR)
+ 	$(INSTALL) -c -m 444 pppd-radattr.8 $(MANDIR)
+ 
+--- a/pppd/plugins/radius/util.c	2019-12-31 02:31:26.000000000 +0100
++++ b/pppd/plugins/radius/util.c	2021-01-02 13:30:23.273562941 +0100
+@@ -73,9 +73,9 @@
+ char *
+ rc_mksid (void)
+ {
+-  static char buf[15];
++  static char buf[32];
+   static unsigned short int cnt = 0;
+-  sprintf (buf, "%08lX%04X%02hX",
++  slprintf(buf, sizeof(buf), "%08lX%04X%02hX",
+ 	   (unsigned long int) time (NULL),
+ 	   (unsigned int) getpid (),
+ 	   cnt & 0xFF);
+--- a/pppd/plugins/rp-pppoe/Makefile.linux	2019-12-31 02:31:26.000000000 +0100
++++ b/pppd/plugins/rp-pppoe/Makefile.linux	2021-01-02 13:30:23.273562941 +0100
+@@ -43,9 +43,9 @@
+ 
+ install: all
+ 	$(INSTALL) -d -m 755 $(LIBDIR)
+-	$(INSTALL) -s -c -m 4550 rp-pppoe.so $(LIBDIR)
++	$(INSTALL) -c -m 4550 rp-pppoe.so $(LIBDIR)
+ 	$(INSTALL) -d -m 755 $(BINDIR)
+-	$(INSTALL) -s -c -m 555 pppoe-discovery $(BINDIR)
++	$(INSTALL) -c -m 555 pppoe-discovery $(BINDIR)
+ 
+ clean:
+ 	rm -f *.o *.so pppoe-discovery
+--- a/pppd/sys-linux.c	2019-12-31 02:31:26.000000000 +0100
++++ b/pppd/sys-linux.c	2021-01-02 13:30:23.273562941 +0100
+@@ -467,6 +467,13 @@
+     if (new_style_driver) {
+ 	int flags;
+ 
++        /* if a ppp_fd is already open, close it first */
++        if(ppp_fd > 0) {
++          close(ppp_fd);
++          remove_fd(ppp_fd);
++          ppp_fd = -1;
++        }
++
+ 	/* Open an instance of /dev/ppp and connect the channel to it */
+ 	if (ioctl(fd, PPPIOCGCHAN, &chindex) == -1) {
+ 	    error("Couldn't get channel number: %m");
+--- a/pppdump/Makefile.linux	2019-12-31 02:31:26.000000000 +0100
++++ b/pppdump/Makefile.linux	2021-01-02 13:30:31.573576436 +0100
+@@ -2,7 +2,8 @@
+ BINDIR = $(DESTDIR)/sbin
+ MANDIR = $(DESTDIR)/share/man/man8
+ 
+-CFLAGS= -O -I../include/net
++CFLAGS ?= -O
++CFLAGS += -I../include/net
+ OBJS = pppdump.o bsd-comp.o deflate.o zlib.o
+ 
+ INSTALL= install
+@@ -17,5 +18,5 @@
+ 
+ install:
+ 	mkdir -p $(BINDIR) $(MANDIR)
+-	$(INSTALL) -s -c pppdump $(BINDIR)
++	$(INSTALL) -c pppdump $(BINDIR)
+ 	$(INSTALL) -c -m 444 pppdump.8 $(MANDIR)
+--- a/pppstats/Makefile.linux	2019-12-31 02:31:26.000000000 +0100
++++ b/pppstats/Makefile.linux	2021-01-02 13:30:23.273562941 +0100
+@@ -22,7 +22,7 @@
+ 
+ install: pppstats
+ 	-mkdir -p $(MANDIR)
+-	$(INSTALL) -s -c pppstats $(BINDIR)
++	$(INSTALL) -c pppstats $(BINDIR)
+ 	$(INSTALL) -c -m 444 pppstats.8 $(MANDIR)
+ 
+ pppstats: $(PPPSTATSRCS)

@@ -1,5 +1,5 @@
 pkgname=libpst
-pkgver=0.6.72
+pkgver=0.6.75
 pkgrel=1
 pkgdesc="Outlook .pst file converter"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f2aeb2dc1b9d3e4e33bfddffac6dc3484e8bede432fdaf05a2250d375872db9514a16ff3e19aa823c674fc5ac82d03e257dc06b76e00195439077fd63657b5a5')
+sha512sums=('028ae8fb1962e45bb2882cd2da2750478628e0eecfce37933c32de9026a98babfdd07fca68cbbbf0b52d2cc455ca19e13331804c31d45b9bab45f9385d674354')

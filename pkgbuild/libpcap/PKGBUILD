@@ -1,5 +1,5 @@
 pkgname=libpcap
-pkgver=1.9.1
+pkgver=1.10.0
 pkgrel=1
 pkgdesc="A system-independent interface for user-level packet capture"
 arch=('x86_64')
@@ -29,5 +29,5 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('ae0d6b0ad8253e7e059336c0f4ed3850d20d7d2f4dc1d942c2951f99a5443a690f0cc42c6f8fdc4a0ccb19e9e985192ba6f399c4bde2c7076e420f547fddfb08'
+sha512sums=('007710386ff3435ef97fc99293076eae3c39b424e986141184c712b0285f8589357a1b25085f7eba28730de04312042c724d193934a399797e95a56f5301da7f'
             '67894c05d441935c50dbfdc022d1ee14c3b138e7d0a0db300fdebaef0ded22124999aae5c633ceef0e59c35c31a10b144c629c414adcabe1d89d5260dfefb0a2')

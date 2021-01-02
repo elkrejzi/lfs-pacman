@@ -1,5 +1,5 @@
 pkgname=ppp
-pkgver=2.4.7
+pkgver=2.4.8
 pkgrel=1
 pkgdesc="A daemon which implements the Point-to-Point Protocol for dial-up networking"
 arch=('x86_64')
@@ -8,21 +8,18 @@ license=('custom:GPL/BSD')
 #depends=()
 options=(emptydirs)
 source=("https://www.samba.org/ftp/ppp/ppp-${pkgver}.tar.gz"
-	"ppp-distro.patch"
-	"ppp-des.patch")
+	"ppp-upstream-fixes.patch"
+	"ppp-distro.patch")
 
 prepare() {
 	cd "${srcdir}/ppp-${pkgver}"
 
+	patch -Np1 -i "${srcdir}/ppp-upstream-fixes.patch"
 	patch -Np1 -i "${srcdir}/ppp-distro.patch"
-	patch -Np1 -i "${srcdir}/ppp-des.patch"
 
-	sed -i "s:^#FILTER=y:FILTER=y:" pppd/Makefile.linux
-	sed -i "s:^#HAVE_INET6=y:HAVE_INET6=y:" pppd/Makefile.linux
+	sed -i "s:^#SYSTEMD=y:SYSTEMD=y:" pppd/Makefile.linux
+	sed -i "s:^#USE_PAM=y:USE_PAM=y:" pppd/Makefile.linux
 	sed -i "s:^#CBCP=y:CBCP=y:" pppd/Makefile.linux
-
-	sed -i "/ppp_defs.h/a #define _LINUX_IN6_H" pppd/plugins/rp-pppoe/plugin.c
-	sed -i "/ppp_defs.h/a #define _LINUX_IN_H" pppd/plugins/rp-pppoe/plugin.c
 }
 
 build() {
@@ -36,7 +33,7 @@ build() {
 package() {
 	cd "${srcdir}/ppp-${pkgver}"
 
-	make install INSTROOT="${pkgdir}"
+	make install DESTDIR="${pkgdir}/usr"
 
 	install -v -dm755 "${pkgdir}/etc/ppp/ipv6-down.d" "${pkgdir}/etc/ppp/peers"
 
@@ -63,6 +60,6 @@ package() {
 	install -v -Dm644 distro/ppp.systemd "${pkgdir}/usr/lib/systemd/system/ppp@.service"
 }
 
-sha512sums=('e34ce24020af6a73e7a26c83c4f73a9c83fa455b7b363794dba27bf01f70368be06bff779777843949bd77f4bc9385d6ad455ea48bf8fff4e0d73cc8fef16ae2'
-            'e690fcdc54a7883efe1aa5bb8189bc26fdced75e5b02bb9eae73873105e888b36ea023411ca12ba2d9445c364e9fa3c8c172ce517c815ee73de7f6d3d73e954e'
-            'fc012971a062456fa4e253f5b4a5e2ce56ae1852293d0245ecfd165ba162fa76ec2c28e1035dd89de3e9d43941d528e2d95a40552eb8037a5ba084c1717c20d1')
+sha512sums=('580a5856333e1149a66cfb218f7fb5e698f0f0c11d492d5c87b760827e76b5ef1e2e461c95d1abb368b9c92499c366e7ddb31dd3029d5a9026c3ab10b50bdbb6'
+            'fa1610063ca8d87f064cfbac74f4b311008b0c1644386323376fe82ec06473e669ef6b165c31d349a7aa02d7fb67a3f4a7103852b584f4ca7b91667a4eb17549'
+            '21ac3fa8f8904a558f7747e7a5c57be29fffff43018e1ae0dfc48c4df10ad84ebf40b8d5487dbc0650a05b1df8ba3a8777a66c84127ffbfe1d8a463fc5990788')

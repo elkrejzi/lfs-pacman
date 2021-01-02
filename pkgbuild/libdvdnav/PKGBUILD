@@ -1,5 +1,5 @@
 pkgname=libdvdnav
-pkgver=6.0.1
+pkgver=6.1.0
 pkgrel=1
 pkgdesc="The library for xine-dvdnav plugin"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('83a015821dacea702eb34abb7a940b9a263918a66fe711fe9a817754f25c2aa0afae3543b4d93673d1c93d3e7914e1b776c10ce50465516f4e3a3d419c15ad9f')
+sha512sums=('40ea50d818067a3178b4b09e4b95b0cc67d5ff88dbff2cbeee943d086c5f59a71a7aecc425ba35d7dbe5285d8b1ea099a439c0c80c5dca280687ac0cbdc57c71')

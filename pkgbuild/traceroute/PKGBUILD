@@ -11,7 +11,7 @@ source=("https://downloads.sourceforge.net/traceroute/traceroute-${pkgver}.tar.g
 prepare() {
 	cd "${srcdir}/traceroute-${pkgver}"
 
-	sed -i "s:-O2:${CFLAGS}:g;/CC/s:gcc:${CC}:g" Make.rules
+	sed -i "s:-O2:${CFLAGS}:g;/CC/s:gcc:${CC:-gcc}:g" Make.rules
 }
 
 build() {

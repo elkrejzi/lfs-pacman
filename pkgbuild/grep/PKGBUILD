@@ -1,5 +1,5 @@
 pkgname=grep
-pkgver=3.3
+pkgver=3.6
 pkgrel=1
 pkgdesc="A string search utility"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e4805dbddf7cd0f0faf412557d408509650c1ccf703bc450f10a3f727c690dbfaa1235aa81939a0e4b7ac6190f88c15ea1fcc562b343d4b4c7550f967aeb15db')
+sha512sums=('8934544a19ded61344d83ff2cab501e86f17f8ae338892e0c36c2d2d8e63c76817840a0071ef5e3fcbca9115eba8a1aae0e4c46b024e75cd9a2e3bd05f933d90')

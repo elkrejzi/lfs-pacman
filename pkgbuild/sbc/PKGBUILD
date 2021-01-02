@@ -1,5 +1,5 @@
 pkgname=sbc
-pkgver=1.4
+pkgver=1.5
 pkgrel=1
 pkgdesc="Bluetooth Subband Codec (SBC) library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f35250c202034e93ce4046d29883d76b162164d42fb59e6af8ff5e57f197244238f5f8087309cef2d44755c179e7f0869cf096735c8de510b1ac7e0f6c29d84f')
+sha512sums=('0243586188acede595317f2afbfdb41be5850d2a6133c374edbe5cbcf59a2a0fd4570d0b8f2d13ce9637ce48b2f1910c3e4ab1c0354dbf273ee67b09db8c4915')

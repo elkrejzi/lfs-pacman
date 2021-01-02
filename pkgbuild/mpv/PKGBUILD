@@ -1,6 +1,6 @@
 pkgname=mpv
-pkgver=0.31.0
-_wafrelease=2.0.9
+pkgver=0.33.0
+_wafrelease=2.0.20
 pkgrel=1
 pkgdesc="A free, open source, and cross-platform media player"
 arch=('x86_64')
@@ -19,25 +19,24 @@ prepare() {
 build() {
 	cd "${srcdir}/mpv-${pkgver}"
 
-	./waf configure --prefix=/usr \
+	python3 ./waf configure --prefix=/usr \
 		--confdir=/etc/mpv \
 		--lua=luajit \
 		--enable-cdda \
 		--enable-dvbin \
 		--enable-dvdnav \
-		--enable-libsmbclient \
 		--enable-openal \
 		--enable-sdl2 \
 		--enable-libmpv-shared
 
-	./waf build
+	python3 ./waf build
 }
 
 package() {
 	cd "${srcdir}/mpv-${pkgver}"
 
-	./waf install --destdir="${pkgdir}"
+	python3 ./waf install --destdir="${pkgdir}"
 }
 
-sha512sums=('5199183d35bc2d7fffde1af250edf829fe768cedd7aa00f424d2a11a11d82cdb451c62886159ba3e1efc407b242c25e2485f4ebffd13b1da9c70defbd1f4c309'
-            'e7493767f65deeb38aa162adef22adf60ebbd038410e9cdf4fe6f0de8c43395dbbba14962aa2c3855e1277136085fc22ad12ebfb8ac4e76f16358296039b8ea2')
+sha512sums=('5a4af74ba2c9656c6b61adcf944c734923c7b4527a49cd79ec63a0617911629438a138d887dfbd4b6c0c9c53e2c68c18839d98d9765179e52cc5675d0682e077'
+            '72de1c5a78eb353da4b4a6ea4fbf52d232ed6dd08e972872744e3727b952f813f44e47f0b47106bd6f05ce7fa137c4685ac313fb0b0d70e5fc85dc34918e66f0')

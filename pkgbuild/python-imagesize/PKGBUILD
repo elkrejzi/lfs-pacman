@@ -1,5 +1,4 @@
-pkgbase=python-imagesize
-pkgname=('python2-imagesize' 'python3-imagesize')
+pkgname=python3-imagesize
 pkgver=1.2.0
 pkgrel=1
 pkgdesc="Getting image size from png/jpeg/jpeg2000/gif file"
@@ -9,30 +8,16 @@ license=('PSF')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/i/imagesize/imagesize-${pkgver}.tar.gz")
 
-prepare() {
-	cp -a "${srcdir}/imagesize-${pkgver}" "${srcdir}/imagesize-${pkgver}-py2"
-}
-
 build() {
 	cd "${srcdir}/imagesize-${pkgver}"
 
 	python3 setup.py build
-
-	cd "${srcdir}/imagesize-${pkgver}-py2"
-
-	python2 setup.py build
 }
 
 package_python3-imagesize() {
 	cd "${srcdir}/imagesize-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
-}
-
-package_python2-imagesize() {
-	cd "${srcdir}/imagesize-${pkgver}-py2"
-
-	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
 sha512sums=('c82a7fe433064c3a60ed664bad8ce4e602c527bcf2f7c9ab9be6ed650654626d9e0907028b2b0c5a484712bc989335b2b4f66494c8d445f5043ed4c2bc519700')

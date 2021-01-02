@@ -1,6 +1,6 @@
 pkgname=('gcc' 'gcc-libs' 'lib32-gcc-libs')
 pkgbase=gcc
-pkgver=9.2.0
+pkgver=10.2.0
 _pkgver=${pkgver}
 pkgrel=1
 pkgdesc="The GNU Compiler Collection"
@@ -10,7 +10,6 @@ license=('GPL' 'LGPL' 'FDL' 'custom')
 #depends=()
 options=(staticlibs)
 source=("https://ftp.gnu.org/gnu/gcc/gcc-${pkgver}/gcc-${pkgver}.tar.xz"
-#source=("ftp://ftp.gwdg.de/pub/misc/gcc/snapshots/${_pkgver}/gcc-${_pkgver}.tar.xz"
 	"gcc-pure64.patch")
 
 prepare() {
@@ -170,5 +169,5 @@ package_gcc-ada() {
 	mv "${pkgdir}"/usr/lib/gcc/${_gccarch}/${_gccver}/32/adalib/*.so "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('a12dff52af876aee0fd89a8d09cdc455f35ec46845e154023202392adc164848faf8ee881b59b681b696e27c69fd143a214014db4214db62f9891a1c8365c040'
+sha512sums=('42ae38928bd2e8183af445da34220964eb690b675b1892bbeb7cd5bb62be499011ec9a93397dba5e2fb681afadfc6f2767d03b9035b44ba9be807187ae6dc65e'
             'bebd4c4ed025afb4759b833c2c399221f0d23502abacf44b1173a699be5c76f01ba91813dcbb4003affdfa47844554bad217281be4a763723268f18e99eea316')

@@ -1,5 +1,5 @@
 pkgname=pipewire
-pkgver=0.2.7
+pkgver=0.3.18
 pkgrel=1
 pkgdesc="Server and user space API to deal with multimedia pipelines"
 arch=('x86_64')
@@ -19,6 +19,11 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
+		-Dexamples=false \
+		-Dtests=false \
+		-Dpipewire-jack=false \
+		-Djack=false \
+		-Dudevrulesdir=/usr/lib/udev/rules.d \
 		"${srcdir}/pipewire-${pkgver}"
 
 	ninja ${MAKEFLAGS}
@@ -30,4 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('10d3e20cc3d233fbcd1fc39702ae3043a656ebcd9cd3c39c77f0cc2bf42ff4956fc03e7933c7b397bca446c63f45ddacea948d5ec7e4a3300499fa2794f14334')
+sha512sums=('933b15908e30c389555dd9f82f87c2e571b4cb078bfbe5ed1858440166093cdee2b1c15da50bc5ab36087b62e216786b95c2aad9403e5047ae33e4fe8a6f4cc5')

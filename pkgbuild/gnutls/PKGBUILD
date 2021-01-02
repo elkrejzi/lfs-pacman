@@ -1,5 +1,5 @@
 pkgname=gnutls
-pkgver=3.6.11.1
+pkgver=3.7.0
 pkgrel=1
 pkgdesc="A library which provides a secure layer over a reliable transport layer"
 arch=('x86_64')
@@ -13,7 +13,9 @@ build() {
 
 	./configure --prefix=/usr \
 		--enable-local-libopts \
-		--disable-guile
+		--enable-openssl-compatibility \
+		--disable-guile \
+		--with-default-trust-store-pkcs11="pkcs11:"
 
 	make
 }
@@ -28,4 +30,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/info/*.png "${pkgdir}"/usr/share/info/*guile*
 }
 
-sha512sums=('55fbbf0ebc824fbc91ccd08d1708452c5b1c12af75e332f29414540eb2f81337fa605a693ce9f34319a927e9d71177e6e7ffea5c6747792d341fb740f68c9489')
+sha512sums=('5cf1025f2d0a0cbf5a83dd7f3b22dafd1769f7c3349096c0272d08573bb5ff87f510e0e69b4bbb47dad1b64476aa5479804b2f4ceb2216cd747bbc53bf42d885')

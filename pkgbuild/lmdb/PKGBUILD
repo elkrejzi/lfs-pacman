@@ -11,13 +11,13 @@ source=("https://github.com/LMDB/lmdb/archive/LMDB_${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/lmdb-LMDB_${pkgver}/libraries/liblmdb"
 
-	make prefix=/usr mandir=/usr/share/man CC="${CC}" OPT="${CFLAGS}"
+	make prefix=/usr mandir=/usr/share/man CC="${CC:-gcc}" OPT="${CFLAGS}"
 }
 
 package() {
 	cd "${srcdir}/lmdb-LMDB_${pkgver}/libraries/liblmdb"
 
-	make prefix=/usr mandir=/usr/share/man CC="${CC}" OPT="${CFLAGS}" install DESTDIR="${pkgdir}"
+	make prefix=/usr mandir=/usr/share/man CC="${CC:-gcc}" OPT="${CFLAGS}" install DESTDIR="${pkgdir}"
 }
 
 sha512sums=('c3a96c27f13c072ef5861bcea045d82f0a220dbd938579411ea6c38ac0696b3620c71f1e2cc56d31db5105f3533da95aba1ac34653d8bdcfa4f2f1fb831cccb1')

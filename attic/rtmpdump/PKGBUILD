@@ -13,7 +13,7 @@ build() {
 
 	sed -i "s#CRYPTO=OPENSSL#CRYPTO=GNUTLS#g" Makefile librtmp/Makefile
 
-	make CC="${CC}" OPT="${CFLAGS}"
+	make CC="${CC:-gcc}" OPT="${CFLAGS}"
 }
 
 package() {

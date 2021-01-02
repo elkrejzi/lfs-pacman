@@ -1,19 +1,15 @@
 pkgbase=libnsl
 pkgname=('libnsl' 'lib32-libnsl')
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/thkukuk/libnsl"
 license=('LGPL2.1')
 #depends=()
-source=("https://github.com/thkukuk/libnsl/archive/v${pkgver}/libnsl-${pkgver}.tar.gz")
+source=("https://github.com/thkukuk/libnsl/releases/download/v${pkgver}/libnsl-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/libnsl-${pkgver}"
-
-	export ACLOCAL_PATH=/usr/share/aclocal
-
-	autoreconf -fi
 
 	cp -a "${srcdir}"/libnsl{,32}-${pkgver}
 }
@@ -25,8 +21,8 @@ build() {
 
 	cd "${srcdir}/libnsl32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32
@@ -65,4 +61,4 @@ package_lib32-libnsl() {
 	echo "INPUT (libnsl.so.2 -ltirpc)" > "${pkgdir}/usr/lib32/libnsl.so"
 }
 
-sha512sums=('30115aa679a04ad01f55cff9dd1890b4c41c730a9bac2adab5add9ae03a0b4687c5f4b6e3b8652ecbb074eefac8faee3f1f13ea60d42cf4432db8a575ca72cd8')
+sha512sums=('a5a6c3ccb2d1e724c8c1f65e55dcd09383eb1ae019c55f4c09441eadf23ffbc2196cfad259805b0ac40ddf3a10af0da453e4d739d67d46829c64d0995dab4e55')

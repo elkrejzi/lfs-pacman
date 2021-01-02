@@ -1,5 +1,5 @@
 pkgname=graphviz
-pkgver=2.40.1
+pkgver=2.44.1
 pkgrel=1
 pkgdesc="Graph visualization software"
 arch=('x86_64')
@@ -7,33 +7,19 @@ url="http://www.graphviz.org/"
 license=('CPL')
 #depends=()
 install=graphviz.install
-source=("https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz"
-	"graphviz-qt5.patch")
-
-prepare() {
-	cd "${srcdir}/graphviz-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/graphviz-qt5.patch"
-
-	sed -i "s#'\\\\-perl#&5#g" configure.ac
-
-	autoreconf -fi
-}
+source=("https://gitlab.com/graphviz/graphviz/-/archive/${pkgver}/graphviz-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/graphviz-${pkgver}"
 
-	export PYTHON=python2
+	./autogen.sh NOCONFIG
+
 	export LIBPOSTFIX=/
-
-	export CXX="${CXX} -std=c++11"
-
-	CFLAGS+=" -fPIC -w"
-	CXXFLAGS+=" -fPIC -w"
 
 	./configure --prefix=/usr \
 		--disable-java \
-		--disable-php
+		--disable-php \
+		--disable-python2
 
 	make
 }
@@ -44,5 +30,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a3f358a7050523a39b91a259563a95925b37853ffec799e571211af5b686d3af42457c937882954482785745d90416b1abd945caf05f8abb52b3876e07aa70f5'
-            'fffdfdc61665f0372354bd38200a52ff7b27a3aa295331c990117bc8db9d888f0fc099785eedd4255255a79fc4d9c5cdc9f0af16a170adf2b76899c06dfbde2e')
+sha512sums=('5c8b6edea343a8303c2b1d0a23326706215aa7a4b82125abcce3fab6615db093afb2541b715a3ccb8b36e9dfabe69f925532fc441c49100a199da92edd3f63a7')

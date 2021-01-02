@@ -1,5 +1,5 @@
 pkgname=gobject-introspection
-pkgver=1.62.0
+pkgver=1.66.1
 pkgrel=1
 pkgdesc="Introspection system for GObject-based libraries"
 arch=('x86_64')
@@ -19,7 +19,7 @@ build() {
 		--sysconfdir /etc \
 		--localstatedir /var \
 		--buildtype=plain \
-		-Ddoctool=true \
+		-Ddoctool=enabled \
 		-Dgtk_doc=true \
 		"${srcdir}/gobject-introspection-${pkgver}"
 
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('b460a95fd7a323e9b0c9a45e680ebe98bbae7632abfa53b3e0b0ec050775cab17dde693314d6d4f8e93614c32b5587f8ce0b4a4c9ee9ba46c029ce029014e638')
+sha512sums=('ea1e20cd94ff8af3572f417f35e96648ffc3e94a91d4e4c81adf99bb0f408ac21ecf40990f9dbd5f2e0f4e83360286ca5db88dbc45bd59289596a324acf7df3d')

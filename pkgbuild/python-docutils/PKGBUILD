@@ -1,6 +1,6 @@
 pkgbase=python-docutils
 pkgname=('python2-docutils' 'python3-docutils')
-pkgver=0.15.2
+pkgver=0.16
 pkgrel=1
 pkgdesc="Python Documentation Utilities"
 arch=('x86_64')
@@ -28,9 +28,10 @@ package_python3-docutils() {
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 
+
 	for file in "${pkgdir}"/usr/bin/*.py
 	do
-		mv ${file} ${file%.py}3.py
+		ln -sf $(basename ${file}) ${file%.py}
 	done
 }
 
@@ -41,8 +42,8 @@ package_python2-docutils() {
 
 	for file in "${pkgdir}"/usr/bin/*.py
 	do
-		ln -sf $(basename ${file}) ${file%.py}
+		mv ${file} ${file%.py}2.py
 	done
 }
 
-sha512sums=('b4528c7eba5a27e40f290a9df6894c277d11906d02f6842b9f364b29af9aa1e46f6008c87e4355947bcfa9f2db1cae9f38cf9fa7b8008ba45fa6d685922003a6')
+sha512sums=('4e0c6662924cac6b8f28bb77a4f50eafd637c1083990a23dbd905d8a05362a18dae96e63408ed43b595b693ca755c7961d1282129d3215ed3774af0dddcc0466')

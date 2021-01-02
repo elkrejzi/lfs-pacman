@@ -1,5 +1,5 @@
 pkgname=db
-pkgver=18.1.32
+pkgver=18.1.40
 pkgrel=1
 pkgdesc="The Berkeley DB embedded database system"
 arch=('x86_64')
@@ -10,6 +10,9 @@ source=("https://fossies.org/linux/misc/db-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/db-${pkgver}/build_unix"
+
+	sed -i "s#gsg_db_server##g" ../dist/Makefile.in
+	sed -i "s#bdb-sql##g" ../dist/Makefile.in
 
 	../dist/configure --prefix=/usr \
 		--enable-compat185 \
@@ -31,4 +34,4 @@ package() {
 	rm -rf "${pkgdir}/usr/docs"
 }
 
-sha512sums=('890b3047c28114ac30794c0234126b0b2a3e699f3ed259831091f02d51885e3583dd10c0ef0cecc215b9b8d80b48a2d3a82a5793cd3816afb45f6cc19ae23f25')
+sha512sums=('53787164fb8a198a0178c7f58d891c2b0943d1c52b11fe9de525938469327e85664f0bc63e33d740c171bc370954710a6b3e8b9be2a08237fb9757a795c5b19e')

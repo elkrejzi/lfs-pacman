@@ -1,5 +1,5 @@
 pkgname=nspr
-pkgver=4.24
+pkgver=4.29
 pkgrel=1
 pkgdesc="Netscape Portable Runtime"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b020031ed7a8997099c11e0772779c7b10d15b4f6b14e2b1832732943e8b8224afa952ce04a1914c1553af9d3973a6d9cacf08058ee6fff35102e3b2ec0943c1')
+sha512sums=('ba5ac275fe0beb69d7a7674c9ee9e4429bd5761daed285edd975ccc829af30d062bf4a0f5e44361e3bd191f21b1905f96ab146d53b55324020f13ecb3c05609b')

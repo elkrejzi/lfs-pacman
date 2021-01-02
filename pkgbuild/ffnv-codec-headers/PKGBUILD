@@ -1,5 +1,5 @@
 pkgname=ffnv-codec-headers
-pkgver=9.1.23.1
+pkgver=11.0.10.0
 pkgrel=1
 pkgdesc="FFmpeg version of headers required to interface with Nvidias codec APIs"
 arch=('any')
@@ -20,4 +20,4 @@ package() {
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 }
 
-sha512sums=('0c1112cb1db98f60e64eeee24e3592b65c31ea8a808de707d4d0a56efb71c9a483bb3af45a641bff1f8422ab44e6be4bffd548b6567305021a448bcd66202b29')
+sha512sums=('f4964499a834ba31e073f0b0deabba354eb8351cd135846efd3387313ef4af0750a875d450674ef416f2b2cc7176e9154c1e5033de07f6091b9d0cc7c7ef9cb1')

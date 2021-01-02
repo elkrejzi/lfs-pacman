@@ -1,5 +1,5 @@
 pkgname=tzdata
-pkgver=2019c
+pkgver=2020f
 pkgrel=1
 pkgdesc="Sources for time zone and daylight saving time data"
 arch=('x86_64')
@@ -11,8 +11,7 @@ source=("https://www.iana.org/time-zones/repository/releases/tzcode${pkgver}.tar
 
 timezones=('africa' 'antarctica' 'asia' 'australasia'
            'europe' 'northamerica' 'southamerica'
-           'pacificnew' 'etcetera' 'backward'
-           'systemv' 'factory')
+           'etcetera' 'backward' 'factory')
 
 build() {
 	cd "${srcdir}"
@@ -35,5 +34,5 @@ package() {
 	rm -rf "${pkgdir}/etc"
 }
 
-sha512sums=('61ef36385f501c338c263081486de0d1fccd454b86f8777b0dbad4ea3f21bbde059d0a91c23e207b167ed013127d3db8b7528f0188814a8b44d1f946b19d9b8b'
-            '2921cbb2fd44a6b8f7f2ed42c13fbae28195aa5c2eeefa70396bc97cdbaad679c6cc3c143da82cca5b0279065c02389e9af536904288c12886bf345baa8c6565')
+sha512sums=('5f6bf1b508434842eb9dacacc744b5f3375c35b88e401ef372b5fde80ad2f523484fe52a6e99460e402230406ebf6a9261a97efde45a610f8e8085893d55c4ed'
+            'dd312def18c807452fda2e697514e2064c5f51ebdbedd0cfe6f231252c76ee5d4409f653b295ed5657b7d30b868690047fdb70a10942e69eaa40b77473e3f9ca')

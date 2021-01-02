@@ -1,5 +1,5 @@
 pkgname=iptables
-pkgver=1.8.4
+pkgver=1.8.6
 pkgrel=1
 pkgdesc="Linux kernel packet control tool"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	ln -sfv ../sbin/xtables-multi "${pkgdir}/usr/bin/iptables-xml"
 }
 
-sha512sums=('a7faaab58608ffaa51e26e8056551c0e91a49187439d30fcf5cce2800274cc3c0515db6cfba0f4c85613fb80779cf96089b8915db0e89161e9980a6384faebdb')
+sha512sums=('d06e4cddb69822c4618664a35877fc5811992936cade2040bb0e4eb25a4d879eadc7c84401c40fb39ffac7888568505adcb1cfe995cd166a15c702237daf6acf')

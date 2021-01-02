@@ -1,6 +1,6 @@
 pkgbase=python-pygments
 pkgname=('python2-pygments' 'python3-pygments')
-pkgver=2.5.2
+pkgver=2.7.3
 pkgrel=1
 pkgdesc="Syntax highlighting package written in Python"
 arch=('x86_64')
@@ -37,4 +37,4 @@ package_python2-pygments() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('d6715ca26cdb68d4c771bb530b2395805025c14c78d9099b033d3410ea239c41033fb611e43e39cbaa4ac38078a09324d8cfde42269129be0a096dcc13586859')
+sha512sums=('fe58ce0beb3d2fd88b374d7864e93dba41e4e2ad6dca570e284fd76615c5bb4e78459a4b8c4dd5f61603d4bccd5705cebafd7274369d158af149e838ec63f7eb')

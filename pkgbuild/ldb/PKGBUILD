@@ -1,5 +1,5 @@
 pkgname=ldb
-pkgver=2.0.8
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="A schema-less, ldap like, API and database"
 arch=('x86_64')
@@ -10,6 +10,8 @@ source=("https://www.samba.org/ftp/ldb/ldb-${pkgver}.tar.gz")
 
 build() {
 	cd "${srcdir}/ldb-${pkgver}"
+
+	export PYTHON=python3
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc/samba \
@@ -30,4 +32,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('23a44968c9b4b57deb3f7b7b2466f140b4d8534a07a5e866545dd108c3d305ee4b0ea9bceec3177fcd09a4efcb4876a8283ca58b5c496fcf323b810666e1e79a')
+sha512sums=('3814078a51d2110eeda291ac859c0027df88475812bd6b5f2ce8f8f50aba9c84faced97c37aa1f45e406783a8df97c60ae778df897bb0e89ba3ac8568acced69')

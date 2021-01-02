@@ -1,5 +1,5 @@
 pkgname=rpcsvc-proto
-pkgver=1.4
+pkgver=1.4.2
 pkgrel=1
 pkgdesc="rpcsvc protocol definitions from glibc"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c3011d7d7ef97a4a751f6921df1a23e1dd8ac50fb0690c759d37010ed7be27968a2130e3b8872cb48d5914216f9d539096a424f1ec38a75f7ed899748151c6f4')
+sha512sums=('631fbfc00af94c5d7def0759f27e97dc14d400b4468c906719ae18ecef74815730798c882d1aaa4f90359224e7b829019b786baddc3097905b54f940ca85a714')

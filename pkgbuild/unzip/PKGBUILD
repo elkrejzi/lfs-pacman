@@ -18,7 +18,7 @@ prepare() {
 	patch -Np1 -i "${srcdir}/unzip-fixes.patch"
 
 	sed -i "s/CFLAGS=\"-O -Wall/& -DNO_LCHMOD -fPIC ${CFLAGS}/" unix/Makefile
-	sed -i "s/=gcc/=${CC}/" unix/Makefile
+	sed -i "s/=gcc/=${CC:-gcc}/" unix/Makefile
 }
 
 build() {

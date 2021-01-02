@@ -1,5 +1,5 @@
 pkgname=wavpack
-pkgver=5.2.0
+pkgver=5.3.0
 pkgrel=1
 pkgdesc="Audio compression format with lossless, lossy and hybrid compression modes"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f255bb62c9defb16c1b301fd1cfb53df123c869a74eca2b68f1c8af2771e22ff8661f823ad4bd2746d06c0941a3cb83a6dbb55b44b371fc50d0ecdf80a5199c2')
+sha512sums=('4029df6a70fac804924b4fdb223b5b65bbc25c2bd2a363c72ce1d1100fdea26ca5d889cf755caed226c66722eff491ce656ad28dc61fc535792ca5c82af54100')

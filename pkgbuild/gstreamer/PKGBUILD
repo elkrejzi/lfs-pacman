@@ -1,5 +1,5 @@
 pkgname=gstreamer
-pkgver=1.16.2
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework"
 arch=('x86_64')
@@ -31,3 +31,4 @@ package() {
 }
 
 sha512sums=('a8dcdb452a88f411676e54016fcf83149068b2f0b60422bebdbc81220078c61c415512006010ba0299df81ffb59853695c3ce00580f8fc46a079f6aaaa42609f')
+sha512sums=('5d839345f57f333d37682736940f8b0424c18b318c7b1a32414c11d9cd23dfb08fdd4ff41060aa6135e25d569180a4d7f9527ebea2f7bbda5b41cf0be5aea072')

@@ -11,13 +11,13 @@ source=("https://luajit.org/download/LuaJIT-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/LuaJIT-${pkgver}"
 
-	make amalg PREFIX=/usr CC="${CC}" XCFLAGS="${CFLAGS}"
+	make amalg PREFIX=/usr CC="${CC:-gcc}" XCFLAGS="${CFLAGS}"
 }
 
 package() {
 	cd "${srcdir}/LuaJIT-${pkgver}"
 
-	make install PREFIX=/usr CC="${CC}" XCFLAGS="${CFLAGS}" DESTDIR="${pkgdir}"
+	make install PREFIX=/usr CC="${CC:-gcc}" XCFLAGS="${CFLAGS}" DESTDIR="${pkgdir}"
 }
 
 sha512sums=('2636675602b4a060b0571c05220db2061dd2f38568e35b2be346a0f5e3128d87057d11d3d0d7567d8cc4e0817b5e4cf2c52a17a48065520962b157816465a9fe')

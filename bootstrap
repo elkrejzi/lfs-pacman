@@ -39,12 +39,14 @@ ln -sf /tools/bin/{env,ln,perl,pwd,rm,stty} ${LFS}/usr/bin
 
 ln -sf /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib
+ln -sf /tools/lib/libatomic.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libc++.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libc++abi.so{,.1} ${LFS}/usr/lib
 ln -sf /tools/lib/libomp.so ${LFS}/usr/lib
 
 ln -sf /tools/lib32/libgcc_s.so{,.1} ${LFS}/usr/lib32
 ln -sf /tools/lib32/libstdc++.so{,.6} ${LFS}/usr/lib32
+ln -sf /tools/lib32/libatomic.so{,.1} ${LFS}/usr/lib32
 ln -sf /tools/lib32/libc++.so{,.1} ${LFS}/usr/lib32
 ln -sf /tools/lib32/libc++abi.so{,.1} ${LFS}/usr/lib32
 ln -sf /tools/lib32/libomp.so ${LFS}/usr/lib32
@@ -55,15 +57,18 @@ cp -L /etc/resolv.conf ${LFS}/etc/resolv.conf
 
 PKGS=(linux-api-headers
 glibc
+iana-etc
 rpcsvc-proto
 tzdata
-pkg-config
+pkgconf
 libtirpc
 libnsl
 libnss_nis
 bzip2
+lz4
 xz
 zlib
+zstd
 file
 m4
 bison
@@ -80,13 +85,13 @@ pcre2
 libatomic_ops
 ed
 sed
+bc
 gc
 binutils
 gcc
 libutil-linux
 e2fsprogs
 procps-ng
-bc
 psmisc
 cracklib
 libcap-ng
@@ -149,13 +154,14 @@ libgpg-error
 libgcrypt
 libidn2
 libmetalink
+libtasn1
 libxml2
 libxslt
 libpsl
 lua
 highlight
-ca-certificates
-wget
+nettle
+nspr
 docbook-xml
 docbook-xsl
 intltool
@@ -168,9 +174,9 @@ opensp
 openjade
 asciidoc
 docbook-utils
-python-setuptools
 python-six
 python-alabaster
+python-anytree
 python-beaker
 python-certifi
 python-chardet
@@ -182,6 +188,7 @@ python-markdown
 python-markupsafe
 python-packaging
 python-ply
+python-py3c
 python-pyparsing
 python-pygments
 python-pytz
@@ -209,31 +216,29 @@ glib
 libcroco
 gettext
 gobject-introspection
-json-c
+make-ca
+p11-kit
+gnutls
+nss
+ca-certificates
 libaio
 libedit
 libnghttp2
 libpng
 libsasl
 libssh2
-libtasn1
 libuv
-lz4
+lmdb
 lzo
-nettle
-nspr
-nss
 openldap
-p11-kit
 popt
 vala
+wget
 chrpath
-gnutls
 krb5
 libarchive
 minizip
 re2c
-rtmpdump
 curl
 cyrus-sasl
 libmicrohttpd
@@ -243,6 +248,7 @@ pixman
 swig
 cmake
 elfutils
+json-c
 meson
 clang-runtime
 llvm
@@ -315,7 +321,6 @@ libdrm
 libusb
 libusb-compat
 fakeroot
-iana-etc
 usbutils
 libassuan
 libksba
@@ -383,7 +388,6 @@ brotli
 jansson
 librsvg
 links
-lmdb
 talloc
 tdb
 tevent
@@ -393,7 +397,7 @@ libdaemon
 libgusb
 libpaper
 libsass
-js60
+js78
 polkit
 sassc
 colord
@@ -414,12 +418,13 @@ at-spi2-core
 at-spi2-atk
 gcab
 gtk3
+pycairo
+pygobject
 adwaita-icon-theme
 appstream-glib
 avahi
 cantarell-fonts
 dconf
-gnome-themes-extra
 gsettings-desktop-schemas
 xbitmaps
 xorg-font-util
@@ -463,12 +468,10 @@ xcursor-themes
 xorg-server
 xf86-input-libinput
 xf86-input-wacom
-xf86-video-amdgpu
+xf86-video-nouveau
 cldr-emoji-annotation
 iso-codes
 libnotify
-pycairo
-pygobject
 unicode-character-database
 unicode-emoji
 ibus
@@ -488,6 +491,7 @@ modemmanager
 ppp
 wpa_supplicant
 networkmanager
+abseil-cpp
 libasyncns
 orc
 alsa-lib
@@ -512,8 +516,6 @@ alsa-utils
 gstreamer
 gst-plugins-base
 clinfo
-intel-vaapi-driver
-libvdpau-va-gl
 mesa-demos
 aspell
 hunspell
@@ -565,7 +567,9 @@ qttools
 qtwebchannel
 qtwebkit
 djvulibre
+gumbo-parser
 ijs
+jbig2dec
 libexif
 libgd
 libieee1284
@@ -638,6 +642,7 @@ gtkspell3
 libatasmart
 libbytesize
 libgsf
+libinih
 liboauth
 libpwquality
 libspectre
@@ -669,6 +674,7 @@ bind
 openssh
 rtkit
 weston
+
 cogl
 gmime
 telepathy-glib

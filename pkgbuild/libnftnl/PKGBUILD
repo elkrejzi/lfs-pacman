@@ -1,5 +1,5 @@
 pkgname=libnftnl
-pkgver=1.1.5
+pkgver=1.1.8
 pkgrel=1
 pkgdesc="Netfilter library providing interface to the nf_tables subsystem"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a0495e1a99ea9efcf3994db48e50943023ff3d8101055887574ff4eb6b0df8600cf7db68a9c91ca02bbbcc1f01099b008649f88321bb956897bcc90eb4167ee7')
+sha512sums=('173d8a7b95eb964a9fbe7ffcb46541a6bae976b4d4f2a28fbf9b03bf3e50a29b1ea12faa49926d2d33bc088580a833fc6e15ff59a30bcfe67c91c524f00c778e')

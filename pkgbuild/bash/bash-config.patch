@@ -1,13 +1,13 @@
---- a/config-bot.h	2016-05-19 20:34:43.000000000 +0200
-+++ b/config-bot.h	2019-03-16 16:48:43.755848324 +0100
-@@ -200,4 +200,4 @@
+--- a/config-bot.h	2019-12-10 20:37:43.000000000 +0100
++++ b/config-bot.h	2021-01-01 13:52:03.729945366 +0100
+@@ -204,4 +204,4 @@
  /******************************************************************/
  
  /* If you don't want bash to provide a default mail file to check. */
 -/* #undef DEFAULT_MAIL_DIRECTORY */
 +#undef DEFAULT_MAIL_DIRECTORY
---- a/config-top.h	2018-10-12 21:35:23.000000000 +0200
-+++ b/config-top.h	2019-03-16 16:50:20.635946510 +0100
+--- a/config-top.h	2020-11-16 16:34:26.000000000 +0100
++++ b/config-top.h	2021-01-01 13:52:03.729945366 +0100
 @@ -63,7 +63,7 @@
  /* The default value of the PATH variable. */
  #ifndef DEFAULT_PATH_VALUE
@@ -49,5 +49,5 @@
 -/* #define SSH_SOURCE_BASHRC */
 +#define SSH_SOURCE_BASHRC
  
- /* Define if you want the case-capitalizing operators (~[~]) and the
+ /* Define if you want the case-toggling operators (~[~]) and the
     `capcase' variable attribute (declare -c). */

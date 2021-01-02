@@ -11,7 +11,7 @@ source=("http://download.savannah.gnu.org/releases/dmidecode/dmidecode-${pkgver}
 prepare() {
 	cd "${srcdir}/dmidecode-${pkgver}"
 
-	sed -i "s:-O2:${CFLAGS}:g;/CC/s:gcc:${CC}:g" Makefile
+	sed -i "s:-O2:${CFLAGS}:g;/CC/s:gcc:${CC:-gcc}:g" Makefile
 }
 
 build() {

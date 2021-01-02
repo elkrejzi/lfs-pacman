@@ -11,6 +11,8 @@ source=("https://www.samba.org/ftp/tdb/tdb-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/tdb-${pkgver}"
 
+	export PYTHON=python3
+
 	./configure --prefix=/usr \
 		--sysconfdir=/etc/samba \
 		--localstatedir=/var \

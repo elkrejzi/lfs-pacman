@@ -1,5 +1,5 @@
 pkgname=gpgme
-pkgver=1.13.1
+pkgver=1.15.0
 pkgrel=1
 pkgdesc="A C wrapper library for GnuPG"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('11de670c6cf512508103fe67af56d9fbb2a9dda6fc6fa3cd321371bbe337c7c2c81913ca557d07187adb2a63d37ea1a44da97ab22345bbe6022c405d0cb083b8')
+sha512sums=('ab979aea6ccc6d4faf02b3b1a773ce95cb754b4d687ce7adc2ed98e218f21a284a2283d8e2429016e78fcf5a94ea863011573fd1457a71cc0ae3aadd368a98a1')

@@ -1,5 +1,5 @@
 pkgname=qtwebkit
-pkgver=5.212.0.alpha3
+pkgver=5.212.0.alpha4
 pkgrel=1
 pkgdesc="Classes for a WebKit2 based implementation and a new QML API"
 arch=('x86_64')
@@ -7,13 +7,16 @@ url="https://www.qt.io/"
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
 #depends=()
 source=("https://github.com/annulen/webkit/releases/download/qtwebkit-${pkgver/.alpha/-alpha}/qtwebkit-${pkgver/.alpha/-alpha}.tar.xz"
-	"icu65.patch")
+	"icu68.patch"
+	"qt5-webkit-python-3.9.patch::https://github.com/qtwebkit/qtwebkit/commit/78360c01.patch"
+	"qt5-webkit-bison-3.7.patch::https://github.com/qtwebkit/qtwebkit/commit/d92b11fe.patch")
 
 prepare() {
 	cd "${srcdir}/qtwebkit-${pkgver/.alpha/-alpha}"
 
-	patch -Np1 -i "${srcdir}/icu65.patch"
-
+	patch -Np0 -i "${srcdir}/icu68.patch"
+	patch -Np1 -i "${srcdir}/qt5-webkit-python-3.9.patch"
+	patch -Np1 -i "${srcdir}/qt5-webkit-bison-3.7.patch"
 
 	install -v -dm755 "${srcdir}/build"
 }
@@ -23,7 +26,7 @@ build() {
 
         cmake -DCMAKE_INSTALL_PREFIX=/usr \
                 -DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_CXX_FLAGS="${CXXFLAGS} -DNDEBUG" \
+		-DCMAKE_CXX_FLAGS="${CXXFLAGS} -DNDEBUG -w" \
                 -DPORT=Qt \
 		-DENABLE_TOOLS=OFF \
 		"${srcdir}/qtwebkit-${pkgver/.alpha/-alpha}"
@@ -37,5 +40,7 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('38794514b886de3fa63a41277c2bcbb970e87a12070962b527e3898466cf7ad3b65ce4588669498415d365310b37729e81aabb457808fe11120558ef8e35445f'
-            '5d7359ddb2d6e36ce4d07aa18a38fc9ed397cc1903503c202f246154f195954f726f9b510ed60cb24c2a5d094190d7f319f92428fbc62d37b38f9912c76571ce')
+sha512sums=('33f11270bd030599beff9c1983a6c5ff2d61f407cc8a6825f7f405d46f9184c720fc7f60c7359f08f828db96a2170092875066a0d5c0a21ff09bc48a2603fbf6'
+            'c4714b40d9b516698490cc3f587f7fefe8097545a2310e144be1dfa39549ad056bf7bd67f5f89334e54c3a9bb95136876a62d0a392991a872030c4dff0d7c820'
+            '9bcb07cfa61684d154f9b80b231c32423a8b80820445372634ef620c11a9267e98ae0318e143e6358f0668b10f90a44b163f0eeeee5476a0b5fbd31af5c4bf9a'
+            'cf21eff51e1026f4e506724a512b9925d4619909f5924bf01055244817ec9594e9d3ce105b510cd28ecce4772d122d1393fb7273501e20e16749f43282a3200b')

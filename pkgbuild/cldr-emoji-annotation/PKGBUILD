@@ -1,5 +1,5 @@
 pkgname=cldr-emoji-annotation
-pkgver=34.0.0_0
+pkgver=37.0_13.0_0_2
 pkgrel=1
 pkgdesc="Emoji annotation files in CLDR"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e5cec45ad86ee23cfeb659d6f3495e18108d2dd905e509759f9afd0e80dbdc1d8b4a926f153fbbef50a1a1122af04d5494435266291b8e178224ce2fd7cc5c14')
+sha512sums=('caf623be5e6f3e71a80ff1b85dfe7031beeb341d9a03d9d493537cdbd4c1cd801ceadf4932d63d3b267f81cc971604c411221c3eba756130f010d79d2efa15ec')

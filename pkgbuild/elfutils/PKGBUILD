@@ -1,6 +1,6 @@
 pkgbase=elfutils
 pkgname=('elfutils' 'lib32-elfutils')
-pkgver=0.178
+pkgver=0.182
 pkgrel=1
 arch=('x86_64')
 url="https://sourceware.org/elfutils/"
@@ -21,7 +21,7 @@ build() {
 
 	CFLAGS+=" -Wno-packed-not-aligned"
 
-	./configure --prefix=/usr --program-prefix="eu-" --disable-debuginfod
+	./configure --prefix=/usr --program-prefix="eu-" --disable-libdebuginfod --disable-debuginfod
 
 	cd "${srcdir}/elfutils32-${pkgver}"
 
@@ -29,7 +29,7 @@ build() {
 	export CXX="g++ -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr --disable-debuginfod --libdir=/usr/lib32
+	./configure --prefix=/usr --disable-debuginfod --disable-libdebuginfod --libdir=/usr/lib32
 
 	cd "${srcdir}"
 
@@ -56,4 +56,4 @@ package_lib32-elfutils() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('356656ad0db8f6877b461de1a11280de16a9cc5d8dde4381a938a212e828e32755135e5e3171d311c4c9297b728fbd98123048e2e8fbf7fe7de68976a2daabe5')
+sha512sums=('8ab0735bbe11b4383169341bf674ace360038b6ae5239f1d5a991c46260cd4bce545e078735b7de3b8fab132bb5da41f60689ff1b1d7ebccfada117a954a2c81')

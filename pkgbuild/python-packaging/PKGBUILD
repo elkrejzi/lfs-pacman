@@ -1,6 +1,6 @@
 pkgbase=python-packaging
 pkgname=('python2-packaging' 'python3-packaging')
-pkgver=19.2
+pkgver=20.8
 pkgrel=1
 pkgdesc="Core utilities for Python packages"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-packaging() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('af7312a85292f577d3e6e57154f10fb380bbdee749344ba4b226a09f22bf5ca664ed63c62cd5b4dea0be5eb5cff5c17ad04415aab8c925fa90dcae2e1c6dee5a')
+sha512sums=('e5d0f21928d0039be88987bda02ec1c5851ad4447c534657f86b73f31a3dd3f028969429ea26b0c6f3c8d1525ccc051e82e10b908ee8b33d66da273b72feccea')

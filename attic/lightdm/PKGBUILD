@@ -28,7 +28,7 @@ prepare() {
 build() {
 	cd "${srcdir}/lightdm-${pkgver}"
 
-	export CXX="${CXX} -std=c++11"
+	export CXX="${CXX:-g++} -std=c++11"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \

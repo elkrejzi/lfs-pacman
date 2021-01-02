@@ -1,19 +1,20 @@
 pkgname=p11-kit
-pkgver=0.23.18.1
+pkgver=0.23.22
 pkgrel=1
 pkgdesc="Library to work with PKCS#11 modules"
 arch=('x86_64')
 url="http://p11-glue.freedesktop.org"
 license=('BSD')
 #depends=()
-source=("https://github.com/p11-glue/p11-kit/releases/download/${pkgver}/p11-kit-${pkgver}.tar.gz")
+source=("https://github.com/p11-glue/p11-kit/releases/download/${pkgver}/p11-kit-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/p11-kit-${pkgver}"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
-		--enable-doc
+		--enable-doc \
+		--with-trust-paths=/etc/pki/anchors
 
 	make
 }
@@ -24,4 +25,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('941996aea75025dad5dfc6f9b4609bc92bc0888d5b2b58de0d498d6cf75d059421405d9c3bad51122108b6ad1e41e434609ead23404efe635cdb806836ccadbd')
+sha512sums=('098819e6ca4ad9cc2a0bc2e478aea67354d051a4f03e6c7d75d13d2469b6dc7654f26b15530052f6ed51acb35531c2539e0f971b31e29e6673e857c903afb080')

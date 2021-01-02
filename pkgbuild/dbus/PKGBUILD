@@ -1,6 +1,6 @@
 pkgbase=dbus
 pkgname=('dbus' 'lib32-dbus')
-pkgver=1.12.16
+pkgver=1.12.20
 pkgrel=1
 arch=('x86_64')
 url="https://wiki.freedesktop.org/www/Software/dbus/"
@@ -26,8 +26,8 @@ build() {
 
 	cd "${srcdir}/dbus32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \
@@ -71,4 +71,4 @@ package_lib32-dbus() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('27ae805170e9515a8bb0fba5f29d414edc70e3b6b28b7b65bbea47035b8eafa9ac4820cdc92645be6035f6748f8aa45679e1ffc84ba74a64859a3056d318b9bb')
+sha512sums=('0964683bc6859374cc94e42e1ec0cdb542cca67971c205fcba4352500b6c0891665b0718e7d85eb060c81cb82e3346c313892bc02384da300ddd306c7eef0056')

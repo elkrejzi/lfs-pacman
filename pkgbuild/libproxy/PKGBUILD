@@ -1,5 +1,5 @@
 pkgname=libproxy
-pkgver=0.4.15
+pkgver=0.4.17
 pkgrel=1
 pkgdesc="A library that provides automatic proxy configuration management"
 arch=('x86_64')
@@ -9,17 +9,13 @@ license=('LGPL')
 source=("https://github.com/libproxy/libproxy/archive/${pkgver}/libproxy-${pkgver}.tar.gz")
 
 prepare() {
-	cd "${srcdir}/libproxy-${pkgver}"
-
-	sed -i "s:VERSIONS 3.6:VERSIONS 3.7 3.6:g" cmake/FindPython3Interp.cmake
-
 	install -v -dm755 "${srcdir}/build"
 }
 
 build() {
 	cd "${srcdir}/build"
 
-	export CXX="${CXX} -std=c++11"
+	export CXX="${CXX:-g++} -std=c++11"
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
@@ -38,4 +34,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('8f68bd56e44aeb3f553f4657bef82a5d14302780508dafa32454d6f724b724c884ceed6042f8df53a081d26ea0b05598cf35eab44823257c47c5ef8afb36442b')
+sha512sums=('589045538a78dc7453335ed61c60adad3352b840b224885d4a58ae284e52224ae3ff2eebd77df57aebbc3ae75d7b6d69a825f24f01c19e75bf0a3345dce53126')

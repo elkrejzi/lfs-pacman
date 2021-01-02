@@ -1,5 +1,5 @@
 pkgname=kbd
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
@@ -24,4 +24,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('5f407c20739487e423e8390e429d30838a1a69a0a50db083803ce56da919e25ce480b63fd1bcfac9eb362095f17e575783b09eaa55e26b442bfa3ed838e04f13')
+sha512sums=('c3823e40878ed4cb5b90edf753dba37a7fc3189b7b08a2e59a7830cac23a7a7daf31dedef1fcc130698c7508bc2a037c8ab54e749d0cdbf51756e346f2ed5abb')

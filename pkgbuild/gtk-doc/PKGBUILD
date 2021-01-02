@@ -1,12 +1,12 @@
 pkgname=gtk-doc
-pkgver=1.32
+pkgver=1.33.1
 pkgrel=1
 pkgdesc="Documentation tool for public library API"
 arch=('x86_64')
 url="https://www.gtk.org/gtk-doc/"
 license=('GPL' 'FDL')
 #depends=()
-source=("https://download.gnome.org/sources/gtk-doc/${pkgver}/gtk-doc-${pkgver}.tar.xz")
+source=("https://download.gnome.org/sources/gtk-doc/${pkgver:0:4}/gtk-doc-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/gtk-doc-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('6d28395968c2951f1685570e5778b5add76d1b9cff8fcb8632b200b3ba251602a1ea59b1def84fc28560988b87fc0dbbc6947af88d268db6ff23e9c28aea3b28')
+sha512sums=('18620f0164382849980938103a9243abc35ea5a2628258f00e096e16a698b598d0c7fe80a1739fc689217c59a648c728a014bc672a92346c65768ebf89675b90')

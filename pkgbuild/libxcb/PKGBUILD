@@ -1,12 +1,12 @@
 pkgbase=libxcb
 pkgname=('libxcb' 'lib32-libxcb')
-pkgver=1.13.1
+pkgver=1.14
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
 license=('custom')
 #depends=()
-source=("https://www.x.org/releases/individual/xcb/libxcb-${pkgver}.tar.bz2")
+source=("https://www.x.org/releases/individual/xcb/libxcb-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/libxcb-${pkgver}"
@@ -24,8 +24,8 @@ build() {
 
 	cd "${srcdir}/libxcb32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \
@@ -60,4 +60,4 @@ package_lib32-libxcb() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('763edff9572623674f75a858adc57b5c09591f508cc5d5093218e7bb047abdbe0a0108bd465419a8bf15c7dcdc85efdd2d4d9fd56605c41475d15dc992640c23')
+sha512sums=('b90a23204b0d2c29d8b115577edb01df0465e02d6a8876550fecd62375d24a5d5f872ddd5946772ddba077cadce75b12c7a6d218469dc30b5b92bc82188e8bc6')

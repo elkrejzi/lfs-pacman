@@ -1,5 +1,5 @@
 pkgname=bison
-pkgver=3.5
+pkgver=3.7.4
 pkgrel=1
 pkgdesc="The GNU general-purpose parser generator"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('309ba77cfbf5d5ca697f522ac18ca9b55a1ec4e690b87220c97ffb1137b8bd8b22aa14c111166f0f4bf001e88f4bcbfd0583bc09810c246f0dc60fd6e8478950')
+sha512sums=('3fc13ab21e28218afc9b7f1196a5607de7ff4403c4126df359848422a8057ac6c17ce4344864dd320b7c47a08d98e0f3e2929f25b06be3b1f1c867c0568f367c')

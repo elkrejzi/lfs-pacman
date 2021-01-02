@@ -1,5 +1,5 @@
 pkgname=subversion
-pkgver=1.13.0
+pkgver=1.14.0
 pkgrel=1
 pkgdesc="A Modern Concurrent Version Control System"
 arch=('x86_64')
@@ -14,7 +14,7 @@ source=("https://archive.apache.org/dist/subversion/subversion-${pkgver}.tar.bz2
 build() {
 	cd "${srcdir}/subversion-${pkgver}"
 
-	export PYTHON="/usr/bin/python2"
+	export PYTHON="/usr/bin/python3"
 	export RUBYDIR=$(ruby -e "require 'rbconfig'" -e "CONFIG = RbConfig::MAKEFILE_CONFIG" -e "puts RbConfig::expand(CONFIG[\"vendorarchdir\"])")
 
 	sed -i "s#-Werror=unknown-warning-option ##g" configure
@@ -33,8 +33,8 @@ build() {
 		--with-ruby-sitedir=${RUBYDIR}
 
 	make
-	make swig_pydir=/usr/lib/python2.7/site-packages/libsvn \
-		swig_pydir_extra=/usr/lib/python2.7/site-packages/svn swig-py swig-pl swig-rb
+	make swig_pydir=/usr/lib/python3.9/site-packages/libsvn \
+		swig_pydir_extra=/usr/lib/python3.9/site-packages/svn swig-py swig-pl swig-rb
 }
 
 package() {
@@ -42,8 +42,8 @@ package() {
 
 	LD_LIBRARY_PATH="${pkgdir}"/usr/lib:${LD_LIBRARY_PATH} \
 	make -j1 DESTDIR="${pkgdir}" INSTALLDIRS=vendor LT_LDFLAGS="-L${pkgdir}/usr/lib" \
-		swig_pydir=/usr/lib/python2.7/site-packages/libsvn \
-		swig_pydir_extra=/usr/lib/python2.7/site-packages/svn \
+		swig_pydir=/usr/lib/python3.9/site-packages/libsvn \
+		swig_pydir_extra=/usr/lib/python3.9/site-packages/svn \
 		install install-swig-py install-swig-pl install-swig-rb
 
 	rm -rf "${pkgdir}/usr/lib/perl"
@@ -53,7 +53,7 @@ package() {
 	install -v -Dm644 "${srcdir}/svnserve.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/svnserve.conf"
 }
 
-sha512sums=('36f390b412bf772bf894efc2aadc247f12ca30ac407e04f664c14411c3519e1bb242d1239f2f44cbcb86eafc7c413efc8eadbfe1d1e75118235a7b7adc6c85b2'
+sha512sums=('af6b706fdc91f7ab292fce9d9de582da306fd11e92767dc852687e71a6a8b65bb867fa70d5afd7f76a46005acb1b3c2d3193e690def48cd26875b3a7851cd13b'
             '43a6d736e64e2a0c84014829ec1dffa65cf8f0d591c2e1a4afd393bc63f4a15a8d6cb551635356c937d7354db23cf3620de788c9623835d08b3af3afb816957c'
             '005e37efeb14bc32ce8ed58312bc97acd14267584b87b055a2340225c1509f427f22085b06c414fc0a425436b4779b262378e26f628441679a36a41fdef7f970'
             'e816cb8aeae607dfa3cb4c3e0f67410d83493fccb381951ec8426b8e1fd871ebead2f295df477071d0858f00ba601304868c90afc7ea720bf4adfb6fdf468343')

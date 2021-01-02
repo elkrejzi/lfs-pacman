@@ -1,5 +1,5 @@
 pkgname=atk
-pkgver=2.34.1
+pkgver=2.36.0
 pkgrel=1
 pkgdesc="A library providing a set of interfaces for accessibility"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('a7c8ec7c2166bb8734b065402bf7700cdc69f56c0958663e88596b155a20063e4cfbf1754d8b8ed94a4e509db2e97e2603b0a8037e61028acc85930e631a633e')
+sha512sums=('d0f18204eaf96511e8448e3dfbc4b6953a7cf8b816151fb7caf5592cf578572b1cdb16836fe2157b11e3ad018ef171f1ca1bfdf255bb31bb455716d7519fd634')

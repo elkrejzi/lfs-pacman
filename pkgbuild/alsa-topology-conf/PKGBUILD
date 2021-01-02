@@ -1,16 +1,18 @@
 pkgname=alsa-topology-conf
-pkgver=1.2.1
+pkgver=1.2.4
 pkgrel=1
 pkgdesc="ALSA topology configuration files"
 arch=('x86_64')
 url="https://alsa-project.org/wiki/Main_Page"
 license=('custom:BSD')
 #depends=()
-source=("ftp://ftp.alsa-project.org/pub/lib/alsa-topology-conf-${pkgver}.tar.bz2")
+source=("https://www.alsa-project.org/files/pub/lib/alsa-topology-conf-${pkgver}.tar.bz2")
 
 package() {
+	cd "${srcdir}/alsa-topology-conf-${pkgver}"
+
 	install -v -dm755 "${pkgdir}/usr/share/alsa"
 	cp -rv topology "${pkgdir}/usr/share/alsa"
 }
 
-sha512sums=('3480e58f12aeca04b0c1821e074daeb369949acbcf7bc61b09895ee43de84cb716566518a56a4d681babbb3f13faace5a16fff079d8bdaefc7c27fc1382cd41a')
+sha512sums=('e5b367a23f42ed2c2a83f3dd9df264b4e054f5ba7c4be98520418598f0b06a11627498a8a6ef943522b209951645f83bbbbfb32db7c9c8260aa5db08358970cb')

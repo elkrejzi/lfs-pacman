@@ -16,7 +16,7 @@ build() {
 
 	unset CFLAGS
 
-	make -f unix/Makefile generic CC="${CC}"
+	make -f unix/Makefile generic CC="${CC:-gcc}"
 }
 
 package() {

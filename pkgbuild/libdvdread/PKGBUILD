@@ -1,5 +1,5 @@
 pkgname=libdvdread
-pkgver=6.0.2
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="Provides a simple foundation for reading DVD video disks"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e8831a67bbf1a144e9298b59e5462889c8b0197592a3c169523b5d84d9b9c1aaa719ccde2aa98c490e04f2a94c3fa7244b286e8faed674ae8c70400a0ece9c6c')
+sha512sums=('f02c2d33ec3e79a4efd0b4ed9172935b092c9f827eb6810ed354328c34b5206ee4ffd646239ce50b9401cab1758f1a746113e004461b20df4f44bc7fa6bc2278')

@@ -1,61 +1,67 @@
 pkgbase=libdrm
 pkgname=('libdrm' 'lib32-libdrm')
-pkgver=2.4.100
+pkgver=2.4.103
 pkgrel=1
 arch=('x86_64')
 url="https://dri.freedesktop.org/wiki/"
 license=('custom')
 #depends=()
-source=("https://dri.freedesktop.org/libdrm/libdrm-${pkgver}.tar.bz2")
+source=("https://dri.freedesktop.org/libdrm/libdrm-${pkgver}.tar.xz")
 
 prepare() {
-	cp -a "${srcdir}"/libdrm{,32}-${pkgver}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	cd "${srcdir}/libdrm-${pkgver}"
+	cd "${srcdir}/build64"
 
-	./configure --prefix=/usr \
-		--enable-udev \
-		--disable-valgrind
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dudev=true \
+		"${srcdir}/libdrm-${pkgver}"
 
-	cd "${srcdir}/libdrm32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr \
-		--libdir=/usr/lib32 \
-		--enable-udev \
-		--disable-valgrind
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--libdir /usr/lib32 \
+		--buildtype=plain \
+		-Dudev=true \
+		"${srcdir}/libdrm-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/libdrm-${pkgver}"
-	make -C "${srcdir}/libdrm32-${pkgver}"
+	ninja -C build64 ${MAKEFLAGS}
+	ninja -C build32 ${MAKEFLAGS}
 }
 
 package_libdrm() {
 	pkgdesc="Userspace interface to kernel DRM services"
 
-	cd "${srcdir}/libdrm-${pkgver}"
+	cd "${srcdir}/build64"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 }
 
 package_lib32-libdrm() {
 	pkgdesc="Userspace interface to kernel DRM services (32 bit)"
 
-	cd "${srcdir}/libdrm32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	make install DESTDIR="${PWD}/dest"
+	DESTDIR="${PWD}/dest" ninja install
 
 	install -v -dm755 "${pkgdir}/usr"
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('4d3a5556e650872944af52f49de395e0ce8ac9ac58530e39a34413e94dc56c231ee71b8b8de9fb944263515a922b3ebbf7ddfebeaaa91543c2604f9bcf561247')
+sha512sums=('15b098b962008271400692b6b15ecb7e22676f8698e0220ad969735ac2315ccc737d19558afb6abda82bae15117e5f306c048184a2369f434b85ecaa670ca885')

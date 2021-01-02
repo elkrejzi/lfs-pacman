@@ -1,5 +1,5 @@
 pkgname=libgusb
-pkgver=0.3.1
+pkgver=0.3.5
 pkgrel=1
 pkgdesc="GObject wrapper for libusb1"
 arch=('x86_64')
@@ -10,7 +10,6 @@ source=("https://people.freedesktop.org/~hughsient/releases/libgusb-${pkgver}.ta
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
-
 }
 
 build() {
@@ -34,4 +33,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('5c864e35ec64d1e52ec15ab971c75e0ee3e4664223a6b365815a54819f23342889e5f9739b998799a3af3d37ee75f0ae38ee0d8bca4ed1e2d6ff712f65a53b9a')
+sha512sums=('4c709a3c5215342b12b42f393aea6945e2048d4a7b137ec5b6e11b54c1ea9b8a59ba31b9110bfaf10e8924a7b41eaf5b82c417252340d012db400e8eb4c9dc1c')

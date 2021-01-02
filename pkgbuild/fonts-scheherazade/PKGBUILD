@@ -1,19 +1,19 @@
 pkgname=fonts-scheherazade
-pkgver=2.100
+pkgver=3.000
 pkgrel=1
 pkgdesc="Arabic script Unicode font designed in a similar style to traditional Naskh typefaces"
 arch=('x86_64')
 url="https://software.sil.org/scheherazade/"
 license=('custom:OFL')
 #depends=()
-source=("https://software.sil.org/downloads/r/scheherazade/Scheherazade-${pkgver}.zip")
+source=("https://software.sil.org/downloads/r/scheherazade/ScheherazadeNew-${pkgver}.zip")
 
 package() {
-	cd "${srcdir}/Scheherazade-${pkgver}"
+	cd "${srcdir}/ScheherazadeNew-${pkgver}"
 
 	install -v -dm755 "${pkgdir}/usr/share/fonts/scheherazade"
 
 	install -v -m644 *.ttf "${pkgdir}/usr/share/fonts/scheherazade"
 }
 
-sha512sums=('53a6b684a9c6a6f136da28cc2f663fca9e22d1951203587394ff979c4769e4beb898ab73a7cabedf5ed6eaa2775d10c7281439f10331b203f0e03bd434aa2fb2')
+sha512sums=('d74faf7c4df1a9a2fca5c8a8e8102b78ac05f849ac6aa08985b045549441f37cc8fd2767f622b1eda63dea4473f94591b6a98976accd9316ce7078e8fa920e0d')

@@ -15,18 +15,19 @@ prepare() {
 	sed -i "/Default/s:lib_static,::"           SConstruct
 	sed -i "/Alias/s:install_static,::"         SConstruct
 	sed -i "/  print/{s/print/print(/; s/$/)/}" SConstruct
+	sed -i "/get_contents()/s/,/.decode()&/"    SConstruct 
 }
 
 build() {
 	cd "${srcdir}/serf-${pkgver}"
 
-	scons CC="${CC}" CFLAGS="${CFLAGS}" PREFIX=/usr
+	scons CC="${CC:-gcc}" CFLAGS="${CFLAGS}" PREFIX=/usr
 }
 
 package() {
 	cd "${srcdir}/serf-${pkgver}"
 
-	scons CC="${CC}" CFLAGS="${CFLAGS}" PREFIX="${pkgdir}/usr" install
+	scons CC="${CC:-gcc}" CFLAGS="${CFLAGS}" PREFIX="${pkgdir}/usr" install
 }
 
 sha512sums=('9f5418d991840a08d293d1ecba70cd9534a207696d002f22dbe62354e7b005955112a0d144a76c89c7f7ad3b4c882e54974441fafa0c09c4aa25c49c021ca75d')

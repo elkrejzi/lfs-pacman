@@ -1,5 +1,4 @@
-pkgbase=python-commonmark
-pkgname=('python2-commonmark' 'python3-commonmark')
+pkgname=python3-commonmark
 pkgver=0.9.1
 pkgrel=1
 pkgdesc="Python parser for the CommonMark Markdown spec"
@@ -9,35 +8,16 @@ license=('PSF')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/c/commonmark/commonmark-${pkgver}.tar.gz")
 
-prepare() {
-	cp -a "${srcdir}/commonmark-${pkgver}" "${srcdir}/commonmark-${pkgver}-py2"
-}
-
 build() {
 	cd "${srcdir}/commonmark-${pkgver}"
 
 	python3 setup.py build
-
-	cd "${srcdir}/commonmark-${pkgver}-py2"
-
-	python2 setup.py build
 }
 
-package_python3-commonmark() {
+package() {
 	cd "${srcdir}/commonmark-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
-
-	for file in "${pkgdir}"/usr/bin/*
-	do
-		mv ${file} ${file%.py}3
-	done
-}
-
-package_python2-commonmark() {
-	cd "${srcdir}/commonmark-${pkgver}-py2"
-
-	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
 sha512sums=('bacf5ef387a0c330a2128f42c42c29c1a48ae623683e6e56ad28a1621aabd72e29cd3e2d661e8207b8cc0c347d267f262a55f2145fc58f8c8aeff91e7a283324')

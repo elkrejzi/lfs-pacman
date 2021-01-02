@@ -1,5 +1,5 @@
 pkgname=gettext
-pkgver=0.20.1
+pkgver=0.21
 pkgrel=1
 pkgdesc="GNU internationalization library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('82ffa5a28068272d0587262f8d9269f9629c601da5d122b6645c9c4cf98bfe4149df01bb58522ccf8fe25b931672e18551d7fb34de1cbf6a0463a87f9f8ee221')
+sha512sums=('f7e2968651879f8444d43a176a149db9f9411f4a03132a7f3b37c2ed97e3978ae6888169c995c1953cb78943b6e3573811abcbb8661b6631edbbe067b2699ddf')

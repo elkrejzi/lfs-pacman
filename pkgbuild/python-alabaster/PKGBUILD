@@ -1,5 +1,4 @@
-pkgbase=python-alabaster
-pkgname=('python2-alabaster' 'python3-alabaster')
+pkgname=python3-alabaster
 pkgver=0.7.12
 pkgrel=1
 pkgdesc="A configurable sidebar-enabled Sphinx theme"
@@ -9,30 +8,17 @@ license=('PSF')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/a/alabaster/alabaster-${pkgver}.tar.gz")
 
-prepare() {
-	cp -a "${srcdir}/alabaster-${pkgver}" "${srcdir}/alabaster-${pkgver}-py2"
-}
-
 build() {
 	cd "${srcdir}/alabaster-${pkgver}"
 
 	python3 setup.py build
-
-	cd "${srcdir}/alabaster-${pkgver}-py2"
-
-	python2 setup.py build
 }
 
-package_python3-alabaster() {
+package() {
 	cd "${srcdir}/alabaster-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-package_python2-alabaster() {
-	cd "${srcdir}/alabaster-${pkgver}-py2"
-
-	python2 setup.py install --root="${pkgdir}" --optimize=1
-}
 
 sha512sums=('e3bfd0c92ce01f08d5e6d9dc1ef0967ca1f54827e08756f4a0ba7be8d3b8bec7f2e53a169b831ff5ce2d2548f7f52c6e518bcc513e49bb3e4c38274293aebbac')

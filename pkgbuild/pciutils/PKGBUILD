@@ -1,5 +1,5 @@
 pkgname=pciutils
-pkgver=3.6.2
+pkgver=3.7.0
 pkgrel=1
 pkgdesc="PCI bus configuration space access library and tools"
 arch=('x86_64')
@@ -17,7 +17,7 @@ prepare() {
 build() {
 	cd "${srcdir}/pciutils-${pkgver}"
 
-  	sed -i "s#gcc#${CC}#g" Makefile
+  	sed -i "s#gcc#${CC:-gcc}#g" Makefile
 
 	make PREFIX=/usr \
 		SHAREDIR=/usr/share/misc \
@@ -40,4 +40,4 @@ package() {
 	mv -v "${pkgdir}/usr/sbin/lspci" "${pkgdir}/usr/bin"
 }
 
-sha512sums=('dabf0c31b2a30f23c3d24204cf2412a345a18feb619b29523a728b7c7b982febaf913bf450e5a2986201c392fc69ebae82a64545584f0b735ea0175c489b7587')
+sha512sums=('eaae09a1a91137f026aaa7484baa6fb138146dbe58a7fd5eb4cd38f206426a123b27e397c8f6a62eaef627470bff109365cd137a04358ec6a4539da342661f26')

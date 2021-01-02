@@ -1,5 +1,5 @@
 pkgname=bubblewrap
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Unprivileged sandboxing tool"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('119e7dbd82f273ca05496433d1c3070ec7ce629c63546abced92e801ba95ffae60f7198ff607d95040f20dc23df896700d83f65430ba4422e8e40e376370f910')
+sha512sums=('0ff46dc0fda2d0cffbb36cc52ff43951b30cbd835a42cc56806acbbbd827796bfadbb1cfafc84d6b47a72c031ca44abe1c377acc0cc25fe3b33e854f5f687d35')

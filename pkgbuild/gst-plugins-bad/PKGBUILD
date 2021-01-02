@@ -1,5 +1,5 @@
 pkgname=gst-plugins-bad
-pkgver=1.16.2
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Bad Plugins"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('aeaf3388156fe7317e193a3f940d391a6d8a1187f93e6925cee4cb02c4e78d9b456c22c27c318f0f9b2212ca68887c5cdcc256adaf068bfab8ec5c091a1e8805')
+sha512sums=('2735f845541b9a2670c5111cbb0a82ed4d56dbe6872bd81773ef34f9d83f3d8d0be9871d22a76642b57423b8b06cfe3c83f681702ffe3ac4e1a7d2eb4c0f9b35')

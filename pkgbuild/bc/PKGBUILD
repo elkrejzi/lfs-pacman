@@ -1,20 +1,17 @@
 pkgname=bc
-pkgver=1.07.1
+pkgver=3.2.4
 pkgrel=1
 pkgdesc="An arbitrary precision calculator language"
 arch=('x86_64')
 url="https://www.gnu.org/software/bc/"
 license=('custom')
 #depends=()
-source=("https://ftp.gnu.org/gnu/bc/bc-${pkgver}.tar.gz")
+source=("https://github.com/gavinhoward/bc/releases/download/${pkgver}/bc-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/bc-${pkgver}"
 
-	./configure --prefix=/usr \
-		--infodir=/usr/share/info \
-		--mandir=/usr/share/man \
-		--with-readline
+	./configure --prefix /usr
 
 	make
 }
@@ -25,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('02126d0db6b6ed06d56cfc292d6f5475ff1e574779d7e69c7809bbb1e13f946f57ea07da2a7666baa092507a951a822044b0970075f75eefe65a5c1999b75d34')
+sha512sums=('9a22d829b7346d08ad0066dd65dfeb832b5eb7c77b52798d05da9450d77590d264ecfe9318955f7335ddcfb11bb48f44854c760c0b4c173e128378ccf297d443')

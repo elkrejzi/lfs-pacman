@@ -1,5 +1,5 @@
 pkgname=lcms2
-pkgver=2.9
+pkgver=2.11
 pkgrel=1
 pkgdesc="Small-footprint color management engine, version 2"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('70b1c51fa8d137d5072425e580745ff1fbf49c6e8bb1da0a8adb0647d3b7c095208793cb02de1e8d1a01363b8575fa60c61bedbff99bbec57a44228239cb00e5')
+sha512sums=('96643da4770c86eb56f454e605d7661024afb33f4e621c23c590307c31a0eec02100eca4f4ac6718639d99d750ed4834a9b2523e910469da717c3ddd78b4b50e')

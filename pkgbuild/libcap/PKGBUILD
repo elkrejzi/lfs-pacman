@@ -1,6 +1,6 @@
 pkgbase=libcap
 pkgname=('libcap' 'lib32-libcap')
-pkgver=2.29
+pkgver=2.46
 pkgrel=1
 arch=('x86_64')
 url="http://sites.google.com/site/fullycapable/"
@@ -23,19 +23,15 @@ build() {
 
 	cd "${srcdir}/libcap-${pkgver}"
 
-	sed -i "s| gcc| ${CC}|" Make.Rules
-
-	make BUILD_GPERF=no
+	make BUILD_GPERF=no CC="${CC}"
 
 	cd "${srcdir}/libcap32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	sed -i "s| gcc| ${CC}|" Make.Rules
-
-	make -C libcap BUILD_GPERF=no lib=lib32
+	make -C libcap BUILD_GPERF=no lib=lib32 CC="${CC}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
@@ -67,4 +63,4 @@ package_lib32-libcap() {
 	chmod 755 "${pkgdir}/usr/lib32/libcap.so"
 }
 
-sha512sums=('400a6883037bbc1f00847e2fcfb940d733784adec857969069972a3d5120dde6b554326ba6dd652670d854308433c66147944dda8b8b344ca249cef73ea866ef')
+sha512sums=('6dcb249aac78efde959a986e7f06a364b2e6e57dd40b14e791d5a56012df485b2395dee0228f4cc3e1cddb2a4e3dcb9c1d83d5331ed084f23a46848494933845')

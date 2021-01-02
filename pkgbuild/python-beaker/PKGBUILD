@@ -1,5 +1,4 @@
-pkgbase=python-beaker
-pkgname=('python2-beaker' 'python3-beaker')
+pkgname=python3-beaker
 pkgver=1.11.0
 pkgrel=1
 pkgdesc="A Session and Caching library with WSGI Middleware"
@@ -9,30 +8,16 @@ license=('PSF')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/B/Beaker/Beaker-${pkgver}.tar.gz")
 
-prepare() {
-	cp -a "${srcdir}/Beaker-${pkgver}" "${srcdir}/Beaker-${pkgver}-py2"
-}
-
 build() {
 	cd "${srcdir}/Beaker-${pkgver}"
 
 	python3 setup.py build
-
-	cd "${srcdir}/Beaker-${pkgver}-py2"
-
-	python2 setup.py build
 }
 
-package_python3-beaker() {
+package() {
 	cd "${srcdir}/Beaker-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
-}
-
-package_python2-beaker() {
-	cd "${srcdir}/Beaker-${pkgver}-py2"
-
-	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
 sha512sums=('2c8159b50b06e0ebc2045d1175142212aa7a12300a52078d8639661c48d808d96882290aad893bff7e39221662ac5fe21b42627a8d3fa16dc1065373e11093ef')

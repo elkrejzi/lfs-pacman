@@ -1,13 +1,12 @@
 pkgname=lvm2
-pkgver=2.02.185
+pkgver=2.02.187
 pkgrel=1
 pkgdesc="Logical Volume Manager 2"
 arch=('x86_64')
 url="https://sourceware.org/lvm2/"
 license=('GPL2' 'LGPL2.1')
 #depends=()
-#source=("ftp://sourceware.org/pub/lvm2/releases/LVM2.${pkgver}.tgz")
-source=("ftp://sources.redhat.com/pub/lvm2/LVM2.${pkgver}.tgz")
+source=("https://sourceware.org/ftp/lvm2/LVM2.${pkgver}.tgz")
 
 prepare() {
 	cd "${srcdir}/LVM2.${pkgver}"
@@ -44,4 +43,4 @@ package() {
 	make install_systemd_generators DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f421505551aec2a09bc862f2fcc1ee825bc4d94c53a01d13265631e99308d60fbca40112be5bc7824cce3ef223c0775d2f6c345f6a3f227229a0566c903841bf')
+sha512sums=('3ce56f0c0d2e7dbcdae5be263199f73ee5c4c052599d53cde9b16500a326d0340893344f4671839be06b5b4225d592175d01c9974db14f2dc220d6e9a1d47e91')

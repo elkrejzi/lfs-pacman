@@ -1,6 +1,6 @@
 pkgbase=libx11
 pkgname=('libx11' 'lib32-libx11')
-pkgver=1.6.9
+pkgver=1.7.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.x.org/wiki/"
@@ -19,8 +19,8 @@ build() {
 
 	cd "${srcdir}/libX1132-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32
@@ -53,4 +53,4 @@ package_lib32-libx11() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('fc18f0dc17ade1fc37402179f52e1f2b9c7b7d3a1a9590fea13046eb0c5193b4796289431cd99388eac01e8e59de77db45d2c9675d4f05ef8cf3ba6382c3dd31')
+sha512sums=('f661ca90350fd8a94f054b00f12f5122cea068ebff706acfd399462236c189a296a2358d17d16166635101cf56cc19303dd407873a159932d093c9f33556f9fb')

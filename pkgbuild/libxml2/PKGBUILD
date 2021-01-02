@@ -9,6 +9,11 @@ license=('MIT')
 source=("http://xmlsoft.org/sources/libxml2-${pkgver}.tar.gz")
 
 prepare() {
+	cd "${srcdir}/libxml2-${pkgver}"
+
+	sed -i '/if Py/{s/Py/(Py/;s/)/))/}' python/{types.c,libxml.c}
+	sed -i 's/ TRUE/ true/' encoding.c
+
 	cp -a "${srcdir}"/libxml2{,32}-${pkgver}
 }
 
@@ -22,8 +27,8 @@ build() {
 
 	cd "${srcdir}/libxml232-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \

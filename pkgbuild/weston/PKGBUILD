@@ -1,5 +1,5 @@
 pkgname=weston
-pkgver=7.0.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('fa14467ab89fb12175830d9cf29d89dc04899fd21d801e60e85836e8e52e17e144be78098b3eedfab6c51b7fb055ecfabb456a8a74f4e40485134da59ac58ea3')
+sha512sums=('ccc263f8279b7b23e5c593b4a8a023de2c3dc178b1b8d6593599171770bcfe97608de9fcb77aa1cab39255451d289d323e51c317dae190c7641282e085b84f90')

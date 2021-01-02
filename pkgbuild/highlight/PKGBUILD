@@ -1,5 +1,5 @@
 pkgname=highlight
-pkgver=3.54
+pkgver=3.60
 pkgrel=1
 pkgdesc="Fast and flexible source code highlighter (CLI version)"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("http://www.andre-simon.de/zip/highlight-${pkgver}.tar.bz2")
 build() {
 	cd "${srcdir}/highlight-${pkgver}"
 
-	make CXX="${CXX}"
+	make CXX="${CXX:-g++}"
 }
 
 package() {
@@ -20,4 +20,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('c5a0982e9cd5c48d1ffa3ce2286020c1285eacf32928b08e3718582f4d131b05726920156c4357e595403474d4c389fc70e2aff789e17962963b9d8d23ac6488')
+sha512sums=('e4d0822592675115c7c2121d6ed066f997d315fecea384caeb506de1933f6bd60fd0dea57dcdafba85465f9f6b922ed168db57ce725bd7f19689d30624412f1b')

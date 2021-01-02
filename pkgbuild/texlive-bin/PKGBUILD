@@ -1,5 +1,5 @@
 pkgname=texlive-bin
-pkgver=20190410
+pkgver=20200406
 pkgrel=1
 pkgdesc="TeX Live distribution"
 arch=('x86_64')
@@ -28,7 +28,7 @@ build() {
 	cd "${srcdir}/texlive-${pkgver}-source/build"
 
 	#CXXFLAGS+=" -Wno-reserved-user-defined-literal" # Required for building in C++11 mode
-	#export CXX="${CXX} -std=c++11"
+	#export CXX="${CXX:-g++} -std=c++11"
 
 	# An ugly hack, to avoid future rebuilds when bumping poppler
 	# export LDFLAGS="-Wl,-rpath,/usr/lib/texlive-poppler"
@@ -80,5 +80,5 @@ package() {
 	#cp -rv /usr/lib/libpoppler.so.* "${pkgdir}/usr/lib/texlive-poppler"
 }
 
-sha512sums=('7759d8e668e53c0c73e48907096da9d8fb6384dd9c3342ddfb05e17d077054c5351d35256cf4e63a6da502de2f09f521979bede7209cdd5bd8ae80eba0efed2e'
-            '528030c5d5ae48daf2bb7a0f0ac602372cec8c6489786a210122e304f140b231e0b91569e2e562d1331aa5eedc93c7c1d94eaa2233b7476d390641a748a723d2')
+sha512sums=('65be52cb5e1b52f12feb62c6cf23e56c581b9dccb8d3b9ccc85c12c62b0cb67dd71de8d22d967d2cbf8403502c66bccb238523d13a0d081be104fc9f9c68b477'
+            '3abbb136898557e9f4c8542fe1548e25c122f44977f939d29da524a4f8e569f8dcd33d050052abf47b7f0109417a70ff92422013d3e9a4a626c6ea77d4b43f67')

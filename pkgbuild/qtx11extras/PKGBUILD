@@ -1,5 +1,5 @@
 pkgname=qtx11extras
-pkgver=5.14.0
+pkgver=5.15.2
 pkgrel=1
 pkgdesc="Provides platform-specific APIs for X11"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('9342cbee0147f6ee5a034996f2be99a41c22044ee5a9a249e9ed981c29c30743cabfbcb0cf9422a9b243005ba2655b214879983437fbd0b9820c02885ca4abe3')
+sha512sums=('beaefc865299f4e7c637baa96eb3a69adbe1a41fc7735b46cfec0768c9243391600e69078630fffb4aceba106b7512fd802e745abc38ddab5253233301c93ed9')

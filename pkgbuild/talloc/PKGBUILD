@@ -11,6 +11,8 @@ source=("https://www.samba.org/ftp/talloc/talloc-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/talloc-${pkgver}"
 
+	export PYTHON=python3
+
 	./configure --prefix=/usr \
 		--sysconfdir=/etc/samba \
 		--localstatedir=/var \

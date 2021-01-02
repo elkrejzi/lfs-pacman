@@ -1,6 +1,5 @@
-pkgbase=python-certifi
-pkgname=('python2-certifi' 'python3-certifi')
-pkgver=2019.11.28
+pkgname=python3-certifi
+pkgver=2020.12.5
 pkgrel=1
 pkgdesc="Python package for providing Mozilla's CA Bundle"
 arch=('x86_64')
@@ -9,30 +8,16 @@ license=('PSF')
 #depends=()
 source=("https://files.pythonhosted.org/packages/source/c/certifi/certifi-${pkgver}.tar.gz")
 
-prepare() {
-	cp -a "${srcdir}/certifi-${pkgver}" "${srcdir}/certifi-${pkgver}-py2"
-}
-
 build() {
 	cd "${srcdir}/certifi-${pkgver}"
 
 	python3 setup.py build
-
-	cd "${srcdir}/certifi-${pkgver}-py2"
-
-	python2 setup.py build
 }
 
-package_python3-certifi() {
+package() {
 	cd "${srcdir}/certifi-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-package_python2-certifi() {
-	cd "${srcdir}/certifi-${pkgver}-py2"
-
-	python2 setup.py install --root="${pkgdir}" --optimize=1
-}
-
-sha512sums=('6821444f02db0d9d03ab1891731178af1d7858df3c729f079147a9c588cf97a456e050da3421a0d2a3559145610826669034a8d46cd50b7c76e90249db1b09ad')
+sha512sums=('3425d98f19025e70d885458629071c8531271d93d1461fadea6afbaafc763881a42b3c05be391a938d84a0d1ab729c3ac5df4f3328e8ef63a7b56ead1445bddd')

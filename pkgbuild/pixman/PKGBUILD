@@ -1,6 +1,6 @@
 pkgbase=pixman
 pkgname=('pixman' 'lib32-pixman')
-pkgver=0.38.4
+pkgver=0.40.0
 pkgrel=1
 arch=('x86_64')
 url="http://xorg.freedesktop.org"
@@ -21,8 +21,8 @@ build() {
 
 	cd "${srcdir}/pixman32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \
@@ -60,4 +60,4 @@ package_lib32-pixman() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('b66dc23c0bc7327cb90085cbc14ccf96ad58001a927f23af24e0258ca13f32d4255535862f1efcf00e9e723410aa9f51edf26fb01c8cde49379d1225acf7b5af')
+sha512sums=('063776e132f5d59a6d3f94497da41d6fc1c7dca0d269149c78247f0e0d7f520a25208d908cf5e421d1564889a91da44267b12d61c0bd7934cd54261729a7de5f')

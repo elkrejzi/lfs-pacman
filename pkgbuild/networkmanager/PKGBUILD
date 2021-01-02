@@ -1,11 +1,11 @@
 pkgname=networkmanager
-pkgver=1.22.2
+pkgver=1.28.0
 pkgrel=1
 pkgdesc="Network connection manager and user applications"
 arch=('x86_64')
 url="https://wiki.gnome.org/Projects/NetworkManager"
 license=('GPL2' 'LGPL2.1')
-_pppver=2.4.7
+_pppver=2.4.8
 #depends=()
 options=(emptydirs)
 source=("https://download.gnome.org/sources/NetworkManager/${pkgver:0:4}/NetworkManager-${pkgver}.tar.xz"
@@ -32,11 +32,9 @@ build() {
 		-Dlibaudit=no \
 		-Dpppd_plugin_dir=/usr/lib/pppd/${_pppver} \
 		-Dteamdctl=true \
-		-Dlibnm_glib=true \
 		-Dbluez5_dun=true \
 		-Debpf=true \
 		-Dconfig_plugins_default=keyfile,ibft \
-		-Dibft=true \
 		-Ddhclient=/usr/sbin/dhclient \
 		-Dconfig_dhcp_default=dhclient \
 		-Dvapi=true \
@@ -60,6 +58,6 @@ package() {
 	install -v -Dm644 "${srcdir}/NetworkManager.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/NetworkManager.conf"
 }
 
-sha512sums=('64f48536460f9e2a69f3e78e2203f1171f1bef27934a90ea6e315e1a3613c17064bb75a1a496028628b9c3bcaaec00e47efaa7d5a10282e0dfaa79f538548953'
+sha512sums=('ab0bc39626dc55df4e122ad6e1a8086e1467f44bdd41c4491c752dca3ffb549796e0ac888041f12f661f2f6cf4142d0fce59b5135549e48a0076fafcdc45ca06'
             '6fb1f8ecc6a84e93be257bf0361416cfcfac080549de4c8f106e51017a511fdbc154234cae2a14cc4a37101db8bb05f4fcbb77ec1f3ce86d65719fb14e4ddfb6'
             '61ce398a21f1cadb0e1d29dc4a1254d23153a637ae500e884e1fb8a043c06d5f9f765b8d941a8bbf12bfa3fbada8ace6d0420c4ded82833bff9eaa7978eddc01')

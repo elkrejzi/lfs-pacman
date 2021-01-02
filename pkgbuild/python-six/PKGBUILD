@@ -1,6 +1,6 @@
 pkgbase=python-six
 pkgname=('python2-six' 'python3-six')
-pkgver=1.13.0
+pkgver=1.15.0
 pkgrel=1
 pkgdesc="Python 2 and 3 compatibility utilities"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-six() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('55eb8e23e529cb0d2ab9e7c85868e695f36c8235e914b1548eb4b9fd561e4237266bf1839457f15a9513d57a343cbf8ab809d6187499300791fd9356854fcb00')
+sha512sums=('eb840ac17f433f1fc4af56de75cfbfe0b54e6a737bb23c453bf09a4a13d768d153e46064880dc763f4c5cc2785b78ea6d3d3b4a41fed181cb9064837e3f699a9')

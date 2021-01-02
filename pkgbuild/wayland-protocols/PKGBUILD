@@ -1,5 +1,5 @@
 pkgname=wayland-protocols
-pkgver=1.18
+pkgver=1.20
 pkgrel=1
 pkgdesc="Specifications of extended Wayland protocols"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('166be44f370a99281da442e7e2c2fc2f3169b61eeaa69263611b4e33847e93d1071f3cc89537597e1252d48d03993ce39c7d65f43b66a23c9b1551f47959e483')
+sha512sums=('d13f65d03add2c39cc32bf6bda0e981e9f52504bf8505fceea045c8baeb73bea64fa4edb99cb837677fbab1b5b3023054adff36fac127e819690f366b81c4977')

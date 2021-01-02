@@ -1,5 +1,5 @@
 pkgname=smplayer-themes
-pkgver=18.6.0
+pkgver=20.11.0
 pkgrel=1
 pkgdesc="Themes for SMPlayer"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	make install PREFIX=/usr DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e16f2dc50015b0034134a096ca99603167309c31bb50a44679c343b5f9c0ea786a17a0fb64eb1d71c61dacbd2a295adc0a82d23bd0837adf96664120f33adda6')
+sha512sums=('4e64c3f44fc3529d980751618cd30fcc395a21701ba7481ad0a6dffc1fa770c13a3414d0853f94cd6163738702a0a75060a92e5c1c426e79902a68d8f8336575')

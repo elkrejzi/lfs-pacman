@@ -1,5 +1,5 @@
 pkgname=appstream-glib
-pkgver=0.7.16
+pkgver=0.7.18
 pkgrel=1
 pkgdesc="Objects and methods for reading and writing AppStream metadata"
 arch=('x86_64')
@@ -34,4 +34,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('a2991dbd26deeb1fb1daef1811c38ff5b55b2fae0bf2d8cc612c2e370613cb6b0468cf287ab3b575f6e6e3203aabcca12dd95474f70a54d6052a34dcb27b951b')
+sha512sums=('2a202eb25d823d524128a8ab164025b6579e069f8b62373cf5447d049a0e3764fca5bf1464296101a45870d1426b094493fc8ead07a6a4bcb514c0f1a91e8ff2')

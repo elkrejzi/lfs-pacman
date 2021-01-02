@@ -1,5 +1,5 @@
 pkgname=libseccomp
-pkgver=2.4.2
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="Enhanced seccomp library"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('375a3c7c658be6a08b9bb30963e10bb49e8e066119e0be6d3d97faac3db18b8e2c6938d8b5d3874b2f5331ec8295170112fbae83b5a3b5a5bebc0d6705bdfdbb')
+sha512sums=('2be80a6323f9282dbeae8791724e5778b32e2382b2a3d1b0f77366371ec4072ea28128204f675cce101c091c0420d12c497e1a9ccbb7dc5bcbf61bfd777160af')

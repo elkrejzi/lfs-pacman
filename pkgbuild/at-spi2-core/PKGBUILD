@@ -1,5 +1,5 @@
 pkgname=at-spi2-core
-pkgver=2.34.0
+pkgver=2.38.0
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('99f6773e29fb5fcb339cbe5b23133dab78bc52e3c46a1d5bd748788c48345223f1def5078ac48e58756a7692459b177b0e26dc8059898a5ccac56ceb495b7de8')
+sha512sums=('3a1eb27cff6e0dd03119b4f8361a3b6037b26c511e80e2d003d1d5c41fede6d49eb5e0ac1ee45cfb4f3ca8e53292a7e2da67df80be28e77014775e41777a96c1')

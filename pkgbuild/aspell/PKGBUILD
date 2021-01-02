@@ -11,7 +11,7 @@ source=("https://ftp.gnu.org/gnu/aspell/aspell-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/aspell-${pkgver}"
 
-	export CXX="${CXX} -std=c++03"
+	export CXX="${CXX:-g++} -std=c++03"
 
 	./configure --prefix=/usr --sysconfdir=/etc
 

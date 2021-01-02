@@ -1,5 +1,5 @@
 pkgname=xorg-xkbcomp
-pkgver=1.4.2
+pkgver=1.4.4
 pkgrel=1
 pkgdesc="X Keyboard description compiler"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('b00d1eb08c19be86044418c8ea3bfc3c3973406c481878270138a70ed9dab348acb8e4d0af8678879598ffbd7df1c640a63d0abad3d7481758be99af8dd7734e')
+sha512sums=('971eb06277a49083b42154472596f1452fa94cdee28bad345bbcd85b028441bfd975763c20ed92aa69d6605b3fb23d27fee89df91501963b77c863667bae41c4')

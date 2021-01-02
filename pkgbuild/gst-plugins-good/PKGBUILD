@@ -1,5 +1,5 @@
 pkgname=gst-plugins-good
-pkgver=1.16.2
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Good Plugins"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('ab0dfd51af3ea345db466618547c35c78b5f08e725096b66074a5a7e0a83ca25ac51d2d915b7a8c07b70f8e4c9fc65d51c1851f147a5a5a71fbca58e1eb5ffd4')
+sha512sums=('97de3822d5381864f1295362bac8e564977b4e1519cbecf6e6ed5351966bee472c535c5f9ac7d6688d471bf0ea16c37ac690463196a1e7dda8b565096d1604fd')

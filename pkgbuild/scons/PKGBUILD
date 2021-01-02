@@ -1,5 +1,5 @@
 pkgname=scons
-pkgver=3.1.2
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Extensible Python-based build utility"
 arch=('x86_64')
@@ -9,13 +9,11 @@ license=('MIT')
 source=("https://downloads.sourceforge.net/scons/scons-${pkgver}.tar.gz")
 
 package() {
-	cd "${srcdir}/scons-${pkgver}"
+	cd "${srcdir}/SCons-${pkgver}"
 
-	python setup.py install --prefix=/usr \
-		--standard-lib \
+	python3 setup.py install --prefix=/usr \
 		--optimize=1 \
-		--install-data=/usr/share \
 		--root="${pkgdir}"
 }
 
-sha512sums=('bfc0d58d33408a03eb37c1eff166af8139078026e6b43d6274afceac889d0a6743e359e89ad9a30be5ca43aeed26fba92fa4732854750b7d53091ef3e99b3d33')
+sha512sums=('400b11323d48f04395b519dfafb6fce15a6dea92013f599dc4895b112629c0a06c7d2806755c74047d001d60087b94f39a118f512b7ee8de6214a4ffc7310468')

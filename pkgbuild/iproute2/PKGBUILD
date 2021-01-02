@@ -1,5 +1,5 @@
 pkgname=iproute2
-pkgver=5.4.0
+pkgver=5.10.0
 pkgrel=1
 pkgdesc="IP Routing Utilities"
 arch=('x86_64')
@@ -11,7 +11,7 @@ source=("https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-${pkgver}.
 build() {
 	cd "${srcdir}/iproute2-${pkgver}"
 
-	make CCOPTS="${CFLAGS}" CC="${CC}" SBINDIR=/usr/bin
+	make CCOPTS="${CFLAGS}" CC="${CC:-gcc}" SBINDIR=/usr/bin
 }
 
 package() {
@@ -26,4 +26,4 @@ package() {
 	ln -sf ../bin/ip "${pkgdir}/usr/sbin/ip"
 }
 
-sha512sums=('26d1230e10d9ba4466edd3fe95cb6f595df691eeb27b87ae845ceb9da09fe11c2e0daa8d67187121320413f9ee7131fd426182055eb285be7c4de558d9e47051')
+sha512sums=('a468eefa797898b6de452212aa432c0a931434defacae5fb4335754c1292c5d86a8c8dbf3017f90cec266d71a2a17ae469aac17e1a85a5cbddc70814313e4c13')

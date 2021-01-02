@@ -1,6 +1,6 @@
 pkgbase=libsystemd
 pkgname=('libsystemd' 'lib32-libsystemd')
-pkgver=244
+pkgver=247
 pkgrel=1
 arch=('x86_64')
 url="https://www.github.com/systemd/systemd"
@@ -19,6 +19,7 @@ build() {
 		--localstatedir /var
 		--buildtype=plain
 		-Dfirstboot=false
+		-Dhomed=false
 		-Dseccomp=false
 		-Dselinux=false
 		-Dima=false
@@ -51,6 +52,7 @@ build() {
 		-Dlibiptc=false
 		-Dmicrohttpd=false
 		-Dman=false
+		-Dp11kit=false
 		-Dpam=false
 		-Dqrencode=false
 		-Dxkbcommon=false
@@ -62,8 +64,8 @@ build() {
 
 	cd "${srcdir}/build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	meson "${configure_shared[@]}" \
@@ -108,4 +110,4 @@ package_lib32-libsystemd() {
 	mv dest/usr/lib32/lib{systemd,udev}.so* "${pkgdir}/usr/lib32"
 }
 
-sha512sums=('08f260fb15b5eb273faafda826dd9154e9a02841b4c5911cc1c7e1445072ad51389f8cced7b9acf112737c20fd56b2fbf48b3f914733c934c774d38a23b616fb')
+sha512sums=('dd11cf46e5d9cbf44beb2d383262e9b13eb80fbb3403d86d011b4c2f9e0a4778c7c9779c856960f5654177581c20d7336c00ce687d35fe35ce069c56924604c2')

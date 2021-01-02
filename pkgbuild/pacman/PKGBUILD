@@ -1,5 +1,5 @@
 pkgname=pacman
-pkgver=5.2.1
+pkgver=5.2.2
 pkgrel=1
 pkgdesc="A library-based package manager with dependency support"
 arch=('x86_64')
@@ -36,5 +36,5 @@ package() {
 	install -v -Dm644 "${srcdir}/makepkg.conf" "${pkgdir}/etc/makepkg.conf"
 }
 
-sha512sums=('7814420b8d71090313f1bc7d9a513138bda74c5cbcb43d9741acc27ea7b4d180a38848a7d7059969cc7afed1b108d26ba2622a16d8761566357c50a5da456981'
-            '83f321e3edf42ab992aff133384317e442072b748001daee8f9de8053cd0fc00897a2ba315e40c65b2a6362f76b6a42e25a9fb077ae0da747cb7410c71581d6b')
+sha512sums=('1f9c569fb9cfe90afeeb7e3715bfa821ec4c57fdbbd7e09cd1e2519fad1a555b2f5378dedb2c2e551d2e92db92f1db9684969b472507f676c5bb932cdf436eda'
+            'dc216ce87578817a437e37966416bf2a2fd68bfe2fa8e58a9abb19ebaed4dc56f98e6874bcf9edb571725987b057b9059c6dbd26f7bda2cbcdba3971616df63e')

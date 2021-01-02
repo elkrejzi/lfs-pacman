@@ -9,7 +9,6 @@ license=('LGPL2.1')
 source=("https://github.com/thkukuk/libnss_nis/releases/download/v${pkgver}/libnss_nis-${pkgver}.tar.xz")
 
 prepare() {
-	cd "${srcdir}/libnss_nis-${pkgver}"
 	cp -a "${srcdir}"/libnss_nis{,32}-${pkgver}
 }
 
@@ -20,8 +19,8 @@ build() {
 
 	cd "${srcdir}/libnss_nis32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32

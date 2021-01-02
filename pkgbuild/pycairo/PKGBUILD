@@ -1,6 +1,5 @@
-pkgbase=python-pycairo
-pkgname=('python2-cairo' 'python3-cairo')
-pkgver=1.18.2
+pkgname=python3-cairo
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Python bindings for the Cairo graphics library"
 arch=('x86_64')
@@ -9,30 +8,16 @@ license=('LGPL2.1' 'MPL')
 #depends=()
 source=("https://github.com/pygobject/pycairo/releases/download/v${pkgver}/pycairo-${pkgver}.tar.gz")
 
-prepare() {
-	cp -a "${srcdir}/pycairo-${pkgver}" "${srcdir}/pycairo-${pkgver}-py2"
-}
-
 build() {
 	cd "${srcdir}/pycairo-${pkgver}"
 
 	python3 setup.py build
-
-	cd "${srcdir}/pycairo-${pkgver}-py2"
-
-	python2 setup.py build
 }
 
-package_python3-cairo() {
+package() {
 	cd "${srcdir}/pycairo-${pkgver}"
 
 	python3 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-package_python2-cairo() {
-	cd "${srcdir}/pycairo-${pkgver}-py2"
-
-	python2 setup.py install --root="${pkgdir}" --optimize=1
-}
-
-sha512sums=('279ea80413ba55d493d51455685da09afa1f5c45e2930c3fca3e417a8afe6645a0d8131201f79482de59e5ec56cfef62eac65ed88fe88866bfcc06503dcc59e0')
+sha512sums=('d32d008b741653d02324b206a438f5fd85f2a433201d6f8b98c8f1adc712abea611a4b5ed95c55258efb662dc579eed6b2f752b10d9fc2b6a7c8e5edd19e5266')

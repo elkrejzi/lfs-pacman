@@ -1,5 +1,5 @@
 pkgname=gst-libav
-pkgver=1.16.2
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework ffmpeg Plugins"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('10817dec823b8ca84372d16e36c4ee11ab7a96a9168418f4c0bd0909fbda0ff45426bd3f754d7d491d4b07a51ec7eaa8e065e7e5c1daa120828c35a68adb312d')
+sha512sums=('ad57fd08c87ecbc64adc3f904f66e2454abe9e6a2a53fbb0bab73a972a072c649d060fb0f1186e204bd5978587b0d7afe6c1b9d049b23d976b4250757097507e')

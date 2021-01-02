@@ -1,7 +1,7 @@
 pkgbase=readline
 pkgname=('readline' 'lib32-readline')
-_basever=8.0
-_patchlevel=1
+_basever=8.1
+_patchlevel=0
 pkgver=${_basever}.${_patchlevel}
 pkgrel=1
 arch=('x86_64')
@@ -37,8 +37,8 @@ build() {
 
 	cd "${srcdir}/readline32-${_basever}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32
@@ -73,6 +73,5 @@ package_lib32-readline() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('41759d27bc3a258fefd7f4ff3277fa6ab9c21abb7b160e1a75aa8eba547bd90b288514e76264bd94fb0172da8a4faa54aab2c07b68a0356918ecf7f1969e866f'
-            'feeb1c15a2882bc79cc934e0c750d6c1d75feab4a58cce5e8f962a7f3c16a2648bb568499fb665728ec8075c2faba26cbb310b8edd2f1e760077a8cc8e8f6fb5'
-            'a148cda6ac97935d51ede1bbacf847d7d2cba8861cf3941d32e3da2f45f16dcc05b20845b63d4264692520db8329e1236cf2bc4fd8ccbe6e40921bbbdeb2cb1c')
+sha512sums=('27790d0461da3093a7fee6e89a51dcab5dc61928ec42e9228ab36493b17220641d5e481ea3d8fee5ee0044c70bf960f55c7d3f1a704cf6b9c42e5c269b797e00'
+            'feeb1c15a2882bc79cc934e0c750d6c1d75feab4a58cce5e8f962a7f3c16a2648bb568499fb665728ec8075c2faba26cbb310b8edd2f1e760077a8cc8e8f6fb5')

@@ -11,7 +11,7 @@ source=("https://downloads.sourceforge.net/giflib/giflib-${pkgver}.tar.gz")
 build() {
 	cd "${srcdir}/giflib-${pkgver}"
 
-	make PREFIX=/usr CC="${CC}" OFLAGS="${CFLAGS}" LDLIBS="-L. -lgif -lm"
+	make PREFIX=/usr CC="${CC:-gcc}" OFLAGS="${CFLAGS}" LDLIBS="-L. -lgif -lm"
 }
 
 package() {

@@ -1,6 +1,6 @@
 pkgbase=json-c
 pkgname=('json-c' 'lib32-json-c')
-pkgver=0.13.1
+pkgver=0.15
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/json-c/json-c/wiki"
@@ -9,35 +9,45 @@ license=('MIT')
 source=("https://s3.amazonaws.com/json-c_releases/releases/json-c-${pkgver}.tar.gz")
 
 prepare() {
-	cp -a "${srcdir}"/json-c{,32}-${pkgver}
+	install -v -dm755 "${srcdir}"/build{32,64}
 }
 
 build() {
-	cd "${srcdir}/json-c-${pkgver}"
+	cd "${srcdir}/build64"
 
-	./configure --prefix=/usr
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib \
+		-DENABLE_THREADING=ON \
+		-DENABLE_RDRAND=OFF \
+		"${srcdir}/json-c-${pkgver}"
 
-	cd "${srcdir}/json-c32-${pkgver}"
+	cd "${srcdir}/build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-	./configure --prefix=/usr --libdir=/usr/lib32
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib32 \
+		-DENABLE_THREADING=ON \
+		-DENABLE_RDRAND=OFF \
+		"${srcdir}/json-c-${pkgver}"
 
 	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
 	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
 
 	cd "${srcdir}"
 
-	make -C "${srcdir}/json-c-${pkgver}"
-	make -C "${srcdir}/json-c32-${pkgver}"
+	make -C "${srcdir}/build64"
+	make -C "${srcdir}/build32"
 }
 
 package_json-c() {
 pkgdesc="A JSON implementation in C"
 
-	cd "${srcdir}/json-c-${pkgver}"
+	cd "${srcdir}/build64"
 
 	make install DESTDIR="${pkgdir}"
 }
@@ -45,7 +55,7 @@ pkgdesc="A JSON implementation in C"
 package_lib32-json-c() {
 pkgdesc="A JSON implementation in C (32 bit)"
 
-	cd "${srcdir}/json-c32-${pkgver}"
+	cd "${srcdir}/build32"
 
 	make install DESTDIR="${PWD}/dest"
 
@@ -53,4 +63,4 @@ pkgdesc="A JSON implementation in C (32 bit)"
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('e984db2a42b9c95b52c798b2e8dd1b79951a8dcba27370af30c43b9549fbb00008dbcf052a535c528209aaee38e6d1f760168b706905ae72f3e704ed20f8a1a1')
+sha512sums=('dc01298bcc78f0f31a34f5fcfe45c0feebfd88518e97fb4f96f1a652f71ccdd303415a4c7bf5b573bdcbcca80428281f0dfccefc6545ea3a7f18dbb819332f34')

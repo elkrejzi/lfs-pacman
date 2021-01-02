@@ -1,0 +1,32 @@
+pkgname=libinih
+pkgver=52
+pkgrel=1
+pkgdesc="A simple .INI file parser written in C"
+arch=('x86_64')
+url="https://github.com/benhoyt/inih"
+license=('BSD')
+#depends=()
+source=("https://github.com/benhoyt/inih/archive/r${pkgver}/inih-${pkgver}.tar.gz")
+
+build() {
+	cd "${srcdir}/inih-r${pkgver}"
+
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Ddefault_library=shared \
+		-Ddistro_install=true \
+		-Dwith_INIReader=true \
+		build
+
+	ninja -C build ${MAKEFLAGS}
+}
+
+package() {
+	cd "${srcdir}/inih-r${pkgver}"
+
+	DESTDIR="${pkgdir}" ninja -C build install
+}
+
+sha512sums=('14c0d0dbd78efc99bec8df12067107d130eef8b124e0616f7d83dc4e14530b57f0c8fcf0b8862d425b5a0b84d6c6a6bff7b3c852c9b2e2364ef56c8f64a1f339')

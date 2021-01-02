@@ -1,5 +1,5 @@
 pkgname=gnu-efi-libs
-pkgver=3.0.11
+pkgver=3.0.12
 pkgrel=1
 pkgdesc="Library for building UEFI Applications using GNU toolchain"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 		"${pkgdir}/usr/share/gnu-efi/apps/x86_64/"
 }
 
-sha512sums=('1a6b06b69eb95e03c00fb1c476bf346ab2cb0ecca9a44e163f52f2aa4b9837d3dd2d3ed8b4ce77aaf32a66e49f826ea5b43a97c8c7c56aaa030bc20b3415122a')
+sha512sums=('cbec6f6e37271c22c71e3ce44d3579e48e7f3b797ec3946f56eb843ed3e472722763c566fc3b749f0c692ab6cb26e8909bb258cd164771a5b1eeff5c7cd51368')

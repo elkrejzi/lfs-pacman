@@ -1,5 +1,5 @@
 pkgname=dconf
-pkgver=0.34.0
+pkgver=0.38.0
 pkgrel=1
 pkgdesc="Configuration database system"
 arch=('x86_64')
@@ -10,9 +10,6 @@ source=("https://download.gnome.org/sources/dconf/${pkgver:0:4}/dconf-${pkgver}.
 
 build() {
 	cd "${srcdir}/dconf-${pkgver}"
-
-	sed -i 's|link_whole|link_with|' client/meson.build &&
-	sed -i 's/module/& | grep -v mangle_path/' gsettings/abicheck.sh
 
 	meson --prefix /usr \
 		--sysconfdir /etc \
@@ -31,4 +28,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('8b28373f31fe36ba3f21f56fca84563681c3648ff595709880cd9ac49fc6b130ac375fb89fd585f1dd62b5a2f728127292ea57d18feca1147b709a93e8c4c743')
+sha512sums=('795f723f34a8406a06323870f8425ca579bbc751c1661db02e170532f6a2653aee749cbb84ad4d7e5a84a07c0caf2662a868b34b6f0d383361c0ff1ad9aed355')

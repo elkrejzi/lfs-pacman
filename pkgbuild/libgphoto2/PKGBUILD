@@ -1,5 +1,5 @@
 pkgname=libgphoto2
-pkgver=2.5.23
+pkgver=2.5.26
 pkgrel=1
 pkgdesc="The core library of gphoto2, designed to allow access to digital camera by external programs"
 arch=('x86_64')
@@ -38,4 +38,4 @@ package() {
 		"${pkgdir}/usr/lib/udev/rules.d/40-gphoto.rules"
 }
 
-sha512sums=('f5f8f33e934989e6f832952c6c7c2c9e37c436652a08191e8ccced293447a090cb596fff80b9b0ad52c99c0ffc08a1207ca7ef2b630dc52f4c6d7f86e4cbc95a')
+sha512sums=('d05a559447ac867f4826d2e20b83831dc4b4776c1e3edc9de0867050a4d39dc45b25a33ec73806282e16f75adb1dded3b59fe428bdb1dde4365c12d7af244cec')

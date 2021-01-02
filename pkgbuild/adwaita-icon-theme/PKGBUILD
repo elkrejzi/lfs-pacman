@@ -1,5 +1,5 @@
 pkgname=adwaita-icon-theme
-pkgver=3.34.3
+pkgver=3.38.0
 pkgrel=1
 pkgdesc="GNOME standard icons"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('77d8fa2cd0a82a7d539b5f9c8c1ed0dc8727de4975a8a770b05f78e4df9dda36aa40232a3ec71f87e24cd1fd6c6a369bcb20c909c1367b89b5327cf3771b48b5')
+sha512sums=('710f034ef80476a4e9d60bcb7ba604e340ac561aafc67400b2cee2aac4696bfaab8a7d69a289116f884cce9bad1f8b3a3e0aff77588ecb9262e7bf250740af13')

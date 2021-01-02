@@ -1,5 +1,5 @@
 pkgname=python3
-_py3majorver=3.8
+_py3majorver=3.9
 _py3minorver=1
 pkgver=${_py3majorver}.${_py3minorver}
 pkgrel=1
@@ -26,7 +26,7 @@ build() {
 		--enable-shared \
 		--with-system-expat \
 		--with-system-ffi \
-		--without-ensurepip \
+		--with-ensurepip \
 		--with-dbmliborder=bdb:gdbm:ndbm
 
 	make
@@ -47,4 +47,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/lib/python${_py3majorver}/{ctypes/test,tkinter/test,test,sqlite3/test}
 }
 
-sha512sums=('d41381848cc1ec8009643b71875f395a9ac2c8e12a5b1efef33caf8a9e99a337c790d4354695c85352d11b62092ae372b5af62f78724363fcbf3504ff9a6ddca')
+sha512sums=('b90029d6825751685983e9dcf0e0ec9e46f18e6c7d37b0dd7a245a94316f8c0090308ad7c2b2b49ed2514b0b909177231dd5bcad03031bf4624e37136fcf8019')

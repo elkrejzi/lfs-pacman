@@ -1,5 +1,5 @@
 pkgname=libgd
-pkgver=2.2.5
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="Library for the dynamic creation of images by programmers"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('e4598e17a277a75e02255402182cab139cb3f2cffcd68ec05cc10bbeaf6bc7aa39162c3445cd4a7efc1a26b72b9152bbedb187351e3ed099ea51767319997a6b')
+sha512sums=('5b201d22560e147a3d5471010b898ad0268c3a2453b870d1267b6ba92e540cf9f75099336c1ab08217e41827ac86fe04525726bf29ad117e5dcbaef9a8d0622a')

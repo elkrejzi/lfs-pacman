@@ -1,13 +1,13 @@
 pkgname=sqlite
-_srcver=3300100
-pkgver=3.30.1
+_srcver=3340000
+pkgver=3.34.0
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine"
 arch=('x86_64')
-url="http://www.sqlite.org/"
+url="https://sqlite.org/"
 license=('custom:Public Domain')
 #depends=()
-source=("https://sqlite.org/2019/sqlite-autoconf-${_srcver}.tar.gz")
+source=("https://sqlite.org/2020/sqlite-autoconf-${_srcver}.tar.gz")
 
 build() {
 	export CFLAGS="${CFLAGS} -DSQLITE_ENABLE_FTS3=1 \
@@ -20,7 +20,7 @@ build() {
 
 	cd "${srcdir}/sqlite-autoconf-${_srcver}"
 
-	./configure --prefix=/usr --enable-fts5
+	./configure --prefix=/usr --enable-fts3
 
 	make
 
@@ -40,4 +40,4 @@ package() {
 	make -C tea install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9ec0283c417fb0323b0e43550af2a49e9a63988e4212c27ea62cc9da3534caa6faf5bdc7e051b6772c4ce61560a433b3d3288b68e05e9ba8495f61a3bcebda3e')
+sha512sums=('75a1a2d86ab41354941b8574e780b1eae09c3c01f8da4b08f606b96962b80550f739ec7e9b1ceb07bba1cedced6d18a1408e4c10ff645eb1829d368ad308cf2f')

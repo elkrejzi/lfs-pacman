@@ -18,7 +18,7 @@ prepare() {
 build() {
 	cd "${srcdir}/OpenSP-${pkgver}"
 
-	export CXX="${CXX} -std=c++03"
+	export CXX="${CXX:-g++} -std=c++03"
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \

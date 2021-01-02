@@ -11,7 +11,7 @@ source=("https://www.freedesktop.org/software/pulseaudio/pavucontrol/pavucontrol
 build() {
 	cd "${srcdir}/pavucontrol-${pkgver}"
 
-	export CXX="${CXX} -std=c++11"
+	export CXX="${CXX:-g++} -std=c++11"
 
 	./configure --prefix=/usr
 

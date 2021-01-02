@@ -1,5 +1,5 @@
 pkgname=qtbase
-pkgver=5.14.0
+pkgver=5.15.2
 pkgrel=1
 pkgdesc="A cross-platform application and UI framework"
 arch=('x86_64')
@@ -59,4 +59,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share"
 }
 
-sha512sums=('27e640643aa2a15fece96b1a83f8f6fbfbc8a83e224f6dea4d7e6a94c8069a2b18a55ddc76943b10b40ccc95168a48dcfdf46264fdfc24b3594d1c6ea160aff6')
+sha512sums=('a549bfaf867d746ff744ab224eb65ac1bdcdac7e8457dfa379941b2b225a90442fcfc1e1175b9afb1f169468f8130b7ab917c67be67156520a4bfb5c92d304f9')

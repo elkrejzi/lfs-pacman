@@ -1,5 +1,5 @@
 pkgname=gst-plugins-ugly
-pkgver=1.16.2
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Ugly Plugins"
 arch=('x86_64')
@@ -28,4 +28,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('9f393043f51b12b376607e68b3b86437af86e321e3a3566e59c7f3507ed26622211df87e30a23bcc927f37bc11f53ca3b29f1b12bf58e623ce18edc88a9cdee3')
+sha512sums=('09f841bf0c03ca70af37427acfcefbb92ee720ad9d8e2667474b518af0da186b63f0d965fc19a265771f13326d5322dea7fc3773e1ac2df161ae8acdb50cde41')

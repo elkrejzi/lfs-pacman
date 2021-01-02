@@ -1,12 +1,12 @@
 pkgbase=mesa
 pkgname=('mesa' 'lib32-mesa')
-pkgver=19.3.1
+pkgver=20.3.2
 pkgrel=1
 arch=('x86_64')
 url="https://mesa.freedesktop.org/"
 license=('custom')
 #depends=()
-source=("https://mesa.freedesktop.org/archive/mesa-${pkgver/.rc/-rc}.tar.xz")
+source=("https://archive.mesa3d.org/mesa-${pkgver/.rc/-rc}.tar.xz")
 
 prepare() {
 	install -v -dm755 "${srcdir}"/build{32,64}
@@ -20,7 +20,7 @@ build() {
 		--buildtype=plain
 		-Db_lto=false
 		-Db_ndebug=true
-		-Dplatforms="drm,surfaceless,wayland,x11"
+		-Dplatforms="wayland,x11"
 		-Ddri3=true
 		-Ddri-drivers="i965"
 		-Dgallium-drivers="nouveau,radeonsi,swrast"
@@ -41,7 +41,7 @@ build() {
 		-Dshared-llvm=true
 		-Dvalgrind=false
 		-Dlibunwind=true
-		-Dlmsensors=false
+		-Dlmsensors=disabled
 	)
 
 	cd "${srcdir}/build64"
@@ -50,8 +50,8 @@ build() {
 
 	cd "${srcdir}/build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 	export LLVM_CONFIG=/usr/bin/llvm-config32
 
@@ -96,4 +96,4 @@ package_lib32-mesa() {
 	rm -rf "${pkgdir}/usr/share/drirc.d"
 }
 
-sha512sums=('338d2e37122ef22cc4e27a2f3c39e23e419703a507ace99383c749a563936c5f0428cce9a68ac80d0bd2ff57be8a55f42aee0ed6d16bf6b77b4e59d428729568')
+sha512sums=('0cabf8ddfd20b56098c8f4c081a3c2d4741ef42f40c929645e74284db99cf2a81137d7d279b7b6a0c15dea83905119ddf612411b36344dc22a488de9f311f5ed')

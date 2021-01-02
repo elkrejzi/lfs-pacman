@@ -1,12 +1,12 @@
 pkgname=ffmpeg
-pkgver=4.2.1
+pkgver=4.3.1
 pkgrel=1
 pkgdesc="Complete solution to record, convert and stream audio and video"
 arch=('x86_64')
-url="http://www.ffmpeg.org/"
+url="https://www.ffmpeg.org/"
 license=('GPL3')
 #depends=()
-source=("http://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
+source=("https://www.ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz")
 
 build() {
 	cd "${srcdir}/ffmpeg-${pkgver}"
@@ -28,7 +28,6 @@ build() {
 		--enable-libopus \
 		--enable-libpulse \
 		--enable-librsvg \
-		--enable-librtmp \
 		--enable-libsoxr \
 		--enable-libspeex \
 		--enable-libssh \
@@ -59,7 +58,7 @@ build() {
 		--disable-static \
 		--extra-cflags="${CFLAGS}" \
 		--extra-cxxflags="${CXXFLAGS}" \
-		--cc="${CC}" --cxx="${CXX}"
+		--cc="${CC:-gcc}" --cxx="${CXX:-g++}"
 
 	make
 }
@@ -70,4 +69,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('3efddc7d6bbccba9a1f55bf0e6caa8a578405a7e12058ce526766ed5eca9d45a783dbf86325ab860a8eabbe29701f8093e691f0138e0d9cc883cfe5200b3561b')
+sha512sums=('64e1052c45145e27726e43d4fe49c9a92058e55562d34fd3b3adf54d3506e6bd680f016b748828215e1bfc8ce19aa85b6f7e4eb05fafe21479118a4ad528a81f')

@@ -1,6 +1,6 @@
 pkgbase=openssl
 pkgname=('openssl' 'lib32-openssl')
-_basever=1.1.1d
+_basever=1.1.1i
 pkgver=${_basever/[a-z]/.${_basever//[0-9.]/}}
 pkgrel=1
 arch=('x86_64')
@@ -31,8 +31,8 @@ build() {
 		linux-x86_64 \
 		"-Wa,--noexecstack ${CFLAGS}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	cd "${srcdir}/openssl32-${_basever}"
@@ -74,4 +74,4 @@ package_lib32-openssl() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('2bc9f528c27fe644308eb7603c992bac8740e9f0c3601a130af30c9ffebbf7e0f5c28b76a00bbb478bad40fbe89b4223a58d604001e1713da71ff4b7fe6a08a7')
+sha512sums=('fe12e0ab9e1688f24dd862ac633d0ab703b499c0f34b53c3560aa0d3879d81d647aa0678ed517dda5efb2711f669fcb1a1e0e24f6eac2efc2cf4eae6b62014d8')

@@ -1,6 +1,6 @@
 pkgbase=clang-runtime
 pkgname=('compiler-rt' 'libcxx' 'lib32-libcxx' 'openmp' 'lib32-openmp')
-_realver=9.0.1
+_realver=11.0.0
 _fullver=${_realver/rc*/}
 _pre_release=0
 pkgver=${_realver/rc/.rc}
@@ -39,10 +39,6 @@ prepare() {
 
 	cd "${srcdir}/openmp-${_realver}.src"
 
-	sed -i "/OpenMPTesting/d;/construct_check_openmp_target/d" CMakeLists.txt
-	sed -i "/add_openmp_testsuite/d" runtime/test/CMakeLists.txt
-	sed -i "/add_subdirectory(test)/d" libomptarget/CMakeLists.txt
-
 	rm -rf "${srcdir}"/llvm-${_realver}.src/projects/{compiler-rt,libcxx,libcxxabi,libunwind,openmp}
 
 	mv -v "${srcdir}/compiler-rt-${_realver}.src" "${srcdir}/llvm-${_realver}.src/projects/compiler-rt"
@@ -59,7 +55,6 @@ prepare() {
 	cp -a "${srcdir}"/llvm{,32}-${_realver}.src
 
 	rm -rf "${srcdir}/llvm32-${_realver}.src/projects/compiler-rt"
-	rm -rf "${srcdir}/llvm32-${_realver}.src/tools/clang"
 
 	rm -rf "${srcdir}"/llvm-build{,32}
 	install -v -dm755 "${srcdir}"/llvm-build{,32}
@@ -145,9 +140,6 @@ package_compiler-rt() {
 	make -C "${srcdir}/llvm-build/projects" install DESTDIR="${pkgdir}"
 	make -C "${srcdir}/llvm-build32/projects" install DESTDIR="${pkgdir}"
 
-	sed -i "s#-lc++abi#& AS_NEEDED( /usr/lib/clang/${_fullver}/x86_64/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib/libc++.so"
-	sed -i "s#-lc++abi#& AS_NEEDED( /usr/lib/clang/${_fullver}/i386/libcompiler-rt.a )#g;s#INPUT#GROUP#g" "${pkgdir}/usr/lib32/libc++.so"
-
 	for ll in i386 x86_64
 	do
 		install -v -dm755 "${pkgdir}/usr/lib/clang/${_fullver}/${ll}"
@@ -175,9 +167,11 @@ EOF
 
 	rm -rf "${pkgdir}"/usr/lib/*.so.*
 	rm -rf "${pkgdir}"/usr/lib/libomp*.so
+	rm -rf "${pkgdir}"/usr/lib/libarcher*.*
 
 	rm -rf "${pkgdir}"/usr/lib32/*.so.*
 	rm -rf "${pkgdir}"/usr/lib32/libomp*.so
+	rm -rf "${pkgdir}"/usr/lib32/libarcher*.*
 	rm -rf "${pkgdir}/usr/lib32/clang"
 }
 
@@ -206,7 +200,8 @@ package_openmp() {
 	pkgdesc="Low Level Virtual Machine (OpenMP runtime libraries)"
 
 	make -C "${srcdir}/llvm-build/projects/openmp" install DESTDIR="${pkgdir}"
-	
+
+	rm -rf "${pkgdir}/usr/include"
 	rm -rf "${pkgdir}/usr/lib/clang"
 }
 
@@ -215,16 +210,17 @@ package_lib32-openmp() {
 
 	make -C "${srcdir}/llvm-build32/projects/openmp" install DESTDIR="${pkgdir}"
 
+	rm -rf "${pkgdir}/usr/include"
 	rm -rf "${pkgdir}/usr/lib32/clang"
 }
 
-sha512sums=('bfb6960a4dd1e18f4005f324f478a781c69e8ec7c20569d9b243fcb9372dc7733b254f26c683373537990cc9c109c78eaf0f65449629ee17caca1bce9b9ccccd'
-            '3bcdcfd1ebb20a2cb15d57c608106b6e6e9c2eda4b781f573e84e0600b775bb7609f6df9edcf819ee5d91cc01a28ee089353c29fd57c23b867afbf6ad2f5cd13'
-            'edd7e87197581d3888d5298e0f4464071d1ecd351781687f3bec91097e5e72ea0d290036c4b6713b06978b79b0b124fbad1cac4028df2ec4d5198e19c0ba9c95'
-            'aabbc98c5bd6935d3dabfb309dfc171fbc16441396628d22d8dcdb89a5015f8fdedef4237134b841314d572205f7d5cfe44c1c8900db0f0156810f7810376bb2'
-            'b5dbe4379a13046e7b9003e6913b0435271476feef0acbfd4e8207fca6d4a580182628866bd2032ce84a55d524fee8620841f17214bc79c8f46a3fde2f57627a'
-            'b54d2460454e61e4889f240fd1318799f9449dc6104349297ca0ca3c157257398e4d6bb589e9a30261fdfa93a1f7660111b8e1584ae980eb82c101b8d2bb225b'
-            '608b87f9a1fd0cbd88d6273fab413d5bf47052f958888326e9e8a278409fc78071c740edcd306b1a76ceb8f1b2652ea6768e248ea19ccb5f00f1276e886255cf'
+sha512sums=('b3e92091ac48772edc0c30801218ce646ef374e1968baab91df9005f58e11c3ce149b2c4c655c7001f8554fd337caa02c08783bc736153bf58f35fe008e624a4'
+            '5874d99d05aa6ac0a7f5131a8522440ca1fc332a63cbfbf92f844ecb03e7f698a1839106fe6d1c8efaa839d03a4547cda5ab40f445d9923b99907d8cf1988276'
+            'e2085753528670d300d49c4b2dd2991f78c36f356c40ba9da8918f141e6dd5dca8d91686466252829af936206e8c1219a69da2448691922a9e6624f6523ab0c7'
+            'c4360c330c27caa940b6881775e37f4801152ef9f12fe5ba754aa5d38214e588e975d760a79866d1eb26f9fba9ce9082c4248f0ac2e7d635d976b9456cc1a4aa'
+            'bfefe9784c9b466844d46e9882b93409b226277b3d98f05ff096a9b533fe1b112687122179e6e8678670f950968dbae7accf3f6ab0f0784cfb316ccab981dbcf'
+            '3dfb9b50a9252e7d7d797729b83aea5324c4a65eb69e7303d74085d2a61931c8c2607b61343998fe40e29a3ae38e7c6ef8881dd6edc7a03337886f778d458bbd'
+            '077301ab0d4c8f438ae92e4ea031ed9d9eb27130d77b3b8c13cb27160bfffe54fc2001c43da6dcaa28da0580a367072ccc37ecddb6e078b18ce873040bbb2b76'
             '8bc8873bb68998a3c97cc302e69e7bc6b4ab185b51dfa7e74d804ff4643af3fd4037679990053c24cb02d8f4f631d731cacba0b2b46d265f51baf289d3b3b962'
             '9025e55af7f98018cfdfc0810f08c2dba8b813efadb8e104e0c3d54592d2c94238372a121871713dfbbd44bdd5ec6cb6b73a2325d22e133089d2951bff6255db'
             'cf4c43c0a590b4f0e63e9a6008a747524e4553034fba72a7e99626aff6c61fd2ac4073874a1b116177f77bcb0d0021c17edd5da1950c7e3421be4de0ea133b4c'

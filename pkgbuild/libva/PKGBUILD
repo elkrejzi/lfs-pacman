@@ -1,6 +1,6 @@
 pkgbase=libva
 pkgname=('libva' 'lib32-libva')
-pkgver=2.6.0
+pkgver=2.10.0
 pkgrel=1
 arch=('x86_64')
 url="https://01.org/linuxmedia/vaapi"
@@ -23,8 +23,8 @@ build() {
 
 	cd "${srcdir}/build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	meson --prefix /usr \
@@ -62,4 +62,4 @@ package_lib32-libva() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('190fd9875d8ec91e94d42c41b770bb51ef9f430534f99d22fa394d6e4cf8dd308ffac61a37171855e4b499982c3cc59925d238b131dd2261a3beaae03e4937d0')
+sha512sums=('b736cde67a8eac0d4c4ff6ea38905111e85ad8f2c9f4324a7f3324813286b3a04afdd386928be5d54fb787f003d13dfe82f44fe11049009c2ff8bf88e981579f')

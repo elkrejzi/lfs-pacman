@@ -1,6 +1,6 @@
 pkgbase=llvm
 pkgname=('llvm' 'lib32-llvm' 'llvm-libs' 'lib32-llvm-libs' 'clang')
-_realver=9.0.1
+_realver=11.0.0
 _fullver=${_realver/rc*/}
 _pre_release=0
 pkgver=${_realver/rc/.rc}
@@ -80,8 +80,8 @@ build() {
 
 	cd "${srcdir}/llvm-build32"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	cmake "${cmake_flags_common[@]}" \
@@ -181,9 +181,8 @@ package_clang() {
 	python -O -m compileall "${pkgdir}/usr/lib/python2.7/site-packages/clang"
 }
 
-
-sha512sums=('bfb6960a4dd1e18f4005f324f478a781c69e8ec7c20569d9b243fcb9372dc7733b254f26c683373537990cc9c109c78eaf0f65449629ee17caca1bce9b9ccccd'
-            '3bcdcfd1ebb20a2cb15d57c608106b6e6e9c2eda4b781f573e84e0600b775bb7609f6df9edcf819ee5d91cc01a28ee089353c29fd57c23b867afbf6ad2f5cd13'
-            '4a671596460809f314ed96b0cc0be7f2498692275d0a7bd08266f9cdf4b85fb39cb4eea4131602e9a170a75eb5d9623449960f873e25b999e06c016387a1918d'
-            'a75c2e42d6565748955eb445189875d5fcff00bf99986f392ffa3b1d88bc94223dd431f67b683691c5b93ea50bd14cf5cd78df2299380803424c73bf55990983'
+sha512sums=('b3e92091ac48772edc0c30801218ce646ef374e1968baab91df9005f58e11c3ce149b2c4c655c7001f8554fd337caa02c08783bc736153bf58f35fe008e624a4'
+            '5874d99d05aa6ac0a7f5131a8522440ca1fc332a63cbfbf92f844ecb03e7f698a1839106fe6d1c8efaa839d03a4547cda5ab40f445d9923b99907d8cf1988276'
+            '48d3ae04556f2c3102462053e40e228ddfffb7d19f20552faa18acea763d8d568cf65232cbb4ae03505dcb8b626eb3516b5c5004f5ca1c556129510872e28fc1'
+            '73ef83fef3e9b6d4bea80e8b8c699bc2f2e58cbd455386d4036686d69a0f55248fc42c1f77efdccecc7229976a41090d7481ccc7de4c320e4524dc47bb7a7295'
             '75e743dea28b280943b3cc7f8bbb871b57d110a7f2b9da2e6845c1c36bf170dd883fca54e463f5f49e0c3effe07fbd0db0f8cf5a12a2469d3f792af21a73fcdd')

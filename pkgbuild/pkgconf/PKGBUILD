@@ -1,0 +1,48 @@
+pkgname=pkgconf
+pkgver=1.7.3
+pkgrel=1
+pkgdesc="Package compiler and linker metadata toolkit"
+arch=('x86_64')
+url="https://git.sr.ht/~kaniini/pkgconf"
+license=('custom:ISC')
+#depends=()
+source=("https://distfiles.dereferenced.org/pkgconf/pkgconf-${pkgver}.tar.xz"
+		"i686-pc-linux-gnu.personality"
+		"x86_64-pc-linux-gnu.personality")
+
+build() {
+	cd "${srcdir}/pkgconf-${pkgver}"
+
+	./configure --prefix=/usr \
+		--sysconfdir=/etc \
+		--with-pkg-config-dir="/usr/lib/pkgconfig:/usr/share/pkgconfig" \
+		--with-system-libdir="/usr/lib" \
+		--with-system-includedir="/usr/include" \
+		--disable-static
+
+	make
+}
+
+package() {
+	cd "${srcdir}/pkgconf-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+
+	ln -sfv pkgconf "${pkgdir}/usr/bin/i686-pc-linux-gnu-pkg-config"
+
+	install -v -Dm644 "${srcdir}/i686-pc-linux-gnu.personality" \
+		"${pkgdir}/usr/share/pkgconfig/personality.d/i686-pc-linux-gnu.personality"
+
+	ln -sfv pkgconf "${pkgdir}/usr/bin/x86_64-pc-linux-gnu-pkg-config"
+
+	install -v -Dm644 "${srcdir}/x86_64-pc-linux-gnu.personality" \
+		"${pkgdir}/usr/share/pkgconfig/personality.d/x86_64-pc-linux-gnu.personality"
+
+
+	ln -sfv pkgconf "${pkgdir}/usr/bin/pkg-config"
+	ln -sfv pkgconf.1 "${pkgdir}/usr/share/man/man1/pkg-config.1"
+}
+
+sha512sums=('37b6c4f9f3b93970e35b6970fde22fbbde65e7fa32a5634b3fdfc25cc1f33843582722ad13d9a8e96fd6768406fcbe86bf5feb76996ddd0bb66d6ff91e65f0b6'
+            '85091b89169f5675b2886318b0bbf7691f33cb711f4ae04b1ae8efd83aa6bfb6f6acc6a8ad9694ebc4f04cdf906d0f6fd3b0b39a24c5df8151475590fea81c07'
+            '8bd4df1d2bbf22a9628f97e49833ce5ed246e7bbac4001b5a55f5603fe9bd28914da761b5c54e61eb6d4048f43897b29431242ba66bb4652a97a23476c81eefb')

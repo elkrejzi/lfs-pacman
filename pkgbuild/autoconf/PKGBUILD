@@ -1,5 +1,5 @@
 pkgname=autoconf
-pkgver=2.69
+pkgver=2.70
 pkgrel=1
 pkgdesc="A GNU tool for automatically configuring source code"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('995d3e5a8eb1eb37e2b7fae53c6ec7a9b4df997286b7d643344818f94636756b1bf5ff5ea9155e755cb9461149a853dfbf2886fc6bd7132e5afa9c168e306e9b')
+sha512sums=('af4af6b8811baa424c00990b368a6cbfb1d598dde9ee08dce2a5fc32cb9517e6e683a59d6852507f6a72d499fc298c4171b6f06962cf3ba40cf1557cfb6069fe')

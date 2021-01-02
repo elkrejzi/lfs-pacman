@@ -1,12 +1,12 @@
 pkgname=libusb-compat
-pkgver=0.1.5
+pkgver=0.1.7
 pkgrel=1
 pkgdesc="Library that provides generic access to USB devices (legacy version)"
 arch=('x86_64')
 url="http://libusb.sourceforge.net/"
 license=('LGPL')
 #depends=()
-source=("https://downloads.sourceforge.net/libusb/libusb-compat-${pkgver}.tar.bz2")
+source=("https://github.com/libusb/libusb-compat-0.1/releases/download/v${pkgver}/libusb-compat-${pkgver}.tar.bz2")
 
 build() {
 	cd "${srcdir}/libusb-compat-${pkgver}"
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('fe63bd1c65e67588a83ebfdd329025ecf75f33f877fb80dd83eb528df057efb591e010416027f9054294504562299166e8e2811a7681fa1967a03baae9b88857')
+sha512sums=('94ba2a767959a40a5fe41760d7c20968fb99456de3f5b7547414bd061ab5155d88ca382b6aa1cf4961e15f1bc4890134351902e719ce5aa15dd0202f72417d55')

@@ -1,0 +1,39 @@
+pkgname=js78
+pkgver=78.6.0
+pkgrel=1
+pkgdesc="JavaScript interpreter and libraries"
+arch=('x86_64')
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases"
+license=('MPL')
+#depends=()
+source=("https://archive.mozilla.org/pub/firefox/releases/${pkgver}esr/source/firefox-${pkgver}esr.source.tar.xz")
+
+prepare() {
+	install -dm755 "${srcdir}/firefox-${pkgver}/obj"
+}
+
+build() {
+	cd "${srcdir}/firefox-${pkgver}/obj"
+
+	export SHELL="/bin/bash"
+
+	../js/src/configure --prefix=/usr \
+		--disable-jemalloc \
+		--enable-readline \
+		--with-intl-api \
+		--with-system-icu \
+		--with-system-nspr \
+		--with-system-zlib
+
+	make
+}
+
+package() {
+	cd "${srcdir}/firefox-${pkgver}/obj"
+
+	make install DESTDIR="${pkgdir}"
+
+	rm -rf "${pkgdir}/usr/lib/libjs_static.ajs"
+}
+
+sha512sums=('a1e2d6af0020784d00ed3cb4d778c136685e7c2f6ae536cc270fbd331d51d483d17dff9acd7ad8e6b3b231b9df894c146092889357b23715814a080c6f08d11a')

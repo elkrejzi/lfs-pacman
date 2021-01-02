@@ -1,6 +1,6 @@
 pkgbase=libgpg-error
 pkgname=('libgpg-error' 'lib32-libgpg-error')
-pkgver=1.36
+pkgver=1.41
 pkgrel=1
 arch=('x86_64')
 url="http://www.gnupg.org"
@@ -23,8 +23,8 @@ build() {
 
 	cd "${srcdir}/libgpg-error32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32
@@ -59,4 +59,4 @@ package_lib32-libgpg-error() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('6e5f853f77dc04f0091d94b224cab8e669042450f271b78d0ea0219658d059c9cab1ab0eaa020a4227f451520b417fc340b85971a6f5e144fa69be57e15df346')
+sha512sums=('578d1d8090b9f6e6cbe59d9aeebec7df81aae492f75ec343f8df530950d30866fa0a7903ca050bf7bf721413f7b2708abe34f7467e2b208cc1447ffc9bd5b9a5')

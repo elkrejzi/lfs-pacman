@@ -1,6 +1,6 @@
 pkgbase=vulkan-loader
 pkgname=('vulkan-loader' 'lib32-vulkan-loader')
-pkgver=1.1.130
+pkgver=1.2.165
 pkgrel=1
 arch=('x86_64')
 url="https://www.khronos.org/vulkan/"
@@ -68,4 +68,4 @@ package_lib32-vulkan-loader() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('a931d152d0b039bf496b28d70cf9f91140eb2f8da3923f0b839770d0120e71f970d746020910343a43c7207d7ddfdbf9b75d5ad40b6530fac2855b53224e7b54')
+sha512sums=('0381a7d3ba737c85caa79da1103b8a9d8321d9e55880cc3da94bb6d5c14bc1022f91831b2eedc931a18558b2276193989196d355005bb3d8e2ccdaf384e233e5')

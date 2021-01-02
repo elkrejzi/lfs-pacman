@@ -19,7 +19,7 @@ build() {
 		--enable-fdkaac \
 		--enable-gles2 \
 		--disable-x264 \
-		BUILDCC="${CC}"
+		BUILDCC="${CC:-gcc}"
 
 	make
 }

@@ -1,30 +1,38 @@
 pkgname=shared-mime-info
-pkgver=1.15
+pkgver=2.1
 pkgrel=1
 pkgdesc="Freedesktop.org Shared MIME Info"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/shared-mime-info"
 license=('GPL2')
 #depends=()
-source=("https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/b27eb88e4155d8fccb8bb3cd12025d5b/shared-mime-info-${pkgver}.tar.xz"
+source=("https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/0ee50652091363ab0d17e335e5e74fbe/shared-mime-info-${pkgver}.tar.xz"
 	"update-mime-database.hook")
 
+prepare() {
+	install -v -dm755 "${srcdir}/build"
+}
+
 build() {
-	cd "${srcdir}/shared-mime-info-${pkgver}"
+	cd "${srcdir}/build"
 
-	export ac_cv_func_fdatasync=no
-	./configure --prefix=/usr --disable-update-mimedb
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dupdate-mimedb=false \
+		"${srcdir}/shared-mime-info-${pkgver}"
 
-	make -j1
+	ninja ${MAKEFLAGS}
 }
 
 package() {
-	cd "${srcdir}/shared-mime-info-${pkgver}"
+	cd "${srcdir}/build"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja install
 
 	install -v -Dm644 "${srcdir}/update-mime-database.hook" "${pkgdir}/usr/share/libalpm/hooks/update-mime-database.hook"
 }
 
-sha512sums=('3666aa500dfa6a28bd0524400c47fa16d90ae61f8c80f350fd895972319ec2f511618b8a7fa3cbde621edee46fde19e4506bda62f0bd2d0ede1b08d7bdb9aef2'
+sha512sums=('87e308281e83c4cf889594f7c2e8dcb4d0d0d3910124c3816fdb886ba7d6113b2581711adcb17032b47f9b8d8b7001fab58daa52b7da7c0ef87915e341d6f1b0'
             '365e2bca04e108a6a65c1e8a2b82efcee3916630ca522808e51074db7fb499d7f7c67bb84b304f5f398c17379ff26ec7fd1e44d56991a47581111c1c360ffdb8')

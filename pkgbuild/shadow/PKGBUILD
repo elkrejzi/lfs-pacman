@@ -1,5 +1,5 @@
 pkgname=shadow
-pkgver=4.8
+pkgver=4.8.1
 pkgrel=1
 pkgdesc="Password and account management tool suite with support for shadow files and PAM"
 arch=('x86_64')
@@ -79,7 +79,7 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('1c607aec541400fc179d6cbbac7511289c618ab2ce6ee9d7c18a8bfda00421c62d4b9e58aff52b5f82d485468e7db955c186ea0faad9a08003ffc01bdf2ccece'
+sha512sums=('780a983483d847ed3c91c82064a0fa902b6f4185225978241bc3bc03fcc3aa143975b46aee43151c6ba43efcfdb1819516b76ba7ad3d1d3c34fcc38ea42e917b'
             'f95d05cccc98acd3aa14d97b7a4db5a6afc0c9e1085da7fcfb452a5d04cf729cc86ba85172cbbe15723a22d87f5d57a79893ee038770b9c2e5199f6ba35bbd3a'
             '7d40e6d43de6eefecf6d4684f77de467693f311fa4247889527b837ea61dfdd2a75d5847629e87f3bd8f125194afc6c9379ad5b87b0e371c864924362b8b50e9'
             '340744c404d6b1377b47318e251daf728c04ba6edb984549c7e072449fdd6c1d2523d605e68b29c098229e310a8e74d11ef0ec30a0f1a9d28e5b6968753474b6'

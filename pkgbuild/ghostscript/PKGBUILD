@@ -1,12 +1,12 @@
 pkgname=ghostscript
-pkgver=9.50
+pkgver=9.53.3
 pkgrel=1
 pkgdesc="An interpreter for the PostScript language"
 arch=('x86_64')
 url="https://ghostscript.com/"
 license=('AGPL' 'custom')
 #depends=()
-source=("https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkgver/./}/ghostscript-${pkgver}.tar.xz")
+source=("https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkgver//[-.]/}/ghostscript-${pkgver}.tar.xz")
 
 prepare() {
 	cd "${srcdir}/ghostscript-${pkgver}"
@@ -39,4 +39,4 @@ package() {
 	rm -rf "${pkgdir}"/usr/share/man/[^man{1..8,n}]*
 }
 
-sha512sums=('3c1e5db519a427f4b6bfb8d93f3c3dfb67d5ec9ccd19c7afa7670deb768515f3fc617c5588e54934bbfbedfdf8609ce2ffa36dd7da3cb618937fe034f64f43ee')
+sha512sums=('eb832c27eecd30f15e346408c592d7096fd23ef0a6fa59bd50ca327578915434530a4868e69249c2594def0910c527302e99d54f0877f726a8ca8bea6f0f17b7')

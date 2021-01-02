@@ -3,7 +3,7 @@ pkgname=('zlib' 'lib32-zlib')
 pkgver=1.2.11
 pkgrel=1
 arch=('x86_64')
-url="http://www.zlib.net/"
+url="https://www.zlib.net/"
 license=('custom')
 #depends=()
 source=("https://www.zlib.net/zlib-${pkgver}.tar.xz")
@@ -19,8 +19,8 @@ build() {
 
 	cd "${srcdir}/zlib32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32

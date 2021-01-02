@@ -1,5 +1,5 @@
 pkgname=libxkbcommon
-pkgver=0.9.1
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="Keymap handling library for toolkits and window systems"
 arch=('x86_64')
@@ -31,4 +31,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('8d4551a06e7dd4936633f544409401dc33f8f1900adb5daa6403615c71f321d17212db739f89a5b3e393d729b3f33167691404849a25d5526b403fd9ec3e8878')
+sha512sums=('b05a2db0acd6628427baad1967979a161019dec90a078a926d41f4dfeffb84eab63e627803df1a401e42c8e48953d6c434ce08d7206eae21e890890f29b03d3c')

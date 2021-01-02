@@ -1,0 +1,54 @@
+pkgbase=zstd
+pkgname=('zstd' 'lib32-zstd')
+pkgver=1.4.8
+pkgrel=1
+arch=('x86_64')
+url="https://facebook.github.io/zstd/"
+license=('BSD' 'GPL2')
+#depends=()
+source=("https://github.com/facebook/zstd/releases/download/v${pkgver}/zstd-${pkgver}.tar.gz")
+
+prepare() {
+	cp -a "${srcdir}"/zstd{,32}-${pkgver}
+}
+
+build() {
+	cd "${srcdir}/zstd-${pkgver}"
+
+	make
+
+	cd "${srcdir}/zstd32-${pkgver}"
+
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
+	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+
+	make
+
+	export CC="${CC_HOLD}" CXX="${CXX_HOLD}"
+	unset CC_HOLD CXX_HOLD PKG_CONFIG_PATH
+}
+
+package_zstd() {
+	pkgdesc="Zstandard - Fast real-time compression algorithm"
+
+	cd "${srcdir}/zstd-${pkgver}"
+
+	make PREFIX=/usr install DESTDIR="${pkgdir}"
+}
+
+package_lib32-zstd() {
+	pkgdesc="Zstandard - Fast real-time compression algorithm (32 bit)"
+
+	cd "${srcdir}/zstd32-${pkgver}"
+
+	make PREFIX=/usr \
+		LIBDIR=/usr/lib32 \
+		PKGCONFIGDIR=/usr/lib32/pkgconfig \
+		install DESTDIR="${PWD}/dest"
+
+	install -v -dm755 "${pkgdir}/usr"
+	mv dest/usr/lib32 "${pkgdir}/usr"
+}
+
+sha512sums=('0e9ddb2c70b29063aed4eda14bd99ddfefcbb316dfedadfb2d31d795161715a7676d65958f22bbec2cb6d65acb0421508f06cebdf90b8a40fa38b630ed1479e8')

@@ -1,12 +1,12 @@
 pkgbase=alsa-plugins
 pkgname=('alsa-plugins' 'lib32-alsa-plugins')
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 arch=('x86_64')
 url="https://alsa-project.org/wiki/Main_Page"
 license=('GPL')
 #depends=()
-source=("ftp://ftp.alsa-project.org/pub/plugins/alsa-plugins-${pkgver}.tar.bz2")
+source=("https://www.alsa-project.org/files/pub/plugins/alsa-plugins-${pkgver}.tar.bz2")
 
 prepare() {
 	cp -a "${srcdir}"/alsa-plugins{,32}-${pkgver}
@@ -19,8 +19,8 @@ build() {
 
 	cd "${srcdir}/alsa-plugins32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr \
@@ -56,4 +56,4 @@ package_lib32-alsa-plugins() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('a49ef9290b66855112e301a5fd5a0932f13a50254e164f3340f2b342a36469532ee783beabfe5e95870dbf4cd81ca1e8d0415d94c8c7ee963133fb3c343721de')
+sha512sums=('25a7dfaa64be024447d889b5cde668f1308d197f54880548a82d50beb4ac0dbff33b415da1e26dc5229408c934247a9bd38acfb0f82ca388deac0d77ab3cdadb')

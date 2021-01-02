@@ -1,5 +1,5 @@
 pkgname=smplayer-skins
-pkgver=15.2.0
+pkgver=20.11.0
 pkgrel=1
 pkgdesc="Skins for SMPlayer"
 arch=('x86_64')
@@ -20,4 +20,4 @@ package() {
 	make install PREFIX=/usr DESTDIR="${pkgdir}"
 }
 
-sha512sums=('58d1dcc9caf5d93b7f0692ffa7ff4875eb8dd83db78293aee25a713a1f6007c83af556215cd1f7666dec98bc323b074c6b1fdb66eb9560176db842669c206a83')
+sha512sums=('a52464b3b0aca82caf3762fde0ad7f1084e7e37b936f97d05f758554f84188cee11cb4d4630575ec10ed3970f0b77bceabb3f90fe4e43ff7d29b5c2725741a7d')

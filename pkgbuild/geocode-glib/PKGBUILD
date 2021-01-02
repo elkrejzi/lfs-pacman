@@ -1,5 +1,5 @@
 pkgname=geocode-glib
-pkgver=3.26.1
+pkgver=3.26.2
 pkgrel=1
 pkgdesc="Helper library for geocoding services"
 arch=('x86_64')
@@ -36,4 +36,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('0eb8e8a668c3950d06e77a379d375e2297cf7d95435aa8212715ddc36c3a57a53192e75dd0c82a2f2e7e558ea0e903a477c9dfa54f8cd2805d048fe46265d621')
+sha512sums=('b3ef81fac6959f6c4725ca721125cdafbbec69233f321872e17f9035266ed7616018ef54a9082fbd0a83395d18c664144cfe3b431d63744be433f058071cd435')

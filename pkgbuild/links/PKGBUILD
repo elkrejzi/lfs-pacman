@@ -1,5 +1,5 @@
 pkgname=links
-pkgver=2.20.2
+pkgver=2.21
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
@@ -26,4 +26,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('82be459856f49f45c9b824589b78c0f58b039b09802e077420053e9449bc1ded272bb8ad57ea10522d8b3305ceb212a5dd08b01052538cd5b4f0447d0ba02152')
+sha512sums=('11fd523d0aa102d8160957bdbd36674a621aeb2e33237f0df35dcc3fad92ec288acd31dc2e7542717406047165f1249d68972c77cdb27fda076645636a056da8')

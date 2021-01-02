@@ -16,7 +16,7 @@ build() {
 	make PREFIX=/usr \
 		BUILD_STATIC_LIB=0 \
 		MANDIR=/usr/share/man \
-		CC="${CC}" CFLAGS="${CFLAGS}"
+		CC="${CC:-gcc}" CFLAGS="${CFLAGS}"
 }
 
 package() {
@@ -25,7 +25,7 @@ package() {
 	make PREFIX=/usr \
 		BUILD_STATIC_LIB=0 \
 		MANDIR=/usr/share/man \
-		CC="${CC}" CFLAGS="${CFLAGS}" \
+		CC="${CC:-gcc}" CFLAGS="${CFLAGS}" \
 		install DESTDIR="${pkgdir}"
 }
 

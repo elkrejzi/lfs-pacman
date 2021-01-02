@@ -1,5 +1,5 @@
 pkgname=at-spi2-atk
-pkgver=2.34.1
+pkgver=2.38.0
 pkgrel=1
 pkgdesc="A GTK+ module that bridges ATK to D-Bus at-spi"
 arch=('x86_64')
@@ -30,4 +30,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja install
 }
 
-sha512sums=('d30c07a37e42d33ac0658f55e881ab2ca6faa45c251acbd99433ec0f119466f41bb2b6f4b953a7830dd120959aa7f1ee86a763881784e42ea9454f19893a6576')
+sha512sums=('2f40ecbc55b0fbaa57ade952a75583bc8fbfde234cce9248489e9ae06e0597d98c2f4c77d8279758dec29da97e06cde5708d30a1238d91bebd023b2320f38528')

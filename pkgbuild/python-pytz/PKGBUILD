@@ -1,6 +1,6 @@
 pkgbase=python-pytz
 pkgname=('python2-pytz' 'python3-pytz')
-pkgver=2019.3
+pkgver=2020.5
 pkgrel=1
 pkgdesc="World timezone definitions, modern and historical"
 arch=('x86_64')
@@ -35,4 +35,4 @@ package_python2-pytz() {
 	python2 setup.py install --root="${pkgdir}" --optimize=1
 }
 
-sha512sums=('b925b59d197e7007dae8098d35518a470e4b7588d9114f51e4d8816813243a9f816f662055f690bedf56b86cc9ece06428ed8c55e5b3ed676ba0f504f7cb43af')
+sha512sums=('0845c0b7cefb8732e3016568b17ae73232fe6537bac6da89cb1bf911ba5786ee1be6b5e3aa8767225291e3a7e9afd5b8e40e4051671a3a006f9e2f71c551e13e')

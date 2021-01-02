@@ -1,6 +1,6 @@
 pkgbase=freetype
 pkgname=('freetype' 'lib32-freetype')
-pkgver=2.10.1
+pkgver=2.10.4
 pkgrel=1
 arch=('x86_64')
 url="http://www.freetype.org/"
@@ -26,8 +26,8 @@ build() {
 
 	cd "${srcdir}/freetype32-${pkgver}"
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	./configure --prefix=/usr --libdir=/usr/lib32
@@ -60,4 +60,4 @@ package_lib32-freetype() {
 	mv dest/usr/lib32 "${pkgdir}/usr"
 }
 
-sha512sums=('c7a565b0ab3dce81927008a6965d5c7540f0dc973fcefdc1677c2e65add8668b4701c2958d25593cb41f706f4488765365d40b93da71dbfa72907394f28b2650')
+sha512sums=('827cda734aa6b537a8bcb247549b72bc1e082a5b32ab8d3cccb7cc26d5f6ee087c19ce34544fa388a1eb4ecaf97600dbabc3e10e950f2ba692617fee7081518f')

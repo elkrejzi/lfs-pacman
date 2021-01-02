@@ -11,7 +11,7 @@ source=("https://www.rarlab.com/rar/unrarsrc-${pkgver}.tar.gz")
 prepare() {
 	cd "${srcdir}/unrar"
 
-	sed -i "s:-O2:${CFLAGS} -w:g;/CXX/s:c++:${CXX}:g" makefile
+	sed -i "s:-O2:${CFLAGS} -w:g;/CXX/s:c++:${CXX:-g++}:g" makefile
 }
 
 build() {

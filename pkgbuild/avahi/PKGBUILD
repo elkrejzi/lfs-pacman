@@ -1,5 +1,5 @@
 pkgname=avahi
-pkgver=0.7
+pkgver=0.8
 pkgrel=1
 pkgdesc="Service Discovery for Linux using mDNS/DNS-SD -- compatible with Bonjour"
 arch=('x86_64')
@@ -8,22 +8,26 @@ license=('LGPL')
 #depends=()
 options=(emptydirs)
 source=("https://github.com/lathiat/avahi/releases/download/v${pkgver}/avahi-${pkgver}.tar.gz"
+	"https://raw.githubusercontent.com/lathiat/avahi/v0.8/service-type-database/build-db"
 	"avahi.sysusers")
 
 build() {
 	cd "${srcdir}/avahi-${pkgver}"
 
-	sed -i "/if \".*HAVE_DBUS/s:if :&test :g" configure
+	export PYTHON="python3"
+
+	install -v -Dm755 "${srcdir}/build-db" service-type-database/build-db
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--localstatedir=/var \
 		--disable-mono \
 		--disable-monodoc \
-		--disable-python \
 		--disable-qt3 \
 		--disable-qt4 \
+		--disable-qt5 \
 		--disable-static \
+		--disable-tests \
 		--enable-compat-libdns_sd \
 		--enable-compat-howl \
 		--with-distro=none \
@@ -53,5 +57,6 @@ package() {
 	install -v -Dm644 "${srcdir}/avahi.sysusers" "${pkgdir}/usr/lib/sysusers.d/avahi.conf"
 }
 
-sha512sums=('bae5a1e9204aca90b90e7fd223d19e809e3514d03ba5fa2da1e55bf1d72d3d3b98567f357900c36393613dc17dc98e15ff3ebf0f226f2f6b9766e592452a6ce7'
+sha512sums=('c6ba76feb6e92f70289f94b3bf12e5f5c66c11628ce0aeb3cadfb72c13a5d1a9bd56d71bdf3072627a76cd103b9b056d9131aa49ffe11fa334c24ab3b596c7de'
+            '60f5cab8417ba1f7ef9b3e30a9f33923fd71a11ae846dda9c29fd0327008821f55f6c77f8ef8442e6dd164d1b777d858cec95c31b7b3bc7f1121417620ca5f08'
             'ac999de61e2faa91faf015c68d9c7e8646b244899cb34b0518cf0e31a2de06dee655fd9f584bffa1850f8276242ed86571fafb1c7140810e0f70bbc957bbb2c9')

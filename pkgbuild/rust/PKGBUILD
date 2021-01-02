@@ -1,5 +1,5 @@
 pkgname=rust
-pkgver=1.40.0
+pkgver=1.49.0
 pkgrel=1
 pkgdesc="Systems programming language focused on safety, speed and concurrency"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "s#${pkgdir}##;s#${srcdir}##g" "${pkgdir}"/usr/lib/rustlib/manifest-*
 }
 
-sha512sums=('9910b98eadb3cceab9e5d31c7891fe9ea1e3e455d022c6acb0d3c1f9b4fa6c66a7f86dd23a716de18891854740fc44446d23c740313602efae5c9cddd1f4a7a4')
+sha512sums=('334c3ae93009c54390289a6d5266538d080e6b4909dd4cb2073a1eb0349eb7287d052305d4130e7ea39fdfee013e29080d6dc4b9335fa717bcc0c9f87849eece')

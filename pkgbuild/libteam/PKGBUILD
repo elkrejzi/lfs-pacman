@@ -1,5 +1,5 @@
 pkgname=libteam
-pkgver=1.29
+pkgver=1.31
 pkgrel=1
 pkgdesc="Library for controlling team network device"
 arch=('x86_64')
@@ -27,4 +27,4 @@ package() {
 	install -v -Dm644 teamd/redhat/systemd/teamd@.service "${pkgdir}/usr/lib/systemd/system/teamd@.service"
 }
 
-sha512sums=('c2b5fb6d5b89677c94c287d02aa0485ec50953b7c78ebd2b1d525966cbf4c2ca9339a9a333b0ac5221e8f0856c3bf60c780b812aca2f239eadfacd24a9d5501e')
+sha512sums=('f18cbe7316f6ac8ddf019d2e4b52e19fbdbc75d637f8cacda15b29d679508919230e1af3eb656febe7aafdf8a94c4334f2ae95ecd60bc89ac379622b99d3b615')

@@ -1,5 +1,5 @@
 pkgname=systemd
-pkgver=244
+pkgver=247
 pkgrel=1
 pkgdesc="system and service manager"
 arch=('x86_64')
@@ -49,6 +49,7 @@ build() {
 		--localstatedir /var \
 		--buildtype=plain \
 		-Dfirstboot=false \
+		-Dhomed=false \
 		-Dseccomp=false \
 		-Dselinux=false \
 		-Dima=false \
@@ -130,7 +131,7 @@ package() {
 	ln -sfv ../lib/systemd/systemd "${pkgdir}/usr/sbin/init"
 }
 
-sha512sums=('08f260fb15b5eb273faafda826dd9154e9a02841b4c5911cc1c7e1445072ad51389f8cced7b9acf112737c20fd56b2fbf48b3f914733c934c774d38a23b616fb'
+sha512sums=('dd11cf46e5d9cbf44beb2d383262e9b13eb80fbb3403d86d011b4c2f9e0a4778c7c9779c856960f5654177581c20d7336c00ce687d35fe35ce069c56924604c2'
             '212f12991ff0b236c50f34207db9de396fece7bee886143c26300d256655b25baa526ef08b90cd54e02a14fad6c7a06c6c003fb2c69602640e65f0f833225e9a'
             '462ed39bd5c90168079956a402abafe8f0910882e6876b165a2c27af73833d0cad1be9cdbcb3549b34652ea86e5d0dba044946a38797bd533fdd1f5a0083f63b'
             '46f93725bc94381300535737fd0186a3c096fa83661179eab0c450c7b164a87d9a5dd9abcf6ae98bdeb4bf50a4ba4f1944769948c236e4814f166ff03b0ee177'

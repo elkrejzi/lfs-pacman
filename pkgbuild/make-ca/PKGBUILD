@@ -1,0 +1,17 @@
+pkgname=make-ca
+pkgver=1.7
+pkgrel=1
+pkgdesc="Utility to deliver and manage a complete PKI configuration"
+arch=('x86_64')
+url="https://github.com/djlucas/make-ca"
+license=('GPL3')
+#depends=()
+source=("https://github.com/djlucas/make-ca/releases/download/v${pkgver}/make-ca-${pkgver}.tar.xz")
+
+package() {
+	cd "${srcdir}/make-ca-${pkgver}"
+
+	make install DESTDIR="${pkgdir}"
+}
+
+sha512sums=('fa6fdf10392ad3ad17ead4a2e9d49ce19b2f66c1ea01d5bde35f1b75026b27467b68f68a015e0c2600e7118dc50455a1462c3ebb9481102dac1ffffb8d754e10')

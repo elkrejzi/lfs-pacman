@@ -1,5 +1,5 @@
 pkgname=glib-networking
-pkgver=2.62.2
+pkgver=2.66.0
 pkgrel=1
 pkgdesc="Network-related giomodules for glib"
 arch=('x86_64')
@@ -32,4 +32,4 @@ package() {
 	rm -rf "${pkgdir}/usr/share/installed-tests"
 }
 
-sha512sums=('116dc88d36d0e42439d63ac3cc5320c832e4e4b75259dcf630420b0f2551f36836d64edb89ec89e757e7d703ef7a655844d0dad4d0ecae7c9639c10067f7034f')
+sha512sums=('697798864746b40542873257a789290cacee425467e32c0eb096c87e124b37510753a990ef5d350f1db85c24da88e448bca9d8d8b4308123a74feac299176de5')

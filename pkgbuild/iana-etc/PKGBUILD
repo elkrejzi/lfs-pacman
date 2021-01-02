@@ -1,32 +1,18 @@
 pkgname=iana-etc
-pkgver=2.30
+pkgver=20201229
 pkgrel=1
 pkgdesc="/etc/protocols and /etc/services provided by IANA"
 arch=('x86_64')
 url="http://www.iana.org/protocols"
 license=('custom:none')
 #depends=()
-source=("http://sethwklein.net/iana-etc-${pkgver}.tar.bz2"
-	"iana-etc-fixes.patch")
-
-prepare() {
-	cd "${srcdir}/iana-etc-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/iana-etc-fixes.patch"
-}
-
-build() {
-	cd "${srcdir}/iana-etc-${pkgver}"
-
-	make get
-	make
-}
+source=("https://github.com/Mic92/iana-etc/releases/download/${pkgver}/iana-etc-${pkgver}.tar.gz")
 
 package() {
 	cd "${srcdir}/iana-etc-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	install -v -Dm644 protocols "${pkgdir}/etc/protocols"
+	install -v -Dm644 services "${pkgdir}/etc/services"
 }
 
-sha512sums=('d841b9c177fb0675bab10c9b0ebc4d3c2b743754c615e3fabcaebb29ffefaf2491278d0e672b99af3cbc9b300138700f56c1026f6d41659783150aea97583936'
-            '429387c5d6ecc0ad2b90c5201ec14fc5347023e73c1fe42f43dba031bbcf67d0ca3ada63aa5ff2ee7fa0fa9cb005a781913320b908806b3921b7dab23ca62ef1')
+sha512sums=('e291a4e791fb8e92bfecbfa34c4658ea9cb4274eaba6fdbc83b64b1cbd2beaebe4804f5b388d092249efa03833018f8d25596ac416358d7709ea613c0371575e')

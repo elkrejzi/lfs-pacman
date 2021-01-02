@@ -1,5 +1,5 @@
 pkgname=wpebackend-fdo
-pkgver=1.4.0
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="freedesktop.org backend for WPE WebKit"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('f94167b13345adfda15312b16e5de04910f812c7481f7e3c8a00163ce8387be22373867b51b2c5cb424e62de877c1aaa48592aac85ec9cc03c969c7e83185660')
+sha512sums=('e885a169e89f90bdd38149894406af368ddd951a17612975a459bd958fef3adf46f39f80c2264a9a2eae965984a8f1f61b36440836780e73cb4e7b8f433335a6')

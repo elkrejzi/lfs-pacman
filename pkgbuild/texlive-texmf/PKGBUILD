@@ -1,5 +1,5 @@
 pkgname=texlive-texmf
-pkgver=20190410
+pkgver=20200406
 pkgrel=1
 pkgdesc="TeX Live distribution - TeXmf Data"
 arch=('x86_64')
@@ -25,4 +25,4 @@ package() {
 	sed -i "s@TEXMFHOME = ~/texmf@TEXMFHOME = ~/.texmf@g" "${pkgdir}/usr/share/texmf-dist/web2c/texmf.cnf"
 }
 
-sha512sums=('e729b661cd8d2a6f0cf0718d75983cee0d9476b5a1d0705b820f212096489dbe4183318960059381e91a6009b53312e1dae68473526c9888211dfe4ee76abd71')
+sha512sums=('8e23beb9ad08adde5081dc939678630f7b8cfa795f656395c8da71afffe04768fde537976db676311918aac40d1bfd2e460cf14b3771ed5e474cf4658efccda9')

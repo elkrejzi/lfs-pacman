@@ -1,5 +1,5 @@
 pkgname=rtkit
-pkgver=0.12
+pkgver=0.13
 pkgrel=1
 pkgdesc="Realtime Policy and Watchdog Daemon"
 arch=('x86_64')
@@ -28,5 +28,5 @@ package() {
 	install -v -Dm644 "${srcdir}/rtkit.sysusers" "${pkgdir}/usr/lib/sysusers.d/rtkit.conf"
 }
 
-sha512sums=('cee48058367b5b8a705203865538d0ab4bda9d2f1d06d155360922cb095b5d6a5b0311fdda6c45d9f33227324394ca5fd3b5a399fc71e11ea4c609eab18a7b04'
+sha512sums=('c058d770a4ccfdf4e2e3a713748b6a705b6d3e148a903b9dbba4bba9d3ded2b819d7dfbfa37b9fad78e57c0a5f10f2f94226f8738f666e692a085ab297a36b36'
             '07a56a757db178b3df56fcba2a7378112e608f4d1619cb9ae49e1910d9d3549b5c72eb48b3a64b4a77a68b17dd459753f0e9a366a8b048e8e2bbcf35bcdfca45')

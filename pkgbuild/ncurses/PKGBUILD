@@ -1,13 +1,13 @@
 pkgbase=ncurses
 pkgname=('ncurses' 'lib32-ncurses')
-_pkgver=6.1
+_pkgver=6.2
 pkgver=${_pkgver/-/+}
 pkgrel=1
 arch=('x86_64')
 url="http://invisible-island.net/ncurses/ncurses.html"
 license=('MIT')
 #depends=()
-source=("http://invisible-mirror.net/archives/ncurses/ncurses-${_pkgver}.tar.gz")
+source=("https://ftp.gnu.org/gnu/ncurses/ncurses-${_pkgver}.tar.gz")
 
 build_shared() {
 	local LIB=${1}
@@ -79,8 +79,8 @@ build() {
 
 	build_shared lib
 
-	export CC_HOLD="${CC}" CXX_HOLD="${CXX}"
-	export CC="${CC} -m32" CXX="${CXX} -m32"
+	export CC_HOLD="${CC:-gcc}" CXX_HOLD="${CXX:-g++}"
+	export CC="${CC:-gcc} -m32" CXX="${CXX:-g++} -m32"
 	export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
 	build_shared lib32
@@ -112,4 +112,4 @@ package_lib32-ncurses() {
 	install_shared lib32
 }
 
-sha512sums=('e308af43f8b7e01e98a55f4f6c4ee4d1c39ce09d95399fa555b3f0cdf5fd0db0f4c4d820b4af78a63f6cf6d8627587114a40af48cfc066134b600520808a77ee')
+sha512sums=('4c1333dcc30e858e8a9525d4b9aefb60000cfc727bc4a1062bace06ffc4639ad9f6e54f6bdda0e3a0e5ea14de995f96b52b3327d9ec633608792c99a1e8d840d')

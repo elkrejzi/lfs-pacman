@@ -1,12 +1,12 @@
 pkgname=jasper
-pkgver=2.0.14
+pkgver=2.0.23
 pkgrel=1
 pkgdesc="Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard"
 arch=('x86_64')
 url="https://www.ece.uvic.ca/~frodo/jasper/"
 license=('custom:JasPer2.0')
 #depends=()
-source=("https://www.ece.uvic.ca/~frodo/jasper/software/jasper-${pkgver}.tar.gz")
+source=("https://github.com/jasper-software/jasper/archive/version-${pkgver}/jasper-${pkgver}.tar.gz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
@@ -20,7 +20,7 @@ build() {
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DBUILD_TESTING=OFF \
-		"${srcdir}/jasper-${pkgver}"
+		"${srcdir}/jasper-version-${pkgver}"
 
 	make
 }
@@ -31,4 +31,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('9e5cffd2e899e37ba08890e2377ddfc3c2fb13d9fe00dea6b4612e4d241a6f4327de6835809b415c41ae4bf44208cf7871c1982ff5fc04ae6bc09fd376b0afc8')
+sha512sums=('25a454827ad44d5abc5e4b4db5987d814019e00facf73dd4ab8b20a00a00e24c20e4dd7348afea32b5164b5a10b79b1a0b951cc41fb8847eb32ff139b7a567c3')

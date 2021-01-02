@@ -1,5 +1,5 @@
 pkgname=smplayer
-pkgver=19.10.2
+pkgver=20.6.0
 pkgrel=1
 pkgdesc="Media player with built-in codecs that can play virtually all video and audio formats"
 arch=('x86_64')
@@ -21,4 +21,4 @@ package() {
 	make install PREFIX=/usr DOC_PATH=/usr/share/doc/smplayer DESTDIR="${pkgdir}"
 }
 
-sha512sums=('46327a1f988cfe8fe4e04f456057c2395f5ad011513988c1ffecf5c91cf2fdedbe8095cfba15f0f61c3e1cabc7f34b78d676bce430a79fcf542d74e14a33ec62')
+sha512sums=('2cf7b7abf44b301331a5389e1ca512bd41928724b412d8cf55d77cb5cde87a4fdb9038d77c31da14b548d38ebfadd461d588d60a6b6f13b1781b9b961e81637d')

@@ -1,5 +1,5 @@
 pkgname=gcr
-pkgver=3.34.0
+pkgver=3.38.0
 pkgrel=1
 pkgdesc="A library for bits of crypto UI and parsing"
 arch=('x86_64')
@@ -11,17 +11,20 @@ source=("https://download.gnome.org/sources/gcr/${pkgver:0:4}/gcr-${pkgver}.tar.
 build() {
 	cd "${srcdir}/gcr-${pkgver}"
 
-	./configure --prefix=/usr \
-		--disable-update-mime \
-		--disable-schemas-compile
+	meson --prefix /usr \
+		--sysconfdir /etc \
+		--localstatedir /var \
+		--buildtype=plain \
+		-Dgtk_doc=true \
+		build
 
-	make
+	ninja -C build ${MAKEFLAGS}
 }
 
 package() {
 	cd "${srcdir}/gcr-${pkgver}"
 
-	make install DESTDIR="${pkgdir}"
+	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('9314b531ed46a42b2c8c1531c7d95003db04f2c8065e46f4e6a84ec26400ce6302ea71c4db42a8c7b98884a0b84d75a0ca65d988aa0fe6de6d897d772b070093')
+sha512sums=('24c35ac514a67a1dee6a5738e829b55921a490b060ffa597421cea0abac3ddc62695370d2c7b3504c0adfd55b1ade878ad3ca5e6cb869428b4a19f4a11563bc6')

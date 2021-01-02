@@ -1,26 +1,24 @@
 pkgname=webkitgtk
-pkgver=2.26.2
+pkgver=2.30.4
 pkgrel=1
 pkgdesc="GTK+ Web content engine library"
 arch=('x86_64')
 url="https://webkitgtk.org/"
 license=('custom')
 #depends=()
-source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz"
-	"icu65.patch")
+source=("https://webkitgtk.org/releases/webkitgtk-${pkgver}.tar.xz")
 
 prepare() {
 	install -v -dm755 "${srcdir}/build"
-
-	cd "${srcdir}/webkitgtk-${pkgver}"
-
-	patch -Np1 -i "${srcdir}/icu65.patch"
 }
 
 build() {
 	cd "${srcdir}/build"
 
 	CXXFLAGS+=" -w"
+
+	sed -i "/stdlib.h/a #include <locale.h>" "${srcdir}/webkitgtk-${pkgver}/Source/JavaScriptCore/jsc.cpp"
+
 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
@@ -38,5 +36,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('98d47282fd8f766dbe4a74c1a3f618aaeeeed69bd0666ed4e8674ae562b634681b3bd18b0d428df6bfefbaa3e18eb4cfb2fb077f5be4fed34cbc81c8293ec33e'
-            '73fb43352ed238455ef33568a511e5c4d9cadc2bc6cfa48830d810114ec6f6ea1e355dbff83db9df302e242c9b017b529b200856f57aea06587a2bb5d105e020')
+sha512sums=('dff9e3bd17de8481d940a48b0697458a0c1c71a987f4d50ee7bc46b0203ed6802a9ec82c3a21ea9b7211ab900fa75b89b2a05b0ca6aed319ad66ec317d02c571')

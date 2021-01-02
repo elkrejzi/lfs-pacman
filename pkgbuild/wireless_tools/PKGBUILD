@@ -14,7 +14,7 @@ prepare() {
 
 	sed -i "s:BUILD_STATIC:# &:" Makefile
 	sed -i "s:-Os:& ${CFLAGS}:g" Makefile
-	sed -i "s:CC = gcc:CC = ${CC}:g" Makefile
+	sed -i "s:CC = gcc:CC = ${CC:-gcc}:g" Makefile
 }
 
 build() {

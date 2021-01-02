@@ -1,5 +1,5 @@
 pkgname=gst-plugins-base
-pkgver=1.16.2
+pkgver=1.18.2
 pkgrel=1
 pkgdesc="GStreamer Multimedia Framework Base Plugins"
 arch=('x86_64')
@@ -29,4 +29,4 @@ package() {
 	DESTDIR="${pkgdir}" ninja -C build install
 }
 
-sha512sums=('f28e71bba8ba25d4f18ba3a196f057721151f1ebf1309d808bd6771a3f9a68facfa1970dc4353b6f2fd1e8945edf5272854d328ea11ef399544f8b330f754a42')
+sha512sums=('e988b88df1f0263a3774c6cdda6ed750dd867221a83b97c467c7d7968a08c9663d4ae32ff39c55a7bc110a27342caf63028df1ff074a8e35482305335544bcc7')

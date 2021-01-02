@@ -1,5 +1,5 @@
 pkgname=cryptsetup
-pkgver=2.2.2
+pkgver=2.3.4
 pkgrel=1
 pkgdesc="Userspace setup tool for transparent encryption of block devices using dm-crypt"
 arch=('x86_64')
@@ -22,4 +22,4 @@ package() {
 	make install DESTDIR="${pkgdir}"
 }
 
-sha512sums=('d04123a622438ecbee28145cbdc71886b6f13db87df1c67522bff6e6e3cba817e895e2d085bdb08c78f9cafba557b1203177811a0c316ccd9b7c19939f3fc851')
+sha512sums=('db0bfd795343e575acb7a80ea2b9d32acf08ac970037e5b158a1e4381976552dc292107ce79e55913f49fcf643d4ea7104ed73de7c1e8d424b83d471d20ab60d')

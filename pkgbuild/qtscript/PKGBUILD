@@ -1,5 +1,5 @@
 pkgname=qtscript
-pkgver=5.14.0
+pkgver=5.15.2
 pkgrel=1
 pkgdesc="Classes for making Qt applications scriptable. Provided for Qt 4.x compatibility"
 arch=('x86_64')
@@ -23,4 +23,4 @@ package() {
 	sed -i "/^QMAKE_PRL_BUILD_DIR/d;s#${PWD}#/usr#g" "${pkgdir}"/usr/lib/*.prl
 }
 
-sha512sums=('91fabfa5775fc411b7b48b74419275bd6ecbec7ce3eda186f875d973b05a5501b2226a2ef0f6cc30d850fe73fc1466c2fc7e54d9f15e939eac6ecffaae65b8ff')
+sha512sums=('71c70b34f7d4a0742df64d20d7e9a685cc640b9cc6a3d22847c04f45a437b3f5537f40225a522ed82787c2744d9a4949dea5b43c2ee81961d5ed175cf10deb32')
