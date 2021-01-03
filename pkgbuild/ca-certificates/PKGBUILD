@@ -6,7 +6,15 @@ arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 license=('GPL' 'MPL')
 #depends=()
+source=("certdata.txt")
 
 package() {
-	/usr/sbin/make-ca -g -D "${pkgdir}"
+	/usr/sbin/make-ca -D "${pkgdir}"
+
+	# Still figuring out why it doesn't work the first time, so lets try twice immediately ...
+	/usr/sbin/make-ca -D "${pkgdir}"
+
+	rm -rf "${pkgdir}/etc/pki/anchors.md5sums"
 }
+
+sha512sums=('f6fc1a2a15cb4504ef11ce4efc4b7d173c9b1eed162ec251e6ef5f0533d0aea4bd903712e5d34b45b455040f18bfb824839f11f2c5955a625a1d5a30a5345e7a')
